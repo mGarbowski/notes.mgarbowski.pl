@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>14-polityka-bezpieczenstwa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="13-systemy-honeypot.html">Poprzedni: 13-systemy-honeypot.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="polityka-bezpieczeństwa">Polityka bezpieczeństwa</h1>
+<h2 id="bezpieczeństwo">Bezpieczeństwo</h2>
+<ul>
+<li>Bezpieczeństwo jest procesem</li>
+<li>Produkty zapewniają bezpieczeństwo, ale warunki zmieniają się
+dynamicznie</li>
+<li>W organizacji trzeba wdrożyć cały proces wykrywania, reakcji i
+wprowadzania zmian</li>
+</ul>
+<h3 id="polityka-bezpieczeństwa-1">Polityka bezpieczeństwa</h3>
+<ul>
+<li>Dokument w którym jasno i zwięźle wyrażono, co mają osiągnąć
+mechanizmy zabezpieczeń</li>
+<li>Na początku definiuje się model zagrożeń
+<ul>
+<li>jakie zagrożenia i ataki bierzemy pod uwagę</li>
+</ul></li>
+<li>Potem tworzy się <em>politykę bezpieczeńśtwa</em>
+<ul>
+<li>definiuje co należy chronić</li>
+<li>zarys tego w jaki sposób chronić</li>
+</ul></li>
+<li>Na końcu wybiera się odpowiednie <em>mechanizmy zabezpieczeń</em>
+<ul>
+<li>żeby spełnić wymagania opisane w polityce bezpieczeństwa</li>
+</ul></li>
+</ul>
+<h2 id="szacowanie-ryzyka">Szacowanie ryzyka</h2>
+<ul>
+<li>Co chronić i ile wydać na ochronę</li>
+<li>Podejścia
+<ul>
+<li>ilościowe - inwentaryzujemy wszystkie zasoby i oceniamy ile będzie
+kosztowała nas jego utrata/atak</li>
+<li>jakościowe - stosowane do dużych organizacji jak miasta czy państwa
+gdzie nie jest możliwa inwentaryzacja wszystkich zasobów</li>
+</ul></li>
+</ul>
+<h3 id="podejście-ilościowe">Podejście ilościowe</h3>
+<ul>
+<li>Single Loss Expectancy (SLE)
+<ul>
+<li>koszt jednego zdarzenia</li>
+<li><span class="math inline">\(SLE = AV \cdot EF\)</span></li>
+<li><span class="math inline">\(AV\)</span> - asset value (wartość
+zasobu)</li>
+<li><span class="math inline">\(EF\)</span> - exposure factor
+(współczynnik zniszczenia)</li>
+</ul></li>
+<li>Annual Loss Expectancy (ALE)</li>
+<li>roczna oczekiwana strata
+<ul>
+<li><span class="math inline">\(ALE = SLE \cdot ARO\)</span></li>
+<li><span class="math inline">\(ARO\)</span> - Annualized Rate of
+Occurence (roczna liczba zdarzeń)</li>
+</ul></li>
+<li>Podejście typu fuzzy logic</li>
+</ul>
+<h2 id="bezpieczeństwo-na-poziomie-kraju-lub-świata">Bezpieczeństwo na
+poziomie kraju lub świata</h2>
+<h3 id="cert">CERT</h3>
+<ul>
+<li>W latach 80 robat zainfekował 10% wszystkich maszyn w
+internecie</li>
+<li>W efekcie DARPA powołało Computer Emergency Response Team /
+Coordination Center
+<ul>
+<li>zespoły reagowania na incydenty bezpieczeństwa</li>
+<li>założenie CERT wymaga zdobycia licencji itp</li>
+</ul></li>
+<li>Computer Security Incident response Team (CSIRT)
+<ul>
+<li>bez potrzeby licencjonowania</li>
+<li>muszą być oddzielone od administratorów</li>
+</ul></li>
+</ul>
+<h3 id="w-polsce">W Polsce</h3>
+<ul>
+<li>Narodowe Centrum Cyberbezpieczeństwa (NCC) w ramach NASK
+<ul>
+<li>ma być forum wymiany informacji między instytucjami państwowymi a
+biznesem</li>
+<li>umowy o współpracy z telekomami</li>
+</ul></li>
+<li>Stan aktualny
+<ul>
+<li>CSIRT NASK</li>
+<li>CSIRT GOV</li>
+<li>CSIRT MON</li>
+</ul></li>
+<li>Warto zgłaszać ataki</li>
+</ul>
+<h2 id="podejście-do-ujawniania-błędów">Podejście do ujawniania
+błędów</h2>
+<ul>
+<li>Błędy w aplikacjach zawsze będą</li>
+<li>Już raczej nie ściga się sądowo ludzi zgłaszających błędy</li>
+<li>Poinformowanie producenta
+<ul>
+<li>producent może zamieść wszystko pod dywan</li>
+</ul></li>
+<li>Pełne ujawnienie
+<ul>
+<li>do wiadomości publicznej</li>
+<li>producent musi zareagować</li>
+<li>naraża użytkowników końcowych</li>
+</ul></li>
+<li>Odpowiedzialne ujawnienie
+<ul>
+<li>poinformować producenta i ujawnić informacje po rozsądnym
+czasie</li>
+</ul></li>
+<li>CERTy mogą przyjmować zgłoszenia i działają jako zaufana trzecia
+strona</li>
+</ul>
+<h3 id="płacenie-za-błędy">Płacenie za błędy</h3>
+<ul>
+<li>Firmy wprowadzają jasną ścieżkę informowania o wykrytych
+błędach</li>
+<li>Bug Bounty</li>
+<li>HackerOne - firma łączy White Hats z potencjalnymi klientami</li>
+<li>Testowanie cudzego oprogramowania pod kątem bezpieczeństwa bez zgody
+to nadal próba ataku z punktu widzenia prawa</li>
+</ul>
+<h3 id="open-source-intelligence">Open Source Intelligence</h3>
+<ul>
+<li>Przestępcy otwarcie dzielą się wiedzą</li>
+<li>Firmy, organizacje, rządy niechętnie dzielą się informacjami o
+atakach</li>
+<li>Istnieją ogólno dostępne zasoby związane z udostępnianiem informacji
+i analiz cyberbezpieczeństwa
+<ul>
+<li>warto zgłaszać próbki malware’u do analizy</li>
+</ul></li>
+</ul>
+<h2 id="cele-mechanizmów-bezpieczeństwa">Cele mechanizmów
+bezpieczeństwa</h2>
+<ul>
+<li>Odstraszanie</li>
+<li>Wykrycie</li>
+<li>Alarm</li>
+<li>Powstrzymywanie</li>
+<li>Reakcja</li>
+<li>Edukacja</li>
+<li>Żeby system dobrze działał powinien obejmować wszystkie
+wymienione</li>
+</ul>
+<h2 id="reakcja-na-incydenty">Reakcja na incydenty</h2>
+<ul>
+<li>Incident response</li>
+<li>Aktualnie przykłada się dużą uwagę do wykrywania i prewencji
+ataków</li>
+<li>Najważniejsza jest odpowiednia reakcja
+<ul>
+<li>wyjaśnienie co się stało, jak do tego doszło</li>
+<li>jakie są straty</li>
+<li>czy będą podjęte dalsze kroki prawne</li>
+<li>co można zrobić żeby zapobiec kolejnym atakom tego typu</li>
+</ul></li>
+</ul>
+<h2 id="edukacja-użytkowników">Edukacja użytkowników</h2>
+<ul>
+<li>Coraz więcej osób pracuje z wykorzystaniem komputera, poczty
+elektronicznej, internetu</li>
+<li>Użytkownicy podatni na socjotechnikę - nikt im tego nie
+wytłumaczył</li>
+<li>W organizacjach powinno prowadzić się Security Awareness Campaign
+<ul>
+<li>treningi na co zwracać uwagę żeby nie stać się ofiarą
+socjotechniki</li>
+<li>szczególnie dla nietechnicznych</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#polityka-bezpieczeństwa">Polityka bezpieczeństwa</a>
+<ul>
+<li><a href="#bezpieczeństwo">Bezpieczeństwo</a>
+<ul>
+<li><a href="#polityka-bezpieczeństwa-1">Polityka
+bezpieczeństwa</a></li>
+</ul></li>
+<li><a href="#szacowanie-ryzyka">Szacowanie ryzyka</a>
+<ul>
+<li><a href="#podejście-ilościowe">Podejście ilościowe</a></li>
+</ul></li>
+<li><a href="#bezpieczeństwo-na-poziomie-kraju-lub-świata">Bezpieczeństwo na
+poziomie kraju lub świata</a>
+<ul>
+<li><a href="#cert">CERT</a></li>
+<li><a href="#w-polsce">W Polsce</a></li>
+</ul></li>
+<li><a href="#podejście-do-ujawniania-błędów">Podejście do ujawniania
+błędów</a>
+<ul>
+<li><a href="#płacenie-za-błędy">Płacenie za błędy</a></li>
+<li><a href="#open-source-intelligence">Open Source
+Intelligence</a></li>
+</ul></li>
+<li><a href="#cele-mechanizmów-bezpieczeństwa">Cele mechanizmów
+bezpieczeństwa</a></li>
+<li><a href="#reakcja-na-incydenty">Reakcja na incydenty</a></li>
+<li><a href="#edukacja-użytkowników">Edukacja użytkowników</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

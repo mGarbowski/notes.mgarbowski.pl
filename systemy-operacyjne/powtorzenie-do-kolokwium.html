@@ -1,0 +1,1208 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>powtorzenie-do-kolokwium</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-01.html">Następny: wyklad-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h2 id="definicje-podstawowe-i-obowiązkowe">Definicje podstawowe i
+obowiązkowe:</h2>
+<h3 id="system-operacyjny">System operacyjny</h3>
+<p>Zbiór programów i procedur spełniających dwie podstawowe funkcje:</p>
+<ul>
+<li>zarządzanie zasobami systemu komputerowego,</li>
+<li>tworzenie maszyny wirtualnej - udostępnianie użytkownikowi
+abstrakcji systemu łatwiejszej do wykorzystywania /
+oprogramowywania</li>
+</ul>
+<h3 id="zasób-systemu">Zasób systemu</h3>
+<p>Zasobem systemu jest każdy jego element sprzętowy lub programowy,
+który może być przydzielony danemu procesowi. Zasobami system zarządza w
+czasie i przestrzeni.</p>
+<ul>
+<li>zasoby sprzętowe
+<ul>
+<li>czas procesora</li>
+<li>pamięć operacyjną</li>
+<li>urządzenia zewnętrzne</li>
+<li>inne komputery powiązane poprzez sieć teleinformatyczną</li>
+</ul></li>
+<li>zasoby programowe
+<ul>
+<li>pliki</li>
+<li>bufory</li>
+<li>semafory</li>
+<li>tablice systemowe</li>
+</ul></li>
+</ul>
+<h3 id="proces">Proces</h3>
+<p>Wykonujący się program wraz z jego środowiskiem obliczeniowym,
+podstawowy obiekt dynamiczny w systemie operacyjnym.</p>
+<p>Wymagania odnośnie systemu operacyjnego odnośnie zarządzania
+procesami: * umożliwienie przeplatania się wykonywania procesów *
+akceptowalnie krótki czas odpowiedzi systemu * zarządzanie przydziałem
+zasobów poszczególnym procesom * udostępnianie mechanizmów do
+komunikacji międzyprocesowej * udostępnianie mechanizmów do tworzenia
+procesów</p>
+<h3 id="powłoka-interpreter-poleceń">Powłoka (interpreter poleceń)</h3>
+<p>Program udostępniający usługi systemu operacyjnego dla użytkownika
+lub innych programów. Program uruchamiany standardowo po otwarciu sesji
+użytkownika przez proces login.</p>
+<p>Interpreter poleceń funkcjonuje według następującego schematu:</p>
+<ol type="1">
+<li>wypisuje monit</li>
+<li>czeka na wprowadzenie tekstu z klawiatury</li>
+<li>analizuje wiersz polecenia i znajduje program</li>
+<li>zleca jądru wykonanie programu</li>
+<li>przyjmuje odpowiedź od jądra, ponownie wypisuje monit.</li>
+</ol>
+<h3 id="sekcja-krytyczna">Sekcja krytyczna</h3>
+<p>Fragment programu, w którym występują instrukcje dostępu do zasobów
+dzielonych. Instrukcje tworzące sekcje krytyczne muszą być poprzedzone i
+zakończone operacjami realizującymi wzajemne wykluczanie.</p>
+<h3 id="semafor">Semafor</h3>
+<p>Zmienna nazwana semaforem, inicjowana nieujemną wartością całkowitą i
+zdefiniowana poprzez definicje niepodzielnych operacji P (proberen) i V
+(verhogen)</p>
+<pre><code>P(S): 
+while S &lt;= 0 do 
+    /* Proces jest zablokowany */; 
+S := S − 1; 
+
+V(S): S := S + 1;</code></pre>
+<h2 id="wstęp">Wstęp</h2>
+<h3 id="tryby-przetwarzania-systemu-komputerowego">Tryby przetwarzania
+systemu komputerowego</h3>
+<ul>
+<li>tryb wsadowy, pośredni (ang. off-line, batch), autonomiczne
+wykorzystanie komputera bez konieczności obecności użytkownika
+<ul>
+<li>duża przepustowość systemu komputerowego,</li>
+<li>możliwy długi okres oczekiwania na wyniki, ograniczone możliwości
+szeregowania, niemozność bieżącej kontroli procesu wykonania.</li>
+</ul></li>
+<li>tryb interaktywny, bezpośredni (ang. on-line, interactive),
+konwersacyjne współdziałanie użytkownika z systemem komputerowym z
+wykorzystaniem terminala komputera.
+<ul>
+<li>szybka reakcja systemu, możliwość kontroli przebiegu procesu
+wykonania,</li>
+<li>mniejsze wykorzystanie zasobów systemu komputerowego</li>
+</ul></li>
+<li>tryb czasu rzeczywistego, system, którego użytkownikiem jest proces
+technologiczny narzucający pewne wymagania czasowe. Dwa podejścia:
+<ul>
+<li>system jest zobowiązany do reagowania na zdarzenia zewnętrzne w
+ustalonym nieprzekraczalnym okresie.</li>
+<li>system bada okresowo stan procesu technologicznego</li>
+</ul></li>
+</ul>
+<h3 id="rola-przerwania-w-systemie-komputerowym">Rola przerwania w
+systemie komputerowym</h3>
+<ul>
+<li>Umożliwia oddanie przez program użytkowy kontroli na rzecz systemu
+operacyjnego (wywołania systemowe)</li>
+<li>Umożliwia przełączanie kontekstu i wieloprogramowanie - przerwanie
+zegarowe</li>
+<li>Sygnalizuje zakończoną operację wejścia/wyjścia</li>
+</ul>
+<h3 id="pojęcie-blokady-w-systemie-operacyjnym">Pojęcie blokady w
+systemie operacyjnym</h3>
+<p>Blokada (deadlock) występuje kiedy proces (lub wątek) oczekuje na
+dostęp do dzielonych zasobów, które są używane przez inny proces, który
+też czeka na dostęp do jakichś zajętych współdzielonych zasobów (i
+tworzą cykl zależności). Blokada oznacza że żaden z procesów nie może
+zmienić swojego stanu i będą czekać w nieskończonośc.</p>
+<h3 id="przeznaczenie-montowania-systemu-plików">Przeznaczenie
+montowania systemu plików</h3>
+<p>System operacyjny umożliwia dostęp do plików w jego systemie plików
+przez podanie ścieżki. Żeby móc operować na pliku z innego systemu
+plików (np. podłączonego pendrive’a) trzeba zamontować zewnętrzny system
+plików do głównego systemu (drzewo zewnętrznego systemu zostaje
+poddrzewem głównego systemu). Po zamontowaniu można dostać się do plików
+podając ich ścieżki w głównym systemie.</p>
+<h2 id="programowanie-w-języku-powłoki">Programowanie w języku
+powłoki:</h2>
+<h3 id="użytkownicy-w-systemie-unix">Użytkownicy w systemie Unix</h3>
+<p>Użytkownicy są opisani w pliku <code>/etc/passwd</code></p>
+<ul>
+<li>nazwa użytkownika</li>
+<li>hasło (zaszyfrowane albo w ogóle ukryte)</li>
+<li>uid - id użytkownika</li>
+<li>gid - id grupy</li>
+<li>informacje o użytkowniku</li>
+<li>katalog domowy</li>
+<li>domyślna powłoka</li>
+</ul>
+<p>Grupy są opisane w pliku <code>/etc/group</code></p>
+<ul>
+<li>nazwa grupy</li>
+<li>hasło grupy</li>
+<li>numer grupy</li>
+<li>lista użytkowników należących do grupy</li>
+</ul>
+<p>W pliku <code>/etc/shadow</code> są przechowywane zaszyfrowane hasła
+użytkowników i dodatkowe informacje</p>
+<h3 id="prawa-dostępu-do-plików">Prawa dostępu do plików</h3>
+<p>Bity rwxrwxrwx * pierwsze 3 dotyczą właściciela pliku * drugie 3
+dotyczą grupy właściciela (użytkowników należących do tej grupy) *
+ostatnie 3 dotyczą pozostałych użytkowników</p>
+<ul>
+<li>r - read</li>
+<li>w - write</li>
+<li>x - execute</li>
+</ul>
+<p>Dla katalogów oznaczają</p>
+<ul>
+<li>r - można zobaczyć zawartość katalogu <code>ls</code></li>
+<li>w - można utworzyć plik w katalogu</li>
+<li>x - można wejść do katalogu <code>cd</code></li>
+</ul>
+<h3 id="znaczenie-bitów-suid-sgid">Znaczenie bitów SUID, SGID</h3>
+<p>SUID - plik jest zawsze wykonywany z uprawnieniami właściciela. Np.
+program passwd - każdy użytkownik może zmienić swoje hasło ale to wymaga
+zmiany pliku <code>/etc/shadow</code> dostępnego tlyko dla
+administratora</p>
+<p>SGID - plik jest zawsze wykonywany z uprawnieniami grupy właściciela
+(analogicznie do SUID). Dla katalogu oznacza że każdy nowo utworzony
+plik będzie miał nadaną grupę właściciela katalogu</p>
+<p>Sticky bit - nie dotyczy plików tylko katalogów, tylko właściciel i
+root może usuwać pliki z katalogu (np. <code>/tmp</code>)</p>
+<h3 id="główne-zmienne-powłoki">Główne zmienne powłoki</h3>
+<ul>
+<li><code>HOME</code> - katalog domowy</li>
+<li><code>IFS</code> - Internal Field Separator - znaki rozdzielające
+elementy składni w linii (np. domyślnie oddzielanie spacją)</li>
+<li><code>PATH</code> - lista katalogów, w których szukane są pliki
+wywoływanych komend (np. <code>/bin</code>, <code>/usr/bin</code>)</li>
+<li><code>PS1</code> - pierwszy znak zachęty <code>$</code></li>
+<li><code>PS2</code> - drugi znak zachęty <code>&gt;</code> (kontynuacja
+linii)</li>
+<li><code>SHELL</code> - domyślna podpowłoka</li>
+<li><code>TERM</code> - rodzaj terminala</li>
+</ul>
+<h3 id="parametry-powłoki">Parametry powłoki</h3>
+<p>Nazwa i argumenty aktualnie wykonywanej komendy</p>
+<ul>
+<li><code>$0</code> - nazwa wywoływanej komendy</li>
+<li><code>$1</code> - pierwszy argument wywołania</li>
+<li><code>$9</code> - dziewiąty argument wywołania</li>
+<li><code>$*</code> - argumenty jako jeden łańcuch znaków
+<code>"$1 $2 ..."</code></li>
+<li><code>$@</code> - argumenty jako osobne łańcuchy znaków
+<code>"$1" "$2" ...</code></li>
+<li><code>$#</code> - liczba argumentów przekazanych przy wywołaniu lub
+przez <code>set</code></li>
+<li><code>$?</code> - kod wyjścia ostatnio wykonywanej komendy</li>
+<li><code>$$</code> - pid aktualnej powłoki</li>
+<li><code>$!</code> - pid ostatniego procesu wykonywanego w tle</li>
+</ul>
+<h3
+id="polecenia-zewnętrzne-a-wbudowane-uzasadnienie-rozróżnienia">Polecenia
+zewnętrzne a wbudowane – uzasadnienie rozróżnienia</h3>
+<p>Generalnie komendy są wykonywane jako oddzielne procesy ale niektóre
+czynności nie mogą być w ten sposób zrealizowane</p>
+<p>Np. <code>cd</code> ma zmienić aktualny katalog powłoki, gdyby był
+oddzielnym procesem, to zmieniłby aktualny katalog procesu dziecka -
+dlatego musi być poleceniem wbudowanym</p>
+<p>inne to np. <code>break</code>, <code>shift</code>,
+<code>return</code></p>
+<h3 id="polecenia-powłoki-read-set-export">Polecenia powłoki: read, set,
+export</h3>
+<p><code>read</code> - podziel linię z wejścia na podstawie
+<code>IFS</code> i przypisz poszeczególne wartości do zmiennych
+<code>set</code> - podziel linię z wejścia na podstawie <code>IFS</code>
+i przypisz kolejne wartości do <code>$1</code>, <code>$2</code>, …
+<code>export</code> - zmienna środowiskowa będzie dziedziczona przez
+procesy potomne</p>
+<h3 id="pętle-forwhiledo-w-programowaniu-powłoki">Pętle for/while/do w
+programowaniu powłoki</h3>
+<p><code>for</code> wykonywana dla każdego słowa w liście słów</p>
+<pre class="shell"><code>for i in /tmp /usr/tmp 
+do 
+    rm -rf $i/* 
+done</code></pre>
+<p><code>while</code> - wykonywana tak długo jak spełniowy jest
+warunek</p>
+<pre class="shell"><code>i=1 
+while [ $i -le 5 ]; 
+do 
+    echo $i 
+    i=`expr $i + 1`
+done</code></pre>
+<p><code>until</code> - wykonywana tak długo jak warunek
+<strong>nie</strong> jest spełniony</p>
+<pre class="shell"><code>i=1
+until [ $i -ge 5 ];
+do
+    echo $i
+    i=`expr $i + 1`
+done</code></pre>
+<h3 id="odczyt-pliku-etcpasswd-z-wykorzystaniem-readsetifs">Odczyt pliku
+/etc/passwd z wykorzystaniem read/set/IFS</h3>
+<pre class="shell"><code>cat /etc/passwd | while IFS=: read username password uid other
+do
+    echo &quot;user: $username&quot;
+    echo &quot;uid: $uid&quot;
+done</code></pre>
+<pre class="shell"><code>cat /etc/passwd | while read line
+do
+    IFS=: set $line
+    echo &quot;username: $1&quot;
+    echo &quot;uid: $3&quot;
+done</code></pre>
+<h3 id="definiowanie-i-wywołania-funkcji">Definiowanie i wywołania
+funkcji</h3>
+<p>Nie podaje się sygnatury, argumenty przetwarza się tak samo jak
+argumenty skryptu <code>$1</code>, <code>$2</code>,
+<code>shift</code></p>
+<pre class="shell"><code>echo_all () {
+    while [ &quot;x$1&quot; != &quot;x&quot; ];
+    do
+        echo $1
+        shift
+    done
+}
+
+# wywołanie z 3 argumentami
+echo_all a b c</code></pre>
+<h2 id="procesy-i-wątki">Procesy i wątki:</h2>
+<h3 id="pojęcia-procesów-współbieżnychrównoległychrozproszonych">Pojęcia
+procesów współbieżnych/równoległych/rozproszonych</h3>
+<ul>
+<li>procsy współbieżne - nie ma wymogu, żeby kolejny proces startował po
+zakończeniu poprzedniego (nie muszą być szeregowe)</li>
+<li>procesy równoległe - może istnieć chwila czasu, kiedy wykonują się
+dokładnie w tej samej chwili czasu (nie muszą ale nie można tego
+wykluczyć)
+<ul>
+<li>musi być więcej niż jedno ALU (w praktyce wiele rdzeni, wiele
+procesorów)</li>
+<li>przereklamowana? (zysk zależy od poziomu ziarnistości dekompozycji
+problemu, są obliczenia które świetnie się nadają do zrównoleglania
+(grafika))</li>
+</ul></li>
+<li>procesy rozproszone - wykonują się na sprzęcie rozproszonym
+<ul>
+<li>Nie mają współdzielonej pamięci</li>
+<li>Scentralizowany sprzęt nie wymaga komunikacji sieciowej</li>
+<li>Są z założenia równoległe</li>
+</ul></li>
+</ul>
+<h3
+id="graf-przejść-stanów-procesów-w-systemie-unix---prosty-i-złożony-system-v">Graf
+przejść stanów procesów w systemie Unix - prosty i złożony (System
+V)</h3>
+<p><img src="./obrazy/graf-prosty.png" /></p>
+<ol type="1">
+<li>Wykonuje operację wejścia/wyjścia i zaczyna oczekiwanie na rezultat
+(ogólnie blokuje się, też np zawiesza na semaforze)</li>
+<li>Scheduler wybiera inny proces</li>
+<li>Scheduler wybiera ten proces</li>
+<li>Rezultat operacji IO jest już dostępny</li>
+</ol>
+<p><img src="./obrazy/graf-zlozony.png" /> Bardziej rozbudowana wersja
+poprzedniego grafu</p>
+<ul>
+<li><p>Running -&gt; User running, Kernel running</p></li>
+<li><p>Blocked -&gt; Asleep in Memory, Sleep, Swapped</p></li>
+<li><p>Ready -&gt; Ready to Run In Memory, Ready to Run Swapped,
+Preempted</p></li>
+<li><p>Stan Zombie</p>
+<ul>
+<li>Stan zombie istnieje po to, żeby proces rodzic mógł sprawdzić kod
+wyjścia procesu potomnego</li>
+<li>Pamięć już jest zwolniona, proces nie istnieje tylko zostaje
+deskryptor w tablicy procesów pamiętający kod wyjścia</li>
+<li>Zombie nie może zostać zabity sygnałem (już nie żyje)</li>
+</ul></li>
+<li><p>Stan preempted (wywłaszczony)</p>
+<ul>
+<li>był wykonywany w ostatnim kwancie, wywłaszczony z czasu procesora
+przez planistę</li>
+<li>dobrze jest przydzielić mu następny kwant jeśli nie ma innego
+kandydata o wyższym priorytecie bo dalej jest ważny cache</li>
+</ul></li>
+</ul>
+<h3 id="przeznaczenie-i-budowa-wektora-przerwań">Przeznaczenie i budowa
+wektora przerwań</h3>
+<ul>
+<li>Wektor przerwań zawiera adresy procedur obsługi przerwań - np
+tablica wskaźników do procedur adresowana numerem przerwania</li>
+<li>Każde urządzenie IO ma odpowiadającą mu procedurę obsługi w wektorze
+przerwań</li>
+<li>Planista przejmuje sterowanie po przerwaniu zegarowym (procedura
+obsługi przerwania zegarowego)</li>
+<li>Między wykonywaniem dwóch procesów zawsze jest planista</li>
+</ul>
+<p>Obsługa przerwania 1. Sprzętowo zapamiętane na stosie licznik
+rozkazów, itp. 2. Sprzętowo ładowana nowa wartość licznika rozkazów z
+wektora przerwań 3. Procedura w języku asemblera zapamiętuje wartości
+rejestrów 4. Procedura w języku asemblera ustala nowy stos 5. Obsługa
+przerwania w języku C (często odczyt i buforowanie wejścia) 6. Planista
+wybiera następny proces do wznowienia 7. Procedura w języku asemblera
+przygotowuje i wznawia nowy bieżący proces</p>
+<h3 id="porównanie-własności-procesów-i-wątków">Porównanie własności
+procesów i wątków</h3>
+<ul>
+<li>Dzielenie zasobów
+<ul>
+<li>każdy proces ma oddzielną przestrzeń adresową, są od siebie
+oddzielone</li>
+<li>wątki współdzielą pamięć procesu i inne zasoby (otwarte pliki
+itd)</li>
+<li>wątki mają oddzielne stosy ale w tej samej przestrzeni
+adresowej</li>
+</ul></li>
+<li>Wydajność
+<ul>
+<li>Tworzenie i niszczenie wątków jest dużo szybsze - dobre jeśli liczba
+wątków może sie dynamicznie zmieniać</li>
+</ul></li>
+<li>Ochrona
+<ul>
+<li>proces nie ma dostępu do pamięci innych procesów</li>
+<li>wątki działają na tej samej przestrzeni adresowej, można zamazać
+stos innego wątku</li>
+<li>kod dla wątków jest pisany tak żeby ze sobą współpracowały</li>
+</ul></li>
+<li>Oddanie kontroli
+<ul>
+<li>wątki mają operację typu <code>thread_yield</code> - oddaj kontrolę
+nad CPU innemu wątkowi</li>
+<li>wątki z założenia współpracują a nie walczą o czas CPU</li>
+</ul></li>
+<li>Komunikacja
+<ul>
+<li>procesy - trudniejsza, można użyć wywołań systemowych żeby zacząć
+współdzielić pamięć</li>
+<li>wątki - łatwa, przez wspólną pamięć</li>
+</ul></li>
+</ul>
+<h3
+id="porównanie-wątków-poziomu-jądra-i-wątków-poziomu-użytkownika">Porównanie
+wątków poziomu jądra i wątków poziomu użytkownika</h3>
+<ul>
+<li>Realizacja
+<ul>
+<li>Kernel-level - tworzeniem, niszczeniem i szeregowaniem zajmuje się
+jądro systemu</li>
+<li>User-level - realizowane przez biblioteki w językach programowania,
+niewidoczne dla jądra, mogą być zawsze zaimplementowane niezależnie czy
+system operacyjny to wspiera</li>
+</ul></li>
+<li>Czas przełączenia
+<ul>
+<li>Przełączenie wątków poziomu jądra jest kosztowne, wymaga pełnego
+przełączenia kontekstu, przeładowania pamięci, cache staje
+się nieważny</li>
+<li>Przełączenie wątków poziomu użytkownika jest bardzo szybkie - kilka
+instrukcji maszynowych w procedurze bibliotecznej</li>
+</ul></li>
+<li>Blokujące operacje IO
+<ul>
+<li>User-level - blokuje cały proces (bo jądro nic nie wie o tym że
+proces ma wiele wątków)</li>
+<li>Kernel-level - nie blokuje procesu, jądro może przełączyć się na
+inny wątek tego samego procesu</li>
+</ul></li>
+<li>Szeregowanie
+<ul>
+<li>Dla wątków poziomu użytkownika można stosować algorytm szeregowania
+specyficzny dla aplikacji i zapewnić lepszą wydajność - można
+wykorzystać wiedzę co robi każdy z wątków (dispatcher, worker itd)</li>
+<li>Dla wątków poziomu jądra, jądro nie ma takich informacji (można
+conajwyżej ustawiać odpowiednie priorytety)</li>
+</ul></li>
+<li>Liczba
+<ul>
+<li>Koszt wątków poziomu użytkownika jest bardzo mały, można ich tworzyć
+bardzo dużo</li>
+<li>Nie ma sensu tworzyć więcej wątków poziomu jądra niż logicznych
+procesorów</li>
+<li>Można rozgałęzić jeden wątek poziomu jądra na wiele wątków
+bibliotecznych (multiplexing)</li>
+<li>Opłaca się robić recykling wątków poziomu jądra - zamiast ubijać po
+zakończeniu pracy to oznaczyć jako wolny i przydzielić mu nową
+pracę</li>
+<li>Np. 1000 wątków bibliotecznych ale tylko 4 poziomu jądra które
+wykonują się równolegle</li>
+</ul></li>
+</ul>
+<h3 id="architektura-wielowątkowa-w-systemie-solaris">Architektura
+wielowątkowa w systemie Solaris</h3>
+<p><img src="./obrazy/solaris-threads.png" /> * Procesy * standardowe z
+Unixa * Wątki poziomu użytkownika * zaimplementowane przez bilblioteki *
+niewidoczne, nierozróżnialne z punktu widzenia jądra * interfejs do
+współbieżności * Wątki jądra * podstawowe elementy szeregowane i
+rozmieszczane na procesorach * Procesy lekkie, Lightweight processes,
+LWP * odwzorowanie między wątkami poziomu jądra a wątkami poziomu
+użytkownika * odwzorowuje jeden wątek jądra w jeden lub więcej wątków
+poziomu użytkownika * rozróżnialne i szeregowane przez jądro * mogą być
+uruchomione równolegle w architekturze wieloprocesorowej</p>
+<h3 id="metody-konstrukcji-serwerów-usług">Metody konstrukcji serwerów
+usług</h3>
+<ul>
+<li>Serwer wielowątkowy
+<ul>
+<li>współbieżność</li>
+<li>blokujące wywołania systemowe</li>
+</ul></li>
+<li>Proces jendowątkowy
+<ul>
+<li>brak współbieżności</li>
+<li>blokujące wywołania systemowe</li>
+<li>słabe zużycie CPU</li>
+</ul></li>
+<li>Automaty skończone
+<ul>
+<li>współbieżne</li>
+<li><strong>nieblokujące</strong> wywołania systemowe</li>
+<li>przerwania</li>
+<li>trudne do zaprogramowania</li>
+<li>asynchroniczne wejście wyjście</li>
+</ul></li>
+</ul>
+<h3 id="szeregowanie-z-wywłaszczaniem-i-bez-wywłaszczania">Szeregowanie
+z wywłaszczaniem i bez wywłaszczania</h3>
+<p>Szeregowanie bez wywłaszczania</p>
+<ul>
+<li>Planista wybiera proces, proces wykonuje się dopóki nie się nie
+zablokuje (na IO, semaforze itd) albo dobrowolnie odda kontrolę</li>
+<li>Planista nie podejmuje decyzji szeregujących na przerwaniach
+zegarowych</li>
+<li>Czas CPU nie jets dzielony na kwanty</li>
+</ul>
+<p>Szeregowanie z wywłaszczaniem</p>
+<ul>
+<li>Czas CPU jest podzielony na kwanty</li>
+<li>Wybrany proces może wykonywać się conajwyżej przez dany kwant
+czasu</li>
+<li>Po upłynięciu czasu przychodzi przerwanie zegarowe i planista może
+wybrać inny proces</li>
+</ul>
+<h3
+id="szeregowanie-procesów---wskaźniki-jakości-szeregowania-dla-różnych-trybów-przetwarzania">Szeregowanie
+procesów - wskaźniki jakości szeregowania dla różnych trybów
+przetwarzania</h3>
+<p>Uniwersalne:</p>
+<ul>
+<li><p>srpawiedliwe - każdemu uczciwą część CPU</p></li>
+<li><p>zgodne z przyjątą polityką</p></li>
+<li><p>wyrównywanie - wykorzystanie wszystkich zasobów systemu</p></li>
+<li><p>Systemy wsadowe</p>
+<ul>
+<li>przepustowość - maksymalizaja liczby zadań w czasie</li>
+<li>czas w systemie - minimalny między uruchomieniem a zakończeniem</li>
+<li>wykorzystanie procesora - maksymalne zajęcie procesora</li>
+<li>szeregowanie bez wywłaszczania jest dobre bo planista nie traci tyle
+czasu</li>
+</ul></li>
+<li><p>Systemy interaktywne</p>
+<ul>
+<li>czas odpowiedzi - możliwie szybka odpowiedź na żądanie</li>
+<li>proporcjonalność - spełnianie oczekiwań użytkownika</li>
+<li>szregowanie z wywłaszczaniem jest konieczne</li>
+</ul></li>
+<li><p>Systemy czasu rzeczywistego</p>
+<ul>
+<li>spełnianie wymagań - ograniczenia czasowe</li>
+<li>przewidywalność - bez utraty jakości w multimediach</li>
+<li>wywłaszczanie może nie być potrzebne bo dokładnie wiadomo ile czasu
+będzie się wykonywać dany proces</li>
+</ul></li>
+</ul>
+<h2 id="wzajemne-wykluczanie-i-synchronizacja">Wzajemne wykluczanie i
+synchronizacja:</h2>
+<h3 id="wyścig-i-warunki-wyścigu-race-conditions">Wyścig i warunki
+wyścigu (race conditions)</h3>
+<p>Sytuacja. w której dwa lub więcej procesów wykonuje operację na
+zasobach dzielonych, a ostateczny wynik tej operacji jest zależny od
+momentu jej realizacji</p>
+<h3 id="warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
+konieczne implementacji sekcji krytycznej</h3>
+<ol type="1">
+<li>Wewnątrz SK może przebywać tylko jeden proces</li>
+<li>Jakikolwiek proces znajdujący się poza SK, nie może zablokować
+innego procesu pragnącego wejść do SK</li>
+<li>Każdy proces oczekujący na wejście do SK powinień otrzymać prawo
+dostępu w rozsądnym czasie.</li>
+</ol>
+<h3
+id="mechanizmy-realizacji-wzajemnego-wykluczania-z-aktywnym-oczekiwaniem-opis-i-porównanie">Mechanizmy
+realizacji wzajemnego wykluczania z aktywnym oczekiwaniem – opis i
+porównanie</h3>
+<p>Wady każdego mechanizmu z aktywnym oczekiwaniem * marnuje się czas
+procesora - proces kręci się w pętli sprawdzając czy może wejść do SK *
+możliwość blokady systemu przy wielopriorytetowym sposobie szeregowania
+procesów - inwersja priorytetów * proces o niższym priorytecie jest w
+sekcji krytycznej * proces o wyższym priorytecie dostaje CPU i marnuje
+czas na sprawdzanie czy może wejść do SK * proces o niższym priorytecie
+czeka na czas CPU żeby móc wyjść z sekcji krytycznej * planista może
+przydzielić czas procesowi, który czeka na wejście do sekcji krytycznej
+- bez sensu</p>
+<h4 id="blokowanie-przerwań">Blokowanie przerwań</h4>
+<ul>
+<li>Proces blokuje przerwania wchodząc do SK i odblokowuje
+wychodząc</li>
+<li>Skuteczna ale tylko przy jednym procesorze</li>
+<li>Jeśli nie odblokuje przerwań to ubija cały system (nie ma przerwania
+zegarowego)</li>
+<li>Stosowalne tylko w implementacji jądra (i tak się unika)</li>
+<li>Absolutnie nie dla procesów użytkowych</li>
+</ul>
+<h4 id="zmienne-blokujące---niepoprawne">Zmienne blokujące -
+<strong>niepoprawne</strong></h4>
+<ul>
+<li>Mamy dzieloną zmienną <code>lock</code> jeśli <code>0</code> to nie
+ma procesu w SK, jeśli <code>1</code> to jest</li>
+<li>Proces sprawdza czy <code>lock == 0</code>, ustawia
+<code>lock = 1</code> i wykonuje operacje SK</li>
+<li>Niepoprawne bo między odczytem a zapisem <code>lock</code> może
+nastąpić przełączenie kontekstu i oba procesy odczytają wartość
+<code>0</code> i wejdą do SK</li>
+</ul>
+<h4 id="ścisłe-następstwo---niepoprawne">Ścisłe następstwo -
+<strong>niepoprawne</strong></h4>
+<p>Proces 0</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>turn <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span>  <span class="co">// wait</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    critical_section<span class="op">();</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    turn <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    noncritical_section<span class="op">();</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Proces 1</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>turn <span class="op">!=</span> <span class="dv">1</span><span class="op">);</span>  <span class="co">// wait</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    critical_section<span class="op">();</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    turn <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    noncritical_section<span class="op">();</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>Brytyjscy dżentelmeni</li>
+<li>Proces może wejść do SK jeśli jest jego tura, jak skończy przekazuje
+drugiemu</li>
+<li>Jest złamany warunek 2, bo P0 może zostać zablokowany przez P1
+znajdujący się poza sekcją krytyczną (P1 już nie ustawi
+<code>turn = 0</code>)</li>
+<li>Nie ma wyścigu ale jest zagłodzenie</li>
+</ul>
+<h4 id="algorytm-petersona">Algorytm Petersona</h4>
+<ul>
+<li>Połączenie zmiennych blokujących i ścisłego następstwa</li>
+<li>Każdy proces przed wejściem do SK wywołuje
+<code>enter_region</code>, a po wyjściu <code>leave_region</code>,
+podaje swój numer jako argument</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FALSE 0 </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRUE 1 </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 2 </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> turn<span class="op">;</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> interested<span class="op">[</span>N<span class="op">];</span> <span class="co">/* initially 0 */</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>enter_region<span class="op">(</span><span class="dt">int</span> process<span class="op">)</span> <span class="op">{</span> <span class="co">/* process nr 0 or 1 */</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> other <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> process<span class="op">;</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    interested<span class="op">[</span>process<span class="op">]</span> <span class="op">=</span> TRUE<span class="op">;</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    turn <span class="op">=</span> process<span class="op">;</span> </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">((</span>turn <span class="op">==</span> process<span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>interested<span class="op">[</span>other<span class="op">]</span> <span class="op">==</span> TRUE<span class="op">));</span> <span class="co">// wait</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>leave_region<span class="op">(</span><span class="dt">int</span> process<span class="op">)</span> <span class="op">{</span> </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    interested<span class="op">[</span>process<span class="op">]=</span>FALSE<span class="op">;</span> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>W warunku jest logiczne <code>and</code> czyli proces wejdzie do SK
+jeśli jeden z nich nie jest spełniony</p>
+<ul>
+<li>Jeśli drugi proces nie jest zainteresowany to mogę wejść</li>
+<li><code>turn == process</code> jest spełnione tylko dla jednego
+procesu na raz</li>
+</ul>
+<p>Jeśli 2 procesy wywołują <code>enter_region</code> w tym samym
+czasie, to</p>
+<ul>
+<li>oba ustawią <code>interested[process] = True</code> przed dojściem
+do pętli</li>
+<li>pierwszy ustawi <code>turn</code> na swój numer i będzie czekać w
+pętli</li>
+<li>drugi ustawi <code>turn</code> na swój numer i będzie czekać w pętli
+ale tym samym wpuścił pierwszego</li>
+</ul>
+<h4 id="instrukcja-tsl">Instrukcja TSL</h4>
+<ul>
+<li>Rozwiązanie sprzętowe, jest instrukcja assemblerowa <code>tsl</code>
+- test and set lock (<code>xchg</code> - exchange)</li>
+<li>Instrukcja zamienia zawartości rejestru i słowa w pamięci</li>
+<li>Jest niepodzielna, nie może zostać przerwana bo to jedna
+instrukcja</li>
+<li>Rozwiązuje problem ze zmiennymi blokującymi</li>
+<li>Jest dzielona zmienna <code>flag</code>, jeśli <code>0</code> to nie
+ma procesu w SK, jeśli <code>1</code> to jest</li>
+<li>W rejestrze początkowo wartość <code>1</code></li>
+<li>Przed wejściem do SK proces wywołuje <code>enter_region</code> a po
+wyjściu <code>leave_region</code></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">enter_region:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    tsl register<span class="op">,</span> flag</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cmp</span> register<span class="op">,</span> <span class="op">#</span><span class="dv">0</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jne</span> enter_region</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ret</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leave_region:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> flag<span class="op">,</span> <span class="op">#</span><span class="dv">0</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ret</span></span></code></pre></div>
+<ul>
+<li>Po wykonaniu <code>tsl</code>, na pewno <code>flag == 1</code></li>
+<li>Jeśli przed <code>tsl</code> było <code>flag == 0</code> to wchodzę
+do sekcji krytycznej</li>
+<li>Jeśli przed <code>tsl</code> było <code>flag == 1</code> to
+powtarzam w pętli</li>
+</ul>
+<h3
+id="mechanizmy-realizacji-wzajemnego-wykluczania-z-wstrzymywaniem-procesu---opis-i-porównanie">Mechanizmy
+realizacji wzajemnego wykluczania z wstrzymywaniem procesu - opis i
+porównanie</h3>
+<p>Nie marnuje się czasu procesora na sprawdzanie czy proces może wejść
+do sekcji krytycznej, bo jeśli nie może to zostaje zawieszony, a kiedy w
+końcu będzie mógł to zostanie obudzony</p>
+<h4 id="sleep-i-wakeup---niepoprawne">Sleep i wakeup -
+<strong>niepoprawne</strong></h4>
+<ul>
+<li>Wywołanie systemowe <code>sleep</code> zawiesza aktualny proces</li>
+<li>Wywołanie systemowe <code>wakeup(pid)</code> budzi proces o podanym
+id</li>
+<li>Między sprawdzeniem warunku a wywołaniem <code>sleep</code> może
+nastąpić przełączenie kontekstu i sygnał <code>wakeup</code> zostanie
+wysłany zanim drugi proces zaśnie czyli jest gubiony - bloada</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 100</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> producer<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        produce_item<span class="op">();</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>count <span class="op">==</span> N<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            sleep<span class="op">();</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        enter_item<span class="op">();</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        count<span class="op">++;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>count <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            wakeup<span class="op">(</span>consumer<span class="op">);</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> consumer<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>count <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            sleep<span class="op">();</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        remove_item<span class="op">();</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        count<span class="op">--;</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>count <span class="op">==</span> N<span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>            wakeup<span class="op">(</span>producer<span class="op">);</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        consume_item<span class="op">();</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> </span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="semafory">Semafory</h4>
+<ul>
+<li>Podobne działanie jak sleep i wakeup, tylko sygnały są zapamiętywane
+i nie mogą zostać zgubione</li>
+<li>Operacja <code>p</code> zawsze opuszcza semafor ale może zablokować
+proces, dopóki inny proces nie wykona <code>v</code> na tym
+semaforze</li>
+<li>Operacja <code>v</code> po prostu podnosi semafor</li>
+<li>Mutex - semafor binarny
+<ul>
+<li>kiedy nie trzeba zliczać syngałów tylko zapewnić wzajemne
+wykuczenie</li>
+<li>inicjowany jako <code>1</code></li>
+<li>można zaimplementować wykorzystując instrukcję <code>tsl</code></li>
+<li>przed wejściem do sekcji krytycznej <code>mutex.p()</code> - jeśli
+było <code>1</code> to ustawia na <code>0</code> i wchodzi, jeśli było
+<code>0</code> to czeka aż inny proces wywoła
+<code>mutex.v()</code></li>
+<li>po wyjściu z sekcji krytycznej <code>mutex.v()</code> - ustawia na
+<code>1</code>, umożliwia innym wejście do SK</li>
+</ul></li>
+</ul>
+<h4 id="monitory">Monitory</h4>
+<ul>
+<li>Wysokopoziomowy mechanizm, musi być wspierany przez język
+programowania (kompilator odpowiada za działanie wzajemnego
+wykluczania)</li>
+<li>Obiekt, w każdej chwili tylko 1 proces może przebywać w którejś z
+jego metod</li>
+<li>Ogólnie to moduł grupujący procedury, zmienne i struktury danych,
+taki że tylko 1 proces może w danej chwili przebywać w tym module</li>
+<li>Implementacja zapewnia, że sygnały nie zostaną zgubione jak przy
+<code>sleep</code> i <code>wakeup</code> (może wewnętrznie wykorzystywać
+semafor)</li>
+<li>Instrukcje nie są atomowe ale mechanizm monitora zapewnia, że tylko
+1 proces może wejść do SK</li>
+<li>Mało języków je faktycznie wspiera</li>
+<li>Wewnętrzna implementacja zapewnia wzajemne wykluczanie i udostępnia
+bezpieczny interfejs</li>
+<li>Monitor ma w sobie zmienne warunkowe
+<ul>
+<li>Kiedy procedura wykrywa, że nie może kontynuować działania wykonuje
+<code>wait</code> na zmiennej warunkowej i proces się zawiesza</li>
+<li>Inny proces może wejść do sekcji krytycznej i wychodząc wykonać
+<code>signal</code> na tej samej zmiennej warunkowej żeby obudzić
+poprzedni proces</li>
+</ul></li>
+</ul>
+<p>Dwie koncepcje działania <code>signal</code></p>
+<ul>
+<li>Hoare - proces wywołujący jest zawieszany, a obudzony kontynuuje
+działanie</li>
+<li>Hansen - proces wywołujący musi natychmiast opuścić monitor</li>
+</ul>
+<h3
+id="producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami">Producent-konsument
+- poprawna realizacja z synchronizacją semaforami</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 100</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>semaphore mutex <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>semaphore empty <span class="op">=</span> N<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>semaphore full <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> producer<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        produce_item<span class="op">();</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        empty<span class="op">.</span>p<span class="op">();</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        mutex<span class="op">.</span>p<span class="op">();</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        enter_item<span class="op">();</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        mutex<span class="op">.</span>v<span class="op">();</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        full<span class="op">.</span>v<span class="op">();</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> consumer<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        full<span class="op">.</span>p<span class="op">();</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        mutex<span class="op">.</span>p<span class="op">();</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        remove_item<span class="op">();</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        mutex<span class="op">.</span>v<span class="op">();</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        empty<span class="op">.</span>v<span class="op">();</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        consume_item<span class="op">();</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><code>mutex</code> - zapewnia wzajemne wykluczanie w dostępie do
+bufora</li>
+<li><code>empty</code> - liczba pustych slotów, które producent może
+zapełnić
+<ul>
+<li>producent zawiesi się, jeśli nie ma wolnego miejsca do
+zapełnienia</li>
+<li>konsument oznacza, że zwolnił miejsce</li>
+</ul></li>
+<li><code>full</code> - liczba zajętych slotów, które konsument może
+opróżnić
+<ul>
+<li>konsument zawiesi się, jeśli nie ma co konsumować</li>
+<li>producent oznacza, że zapełnił slot</li>
+</ul></li>
+<li><code>produce_item</code> i <code>consume_item</code> znajdują się
+poza sekcją krytyczną bo nie wymagają wzajemnego wykluczania, a SK
+powinna być jak najkrótsza dla dobrej wydajności</li>
+<li><code>empty.p()</code> jest wołane przed <code>mutex.p()</code>,
+żeby konsument mógł dostać się do bufora i zwolnić slot</li>
+<li><code>mutex.v()</code> i <code>full.v()</code> można wykonać w
+dowolnej kolejności</li>
+<li>dla operacji konsumenta analogicznie</li>
+</ul>
+<h3
+id="producent-konsument---poprawna-realizacja-z-synchronizacją-monitorami">Producent-konsument
+- poprawna realizacja z synchronizacją monitorami</h3>
+<p>Hipoetyczny język wspierający monitory</p>
+<pre><code>monitor Buffer
+    condition full
+    condition empty
+    integer count = 0
+
+    procedure put
+    begin
+        if count == N
+            then wait(full)
+            
+        put_item()
+        count += 1
+        
+        if count == 1
+            then signal(empty)
+    end
+
+    procedure remove
+    begin
+        if count == 0
+            then wait(empty)
+
+        remove_item()
+        count -= 1
+        
+        if count == N-1
+            then signal(full)
+    end
+end monitor</code></pre>
+<pre><code>procedure producer
+begin
+    while true do
+    begin
+        item = produce_item()
+        Buffer.put(item)
+    end
+end</code></pre>
+<pre><code>procedure consumer
+begin
+    while true do
+    begin
+        item = Buffer.remove()
+        consume_item(item);
+    end
+end</code></pre>
+<ul>
+<li>Jeśli bufor jest zapełniony to prodcent się zawiesi</li>
+<li>Wtedy konsument może wejść do SK, zwolni miejsce w buforze i wyśle
+sygnał</li>
+<li>Producent się obudzi i może kontynuować pracę</li>
+</ul>
+<h2 id="przykładowe-zadania-projektowe">Przykładowe zadania
+projektowe:</h2>
+<h3 id="proste-skrypty-sh-bez-rozszerzeń-bash">Proste skrypty sh (bez
+rozszerzeń bash)</h3>
+<p>skrypt, który wysyła na wyjście linia po linii tekst ze<br />
+standardowego wejścia, poprzedzając każdą linię numerem linii</p>
+<pre class="shell"><code>#!/bin/sh
+
+i=1
+read line
+while [ &quot;x$line&quot; != &quot;x&quot; ]; do
+    echo &quot;$i $line&quot;
+    read line
+    i=`expr $i + 1`
+done</code></pre>
+<p>skrypt, który przyjmuje jako argument id użytkownika i wypisuje na
+stdin nazwę użytkownika (korzysta z relacji w /etc/passwd)</p>
+<pre class="shell"><code>#!/bin/sh
+
+if [ &quot;x$1&quot; = &quot;x&quot; ];
+then
+    echo &quot;Pass user id as the first argument&quot; &gt;&amp;2
+    exit 1
+fi
+
+uid=$1
+while IFS=&quot;:&quot; read username password userid _
+do
+    if [ &quot;x$userid&quot; = &quot;x$uid&quot; ];
+    then
+        echo $username
+        exit 0
+    fi
+done &lt; /etc/passwd
+
+echo &quot;User not found&quot; &gt;&amp;2
+exit 2</code></pre>
+<p>skrypt wypisujący zadane argumenty w odwrotnej kolejności</p>
+<pre class="shell"><code>#!/bin/sh
+
+args=&quot;$1&quot;
+shift
+
+while [ &quot;x$1&quot; != &quot;x&quot; ];
+do
+    args=&quot;$1 $args&quot;
+    shift
+done
+
+set $args
+while [ &quot;x$1&quot; != &quot;x&quot; ];
+do
+    echo $1
+    shift
+done
+
+exit 0</code></pre>
+<h3 id="opisz-rezultat-wykonania-poleceń-i-grup-poleceń">Opisz rezultat
+wykonania poleceń i grup poleceń:</h3>
+<p><code>x &gt;/dev/null 2&gt;&amp;1</code> Uruchom program x i zignoruj
+wyjście standardowe i wyjście diagnostyczne</p>
+<p><code>x 2&gt;&amp;1 1&gt;/dev/null</code> Uruchom program x, zignoruj
+wyjście standardowe, przekieruj wyjście diagnostyczne na wyjście
+standardowe</p>
+<p><code>x 2&gt;/dev/null 1&gt;/dev/null</code> Uruchom program x,
+zignoruj wyjście standardowe i wyjście diagnostyczne</p>
+<p><code>x &lt; y &gt; z</code> Uruchom program x, wczytaj wejście
+standardowe z pliku y, przekieruj wyjście standardowe do pliku z</p>
+<p><code>x &amp; y ; z</code> Uruchom program <code>x</code> w tle,
+następnie uruchom program <code>y</code>, po zakończeniu <code>y</code>
+uruchom program <code>z</code> <code>z</code> zostanie uruchomiony
+dopiero po tym jak <code>y</code> się zakończy <code>x</code> może
+zakończyć się jako ostatni (ale chyba nie musi i to zależy od
+szeregowania przez OS)</p>
+<p><code>x || y</code> Uruchom program <code>x</code>, jeśli
+<code>x</code> zakończył działanie z kodem innym niż <code>0</code> to
+uruchom program <code>y</code> <code>||</code> działa jak logiczne or,
+traktuje kod zakończenia <code>0</code> jako prawda i inny niż 0 jako
+fałsz</p>
+<h3
+id="opisz-precyzyjnie-działanie-poniższych-komend-ile-i-dokładnie-kiedy-tworzonych-jest-procesów">Opisz
+precyzyjnie działanie poniższych komend, ile i dokładnie kiedy
+tworzonych jest procesów?</h3>
+<p><code>x &gt; y</code> Jest tworzony 1 proces Uruchom program
+<code>x</code> i przekieruj jego wyjście do pliku <code>y</code> Jeśli
+<code>y</code> nie istnieje to zostaje stworzony a jeśli istnieje to
+nadpisany</p>
+<p><code>x | y</code> Tworzone są 2 procesy i wykonują się współbieżnie,
+dokładna kolejność, w której zostaną uruchomione nie jest określona,
+zależy od algorytmu szeregowania. Wyjście standardowe programu
+<code>x</code> jest przekierowane na wejście standardowe programu
+<code>y</code></p>
+<p><code>x &lt; y</code> Tworzone jest jeden proces <code>x</code>, jego
+wejście standardowe jest wczytywane z pliku <code>y</code></p>
+<p><code>cat y | x</code> Tworzone są 2 procesy <code>cat</code> i
+<code>x</code>. Cat wypisuje zawartość pliku <code>y</code> na swoje
+wyjście standardowe, które jest przekierowane na wejście standardowe
+procesu <code>x</code>. Procesy wykonuja się współbieżnie, dokładna
+kolejność nie jest określona.</p>
+<p><code>x &amp; y</code> Tworzone są 2 procesy <code>x</code> i
+<code>y</code> Najpierw proces <code>x</code> zostaje uruchomiony w tle
+Następnie zostaje utworzony proces <code>y</code> i uruchomiony na
+głównym planie (foreground) Nie jest ustalone które skończy się jako
+pierwszy</p>
+<p><code>x &amp;&amp; y</code> Tworzony jest proces <code>x</code> Jeśli
+zakończy się z kodem <code>0</code> to uruchamiany jest proces
+<code>y</code></p>
+<p><code>x || y</code> Tworzony jest proces <code>x</code> Jeśli
+zakończy się z kodem innym niż <code>0</code> to uruchamiany jest proces
+<code>y</code></p>
+<p><code>x ; y &amp;</code> Najpierw tworzony jest proces
+<code>x</code>, po jego zakończeniu proces <code>y</code> zostaje
+uruchomiony w tle</p>
+<p><code>cat x &gt; y &lt; z</code> Tworzony jest 1 proces
+<code>cat</code> Wypisuje zawartość pliku <code>x</code> do pliku
+<code>y</code> Wczytuje na wejście standardowe zawartość pliku
+<code>z</code> ale ją ignoruje</p>
+<h3 id="zadanie">Zadanie</h3>
+<p>Załóżmy, że plik /etc/passwd miałby strukturę</p>
+<p>login:id:gr0:shell:gr1,gr2,g3</p>
+<p>tnowak:1001:tnowak:/bin/bash:admin,mail,www</p>
+<p>przy czym gr0 występuje zawsze, a dodatkowe nazwy grup po ostatnim
+dwukropku<br />
+są opcjonalne.</p>
+<p>Napisz skrypt ‘gr’, który jako argumenty pobiera nazwy użytkowników,
+a następnie<br />
+dla każdego użytkownika w osobnych liniach wypisuje “user:” i nazwę
+użytkownika, a potem po jednej nazwie grupy w linii, przykładowo:</p>
+<p>$ ./gr tnowak<br />
+user: tnowak<br />
+tnowak<br />
+admin<br />
+mail<br />
+www<br />
+$</p>
+<pre class="shell"><code>#!/bin/sh
+
+process_user () {
+    echo &quot;user: $1&quot;
+    cat ./passwd | while IFS=: read login id group shell groups
+    do
+        if [ &quot;x$login&quot; = &quot;x$1&quot; ];
+        then
+            print_groups $group $groups
+        fi
+    done
+}
+
+print_groups () {
+    echo $1
+    if [ &quot;x$2&quot; = &quot;x&quot; ];
+    then
+        exit 0
+    fi
+
+    IFS=, set $2
+    for group in $*
+    do
+        echo $group
+    done
+}
+
+
+for user in $*
+do
+    process_user $user
+done</code></pre>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#definicje-podstawowe-i-obowiązkowe">Definicje podstawowe i
+obowiązkowe:</a>
+<ul>
+<li><a href="#system-operacyjny">System operacyjny</a></li>
+<li><a href="#zasób-systemu">Zasób systemu</a></li>
+<li><a href="#proces">Proces</a></li>
+<li><a href="#powłoka-interpreter-poleceń">Powłoka (interpreter
+poleceń)</a></li>
+<li><a href="#sekcja-krytyczna">Sekcja krytyczna</a></li>
+<li><a href="#semafor">Semafor</a></li>
+</ul></li>
+<li><a href="#wstęp">Wstęp</a>
+<ul>
+<li><a href="#tryby-przetwarzania-systemu-komputerowego">Tryby
+przetwarzania systemu komputerowego</a></li>
+<li><a href="#rola-przerwania-w-systemie-komputerowym">Rola przerwania w
+systemie komputerowym</a></li>
+<li><a href="#pojęcie-blokady-w-systemie-operacyjnym">Pojęcie blokady w
+systemie operacyjnym</a></li>
+<li><a href="#przeznaczenie-montowania-systemu-plików">Przeznaczenie
+montowania systemu plików</a></li>
+</ul></li>
+<li><a href="#programowanie-w-języku-powłoki">Programowanie w języku
+powłoki:</a>
+<ul>
+<li><a href="#użytkownicy-w-systemie-unix">Użytkownicy w systemie
+Unix</a></li>
+<li><a href="#prawa-dostępu-do-plików">Prawa dostępu do plików</a></li>
+<li><a href="#znaczenie-bitów-suid-sgid">Znaczenie bitów SUID,
+SGID</a></li>
+<li><a href="#główne-zmienne-powłoki">Główne zmienne powłoki</a></li>
+<li><a href="#parametry-powłoki">Parametry powłoki</a></li>
+<li><a href="#polecenia-zewnętrzne-a-wbudowane-uzasadnienie-rozróżnienia">Polecenia
+zewnętrzne a wbudowane – uzasadnienie rozróżnienia</a></li>
+<li><a href="#polecenia-powłoki-read-set-export">Polecenia powłoki:
+read, set, export</a></li>
+<li><a href="#pętle-forwhiledo-w-programowaniu-powłoki">Pętle
+for/while/do w programowaniu powłoki</a></li>
+<li><a href="#odczyt-pliku-etcpasswd-z-wykorzystaniem-readsetifs">Odczyt
+pliku /etc/passwd z wykorzystaniem read/set/IFS</a></li>
+<li><a href="#definiowanie-i-wywołania-funkcji">Definiowanie i wywołania
+funkcji</a></li>
+</ul></li>
+<li><a href="#procesy-i-wątki">Procesy i wątki:</a>
+<ul>
+<li><a href="#pojęcia-procesów-współbieżnychrównoległychrozproszonych">Pojęcia
+procesów współbieżnych/równoległych/rozproszonych</a></li>
+<li><a href="#graf-przejść-stanów-procesów-w-systemie-unix---prosty-i-złożony-system-v">Graf
+przejść stanów procesów w systemie Unix - prosty i złożony (System
+V)</a></li>
+<li><a href="#przeznaczenie-i-budowa-wektora-przerwań">Przeznaczenie i
+budowa wektora przerwań</a></li>
+<li><a href="#porównanie-własności-procesów-i-wątków">Porównanie
+własności procesów i wątków</a></li>
+<li><a href="#porównanie-wątków-poziomu-jądra-i-wątków-poziomu-użytkownika">Porównanie
+wątków poziomu jądra i wątków poziomu użytkownika</a></li>
+<li><a href="#architektura-wielowątkowa-w-systemie-solaris">Architektura
+wielowątkowa w systemie Solaris</a></li>
+<li><a href="#metody-konstrukcji-serwerów-usług">Metody konstrukcji
+serwerów usług</a></li>
+<li><a href="#szeregowanie-z-wywłaszczaniem-i-bez-wywłaszczania">Szeregowanie z
+wywłaszczaniem i bez wywłaszczania</a></li>
+<li><a href="#szeregowanie-procesów---wskaźniki-jakości-szeregowania-dla-różnych-trybów-przetwarzania">Szeregowanie
+procesów - wskaźniki jakości szeregowania dla różnych trybów
+przetwarzania</a></li>
+</ul></li>
+<li><a href="#wzajemne-wykluczanie-i-synchronizacja">Wzajemne
+wykluczanie i synchronizacja:</a>
+<ul>
+<li><a href="#wyścig-i-warunki-wyścigu-race-conditions">Wyścig i warunki
+wyścigu (race conditions)</a></li>
+<li><a href="#warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
+konieczne implementacji sekcji krytycznej</a></li>
+<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-aktywnym-oczekiwaniem-opis-i-porównanie">Mechanizmy
+realizacji wzajemnego wykluczania z aktywnym oczekiwaniem – opis i
+porównanie</a></li>
+<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-wstrzymywaniem-procesu---opis-i-porównanie">Mechanizmy
+realizacji wzajemnego wykluczania z wstrzymywaniem procesu - opis i
+porównanie</a></li>
+<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami">Producent-konsument
+- poprawna realizacja z synchronizacją semaforami</a></li>
+<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-monitorami">Producent-konsument
+- poprawna realizacja z synchronizacją monitorami</a></li>
+</ul></li>
+<li><a href="#przykładowe-zadania-projektowe">Przykładowe zadania
+projektowe:</a>
+<ul>
+<li><a href="#proste-skrypty-sh-bez-rozszerzeń-bash">Proste skrypty sh
+(bez rozszerzeń bash)</a></li>
+<li><a href="#opisz-rezultat-wykonania-poleceń-i-grup-poleceń">Opisz
+rezultat wykonania poleceń i grup poleceń:</a></li>
+<li><a href="#opisz-precyzyjnie-działanie-poniższych-komend-ile-i-dokładnie-kiedy-tworzonych-jest-procesów">Opisz
+precyzyjnie działanie poniższych komend, ile i dokładnie kiedy
+tworzonych jest procesów?</a></li>
+<li><a href="#zadanie">Zadanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

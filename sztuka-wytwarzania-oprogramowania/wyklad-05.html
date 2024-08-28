@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="projektowanie-i-programowanie-2024-03-18">Projektowanie i
+programowanie (2024-03-18)</h1>
+<ul>
+<li>Reguły SOLID itd poprawiają utrzymywalność programu ale nie
+zapewniają jego poprawności</li>
+<li>Poprawność zapewniają tylko testy</li>
+</ul>
+<h2 id="test-driven-development">Test-Driven Development</h2>
+<ul>
+<li>Jak ktoś powie że test-driven development to technika testowania,
+przy której najpierw pisze się testy to uwala egzamin dyplomowy</li>
+<li>Używanie testów nie tylko do weryfikacji procesu wytwarzania
+oprogramowania, ale do sterowania nim</li>
+<li>Kiedy znajdzie się buga to najpierw należy napisać test, który go
+wykrywa</li>
+<li>Testy prowadzą przez rozwiązanie problemu</li>
+<li>Proces TDD
+<ul>
+<li>Minimalny nieprzechodzący test</li>
+<li>Minimalna implementacja, która sprawi, że test przejdzie</li>
+<li>Refaktoryzacja</li>
+</ul></li>
+</ul>
+<h3 id="zasady-tdd">3 zasady TDD</h3>
+<ul>
+<li>Pisać kod produkcyjny tylko po to, żeby naprawić nieprzechodzący
+test</li>
+<li>Pisać nie więcej testu, niż wystarczy żeby test nie przeszedł</li>
+<li>Pisać nie więcej kodu, niż potrzeba, żeby naprawić ten test</li>
+</ul>
+<p>TDD zapewnia pokrycie testami - bo każda linijka musiała być
+poprzedzona testem</p>
+<h2 id="projekt">Projekt</h2>
+<ul>
+<li>Projekt to wszystko po drodze do rzeczywistego produktu</li>
+<li>Kod (też) jest projektem aplikacji</li>
+<li>Nie ma tak, że mądry analityk/projektant zaprojektuje, głupi
+programista wykona i jest gotowy produkt</li>
+<li>Proces inżynieryjny
+<ul>
+<li>Projekt wykonywany przez analityków i projektantów rozumiejących
+domenę klienta</li>
+<li>Projekt szczegółowy wykonywany przez programistów rozumiejących
+dobrze technologię</li>
+<li>Produkt przechodzi walidację (przez testerów i klienta)</li>
+<li>Powstaje produkt</li>
+</ul></li>
+</ul>
+<h2 id="projekt-i-kod">Projekt i kod</h2>
+<ul>
+<li>Kod nie jest idealny do demonstrowania architektury</li>
+<li>Architektura musi być widoczna w kodzie
+<ul>
+<li>np. struktura katalogów odzwierciedla jakieś diagramy</li>
+</ul></li>
+<li>Szczegółowe diagramy mają sens tylko jeśli stają się plikami
+źródłowymi</li>
+</ul>
+<h2 id="git">Git</h2>
+<ul>
+<li>Wersja to migawka wszystkich plików naraz</li>
+<li>Nie ma centralnego serwera, każda stacja robocza ma pełną kopię
+repozytorium z całą historią zmian</li>
+<li>Większość operacji odbywa się lokalnie, offline</li>
+<li>Obiekty są dodawane do repozytorium ale nie są usuwane (da się ale
+na ogół się nic nie usuwa)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#projektowanie-i-programowanie-2024-03-18">Projektowanie i
+programowanie (2024-03-18)</a>
+<ul>
+<li><a href="#test-driven-development">Test-Driven Development</a>
+<ul>
+<li><a href="#zasady-tdd">3 zasady TDD</a></li>
+</ul></li>
+<li><a href="#projekt">Projekt</a></li>
+<li><a href="#projekt-i-kod">Projekt i kod</a></li>
+<li><a href="#git">Git</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1812 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>22-grafika-komputerowa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="21-realizacja-dzwieku.html">Poprzedni: 21-realizacja-dzwieku.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="grafika-komputerowa">Grafika komputerowa</h1>
+<h2 id="czym-jest-grafika-komputerowa">Czym jest grafika
+komputerowa</h2>
+<ul>
+<li>Tworzenie, przechowywanie, rendering i manipulacje modelami i
+obrazami
+<ul>
+<li>cyfrowa synteza i manipulacja treści wizualnych</li>
+</ul></li>
+</ul>
+<h3 id="podział-grafiki-komputerowej">Podział grafiki komputerowej</h3>
+<ul>
+<li>Dane
+<ul>
+<li>2D
+<ul>
+<li>operacje na płaskich obiektach</li>
+</ul></li>
+<li>3D
+<ul>
+<li>obiekt na którym dokonywane są operacje umieszczony jest w
+przestrzeni 3D</li>
+<li>zamiana 3D na 2D</li>
+</ul></li>
+<li>Przetwarzanie obrazów
+<ul>
+<li>operacje na gotowym obrazie</li>
+<li>filtrowanie itd.</li>
+</ul></li>
+</ul></li>
+<li>Technika
+<ul>
+<li>Wektorowa
+<ul>
+<li>obraz rysowany z wykorzystaniem łuków i odcinków</li>
+<li>skalowalność</li>
+<li>mniejsze pliki</li>
+<li>złożoność pamięciowa</li>
+</ul></li>
+<li>Rastrowa
+<ul>
+<li>obraz składa się z siatki pikseli</li>
+<li>więcej możliwości edycji</li>
+<li>bogactwo barw</li>
+<li>utrata jakości przy skalowaniu</li>
+</ul></li>
+</ul></li>
+<li>Czas
+<ul>
+<li>Interaktywna
+<ul>
+<li>programy aktualizują na bieżąco obraz w zależności od działań
+użytkownika</li>
+<li>granica ok. 30 fps</li>
+</ul></li>
+<li>Nieinteraktywna
+<ul>
+<li>program wczytuje dane i na ich podstawie generuje ostateczny
+obraz</li>
+<li>więcej czasu na wygenerowanie lepszego efektu</li>
+<li>np. na potrzeby filmów</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="modelowanie-krzywych">Modelowanie krzywych</h2>
+<ul>
+<li>Linie łamane
+<ul>
+<li>sekwencja wierzchołków połączonych prostymi liniami</li>
+<li>przydatne ale nie dla gładkich krzywych</li>
+</ul></li>
+<li>Spline
+<ul>
+<li>typ gładkich krzywych 2D/3D</li>
+<li>zastosowania
+<ul>
+<li>ilustracje 2D</li>
+<li>fonty</li>
+<li>modelowanie 3D</li>
+<li>animacja</li>
+</ul></li>
+<li>konstrukcja
+<ul>
+<li>interpolacja</li>
+<li>aproksymacja</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="definicja-krzywych">Definicja krzywych</h3>
+<ul>
+<li>Sposób jawny
+<ul>
+<li><span class="math inline">\(y = f(x)\)</span></li>
+<li>generowanie punktów przez podstawianie konkretnych wartości</li>
+<li>brak możliwości generacji punktów o tej samej współrzędnej <span
+class="math inline">\(x\)</span></li>
+</ul></li>
+<li>Sposób niejawny
+<ul>
+<li><span class="math inline">\(f(x,y) = 0\)</span></li>
+<li>sprawdzanie czy punkt należy do krzywej</li>
+<li>trudność konstruowania punktów</li>
+</ul></li>
+<li>Sposób parametryczny
+<ul>
+<li><span class="math inline">\(x = f(t)\)</span></li>
+<li><span class="math inline">\(y = g(t)\)</span></li>
+<li>podstawianie kolejnych wartości <span
+class="math inline">\(t\)</span> generuje kolejne punkty krzywej</li>
+</ul></li>
+</ul>
+<h3 id="splines">Splines</h3>
+<ul>
+<li>Użytkownik definiuje punkty kontrolne</li>
+<li>Punkty są interpolowane w celu utworzenia gładkiej krzywej</li>
+<li>Krzywa jest całkowicie zdeterminowana przez punkty kontrolne</li>
+<li>Zalety
+<ul>
+<li>prosta definicja (kilka punktów kontrolnych)</li>
+<li>mało danych do przechowania</li>
+<li>parametryczna krzywa - parametr <span
+class="math inline">\(t\)</span></li>
+<li>wiele wielomianów niskiego stopnia</li>
+</ul></li>
+</ul>
+<h3 id="interpolacja-i-aproksymacja">Interpolacja i aproksymacja</h3>
+<ul>
+<li>Interpolacja
+<ul>
+<li>krzywa przechodzi przez punkty kontrolne</li>
+<li>krzywa interpolacyjna</li>
+<li>może być niestabilna (np. pętle)</li>
+</ul></li>
+<li>Aproksymacja
+<ul>
+<li>punkty służą do określenia kształtu krzywej ale nie musi przez nie
+przechodzić</li>
+<li>krzywa aproksymacyjna</li>
+<li>wygodna w użyciu</li>
+</ul></li>
+</ul>
+<h3 id="krzywe-beziera">Krzywe Beziera</h3>
+<ul>
+<li>Użytkownik definiuje 4 punkty</li>
+<li>Krzywa przechodzi przez początek i koniec</li>
+<li>Aproksymuje pozostałe 2</li>
+<li>Krzywa wielomianowa 3 stopnia</li>
+<li>Opisywana równaniem parametrycznym (forma macierzowa)</li>
+<li>Styczna do odcinków
+<ul>
+<li><span class="math inline">\(P_0P_1\)</span> w punkcie <span
+class="math inline">\(P_0\)</span></li>
+<li><span class="math inline">\(P_2P_3\)</span> w punkcie <span
+class="math inline">\(P_3\)</span></li>
+</ul></li>
+<li>Nie wychodzi poza otoczkę wypukłą stworzoną z jej punktów
+kontrolnych</li>
+<li>Gładkie połączenia łuków
+<ul>
+<li>współliniowe punkty kontrolne</li>
+</ul></li>
+<li>Dzielenie krzywych Beziera
+<ul>
+<li>algorytm de Casteljau - znajduje punkt określony parametrem <span
+class="math inline">\(u\)</span>
+<ul>
+<li>podziel odcinki łączące punkty kontrolne w proporcjach <span
+class="math inline">\(u : 1-u\)</span></li>
+<li>połącz wyznaczone punkty odcinkami</li>
+<li>podziel nowe odcinki w proporcjach <span class="math inline">\(u :
+1-u\)</span></li>
+<li>połącz wyznaczone punkty odcinkami</li>
+<li>podziel nowy odcinek w proporcjach <span class="math inline">\(u :
+1-u\)</span></li>
+<li>weź wyznaczony punkt</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="reprezetnacje-3d">Reprezetnacje 3D</h2>
+<ul>
+<li>Surowe dane
+<ul>
+<li>chmury punktów</li>
+<li>obrazy głębi / dystansu</li>
+<li>woksele</li>
+</ul></li>
+<li>Powierzchnie
+<ul>
+<li>siatki trójkątów</li>
+<li>parametryczne</li>
+</ul></li>
+<li>Bryły
+<ul>
+<li>CSG</li>
+</ul></li>
+<li>Graf sceny</li>
+</ul>
+<h3 id="dobra-reprezentacja-3d">Dobra reprezentacja 3D</h3>
+<ul>
+<li>Intuicyjna</li>
+<li>Gwarancja ciągłości</li>
+<li>Gwarancja poprawności</li>
+<li>Wydajny rendering</li>
+<li>Wydajne operacje boolowskie</li>
+<li>Dokładne</li>
+<li>Zwięzłe</li>
+<li>Posiadające strukturę</li>
+</ul>
+<h3 id="chmury-punktów">Chmury punktów</h3>
+<ul>
+<li>Nieustrukturyzowany zbiór punktów w przestrzeni</li>
+<li>Źródło danych
+<ul>
+<li>skanery 3D</li>
+<li>fotogrametria</li>
+<li>algorytmy wizji komputerowej</li>
+</ul></li>
+<li>Wykorzystanie
+<ul>
+<li>tworzenie modeli CAD</li>
+<li>kontrola jakości</li>
+<li>wizualizacja</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>reprezentacja obiektów z wykorzystaniem skończonej liczby
+punktów</li>
+<li>szybkie tworzenie modeli (z odpowiednim sprzętem)</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>brakuje precyzji modeli powierzchniowych</li>
+<li>brak możliwości reprezentacji idealnych krzywych</li>
+<li>konieczność rekonstrukcji powierzchni w celu renderingu</li>
+</ul></li>
+</ul>
+<h3 id="obrazy-głębi">Obrazy głębi</h3>
+<ul>
+<li>Punkty 3D przeniesione na płaszczyznę obrazu odległość od pewnego
+punktu (zwykle sensora)</li>
+<li>Źródła danych
+<ul>
+<li>kamery time-of-flight</li>
+<li>triangulacja stereo</li>
+<li>skanery światła strukturalnego</li>
+</ul></li>
+</ul>
+<h3 id="woksele">Woksele</h3>
+<ul>
+<li>Jednorodna siatka wolumetrycznych próbek</li>
+<li>Woksel - najmniejszy element przestrzeni 3D</li>
+<li>Reprezetnacja obiektów bez jawnej powierzchni (chmury, ogień)</li>
+<li>Zawiera informacje na temat wnętrza obiektu</li>
+<li>Źródła danych
+<ul>
+<li>tomografy</li>
+</ul></li>
+<li>Wykorzystanie
+<ul>
+<li>obrazowanie medyczne</li>
+<li>symulacje oświetlenia</li>
+<li>modelowanie obiektów</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>dobre modelowanie przestrzeni 3D</li>
+<li>możliwości symulacji niemożliwych dla innych reprezentacji (światło
+w chmurach)</li>
+<li>prosta i najszybsza metoda wizualizacji danych wolumentrycznych
+(obrazy medyczne)</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>trudno stworzyć model bez odpowiedniego sprzętu</li>
+<li>brak precyzji modeli powierzchniowych</li>
+<li>kosztowny rendering (dostosowany do poligonów, a nie wokseli)</li>
+</ul></li>
+</ul>
+<h3 id="siatki-wielokątów">Siatki wielokątów</h3>
+<ul>
+<li>Zwykle zbudowane z trójkątów</li>
+<li>Trójkąt reprezentowany przez 3 wierzchołki</li>
+<li>Tylko powierzchnia obiektu</li>
+<li>Reprezentacja przez paski trójkątów
+<ul>
+<li>kolejny trójkąt dodaje tylko 1 wierzchołek</li>
+<li>definicja przez uporządkowaną listę wierzchołków</li>
+</ul></li>
+<li>Reprezentacja mesh</li>
+<li>Realistyczne cieniowanie</li>
+<li>Wspierane przez sprzęt</li>
+<li>Wachlarz
+<ul>
+<li>wierzchołek centralny, dzielony przez wszystkie trójkąty</li>
+<li>definicja przez uporządkowaną listę wierzchołków</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>prosta reprezentacja</li>
+<li>wsparcie sprzętowe</li>
+<li>modelowanie wspierane przez oprogramowanie (np. Blender)</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>gładka powierzchnia wymaga dużej liczby trójkątów</li>
+<li>brak informacji o zawartości obiektu (wnętrzu)</li>
+</ul></li>
+</ul>
+<h3 id="tworzenie-powierzchni">Tworzenie powierzchni</h3>
+<ul>
+<li>Wykorzystanie krzywych
+<ul>
+<li>otwarta krzywa obracana wokół osi</li>
+<li>zamknięta krzywa przesuwana wzdłuż ścieżki</li>
+<li>bryły obrotowe</li>
+</ul></li>
+<li>Reprezentacja parametryczna
+<ul>
+<li>część obiektów da się określić równaniami (prymitywy)</li>
+<li>idealna reprezentacja obiektów</li>
+</ul></li>
+</ul>
+<h3 id="csg">CSG</h3>
+<ul>
+<li>Constructive Solid Geometry</li>
+<li>Kombinacje objętości nachodących na siebie obiektów 3D z
+wykorzystaniem operacji na zbiorach
+<ul>
+<li>unia</li>
+<li>przecięcie</li>
+<li>różnica</li>
+</ul></li>
+<li>Przydatne do modelowania
+<ul>
+<li>nie trzeba modyfikować siatki</li>
+</ul></li>
+<li>Mogą powstawać błędy, które trzeba naprawiać ręcznie</li>
+</ul>
+<h3 id="fraktale">Fraktale</h3>
+<ul>
+<li>Obiekty samopodobne we wszystkich rozdzielczościach</li>
+<li>Generowane przez rekursywne aplikowanie tej samej transformacji</li>
+<li>Wykorzystywane do generacji
+<ul>
+<li>drzew</li>
+<li>płatków śniegu</li>
+</ul></li>
+</ul>
+<h3 id="graf-sceny">Graf sceny</h3>
+<ul>
+<li>Wysokopoziomowa struktura opisu zależności obiektów między sobą
+<ul>
+<li>ułatwia nakładanie transformacji (przesuwanie jednocześnie ramienia
+i dłoni)</li>
+</ul></li>
+<li>Połączenie obiektów w liściach</li>
+<li>Wydajny rendering</li>
+<li>Umożliwia wyłączenie widoczności wybranych fragmentów
+<ul>
+<li>wygodne do pracy przy modelowaniu</li>
+</ul></li>
+</ul>
+<h2 id="przekształcenia">Przekształcenia</h2>
+<ul>
+<li>Obiekty znajdują się w przestrzeni i w niej przemieszczają</li>
+<li>Wszystkie operacje opisywane macierzami 4x4</li>
+<li>Reprezentacja punktu w przestrzeni <span
+class="math inline">\((x,y,z)\)</span>
+<ul>
+<li>określony początek układu współrzędnych</li>
+</ul></li>
+</ul>
+<h3 id="wektory">Wektory</h3>
+<ul>
+<li>3 składowe</li>
+<li>Reprezentacja
+<ul>
+<li>ruchu</li>
+<li>siły</li>
+<li>przemieszczenia</li>
+</ul></li>
+<li>Operacje
+<ul>
+<li>dodawanie</li>
+<li>odejmowanie</li>
+<li>skalowanie</li>
+<li>normalizacja</li>
+<li>iloczyn skalarny</li>
+<li>iloczyn wektorowy</li>
+</ul></li>
+<li>Wektor normalny
+<ul>
+<li>prostopadły do powierzchni</li>
+<li>długość 1</li>
+<li>wyznaczany np. przez iloczyn wektorowy 2 wektorów stycznych do
+powierzchni</li>
+<li>reprezentuje orientacje</li>
+</ul></li>
+</ul>
+<h3 id="system-współrzędnych">System współrzędnych</h3>
+<ul>
+<li>Określa początek przestrzeni</li>
+<li>Dostarcza 3 niezależne liniowo wektory
+<ul>
+<li>osie x,y,z</li>
+</ul></li>
+<li>Lęwoskrętny lub prawoskrętny (ręczność)
+<ul>
+<li>może wymagać przekształcenia obiektu przy importowaniu</li>
+</ul></li>
+</ul>
+<h3 id="przestrzeń-świata">Przestrzeń świata</h3>
+<ul>
+<li>Podstawowy system współrzędnych</li>
+<li>Początek w punkcie <span class="math inline">\((0,0,0)\)</span></li>
+<li>Wektory
+<ul>
+<li><span class="math inline">\((1,0,0)\)</span></li>
+<li><span class="math inline">\((0,1,0)\)</span></li>
+<li><span class="math inline">\((0,0,1)\)</span></li>
+</ul></li>
+<li>Wszystko inne definiowane w relacji do tego systemu</li>
+</ul>
+<h3 id="transformacje">Transformacje</h3>
+<ul>
+<li>Mapowanie punktów na inne punkty i wektorów na inne wektory</li>
+<li>Liniowe
+<ul>
+<li><span class="math inline">\(T(sv) = sT(v)\)</span></li>
+<li><span class="math inline">\(T(v_1 + v_2) = T(v_1) +
+T(v_2)\)</span></li>
+</ul></li>
+<li>Ciągłe
+<ul>
+<li>sąsiedztwo <span class="math inline">\(v\)</span> jest
+przekształcane na sąsiedztwo <span
+class="math inline">\(T(v)\)</span></li>
+</ul></li>
+<li>Jeden do jednego i odwracalne
+<ul>
+<li><span class="math inline">\(v = T^{-1}(v)\)</span></li>
+</ul></li>
+</ul>
+<h3 id="transformacje-afiniczne">Transformacje afiniczne</h3>
+<ul>
+<li>Zawierają wszystkie transformacje liniowe oraz translację</li>
+<li>Identyczność</li>
+<li>Translacja</li>
+<li>Rotacja</li>
+<li>Skalowanie</li>
+<li>Pochylenie</li>
+</ul>
+<h3 id="współrzędne-jednorodne">Współrzędne jednorodne</h3>
+<ul>
+<li>Reprezentacja n-wymiarowej przestrzeni rzutowej za pomocą układu n+1
+współrzędnych</li>
+<li><span class="math inline">\((x,y,z,w) = (x/w,y/w,z/w)\)</span></li>
+<li>Upraszcza przekształcenia, bo inaczej translację trzeba by traktować
+odrębnie</li>
+<li>Macierze przekształceń 4x4</li>
+</ul>
+<h3 id="identyczność">Identyczność</h3>
+<p>Przekształcenie dające ten sam obiekt</p>
+<p><span class="math display">\[
+I = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="skalowanie">Skalowanie</h3>
+<ul>
+<li>Proporcjonalna zmiana długości elementu w przestrzeni liniowej</li>
+<li>Jeśli obiekt nie zaczyna się w początku układu współrzędnych to się
+przesunie</li>
+<li>Nie zachowuje kątów między płaszczyznami jeśli skalowanie nie jest
+jednorodne
+<ul>
+<li><span class="math inline">\(S_x \ne S_y \vee S_x \ne
+S_z\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+S(x,y,z) = \begin{bmatrix}
+S_x &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; S_y &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; S_z &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span> <span class="math display">\[
+Sv = \begin{bmatrix}
+S_x &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; S_y &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; S_z &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+z \\
+1 \\
+\end{bmatrix}
+= \begin{bmatrix}
+S_xx \\
+S_yy \\
+S_zz \\
+1
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+S_{2D}(x,y) = \begin{bmatrix}
+S_x &amp; 0 &amp; 0 \\
+0 &amp; S_y &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="rotacja">Rotacja</h3>
+<ul>
+<li>Każda rotacja może być przedstawiona jako kompozycja 3 rotacji
+nałożonych przeciwnie do ruchu wskazówek zegara
+<ul>
+<li>kąty Eulera</li>
+</ul></li>
+<li>Macierze dla osi <span class="math inline">\(x\)</span>, <span
+class="math inline">\(y\)</span>, <span
+class="math inline">\(z\)</span>, kompozycja daje finalną macierz
+rotacji</li>
+<li>Zachowuje kąty między częściami obiektu</li>
+<li>Macierze reprezentują obrót wokół początku układu współrzędnych
+<ul>
+<li>dla inaczej położonych obiektów przesuną środek</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+R_x(\theta) = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; \cos \theta &amp; -\sin \theta &amp; 0 \\
+0 &amp; \sin \theta &amp; \cos \theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span> <span class="math display">\[
+R_y(\theta) = \begin{bmatrix}
+\cos \theta &amp; 0 &amp; \sin \theta &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+-\sin \theta &amp; 0 &amp; \cos \theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+R_z(\theta) = \begin{bmatrix}
+\cos \theta &amp; -\sin \theta &amp; 0 &amp; 0 \\
+\sin \theta &amp; \cos \theta &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+R_{2D}(\theta) = \begin{bmatrix}
+\cos \theta &amp; -\sin \theta &amp; 0 \\
+\sin \theta &amp; \cos \theta &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="pochylenie-ścinanie">Pochylenie / ścinanie</h3>
+<ul>
+<li>Shear</li>
+<li>Powoduje skośny kształt obiektów w którymś z wymiarów</li>
+</ul>
+<p><span class="math display">\[
+Sh = \begin{bmatrix}
+1 &amp; sh_x^y &amp; sh_x^z &amp; 0 \\
+sh_y^x &amp; 1 &amp; sh_y^z &amp; 0 \\
+sh_z^x &amp; sh_z^y &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+Sh_{2D} = \begin{bmatrix}
+1 &amp; sh_x^y &amp; 0 \\
+sh_y^x &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="translacja">Translacja</h3>
+<p>Przesunięcie danego punktu o zadany wektor</p>
+<p><span class="math display">\[
+T(x, y, z) = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; x \\
+0 &amp; 1 &amp; 0 &amp; y \\
+0 &amp; 0 &amp; 1 &amp; z \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+T_{2D}(x, y) = \begin{bmatrix}
+1 &amp; 0 &amp; x \\
+0 &amp; 1 &amp; y \\
+0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="składanie-przekształceń">Składanie przekształceń</h3>
+<ul>
+<li>Mając bazowe przekształcenia można konstruować bardziej złożone</li>
+<li>Dla wydajności lepiej utworzyć pojedynczą macierz
+przekstałcenia</li>
+<li>Mnożenie macierzy
+<ul>
+<li>przekształcenia aplikowane od prawej do lewej</li>
+<li>kolejność ma znaczenie - mnożenie macierzy nie jest przemienne</li>
+</ul></li>
+</ul>
+<h2 id="rysowanie-odcinka">Rysowanie odcinka</h2>
+<ul>
+<li>Jak narysować odcinek na ekranie mając dany początek <span
+class="math inline">\((x_s, y_s)\)</span> i koniec <span
+class="math inline">\((x_f, y_f)\)</span>
+<ul>
+<li>założenie <span class="math inline">\(x_s &lt; x_f\)</span></li>
+</ul></li>
+<li>Zamalowanie pikseli, które są najbliżej prostej o równaniu
+<ul>
+<li><span class="math inline">\((y_s - y_f)x + (x_f - x_s)y + x_sy_f -
+x_fy_s = 0\)</span></li>
+<li><span class="math inline">\(x_s \le x \le x_f\)</span></li>
+<li><span class="math inline">\(y_s \le y \le y_f\)</span></li>
+</ul></li>
+<li>Oznaczenia
+<ul>
+<li><span class="math inline">\(y = mx + C\)</span></li>
+<li><span class="math inline">\(m = \frac{dy}{dx}\)</span></li>
+<li><span class="math inline">\(C = -\frac{d}{dx}\)</span></li>
+<li><span class="math inline">\(dx = x_f - x_s\)</span></li>
+<li><span class="math inline">\(d = x_sy_f - x_fy_s\)</span></li>
+</ul></li>
+</ul>
+<h3 id="algorytm-naiwny">Algorytm naiwny</h3>
+<ul>
+<li>Obliczanie kolejnych wartości <span class="math inline">\(y\)</span>
+dla zadanego <span class="math inline">\(x\)</span></li>
+<li>Korzysta ze wzoru na prostą</li>
+<li>Wady
+<ul>
+<li>niepotrzebne operacje na liczbach zmiennopozycyjnych - mnożenie w
+pętli</li>
+<li>problem z zaokrągleniem</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> naive_plot<span class="op">(</span><span class="dt">int</span> xS<span class="op">,</span> <span class="dt">int</span> yS<span class="op">,</span> <span class="dt">int</span> xF<span class="op">,</span> <span class="dt">int</span> yF<span class="op">)</span> <span class="op">{</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dx <span class="op">=</span> xF <span class="op">-</span> xS<span class="op">;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dy <span class="op">=</span> yF <span class="op">-</span> yS<span class="op">;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> d <span class="op">=</span> xS <span class="op">*</span> yF <span class="op">-</span> yF <span class="op">*</span> yS<span class="op">;</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> m <span class="op">=</span> dy <span class="op">/</span> dx<span class="op">;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> C <span class="op">=</span> <span class="op">-</span> d <span class="op">/</span> dx<span class="op">;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> x <span class="op">=</span> xS<span class="op">;</span> x <span class="op">&lt;=</span> xF<span class="op">;</span> <span class="op">++</span>x<span class="op">)</span> <span class="op">{</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> y <span class="op">=</span> m <span class="op">*</span> x <span class="op">+</span> C<span class="op">;</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        put_pixel<span class="op">(</span>x<span class="op">,</span> round<span class="op">(</span>y<span class="op">));</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="algorytm-dda">Algorytm DDA</h3>
+<ul>
+<li>Digital Differential Analyzer</li>
+<li>Ograniczenie kosztu operacji zmiennoprzecinkowych</li>
+<li><span class="math inline">\(x\)</span> przyjmuje tylko wartości
+całkowite, różni się o 1 w kolejnych krokach
+<ul>
+<li><span class="math inline">\(y_i = mx_i + C\)</span></li>
+<li><span class="math inline">\(y_{i+1} = m(x_i + 1) + C = mx_i + m + C
+= y_i + m\)</span></li>
+</ul></li>
+<li>Pomija wyraz <span class="math inline">\(C\)</span></li>
+<li>Nie korzysta ze wzoru na prostą</li>
+<li>Nie ma mnożenia w pętli</li>
+<li>Błąd się akumuluje
+<ul>
+<li>problem tylko dla bardzo długich odcinków</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> dda_plot<span class="op">(</span><span class="dt">int</span> xS<span class="op">,</span> <span class="dt">int</span> yS<span class="op">,</span> <span class="dt">int</span> xF<span class="op">,</span> <span class="dt">int</span> yF<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dx <span class="op">=</span> xF <span class="op">-</span> xS<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dy <span class="op">=</span> yF <span class="op">-</span> yS<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> m <span class="op">=</span> dy <span class="op">/</span> dx<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> y <span class="op">=</span> yS<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> x <span class="op">=</span> xS<span class="op">;</span> x <span class="op">&lt;=</span> xF<span class="op">;</span> <span class="op">++</span>x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        put_pixel<span class="op">(</span>x<span class="op">,</span> round<span class="op">(</span>y<span class="op">));</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        y <span class="op">+=</span> m<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="algorytm-bresenhama">Algorytm Bresenhama</h3>
+<ul>
+<li>Bez operacji na liczbach zmiennopozycyjnych</li>
+<li>Korzysta z własności wzoru na prostą
+<ul>
+<li><span class="math inline">\(L(x,y) = dy \cdot x - dx \cdot y -
+d\)</span></li>
+<li>punkt powyżej prostej - wartość ujemna</li>
+<li>punkt poniżej prostej - wartość dodatnia</li>
+</ul></li>
+<li>Jeśli wyznaczony piksel ma współrzędne <span
+class="math inline">\((x_i,y_i)\)</span>
+<ul>
+<li>następny ma <span class="math inline">\((x_{i+1}, y_i)\)</span> albo
+<span class="math inline">\((x_{i+1}, y_{i+1})\)</span></li>
+<li>zależy jaki znak ma funkcja dla <span
+class="math inline">\((x_{i+1}, y_i + 0.5)\)</span></li>
+</ul></li>
+<li>Początkowa wartość funkcji decyzyjnej <span class="math inline">\(d
+= dy - \frac{dx}{2}\)</span>
+<ul>
+<li>ważny jest tylko znak więc można wziąć <span class="math inline">\(d
+= 2dy - dx\)</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bresenham<span class="op">(</span><span class="dt">int</span> xS<span class="op">,</span> <span class="dt">int</span> yS<span class="op">,</span> <span class="dt">int</span> xF<span class="op">,</span> <span class="dt">int</span> yF<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dx <span class="op">=</span> xF <span class="op">-</span> xS<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dy <span class="op">=</span> yF <span class="op">-</span> yS<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> straight <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> dy<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> slant <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="op">(</span>dy <span class="op">-</span> dx<span class="op">);</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> d <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> dy <span class="op">-</span> dx<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> x <span class="op">=</span> xS<span class="op">;</span> x <span class="op">&lt;=</span> xF<span class="op">;</span> <span class="op">++</span>x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        put_pixel<span class="op">(</span>x<span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>d <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            d <span class="op">+=</span> straight<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            d <span class="op">+=</span> slant<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">++</span>y<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="wypełnianie-wielokątów">Wypełnianie wielokątów</h2>
+<p>Nie operaujemy na samych krawędziach, dążymy do wypełnienia
+kształtów</p>
+<h3 id="algorytm-skanowania-linii">Algorytm skanowania linii</h3>
+<ul>
+<li>Posiadamy wierzchołki wielokąta</li>
+<li>Wykorzystuje linie poziome</li>
+<li>Idąc od lewej do prawej malowane są tylko te piksele linii, które
+należą do wielokąta
+<ul>
+<li>szukamy przecięć z krawędziami wielokąta</li>
+</ul></li>
+<li>Działanie
+<ul>
+<li>znajdź minimum i maksimum <span
+class="math inline">\(y\)</span></li>
+<li>dla każdej wartości między <span
+class="math inline">\(y_{max}\)</span> a <span
+class="math inline">\(y_{min}\)</span>
+<ul>
+<li>wypuść linię poziomą</li>
+<li>znajdź przecięcia linii z wielokątem</li>
+</ul></li>
+<li>posortuj punkty przecięć według osi <span
+class="math inline">\(x\)</span></li>
+<li>wypełnij odcinki między punktami przecięć</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-flood-fill">Algorytm flood fill</h3>
+<ul>
+<li>Wypełnianie zamkniętych obszarów</li>
+<li>Wejście algorytmu
+<ul>
+<li>początkowa pozycja</li>
+<li>kolor do zamiany</li>
+<li>nowy kolor</li>
+</ul></li>
+<li>Działanie
+<ul>
+<li>zaczynając od piksela startowego</li>
+<li>wstaw piksel do kolejki</li>
+<li>jeśli kolor piksela to kolor wybrany do zastąpienia
+<ul>
+<li>zamień kolor na nowy</li>
+<li>dodaj sąsiadów piksela do kolejki</li>
+</ul></li>
+<li>powtarzaj dopóki kolejka nie jest pusta</li>
+</ul></li>
+<li>Sąsiedztwo
+<ul>
+<li>4-sąsiedztwo (4-way connectivity)</li>
+<li>8-sąsiedztwo (8-way connectivity)</li>
+</ul></li>
+</ul>
+<h2 id="obcinanie">Obcinanie</h2>
+<ul>
+<li>Analityczne obliczanie części prymitywów, które znajdują się w danym
+widoku</li>
+<li>Sens obcinania
+<ul>
+<li>kiedy obiekty wystają poza okno wyświetlania</li>
+<li>nie ma sensu ich wyświetlać (resteryzować) jeśli nie będą
+widoczne</li>
+<li>przetwarzanie pikseli poza oknem to strata czasu</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-naiwny-1">Algorytm naiwny</h3>
+<ul>
+<li>Dla każdej linii
+<ul>
+<li>sprawdź przecięcia z krawędziami widocznego obrazu</li>
+<li>wybierz najbliższy punkt jeśli istnieje</li>
+<li>jeśli cokolwiek zostało - narysuj</li>
+</ul></li>
+<li>Poprawne ale niewydajne</li>
+</ul>
+<h3 id="optymalizacje">Optymalizacje</h3>
+<ul>
+<li>Sprawdzenie obu końców odcinka
+<ul>
+<li>jeśli oba leżą poza oknem - odrzucić</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-cohena-sutherlanda">Algorytm Cohena-Sutherlanda</h3>
+<ul>
+<li>Prostokąt obcinający definiowany przez 4 wartości</li>
+<li>Podział obszaru na 9 regionów
+<ul>
+<li>przedłużenie boków prostokąta</li>
+</ul></li>
+<li>każdy region ma przypisany 4-bitowy kod
+<ul>
+<li>środek <span class="math inline">\(0000\)</span></li>
+<li>bit 0 ma wartość 1 jeśli <span class="math inline">\(x &lt;
+x_{min}\)</span></li>
+<li>bit 1 ma wartość 1 jeśli <span class="math inline">\(x &gt;
+x_{max}\)</span></li>
+<li>bit 2 ma wartość 1 jeśli <span class="math inline">\(y &lt;
+y_{min}\)</span></li>
+<li>bit 3 ma wartość 1 jeśli <span class="math inline">\(y &gt;
+y_{max}\)</span></li>
+</ul></li>
+<li>Kody są wykorzystywane do szybkiego akceptowania/odrzucania odcinków
+<ul>
+<li>jeśli suma logiczna końców odcinków jest 0 - akceptacja (jest w
+środku)</li>
+<li>jeśli iloczyn kodów końców odcinka jest inny niż 0 - odrzucenie (w
+całości poza prostokątem)</li>
+</ul></li>
+<li>W pozostałych przypadkach
+<ul>
+<li>wybór końca odcinka poza prostokątem</li>
+<li>wyznaczenie punktu przecięcia odcinka z bokiem prostokąta
+<ul>
+<li>wybór w zależności od kodu (np. przecięcie z <span
+class="math inline">\(x_{min}\)</span> dla bitu 0)</li>
+<li>jeśli więcej bitów == 1 - wybór dowolny, ale zawsze w takiej samej
+kolejności</li>
+</ul></li>
+<li>przycięcie odcinka do punktu na prostej</li>
+<li>sprawdzenie końców odcinka</li>
+<li>powtarzaj dopóki nie da się stwierdzić czy odrzucić czy
+zaakceptować</li>
+</ul></li>
+</ul>
+<p><img src="./obrazy/cohen-sutherland.png" /></p>
+<h3 id="obcinanie-wielokątów">Obcinanie wielokątów</h3>
+<ul>
+<li>Zadanie jest dużo bardziej skomplikowane
+<ul>
+<li>wejściem jest wielokat</li>
+<li>wyjściem jest wielokąt albo nic</li>
+</ul></li>
+<li>Wynikiem przycinania trójkąta może być
+<ul>
+<li>trójkąt</li>
+<li>czworokąt</li>
+<li>pięciokąt</li>
+<li>sześciokąt</li>
+</ul></li>
+<li>Problem jest jeszcze bardziej skomplikowany dla wklęsłych wielokątów
+<ul>
+<li>może być więcej niż 1 zwracanych wielokątów</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-sutherlanda-hodgmana">Algorytm
+Sutherlanda-Hodgmana</h3>
+<ul>
+<li>Algorytm służy do obcinania wielokąta z wykorzystaniem wielokąta
+wypukłego (najczęściej prostokąta)</li>
+<li>Idea
+<ul>
+<li>wyznacz krawędzie wielokąta obcinającego</li>
+<li>dla każdej krawędzi
+<ul>
+<li>znajdź część wspólną każdej krawędzi z obcinanym wielokątem</li>
+<li>obetnij wielokąt z wykorzystaniem tej krawędzi</li>
+</ul></li>
+<li>po przejściu wszystkich krawędzi wielokąt jest w pełni obcięty</li>
+</ul></li>
+<li>Wejście - lista wierzchołków w określonej kolejności</li>
+<li>Wyjście - lista wierzchołków obciętego wielokątu</li>
+<li>Algorytm
+<ul>
+<li>weź krawędź figury obcinającej - skonstruuj prostą na jej
+podstawie</li>
+<li>obetnij dany wielokąt z wykorzystaniem krawędzi</li>
+<li>powtórz dla każdej krawędzi figury obcinającej</li>
+</ul></li>
+<li>Do rozpatrzenia w przypadku przecięć
+<ul>
+<li>cała krawędź w obszarze widocznym - zapamiętanie wierzchołka
+końca</li>
+<li>krawędź opuszcza obszar widoczny - zapamiętanie wierzchołka
+przecięcia</li>
+<li>krawędź całkowicie niewidoczna - nic nie zapamiętywać</li>
+<li>krawędź wchodzi w obszar widoczny - zapamiętanie punktu przecięcia i
+wierzchołka</li>
+</ul></li>
+<li>Rozszerzalny do przestrzeni 3D</li>
+</ul>
+<p><img src="./obrazy/sutherland-hodgman.png" /></p>
+<h2 id="potok-graficzny">Potok graficzny</h2>
+<ul>
+<li>Potok renderujący
+<ul>
+<li>generacja/rendering obrazów 2D
+<ul>
+<li>kamery</li>
+<li>obiekty</li>
+<li>źródła światła</li>
+<li>materiały</li>
+<li>tekstury</li>
+<li>itd.</li>
+</ul></li>
+</ul></li>
+<li>Położenie i kształt obiektów
+<ul>
+<li>geometria (liczba trójkątów)</li>
+<li>środowiska</li>
+<li>kamery
+<ul>
+<li>ortogonalna</li>
+<li>perspektywiczna</li>
+</ul></li>
+</ul></li>
+<li>Wygląd obiektów
+<ul>
+<li>materiały</li>
+<li>źródła światła</li>
+<li>tekstury</li>
+<li>modele cieniowania</li>
+</ul></li>
+</ul>
+<h3 id="architektura">Architektura</h3>
+<ul>
+<li>Etapy
+<ul>
+<li>aplikacja</li>
+<li>przetwarzanie geometrii</li>
+<li>rasteryzacja</li>
+<li>przetwarzanie pikseli</li>
+</ul></li>
+<li>Najwolniejszy element ogranicza szybkość całości</li>
+<li>Szybkość wyrażana w fps - liczba obrazów wyrenderowanych w czasie
+sekundy</li>
+<li>Część z elementów może być przetwarzana równolegle</li>
+</ul>
+<h3 id="aplikacja">Aplikacja</h3>
+<ul>
+<li>Pełna kontrola nad przebiegiem sterowania
+<ul>
+<li>zwykle wykorzystuje CPU</li>
+<li>możliwość wykorzystania GPU - compute shader (do innych celów niż
+rendering)</li>
+</ul></li>
+<li>Ustawienia lub algorytmy w celu np. redukcji liczby trójkątów</li>
+<li>Główne zadanie
+<ul>
+<li>przesłanie prymitywów do renderingu do etapu przetwarzania
+geometrii</li>
+<li>linie, punkty, trójkąty</li>
+</ul></li>
+<li>Przetwarzanie równoległe tam gdzie się da</li>
+<li>Algorytmy których nie da się zaimplementować w innych krokach
+<ul>
+<li>np. fizyka, wykrywanie kolizji</li>
+</ul></li>
+<li>Obsługa wejść od użytkownika
+<ul>
+<li>wpływa na przetwarzanie dalszych informacji</li>
+</ul></li>
+</ul>
+<h3 id="przetwarzanie-geometrii">Przetwarzanie geometrii</h3>
+<ul>
+<li>Operacje na trójkątach i wierzchołkach</li>
+<li>Etapy
+<ul>
+<li>cieniowanie wierzchołków</li>
+<li>projekcja</li>
+<li>obcinanie</li>
+<li>mapowanie na ekran</li>
+</ul></li>
+</ul>
+<h4 id="cieniowanie-wierzchołków"><em>Cieniowanie</em> wierzchołków</h4>
+<ul>
+<li>Zadania
+<ul>
+<li>obliczanie położenia wierzchołka</li>
+<li>obliczanie dodatkowych danych dla wierzchołka</li>
+<li>wektory normalne, współrzędne tekstur, itd.</li>
+</ul></li>
+<li>Dawniej obliczano w tym kroku też cieniowanie
+<ul>
+<li>obecnie raczej obliczane per pixel</li>
+</ul></li>
+<li>Obecnie raczej przetwarza się dane związane z wierzchołkiem
+<ul>
+<li>np. wagi dla wierzchołków w animacji szkieletowej</li>
+</ul></li>
+<li>Vertex shader</li>
+<li>Wyjściem jest obowiązkowo pozycja wierzchołka</li>
+<li>Dokonywana jest seria przekształceń
+<ul>
+<li>przestrzeń modelu -&gt; przestrzeń świata</li>
+<li>przestrzeń świata -&gt; przestrzeń widoku</li>
+</ul></li>
+</ul>
+<h4 id="przestrzeń-modelu">Przestrzeń modelu</h4>
+<ul>
+<li>Każdy model istnieje w swoim własnym układzie współrzędnych</li>
+<li>Model może mieć swoje przekształcenie (transformacja modelu)</li>
+<li>Wiele instancji jednego modelu ma własne, oddzielne przekstzałcenia
+<ul>
+<li>znajdują się w różnych miejscach</li>
+<li>mają tę samą geometrię</li>
+</ul></li>
+<li>Po aplikacji transformacji, model znajdzie się w przestrzeni
+świata</li>
+</ul>
+<h4 id="przestrzeń-kamerywidoku">Przestrzeń kamery/widoku</h4>
+<ul>
+<li>Interesują nas tylko obiekty, które są widoczne na kamerze</li>
+<li>Zadanie - przekształcenie widoku
+<ul>
+<li>umieszczenie kamery w centrum świata</li>
+<li>spojrzenie w kierunku <span class="math inline">\(\pm
+z\)</span></li>
+</ul></li>
+</ul>
+<h4 id="projekcja">Projekcja</h4>
+<ul>
+<li>Przekształcenie bryły widoku na kostkę
+<ul>
+<li>ekstrema <span class="math inline">\((-1,-1,-1)\)</span> i <span
+class="math inline">\((1,1,1)\)</span></li>
+</ul></li>
+<li>Określona macierzowo</li>
+<li>Typy
+<ul>
+<li>ortogonalna</li>
+<li>perspektywiczna</li>
+</ul></li>
+</ul>
+<h4 id="kamera-ortogonalna">Kamera ortogonalna</h4>
+<ul>
+<li>Orthographic camera model</li>
+<li>Obiekty nie zmniejszają się wraz z odległością</li>
+<li>Linie równoległe w scenie pozostają równoległe</li>
+<li>Zachowuje względne odległości między obiektami</li>
+<li>Definiowana przez 6 krawędzi prostopadłościanu widzenia</li>
+</ul>
+<h4 id="kamera-perspektywiczna">Kamera perspektywiczna</h4>
+<ul>
+<li>Perspective camera</li>
+<li>Obiekty znajdujące się daleko są rzutowane jako mniejsze</li>
+<li>Nie zachowuje odległości ani kątów</li>
+<li>Linie równoległe przestają być równoległe</li>
+<li>Definiowana dodatkowo wartość pola widzenia
+<ul>
+<li>obszar widziany przez nieporuszające się oko</li>
+<li>skalowanie wartości z płaszczyzny projekcji na koordynaty <span
+class="math inline">\([-1, 1]\)</span> na płaszczyźnie widoku</li>
+</ul></li>
+</ul>
+<h4 id="obcinanie-1">Obcinanie</h4>
+<ul>
+<li>Odrzucanie prymitywów poza sześcianem jednostkowym</li>
+<li>Sprowadzenie do współrzędnych znormalizowanych
+<ul>
+<li>między <span class="math inline">\((-1,-1,-1)\)</span> i <span
+class="math inline">\((1,1,1)\)</span></li>
+</ul></li>
+</ul>
+<h4 id="mapowanie-do-przestrzeni-ekranu">Mapowanie do przestrzeni
+ekranu</h4>
+<ul>
+<li>Przejście z trójwymiarowych współrzędnych na dwuwymiarowe</li>
+<li>Mapowanie na współrzędne ekranu</li>
+<li>Mapowanie wartości głębi do wartości z przedziału <span
+class="math inline">\([z_1, z_2]\)</span> (domyślnie <span
+class="math inline">\([0,1]\)</span>)</li>
+<li>Współrzędne okna są przekazywane do etapu rasteryzacji</li>
+</ul>
+<h3 id="rasteryzacja">Rasteryzacja</h3>
+<ul>
+<li>Znalezienie wszystkich pikseli, które należą do prymitywów, które są
+renderowane</li>
+<li>Etapy
+<ul>
+<li>ustawienie trójkątów (składanie prymitywów)</li>
+<li>przejście przez trójkąty</li>
+</ul></li>
+</ul>
+<h4 id="ustawienie-trójkątów">Ustawienie trójkątów</h4>
+<ul>
+<li>Obliczanie pochodnych, równań itd. dla każdego prymitywu</li>
+<li>Może być wykorzystane do interpolacji cieniowania</li>
+<li>Wykonywane przez sprzęt - bez możliwości modyfikacji</li>
+</ul>
+<h4 id="przechodzenie-trójkątów">Przechodzenie trójkątów</h4>
+<ul>
+<li>Generacja fragmentów
+<ul>
+<li>dla każdego piksela, którego środek jest pokryty przez trójkąt</li>
+</ul></li>
+<li>Fragment posiada informacje
+<ul>
+<li>głębia</li>
+<li>inne informacje pochodzące z etapu przetwarzania geometrii</li>
+</ul></li>
+<li>Właściwości fragmentu
+<ul>
+<li>generacja z wykorzystaniem interpolowanych danych z trókąta</li>
+</ul></li>
+</ul>
+<h3 id="przetwarzanie-pikseli">Przetwarzanie pikseli</h3>
+<ul>
+<li>Dokonywanie obliczeń i przekształceń dla piksela/próbki która jest
+wewnątrz prymitywu</li>
+<li>Etapy
+<ul>
+<li>cieniowanie pikseli</li>
+<li>łączenie</li>
+</ul></li>
+</ul>
+<h4 id="cieniowanie-pikseli">Cieniowanie pikseli</h4>
+<ul>
+<li>Obliczenia cieniowania dla każdego piksela</li>
+<li>Wykorzystuje interpolowane informacje z poprzednich etapów</li>
+<li>Całkowicie programowalne</li>
+<li>Różne operacje do wykonania
+<ul>
+<li>teksturowanie (współrzędne UV)</li>
+<li>obliczenia oświetlenia</li>
+<li>dodatkowe efekty</li>
+</ul></li>
+<li>Rezultat
+<ul>
+<li>ostateczny kolor piksela</li>
+</ul></li>
+</ul>
+<h4 id="łączenie">Łączenie</h4>
+<ul>
+<li>Potok operacji rastrowych (ROP - raster operations pipeline)</li>
+<li>Brak możliwości programowania</li>
+<li>Duże możliwości konfiguracji</li>
+<li>Zadanie
+<ul>
+<li>połączenie koloru etapu cieniowania z tym, który już jest w
+buforze</li>
+<li>stwierdzenie widoczności</li>
+</ul></li>
+</ul>
+<h4 id="potok-operacji-rastrowych">Potok operacji rastrowych</h4>
+<ul>
+<li>Bufory
+<ul>
+<li>koloru</li>
+<li>głębi</li>
+<li>kanału alfa</li>
+<li>szablonowy (stencil buffer)</li>
+<li>ramki (framebuffer)
+<ul>
+<li>zawiera wszystkie pozostałe bufory</li>
+<li>całość informacji o ramce</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="bufor-szablonowy">Bufor szablonowy</h4>
+<ul>
+<li>Zapamiętuje lokalizacje renderowanych prymitywów</li>
+<li>Rendering do bufora może być wykonany z wykorzystaniem różnych
+funkcji
+<ul>
+<li>np. porównanie - piksel wyświetlony jeśli relacja prawdziwa</li>
+</ul></li>
+<li>Umożliwia generacje różnych obiektów
+<ul>
+<li>np. przezroczystość</li>
+</ul></li>
+</ul>
+<h4 id="rezultaty">Rezultaty</h4>
+<ul>
+<li>Po przejściu przez cały potok prymitywy, które przeszły wszystkie
+testy są wyświetlane na ekranie</li>
+<li>Podwójne buforowanie
+<ul>
+<li>użytkownik nie powinien widzieć ramki w trakcie jej wyliczania</li>
+<li>rendering dzieje się w tle (back buffer)</li>
+<li>po obliczeniu jest podmieniany z zawartością ekranu (fron
+buffer)</li>
+</ul></li>
+</ul>
+<h3 id="programowanie-potoku-renderingu">Programowanie potoku
+renderingu</h3>
+<h4 id="vertex-shader">Vertex Shader</h4>
+<ul>
+<li>Przekształcenia dla każdego wierzchołka</li>
+<li>Głównie przekształcenie do współrzędnych ekranu</li>
+<li>Minimalne wyjście - pozycja wierzchołka</li>
+<li>Zastosowania
+<ul>
+<li>animacja obiektów</li>
+<li>generacja cząsteczek</li>
+<li>zniekształcenia soczewki</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#version 330</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">in</span> <span class="dt">vec2</span> in_position<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">gl_Position</span> <span class="op">=</span> <span class="dt">vec4</span><span class="op">(</span>in_position<span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="tesselation-shader">Tesselation shader</h4>
+<ul>
+<li>Umożliwia generację krzywych powierzchni</li>
+<li>Hull shader
+<ul>
+<li>specjalne prymitywy zaweirające definicje krzywych powierzchni,
+podziału powierzchni</li>
+<li>liczba i konfiguracja trójkątów generowanych przez tessellator</li>
+<li>przetwarzanie wszystkich punktów kontrolnych</li>
+</ul></li>
+<li>Tessellator
+<ul>
+<li>generacja nowych wierzchołków</li>
+<li>możliwość generacji różnych powierzchni (trójkąty, izolinie)</li>
+</ul></li>
+<li>Domain shader
+<ul>
+<li>obliczenie wszystkich wartości dla każdego wierzchołka po
+generacji</li>
+</ul></li>
+</ul>
+<h4 id="geometry-shader">Geometry shader</h4>
+<ul>
+<li>Dodatkowe przetwarzanie geometrii
+<ul>
+<li>np. tworzenie dodatkowych prymitywów</li>
+</ul></li>
+<li>Przekształcenie jednych prymitywów w inne (trójkątów na linie)</li>
+<li>Może generować 0 lub więcej wierzchołków</li>
+<li>Zastosowania
+<ul>
+<li>tworzenie kaskadowych map cieni</li>
+<li>tworzenie różnej wielkości cząstek</li>
+<li>wyciąganie kłębów futra z sylwetki</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#version 330 core</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">layout</span> <span class="op">(</span><span class="dt">triangles</span><span class="op">)</span> <span class="dt">in</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">layout</span> <span class="op">(</span><span class="dt">line_strip</span><span class="op">,</span> <span class="dt">max_vertices</span><span class="op">=</span><span class="dv">3</span><span class="op">)</span> <span class="dt">out</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">gl_Position</span> <span class="op">=</span> <span class="va">gl_in</span><span class="op">[</span><span class="dv">0</span><span class="op">].</span><span class="fu">gl_Position</span><span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">EmitVertex</span><span class="op">();</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">gl_Position</span> <span class="op">=</span> <span class="va">gl_in</span><span class="op">[</span><span class="dv">1</span><span class="op">].</span><span class="fu">gl_Position</span><span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">EmitVertex</span><span class="op">();</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">gl_Position</span> <span class="op">=</span> <span class="va">gl_in</span><span class="op">[</span><span class="dv">2</span><span class="op">].</span><span class="fu">gl_Position</span><span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">EmitVertex</span><span class="op">();</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">EmitPrimitive</span><span class="op">();</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h4 id="fragment-shader">Fragment shader</h4>
+<ul>
+<li>Fragment - część trójkąta pokrywająca część lub cały piksel</li>
+<li>Ostateczna definicja koloru</li>
+<li>Odrzucanie wartości</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#version 330</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">out</span> <span class="dt">vec4</span> f_color<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    f_color <span class="op">=</span> <span class="dt">vec4</span><span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="usuwanie-powierzchni-niewidocznych">Usuwanie powierzchni
+niewidocznych</h2>
+<h3 id="przesłanianie-obiektów">Przesłanianie obiektów</h3>
+<ul>
+<li>Wpływa na sposób odbioru sceny przez oglądającego</li>
+<li>Trzeba wyznaczyć obiekty, które leżą najbliżej rzutni i wyświetlać
+tylko te obiekty</li>
+<li>Do wyznaczania widoczności fragmentów można wykorzystać
+<ul>
+<li>obiekty</li>
+<li>ściany</li>
+<li>krawędzie</li>
+<li>powierzchnie</li>
+<li>głębokość</li>
+<li>itd.</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-malarski">Algorytm malarski</h3>
+<ul>
+<li>Ustalenie kolejności obiektów do wyświetlenia</li>
+<li>Obiekty posortowane według głębi</li>
+<li>Najpierw rysowane obiekty, które są dalej od kamery</li>
+<li>Nadpisuje się piksele zasłanianego obiektu</li>
+<li>Algorytm
+<ul>
+<li>posortuj wielokąty według głębi od najdalszego do najbliższego</li>
+<li>rozwiąż niejasności w sortowaniu głębi</li>
+<li>narysuj wielokątu od najdalszego do najbliższego</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>prosty</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>sortowanie wielokątów</li>
+<li>konieczność podziału wielokątów przy niejasnościach</li>
+</ul></li>
+</ul>
+<h3 id="przesłanianie-wielokątów">Przesłanianie wielokątów</h3>
+<ul>
+<li>Wykonuje się serie testów żeby rozwiązać niejasności
+<ul>
+<li>kończy się sprawdzanie tak szybko jak to możliwe (po pierwszym
+spełnionym teście)</li>
+</ul></li>
+<li>Sprawdzenie rzutów na płaszczyznę xy
+<ul>
+<li>czy nachodzą na siebie w x</li>
+<li>czy nachodzą na siebie w y</li>
+<li>jeśli nie - kończymy test i rysujemy wielokąt</li>
+<li>jeśli tak - kontynuujemy testowanie</li>
+</ul></li>
+<li>Sprawdzenie czy wielokąt jest po jednej stronie innego wielokąta
+<ul>
+<li>wykorzystanie równania płaszczyzny
+<ul>
+<li>sprawdzenie każdego wierzchołka z równaniem odpowiedniej
+płaszczyzny</li>
+</ul></li>
+<li>sprawdzenie dla wielokąta z mniejszą głębią
+<ul>
+<li>wartość równania &gt; 0</li>
+<li>wielokąt bliżej oglądającego</li>
+</ul></li>
+<li>sprawdzenie dla wielokąta z większą głębią
+<ul>
+<li>wartość równania &lt; 0</li>
+<li>wielokąt całkowicie przesłonięty</li>
+</ul></li>
+</ul></li>
+<li>Jeśli wielokąty na siebie nie nachodzą, kolejność rysowania nie ma
+znaczenia</li>
+<li>Jeśli nachodzą
+<ul>
+<li>podział wielokątów</li>
+<li>obcinanie z wykorzystaniem płaszczyzn innych wielokątów</li>
+</ul></li>
+</ul>
+<h3 id="z-bufor">Z-bufor</h3>
+<ul>
+<li>Rozstrzygnięcie o widoczności odkładamy do momentu tworzenia obrazu
+rastrowego
+<ul>
+<li>działanie w przestrzeni obrazu</li>
+</ul></li>
+<li>Zapamiętuje się dla każdego obiektu jego współrzędną <span
+class="math inline">\(z\)</span></li>
+<li>Dla każdego piksela obiektu oblicza się wartość głębi</li>
+<li>Na końcu rozpatruje się <span class="math inline">\(z\)</span> dla
+każdego piksela</li>
+<li>Wielokąty przeglądane wierszami</li>
+<li>Można uprościć obliczanie <span class="math inline">\(z\)</span> dla
+płaskich wielokątów</li>
+<li>Jeśli wielokąt nie jest płaski albo płaszczyzna nie jest określona
+to można interpolować
+<ul>
+<li>współrzędne wierzchołków wielokąta wzdłuż par krawędzi</li>
+<li>następnie interpolacja wzdłuż przeglądanego wiersza</li>
+</ul></li>
+<li>Pojawiają się problemy kiedy wielokąty są w podobnej odległości od
+kamery
+<ul>
+<li>wynika z podobnej głębi w z-buforze</li>
+<li>jest deterministyczne (te same rezultaty dla tej samej pozycji
+kamery)</li>
+</ul></li>
+<li>Rozwiązania
+<ul>
+<li>zwiększenie precyzji</li>
+<li>odsunięcie od siebie wielokątów wcześniej</li>
+<li>przetwarzanie w post-transformacji w przestrzeni ekranu
+<ul>
+<li>dodanie offsetu do <span class="math inline">\(z\)</span> jednego z
+wielokątów</li>
+</ul></li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>wspomagany sprzętowo</li>
+<li>szybki</li>
+<li>działa dla każdego rodzaju prymitywów</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>większa zajętość pamięci</li>
+<li>aliasing</li>
+<li>kompresja głębi - dwa dalekie punkty mogą być zmapowane do tej samej
+wartości z</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> px <span class="kw">in</span> pixels:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    zbuffer[px.x][px.y] <span class="op">=</span> far</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    color[px.x][px.y] <span class="op">=</span> background_color</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> polygons:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> p.fragments:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> f.z <span class="op">&lt;</span> zbuffer[f.x][f.y]:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            zbuffer[f.x][f.y] <span class="op">=</span> f.z</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            color[f.x][f.y] <span class="op">=</span> f.color</span></code></pre></div>
+<h3 id="techniki-usuwania-powierzchni-niewidocznych">Techniki usuwania
+powierzchni niewidocznych</h3>
+<ul>
+<li>Nie wszystkie powierzchnie dokładają coś do ostatecznego obrazu</li>
+<li>Główne techniki
+<ul>
+<li>odrzucanie tylnych ścian</li>
+<li>odrzucanie obiektów znajdujących się poza bryłą widzenia</li>
+<li>odrzucanie obiektów przesłanianych</li>
+</ul></li>
+</ul>
+<h3 id="odrzucanie-tylnych-ścian">Odrzucanie tylnych ścian</h3>
+<ul>
+<li>Backface culling</li>
+<li>Usunięcie wielokątów skierowanych w odwrotną stronę niż
+obserwator</li>
+<li>Obliczenie iloczynu skalarnego wektora normalnego powierzchni i
+wektora do środka rzutowania (do pozycji obserwatora)
+<ul>
+<li>ujemny wynik - wielokąt skierowany do tyłu</li>
+</ul></li>
+</ul>
+<h2 id="cieniowanie-powierzchni">Cieniowanie powierzchni</h2>
+<ul>
+<li>Barwa widziana przez obserwatora zależy od
+<ul>
+<li>położenia</li>
+<li>orientacji</li>
+<li>właściwości powierzchni</li>
+<li>światła</li>
+</ul></li>
+<li>Podstawowe modele to kompromis między prostotą obliczeń a złożonym
+zachowaniem światła</li>
+</ul>
+<h3 id="światło-punktowe">Światło punktowe</h3>
+<ul>
+<li>Położenie</li>
+<li>Intensywność</li>
+<li>W każdym kierunku świeci tak samo</li>
+<li>Pozwala generować cienie</li>
+</ul>
+<h3 id="oświetlenie">Oświetlenie</h3>
+<ul>
+<li><span class="math inline">\(\vec{V}\)</span> - wektor w kierunku
+obserwatora</li>
+<li><span class="math inline">\(\vec{N}\)</span> - wektor normalny</li>
+<li><span class="math inline">\(\vec{L}\)</span> - wektor w kierunku
+źródła światła</li>
+<li><span class="math inline">\(\vec{R} = \vec{L} - 2\vec{N}(\vec{L}
+\cdot \vec{N})\)</span> - promień odbity</li>
+<li><span class="math inline">\(\theta_i\)</span> - kąt padania</li>
+<li><span class="math inline">\(\theta_r\)</span> - kąt odbicia</li>
+</ul>
+<p><img src="./obrazy/oswietlenie.png" /></p>
+<h4 id="tłumienie-światła">Tłumienie światła</h4>
+<ul>
+<li>Light attenuation</li>
+<li>Ile światła dotknie powierzchni</li>
+<li><span class="math inline">\((\vec{L} \cdot \vec{N}) \Phi =
+\cos(\alpha) \Phi\)</span></li>
+</ul>
+<h4 id="cosinusowe-prawo-lamberta">Cosinusowe Prawo Lamberta</h4>
+<ul>
+<li>Ilość światła docierająca do powierzchni zależy od cosinusa kąta
+pomiędzy kierunkiem światła a wektorem normalnym powierzchni</li>
+<li><span class="math inline">\(I = I_0 k_d\cos \theta = I_0 k_d(\vec{N}
+\cdot \vec{L})\)</span></li>
+</ul>
+<h4 id="materiał">Materiał</h4>
+<ul>
+<li>Opis wyglądu obiektu na scenie</li>
+<li>Do symulacji interakcji światła z obiektem</li>
+<li>Różne materiały odbijają światło w różnych kierunkach</li>
+<li>Różne materiały absorbują światło w różnym stopniu</li>
+<li>W uproszczeniu materiał to
+<ul>
+<li>kolor powierzchni rozpraszającej</li>
+<li>kolor odbicia od powierzchni</li>
+</ul></li>
+</ul>
+<h4 id="odbicia">Odbicia</h4>
+<ul>
+<li>Lustrzane</li>
+<li>Połyskliwe</li>
+<li>Rozproszone</li>
+</ul>
+<h4 id="otoczenie">Otoczenie</h4>
+<ul>
+<li>Ambient</li>
+<li><span class="math inline">\(I = k_a I_a\)</span>
+<ul>
+<li><span class="math inline">\(k_a\)</span> - współczynnik
+otoczenia</li>
+<li><span class="math inline">\(I_a\)</span> - intensywność otoczenia
+sceny / źródła światła</li>
+</ul></li>
+</ul>
+<h4 id="rozproszenie">Rozproszenie</h4>
+<ul>
+<li>Diffuse</li>
+<li><span class="math inline">\(I = k_d(\vec{L} \cdot \vec{N})
+I_d\)</span>
+<ul>
+<li><span class="math inline">\(k_d\)</span> - współczynnik
+rozproszenia</li>
+<li><span class="math inline">\(\vec{L}\)</span> - wektor w kierunku
+źródła światła</li>
+<li><span class="math inline">\(\vec{N}\)</span> - wektor normalny</li>
+<li><span class="math inline">\(I_d\)</span> - intensywność światła dla
+rozproszenia</li>
+</ul></li>
+</ul>
+<h4 id="odbicie">Odbicie</h4>
+<ul>
+<li>Specular</li>
+<li><span class="math inline">\(I = k_s(\vec{V} \cdot \vec{R})^n
+I_s\)</span>
+<ul>
+<li><span class="math inline">\(k_s\)</span> - współczynnik odbicia</li>
+<li><span class="math inline">\(\vec{V}\)</span> - wektor w kierunku
+obserwatora</li>
+<li><span class="math inline">\(\vec{R}\)</span> - wektor światła
+odbitego</li>
+<li><span class="math inline">\(n\)</span> - współczynnik
+połyskliwości</li>
+<li><span class="math inline">\(I_s\)</span> - intensywność światła dla
+odbicia</li>
+</ul></li>
+</ul>
+<h4 id="złożenie">Złożenie</h4>
+<p>Suma składowych otoczenia, rozproszenia i odbicia daje model
+oświetlenia Phonga</p>
+<h3 id="cieniowanie-płaskie">Cieniowanie płaskie</h3>
+<ul>
+<li>Obserwowana barwa wyznaczana raz dla całego wielokąta</li>
+<li>Kolor obliczony dla punktu leżącego w środku wielokąta</li>
+<li>Wykorzystujemy wektory normalne dla wierzchołków</li>
+</ul>
+<h3 id="cieniowanie-gourauda">Cieniowanie Gourauda</h3>
+<ul>
+<li>Barwa wyznaczana w każdym z wierzchołków wielokąta</li>
+<li>Wnętrze wypełnione interpolowanymi wartościami barw z
+wierzchołków</li>
+<li>Obliczenia w vertex shaderze
+<ul>
+<li>obliczone wartości przekazywane do pixel shadera</li>
+</ul></li>
+<li>Pixel shader bierze interpolowaną wartość z vertex shadera i
+przepisuje ją na wyjście</li>
+<li>Dobre rezultaty dla matowych powierzchni</li>
+<li>Błędy przy powierzchniach połyskliwych - charakterystyczne
+krzyże</li>
+</ul>
+<h3 id="cieniowanie-phonga">Cieniowanie Phonga</h3>
+<ul>
+<li>Obliczenia barwy wykonuje się dla każego piksela</li>
+<li>Interpolowane wektory normalne i pozycje</li>
+<li>Vertex shader zapisuje wektory normalne i pozycje</li>
+<li>Pixel shader odczytuje interpolowane wartości i wykorzystuje do
+obliczeń</li>
+<li>Pozbawione błędów poprzednich 2</li>
+<li>Może być kosztowne (współcześnie bez znaczenia)</li>
+</ul>
+<h3 id="interpolacja-wektorów-normalnych">Interpolacja wektorów
+normalnych</h3>
+<ul>
+<li>Wektory normalne są długości <span class="math inline">\(1\)</span>
+w vertex shaderze</li>
+<li>Po interpolacji nie muszą być</li>
+<li>Należy je normalizować jeszcze raz w pixel shaderze</li>
+</ul>
+<h3 id="implementacja">Implementacja</h3>
+<ul>
+<li>Co można uprościć</li>
+<li>Jak często obliczać wartości (użycie cache)</li>
+<li>Czego wygląd użytkownik może zmieniać, a co można wypalić na
+teksturze</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#grafika-komputerowa">Grafika komputerowa</a>
+<ul>
+<li><a href="#czym-jest-grafika-komputerowa">Czym jest grafika
+komputerowa</a>
+<ul>
+<li><a href="#podział-grafiki-komputerowej">Podział grafiki
+komputerowej</a></li>
+</ul></li>
+<li><a href="#modelowanie-krzywych">Modelowanie krzywych</a>
+<ul>
+<li><a href="#definicja-krzywych">Definicja krzywych</a></li>
+<li><a href="#splines">Splines</a></li>
+<li><a href="#interpolacja-i-aproksymacja">Interpolacja i
+aproksymacja</a></li>
+<li><a href="#krzywe-beziera">Krzywe Beziera</a></li>
+</ul></li>
+<li><a href="#reprezetnacje-3d">Reprezetnacje 3D</a>
+<ul>
+<li><a href="#dobra-reprezentacja-3d">Dobra reprezentacja 3D</a></li>
+<li><a href="#chmury-punktów">Chmury punktów</a></li>
+<li><a href="#obrazy-głębi">Obrazy głębi</a></li>
+<li><a href="#woksele">Woksele</a></li>
+<li><a href="#siatki-wielokątów">Siatki wielokątów</a></li>
+<li><a href="#tworzenie-powierzchni">Tworzenie powierzchni</a></li>
+<li><a href="#csg">CSG</a></li>
+<li><a href="#fraktale">Fraktale</a></li>
+<li><a href="#graf-sceny">Graf sceny</a></li>
+</ul></li>
+<li><a href="#przekształcenia">Przekształcenia</a>
+<ul>
+<li><a href="#wektory">Wektory</a></li>
+<li><a href="#system-współrzędnych">System współrzędnych</a></li>
+<li><a href="#przestrzeń-świata">Przestrzeń świata</a></li>
+<li><a href="#transformacje">Transformacje</a></li>
+<li><a href="#transformacje-afiniczne">Transformacje afiniczne</a></li>
+<li><a href="#współrzędne-jednorodne">Współrzędne jednorodne</a></li>
+<li><a href="#identyczność">Identyczność</a></li>
+<li><a href="#skalowanie">Skalowanie</a></li>
+<li><a href="#rotacja">Rotacja</a></li>
+<li><a href="#pochylenie-ścinanie">Pochylenie / ścinanie</a></li>
+<li><a href="#translacja">Translacja</a></li>
+<li><a href="#składanie-przekształceń">Składanie przekształceń</a></li>
+</ul></li>
+<li><a href="#rysowanie-odcinka">Rysowanie odcinka</a>
+<ul>
+<li><a href="#algorytm-naiwny">Algorytm naiwny</a></li>
+<li><a href="#algorytm-dda">Algorytm DDA</a></li>
+<li><a href="#algorytm-bresenhama">Algorytm Bresenhama</a></li>
+</ul></li>
+<li><a href="#wypełnianie-wielokątów">Wypełnianie wielokątów</a>
+<ul>
+<li><a href="#algorytm-skanowania-linii">Algorytm skanowania
+linii</a></li>
+<li><a href="#algorytm-flood-fill">Algorytm flood fill</a></li>
+</ul></li>
+<li><a href="#obcinanie">Obcinanie</a>
+<ul>
+<li><a href="#algorytm-naiwny-1">Algorytm naiwny</a></li>
+<li><a href="#optymalizacje">Optymalizacje</a></li>
+<li><a href="#algorytm-cohena-sutherlanda">Algorytm
+Cohena-Sutherlanda</a></li>
+<li><a href="#obcinanie-wielokątów">Obcinanie wielokątów</a></li>
+<li><a href="#algorytm-sutherlanda-hodgmana">Algorytm
+Sutherlanda-Hodgmana</a></li>
+</ul></li>
+<li><a href="#potok-graficzny">Potok graficzny</a>
+<ul>
+<li><a href="#architektura">Architektura</a></li>
+<li><a href="#aplikacja">Aplikacja</a></li>
+<li><a href="#przetwarzanie-geometrii">Przetwarzanie geometrii</a></li>
+<li><a href="#rasteryzacja">Rasteryzacja</a></li>
+<li><a href="#przetwarzanie-pikseli">Przetwarzanie pikseli</a></li>
+<li><a href="#programowanie-potoku-renderingu">Programowanie potoku
+renderingu</a></li>
+</ul></li>
+<li><a href="#usuwanie-powierzchni-niewidocznych">Usuwanie powierzchni
+niewidocznych</a>
+<ul>
+<li><a href="#przesłanianie-obiektów">Przesłanianie obiektów</a></li>
+<li><a href="#algorytm-malarski">Algorytm malarski</a></li>
+<li><a href="#przesłanianie-wielokątów">Przesłanianie
+wielokątów</a></li>
+<li><a href="#z-bufor">Z-bufor</a></li>
+<li><a href="#techniki-usuwania-powierzchni-niewidocznych">Techniki
+usuwania powierzchni niewidocznych</a></li>
+<li><a href="#odrzucanie-tylnych-ścian">Odrzucanie tylnych
+ścian</a></li>
+</ul></li>
+<li><a href="#cieniowanie-powierzchni">Cieniowanie powierzchni</a>
+<ul>
+<li><a href="#światło-punktowe">Światło punktowe</a></li>
+<li><a href="#oświetlenie">Oświetlenie</a></li>
+<li><a href="#cieniowanie-płaskie">Cieniowanie płaskie</a></li>
+<li><a href="#cieniowanie-gourauda">Cieniowanie Gourauda</a></li>
+<li><a href="#cieniowanie-phonga">Cieniowanie Phonga</a></li>
+<li><a href="#interpolacja-wektorów-normalnych">Interpolacja wektorów
+normalnych</a></li>
+<li><a href="#implementacja">Implementacja</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

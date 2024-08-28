@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Paradygmaty programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-04-2023-10-24">Wykład 04 (2023-10-24)</h1>
+<p><code>++</code> jest prawostronnie łączny</p>
+<h2 id="typ-funkcyjny">Typ funkcyjny</h2>
+<p><code>Typ1 -&gt; Typ</code> - funkcja 1-argumentowa
+<code>Typ1 -&gt; Typ2 -&gt; Typ</code> - funkcja 2-argumentowa</p>
+<p>na końcu jest typ zwracany a wcześcniej są typy argumentów</p>
+<p>Można jawnie deklarować typy wartości i funkcji używając
+<code>::</code> W przeciwnym wypadku typy są dedukowane</p>
+<p>Najwyższy priorytet ma aplikowanie funkcji</p>
+<h2 id="polimorifzm-i-funkcje-wyższego-rzędedu">Polimorifzm i funkcje
+wyższego rzędedu</h2>
+<p><code>fst :: (a, b) -&gt; a</code> - nie ma konkretnych typów, są
+zmienne typów (type variable)</p>
+<p>Funkcja polimorficzna - działa na argumentach więcej niż jednego
+typu</p>
+<p>Typ polimorficzny może podlegać ograniczeniom
+<code>(Num a, Ord a) =&gt; a -&gt; Bool</code> - postać implikacji
+<code>a</code> nie jest dowolnym typem, musi należeć do wymienionych
+klas</p>
+<p>W klasach można określać domyślne definicje operatorów</p>
+<p>Oddzielne operacje dzielenia całkowitoliczbowego i ułamkowego</p>
+<p>Klasa <code>Enum</code> pozwala tworzyć ciągi arytmetyczne
+<code>[1..10]</code>, <code>['a', 'c'..'z']</code></p>
+<p>Read i Show - klasy typów które można zamienić na stringa i wczytać
+ze stringa</p>
+<p>polimorfizm wywodzi się z programowania funkcyjnego</p>
+<p><code>map reverse ["Ala", "ma", "kota"]</code></p>
+<p>funkcja wyższego rzędu przyjmuje inną funkcję jako argument leniwa
+ewaluacja pozwala używać nieskończonych list
+<code>zip "Ala ma kota" [1..]</code></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-04-2023-10-24">Wykład 04 (2023-10-24)</a>
+<ul>
+<li><a href="#typ-funkcyjny">Typ funkcyjny</a></li>
+<li><a href="#polimorifzm-i-funkcje-wyższego-rzędedu">Polimorifzm i
+funkcje wyższego rzędedu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

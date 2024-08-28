@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-model-pojeciowy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wprowadzenie.html">Poprzedni: 01-wprowadzenie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-model-relacyjny.html">Następny: 03-model-relacyjny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="model-pojęciowy">Model pojęciowy</h1>
+<ul>
+<li>Modelowanie nie jest jednorazową czynnością tylko procesem</li>
+<li>Model poddaje się refaktoryzacji</li>
+<li>Związek mówi dużo o encjach które łączy</li>
+</ul>
+<h2 id="związki">Związki</h2>
+<ul>
+<li>Związki określają nie tylko powiązania, ale również kluczowe cechy
+encji
+<ul>
+<li>np. które są podstawowe, a które zależne</li>
+</ul></li>
+<li>Należy dokładnie analizować model, ponieważ często może być on
+błędny</li>
+</ul>
+<h3 id="związek-jednoznaczny-opcjonalny-obligatoryjny">Związek
+jednoznaczny opcjonalny-obligatoryjny</h3>
+<p><img src="./obrazy/jednoznaczny-opcjonalny-obligatoryjny.png" /></p>
+<ul>
+<li>A jest encją nadrzędną</li>
+<li>B jest encją podrzędną</li>
+<li>Obiekt encji B może istnieć wyłącznie w połączeniu z obiektem encji
+A</li>
+<li>Obiekt encji A może istnieć samodzielnie, niezależnie od encji
+B</li>
+<li>Najczęściej występujący związek</li>
+<li>Hierarchia
+<ul>
+<li>byty nadrzędne mogą istnieć samodzielnie</li>
+</ul></li>
+<li>Np. firma i dział</li>
+</ul>
+<h3 id="encja-podstawowa">Encja podstawowa</h3>
+<ul>
+<li>Encja z której wychodzą wyłącznie związki opcjonalne</li>
+<li>Byty mające zdolność samodzielnego istnienia</li>
+</ul>
+<h3 id="encja-zależna">Encja zależna</h3>
+<ul>
+<li>Encja z której wychodzi co najmniej 1 związek obligatoryjny</li>
+<li>Byty zależne, mogące istnieć wyłącznie w powiązaniu z innymi</li>
+</ul>
+<h3 id="związek-jednoznaczny-opcjonalny-opcjonalny">Związek jednoznaczny
+opcjonalny-opcjonalny</h3>
+<p><img src="./obrazy/jednoznaczny-opcjonalny-opcjonalny.png" /></p>
+<ul>
+<li>Zależność hierarchiczna między samodzielnie istniejącymi bytami</li>
+<li>Np. klub i zawodnik</li>
+</ul>
+<h3 id="związek-jednoznaczny-obligatoryjny-obligatoryjny">Związek
+jednoznaczny obligatoryjny-obligatoryjny</h3>
+<p><img
+src="./obrazy/jednoznaczny-obligatoryjny-obligatoryjny.png" /></p>
+<ul>
+<li>Byty nie mogą istnieć bez siebie wzajemnie</li>
+<li>Modeluje jeden byt złożony o strukturze hierarchicznej</li>
+<li>Kompozycja</li>
+<li>Np. faktura i pozycje na fakturze</li>
+<li>Problematyczne w implementacji
+<ul>
+<li>z takiego modelu powstają 2 tabele w bazie danych</li>
+<li>jeśli w bazie będą takie więzy jak w modelu to nie da się wprowadzić
+danych</li>
+<li>systemy mogą udostępniać mechanizm opóźnionych więzów integralności
+- sprawdzane na końcu transakcji</li>
+<li>klucz obcy jest w tabeli podrzędnej (obligatoryjny albo opcjonalny)
+a w tabeli nadrzędnej nic nie ma</li>
+<li>nie ma możliwości odzwierciedlenia obligatoryjności relacji po
+stronie tabeli nadrzędnej</li>
+<li>niektóre systemy mają mechanizm check constraint (nie Oracle)</li>
+<li>można to zaimplementować przez trigger - niezalecane ale
+możliwe</li>
+<li>można to zaimplementować na poziomie aplikacji - gwarantujemy, że
+<code>INSERT</code>y będą wprowadzone w dobrej kolejności</li>
+</ul></li>
+</ul>
+<p>Model ER mówi wiele nie tylko o bazie danych, ale też o
+aplikacji.</p>
+<h3 id="związek-jednoznaczny-obligatoryjny-opcjonalny">Związek
+jednoznaczny obligatoryjny-opcjonalny</h3>
+<p><img src="./obrazy/jednoznaczny-obligatoryjny-opcjonalny.png" /></p>
+<ul>
+<li>Rzadko występuje
+<ul>
+<li>często może wynikać z błędnego zamodelowania</li>
+</ul></li>
+<li>Tylko byty podrzędne mogą istnieć samodzielnie</li>
+<li>Odwrócona hierarchia</li>
+<li>Encja nadrzędna grupuje niezależne byty</li>
+<li>Np. pociąg musi składać się z wagonów, wagon może wchodzić w skład
+pociągu</li>
+<li>Musi być zapewniony z poziomu aplikacji
+<ul>
+<li>nie może być implementowany przez większość baz danych</li>
+</ul></li>
+</ul>
+<h3 id="związek-jednojednoznaczny-opcjonalny-obligatoryjny">Związek
+jednojednoznaczny opcjonalny-obligatoryjny</h3>
+<p><img
+src="./obrazy/jednojednoznaczny-opcjonalny-obligatoryjny.png" /></p>
+<ul>
+<li>Połączenie w parę bytu samodzielnego z zależnym</li>
+<li>Może opisywać opcjonalny zestaw cech wydzielony jako odrębna
+encja</li>
+<li>Np. osoba i dokument
+<ul>
+<li>to oddzielne byty</li>
+<li>ale być może atrybuty dokumentu mogłyby być opcjonalnymi atrybutami
+osoby</li>
+<li>dokument może żyć własnym życiem</li>
+<li>w praktyce często lepiej użyć relacji jeden do wielu (stary dokument
+wygasa ale zostaje o nim informacja)</li>
+</ul></li>
+<li>Można celowo wydzielić część atrybutów encji jako oddzielną encję
+<ul>
+<li>może część danych jest jawna, a część poufna i będzie oddzielnie
+obsługiwana w aplikacji</li>
+</ul></li>
+</ul>
+<h3 id="związek-jednojednoznaczny-opcjonalny-opcjonalny">Związek
+jednojednoznaczny opcjonalny-opcjonalny</h3>
+<p><img
+src="./obrazy/jednojednoznaczny-opcjonalny-opcjonalny.png" /></p>
+<ul>
+<li>Połączenie w parę dwóch samodzielnych bytów</li>
+<li>Np. żołnierz i broń</li>
+</ul>
+<h3 id="związek-jednojednoznaczny-obligatoryjny-obligatoryjny">Związek
+jednojednoznaczny obligatoryjny-obligatoryjny</h3>
+<p><img
+src="./obrazy/jednojednoznaczny-obligatoryjny-obligatoryjny.png" /></p>
+<ul>
+<li>Najprawdopodobniej błąd w modelowaniu</li>
+<li>Jeden byt podzielony na dwie części (nie wiadomo czemu)</li>
+<li>Może mieć sens z przyczyn implementacyjnych (wydzielenie części
+danych)</li>
+<li>Może być uzasadniony przy podtypach (sztuczki implementacyjne)</li>
+</ul>
+<h3 id="związki-wieloznaczne">Związki wieloznaczne</h3>
+<p><img src="./obrazy/zwiazki-wieloznaczne.png" /></p>
+<ul>
+<li>Mogą wystąpić w modelu, ale ostatecznie muszą zostać zdekomponowane
+na związki jednoznaczne
+<ul>
+<li>ze względu na mechanizm klucza obcego</li>
+</ul></li>
+</ul>
+<h3 id="związki-rekurencyjne-jednoznaczne">Związki rekurencyjne
+jednoznaczne</h3>
+<p><img src="./obrazy/zwiazki-rekurencyjne-jednoznaczne.png" /></p>
+<ul>
+<li>Odzwierciedla hierarchię w obrębie jednej encji
+<ul>
+<li>np. pracownicy i kierownik (który też jest pracownikiem)</li>
+</ul></li>
+<li>Musi być z obu stron opcjonalny żeby miał sens (inaczej byłoby
+nieskończone drzewo)
+<ul>
+<li>muszą być liście i musi być korzeń</li>
+</ul></li>
+</ul>
+<h3 id="związki-rekurencyjne-jednojednoznaczne">Związki rekurencyjne
+jednojednoznaczne</h3>
+<p><img src="./obrazy/zwiazek-rekurencyjny-jednojednoznaczny.png" /></p>
+<ul>
+<li>Połączenie bytów tej samej encji w pary</li>
+<li>Np. małżeństwo</li>
+<li>Rzadko używany</li>
+</ul>
+<h3 id="związek-identyfikujący">Związek identyfikujący</h3>
+<p><img src="./obrazy/zwiazek-identyfikujacy.png" /></p>
+<ul>
+<li>Inaczej związek kluczowy</li>
+<li>Związek będący częścią unikatowego identyfikatora encji
+<ul>
+<li>dający kontekst identyfikacji w sytuacji, gdy atrybuty encji nie
+pozwalają na rozróżnianie obiektów</li>
+</ul></li>
+<li>Wśród atrybutów encji nie ma takich, które ją jednoznacznie
+identyfikują</li>
+<li>Obiekty encji różnią się tylko związkami</li>
+<li>W konwencji to kreska poprzeczna na linii</li>
+<li>Np. faktura i pozycje na fakturze
+<ul>
+<li>pozycję identyfikuje numer na fakturze i faktura do której
+należy</li>
+</ul></li>
+<li>Taka encja nigdy nie ma zdolności samodzielnego istnienia, zawsze
+będzie zależna
+<ul>
+<li>tzw, encja słaba</li>
+<li>nie ma zdolności samodzielnego istnienia ani samodzielnej
+identyfikacji</li>
+</ul></li>
+<li>Encja może nawet nie mieć atrybutów jeśli tylko łączy inne encje w
+związku identyfikującym</li>
+</ul>
+<h3 id="encja-słaba">Encja słaba</h3>
+<ul>
+<li>Encja połączona z encją nadrzędną związkiem identyfikującym</li>
+<li>Oznacza byty nie mające zdolności samodzielnej identyfikacji</li>
+<li>Rozróżnialne jedynie w kontekście bytów nadrzędnych</li>
+</ul>
+<h2 id="podtypy">Podtypy</h2>
+<p><img src="./obrazy/podtypy.png" /></p>
+<ul>
+<li>W ramach encji chcemy wprowadzić dodatkowy podział
+<ul>
+<li>np. osoby -&gt; dorośli i dzieci.</li>
+</ul></li>
+</ul>
+<h3 id="wskazania-do-wyróżnienia-podtypów">Wskazania do wyróżnienia
+podtypów</h3>
+<ul>
+<li>Są różnice strukturalne
+<ul>
+<li>podtypy niosą inne informacje</li>
+<li>różna obligatoryjność atrybutów</li>
+</ul></li>
+<li>Różnice powiązań
+<ul>
+<li>obligatoryjność związków podtypów</li>
+</ul></li>
+<li>Związki między podtypami</li>
+<li>Różnice funkcjonalności w operacjach na podtypach
+<ul>
+<li>model ER służy również jako słownik pojęć</li>
+<li>można wprowadzić podtyp po to żeby wprowadzić odpowiednie
+pojęcie</li>
+<li>różne podtypy będą inaczej obsługiwane w aplikacji - lepiej jest to
+określić od razu w modelu zamiast w UI</li>
+<li>model pojęciowy to nie tylko baza danych! dotyczy całego
+systemu</li>
+</ul></li>
+<li>Pozwala wyróżnić stany obiektów
+<ul>
+<li>np. dziecko / dorosły</li>
+</ul></li>
+</ul>
+<h3 id="wskazania-do-wyróżniania-nadtypów">Wskazania do wyróżniania
+nadtypów</h3>
+<ul>
+<li>Może pojawić się konieczność nie podzielenia jednego typu na wiele
+podtypów, tylko połączyć istniejących encji nadtypem</li>
+<li>Musi istnieć odpowiedni sens pojęcia nadrzędnego
+<ul>
+<li>sam fakt podobieństwa atrybutów to jeszcze za mało</li>
+</ul></li>
+<li>Powiązania z tymi samymi encjami</li>
+<li>Podobna struktura informacyjna</li>
+<li>Podobny sposób identyfikacji</li>
+<li>Podobne operacje na encjach (funkcjonalność)</li>
+</ul>
+<h3 id="podtypy-pełne">Podtypy pełne</h3>
+<p>Jeśli może istnieć obiekt nie należący do żadnego z określonych
+podtypów, to należy dodać obejmujący je podtyp.</p>
+<h3 id="podtypy-rozłączne">Podtypy rozłączne</h3>
+<p>Konwencjonalnie podtypy są rozłączne, jeśli podtypy się pokrywają, to
+należy stworzyć oddzielny podtyp dla przecięcia.</p>
+<h3 id="drzewo-podtypów">Drzewo podtypów</h3>
+<p>Głębsza hierarchia podtypów o strukturze drzewiastej, podtypy dzielą
+się na podtypy</p>
+<h3 id="podtypy-ortogonalne">Podtypy ortogonalne</h3>
+<ul>
+<li>Zgodnie z konwencją należy wyspecyfikować wszystkie kombinacje
+podtypów ortogonalnych
+<ul>
+<li>wszystkie przecięcia</li>
+<li>to jest kwestia notacji którą wybraliśmy, a nie ogólne prawidłowości
+w modelowaniu</li>
+</ul></li>
+<li>Można zastosować sztuczkę
+<ul>
+<li>wprowadzić kilka równoległych encji podzielonych na ortogonalne
+zestawy podtypów</li>
+<li>połączone związkami jednojednoznacznymi obligatoryjnymi</li>
+<li>dla sytuacji, w której rozwiązanie z jawnymi kombinacjami byłoby
+bardzo niewygodne</li>
+</ul></li>
+</ul>
+<h3 id="stabilność-podziału-na-podtypy">Stabilność podziału na
+podtypy</h3>
+<ul>
+<li>Stałe
+<ul>
+<li>tak po prostu jest, nie ulegnie zmianie</li>
+</ul></li>
+<li>Stabilne
+<ul>
+<li>możliwe do modyfikacji</li>
+<li>np. sposoby płatności</li>
+<li>zmiana i tak wymaga znacznej zmiany systemu</li>
+</ul></li>
+<li>Niestałe
+<ul>
+<li>np. stanowiska w firmie</li>
+</ul></li>
+<li>Im bardziej stabilny podział tym większy sens ma modelowanie z
+użyciem podtypów</li>
+</ul>
+<h3 id="stabilność-przynależności-do-podtypów">Stabilność przynależności
+do podtypów</h3>
+<ul>
+<li>Stała
+<ul>
+<li>np. rodzaj pojazdu</li>
+</ul></li>
+<li>Stabilna
+<ul>
+<li>np. płeć</li>
+</ul></li>
+<li>Zmienna
+<ul>
+<li>np. stan dokumentu</li>
+</ul></li>
+</ul>
+<h2 id="łuki">Łuki</h2>
+<p><img src="./obrazy/luki.png" /></p>
+<ul>
+<li>Łuk oznacza wykluczające się związki
+<ul>
+<li>związki nie muszą być niezależne od siebie</li>
+</ul></li>
+</ul>
+<h3 id="reguły-stosowania-łuków">Reguły stosowania łuków</h3>
+<ul>
+<li>Może łączyć związki o takiej samej obligatoryjności
+<ul>
+<li>dla opcjonalnych - może conajwyżej obowiązywać 1</li>
+<li>dla obligatoryjnych - musi być dokładnie 1 w danym momencie</li>
+</ul></li>
+<li>Wszystkie są identyfikujące albo żaden nie jest identyfikujący</li>
+<li>Jedno zakończenie związku może być w tylko jednym łuku</li>
+<li>Łuk nie może łączyć związków dotyczących różnych encji
+<ul>
+<li>w tym różnych podtypów</li>
+</ul></li>
+<li>Łuki z reguły łączą <em>wielokrotne</em> zakończenia związków (po
+stronie encji podrzędnej)
+<ul>
+<li>nakłada się odpowiednie ograniczenia na klucze obce w obrębie jednej
+tabeli</li>
+</ul></li>
+</ul>
+<h2 id="refaktoryzacja">Refaktoryzacja</h2>
+<h3 id="dekompozycja-związków-wieloznacznych">Dekompozycja związków
+wieloznacznych</h3>
+<ul>
+<li>Związki wieloznaczne w końcu muszą zniknąć z modelu
+<ul>
+<li>nie da się ich zaimplementwoać w relacyjnej bazie danych</li>
+</ul></li>
+<li>Dekompozycja związków wieloznaczynch jest pierwszym krokiem w
+refaktoryzacji modelu</li>
+<li>Pod tym samym związkiem wieloznacznym mogą się kryć odmienne
+rezultaty
+<ul>
+<li>trzeba się nad tym poważnie zastanowić przy dekompozycji</li>
+</ul></li>
+<li>W środek wstawia się encję łączącą i zamienia związek wieloznaczny
+na związki jednoznaczne z obiema łączonymi encjami</li>
+<li>Zawsze z encji łączącej wychodzi linia ciągła
+<ul>
+<li>nie może istnieć bez powiązania z obiektami łączonych encji</li>
+<li>przejście jest mechaniczne.</li>
+</ul></li>
+<li>Identyfikatorem encji łączącej jest para kluczy łączonych encji
+<ul>
+<li>encja nie ma atrybutów, jest identyfikowana przez parę związków</li>
+</ul></li>
+<li>Nie każdy problem daje się tak zamodelować
+<ul>
+<li>np. pracownik może przynależeć do projektu tylko raz, na jeden
+sposób</li>
+<li>możemy chcieć wyrazić to, że pracował na różnych stanowiskach</li>
+<li>wtedy nie wystarczy para kluczy pracownika i projektu, pojawiają się
+atrybuty związku</li>
+</ul></li>
+<li>W encji łączącej musi wtedy być odrębny klucz, który rozróżnia
+powiązania między sobą.</li>
+<li>Obiekt encji łączącej może jedak mieć sens samodzielnie
+<ul>
+<li>może nie być encją słabą, tylko zależną</li>
+<li>mieć zdolność samodzielnej identyfikacji</li>
+</ul></li>
+<li>Może być rozwiązanie hybrydowe
+<ul>
+<li>jeden z kluczy obcych wchodzi w skład klucza głównego</li>
+<li>encję łączącą identyfikuje jakiś jej własny atrybut i kontekst z
+jednej z łączonych encji</li>
+<li>np towar, pozycja na fakturze i faktura</li>
+</ul></li>
+<li>Może okazać się, że struktura jest jeszcze bardziej skomplikowana
+<ul>
+<li>trzeba wprowadzić więcej niż 1 encję łączącą</li>
+<li>np. student, lista przedmiotu, realizacja przedmiotu, przedmiot</li>
+</ul></li>
+<li>Dekomopozycji związku wieloznacznego nie da się tak naprawdę
+zautomatyzować</li>
+</ul>
+<h3 id="łuki-i-podtypy">Łuki i podtypy</h3>
+<ul>
+<li>Przykład z naprawą wewnętrzną i zewnętrzną
+<ul>
+<li>zamiennie można zastosować łuk i podtypy naprawy</li>
+<li>podtypy pozwalają wprowadzić inne atrybuty dla wewnętrznej naprawy i
+inne dla zewnętrznej</li>
+<li>można to zrobić w drugą stronę - wprowadzić nadtyp z drugiej storny
+- i firma zewnętrzna i wewnętrzny zespół są podtypami serwisu</li>
+</ul></li>
+<li>Łuki zawsze można zamienić na podtypy ale nie w drugą stronę
+<ul>
+<li>ze względu na atrybuty podtypów</li>
+</ul></li>
+<li>Wprowadzenie nadtypu zawsze redukuje liczbę związków w modelu
+<ul>
+<li>może uprościć model</li>
+</ul></li>
+</ul>
+<h3 id="przykład---baza-teleadresowa">Przykład - baza teleadresowa</h3>
+<ul>
+<li>Związek jednoznaczny opcjonalny podtypu ze swoim nadtypem
+<ul>
+<li>często przydatne</li>
+<li>modeluje jakąś drzewaiastą hierarchię</li>
+<li>kompozyt</li>
+</ul></li>
+<li>Jeśli wykryliśmy że podział na podtypy jest zmienny to modelowanie
+za pomocą podtypów może być niewłaściwe</li>
+<li>Encja słownikowa
+<ul>
+<li>duża elastyczność kosztem mniejszej precyzji</li>
+<li>informacja i rodzaj informacji</li>
+<li>można dodać nowe rodzaje przez wpis do określonej tabeli</li>
+</ul></li>
+</ul>
+<h2 id="metamodel">Metamodel</h2>
+<h3 id="dane-słownikowe">Dane słownikowe</h3>
+<ul>
+<li>Dotyczące świata zewnętrznego
+<ul>
+<li>podział administracyjny</li>
+<li>modele, marki samochodów, sprzętu</li>
+<li>duże zbiory pozyskiwane ze źródeł zewnętrznych</li>
+</ul></li>
+<li>Dane wewnętrzne konfiguracyjne, parametry
+<ul>
+<li>typy dokumentów, nazwy pól</li>
+<li>struktura organizacyjna</li>
+<li>parametry systemu / aplikacji</li>
+<li>wprowadzane przez administratorów systemu</li>
+</ul></li>
+<li>Encje słownikowe mogą tworzyć własną hierarchiczną strukturę</li>
+<li>Najczęściej ten zewnętrzny model powiela się we własnym modelu</li>
+</ul>
+<h3 id="metamodel-1">Metamodel</h3>
+<ul>
+<li>Jest rozwinięciem idei encji słownikowych</li>
+<li>Często jest bardziej złożony od modelu danych operacyjnych</li>
+<li>Pozwala na kontrolę poprawności danych operacyjnych</li>
+<li>Ułatwia, organizuje konstrukcję aplikacji</li>
+<li>Pozwala na zbudowanie mechanizmów interpretacji danych
+operacyjnych</li>
+<li>Nadmiarowe związki mogą wprowadzić niespójność danych</li>
+<li>Metamodel często może być dużo bardziej rozbudowany niż model danych
+operacyjnych</li>
+<li>Metamodel odzwierciedla wiedzę o tym jak wygląda świat
+rzeczywisty</li>
+<li>Do metamodelu można dodać narzędzia do interpretacji wyników
+<ul>
+<li>np. jako dodatkowa powiązana encja</li>
+<li>wiedza też może być reprezentowana w metamodelu</li>
+</ul></li>
+</ul>
+<h3 id="model-wielowymiarowy-gwiazda">Model wielowymiarowy
+(gwiazda)</h3>
+<p><img src="./obrazy/model-wielowymiarowy.png" /></p>
+<ul>
+<li>Stosowany w hurtowniach danych, bazach analitycznych</li>
+<li>Po środku encja operacyjna reprezentująca fakt z określonymi
+miarami</li>
+<li>Dookoła tabele wymiarów
+<ul>
+<li>fakt można interpretować jako punkt w wielowymiarowej
+przestrzeni</li>
+</ul></li>
+</ul>
+<h2 id="szablony-analityczne">Szablony analityczne</h2>
+<p>Wzorce projektowe dla projektowania baz danych, nie trzeba wymyślać
+koła na nowo</p>
+<h3 id="obiekt-złożony---kompozyt">Obiekt złożony - kompozyt</h3>
+<p>Modeluje hierarchiczną strukturę</p>
+<p><img src="./obrazy/kompozyt.png" /></p>
+<h3 id="złożona-identyfikacja">Złożona identyfikacja</h3>
+<p><img src="./obrazy/zlozona-identyfikacja.png" /></p>
+<ul>
+<li>Kiedy obiekt może być identyfikowany na wiele sposobów</li>
+<li>Nr dowodu / pesel / nr paszportu</li>
+<li>Obiekt, identyfikator i schemat identyfikacji</li>
+</ul>
+<h3 id="substytucja-obiektów">Substytucja obiektów</h3>
+<p><img src="./obrazy/substytucja.png" /></p>
+<ul>
+<li>Obiekt aktywny i archiwalny jako 2 podtypy</li>
+<li>Pozwala przechowywać historię obiektu</li>
+</ul>
+<h3 id="wersjonowanie">Wersjonowanie</h3>
+<p><img src="./obrazy/wersjonowanie.png" /></p>
+<p>Rozwbudowanie substytucji</p>
+<h3 id="istota-obiektu-a-dane">Istota obiektu a dane</h3>
+<p><img src="./obrazy/istota-a-dane.png" /></p>
+<ul>
+<li>Związek odwróconej hierarchii</li>
+<li>Np. osoba i wiele tożsamości</li>
+<li>Unikalny identyfikator osoby nie niesie żadnej informacji o świecie
+rzeczywistym</li>
+<li>Nie trzeba w ogóle tworzyć tabeli dla osoby</li>
+<li>Przykład, kiedy z encji nie powstaje tabela</li>
+</ul>
+<h3 id="klasyfikacja">Klasyfikacja</h3>
+<p><img src="./obrazy/klasyfikacja.png" /></p>
+<p>Obiekt, klasa, system klasyfikacji</p>
+<h3 id="grupowanie-równoważność">Grupowanie / równoważność</h3>
+<p><img src="./obrazy/grupowanie-rownowaznosc.png" /></p>
+<ul>
+<li>Obiekt, grupa, podmiot</li>
+<li>Kiedy jeden podmiot interesuje inny podział obiektów na grupy niż
+pozostałe podmioty</li>
+</ul>
+<h3 id="dynamiczne-podtypy">Dynamiczne podtypy</h3>
+<p><img src="./obrazy/dynamiczne-podtypy.png" /></p>
+<ul>
+<li>Obiekt, podtyp, atrybut podtypu, atrybut</li>
+<li>Metamodel, encje słownikowe</li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Pierwszy model jest tylko szkicem</li>
+<li>Nie istnieje jedynie poprawny model</li>
+<li>Podstawowa zasada - modyfikowanie i ulepszanie</li>
+<li>Podstawowe problemy już zostały rozwiązane - korzystamy z
+szablonów</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#model-pojęciowy">Model pojęciowy</a>
+<ul>
+<li><a href="#związki">Związki</a>
+<ul>
+<li><a href="#związek-jednoznaczny-opcjonalny-obligatoryjny">Związek
+jednoznaczny opcjonalny-obligatoryjny</a></li>
+<li><a href="#encja-podstawowa">Encja podstawowa</a></li>
+<li><a href="#encja-zależna">Encja zależna</a></li>
+<li><a href="#związek-jednoznaczny-opcjonalny-opcjonalny">Związek
+jednoznaczny opcjonalny-opcjonalny</a></li>
+<li><a href="#związek-jednoznaczny-obligatoryjny-obligatoryjny">Związek
+jednoznaczny obligatoryjny-obligatoryjny</a></li>
+<li><a href="#związek-jednoznaczny-obligatoryjny-opcjonalny">Związek
+jednoznaczny obligatoryjny-opcjonalny</a></li>
+<li><a href="#związek-jednojednoznaczny-opcjonalny-obligatoryjny">Związek
+jednojednoznaczny opcjonalny-obligatoryjny</a></li>
+<li><a href="#związek-jednojednoznaczny-opcjonalny-opcjonalny">Związek
+jednojednoznaczny opcjonalny-opcjonalny</a></li>
+<li><a href="#związek-jednojednoznaczny-obligatoryjny-obligatoryjny">Związek
+jednojednoznaczny obligatoryjny-obligatoryjny</a></li>
+<li><a href="#związki-wieloznaczne">Związki wieloznaczne</a></li>
+<li><a href="#związki-rekurencyjne-jednoznaczne">Związki rekurencyjne
+jednoznaczne</a></li>
+<li><a href="#związki-rekurencyjne-jednojednoznaczne">Związki
+rekurencyjne jednojednoznaczne</a></li>
+<li><a href="#związek-identyfikujący">Związek identyfikujący</a></li>
+<li><a href="#encja-słaba">Encja słaba</a></li>
+</ul></li>
+<li><a href="#podtypy">Podtypy</a>
+<ul>
+<li><a href="#wskazania-do-wyróżnienia-podtypów">Wskazania do
+wyróżnienia podtypów</a></li>
+<li><a href="#wskazania-do-wyróżniania-nadtypów">Wskazania do
+wyróżniania nadtypów</a></li>
+<li><a href="#podtypy-pełne">Podtypy pełne</a></li>
+<li><a href="#podtypy-rozłączne">Podtypy rozłączne</a></li>
+<li><a href="#drzewo-podtypów">Drzewo podtypów</a></li>
+<li><a href="#podtypy-ortogonalne">Podtypy ortogonalne</a></li>
+<li><a href="#stabilność-podziału-na-podtypy">Stabilność podziału na
+podtypy</a></li>
+<li><a href="#stabilność-przynależności-do-podtypów">Stabilność
+przynależności do podtypów</a></li>
+</ul></li>
+<li><a href="#łuki">Łuki</a>
+<ul>
+<li><a href="#reguły-stosowania-łuków">Reguły stosowania łuków</a></li>
+</ul></li>
+<li><a href="#refaktoryzacja">Refaktoryzacja</a>
+<ul>
+<li><a href="#dekompozycja-związków-wieloznacznych">Dekompozycja
+związków wieloznacznych</a></li>
+<li><a href="#łuki-i-podtypy">Łuki i podtypy</a></li>
+<li><a href="#przykład---baza-teleadresowa">Przykład - baza
+teleadresowa</a></li>
+</ul></li>
+<li><a href="#metamodel">Metamodel</a>
+<ul>
+<li><a href="#dane-słownikowe">Dane słownikowe</a></li>
+<li><a href="#metamodel-1">Metamodel</a></li>
+<li><a href="#model-wielowymiarowy-gwiazda">Model wielowymiarowy
+(gwiazda)</a></li>
+</ul></li>
+<li><a href="#szablony-analityczne">Szablony analityczne</a>
+<ul>
+<li><a href="#obiekt-złożony---kompozyt">Obiekt złożony -
+kompozyt</a></li>
+<li><a href="#złożona-identyfikacja">Złożona identyfikacja</a></li>
+<li><a href="#substytucja-obiektów">Substytucja obiektów</a></li>
+<li><a href="#wersjonowanie">Wersjonowanie</a></li>
+<li><a href="#istota-obiektu-a-dane">Istota obiektu a dane</a></li>
+<li><a href="#klasyfikacja">Klasyfikacja</a></li>
+<li><a href="#grupowanie-równoważność">Grupowanie /
+równoważność</a></li>
+<li><a href="#dynamiczne-podtypy">Dynamiczne podtypy</a></li>
+</ul></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

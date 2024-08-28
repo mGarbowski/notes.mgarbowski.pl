@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-protokol-rip</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-routing.html">Poprzedni: 08-routing.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-ethernet.html">Następny: 10-ethernet.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="protokół-rip">Protokół RIP</h1>
+<p>Routing Information Protocol - najprostszy protokół routingu
+dynamicznego</p>
+<ul>
+<li>Oparty o algorytm Bellmana-Forda</li>
+<li>Distance vector algorithm</li>
+<li>Wpisy w tabeli mają ustalony czas życia</li>
+</ul>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Router co określony czas rozgłasza swoją tabele routingu do
+sąsiednich routerów</li>
+<li>Routery nasłuchują na rozgłoszenia i zapisują zawartość
+<ul>
+<li>zwiększają metrykę o 1</li>
+<li>nie zapisują ścieżek, którę są gorsze od już zapisanych</li>
+</ul></li>
+</ul>
+<h3 id="nagłówek">Nagłówek</h3>
+<ul>
+<li>command</li>
+<li>version</li>
+<li>address family</li>
+<li>IP address</li>
+<li>metric - liczba skoków (distance vector)</li>
+</ul>
+<p>Nie zawiera maski sieci - tylko routing klasowy</p>
+<h3 id="zliczanie-do-nieskończoności">Zliczanie do nieskończoności</h3>
+<p>Przy usunięciu wpisu w tabeli pojawia się problem z zapętleniem</p>
+<ul>
+<li>router usuwa wpis w swojej tabeli</li>
+<li>dostaje błędny wiersz od sąsiedniego routera (odpowiednik tego
+usuniętego ale ze zwiększoną metryką)</li>
+<li>router zapisuje błędny wiersz i zwiększa metrykę</li>
+<li>po upłynięciu czasu życia wpisu proces się powtarza</li>
+</ul>
+<p>Ustala się maksymalną metrykę jako 16, po osiągnięciu 16 wpis jest
+usuwany - to dalej zajmuje dużo czasu</p>
+<h3 id="split-horizon">Split horizon</h3>
+<p>Router nie odsyła w dany kierunek (przez interfejs) tych wierszy,
+które otrzymał z tamtego kierunku (interfejsu).</p>
+<p>Eliminuje problem z zapętleniem się wpisu po usunięciu i zliczania do
+nieskończoności (chyba że w sieci są cykle)</p>
+<h3 id="poisoned-reverse">Poisoned reverse</h3>
+<p>Przy usunięciu wpisu w tabeli, router rozgłasza ten sam wpis ale z
+metryką ustwaioną na 16 (maksymalną) - propaguje usunięcie informacji o
+ścieżce do pozostałych routerów</p>
+<h3 id="triggered-updates">Triggered updates</h3>
+<p>W przypadku zmian w tabeli routingu, tabela jest rozgłaszana
+natychmiast, poza normalną kolejnością - zliczanie do nieskończoności
+zajmuje maksymalnie kilka sekund, w połączeniu z poprawkami (split
+horizon, poisoned reverse) - jeszcze szybciej</p>
+<h2 id="rip-v.2">RIP v.2</h2>
+<p>Wspiera routing bezklasowy (zawiera maski) i uwierzytelnianie</p>
+<h3 id="nagłówek-1">Nagłówek</h3>
+<ul>
+<li>command</li>
+<li>version</li>
+<li>address family</li>
+<li>route tag - identyfikator routera, nadawca rozpoznaje kiedy
+informacje do niego wracają</li>
+<li>IP address</li>
+<li>subnet mask - routing bezklasowy</li>
+<li>next hop - przydatne w sieci dostawcy internetu</li>
+<li>metric</li>
+</ul>
+<h2 id="problem-z-metryką">Problem z metryką</h2>
+<p>Liczba routerów w ścieżce nie określa w wymierny sposób czasu
+potrzebnego do przejścia śieżki ze względu na różnice w fizycznych
+łączach (modem vs gigabit ethernet) - czym innym jest najkrótsza i
+najszybsza droga. Patrząc tylko na metrykę, router może wybierać
+ścieżki, które mają mniej skoków ale te skoki są wolniejsze</p>
+<h2 id="koszt">Koszt</h2>
+<ul>
+<li>Liczba odwrotnie proporcjonalna do szybkości łącza</li>
+<li>Koszt ścieżki - suma kosztów poszczególnych odcinków</li>
+<li>Lepszy od metryki - bezpośrednio przekłada się na czas</li>
+</ul>
+<h2 id="równoważenie-obciążeń">Równoważenie obciążeń</h2>
+<p>Kiedy istnieje wiele jednakowo dobrych tras, router wybiera ścieżkę
+związaną z interfejsem o najmniejszym obciążeniu, pozwala na zwiększenie
+przepustowości</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#protokół-rip">Protokół RIP</a>
+<ul>
+<li><a href="#działanie">Działanie</a></li>
+<li><a href="#nagłówek">Nagłówek</a></li>
+<li><a href="#zliczanie-do-nieskończoności">Zliczanie do
+nieskończoności</a></li>
+<li><a href="#split-horizon">Split horizon</a></li>
+<li><a href="#poisoned-reverse">Poisoned reverse</a></li>
+<li><a href="#triggered-updates">Triggered updates</a></li>
+<li><a href="#rip-v.2">RIP v.2</a>
+<ul>
+<li><a href="#nagłówek-1">Nagłówek</a></li>
+</ul></li>
+<li><a href="#problem-z-metryką">Problem z metryką</a></li>
+<li><a href="#koszt">Koszt</a></li>
+<li><a href="#równoważenie-obciążeń">Równoważenie obciążeń</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

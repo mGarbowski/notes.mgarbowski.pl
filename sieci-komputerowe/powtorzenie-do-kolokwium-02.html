@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>powtorzenie-do-kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="powtorzenie-do-kolokwium-01.html">Poprzedni: powtorzenie-do-kolokwium-01.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="powtórzenie-do-kolokwium-02">Powtórzenie do kolokwium 02</h1>
+<h2 id="vlan">VLAN</h2>
+<p>Wydzielone fragmenty sieci fizycznej zachowujące się jak zwykła
+podsieć</p>
+<h3 id="standard-801.q">Standard 801.Q</h3>
+<p>Definiuje sposób znakowania ramek umożliwiający przekazanie
+informacji o numerze wirtualnej sieci lokalnej (vlan id), w której
+została wysłana ramka</p>
+<h2 id="urządzenia-do-łączenia-sieci">Urządzenia do łączenia sieci</h2>
+<h3 id="bridge-switch">Bridge / Switch</h3>
+<ul>
+<li>Podejmuje decyzję o dalszym losie pakietu na podstawie docelowego
+adresu MAC</li>
+<li>Buduje tablicę sterującą na podstawie adresu MAC nadawcy</li>
+</ul>
+<h3 id="router">Router</h3>
+<ul>
+<li>Podejmuje decyzję którędy kierować pakiet na podstawie adresu IP
+odbiorcy</li>
+</ul>
+<h3 id="które-wymagają-konfiguracji">Które wymagają konfiguracji</h3>
+<ul>
+<li>Router</li>
+<li>Bridge - do VLANów</li>
+<li>Switch - to zależy</li>
+</ul>
+<h3 id="łączenie-sieci-token-ring-i-ethernet">Łączenie sieci Token Ring
+i Ethernet</h3>
+<p>Bridge</p>
+<h2 id="porty-uprzywilejowane">Porty uprzywilejowane</h2>
+<ul>
+<li>Numery do 1024</li>
+<li>Może być przydzielony tylko programowi działającemu z uprawnieniami
+administratora</li>
+<li>Well known services</li>
+</ul>
+<h2 id="dns">DNS</h2>
+<h3 id="reverse-dns">Reverse DNS</h3>
+<ul>
+<li>Odpowiada na pytanie jaką nazwą domenową posługuje się host o danym
+adresie IP</li>
+<li>Dla IPv4
+<ul>
+<li>1.2.3.4 -&gt; 4.3.2.1.in-addr.arpa</li>
+</ul></li>
+<li>Dla IPv6
+<ul>
+<li>1080::8:800:200C:417A -&gt;
+A.7.1.4.C.0.0.2.0.0.8.0.8.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.0.1.IP6.ARPA</li>
+<li>Pierwsze dwa człony odpowiadają dwu ostatnim cyfrom heksadecymalnym
+adresu IPv6</li>
+</ul></li>
+</ul>
+<h3 id="resolver">Resolver</h3>
+<p>Biblioteka procedur służących do komunikacji z serwerem DNS</p>
+<h3 id="klasy-rekordów">Klasy rekordów</h3>
+<ul>
+<li>SOA</li>
+<li>NS</li>
+<li>A</li>
+<li>AAAA</li>
+<li>PTR</li>
+<li>CNAME</li>
+<li>MX</li>
+<li>TXT</li>
+<li>SRV</li>
+<li>DNSKEY</li>
+<li>RRSIG</li>
+<li>HINFO</li>
+<li>WKS</li>
+</ul>
+<h3 id="typy-serwerów">Typy serwerów</h3>
+<ul>
+<li>Root - szczyt hierarchii</li>
+<li>Primary (master)</li>
+<li>Secondary (slave)</li>
+<li>Caching-only</li>
+<li>Forawrding</li>
+</ul>
+<h3 id="budowa-rekordu">Budowa rekordu</h3>
+<ul>
+<li>nazwa</li>
+<li>czas życia</li>
+<li>klasa</li>
+<li>typ</li>
+<li>wartość</li>
+</ul>
+<h3 id="odpowiedź-autorytatywna">Odpowiedź autorytatywna</h3>
+<p>Odpowiedź od serwera obsługującego daną domenę (primary albo
+secondary)</p>
+<h3 id="rekord-soa">Rekord SOA</h3>
+<ul>
+<li>Serial - numer sekwencyjny</li>
+<li>Refresh - co ile sekund należy sprawdzać aktualność danych</li>
+<li>Retry - co ile sekund ponawiać nieudaną próbę</li>
+<li>Expire - po ilu sekundach uznać dane za nieaktualne</li>
+<li>Minimum - minimalny czas przechowywania</li>
+<li>MNAME - nazwa domenowa głównego serwera DNS</li>
+<li>RNAME - email administratora</li>
+<li>TTL (własne)</li>
+</ul>
+<h2 id="metody-dostępu-do-medium">Metody dostępu do medium</h2>
+<h3 id="przekazywanie-znacznika">Przekazywanie znacznika</h3>
+<ul>
+<li>Token ring</li>
+<li>Arcnet</li>
+<li>FDDI</li>
+<li>CDDI</li>
+<li>IEEE 802.5</li>
+</ul>
+<h3 id="csmacd">CSMA/CD</h3>
+<ul>
+<li>Ethernet</li>
+<li>IEEE 802.3</li>
+</ul>
+<h3 id="csmaca">CSMA/CA</h3>
+<ul>
+<li>AppleTalk</li>
+<li>WiFi</li>
+</ul>
+<h2 id="model-isoosi">Model ISO/OSI</h2>
+<ul>
+<li>Buforowanie i potwierdzanie transmisji TCP - wartwa transportowa
+(4)</li>
+<li>Kierowanie ruchem pakietów - warstwa sieciowa (3)</li>
+<li>Urządzenia typu switch - warstwa łącza (2)</li>
+</ul>
+<h2 id="szybkości-transmisji">Szybkości transmisji</h2>
+<h3 id="ethernet">Ethernet</h3>
+<ul>
+<li>10 Mb/s</li>
+<li>100 Mb/s</li>
+<li>1 Gb/s</li>
+<li>10 Gb/s</li>
+<li>25 Gb/s</li>
+<li>40 Gb/s</li>
+<li>100 Gb/s</li>
+</ul>
+<h2 id="udp">UDP</h2>
+<h3 id="nagłówek">Nagłówek</h3>
+<ul>
+<li>port nadawcy</li>
+<li>port odbiorcy</li>
+<li>długość</li>
+<li>suma kontrolna</li>
+</ul>
+<h2 id="tcp">TCP</h2>
+<h3 id="seq-sequence">SEQ (sequence)</h3>
+<p>Numer pierwszego bajtu w pakiecie</p>
+<h2 id="ipv6">IPv6</h2>
+<h3 id="autokonfiguracja-bezstanowa">Autokonfiguracja bezstanowa</h3>
+<ul>
+<li>Utworzenie adresu lokalnego (link-local)</li>
+<li>Sprawdzenie unikalności adresu lokalnego</li>
+</ul>
+<h3 id="fragmentacja">Fragmentacja</h3>
+<ul>
+<li>Podział pakiet na mniejsze części</li>
+<li>Informacje w oddzielnym nagłówku</li>
+</ul>
+<h3 id="nagłówek-1">Nagłówek</h3>
+<ul>
+<li>numer wersji (6)</li>
+<li>priorytet</li>
+<li>flow label
+<ul>
+<li>parametry jakościowe (spełnia funkcję ‘type of service’)</li>
+<li>parametry bezpieczeństwa</li>
+</ul></li>
+<li>payload length
+<ul>
+<li>maksymalnie 4GB</li>
+<li>długość danych</li>
+<li>całkowita długość pakietu może się zmieniać w trakcie
+transmisji</li>
+</ul></li>
+<li>next header - typ następnego nagłówka (TCP / UDP / opcjonalny
+IPv6)</li>
+<li>hop limit - odpowiednik TTL</li>
+<li>(128b) source address</li>
+<li>(128b) destination address</li>
+<li>opcjonalne nagłówki pomocnicze
+<ul>
+<li>określony przez pole next header wcześniej</li>
+<li>routing</li>
+<li>fragmentacja</li>
+<li>bezpieczeństwo (IPsec)</li>
+</ul></li>
+</ul>
+<h3 id="budowa-adresu-aggregatable-global-unicast-address">Budowa adresu
+Aggregatable Global Unicast Address</h3>
+<ul>
+<li>prefiks</li>
+<li>TLA - top level aggregation</li>
+<li>pole zarezerwowane</li>
+<li>NLA - next level aggregation</li>
+<li>SLA - site level aggregation - numer podsieci</li>
+<li>Interface ID</li>
+</ul>
+<h2 id="vpn">VPN</h2>
+<p>Służy do tworzenia bezpiecznych (szyfrowanych) kanałów
+komunikacyjnych w sieciach publicznych</p>
+<h3 id="l2tp">L2TP</h3>
+<ul>
+<li>Layer 2 Tunneling Protocol</li>
+<li>Może być przesyłany w
+<ul>
+<li>ramkach Frame Relay</li>
+<li>pakietach UDP</li>
+<li>ramkach ATM</li>
+</ul></li>
+</ul>
+<h3 id="ppp">PPP</h3>
+<ul>
+<li>Nie nadaje się do połączeń SSH
+<ul>
+<li>enkapsulacja TCP w TCP</li>
+<li>z punktu widzenia zagnieżdżonego nagłówka wszystkie pakiety
+przechodzą i ustawia duże okno</li>
+<li>problemy przy zatorze w sieci</li>
+</ul></li>
+</ul>
+<h3 id="pptp">PPTP</h3>
+<ul>
+<li>Połączenie protokołów
+<ul>
+<li>PPP</li>
+<li>CHAP</li>
+<li>RC4</li>
+<li>GRE</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#powtórzenie-do-kolokwium-02">Powtórzenie do kolokwium
+02</a>
+<ul>
+<li><a href="#vlan">VLAN</a>
+<ul>
+<li><a href="#standard-801.q">Standard 801.Q</a></li>
+</ul></li>
+<li><a href="#urządzenia-do-łączenia-sieci">Urządzenia do łączenia
+sieci</a>
+<ul>
+<li><a href="#bridge-switch">Bridge / Switch</a></li>
+<li><a href="#router">Router</a></li>
+<li><a href="#które-wymagają-konfiguracji">Które wymagają
+konfiguracji</a></li>
+<li><a href="#łączenie-sieci-token-ring-i-ethernet">Łączenie sieci Token
+Ring i Ethernet</a></li>
+</ul></li>
+<li><a href="#porty-uprzywilejowane">Porty uprzywilejowane</a></li>
+<li><a href="#dns">DNS</a>
+<ul>
+<li><a href="#reverse-dns">Reverse DNS</a></li>
+<li><a href="#resolver">Resolver</a></li>
+<li><a href="#klasy-rekordów">Klasy rekordów</a></li>
+<li><a href="#typy-serwerów">Typy serwerów</a></li>
+<li><a href="#budowa-rekordu">Budowa rekordu</a></li>
+<li><a href="#odpowiedź-autorytatywna">Odpowiedź autorytatywna</a></li>
+<li><a href="#rekord-soa">Rekord SOA</a></li>
+</ul></li>
+<li><a href="#metody-dostępu-do-medium">Metody dostępu do medium</a>
+<ul>
+<li><a href="#przekazywanie-znacznika">Przekazywanie znacznika</a></li>
+<li><a href="#csmacd">CSMA/CD</a></li>
+<li><a href="#csmaca">CSMA/CA</a></li>
+</ul></li>
+<li><a href="#model-isoosi">Model ISO/OSI</a></li>
+<li><a href="#szybkości-transmisji">Szybkości transmisji</a>
+<ul>
+<li><a href="#ethernet">Ethernet</a></li>
+</ul></li>
+<li><a href="#udp">UDP</a>
+<ul>
+<li><a href="#nagłówek">Nagłówek</a></li>
+</ul></li>
+<li><a href="#tcp">TCP</a>
+<ul>
+<li><a href="#seq-sequence">SEQ (sequence)</a></li>
+</ul></li>
+<li><a href="#ipv6">IPv6</a>
+<ul>
+<li><a href="#autokonfiguracja-bezstanowa">Autokonfiguracja
+bezstanowa</a></li>
+<li><a href="#fragmentacja">Fragmentacja</a></li>
+<li><a href="#nagłówek-1">Nagłówek</a></li>
+<li><a href="#budowa-adresu-aggregatable-global-unicast-address">Budowa
+adresu Aggregatable Global Unicast Address</a></li>
+</ul></li>
+<li><a href="#vpn">VPN</a>
+<ul>
+<li><a href="#l2tp">L2TP</a></li>
+<li><a href="#ppp">PPP</a></li>
+<li><a href="#pptp">PPTP</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

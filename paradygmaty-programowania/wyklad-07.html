@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Paradygmaty programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-07-2023-11-14">Wykład 07 (2023-11-14)</h1>
+<h2 id="kolokwium">Kolokwium</h2>
+<ul>
+<li>Przesunięty o tydzień? Będzie informacja na teamsach</li>
+<li>20 pytań testowych</li>
+<li>może 1 linijka kodu do napisania</li>
+<li>“jakiego typu jest to wyrażenie/funkcja” itp</li>
+<li>“jaka jest wartość wyrażenia w haskellu”</li>
+<li>teoretyczne pytania też</li>
+<li>nie trzeba pamiętać definicji funkcji z std</li>
+</ul>
+<h2 id="leniwe-wartościowanie">Leniwe wartościowanie</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ones <span class="ot">=</span> <span class="dv">1</span> <span class="op">:</span> ones</span></code></pre></div>
+<p>Dzięki leniwemu wartościowaniu możemy używać nieskończonych listy
+(np. pobrać głowę listy, zrobić zip ze skończoną listą itd)</p>
+<p>Wyrażenie będzie redukowane tylko do takiego stopnia ile potrzeba
+żeby dostać wynik</p>
+<h2 id="ścisłe-wartościowanie-w-haskellu">Ścisłe wartościowanie w
+Haskellu</h2>
+<p>operator <code>$!</code> pozwala wymusić ścisłe (nie leniwe)
+wartościowanie</p>
+<h1 id="podstawy-smalltalka">Podstawy Smalltalka</h1>
+<p>Najstarszy język obiektowy, rok 1980</p>
+<p>Program jest zbiorem komunikujących się ze sobą obiektów</p>
+<h2 id="obiekt">Obiekt</h2>
+<p>Operacje które może wykonać + dane</p>
+<p>Hermetyzacja (enkapsulacja) - wnętrze obiektu nie jest widoczne na
+zewnątrz Wszystkie dane są prywatne, dostęp jest możliwy tylko przez
+operacje</p>
+<p>Model pączka z nadzieneim</p>
+<p>Wszystko jest obiektem (liczby, komunikaty, klasy)</p>
+<h2 id="komunikat">Komunikat</h2>
+<p>Wysłana do obiektu prośba o wykonanie operacji Operacja zawsze zwraca
+obiekt (może być pusty)</p>
+<p>Składnia</p>
+<pre class="smalltalk"><code>anAccount withdraw: 50</code></pre>
+<p>obiekt, komunikat (słowa kluczowe z argumentami)</p>
+<p>Operatory arytmetyczne też są komunikatami, wykonywane od lewej do
+prawej</p>
+<h2 id="klasa">Klasa</h2>
+<p>Fabryka produkująca obiekty</p>
+<p>Do wyprodukowania obiektu służy komunikat <code>new</code></p>
+<h2 id="dziedziczenie">Dziedziczenie</h2>
+<p>Obiekty klasy dziedziczącej są szczególnym rodzajem klasy bazowej</p>
+<p>Analogia do taksonomii - wszystko co wiem o owadach jest prawdą dla
+motyli</p>
+<p>podklasy dziedziczą operacje z nadklasy, mogą mieć ich własne wersje
+(przeciążenei) lub dodawać nowe</p>
+<h2 id="terminologia">Terminologia</h2>
+<ul>
+<li>Obiekty = instancje</li>
+<li>Zmienne są wskaźnikami na obiekty</li>
+<li>Metody = operacje</li>
+<li>selektor - sama nazwa metody/operacji</li>
+</ul>
+<h2 id="podstawowe-obiekty">Podstawowe obiekty</h2>
+<ul>
+<li>Integer (SmallInteger)</li>
+<li>Float</li>
+<li>Character - <code>$b</code></li>
+<li>Boolean</li>
+<li>String - <code>'Smalltalk'</code></li>
+<li>Symbol - <code>#Smalltalk</code>
+<ul>
+<li>podklasa String</li>
+<li>niepusty napis</li>
+<li>tylko 1 o danej wartości (singleton)</li>
+</ul></li>
+<li>Array - <code>#(5 'Smalltalk' 7)</code>
+<ul>
+<li>indeksowane od 1</li>
+</ul></li>
+</ul>
+<h2 id="rodzaje-komunikatów">Rodzaje komunikatów</h2>
+<ul>
+<li>unarne - <code>'Hello' reverse</code></li>
+<li>binarne - operatory arytmetyczne, itp
+<code>'Hello', 'World'</code></li>
+<li>słowa kluczowe - <code>12 between: 7 and: 9</code></li>
+</ul>
+<p>Dynamicznie typowany</p>
+<p>wywołanie nieistniejącej metody zwraca <code>Nil</code>, nie ma
+błędu</p>
+<p>self i super wskazują na ten sam obiekt, super zaczyna szukać
+implementacji metody od nadklasy</p>
+<h2 id="blok">Blok</h2>
+<p>Fragment kodu bez nazwy (podobne do lambdy)</p>
+<p><code>[Transcript show: 'Hello']</code></p>
+<pre><code>|myBlock|
+myBlock := [Transcript show: &#39;Hello&#39;]
+myBlock value</code></pre>
+<p>Ostatnia linijka wykona blok</p>
+<h2 id="instrukcje-warunkowe-i-pętle">Instrukcje warunkowe i pętle</h2>
+<p>Nie istnieją, są realizowane jako metody obiektów z metodami
+przyjmującymi bloki kodu</p>
+<p>instrukcja warunkowa</p>
+<pre><code>12 &lt; 17
+    ifTrue: [blok kodu]
+    ifFalse: [blok kodu]</code></pre>
+<p>Pętla while</p>
+<pre><code>|k count|
+k := 0.
+count := 6.
+[count &gt; 0]
+    whileTrue: [k := k + 1.
+                count := count -1].</code></pre>
+<h2 id="kaskada-komunikatów">Kaskada komunikatów</h2>
+<pre><code>object msg1.
+object msg2.
+object msg3.
+
+object msg1; msg2; msg3.</code></pre>
+<p>Ma wbudowany garbage collector</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-07-2023-11-14">Wykład 07 (2023-11-14)</a>
+<ul>
+<li><a href="#kolokwium">Kolokwium</a></li>
+<li><a href="#leniwe-wartościowanie">Leniwe wartościowanie</a></li>
+<li><a href="#ścisłe-wartościowanie-w-haskellu">Ścisłe wartościowanie w
+Haskellu</a></li>
+</ul></li>
+<li><a href="#podstawy-smalltalka">Podstawy Smalltalka</a>
+<ul>
+<li><a href="#obiekt">Obiekt</a></li>
+<li><a href="#komunikat">Komunikat</a></li>
+<li><a href="#klasa">Klasa</a></li>
+<li><a href="#dziedziczenie">Dziedziczenie</a></li>
+<li><a href="#terminologia">Terminologia</a></li>
+<li><a href="#podstawowe-obiekty">Podstawowe obiekty</a></li>
+<li><a href="#rodzaje-komunikatów">Rodzaje komunikatów</a></li>
+<li><a href="#blok">Blok</a></li>
+<li><a href="#instrukcje-warunkowe-i-pętle">Instrukcje warunkowe i
+pętle</a></li>
+<li><a href="#kaskada-komunikatów">Kaskada komunikatów</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

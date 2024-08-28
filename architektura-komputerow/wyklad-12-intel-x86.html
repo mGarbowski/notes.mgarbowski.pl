@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-12-intel-x86</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-11-intel-x86.html">Poprzedni: wyklad-11-intel-x86.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-13-komputer-jednocyklowy.html">Następny: wyklad-13-komputer-jednocyklowy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-12-2023-04-03">Wykład 12 (2023-04-03)</h1>
+<h2 id="mnożenie-i-dzielenie-przez-potęgi-2">Mnożenie i dzielenie przez
+potęgi 2</h2>
+<ul>
+<li>mnożenie przez 2^n - przesunięcie w lewo o n</li>
+<li>dzielenie przez 2^n - przesunięcie w prawo o n</li>
+<li>reszta z dzielenia - …</li>
+</ul>
+<h2 id="procedury">Procedury</h2>
+<p>Wywołanie jest kosztowne czasowo</p>
+<p>Nie używa się gdy * wywołanie jest tylko w jednym miejscu * ciało
+wykonuje się w zbliżonym czasie do narzutu związanego z wywołaniem *
+zamiast procedur można używać makrogeneracji żeby unikać powtarzania
+instrukcji</p>
+<p>Inaczej pisze się procedurę, która ma być wołana z C i która będzie
+wołana tylko przez inne procedury assemblerowe. Funkcja, która nie jest
+publicznie dostępna nie musi przestrzegać konwencji wołania C</p>
+<h2 id="pisanie-pętli">Pisanie pętli</h2>
+<p>Pętla powinna kończyć się skokiem warunkowym zamykającym pętle -
+wtedy pętla musi się wykonać minimu jeden raz (można zrobić skok
+bezwarunkowy do warunku końcowego tylko raz przed pętlą)</p>
+<p>Bardziej ekonomicznie jest zrobić tylko skok warunkowy na końcu niż
+warunkowy na początku i bezwarunkowy na końcu</p>
+<p>Pętle o znanej liczbie iteracji można zrealizować odliczając w dół i
+kończąc pętle dekrementacją licznika i skokiem do początku jeśli nie
+zero</p>
+<p>Niektóre można zrealizować używając instrukcji iterowanych</p>
+<h2 id="korzystanie-ze-znaczników">Korzystanie ze znaczników</h2>
+<p>Wszystkie operacje arytmetyczne i logiczne ustawiają znaczniki - nie
+trzeba jawnie wykonywać porównania</p>
+<p>Instrukcje argumentowe ustawiają znaczniki nietypowo</p>
+<h2 id="skoki">Skoki</h2>
+<p>Skoki są bardzo kosztowne, rzędu kilkudziesięciu innych
+instrukcji</p>
+<p>Procesory mają układy przewidywania skoków, im mniej skoków tym
+wydajniej działają</p>
+<p>Skoki zależne od wartości danych są ciężkie do przewidywania</p>
+<p>Czasami skok można zastąpić operacją kopiowania warunkowego</p>
+<h2 id="optymalizacja-wywołań-procedur">Optymalizacja wywołań
+procedur</h2>
+<h3 id="funkcja-kończąca-się-wywołaniem-innej-funkcji">Funkcja kończąca
+się wywołaniem innej funkcji</h3>
+<p>Zamiast kończyć funkcji instrukcjami</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">call</span> proc2</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">ret</span></span></code></pre></div>
+<p>Wtedy trzeba 2 razy zdejmować ślad ze stosu</p>
+<p>Lepiej zrobić tylko <code>jmp</code> bez wkładania i usuwania śladu,
+wtedy wołana funkcja zdejmie ze stosu ślad funkcji wołającej który jest
+na czubku sotsu</p>
+<p>Jeśli procedury występują w kodzie jedna po drugiej to może w ogóle
+nie trzeba wołać</p>
+<h2 id="typowe-błędy">Typowe błędy</h2>
+<ul>
+<li>Ponowne ustawienie znaczników po operacji arytmetycznej</li>
+<li>Skoki warunkowe przeskakujące przez skok bezwarunkowy</li>
+<li>Użycie mnożenia i dzielenia kiedy można było użyć przesunięcia
+bitowego albo LEA</li>
+<li>Kodowanie stałych - powinno się pisać tak jak jest najłatwiej do
+przeczytania</li>
+<li>Używanie nic nie znaczących etykiet</li>
+<li>Użwanie zmiennych statycznych do przechowywania danych lub rejestrów
+- do tego jest stos</li>
+<li>W procedurze powinna być tylko jedna instrukcja powrotu - inaczej
+trudno się debugguje</li>
+</ul>
+<h2 id="kolokwium">Kolokwium</h2>
+<ul>
+<li>na komputerach w laboratorium</li>
+<li>zwrócić uwagę na terminy!</li>
+<li>kilkanaście pytań
+<ul>
+<li>głównie wielokrotnego wyboru</li>
+<li>mogą być obliczeniowe
+<ul>
+<li>konwersje binarno-dziesiętne</li>
+<li>zmiennopozycyjne</li>
+<li>precyzja we float</li>
+<li>operacje z nadmiarem</li>
+<li>jak są ustawiane znaczniki</li>
+<li>“jaki jest wynik ośmiobitowego dodawanie liczb ze znakiem”</li>
+</ul></li>
+<li>ramka stosu x86</li>
+<li>układ struktur z wyrównaniem naturalnym, <code>sizeof</code>,
+przemieszczenie pola względem struktury, zawierająca wektory, reguła
+promocji przy przekazywaniu argumentów, przemieszczenie pola kiedy jest
+argumentem funkcji a kiedy zmienną lokalną</li>
+</ul></li>
+<li>są przykładowe pytania</li>
+<li>moodle PW</li>
+<li>będzie test testowy</li>
+<li>będą przykłady na wykładzie po świętach</li>
+<li>prolog i epilog</li>
+<li>rejestry saved i temporary</li>
+</ul>
+<p>Pierwszy argument [ebp+8]</p>
+<p>Zmienne lokalne adresy mniejsze od ebp</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-12-2023-04-03">Wykład 12 (2023-04-03)</a>
+<ul>
+<li><a href="#mnożenie-i-dzielenie-przez-potęgi-2">Mnożenie i dzielenie
+przez potęgi 2</a></li>
+<li><a href="#procedury">Procedury</a></li>
+<li><a href="#pisanie-pętli">Pisanie pętli</a></li>
+<li><a href="#korzystanie-ze-znaczników">Korzystanie ze
+znaczników</a></li>
+<li><a href="#skoki">Skoki</a></li>
+<li><a href="#optymalizacja-wywołań-procedur">Optymalizacja wywołań
+procedur</a>
+<ul>
+<li><a href="#funkcja-kończąca-się-wywołaniem-innej-funkcji">Funkcja
+kończąca się wywołaniem innej funkcji</a></li>
+</ul></li>
+<li><a href="#typowe-błędy">Typowe błędy</a></li>
+<li><a href="#kolokwium">Kolokwium</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

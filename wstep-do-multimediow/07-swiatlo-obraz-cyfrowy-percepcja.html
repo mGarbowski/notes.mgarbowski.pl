@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-swiatlo-obraz-cyfrowy-percepcja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-teoria-informacji.html">Poprzedni: 06-teoria-informacji.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-przetwarzanie-obrazow-cyfrowych.html">Następny: 08-przetwarzanie-obrazow-cyfrowych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="światło-obraz-cyfrowy-percepcja">Światło, obraz cyfrowy,
+percepcja</h1>
+<h2 id="percepcja-świateł">Percepcja świateł</h2>
+<ul>
+<li>Zakres widzialny 380nm-760nm</li>
+<li>Na wrażenie barwy mają wpływ 3 czynniki
+<ul>
+<li>odcień - długość fali</li>
+<li>nasycenie - czystość barwy, stopień zbliżenia do barw widmowych</li>
+<li>jasność</li>
+</ul></li>
+</ul>
+<h3 id="zakres-postrzegania-luminancji">Zakres postrzegania
+luminancji</h3>
+<ul>
+<li>Luminancja bezwzględna <span class="math inline">\([\log
+cd/m^2]\)</span></li>
+<li>Lumeny nie odnoszą się do energii, tylko postrzeganej jasności
+światła</li>
+</ul>
+<p><img src="./obrazy/widzenie.png" /></p>
+<h2 id="postrzeganie-kontrastów">Postrzeganie kontrastów</h2>
+<ul>
+<li>Kontrast - różnica jaskrawości</li>
+<li>To czy zmiana jest dostrzegalna zależy od bazowej jasności</li>
+<li>Logarytmiczne prawo Webera-Fechnera
+<ul>
+<li>przyrost bodźca fizycznego konieczny do wywołania uświadomionej
+zmiany wrażenia <span class="math inline">\(B\)</span> jest
+proporcjonalny do bodźca wywołującego <span
+class="math inline">\(L\)</span></li>
+<li><span class="math inline">\(dB = a \cdot \frac{dL}{L} \implies B = a
+\log L + B_0\)</span></li>
+<li><span class="math inline">\(B\)</span> - zmiana wrażenia</li>
+<li><span class="math inline">\(L\)</span> - jasność</li>
+</ul></li>
+<li>Lepszym przybliżeniem może być potęgowe prawo Stevens’a
+<ul>
+<li><span class="math inline">\(B = m \sqrt[3]{L} - n\)</span></li>
+</ul></li>
+<li>Korekcja gamma naśladuje postrzeganie kontrastów</li>
+<li>Nie na każdym zakresie czułość oka jest jednakowa</li>
+</ul>
+<h3 id="dostrzeganie-różnic-barw">Dostrzeganie różnic barw</h3>
+<ul>
+<li>Próg dostrzegalności zmian nasycenia - max dla barwy
+zielono-żółtej</li>
+<li>Próg dostrzegalności zmian odcienia barwy - minima dla barwy
+niebieskiej, czerwonej i turkusowej</li>
+</ul>
+<h3 id="ostrość-widzenia-świateł">Ostrość widzenia świateł</h3>
+<ul>
+<li>Naturalne ograniczenia</li>
+<li>Dyfrakcja światła związana ze średnicą otworu źrenicy
+<ul>
+<li>Dodają się do siebie fazy tej samej fali</li>
+<li>Dwa obiekty będą rozróżnialne jeśli maksimum jednego przypada na
+minimum drugiego</li>
+</ul></li>
+<li>Rozmiar i odległość sąsiednich receptorów na siatkówce</li>
+<li>Liczba receptorów związanych z jednym neuronem</li>
+<li>Niedokładność układu optycznego oka</li>
+<li>Rozpraszanie światła wewnątrz oka</li>
+</ul>
+<h3 id="ostrość-widzenia-barw-świateł">Ostrość widzenia barw
+świateł</h3>
+<ul>
+<li>Zależy od barwy i jasności</li>
+<li>Oko jest bardziej czułe na zmiany luminancji niż chrominancji</li>
+</ul>
+<h2 id="składowe-trójchromatyczne-rgb">Składowe trójchromatyczne
+RGB</h2>
+<ul>
+<li>Określają w jakich ilościach należy zsumować jednostki
+poszczególnych świateł podstawowych dla uzyskania wrażenia światła
+identycznego z mierzonym F</li>
+<li>Skalowane względem strumienia światła F</li>
+<li>Niosą informację o jaskrawości (cecha ilościowa) i wrażeniu barwy
+(cecha jakościowa)</li>
+<li><span class="math inline">\(\Phi_F = r&#39; \Phi_R + g&#39; \Phi_G +
+b&#39; \Phi_B\)</span>
+<ul>
+<li><span class="math inline">\(\Phi_X\)</span> - światła uzyskane dla
+bieli równoenergetycznej</li>
+</ul></li>
+<li><span class="math inline">\(m = r&#39; + g&#39; + b&#39;\)</span>
+<ul>
+<li><span class="math inline">\(m\)</span> - moduł światła, miara
+wrażenia jaskrawości świateł o tym samym wrażeniu barwy</li>
+</ul></li>
+</ul>
+<h3 id="kolorymetr-trójchromatyczny-addytywny">Kolorymetr
+trójchromatyczny addytywny</h3>
+<ul>
+<li>Obserwator patrzy na trójkąt odbijający z jednej strony światło
+referencyjne a z drugiej jednostkowe światła podstawowe (przeskalowane
+wartościami rgb)</li>
+<li>Dąży się do osiągnięcia tego samego wrażenia barwy i jasności co
+odpowiednie sumowanie świateł kolorów podstawowych</li>
+<li>Nie wszystkie długości da się w taki sposób zsyntetyzować</li>
+<li>Żeby dostać pełen zakres trzeba by odjąć światło
+<ul>
+<li>można to osiągnąć przez dodanie odpowiedniej składowej po drugiej
+stronie(??)</li>
+</ul></li>
+</ul>
+<h3 id="wykres-chromatycznosci">Wykres chromatycznosci</h3>
+<ul>
+<li>Założenie stałej jasności <span class="math inline">\(m = r&#39; +
+g&#39; + b&#39; = 1\)</span></li>
+<li>Możliwe do zsyntezowania przez RGB barwy tylko w trójkącie na
+wykresie</li>
+</ul>
+<p><img src="./obrazy/wykres-chromatycznosci.png" /></p>
+<h3 id="przestrzeń-kolorów-cie-xyz">Przestrzeń kolorów CIE XYZ</h3>
+<ul>
+<li>Pozwala opisać wszystkie kolory widzialne z nadmiarem (więcej niż
+samo światło widzialne i w ogóle fizyczne)</li>
+<li>Rozpina przestrzeń - trójkąt zawierający całą figurę na wykresie
+chromatyczności</li>
+</ul>
+<h3 id="mieszanie-barw">Mieszanie barw</h3>
+<ul>
+<li>Sumowanie składowych w każdej przestrzeni liniowo zależnej</li>
+<li>Jasność jest addytywna</li>
+</ul>
+<h2 id="bezwładność-postrzegania-światła">Bezwładność postrzegania
+światła</h2>
+<ul>
+<li>Częstotliwość zaniku migotania (CFF)
+<ul>
+<li><span class="math inline">\(f = a + b \log L\)</span></li>
+</ul></li>
+<li>Częstotliwość krytyczna - powyżej postrzegamy światło ciągłe
+<ul>
+<li>zależy od jasności</li>
+</ul></li>
+<li>Wrażenie luminancji światła zmiennego w czasie z częstotliwością
+większą od krytycznej jest równe wartości średniej za okres</li>
+<li>Jednoczesne lub kolejne pobudzanie oka z częstotliwością większą od
+krytycznej światłami o różnych barwach dalej wrażenie barwy będącej
+trójchromatyczną syntezą addytywną pobudzających świateł</li>
+</ul>
+<h2 id="ostrość-widzenia-obiektów-ruchomych">Ostrość widzenia obiektów
+ruchomych</h2>
+<ul>
+<li>Im szybszy ruch tym większy rozmiar dostrzegalnych szczegółów</li>
+<li>Większy dla ruchu poziomego niż pionowego</li>
+</ul>
+<h2 id="zjawisko-fotoelektryczne-wewnętrzne">Zjawisko fotoelektryczne
+wewnętrzne</h2>
+<ul>
+<li>Generowanie pary elektron-dziura w półprzewodniku pod wpływem
+absorpcji światła</li>
+<li>Półprzewodnik jest polaryzowany (elektroda dodatnia)
+<ul>
+<li>elektrony po pojawieniu się zmierzają do elektrody dodatniej, a
+dziury do ujemnej</li>
+<li>liczba zgromadzonych elektronów jest proporcjonalna do ilośći
+światła</li>
+<li>elektrony się gromadzą a nie skutkują przepływem prądu - potrzebny
+izolator</li>
+<li>pary w końcu zanikają, trzeba je wyprowadzić zanim zaczną
+rekombinować</li>
+</ul></li>
+</ul>
+<h3 id="przetwornik-ccd">Przetwornik CCD</h3>
+<ul>
+<li>Charge Coupled Device</li>
+<li>Do elektrod przykłada się różne napięcia
+<ul>
+<li>można przemieścić elektrony z jednego miejsca w drugie</li>
+</ul></li>
+<li>Transport międzyramkowy i międzyliniowy
+<ul>
+<li>międzyliniowy nie jest zakłócany światłem padającym na elementy</li>
+</ul></li>
+</ul>
+<h3 id="przetworniki-cmos">Przetworniki CMOS</h3>
+<ul>
+<li>Complementary Metal Oxide Semiconductor</li>
+<li>Unikają transportu ładunków między elementami matrycy</li>
+<li>Wybieranie (adresowanie w macierzy) wiersza i kolumny
+<ul>
+<li>większa dowolność w próbkowaniu</li>
+<li>można uzyskać większą częstotliwość</li>
+</ul></li>
+<li>Łatwe do integrowania z układami tranzystorowymi CMOS</li>
+<li>Mniejsza zużywana moc
+<ul>
+<li>mniejsze pojemności</li>
+</ul></li>
+<li>Elastyczny odczyt</li>
+<li>Mniejsza powierzchnia światłoczuła
+<ul>
+<li>większy wpływ szumów</li>
+</ul></li>
+<li>Większe rozrzuty parametrów</li>
+<li>Element CMOS
+<ul>
+<li>dwa klucze tranzystorowe (Reset, Read)</li>
+<li>ładowanie do ustalonego napięcia</li>
+<li>rozładowanie przez fotony proporcjonalnie do ich ilości</li>
+</ul></li>
+</ul>
+<h3 id="przetworniki">Przetworniki</h3>
+<ul>
+<li>Soczewki mogą kierować światło na elementy światłoczułe
+<ul>
+<li>poprawa sosunku sygnał-szum (SNR)</li>
+</ul></li>
+<li>Przetwornik nie odróżnia barwy, reaguje na energię</li>
+<li>Żeby mieć rozróżnienie stosuje się filtry barwne, które
+przepuszczają tylko określone podpasma</li>
+</ul>
+<p><img src="./obrazy/cmos-ccd.png" /></p>
+<h2 id="wyświetlanie">Wyświetlanie</h2>
+<ul>
+<li>Warunki konieczne żeby dobrze działał
+<ul>
+<li>czystość świecenia (najlepiej jedna długość fali) źródeł</li>
+<li>zgodność kolorymetryczna</li>
+<li>zbieżność geometryczna - zbiegają się w tym samym punkcie
+piksela</li>
+<li>równowaga bieli - kolor biały kiedy wszystki składowe równe 1</li>
+</ul></li>
+</ul>
+<h3 id="bierne">Bierne</h3>
+<ul>
+<li>Anizotropia optyczna
+<ul>
+<li>obrót płaszczyzny polaryzacji światła</li>
+<li>zmiana współczynnika odbicia światła</li>
+</ul></li>
+<li>Interferencja fal świetlnych</li>
+<li>Mechano-optyka</li>
+<li>Elektroforeza</li>
+<li>Elektrochromia</li>
+<li>Elektrozwilżalność</li>
+</ul>
+<h3 id="aktywne">Aktywne</h3>
+<ul>
+<li>Elektronoluminescencja</li>
+<li>Wyładowanie jarzeniowe</li>
+<li>Elektroluminescencja</li>
+<li>Termoluminescencja</li>
+</ul>
+<h3 id="przetworniki-syntezujące">Przetworniki syntezujące</h3>
+<h4 id="aktywne-1">Aktywne</h4>
+<ul>
+<li>Lampa kineskopowa (Cathode Ray Tube)</li>
+<li>Wyświetlacz plazmowy (Plasma Display Panel)</li>
+<li>Wyświetlacz z organicznymi diodami elektroluminescencyjnymi
+(OLED)</li>
+<li>Field Emission Display (FED)</li>
+</ul>
+<h4 id="pasywne">Pasywne</h4>
+<ul>
+<li>Transmisyjne
+<ul>
+<li>wyświetlacz ciekłokrystaliczny (LCD)</li>
+</ul></li>
+<li>Odbiciowe
+<ul>
+<li>wyświetlacz ciekłokrystaliczny (LCD)</li>
+<li>Digital Micromirror Device (DMD)</li>
+</ul></li>
+</ul>
+<h3 id="wyświetlacz-ciekłokrystaliczny">Wyświetlacz
+ciekłokrystaliczny</h3>
+<ul>
+<li>Piksel może być w jednym z dwóch stanów
+<ul>
+<li>włączony/przezroczysty</li>
+<li>wyłączony/nieprzezroczysty</li>
+</ul></li>
+<li>Odcienie szarości/barw uzyskiwane przez pobudzanie pikseli PWM</li>
+<li>Piksele włączane/wyłączane sekwencyjnie z wykorzystaniem
+<ul>
+<li>macierzy pasywnej - konieczne utrzymywanie pola elektrycznego na
+elektrodach</li>
+<li>macierzy aktywnej z tranzystorami (Thin-Film Transistor, TFT)</li>
+</ul></li>
+<li>Podświetlanie
+<ul>
+<li>lampy fluorescencyjne</li>
+<li>diody elektroluminescencyjne
+<ul>
+<li>synteza jednoczesna lub kolejna</li>
+<li>kolor biały, RGB lub niebieski/UV</li>
+<li>rozmieszczenie - krawędź lub bezpośrednie</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="obraz-cyfrowy">Obraz cyfrowy</h2>
+<ul>
+<li>Dwuwymiarowa tablica próbek (pikseli) wynikająca z dyskretyzacji
+obrazu</li>
+<li>Dyskretyzacja czasowa</li>
+<li>Dyskretyzacja przestrzenna</li>
+<li>Kwantyzacja wartości, najczęściej po 8 bitów na kolor (256
+poziomów)</li>
+<li>Rozdzielczość przestrzenna charakteryzowana przez
+<ul>
+<li>rozdzielczość pionową - liczba linii</li>
+<li>rozdzielczość poziomą - liczba pikseli w linii</li>
+</ul></li>
+<li>Rozdzielczość wartości
+<ul>
+<li>liczba różnych poziomów wartości jaką mogą przyjąć piksele</li>
+</ul></li>
+<li>Rozdzielczość bitowa
+<ul>
+<li>liczba bitów przeznaczona na zapis wartości piksela</li>
+</ul></li>
+<li>Próbkowanie
+<ul>
+<li>ograniczenie ze względu na liczbę pikseli</li>
+<li>pojawia się aliasing - rozwiązywane przez odpowiednie
+filtrowanie</li>
+</ul></li>
+</ul>
+<h2 id="przestrzenie-barw">Przestrzenie barw</h2>
+<h3 id="przestrzeń-rgb">Przestrzeń RGB</h3>
+<ul>
+<li>Barwy podstawowe - red, green, blue</li>
+<li>Każdy piksel obrazu opisywany prze trójkę wartości</li>
+<li>Barwy uzyskiwane w wyniku addytywnego mieeszania barw podstawowych w
+różnych proporcjach (mieszanie świateł)</li>
+<li>Wszysktim możliwym do uzyskania barwom odpowiadają pnkty sześcianu
+rozpiętego na osiach barw podstawowych</li>
+</ul>
+<h3 id="przestrzeń-cmy">Przestrzeń CMY</h3>
+<ul>
+<li>Barwy podstawowe - cyan, magenta, yellow</li>
+<li>Barwy uzyskiwane w wyniku subtraktywnego usuwania barw RGB ze
+światła białego (mieszanie farb)
+<ul>
+<li>przedmiot pokryty żółtą farbą pochłania składowe światła barwy
+niebieskiej</li>
+</ul></li>
+<li>W drukarkach, ploterach</li>
+<li>W praktyce używana dodatkowo farba czarna (key colour)</li>
+</ul>
+<h3 id="przestrzeń-hsv">Przestrzeń HSV</h3>
+<ul>
+<li>Odcień (hue)
+<ul>
+<li><span class="math inline">\(0\textdegree\)</span> - R</li>
+<li><span class="math inline">\(120 \textdegree\)</span> - G</li>
+<li><span class="math inline">\(240 \textdegree\)</span> - B</li>
+</ul></li>
+<li>Nasycenie (saturation)
+<ul>
+<li>0 - barwy achromatyczne</li>
+<li>1 - barwy czyste</li>
+</ul></li>
+<li>Wartość (value)
+<ul>
+<li>0 - czerń</li>
+<li>1 - maksymalna jasność</li>
+</ul></li>
+<li>Przekształcenie RGB do cylindra</li>
+<li>Stożek - reprezentacja naturalna</li>
+<li>Walec - reprezentacja matematyczna</li>
+</ul>
+<h3 id="przestrzeń-ycbcr">Przestrzeń YCbCr</h3>
+<ul>
+<li>Składowe
+<ul>
+<li>luminancja Y</li>
+<li>chrominancja Cb (B-Y)</li>
+<li>chrominancja Cr (R-Y)</li>
+</ul></li>
+<li>Chrominnacje mają mniejszą zmienność
+<ul>
+<li>dodatkowo można podpróbkowywać ze względu na mniejszą czułość
+oka</li>
+</ul></li>
+<li>Nie trzeba składowych chrominancyjnych próbkować z taką
+rozdzielczością jak luminancyjnych</li>
+<li>Stosowany w systemach telewizji, kompresji obrazów i sekwencji wideo
+- dekorelacja</li>
+</ul>
+<h3 id="przestrzeń-ycocg">Przestrzeń YCoCg</h3>
+<ul>
+<li>Składowe
+<ul>
+<li>luminancja Y</li>
+<li>chrominancja Co (O-Y)</li>
+<li>chrominancja Cg (G-Y)</li>
+</ul></li>
+<li>Alternatywa dla YCbCr w najnowszych standardach kompresji</li>
+</ul>
+<h2 id="schematy-próbkowania-chrominancji">Schematy próbkowania
+chrominancji</h2>
+<ul>
+<li>4:4:4
+<ul>
+<li>24 bity na piksel</li>
+<li>próbkowanie wszystkich składowych jednakowo</li>
+</ul></li>
+<li>4:2:2
+<ul>
+<li>16 bitów na piksel</li>
+<li>kolumna próbkowania wszystkich składowych</li>
+<li>kolumna próbkowania tylko luminancji</li>
+</ul></li>
+<li>4:1:1
+<ul>
+<li>12 bitów na piksel</li>
+<li>kolumna próbkowania wszystkich składowych</li>
+<li>3 kolumny próbkowania tylko luminancji</li>
+</ul></li>
+<li>4:2:0
+<ul>
+<li>12 bitów na piksel</li>
+<li>siatka kwadratów 2x2</li>
+<li>w rogu próbkowane wszystkie składowe</li>
+<li>w pozostałych 3 tylko luminancja</li>
+</ul></li>
+</ul>
+<h2 id="miary-jakości-obrazu">Miary jakości obrazu</h2>
+<h3 id="subiektywne">Subiektywne</h3>
+<ul>
+<li>Psychowizualne testy porównawcze ze wskazywaniem obrazów o lepszej
+jakości</li>
+<li>Testerzy oceniają na bieżąco</li>
+<li>Oceniają od najlepszego do najgorszego</li>
+<li>Klasyfikacja ocen w skali (np. od 1 do 5)</li>
+</ul>
+<h3 id="obiektywne">Obiektywne</h3>
+<ul>
+<li>Średnia różnica <span class="math inline">\(MAD =
+\frac{1}{MN}\sum_{x,y}|f(x,y)-\hat{f}(x,y)|\)</span></li>
+<li>Błąd średniokwadratowy <span class="math inline">\(MSE =
+\frac{1}{MN}\sum_{x,y} [f(x,y)-\hat{f}(x,y)]^2\)</span></li>
+<li>Norma Lp (Minkowskiego) <span class="math inline">\(L_p =
+(\frac{1}{MN}\sum_{x,y}|f(x,y)-\hat{f}(x,y)|^p)^{1/p}\)</span></li>
+<li>Stosunek sygnału do szumu <span class="math inline">\(SNR =
+10\log_{10}\frac{\sum_{x,y}f^2(x,y)}{\sum_{x,y}[f(x,y)-\hat{f}(x,y)]^2}\)</span></li>
+<li>Szczytowy syosunek sygnału do szumu <span class="math inline">\(PSNR
+=
+10\log_{10}\frac{\sum_{x,y}f_{max}^2(x,y)}{\sum_{x,y}[f(x,y)-\hat{f}(x,y)]^2}\)</span>
+<ul>
+<li>taka sama wartość przy zwiększeniu wszystkich pikseli o 2, co
+zwiększenie wybranych pikseli o 32</li>
+<li>miary obiektywne są niedoskonałe</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#światło-obraz-cyfrowy-percepcja">Światło, obraz cyfrowy,
+percepcja</a>
+<ul>
+<li><a href="#percepcja-świateł">Percepcja świateł</a>
+<ul>
+<li><a href="#zakres-postrzegania-luminancji">Zakres postrzegania
+luminancji</a></li>
+</ul></li>
+<li><a href="#postrzeganie-kontrastów">Postrzeganie kontrastów</a>
+<ul>
+<li><a href="#dostrzeganie-różnic-barw">Dostrzeganie różnic
+barw</a></li>
+<li><a href="#ostrość-widzenia-świateł">Ostrość widzenia
+świateł</a></li>
+<li><a href="#ostrość-widzenia-barw-świateł">Ostrość widzenia barw
+świateł</a></li>
+</ul></li>
+<li><a href="#składowe-trójchromatyczne-rgb">Składowe trójchromatyczne
+RGB</a>
+<ul>
+<li><a href="#kolorymetr-trójchromatyczny-addytywny">Kolorymetr
+trójchromatyczny addytywny</a></li>
+<li><a href="#wykres-chromatycznosci">Wykres chromatycznosci</a></li>
+<li><a href="#przestrzeń-kolorów-cie-xyz">Przestrzeń kolorów CIE
+XYZ</a></li>
+<li><a href="#mieszanie-barw">Mieszanie barw</a></li>
+</ul></li>
+<li><a href="#bezwładność-postrzegania-światła">Bezwładność postrzegania
+światła</a></li>
+<li><a href="#ostrość-widzenia-obiektów-ruchomych">Ostrość widzenia
+obiektów ruchomych</a></li>
+<li><a href="#zjawisko-fotoelektryczne-wewnętrzne">Zjawisko
+fotoelektryczne wewnętrzne</a>
+<ul>
+<li><a href="#przetwornik-ccd">Przetwornik CCD</a></li>
+<li><a href="#przetworniki-cmos">Przetworniki CMOS</a></li>
+<li><a href="#przetworniki">Przetworniki</a></li>
+</ul></li>
+<li><a href="#wyświetlanie">Wyświetlanie</a>
+<ul>
+<li><a href="#bierne">Bierne</a></li>
+<li><a href="#aktywne">Aktywne</a></li>
+<li><a href="#przetworniki-syntezujące">Przetworniki
+syntezujące</a></li>
+<li><a href="#wyświetlacz-ciekłokrystaliczny">Wyświetlacz
+ciekłokrystaliczny</a></li>
+</ul></li>
+<li><a href="#obraz-cyfrowy">Obraz cyfrowy</a></li>
+<li><a href="#przestrzenie-barw">Przestrzenie barw</a>
+<ul>
+<li><a href="#przestrzeń-rgb">Przestrzeń RGB</a></li>
+<li><a href="#przestrzeń-cmy">Przestrzeń CMY</a></li>
+<li><a href="#przestrzeń-hsv">Przestrzeń HSV</a></li>
+<li><a href="#przestrzeń-ycbcr">Przestrzeń YCbCr</a></li>
+<li><a href="#przestrzeń-ycocg">Przestrzeń YCoCg</a></li>
+</ul></li>
+<li><a href="#schematy-próbkowania-chrominancji">Schematy próbkowania
+chrominancji</a></li>
+<li><a href="#miary-jakości-obrazu">Miary jakości obrazu</a>
+<ul>
+<li><a href="#subiektywne">Subiektywne</a></li>
+<li><a href="#obiektywne">Obiektywne</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

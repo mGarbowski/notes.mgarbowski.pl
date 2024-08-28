@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Paradygmaty programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="section">2023-10-31</h1>
+<p>wiele funkcji można wyrazić jako <code>foldr</code></p>
+<p>Funkcje anonimowe (lambda abstraction)
+<code>(\ x y -&gt; x + y) 1 2</code></p>
+<p>Przydają się kiedy nie chcemy nazywać argumentu do filter itd albo
+kiedy chcemy zwrócić funkcję z funkcji</p>
+<p><code>.</code> - operator łączenia funkcji</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">not</span><span class="op">.</span><span class="fu">even</span><span class="op">.</span><span class="fu">sum</span>) [<span class="dv">1</span><span class="op">..</span><span class="dv">5</span>]</span></code></pre></div>
+<p>każdą funkcję wieloargumentową można wyrazić jako kolejne aplikowanie
+funkcji jednoargumentowych (aplikowanie częściowe) Każda funkcja w
+Haskellu jest conajwyżej jednoargumentowa <code>:type add 5</code></p>
+<p><code>map (1/) [1..4]</code></p>
+<p><code>$</code> operator aplikacji funkcji - można używać mniej
+nawiasów</p>
+<p><code>sqrt (recip (1 + 3) )</code>
+<code>sqrt $ recip $ 1+3</code></p>
+<h1 id="algebraiczne-typy-danych">Algebraiczne typy danych</h1>
+<p>Deklarowanie synonimu <code>type String = [Char]</code></p>
+<p>Można utworzyć nowy typ danych podając wartości tzw konstruktorów
+<code>data Bool = False | True</code></p>
+<p>Nazwa typu musi zaczynać się od wielkiej litery</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Pos</span> <span class="ot">=</span> (<span class="dt">Int</span>, <span class="dt">Int</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Move</span> <span class="ot">=</span> <span class="dt">North</span> <span class="op">|</span> <span class="dt">South</span> <span class="op">|</span> <span class="dt">East</span> <span class="op">|</span> <span class="dt">West</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">move ::</span> <span class="dt">Move</span> <span class="ot">-&gt;</span> <span class="dt">Pos</span> <span class="ot">-&gt;</span> <span class="dt">Pos</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>move <span class="dt">North</span> (x, y) <span class="ot">=</span> (x, y<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+<p><code>data Shape = Circle Float | Rect Float Float</code></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>area (<span class="dt">Circle</span> r) <span class="ot">=</span> <span class="fu">pi</span> <span class="op">*</span> r<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>area (<span class="dt">Rect</span> a b) <span class="ot">=</span> a <span class="op">*</span> b </span></code></pre></div>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section">2023-10-31</a></li>
+<li><a href="#algebraiczne-typy-danych">Algebraiczne typy
+danych</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

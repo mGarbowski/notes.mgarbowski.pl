@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-ethernet</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-protokol-rip.html">Poprzedni: 09-protokol-rip.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-vlan.html">Następny: 11-vlan.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h2 id="session-initiation-protocol">Session Initiation Protocol</h2>
+<p>Używany w telefonii internetowej do nawiązywania połączeń</p>
+<h2 id="metody-kolejkowania">Metody kolejkowania</h2>
+<p>Dostęp do współdzielonego medium, wiele strumieni wejściowych i jeden
+wyjściowy</p>
+<ul>
+<li>FIFO - standardowa, po kolei</li>
+<li>Fair queueing</li>
+<li>Priority queueing</li>
+<li>Round Robin - na przemian</li>
+</ul>
+<h2 id="metody-dostępu-do-medium">Metody dostępu do medium</h2>
+<p>Współdzielenie medium transmisyjnego (kable, spektrum radiowe)</p>
+<ul>
+<li>polling
+<ul>
+<li>centralny kontroler przepytuje kolejno urządzenia</li>
+<li>używany w sieciach pomiarowych</li>
+</ul></li>
+<li>dostęp z przekazywaniem znacznika (token passing)
+<ul>
+<li>urządzenia muszą być ustawione w pierścień (wirtualnie, nie musi być
+fizycznie)</li>
+<li>określa się pakiet znacznikowy</li>
+<li>urządzenie posiadające token jest uprawnione do przesyłania danych
+po czym przekazuje token do kolejnego urządzenia</li>
+</ul></li>
+<li>dostęp jednoczesny z wykrywaniem kolizji (CSMA/CD)
+<ul>
+<li>w sieci Ethernet</li>
+<li>wszystkie urządzenia mogą wykrywać kiedy inne urządzenie nadaje i
+nie przerywają trwającej transmisji</li>
+<li>każde urządzenie ma równe prawo do zaczęcia transmisji podczas
+“ciszy”</li>
+<li>urządzenia mogą wykryć kiedy następuje kolizja (wielu nadawców
+zaczyna transmisję w tym samym czasie) i zatrzymują transmisję</li>
+<li>urządzenia uczestnicząca w kolizji odczekują czas proporcjonalny do
+wylosowanej liczby</li>
+</ul></li>
+<li>dostęp jednoczesny z unikaniem kolizji (CSMA/CA)
+<ul>
+<li>WiFi</li>
+<li>przed transmisją wysyła się krótki pakiet request to send</li>
+<li>kolizja może wystąpić tylko w ramach pakietu request to send</li>
+<li>wydobywanie się z kolizji jest tanie</li>
+<li>jeśli request to send udało się przesłać to zaczyna się
+transmisję</li>
+</ul></li>
+</ul>
+<h2 id="nagłówki-ramki-sieci-ethernet">Nagłówki ramki sieci
+Ethernet</h2>
+<p>Różne w kolejnych standardach</p>
+<ul>
+<li>preambuła</li>
+<li>adres nadawcy</li>
+<li>ades odbiorcy</li>
+<li>typ - protokół następnej warstwy (IP)</li>
+<li>długość danych</li>
+<li>DSAP - Destination Service Access Port - numer stosu protokołów,
+uzgadniany na początku transmisji</li>
+<li>SSAP - Source Service Access Port</li>
+<li>control</li>
+<li>SNAP ID - zachowuje kompatybilność wsteczną</li>
+<li>dane</li>
+<li>suma kontrolna</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#session-initiation-protocol">Session Initiation
+Protocol</a></li>
+<li><a href="#metody-kolejkowania">Metody kolejkowania</a></li>
+<li><a href="#metody-dostępu-do-medium">Metody dostępu do
+medium</a></li>
+<li><a href="#nagłówki-ramki-sieci-ethernet">Nagłówki ramki sieci
+Ethernet</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

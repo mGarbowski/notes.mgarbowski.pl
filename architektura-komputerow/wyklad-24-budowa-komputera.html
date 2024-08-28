@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-24-budowa-komputera</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-23-wejscie-wyjscie.html">Poprzedni: wyklad-23-wejscie-wyjscie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="zadania.html">Następny: zadania.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="budowa-komputera">Budowa komputera</h1>
+<h2 id="architektura-szynowa">Architektura szynowa</h2>
+<ul>
+<li>minikomputery (mini -&gt; jedna szafa)</li>
+<li>Moduły wpakowane w szuflady</li>
+<li>Szuflady wsuwane do szafy łączą się z szyną</li>
+<li>Bardziej elastyczna konfiguracja, większa łatwość
+rozbudowywania</li>
+<li>Pamięć, sterowniki wejścia-wyjścia są widoczne dla procesora tak
+samo - jako komórki w przestrzeni adresowej</li>
+<li>Elegancki model logiczny</li>
+<li>Przy większych częstotliwościach zegara przestaje działać (rezonans
+itd)</li>
+<li>Szyna jest długa po to żeby przyłączyć dużo urządzeń
+wejścia-wyjścia</li>
+<li>Szybkość transmisji między procesorem a pamięcią jest bardziej
+krytyczna niż procesor-i/o</li>
+</ul>
+<h2 id="architektura-dwuszynowa">Architektura dwuszynowa</h2>
+<ul>
+<li>Szyna szybka
+<ul>
+<li>dla połączeń procesor-pamięć</li>
+<li>krótsza</li>
+<li>może działać przy wyższych częstotliwościach</li>
+</ul></li>
+<li>Most łączący obie szyny</li>
+<li>Szyna wolna
+<ul>
+<li>dla sterowników wejścia-wyjścia</li>
+<li>niższa maksymalna częstotliwość pracy</li>
+</ul></li>
+<li>Wolna szyna wraz z rozwojem technologii stała się za wolna
+<ul>
+<li>dla środowisk graficznych</li>
+<li>dla pamięci masowej</li>
+<li>dla sterowników sieciowych</li>
+</ul></li>
+</ul>
+<h2 id="architektura-trójszynowa">Architektura trójszynowa</h2>
+<ul>
+<li>Szyna pamięci</li>
+<li>Most północny - łączy szynę pamięci z szyną szybkich urządzeń
+zewnętrznych</li>
+<li>Szyna szybkich urządzeń zewnętrznych - sterowniki I/O (np. szybka
+pamięć masowa)</li>
+<li>Most południowy</li>
+<li>Szyna wolnych urządzeń zewnętrznych - sterowniki I/O (np.
+klawiatura, mysz itd)</li>
+<li>Szybka szyna zrobiła się za wolna dla animacji 3D</li>
+</ul>
+<h2 id="struktura-komputera-rok-2004">Struktura komputera (rok
+2004)</h2>
+<ul>
+<li>Połączenia rozgałęzione (szyny) zastępuje się szybszymi
+nierozgałęzionymi (punk-punkt)</li>
+<li>Most północny
+<ul>
+<li>procesor i kieszenie (punkt-punkt)</li>
+<li>pamięć operacyjna (punkt-punkt) i sterownik (potrzebny dla pamięci
+dynamicznej)</li>
+<li>sterownik graficzny (punkt-punkt) z dedykowanym łączem</li>
+<li>szyna szybkich urządzeń zewnętrznych (PCI)</li>
+</ul></li>
+<li>Most południowy
+<ul>
+<li>wszystkie potrzebne sterowniki do wolnych urządzeń zewnętrznych</li>
+<li>już nie ma szyny</li>
+</ul></li>
+</ul>
+<h2 id="struktura-komputera-rok-2006">Struktura komputera (rok
+2006)</h2>
+<ul>
+<li>Pamięć jest połączona bezpośrednio do procesora bez pośrednictwa
+mostu północnego</li>
+<li>Zastąpienie połączeń równoległych szeregowymi
+<ul>
+<li>żeby połączenie szeregowe działało sprawnie to połączenia muszą być
+ze sobą dobrze zsynchronizowane</li>
+<li>robi się wiele niezależnych połączeń szeregowych</li>
+<li>Połączenie PCI express (nie jest szyną!)</li>
+<li>do sterowników graficznych połączenia x16</li>
+<li>do sterowników IO połączenie x1</li>
+</ul></li>
+<li>Zwiększa się odległość między pamięcią a sterownikiem
+graficznym</li>
+</ul>
+<h2 id="współczesna-struktura">Współczesna struktura</h2>
+<ul>
+<li>Nie ma żdanej szyny</li>
+<li>Same połączenia PCIe</li>
+<li>Sterownik graficzny podłączony bezpośrednio do procesora</li>
+<li>Organizacja logiczna transmisji danych jest podobna jak w sieci
+ethernet a w modelu programowym zachowuje się jak model szynowy</li>
+</ul>
+<h1 id="wydajność-cd.">Wydajność cd.</h1>
+<p>Zwiększenie długości potoku przekłada się na zwiększenie load-use
+penalty, potrzeba spekulatywnych sposobów dostępu do danych Procesor
+zaciąga dane z pamięci zanim będą potrzebne (programowo lub
+sprzętowo)</p>
+<p>Opóźnienie dostępu do L1 można maskować przez odpowiednie
+szeregowanie instrukcji (w superskalarach out-of-order)</p>
+<p>Nie zawsze opłaca się buforować wszystko w najwyższej warstwie
+kieszeni * np. obrazek nie mieści się w L1 a macierz filtra się mieści *
+najlepiej trzymać dużą strukturę w L2 a małą w L1 * potrzeba możliwości
+sterowania buforowaniem z poziomu aplikacji</p>
+<h2 id="instrukcje-sterowania-kieszeniami">Instrukcje sterowania
+kieszeniami</h2>
+<ul>
+<li>instrukcje podpowiedzi (<code>nop</code> z punktu widzenia programu
+bo nie modyfikują ani rejestrów ani pamięci)
+<ul>
+<li>pobranie danej do bufora danych w procesorze</li>
+<li>pobranie danych do L1 i ew. następnych</li>
+<li>przemieszczenie linii w dół hierarchii</li>
+<li>zapis linii kieszeni bez usuwania jej</li>
+</ul></li>
+<li>Efektywne użycie wymaga bardzo specjalistycznej wiedzy</li>
+<li>Nieefektywne użycia może znacznie pogorszyć wydajność</li>
+<li>Instrukcje są opisane w manualach intela itp</li>
+</ul>
+<h2 id="automatyczne-pobieranie-danych-przez-procesor">Automatyczne
+pobieranie danych przez procesor</h2>
+<ul>
+<li>Kolejka żądań odczytu z pamięci (load queue)</li>
+<li>Żądanie nie jest usuwane po wykonaniu tylko zapamiętywane</li>
+<li>Specjalny układ przegląda kolejkę i szuka zależności między adresami
+(np. zauważenie że procesor pobiera dane z co 20 komórki)</li>
+</ul>
+<h2 id="składanie-zapisów-write-combining">Składanie zapisów (write
+combining)</h2>
+<ul>
+<li>wielu danych nie można buforować (np. dane wymieniane ze
+sterownikami IO)</li>
+<li>zamiast buforowania w kieszeni stosuje się składający bufor zapisów
+<ul>
+<li>pojemność rzędu 1 linii kieszeni</li>
+<li>pozwala na zapis wielu kolejnych bajtów w jednej transakcji
+pamięciowej</li>
+<li>przy przekroczeniu granicy linii następuje pojedynczy zapis</li>
+</ul></li>
+</ul>
+<h2 id="instrukcje-przesłań-ze-sterowaniem-buforowaniem">Instrukcje
+przesłań ze sterowaniem buforowaniem</h2>
+<ul>
+<li>nie warto np. zaciągać struktury do kieszeni przy inicjowaniu
+jej</li>
+<li>instrukcja <code>MOVNTxx</code></li>
+</ul>
+<h2 id="bufor-pętli">Bufor pętli</h2>
+<ul>
+<li>Kolejka instrukcji z układem wykrywania pętli</li>
+<li>Bufor mikrooperacji dla procesorów z transkodowaniem</li>
+<li>Wykrycie pętli mieszczącej się w kolejce powoduje wykonywanie
+instrukcji z bufora zamiast z pamięci</li>
+</ul>
+<h2 id="fuzja-instrukcji">Fuzja instrukcji</h2>
+<ul>
+<li>Niektóre instrukcje bardzo często występują po sobie
+(<code>cmp</code>, <code>jcc</code>)</li>
+<li>Para instrukcji CISC jest wykonywana jako jedna instrukcja RISC po
+transkodowaniu</li>
+</ul>
+<h2 id="procesory-wielowątkowe">Procesory wielowątkowe</h2>
+<ul>
+<li>Duża liczba zależności międzyinstrukcyjnych powoduje częstą
+konieczność zatrzymywania potoku</li>
+<li>Zamiast czekać to wykonuje instrukcje z innego strumienia instrukcji
+(innego programu) - na pewno będą niezależne</li>
+<li>Potrzeba kolejnego licznika instrukcji i kolejnego zestawu rejestrów
+(dwa konteksty jednocześnie)</li>
+<li>Sprzętowa wielowątkowość (w każdym wysokowydajnym współczesnym
+procesorze)</li>
+<li>Co innego niż wielordzeniowość (wiele procesorów w jednym kawałku
+krzemu)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#budowa-komputera">Budowa komputera</a>
+<ul>
+<li><a href="#architektura-szynowa">Architektura szynowa</a></li>
+<li><a href="#architektura-dwuszynowa">Architektura dwuszynowa</a></li>
+<li><a href="#architektura-trójszynowa">Architektura
+trójszynowa</a></li>
+<li><a href="#struktura-komputera-rok-2004">Struktura komputera (rok
+2004)</a></li>
+<li><a href="#struktura-komputera-rok-2006">Struktura komputera (rok
+2006)</a></li>
+<li><a href="#współczesna-struktura">Współczesna struktura</a></li>
+</ul></li>
+<li><a href="#wydajność-cd.">Wydajność cd.</a>
+<ul>
+<li><a href="#instrukcje-sterowania-kieszeniami">Instrukcje sterowania
+kieszeniami</a></li>
+<li><a href="#automatyczne-pobieranie-danych-przez-procesor">Automatyczne
+pobieranie danych przez procesor</a></li>
+<li><a href="#składanie-zapisów-write-combining">Składanie zapisów
+(write combining)</a></li>
+<li><a href="#instrukcje-przesłań-ze-sterowaniem-buforowaniem">Instrukcje
+przesłań ze sterowaniem buforowaniem</a></li>
+<li><a href="#bufor-pętli">Bufor pętli</a></li>
+<li><a href="#fuzja-instrukcji">Fuzja instrukcji</a></li>
+<li><a href="#procesory-wielowątkowe">Procesory wielowątkowe</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

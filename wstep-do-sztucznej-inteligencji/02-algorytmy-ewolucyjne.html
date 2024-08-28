@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-algorytmy-ewolucyjne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-przeszukiwanie-i-optymalizacja.html">Poprzedni: 01-przeszukiwanie-i-optymalizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-gry-dwuosobowe.html">Następny: 03-gry-dwuosobowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="algorytmy-ewolucyjne">Algorytmy ewolucyjne</h1>
+<h2 id="problem-optymalizacji">Problem optymalizacji</h2>
+<ul>
+<li>Optymalizacja - poszukiwanie najlepszego rozwiązania</li>
+<li>W praktyce często nie szuka się najlepszego możliwego rozwiązania
+tylko wystarczająco dobrego, lepszego niż to które mamy</li>
+<li>Jeśli nie znamy żadnego rozwiązania to może wystarczyć nawet
+rozwiązanie akceptowalne (spełniającce zadane ograniczenia)</li>
+<li>W uczeniu maszynowym wykorzystuje się metody optymalizacji (w
+siaciach neuronowych, SVM)</li>
+<li>W przypadku czasochłonnych modeli używa się aproksymatów</li>
+</ul>
+<h3 id="pojęcia">Pojęcia</h3>
+<ul>
+<li>Przestrzeń przeszukiwań
+<ul>
+<li>zbiór wartości <span class="math inline">\(U\)</span></li>
+<li>metryka</li>
+</ul></li>
+<li>Zazwyczaj dokonuje się optymalizacji z ograniczeniami - pracujemy na
+podzbiorze zbioru wartości <span class="math inline">\(D \subseteq
+U\)</span></li>
+<li>Dana jest funkcja celu <span class="math inline">\(q(x): D
+\rightarrow \mathbb{R}\)</span></li>
+<li>Minimalizacja polega na szukaniu minimum globalnego</li>
+<li>Minimum lokalne - w sąsiedztwie nie ma lepszego
+<ul>
+<li>Funkcja o jednym optimum - unimodalna</li>
+<li>Funkcja o wielu optimach - wielomodalna</li>
+</ul></li>
+<li>Ograniczenia kostkowe - istnieją wektory <span
+class="math inline">\(l\)</span> i <span
+class="math inline">\(u\)</span> takie że dla każdego <span
+class="math inline">\(x\)</span>: <span class="math inline">\(l_i \le
+x_i \le u_i\)</span></li>
+</ul>
+<h3 id="rodzaje-metod-optymalizacji">Rodzaje metod optymalizacji</h3>
+<ul>
+<li>Lokalne - zatrzymują się na pierwszym napotkanym ekstremum lokalnym,
+szybkie</li>
+<li>Globalne - szukają ekstremum globalnego, są wolne i często nie dają
+gwarancji znalezienia rozwiązania</li>
+</ul>
+<h3 id="ograniczenia">Ograniczenia</h3>
+<ul>
+<li>Twarde - nieprzekraczalne ze względu np na ograniczenia fizyczne,
+nie mogą być złamane</li>
+<li>Miękkie - mogą być chwilowo naruszane ale wynik musi je spełniać
+(często są praktyczne)</li>
+</ul>
+<h3 id="radzenie-sobie-z-ograniczeniami">Radzenie sobie z
+ograniczeniami</h3>
+<ul>
+<li>Utrzymywanie dopuszczalności rozwiązań - tak generować dane żeby je
+spełniały</li>
+<li>Naprawa rozwiązań - np. rzutowanie, clamping</li>
+<li>Stosowanie funkcji kary <span class="math inline">\(q_p(x) = q(x) +
+p(x)\)</span>, powinna być proporcjonalna do skali przekroczenia
+ograniczeń</li>
+</ul>
+<h3 id="rodzaje-zadań-optymalizacji">Rodzaje zadań optymalizacji</h3>
+<ul>
+<li>Zadania ciągłe - <span class="math inline">\(x_i \in
+\mathbb{R}\)</span></li>
+<li>Zadania dyskretne - wartości <span
+class="math inline">\(x_i\)</span> należą do zbioru dyskretnego,
+problemy kombinatoryczne
+<ul>
+<li>Zadania kombinatoryczne - <span class="math inline">\(x_i \in \{0,
+1\}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="kodowanie-rozwiązania">Kodowanie rozwiązania</h3>
+<ul>
+<li>Kodowanie binarne</li>
+<li>Wyliczeniowe (enum)</li>
+<li>Wektory liczb rzeczywistych</li>
+<li>Kodowanie specyficzne dla problemu (np. specjalne dla grafów)</li>
+</ul>
+<h3 id="punkt-startowy">Punkt startowy</h3>
+<ul>
+<li>Od czegoś trzeba zacząć</li>
+<li>Rozwiązanie losowe - może być trudne do wygenerowania przy
+skomplikowanych ograniczeniach</li>
+<li>Rozwiązanie wyznaczone dzięki wiedzy dziedzinowej
+<ul>
+<li>może przyspieszyć optymalizację</li>
+<li>może być konieczny dla trudnych, wielowymiarowych problemów</li>
+<li>może uwięzić optymalizator w ekstremum lokalnym</li>
+</ul></li>
+</ul>
+<p>Funkcja Galara - ciekawy, typowy przypadek - trzeba znać na
+egzamin!!!</p>
+<h2 id="algorytmy-ewolucyjne-1">Algorytmy ewolucyjne</h2>
+<ul>
+<li>Inspirowane ewolucją naturalną przez działanie i nazewnictwo</li>
+<li>Początkowo wykorzystywały kodowanie binarne - algorytmy
+genetyczne</li>
+<li>To metody optymalizacji globalnej
+<ul>
+<li>nie ma gwarancji, że znajdą optimum globalne</li>
+<li>do optymalizacji lokalnej są lepsze algorytmy</li>
+</ul></li>
+</ul>
+<h3 id="nazewnictwo">Nazewnictwo</h3>
+<ul>
+<li>Osobnik - reprezentuje punkt w przeszukiwanej przestrzeni, może
+zawierać dodatkowe informacje</li>
+<li>Populacja - zbiór osobników</li>
+<li>Mutacja - losowe zaburzenie zmiennych <span
+class="math inline">\(x_i\)</span> osobnika (genów)</li>
+<li>Krzyżowanie - nowy osobnik powstaje na podstawie genów istniejących
+osobników</li>
+<li>Chromosom - wszystkie geny, osobnik najczęsciej ma jeden
+chromosom</li>
+</ul>
+<h2 id="algorytm-genetyczny">Algorytm genetyczny</h2>
+<p>Osobniki kodowane binarnie</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> genetic_algorithm(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    fitness_function,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    population,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    population_size,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    mutation_probability,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    crossover_probability,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    max_iterations</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    iteration <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    fitness <span class="op">=</span> calc_fitness(population, fitness_function)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    best, best_fitness <span class="op">=</span> find_best(population, fitness)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> iteration <span class="op">&lt;</span> max_iterations:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> reproduction(population, fitness, population_size)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> mutation_and_crossover(r, mutation_probability, crossover_probability)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        fitness <span class="op">=</span> calc_fitness(m, fitness_function)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        iter_best, iter_best_fitness <span class="op">=</span> find_best(m, fitness_function)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> iter_best_fitness <span class="op">&lt;</span> best_fitness:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            best_fitness <span class="op">=</span> iter_best_fitness</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            best <span class="op">=</span> iter_best</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        population <span class="op">=</span> m</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best, best_fitness</span></code></pre></div>
+<ul>
+<li>Reprodukcja - losowy wybór punktów z populacji, lepszych z większym
+prawdopodobieństwem</li>
+<li>Krzyżowanie - wygenerowanie punktu pośredni pomiędzy rodzicami
+<ul>
+<li>dla każdej pary, jeśli <span class="math inline">\(\mathcal{U} (0,
+1) &lt; p_m\)</span> to wykonuje się krzyżowanie</li>
+<li>w przeciwnym wypadku rodzice przechodzą bez zmian do następnej
+populacji</li>
+<li>nie powinno niszczyć nauczonych schematów</li>
+</ul></li>
+<li>Mutacja - ma za zadanie wygenerować punkt z otoczenia punktu
+mutowanego
+<ul>
+<li>negacja bitów dla których <span class="math inline">\(\mathcal{U}
+(0, 1) &lt; p_m\)</span></li>
+</ul></li>
+<li>Sukcesja - wybór populacji do następnej iteracji algorytmu
+<ul>
+<li>sukcesja generacyjna - następna populacja to populacja mutantów</li>
+</ul></li>
+</ul>
+<h3 id="klasyczny-algorytm-genetyczny">Klasyczny algorytm
+genetyczny</h3>
+<ul>
+<li>Reprodukcja proporcjonalna (ruletkowa)</li>
+<li>Krzyżowanie jednopunktowe</li>
+<li>Sukcesja generacyjna</li>
+<li>Parametry
+<ul>
+<li>Duży rozmiar populacji - większy niż wymiarowość rozwiązania</li>
+<li>Duże prawdopodobieństwo krzyżowania</li>
+<li>Małe prawdopodobieństwo mutacji</li>
+<li>To generalnie daje dobre wyniki ale można ustawić lepiej</li>
+</ul></li>
+</ul>
+<h3 id="reprodukcja-proporcjonalna-ruletkowa">Reprodukcja proporcjonalna
+(ruletkowa)</h3>
+<p>Prawdopodobieństwo wyboru osobnika jest proporcjonalne do jego oceny
+- większy kawałek koła ruletki.</p>
+<p><span class="math display">\[
+p_s(P(t, j)) = \frac{q(P(t,j))}{\sum_k(q(P(t,k)))}
+\]</span></p>
+<h3 id="krzyżowanie">Krzyżowanie</h3>
+<h4 id="krzyżowanie-jednopunktowe">Krzyżowanie jednopunktowe</h4>
+<ul>
+<li>Losowanie 2 rodziców</li>
+<li>Losowany punkt przecięcia <span class="math inline">\(i\)</span>
+rodzica</li>
+<li>Z 2 rodziców powstaje 2 potomków przez zamianę części
+chromosomów</li>
+<li>Nie wszystkie kombinacje genów są osiągalne #### Krzyżowanie
+dwupunktowe</li>
+<li>Losowanie 2 rodziców</li>
+<li>Losowanie 2 punktów przecięcia <span
+class="math inline">\(i\)</span> i <span
+class="math inline">\(j\)</span></li>
+<li>Zamienia się między chromosomami geny od <span
+class="math inline">\(i\)</span> do <span
+class="math inline">\(j\)</span>
+<ul>
+<li>jeśli <span class="math inline">\(j &lt; i\)</span> to idzie się od
+i do końca, a potem od początku do j</li>
+</ul></li>
+<li>Jest raczej lepsze od jednopunktowego</li>
+</ul>
+<h4 id="krzyżowanie-równomierne-jednorodne">Krzyżowanie równomierne
+(jednorodne)</h4>
+<ul>
+<li>Dla każdego genu losuje się od którego rodzica będzie pochodzić</li>
+<li>Kiedyś było uważane za złe ze względu na teorię schematów, teraz
+uważane za dobre</li>
+</ul>
+<h3 id="kodowanie-rozwiązania-1">Kodowanie rozwiązania</h3>
+<p>Można stosować oddzielne kodowanie genotypu (to co jest poddawane
+mutacjom) i fenotypu (właściwych cech). Trzeba to przemyśleć tak, żeby
+mutacja zgodnie z założeniem dawała w rezultacie punkt zbliżony do
+pierwotnego</p>
+<h3 id="zalety-i-wady-algorytmów-genetycznych">Zalety i wady algorytmów
+genetycznych</h3>
+<ul>
+<li>Bogata literatura</li>
+<li>Wiele dostępnych implementacji</li>
+<li>Wiele parametrów do konfiguracji</li>
+<li>Wiele komponentów do konkretyzacji (który rodzaj krzyżowania
+itd.)</li>
+<li>Można użyć nowszych wersji algorytmów genetycznych jeśli problem
+jest naturalnie binarnie zakodowany</li>
+</ul>
+<h2 id="algorytm-ewolucyjny">Algorytm ewolucyjny</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evolutionary_algorithm(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fitness_function,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    population,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    population_size,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    mutation_strength,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    crossover_probability,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    max_iterations</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    iteration <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    fitness <span class="op">=</span> calc_fitness(population, fitness_function)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    best, best_fitness <span class="op">=</span> find_best(population, fitness)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="kw">not</span> stop_condition(iteration, max_iterations, population, fitness):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        post_reproduction <span class="op">=</span> reproduction(population, fitness, population_size)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        post_mutation <span class="op">=</span> genetic_operations(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            post_reproduction, mutation_strength, crossover_probability</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        iter_fitness <span class="op">=</span> calc_fitness(post_mutation, fitness_function)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        iter_best, iter_best_fitness <span class="op">=</span> find_best(post_mutation, iter_fitness)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> iter_best_fitness <span class="op">&lt;</span> best_fitness:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            best_fitness <span class="op">=</span> iter_best_fitness</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            best <span class="op">=</span> iter_best</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        population <span class="op">=</span> succession(population, post_mutation, fitness, iter_fitness)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        iteration <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div>
+<ul>
+<li>Pracuje na liczbach rzeczywistych - gen to liczba rzeczywista</li>
+<li>Można stosować bardziej skomplikowane kryterium stopu
+<ul>
+<li>np. od n pokoleń populacja nieznacznie się zmieniła</li>
+<li>to nie jest takie łatwe bo mogą wystąpić okresy stagnacji</li>
+</ul></li>
+<li>Reprodukcja
+<ul>
+<li>wybiera lepsze punkty z populacji z większym prawdopodobieństwem niż
+słabsze</li>
+</ul></li>
+<li>Mutacja
+<ul>
+<li>każdy osobnik jest poddawany mutacji, parametrem jest siła mutacji
+<span class="math inline">\(\sigma\)</span></li>
+<li>generuje punkt z otoczenia punktu mutowanego</li>
+</ul></li>
+<li>Krzyżowanie ma dawać rozwiązanie pośrednie między rodzicami
+<ul>
+<li>należy stosować tylko jeśli to ma sens</li>
+<li>może być lepiej w ogóle nie używać jeśli nie pasuje do problemu</li>
+</ul></li>
+<li>Sukcesja
+<ul>
+<li>które osobniki przetrwają do następnej iteracji</li>
+<li>są różne warianty</li>
+</ul></li>
+</ul>
+<h3 id="rozmiar-populacji">Rozmiar populacji</h3>
+<ul>
+<li>Uważa się, że im więcej tym lepiej ale wtedy są droższe
+obliczenia</li>
+<li>Małe populacje też mogą być dobre, bo słabsze osobniki mają mniejszą
+konkurencję a mogą zmutować w lepsze</li>
+<li>Klątwa wymiarowości - liczba obserwacji potrzebnych do dobrego
+próbkowania rośnie wykładniczo z liczbą wymiarów</li>
+</ul>
+<h3 id="inicjalizacja">Inicjalizacja</h3>
+<ul>
+<li>Ma wpływ na zdolność algorytmu do znalezienia rozwiązania i na jego
+szybkość</li>
+<li>Część populacji może prowadzić do dobrych rozwiązań a część utykać
+na optimach lokalnych</li>
+<li>Jeśli populacja jest mało różnorodna to przeszukiwanie będzie
+bardziej lokalne - lepsza eksploatacja (raczej nieporządane)</li>
+<li>Różnorodność populacji początkowej daje lepsze zdolności eksploracji
+- porządane</li>
+<li>Różnorodność populacji zmniejsza się w miarę optymalizacji</li>
+</ul>
+<h3 id="reprodukcja">Reprodukcja</h3>
+<ul>
+<li>Proporcjonalna (ruletkowa)</li>
+<li>Rangowa - populację sortuje się po ocenie, pozycja osobnika po
+posortowaniu to jego ranga, wybór zależy od tej rangi</li>
+</ul>
+<h4 id="reprodukcja-progowa">Reprodukcja progowa</h4>
+<ul>
+<li>Osobniki poniżej progu są wyrzucane</li>
+<li>Pozostałe mają jednakową szansę na wybór</li>
+</ul>
+<h4 id="reprodukcja-turniejowa">Reprodukcja turniejowa</h4>
+<ul>
+<li>Losowanie grupy (np. 2) osobników z powtórzeniami
+<ul>
+<li>najsłabszy osobnik ma niezerową szansę na zostanie wybranym - jeśli
+rywalizuje sam ze sobą</li>
+<li>lepsza eksploracja - być może warto go oszczędzić</li>
+</ul></li>
+<li>Najlepszy przechodzi dalej</li>
+<li>Powtarzane tyle razy ile ma być osobników</li>
+<li>Dobrze się sprawdza w praktyce,
+<ul>
+<li>dobre zdolności eksploracyjne</li>
+<li>łatwa w implementacji</li>
+</ul></li>
+</ul>
+<h3 id="mutacja">Mutacja</h3>
+<ul>
+<li>Punkt po mutacji powinien pochodzić z otoczenia bieżącego
+punktu</li>
+<li>Stosuje się rozkład normalny - bliżej położone punkty bardziej
+prawdopodobne od dalej położonych</li>
+</ul>
+<p><span class="math display">\[x = x + \sigma \cdot \mathcal{N}(0,
+1)\]</span></p>
+<h3 id="krzyżowanie-1">Krzyżowanie</h3>
+<p>Nie w każdym problemie ma to sens - osobnik potomny powinien być
+punktem pośrednim między rodzicami (bierze od obu tylko te dobre
+cechy)</p>
+<h4 id="krzyżowanie-wymieniające">Krzyżowanie wymieniające</h4>
+<ul>
+<li>Przepisujemy część z jednego a część z drugiego rodzica</li>
+<li>Krzyżowanie równomierne
+<ul>
+<li>określamy prawdopodobieństwo i dla każdego genu losujemy czy
+przepisujemy gen z pierwszego czy drugiego rodzica</li>
+</ul></li>
+<li>Krzyżowanie jednopunktowe
+<ul>
+<li>losujemy punkt przecięcia chromosomu</li>
+</ul></li>
+</ul>
+<h4 id="krzyżowanie-uśredniające">Krzyżowanie uśredniające</h4>
+<ul>
+<li>Uśrednia się cechy od obu rodziców</li>
+<li>Suma ważona z losową wagą</li>
+<li>Suma ważona z losowym wektorem wag</li>
+</ul>
+<p>Zrozumieć na egzamin, niekoniecznie całą kategoryzację na pamięć</p>
+<h3 id="sukcesja">Sukcesja</h3>
+<h4 id="sukcesja-generacyjna">Sukcesja generacyjna</h4>
+<p>Następna populacja to populacja mutantów <span
+class="math inline">\(P_{t+1} = M\)</span></p>
+<h4 id="sukcesja-elitarna">Sukcesja elitarna</h4>
+<ul>
+<li>Wybór spośród
+<ul>
+<li><span class="math inline">\(k\)</span> najlepszych osobników z
+poprzedniej populacji (elitę)</li>
+<li>mutantów</li>
+<li>bez <span class="math inline">\(k\)</span> najgorszych z połączonego
+zbioru</li>
+</ul></li>
+<li>Mniejsza szansa że zgubi najlepszego osobnika</li>
+<li>Dobre są małe wartości <span class="math inline">\(k\)</span> (np.
+1)</li>
+<li>Jeśli elita jest za duża to algorytm osiada w optimach
+lokalnych</li>
+</ul>
+<h3 id="eksploracja-vs-eksploatacja">Eksploracja vs eksploatacja</h3>
+<ul>
+<li>Eksploraja - znajdowanie innych niż bieżące ekstrema lokalne
+(przeszukiwanie całej przestrzeni)</li>
+<li>Eksploatacja - zdolność do jak najdokładniejszego lokalizowania
+ekstremum (przeszukiwanie otoczenia domniemanego optimum)</li>
+<li>Te cele są ze sobą sprzeczne, w algorytmie musi być dobry
+balans</li>
+<li>Nacisk selektywny - zdolność poprawiania średniej oceny osobników w
+populacji
+<ul>
+<li>duży nacisk selektywny to lepsza eksploatacja i gorsza
+eksploracja</li>
+</ul></li>
+<li>Dąży się do kompromisu między eksploracją i eksploatacją</li>
+</ul>
+<h3 id="kształtowanie-kompromisu">Kształtowanie kompromisu</h3>
+<ul>
+<li>Reprodukcja</li>
+<li>Sukcesja
+<ul>
+<li>generacyjna - lepsza eksploracja</li>
+<li>elitarna z dużym k - lepsza eksploatacja</li>
+</ul></li>
+<li>Krzyżowanie
+<ul>
+<li>lepsza eksploatacja</li>
+<li>szybka poprawa jakości osobników nie musi być dobra - algorytm mógł
+się skupić na jednym optimum lokalnym</li>
+</ul></li>
+<li>Mutacja
+<ul>
+<li>słaba mutacja - lepsza eksploatacja</li>
+<li>silna mutacja - lepsza eksploracja</li>
+</ul></li>
+</ul>
+<h3 id="wady-klasycznego-algorytmu-ewolucyjnego">Wady klasycznego
+algorytmu ewolucyjnego</h3>
+<ul>
+<li>Dużo parametrów do konfigurowania</li>
+<li>Dużo algorytmów od wyboru na poszczególnych krokach (sukcesja,
+krzyżowanie, mutacja itd)</li>
+</ul>
+<h3 id="podsumowanie">Podsumowanie</h3>
+<ul>
+<li>Są stosowane tylko w niektórych obszarach</li>
+<li>Atrakcyjna metafora</li>
+<li>Łatwość implementacji</li>
+<li>Dobre wyniki (nawet przy kiepskich implementacjach)</li>
+</ul>
+<h2 id="strategie-ewolucyjne">Strategie ewolucyjne</h2>
+<h3 id="strategia-11">Strategia (1+1)</h3>
+<ul>
+<li>Mamy punkt roboczy</li>
+<li>Losujemy punkt w jego sąsiedztwie</li>
+<li>Jeśli niegorszy to zastępuje aktualny punkt roboczy</li>
+<li>Populacja z jednym osobnikiem i jednym potomkiem</li>
+<li>Mechanizm adaptacji siły mutacji</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> strategy_one_plus_one(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fitness_function,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    point,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    mutation_strength,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    adaptation_interval,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    max_iterations</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    iteration <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    successes <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    best_fitness <span class="op">=</span> fitness_function(point)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> iteration <span class="op">&lt;=</span> max_iterations:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        new_point <span class="op">=</span> point <span class="op">+</span> mutation_strength <span class="op">*</span> normal(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        new_fitness <span class="op">=</span> fitness_function(new_point)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> new_fitness <span class="op">&lt;=</span> best_fitness:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        successes <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        best_fitness <span class="op">=</span> new_fitness</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        point <span class="op">=</span> new_point</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> iteration <span class="op">%</span> adaptaion_interval <span class="op">==</span> <span class="dv">0</span>:  <span class="co"># adapt mutation_strength</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> successes <span class="op">/</span> adaptation_interval <span class="op">&gt;</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>:</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            mutation_strength <span class="op">*=</span> <span class="fl">1.22</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> successes <span class="op">/</span> adaptation_interval <span class="op">&lt;</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            mutation_strength <span class="op">*=</span> <span class="fl">0.82</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        successes <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    iteration <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> point, best_fitness</span></code></pre></div>
+<ul>
+<li>Reguła 1/5 sukcesu powstała z analizy funkcji kwadratowych,
+parametry liczbowe dobrano eksperymentalnie
+<ul>
+<li>Ważny na egzamin (zapamiętać 1/5)</li>
+</ul></li>
+<li>Dużo sukcesów (ok 1/2) będzie kiedy punkt jest daleko od optimum -
+trzeba zwiększyć siłę mutacji</li>
+<li>Jeśli punkt jest blisko optimum to większa część wylosowanych
+punktów będzie słabsza - zmniejszamy siłę mutacji</li>
+<li>Strategia ma słabą odporność na minima lokalne</li>
+</ul>
+<h3 id="strategia-mu-lambda">Strategia <span class="math inline">\((\mu
++ \lambda)\)</span></h3>
+<ul>
+<li><span class="math inline">\(\mu\)</span> - rozmiar bazowej
+populacji</li>
+<li><span class="math inline">\(\lambda\)</span> - rozmiar populacji
+potomnej</li>
+<li><span class="math inline">\(\lambda &gt; \mu\)</span></li>
+<li>Osobnik zawiera 2 chromosomy
+<ul>
+<li>pierwszy zawiera właściwe geny</li>
+<li>drugi zaweira wartości <span class="math inline">\(\sigma\)</span>
+używane do mutacji</li>
+</ul></li>
+<li>Reprodukcja - losowanie z powtórzeniami <span
+class="math inline">\(\lambda\)</span> osobników z populacji</li>
+<li>Krzyżowanie
+<ul>
+<li>najczęściej krzyżowanie przez uśrednianie z losową wagą</li>
+</ul></li>
+<li>Mutacja na 3 etapy
+<ul>
+<li><span class="math inline">\(a = \mathcal{N}(0, 1)\)</span>, <span
+class="math inline">\(b_i = \mathcal{N}(0,1)\)</span> dla każdego genu
+osobnika</li>
+<li><span class="math inline">\(\sigma_i = \sigma_i exp(\tau&#39; a +
+\tau b_i)\)</span>
+<ul>
+<li><span class="math inline">\(\tau = 1/\sqrt{2n}\)</span></li>
+<li><span class="math inline">\(\tau&#39; =
+1/\sqrt{2\sqrt{n}}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(m_i = k_i + \sigma_i
+\mathcal{N}(0,1)\)</span>
+<ul>
+<li><span class="math inline">\(m\)</span> to zmutowany osobnik</li>
+<li><span class="math inline">\(k\)</span> to osobnik po
+krzyżowaniu</li>
+</ul></li>
+</ul></li>
+<li>Sukcesja - <span class="math inline">\(\mu\)</span> najlepszych
+osobników z sumy populacji bazowej i mutantów
+<ul>
+<li>strategia elitarna - nie gubi najlepszych osobników</li>
+</ul></li>
+<li>Dobry osobnik o zbyt małym lub zbyt dużym zasięgu mutacji blokuje
+miejsce i ściąga do ekstremów lokalnych</li>
+</ul>
+<h3 id="strategia-mu-lambda-1">Strategia <span
+class="math inline">\((\mu, \lambda)\)</span></h3>
+<ul>
+<li>Cała populacja rodziców ginie, nowa populacja potomna powstaje tylko
+na podstawie <span class="math inline">\(\lambda\)</span> osobników
+potomnych</li>
+<li>Strategia nieelitarna, może zgubić najlepszego osobnika</li>
+<li>Większe zdolności eksploracyjne</li>
+</ul>
+<h3 id="cechy-strategii-ewolucyjnych">Cechy strategii ewolucyjnych</h3>
+<ul>
+<li>Reprodukcja czysto losowa - bez nacisku selektywnego (nie bierze się
+pod uwagę ocen)</li>
+<li>Sukcesja deterministyczna z naciskiem selektywnym</li>
+<li>Najłatwiej zwiększyć szansę znalezienia optimum globalnego
+uruchamiając algorytm wielokrotnie z losowymi punktami startowymi</li>
+</ul>
+<h2 id="przykładowe-pytania">Przykładowe pytania</h2>
+<ul>
+<li>Rozumieć wymienione algorytmy (znać pseudokody)</li>
+<li>Czym się różnią genetyczne, ewolucyjne, strategie ewolucyjne</li>
+<li>Różnica między 1+1, <span class="math inline">\(\mu+
+\lambda\)</span>, <span class="math inline">\(\mu, \lambda\)</span></li>
+</ul>
+<h3 id="jaki-wpływ-na-działanie-algorytmu-ma-zasięg-mutacji">Jaki wpływ
+na działanie algorytmu ma zasięg mutacji</h3>
+<ul>
+<li>Mały zasięg - algorytm może dojść do najbliższego optimum
+lokalnego</li>
+<li>Średni zasięg - algorytm znajdzie optimum loklane ale ze względu na
+siłę mutacji może odkryć też inne, nie utknie w pierwszym
+napotkanym</li>
+<li>Duży zasięg - działanie jak metody Monte Carlo</li>
+</ul>
+<h3
+id="co-by-było-jakbyśmy-chcieli-prawdopodobieństwo-sukcesu-w-es11-stabilizować-na-0.5">Co
+by było jakbyśmy chcieli prawdopodobieństwo sukcesu w ES(1+1)
+stabilizować na <span class="math inline">\(0.5\)</span></h3>
+<ul>
+<li>Sukces jest wtedy, kiedy nowy punkt jest lepszy od poprzedniego</li>
+<li>Średnio <span class="math inline">\(0.5\)</span> sukcesów będzie
+jeśli punkt jest daleko od optimum</li>
+<li>Zasięg mutacji będzie ciągle zmniejszany i algorytm utknie w
+miejscu</li>
+</ul>
+<h3
+id="jaki-wpływ-na-działanie-algorytmu-ma-zwiększanie-rozmiaru-elity-w-sukcesji-elitarnej">Jaki
+wpływ na działanie algorytmu ma zwiększanie rozmiaru elity w sukcesji
+elitarnej</h3>
+<ul>
+<li>Większa elita - większa zdolność do eksploatacji</li>
+<li>Większa elita - mniejsza szansa na przeżycie słabego osobnika
+<ul>
+<li>słaby osobnik mógłby zmutować i przejść do innego optimum lokalnego
+### Jaki wpływ na działanie algorytmu ma zwiększenie rozmiaru
+populacji?</li>
+</ul></li>
+<li>Większa populacja - mniej iteracji przy stałym budżecie - słabsza
+ewolucja</li>
+<li>Dobrą strategią jest malejący rozmiar populacji w miarę liczby
+iteracji</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytmy-ewolucyjne">Algorytmy ewolucyjne</a>
+<ul>
+<li><a href="#problem-optymalizacji">Problem optymalizacji</a>
+<ul>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#rodzaje-metod-optymalizacji">Rodzaje metod
+optymalizacji</a></li>
+<li><a href="#ograniczenia">Ograniczenia</a></li>
+<li><a href="#radzenie-sobie-z-ograniczeniami">Radzenie sobie z
+ograniczeniami</a></li>
+<li><a href="#rodzaje-zadań-optymalizacji">Rodzaje zadań
+optymalizacji</a></li>
+<li><a href="#kodowanie-rozwiązania">Kodowanie rozwiązania</a></li>
+<li><a href="#punkt-startowy">Punkt startowy</a></li>
+</ul></li>
+<li><a href="#algorytmy-ewolucyjne-1">Algorytmy ewolucyjne</a>
+<ul>
+<li><a href="#nazewnictwo">Nazewnictwo</a></li>
+</ul></li>
+<li><a href="#algorytm-genetyczny">Algorytm genetyczny</a>
+<ul>
+<li><a href="#klasyczny-algorytm-genetyczny">Klasyczny algorytm
+genetyczny</a></li>
+<li><a href="#reprodukcja-proporcjonalna-ruletkowa">Reprodukcja
+proporcjonalna (ruletkowa)</a></li>
+<li><a href="#krzyżowanie">Krzyżowanie</a></li>
+<li><a href="#kodowanie-rozwiązania-1">Kodowanie rozwiązania</a></li>
+<li><a href="#zalety-i-wady-algorytmów-genetycznych">Zalety i wady
+algorytmów genetycznych</a></li>
+</ul></li>
+<li><a href="#algorytm-ewolucyjny">Algorytm ewolucyjny</a>
+<ul>
+<li><a href="#rozmiar-populacji">Rozmiar populacji</a></li>
+<li><a href="#inicjalizacja">Inicjalizacja</a></li>
+<li><a href="#reprodukcja">Reprodukcja</a></li>
+<li><a href="#mutacja">Mutacja</a></li>
+<li><a href="#krzyżowanie-1">Krzyżowanie</a></li>
+<li><a href="#sukcesja">Sukcesja</a></li>
+<li><a href="#eksploracja-vs-eksploatacja">Eksploracja vs
+eksploatacja</a></li>
+<li><a href="#kształtowanie-kompromisu">Kształtowanie
+kompromisu</a></li>
+<li><a href="#wady-klasycznego-algorytmu-ewolucyjnego">Wady klasycznego
+algorytmu ewolucyjnego</a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+<li><a href="#strategie-ewolucyjne">Strategie ewolucyjne</a>
+<ul>
+<li><a href="#strategia-11">Strategia (1+1)</a></li>
+<li><a href="#strategia-mu-lambda">Strategia <span class="math inline">\((\mu + \lambda)\)</span></a></li>
+<li><a href="#strategia-mu-lambda-1">Strategia <span class="math inline">\((\mu, \lambda)\)</span></a></li>
+<li><a href="#cechy-strategii-ewolucyjnych">Cechy strategii
+ewolucyjnych</a></li>
+</ul></li>
+<li><a href="#przykładowe-pytania">Przykładowe pytania</a>
+<ul>
+<li><a href="#jaki-wpływ-na-działanie-algorytmu-ma-zasięg-mutacji">Jaki
+wpływ na działanie algorytmu ma zasięg mutacji</a></li>
+<li><a href="#co-by-było-jakbyśmy-chcieli-prawdopodobieństwo-sukcesu-w-es11-stabilizować-na-0.5">Co
+by było jakbyśmy chcieli prawdopodobieństwo sukcesu w ES(1+1)
+stabilizować na <span class="math inline">\(0.5\)</span></a></li>
+<li><a href="#jaki-wpływ-na-działanie-algorytmu-ma-zwiększanie-rozmiaru-elity-w-sukcesji-elitarnej">Jaki
+wpływ na działanie algorytmu ma zwiększanie rozmiaru elity w sukcesji
+elitarnej</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

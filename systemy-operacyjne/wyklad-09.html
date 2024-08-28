@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08.html">Poprzedni: wyklad-08.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10.html">Następny: wyklad-10.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="section">(2023-11-28)</h1>
+<p>W komunikacji międzyprocesowej zawsze uczestniczy jądro</p>
+<p>Zalety wielowątkowości * umożliwia pracę na tych samych zasobach
+przez wiele strumieni wykonania jednocześnie</p>
+<p>Debugger nie pomoże przy bugach w wielowątkowości</p>
+<p>Wątki tego samego procesu mogą wymieniać informacje przez zmienne
+globalne</p>
+<h3
+id="wątki-można-zrealizować-bez-wywołań-systemowych-user-level-thread">Wątki
+można zrealizować bez wywołań systemowych (user level thread)</h3>
+<ul>
+<li>Musi przyjąć jakąś funkcję do wywołania</li>
+<li>Musi mieć przydzielony fragment pamięci z segmentu stosu</li>
+<li>Jakiś identyfikator</li>
+<li>Struktura z informacjami o stanie</li>
+<li>Szybkie, nie ma przełączania do jądra ale wywołania operacji IO
+zatrzyma cały proces</li>
+<li>realizowane przez biblioteki języków programowania</li>
+<li>liczba wątków jest ograniczona przez rozmiar segmentu stosu, można
+tworzyć tysiące</li>
+</ul>
+<h3
+id="wątki-zrealizowany-w-systemie-operacyjnym-kernel-level-thread">Wątki
+zrealizowany w systemie operacyjnym (kernel level thread)</h3>
+<ul>
+<li>Tworzeniem i przełączaniem zajmuje się scheduler jądra, szereguje
+wątki a nie procesy</li>
+<li>Drogie tworzenie i przełączanie wątków</li>
+<li>Duże wykorzystanie pamięci jądra</li>
+<li>Szeregowanie jest bardziej efektywne bo IO wątku nie zablokuje
+całego procesu</li>
+</ul>
+<h3 id="wątki-hybrydowe">Wątki hybrydowe</h3>
+<p>Najbardziej efektywne jest rozwiązanie hybrydowe</p>
+<ul>
+<li>Wątek poziomu jądra można rozgałęzić na wiele wątków poziomu
+użytkownika (realizowane w bibliotekach)</li>
+<li>Nie ma sensu tworzyć więcej wątków poziomu jądra niż logicznych
+procesorów w komputerze bo będą konkurować o czas same ze sobą</li>
+<li>Można utworzyć 1000 wątków bibliotecznych ale np. tylko 4 będą się
+wykonywać równolegle</li>
+</ul>
+<p>Ważne na kolokwium!</p>
+<h3 id="light-weight-process-lwp">Light-weight process (LWP)</h3>
+<p>Jeden wątek poziomu jądra</p>
+<p>Można wymusić wykluczenie wątku ze standardowego szeregowania i
+przydzielenia mu dedykowanego procesora</p>
+<h2 id="serwer-wielowątkowy">Serwer wielowątkowy</h2>
+<p>Do wielu zastosowań opłaca się mieć wiele wątków * Jeden wątków typu
+dispatcher * Wiele wątków typu worker * Jeśli jest więcej pracy niż
+wolnych wątków worker to kolejkujemy (buforujemy) zlecenia</p>
+<h2 id="metody-konstrukcji-serwerów">Metody konstrukcji serwerów</h2>
+<ul>
+<li>Serwer wielowątkowy - współbieżny, blokujące wywołania
+systemowe</li>
+<li>Proces jendowątkowy - brak współbieżności, blokujące wywołania
+systemowe</li>
+<li>Automaty skończone - współbieżne, nieblokujące wywołania systemowe,
+przerwania
+<ul>
+<li>asynchroniczne wejście wyjście</li>
+</ul></li>
+</ul>
+<h2 id="architektura-w-systemie-solaris-system-v">Architektura w
+systemie Solaris (System V)</h2>
+<ul>
+<li>Procesy</li>
+<li>Wątki poziomu użytkownika</li>
+<li>LWP - odwzorowanie wątków poziomu jądra</li>
+<li>Wątki poziomu jądra</li>
+</ul>
+<h2 id="cechy-dobrego-szeregowania">Cechy dobrego szeregowania</h2>
+<ul>
+<li>sprawiedliwe - każdemu równą część CPU</li>
+<li>zgodne z przyjątą polityką</li>
+<li>wyrównywanie - zbliżona zajętość wszystkich części systemu</li>
+</ul>
+<h3 id="systemy-wsadowe">Systemy wsadowe</h3>
+<ul>
+<li>przepustowość - maksymalizaja liczby zadań w czasie</li>
+<li>czas w systemie - minimalny między uruchomieniem a zakończeniem</li>
+<li>wykorzystanie procesora - minimalizacja przerw w pracy
+procesora</li>
+</ul>
+<h3 id="systemy-interaktywne">Systemy interaktywne</h3>
+<ul>
+<li>czas odpowiedzi - możliwie szybka odpowiedź na żądanie</li>
+<li>proporcjonalność - spełnianie oczekiwań użytkownika</li>
+</ul>
+<h3 id="systemy-czasu-rzeczywistego">Systemy czasu rzeczywistego</h3>
+<ul>
+<li>spełnianie wymagań - ograniczenia czasowe</li>
+<li>przewidywalność</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section">(2023-11-28)</a>
+<ul>
+<li><a href="#wątki-można-zrealizować-bez-wywołań-systemowych-user-level-thread">Wątki
+można zrealizować bez wywołań systemowych (user level thread)</a></li>
+<li><a href="#wątki-zrealizowany-w-systemie-operacyjnym-kernel-level-thread">Wątki
+zrealizowany w systemie operacyjnym (kernel level thread)</a></li>
+<li><a href="#wątki-hybrydowe">Wątki hybrydowe</a></li>
+<li><a href="#light-weight-process-lwp">Light-weight process
+(LWP)</a></li>
+<li><a href="#serwer-wielowątkowy">Serwer wielowątkowy</a></li>
+<li><a href="#metody-konstrukcji-serwerów">Metody konstrukcji
+serwerów</a></li>
+<li><a href="#architektura-w-systemie-solaris-system-v">Architektura w
+systemie Solaris (System V)</a></li>
+<li><a href="#cechy-dobrego-szeregowania">Cechy dobrego szeregowania</a>
+<ul>
+<li><a href="#systemy-wsadowe">Systemy wsadowe</a></li>
+<li><a href="#systemy-interaktywne">Systemy interaktywne</a></li>
+<li><a href="#systemy-czasu-rzeczywistego">Systemy czasu
+rzeczywistego</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

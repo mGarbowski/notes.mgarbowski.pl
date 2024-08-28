@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-10</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-09.html">Poprzedni: wyklad-09.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-11.html">Następny: wyklad-11.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="synchronizacja-procesów-2023-12-05">Synchronizacja procesów
+(2023-12-05)</h1>
+<p>Nawet jak jest tylko jeden rdzeń to lepiej mieć wiele procesów w
+pamięci głównej, żeby móc przełączać na IO. Nie może też być za dużo bo
+większość wyląduje na swapie i będzie spowalniać działanie</p>
+<h2 id="algorytmy-szeregowania">Algorytmy szeregowania</h2>
+<p>W systemach wsadowych * First-Come First-Served - kolejka FIFO * SJF
+- najszybciej najkrótsza praca * SRTN - shortest remaining time next *
+szeregowanie trzypoziomowe (Three-Level Scheduling)</p>
+<h3 id="szeregowanie-trzypoziomowe">Szeregowanie trzypoziomowe</h3>
+<ul>
+<li>CPU scheduler - planista w jądrze systemu</li>
+<li>Admission scheduler - kolejka uruchamiająca zadania</li>
+<li>Memory scheduler</li>
+</ul>
+<h3 id="szeregowanie-z-klasami-priorytetowymi">Szeregowanie z klasami
+priorytetowymi</h3>
+<p>Priorytet można dynamicznie zmieniać (np zmniejszać w miare zużywania
+czasu procesora)</p>
+<h3 id="szeregowanie-w-systemach-czasu-rzeczywistego">Szeregowanie w
+systemach czasu rzeczywistego</h3>
+<p>Ograniczenia twarde i miękkie (nie są faktycznie real-time) System
+real-time nie musi być szybki, musi być pewny QNX, RT Linux (nie jest
+tak naprawdę Linuxem)</p>
+<p>System jest szeregowalny musi spełniać</p>
+<p><span class="math display">\[
+\sum_{i=1}^m \frac{C_i}{P_i} \le 1
+\]</span></p>
+<ul>
+<li><span class="math inline">\(C_i\)</span> - czas wykonania zadania
+okresowego</li>
+<li><span class="math inline">\(P_i\)</span> - okres wykonania zadania
+okresowego</li>
+</ul>
+<h1 id="wzajemne-wykluczanie-i-synchronizacja">Wzajemne wykluczanie i
+synchronizacja</h1>
+<p>Jest dużo linków i materiałów na stronie</p>
+<h2 id="wyścig">Wyścig</h2>
+<p>Race conditions</p>
+<p>Sytuacja w której dwa lub więcej procesów wykonuje operację na
+zasobach dzielonych, a ostateczny wynik tej operacji jest zależny od
+momentu jej realizacji</p>
+<h2 id="sekcja-krytyczna">Sekcja krytyczna</h2>
+<p>Fragment programu, w którym występują instrukcje dostępu do zasobów
+dzielonych. Instrukcje tworzące sekcje krytyczne muszą być poprzedzone i
+zakończone operacjami realizującymi wzajemne wykluczanie.</p>
+<p>Potężny koszt wydajnościowy ale są konieczne żeby poprawnie wykonać
+algorytm. Im mniejsza ziarnistość tym mniejsze będą spowolnienia i
+lepsza wydajność</p>
+<p>Mechanizmy do realizowania wzajemnego wykluczenia muszą być
+dostarczone przez system operacyjny</p>
+<h3 id="warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
+konieczne implementacji sekcji krytycznej</h3>
+<ul>
+<li>Wewnątrz sekcji krytycznej może przebywać tylko jeden proces</li>
+<li>Jakikolwiek proces znajdujący się poza sekcją krytyczną, nie może
+zablokować innego procesu pragnącego wejść do sekcji krytycznej</li>
+<li>Każdy proces oczekujący na wejście do sekcji krytycznej powinien
+otrzymać prawo dostępu w rozsądnym czasie</li>
+</ul>
+<h3 id="mechanizmy-realizujące-wzajemne-wykluczanie">Mechanizmy
+realizujące wzajemne wykluczanie</h3>
+<ul>
+<li>Mechanizmy z aktywnym oczekiwaniem na wejście do sekcji krytycznej
+<ul>
+<li>blokowanie przerwań</li>
+<li>zmienne blokujące - niepoprawne</li>
+<li>ścisłe następstwo - niepoprawne</li>
+<li>algorytm Petersona</li>
+<li>instrukcja TSL</li>
+</ul></li>
+<li>Mechanizmy z zawieszaniem procesu oczekującego na wejście do sekcji
+krytycznej
+<ul>
+<li>proces jest zatrzymywany przez jądro, czeka aż będzie mógł wejść do
+sekcji</li>
+<li>sleep i wakeup - niepoprawne</li>
+<li>semafory</li>
+<li>monitory</li>
+<li>komunikaty</li>
+</ul></li>
+</ul>
+<p>Niepoprawne też trzeba znać - nie robić takich błędów Wszystkie
+trzeba znać i rozumieć, na pewno będą na kolosie i egzaminie</p>
+<h3 id="blokowanie-przerwań">Blokowanie przerwań</h3>
+<p>Przerwanie zegarowe też jest zablokowane, więc nie wzbudzi się
+planista więc nie przełączy się na żaden inny proces i nie zostanie
+przerwany.</p>
+<p>Nie nadaje się do procesów użytkowych ale może być ok w implementacji
+jądra (ale się ich unika)</p>
+<h3 id="zmienne-blokujące---niepoprawne">Zmienne blokujące -
+<strong>niepoprawne</strong></h3>
+<p>Odczytanie zmiennej i zapisanie zmiennej to dwie oddzielne instrukcje
+- pomiędzy może się wcisnąć inny proces (nastąpi przełączenie
+kontekstu)</p>
+<p>Oba procesy wejdą do sekcji krytycznej, bo drugi proces odczyta flagę
+zanim pierwszy zdążył ją zapisać</p>
+<p>Trzeba umieć wyjaśnić czemu to nie działa!</p>
+<h3 id="ścisłe-następstwo">Ścisłe następstwo</h3>
+<p>Strict alteration, “algorytm brytyjskich dżentelmenów”</p>
+<p>zmienna <code>turn</code> i pętla sprawdzająca czy moja kolej</p>
+<p>Nie ma wyścigu ale jest możliwe zagłodzenie</p>
+<p>Proces poza sekcją, przez niepodanie pozwolenia może zablokować inny
+proces od wejścia do sekcji krytycznej</p>
+<h3 id="sleep-i-wakeup---niepoprawne"><code>sleep</code> i
+<code>wakeup</code> - <strong>niepoprawne</strong></h3>
+<p>Dla problemu producent - konsument</p>
+<p><code>wakeup</code> może zostać wysłany zanim drugi pójdzie spać
+sprawdzenie stanu bufora i wywołanie <code>sleep</code> to oddzielne
+instrukcje, pomiędzy może być context switch</p>
+<p>sygnał wakeup zostanie utracony</p>
+<h3 id="semafor">Semafor</h3>
+<p>Jest jak zmienna…</p>
+<p>Zmienna nazywana semaforem jest inicjowana nieujemną wartością
+całkowitą i zdefiniowana poprzez definicje niepodzielnych operacji P(s)
+i V(s) (z holenderskiego)</p>
+<p>P - jeśli &lt;= 0 czekaj, opuszczenie semafora o 1 V - podniesienie
+semafora o 1</p>
+<p>Jak proces ma pójść spać - każdy proces ma swój indywidualny semafor
+zainicjowany na 0, kiedy idzie spać ustawia go na 1, ustawienie go przez
+inny proces z porotem na 0 go obudzi</p>
+<p>wakeup nie zostanie zgubione tylko zmieni wartość semafora</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#synchronizacja-procesów-2023-12-05">Synchronizacja
+procesów (2023-12-05)</a>
+<ul>
+<li><a href="#algorytmy-szeregowania">Algorytmy szeregowania</a>
+<ul>
+<li><a href="#szeregowanie-trzypoziomowe">Szeregowanie
+trzypoziomowe</a></li>
+<li><a href="#szeregowanie-z-klasami-priorytetowymi">Szeregowanie z
+klasami priorytetowymi</a></li>
+<li><a href="#szeregowanie-w-systemach-czasu-rzeczywistego">Szeregowanie
+w systemach czasu rzeczywistego</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#wzajemne-wykluczanie-i-synchronizacja">Wzajemne
+wykluczanie i synchronizacja</a>
+<ul>
+<li><a href="#wyścig">Wyścig</a></li>
+<li><a href="#sekcja-krytyczna">Sekcja krytyczna</a>
+<ul>
+<li><a href="#warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
+konieczne implementacji sekcji krytycznej</a></li>
+<li><a href="#mechanizmy-realizujące-wzajemne-wykluczanie">Mechanizmy
+realizujące wzajemne wykluczanie</a></li>
+<li><a href="#blokowanie-przerwań">Blokowanie przerwań</a></li>
+<li><a href="#zmienne-blokujące---niepoprawne">Zmienne blokujące -
+<strong>niepoprawne</strong></a></li>
+<li><a href="#ścisłe-następstwo">Ścisłe następstwo</a></li>
+<li><a href="#sleep-i-wakeup---niepoprawne"><code>sleep</code> i
+<code>wakeup</code> - <strong>niepoprawne</strong></a></li>
+<li><a href="#semafor">Semafor</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

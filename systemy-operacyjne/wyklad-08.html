@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07.html">Poprzedni: wyklad-07.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09.html">Następny: wyklad-09.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-8-2023-11-21">Wykład 8 (2023-11-21)</h1>
+<h2 id="o-zadaniu">O zadaniu</h2>
+<ul>
+<li>Wywołania systemowe</li>
+<li>Fork</li>
+<li>Algorytmy szeregowania z wywłaszczaniem i bez wywłaszczani</li>
+<li>Przeanalizować obecny algorytm szeregowania, na tym musi bazować
+koncepcja</li>
+</ul>
+<p>Pytanie na kolokwium o pełny graf przejść stanów procesu w System
+V</p>
+<p>Scheduler rozpatruje tlyko procesy uruchomione lub gotowe do
+uruchomienia Szeregowanie bez wywłaszczania nie dzieli czasu na kwanty,
+tylko czeka się na przerwanie systemowe - nie nadają się do systemów
+interaktywnych ale są bardziej wydajne do zadań intensywnych
+obliczeniowo</p>
+<h2 id="stany-procesów">Stany procesów</h2>
+<p>Proces który w poprzednim kwancie czasu był wykonywany ma flagę
+preempted (wywłaszczony) Proces przechodzi do stanu preempted po wyjściu
+z wywołania systemowego Jesli nie ma lepszego kandydata najlepiej wybrać
+ten wywłaszczony bo jest załadowany cache</p>
+<h3 id="stan-zombie">Stan zombie</h3>
+<ul>
+<li>Proces może być tworzony tylko przez fork</li>
+<li>Pamięć procesu jest chroniona</li>
+<li>Jest gwarantowane że zawsze będzie można zobaczyć kod wyjścia
+procesu dziecka</li>
+</ul>
+<p>Jeśli proces dziecko się zakończył to nie ma potrzeby trzymać jego
+zasobów ale trzeba dostarczyć kodu wyjścia jeśli proces rodzic o to
+zapyta. Kod wyjścia jest przechowywany jako jedno z pól w strukturze
+reprezentującej proces w tablicy procesów.</p>
+<p>Proces zombie ma zwolnioną pamięć, nie reaguje na sygnały, zostaje
+tylko wpis w tablicy procesów, istnieje tylko po to żeby przepisać kod
+wyjścia.</p>
+<p>Proces zombie ma ustawioną flagę <code>IN_USE</code></p>
+<p>Tablica deskryptorów emuluje zachowanie listy dynamicznej ale jest
+tablicą bo tak jest wydajniej</p>
+<p>Zombie już nie żyje i nie można go zabić (sygnał 9 SIGKILL)</p>
+<p>Po zakończeniu wykonania procesu nadrzędnego, procesy potomne zostają
+sierotami Każdy proces sierota jest natychmiastowo przejmowany przez
+proces init (zostaje procesem dzieckiem procesu init) Init wykonuje w
+nieskończonej pętli <code>wait</code> umożliwiając odejście procesów
+sierot</p>
+<p>Procesy zaczynają się od pid=1 (proces init)</p>
+<h2 id="planista">Planista</h2>
+<p>Tablica deskryptorów nie musi być zrealizowana jako tablica, jest
+kwestią implementacyjną danego systemu programowania (w Minixie to
+zwykład tablica w C)</p>
+<p>Element tablicy (struktura) opisujący proces to deskryptor
+procesu</p>
+<p>Zwykłe dane procesu (TEXT, DATA, STACK) znajdują się w jego pamięci
+Metadane procesu wykorzystywane przez planistę to mała struktura w
+pamięci jądra (priorytet do algorytmu szeregowania, informacje
+statystyczne ile dany proces się wykonuje)</p>
+<h2 id="typowa-budowa-deskryptora-procesu">Typowa budowa deskryptora
+procesu</h2>
+<ul>
+<li>Zarządzanie procesem
+<ul>
+<li>Rejestry</li>
+<li>Licznik instrukcji</li>
+<li>Słowo stanu procesora</li>
+<li>Wskaźnik stosu</li>
+<li>stan procesu (READY, RUNNING, BLOCKED)</li>
+<li>priorytet</li>
+<li>Parametry szeregowania</li>
+<li>ID procesu</li>
+<li>Proces rodzic</li>
+<li>Grupa procesu</li>
+<li>Sygnały</li>
+<li>czas startu procesora</li>
+<li>użyty czas CPU</li>
+<li>czas następnego alarmu</li>
+</ul></li>
+<li>Zarządzanie pamięcią
+<ul>
+<li>Wskaźnik do segmentu kodu</li>
+<li>Wskaźnik do segemntu danych</li>
+<li>Wskaźnik do segmentu stosu</li>
+</ul></li>
+<li>Zarządzanie plikami
+<ul>
+<li>Katalog root (umożliwia separację, już raczej nie stosowany ale
+ważne np przy instalowaniu bootloadera)</li>
+<li>Katalog bieżący</li>
+<li>Deskryptory plików</li>
+<li>ID użytkownika</li>
+<li>ID grupy</li>
+</ul></li>
+</ul>
+<h2 id="obsługa-przerwań">Obsługa przerwań</h2>
+<ul>
+<li>Odebranie czasu procesora na rzecz planisty po przerwaniu
+zegarowym</li>
+<li>Procesor ma jedną linię połączenia z kontrolerem przerwań</li>
+<li>Wskaźniki na funkcje obsługi przerwań są trzymane w tzw wektorze
+przerwań, indeksowane numerem przerwania</li>
+</ul>
+<p>Jądro systemu właściwie składa się ze sterowników urządzeń
+zewnętrznych i funkcje obsługujące ich przerwania</p>
+<h3 id="przebieg">Przebieg</h3>
+<ul>
+<li>Sprzętowo zapamiętanie na stosie licznika rozkazów itd</li>
+<li>Sprzętowe załadowanie nowej wartości licznika rozkazów z wektora
+przerwań (<code>jmp</code>, <code>call</code>)</li>
+<li>Procedura assemblerowa zapamiętuje wartość rejestrów</li>
+<li>Procedura assemblerowa ustala nowy stos</li>
+<li>Obsługa przerwania w języku C (często odczyt i buforowanie
+wejścia)</li>
+<li>Planista wybiera następny proces do wznowienia</li>
+<li>Procedura w języku assemblera przygotowuje i wznawia nowy bieżący
+proces</li>
+</ul>
+<h2 id="wątki">Wątki</h2>
+<p>Proces dostarcza środowisko uruchomieniowe dla strumienia
+przetwarzania i ma zapewnioną ochronę pamięci Wątki nie są chronione w
+obrębie jednego procesu</p>
+<p>Wątki mogą komunikować się przez wspólną pamięć procesu, wymagają
+jawnej synchronizacji</p>
+<p>Przekazanie danych - komunikacja, wymuszenie porządku -
+synchronizacja</p>
+<p>Błąd w kodzie wykonywanym przez wątek może nadpisać/zamazać pamięć
+innego wątku</p>
+<h3 id="wady">Wady</h3>
+<ul>
+<li>Nie umożliwiają rzeczywistej równoległości</li>
+<li>Nie można podzielić jednego procesu na wiele węzłów</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-8-2023-11-21">Wykład 8 (2023-11-21)</a>
+<ul>
+<li><a href="#o-zadaniu">O zadaniu</a></li>
+<li><a href="#stany-procesów">Stany procesów</a>
+<ul>
+<li><a href="#stan-zombie">Stan zombie</a></li>
+</ul></li>
+<li><a href="#planista">Planista</a></li>
+<li><a href="#typowa-budowa-deskryptora-procesu">Typowa budowa
+deskryptora procesu</a></li>
+<li><a href="#obsługa-przerwań">Obsługa przerwań</a>
+<ul>
+<li><a href="#przebieg">Przebieg</a></li>
+</ul></li>
+<li><a href="#wątki">Wątki</a>
+<ul>
+<li><a href="#wady">Wady</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

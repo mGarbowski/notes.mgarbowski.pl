@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-model-relacyjny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-model-pojeciowy.html">Poprzedni: 02-model-pojeciowy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-hurtownie-danych.html">Następny: 04-hurtownie-danych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="model-relacyjny">Model relacyjny</h1>
+<h2 id="mapowanie-modelu-er-na-model-relacyjny">Mapowanie modelu ER na
+model relacyjny</h2>
+<ul>
+<li>Encja - tabela
+<ul>
+<li>zwyczajowo nazwa w liczbie mnogiej</li>
+</ul></li>
+<li>Atrybut - kolumna</li>
+<li>UID - klucz główny</li>
+<li>Związek - klucz obcy</li>
+<li>Mapowanie podtypów
+<ul>
+<li>implementacja jawna</li>
+<li>implementacja generyczna</li>
+<li>implementacja hybrydowa</li>
+</ul></li>
+<li>Mapowanie łuków
+<ul>
+<li>implementacja jawna</li>
+<li>implementacja generyczna</li>
+</ul></li>
+<li>Często można stworzyć model ER na wiele sposobów, a modele logiczne
+będą bardzo podobne</li>
+</ul>
+<h3 id="związek-jednoznaczny">Związek jednoznaczny</h3>
+<ul>
+<li>Mapowanie związku jednoznacznego jest oczywiste</li>
+<li>Hierarchiczna relacja</li>
+<li>W tabeli podrzędnej będzie klucz obcy</li>
+</ul>
+<h3 id="związek-jednojednoznaczny">Związek jednojednoznaczny</h3>
+<ul>
+<li>Mapowanie jest tak oczywiste</li>
+<li>Związek jest symetryczyny więc trzeba podjąć jakąś decyzję</li>
+<li>Zostaje hierarchia - encja podstawowa i zależna
+<ul>
+<li>encja zależna będzie miała unikalny klucz obcy</li>
+</ul></li>
+<li>Można umieścić klucz po stronie encji podstawowej
+<ul>
+<li>np. numer dokumentu w osobie</li>
+</ul></li>
+<li>Przekłada się odpowiedzialność za utrzymanie spójności danych przez
+aplikację</li>
+<li>Można umieścić klucze obce po obu stronach
+<ul>
+<li>jeśli to jest przydatne, zależy jakie są potrzeby aplikacji</li>
+<li>faktycznie implementuje się oba końce związku</li>
+<li>uwzględnia się opcjonalność po obu stronach</li>
+</ul></li>
+<li>Kluczem głównym w tabeli zależnej może być ten sam klucz co w tabeli
+podstawowej
+<ul>
+<li>id osoby jest kluczem tabeli dokumenty</li>
+<li>id dokumentu jest unikalne</li>
+<li>działa w obie strony jako klucz obcy</li>
+</ul></li>
+<li>W niektórych sytuacjach może opłacać się dodać klucz sztuczny
+<ul>
+<li>ten sam klulcz sztuczny może być kluczem głównym i obcym po obu
+stronach</li>
+</ul></li>
+<li>Można dwie encje połączyć w jedną tabelę
+<ul>
+<li>na jedno wychodzi, jeśli związek jest jednojednoznaczny</li>
+<li>najczęściej optymalne rozwiązanie</li>
+<li>wymaga analizy dziedziny biznesowej (np. czy dokument może
+istnieć niezależnie od osoby)</li>
+</ul></li>
+<li>Jeśli z obu stron jest opcjonalny to związek jest symetryczny i nie
+ma jasnej reguły co wybrać
+<ul>
+<li>decyzja projektowa</li>
+</ul></li>
+<li>To że w bazie relacyjnej informacja o powiązaniu istnieje tylko po
+stornie tej tabeli, w której jest klucz obcy może być problematyczne
+<ul>
+<li>żeby dostać się do podrzędnych obiektów trzeba wykonwać bardziej
+skomplikowane zapytanie</li>
+</ul></li>
+</ul>
+<h3 id="związek-identyfikujący">Związek identyfikujący</h3>
+<ul>
+<li>Klucz główny zawiera klucz obcy i jeszcze jakiś atrybut
+<ul>
+<li>np. numer faktury i numer pozycji na fakturze</li>
+</ul></li>
+</ul>
+<h3 id="wskazania-do-wprowadzenia-klucza-sztucznego">Wskazania do
+wprowadzenia klucza sztucznego</h3>
+<ul>
+<li>Zbyt wiele segmentów klucza
+<ul>
+<li>4 to już na pewno za dużo</li>
+<li>3 jest dyskusyjne</li>
+<li>zajmują więcej miejsca w indeksie</li>
+<li>w tabeli podrzędnej musi być tyle samo segmentów, żeby mieć klucz
+obcy</li>
+</ul></li>
+<li>Klucz znakowy o dużej wielkości
+<ul>
+<li>analogicznie jak do klucza o wielu segmentach</li>
+</ul></li>
+<li>Niepewność co do 100% określoności lub unikatowości klucza
+<ul>
+<li>czy cecha zawsze występuje</li>
+<li>czy zawsze o niej wiemy</li>
+</ul></li>
+<li>Możliwosć zmienności wartości klucza
+<ul>
+<li>zmiana klucza głównego bardzo obciąża system</li>
+<li>trzeba zmienić we wszystkich tabelach podrzędnych</li>
+</ul></li>
+<li>Klucz sztuczny to atrybut, który nie istniał w modelu ER
+<ul>
+<li>ma znaczenie tylko techniczne</li>
+<li>jest oderwany od rzeczywistości</li>
+<li>my go nadajemy, więc możemy mieć pewność że będzie unikalny, nigdy
+się nie zmieni itd.</li>
+</ul></li>
+</ul>
+<h3 id="encja-łącząca">Encja łącząca</h3>
+<ul>
+<li>Tabela zawierająca tylko klucze obce, które tworzą klucz główny</li>
+<li>Tabela o złożonym kluczu głównym i atrybutach</li>
+<li>Tabela z własnym, prostym kluczem głównym (np. sztucznym) i zwykłymi
+kluczami obcymi</li>
+<li>Hybrydowa
+<ul>
+<li>np. dla związku identyfikującego</li>
+</ul></li>
+</ul>
+<h3 id="zachowanie-kluczy-obcych">Zachowanie kluczy obcych</h3>
+<ul>
+<li>Operacje <code>INSERT</code> i <code>UPDATE</code> do tabeli
+podrzędnej muszą być weryfikowane pod kątem poprawności klucza
+obcego</li>
+<li>Operacje <code>DELETE</code> i <code>UPDATE</code> do tabeli
+nadrzędnej muszą być weryfikowane pod kątem powiązanych rekordów</li>
+<li>Klauzula <code>ON UPDATE</code> zakłada aktualizację klucza głównego
+<ul>
+<li>może lepiej żeby w ogóle nie było możliwe</li>
+</ul></li>
+<li>Operacja jest zabroniona, domyślne (<code>RESTRICT</code>,
+<code>NO ACTION</code>)</li>
+<li>Kaskada (<code>CASCADE</code>)
+<ul>
+<li>system automatycznie usuwa wiersze podrzędne</li>
+</ul></li>
+<li>Ustawienie wartości klucza obcego na <code>NULL</code>
+(<code>SET NULL</code>)</li>
+<li>Ustawienie wartości domyślnej (<code>SET DEFAULT</code>)
+<ul>
+<li>można użyć dla związku obligatoryjnego</li>
+<li>podpina wszystkie obiekty podrzędne do jednego wirtualnego
+obiektu</li>
+</ul></li>
+</ul>
+<h3 id="implementacja-podtypów">Implementacja podtypów</h3>
+<ul>
+<li>Najczęściej stosuje się implemetację generyczną</li>
+<li>Kiedy pojawia się problem z dostępem sekwencyjnym - implementacja
+hybrydowa</li>
+<li>W szczególnych przypadkach implementacja jawna
+<ul>
+<li>np. nie posługujemy się nadtypem</li>
+</ul></li>
+</ul>
+<h4 id="implementacja-jawna">Implementacja jawna</h4>
+<ul>
+<li>Oddzielne tabele dla każdego podtypu</li>
+<li>Każda tabela zawiera kolumny odpowiadające podtypowi</li>
+<li>Dla nadtypu nie ma tabeli
+<ul>
+<li>definiuje się perspektywę (widok)</li>
+<li>widok zawiera wszystkie kolumny z obu podtypów
+(<code>UNION ALL</code>) z wartościami <code>NULL</code> w odpowiednich
+miejscach</li>
+<li>operacje teoriomnogościowe w SQL są mało wydajne</li>
+</ul></li>
+<li>Optymalna obsługa podtypów</li>
+<li>Problem wydajnościowy przy dostępie indeksowym do wierszy nadtypu
+<ul>
+<li>są wykonywane 2 <code>SELECT</code>y, 1 na pewno niepotrzebne</li>
+<li>może być problem wydajnościowy</li>
+</ul></li>
+<li>Dla dostępu sekwencyjnego do wierszy nadtypu nie ma różnicy
+<ul>
+<li>system ma tyle samo pracy do wykonania</li>
+</ul></li>
+<li>Problem z implementacją unikatowego identyfikatora nadtypu
+<ul>
+<li>nie ma jednego, wspólnego klucza głównego</li>
+<li>można zrobić trigger</li>
+<li>można generować sztuczny klucz (wspólna sekwencja dla obu tabel,
+UUID)</li>
+<li>konieczność implementacji łuku po stronie tabeli nadrzędnej</li>
+</ul></li>
+<li>Mało wydajna zmiana przynależności obiektu do podtypu
+<ul>
+<li>wykonanie <code>DELETE</code> i <code>INSERT</code></li>
+<li>czy to problem - zależy o stabilności przypisania do podtypów</li>
+</ul></li>
+<li>Rzadziej używana w praktyce
+<ul>
+<li>może być lepsza w określonych warunkach</li>
+</ul></li>
+</ul>
+<p>Operacja <code>UNION ALL</code> skleja dwa zbiory (nie usuwa
+duplikatów, jest wydajny), nie jest tożsama z sumą teoriomnogościową
+(<code>UNION</code>)</p>
+<h4 id="implementacja-generyczna">Implementacja generyczna</h4>
+<ul>
+<li>Jedna tabela z atrybutami wszystkich podtypów</li>
+<li>Dla podtypów zdefiniowane widoki na tabeli generycznej</li>
+<li>Dodatkowa kolumna określa przynależność do podtypu - selektor</li>
+<li>Traci się zapewnienie obligatoryjności atrybutów podtypu na poziomie
+kolumn
+<ul>
+<li>można to zapewnić przez <code>CHECK</code> zależny od kolumny
+selektora</li>
+<li>klauzule mogą zrobić się bardzo skomplikowane ze wzrostem liczby
+atrybutów i podtypów</li>
+</ul></li>
+<li>Optymalna obsługa nadtypu</li>
+<li>Problem wydajnościowy przy dostępie sekwencyjnym do wierszy podtypów
+<ul>
+<li>odrzuca się wiersze odpowiadające pozostałym podtypom</li>
+</ul></li>
+<li>Łatwa zmiana przynależności obiektu do podtypu
+<ul>
+<li>zmiana wartości selektora</li>
+</ul></li>
+</ul>
+<h4 id="implementacja-hybrydowa">Implementacja hybrydowa</h4>
+<ul>
+<li>Tabela dla nadtypu i tabele dla każdego podtypu
+<ul>
+<li>jedyny przykład, gdzie z każdej encji powstaje tabela</li>
+</ul></li>
+<li>Klucz główny tabeli nadtypu jest jednocześnie kluczem głównym i
+kluczem obcym tabeli podtypu</li>
+<li>Widok dla nadtypu i widoki dla podtypów
+<ul>
+<li>dla nadtypu stosuje się outer join</li>
+</ul></li>
+<li>Bardziej skompikowana niż implementacja jawna i generyczna ale
+pozbawiona ich wad
+<ul>
+<li>optymalizator wybierze najlepszą opcję dostępu</li>
+</ul></li>
+<li>Generalnie mniej wydajne, bo w zapytaniach występują złączenia
+<ul>
+<li>można poprawić wydajność stosując klastrowanie tabel</li>
+</ul></li>
+<li>Nie ma problemu z implementacją unikatowego identyfikatora</li>
+<li>Nie ma problemu z implementacją zależności referencyjnych</li>
+<li>Najbardziej złożona zmiana przynależności do podtypu</li>
+</ul>
+<h3 id="implementacja-łuków">Implementacja łuków</h3>
+<h4 id="implementacja-jawna-1">Implementacja jawna</h4>
+<ul>
+<li>Dwa klucze obce</li>
+<li>Deklaratywne definiowanie więzów integralności
+<ul>
+<li><code>CHECK</code> zapewnia ich wzajemne wykluczenie</li>
+</ul></li>
+<li>Jedyne możliwe rozwiazanie, gdy klucze są różnych typów</li>
+<li>Nie nadaje się do związków identyfikujących
+<ul>
+<li>żaden segment klucza głównego nie może być <code>NULL</code></li>
+<li>trzeba wprowadzić sztuczny klucz główny</li>
+</ul></li>
+</ul>
+<h4 id="implementacja-generyczna-1">Implementacja generyczna</h4>
+<ul>
+<li>W praktyce nie stosowana</li>
+<li>Jedna kolumna z pseudo kluczem obcym</li>
+<li>Kolumna selektora określa jakiej tabeli dotyczy pseudo klucz
+obcy</li>
+<li>Nie ma tak naprawdę klucza obcego (więzu integralności)</li>
+<li>Obsługa przez triggery</li>
+<li>Może być wygodne dla związków identyfikujących</li>
+<li>Niemożliwe do zastosowania, gdy klucze są różnych typów</li>
+<li>Więzy integralności muszą być definiowane proceduralnie (przez
+triggery)</li>
+</ul>
+<h2 id="normalizacja">Normalizacja</h2>
+<ul>
+<li>Usuwa z modelu danych anomalie związane z modyfikacją
+<ul>
+<li>wstawianie, aktualizacja, usuwanie</li>
+</ul></li>
+<li>Zły model może mieć redundancję danych, normalizacja usuwa tą
+redundancję</li>
+<li>Sam model uniemożliwia wykonanie pewnych niepoprawnych operacji</li>
+<li>Poprawne utworzenie modelu ER w praktyce zapewnia uzyskanie modelu
+relacyjnego w postaci BCNF
+<ul>
+<li>przygotowując model na zdrowy rozsądek wyjdzie postać normalna</li>
+</ul></li>
+<li>Model znormalizowany zawiera wiele tabel
+<ul>
+<li>zapytania mogą wymagać wykonywania wielu złączeń</li>
+<li>to może prowadzić do mało wydajnych zapytań</li>
+</ul></li>
+</ul>
+<h2 id="denormalizacja">Denormalizacja</h2>
+<ul>
+<li>Przeprowadzana w celu wyeliminowania problemów wydajnościowych</li>
+<li>Istotą jest takie przekształcenie, które umożliwi bardziej efektywny
+dostęp do bazy danych <strong>bez utraty korzyści wynikających z
+normalizacji</strong></li>
+<li>Model musi być znormalizowany żeby wykonać denormalizację
+<ul>
+<li>to nie jest operacja odwrotna do normalizacji</li>
+</ul></li>
+<li>Najpierw potrzeba poprawnego modelu, do którego wprowadza się
+kontrolowaną redundancję
+<ul>
+<li>wprowadzenie redundancji może wprowadzić dodatkowy narzut związany
+np. z obsługą modyfikacji</li>
+</ul></li>
+<li>Opiera się na analizie stosunku zysków do strat
+<ul>
+<li>zysk z szybszego dostępu</li>
+<li>straty wydajności operacji modyfikacji przez redundancję</li>
+</ul></li>
+<li>Najbardziej twórcza, najmniej automatyczna czynność przy
+projektowaniu bazy danych</li>
+<li>Zawsze dotyczy konkretnych zapytań, które wiemy że są zadawane do
+bazy i chcemy je optymalizować</li>
+<li>Już na etapie projektowania można sobie uświadomić jakie problemy
+trzeba będzie rozwiązać
+<ul>
+<li>już wtedy można stwierdzić że jakiś element wymaga
+denormalizacji</li>
+<li>niektóre problemy wyjdą dopiero kiedy zobaczymy “zastoje” w
+działającym systemie</li>
+</ul></li>
+</ul>
+<h3 id="dekodowanie-danych">Dekodowanie danych</h3>
+<ul>
+<li>Np. numer PESEL - jest w nim zakodowana data urodzenia</li>
+<li>Zapisanie oddzielnej kolumny na datę urodzenia wprowadziłoby
+redundancję</li>
+<li>Na poszczególnych kolumnach można potworzyć indeksy</li>
+<li><code>INSERT</code>, <code>UPDATE</code> i <code>DELETE</code>
+kosztuą tyle samo
+<ul>
+<li>indeksy spowalniają <code>INSERT</code> i <code>DELETE</code></li>
+</ul></li>
+<li>Mówiąc o koszcie bierze się pod uwagę głównie wymianę danych między
+pamięcią operacyjną a dyskiem</li>
+</ul>
+<h3 id="pre-join-atrybuty">Pre-join (atrybuty)</h3>
+<ul>
+<li>Umieszczenie w tabeli podrzędnej atrybutów z tabeli nadrzędnej
+(zduplikowanie)</li>
+<li>Unika się złączenia</li>
+<li>Tym większy zysk i bardziej złożone są struktury</li>
+<li>Jawna redundancja</li>
+<li><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>
+kosztują tyle samo dla tabeli podrzędnej (tej która wprowadza
+redundancję)
+<ul>
+<li>aplikacja i tak musi mieć dostęp do tych danych np. przy
+wyświetlaniu w GUI</li>
+</ul></li>
+<li>Dla tabeli nadrzędnej
+<ul>
+<li>logika aplikacji może wykluczać pewne operacje</li>
+<li><code>INSERT</code> można robić tak samo niezależnie od innych
+tabel</li>
+<li><code>UPDATE</code> - działanie zależy od logiki aplikacji
+(zabronione, kaskadowanie, bez zmian)</li>
+<li>np. czy dane klienta na fakturze mogą się zmieniać w czasie</li>
+</ul></li>
+<li>Przy denormalizacji można odkryć niuanse o modelu danych
+<ul>
+<li>przykład z danymi klienta na fakturze - co z modyfikacjami</li>
+</ul></li>
+<li>Często stosowana technika, daje dużo możliwości</li>
+<li>Dodatkowe kolumny i indeksy na tych kolumnach pozwalają na
+wyszukiwanie bez złączeń</li>
+<li>Kaskadowanie operacji można zrealizować triggerami
+<ul>
+<li>raczej chcemy obsługiwać denormalizację z poziomu aplikacji</li>
+<li>triggery raczej w ostateczności (kiedy nie możemy modyfikować
+aplikacji)</li>
+</ul></li>
+</ul>
+<h3 id="pre-join-klucze-obce">Pre-join (klucze obce)</h3>
+<ul>
+<li>Kiedy jest długi łańcuch tabel</li>
+<li>Chcemy dane z tabeli na początku i na końcu łańcucha</li>
+<li>Jeśli w <code>SELECT</code> pojawia się mniej tabel niż we
+<code>FROM</code> to może być problem</li>
+<li>W tabeli dalej w łańcuchu wprowadza się redundantny klucz obcy</li>
+<li>Można wykonać jedno złączenie zamiast wielu</li>
+<li>Wywiedzione zależności</li>
+<li>Aplikacja zapewnia spójność - obie ścieżki prowadzą do tego samego
+rekordu</li>
+</ul>
+<h3 id="pre-join-słowniki">Pre-join (słowniki)</h3>
+<ul>
+<li>Można wprowadzić związki <em>na skróty</em>, których nie ma w modelu
+pojęciowym</li>
+</ul>
+<h3 id="kolumny-wyliczane">Kolumny wyliczane</h3>
+<ul>
+<li>Np. mamy kolumny ilość i cena jednostkowa, a chcemy znać wartość
+(iloczyn)</li>
+<li>Wyszukiwanie po wartości wymaga przeglądania sekwencyjnego i
+wyliczania iloczynu za każdym razem</li>
+<li>Można dodać wartość jako oddzielną kolumnę</li>
+<li>Dodatkową kolumnę można zaindeksować
+<ul>
+<li>niektóre bazy (Oracle) wspierają indeksy funkcyjne - nie ma potrzeby
+wykonywać takiej denormalizacji</li>
+</ul></li>
+<li>Wartość wyliczana przez trigger</li>
+</ul>
+<h3 id="kolumny-agregujące">Kolumny agregujące</h3>
+<ul>
+<li>Zapisanie wartości funkcji agregującej jako oddzielną kolumnę
+<ul>
+<li>np. suma z tabeli podrzędnej</li>
+</ul></li>
+<li>Odczyt bez grupowania, przeglądu sekwencyjnego i sortowania</li>
+<li>Można założyć indeks na kolumnie</li>
+<li>Przyspiesza zapytanie o rzędy wielkości</li>
+<li>Utrzymywanie przez triggery
+<ul>
+<li>na <code>UPDATE</code>, <code>INSERT</code> i <code>DELETE</code> w
+tabeli podrzędnej</li>
+</ul></li>
+<li>Na poziomie aplikacji może być łatwiej
+<ul>
+<li>np. i tak musi trzymać wyliczoną wartość, żeby ją wyświetlić</li>
+<li>zerowy koszt, duża korzyść</li>
+</ul></li>
+<li>Dobre dla obiektu o złożonej, hierarchicznej strukturze</li>
+<li>Problem przy wielopoziomowej zależności (suma sum)
+<ul>
+<li>może być nienaturalne z punktu widzenia aplikacji - wymagać
+dodatkowych zapytań</li>
+<li>triggery mogą być lepsze</li>
+</ul></li>
+<li>Takie rozwiązanie może działać bardzo wolno jeśli agregacja dotyczy
+rekordów, do których dostaje się więcej niż jeden użytkownik na raz
+<ul>
+<li>normalnie patrzę np. tylko na swoje faktury</li>
+<li>te same towary widzą wszyscy użytkownicy i blokują się nawzajem</li>
+<li>zależy od tego jak dane są używane w aplikacji</li>
+<li>trzeba dobrze rozumieć działanie aplikacji i zachowanie
+użytkowników</li>
+</ul></li>
+</ul>
+<h3 id="tabele-agregujące">Tabele agregujące</h3>
+<ul>
+<li>Możemy potrzebować więcej szczegółów, bardziej granularny podział
+niż w pojedynczej kolumnie
+<ul>
+<li>np. obroty klienta z podziałem na miesiące</li>
+</ul></li>
+<li>Dotyczy przede wszystkim zagadnień analitycznych, a nie
+operacyjnych</li>
+<li>Specjalne wartości w kolumnach mogą sygnalizować zagregowane
+wartości
+<ul>
+<li>np. miesiąc o numerze 0 - suma dla całego roku</li>
+</ul></li>
+<li>Obsługa
+<ul>
+<li>na poziomie aplikacji może być kłopotliwe</li>
+<li>aplikacja zajmuje się działalnościami operacyjnymi</li>
+<li>nie powinna wykonywać niezwiązanych zadań</li>
+<li>dobrze sprawdzi się obsługa przez triggery</li>
+</ul></li>
+</ul>
+<h3 id="agregujący-widok-zmaterializowany">Agregujący widok
+zmaterializowany</h3>
+<ul>
+<li>Jest obsługiwana automatycznie, trzeba ją tylko odpowiednio
+skonfigurować
+<ul>
+<li>nie trzeba pisać żadnego kodu, triggerów itp</li>
+<li>triggery działają synchronicznie</li>
+<li>daje więcej możliwości konfiguracyjnych niż tabela agregująca</li>
+<li>może znacznie mniej obciążać system przy <code>INSERT</code> i
+<code>UPDATE</code></li>
+</ul></li>
+<li>Jest pod każdym względem lepszy niż tabela agregująca</li>
+</ul>
+<h2 id="widoki-zmaterializowane">Widoki zmaterializowane</h2>
+<ul>
+<li>Stworzenie zwykłego widoku to dodanie <em>nazwanego zapytania</em>
+<ul>
+<li>nie powstaje żadna tabela</li>
+<li>zapytanie do widoku jest zamieniane na zapytanie do odpowiednich
+tabel</li>
+<li>upraszcza składnię zapytania ale nie zmienia tego jak fizycznie jest
+wykonywane</li>
+</ul></li>
+<li>Utworzenie widoku zmaterializowanego tworzy fizyczną tabelę
+<ul>
+<li>standardowo zostanie uzupełniona danymi zapytania przy
+utworzeniu</li>
+<li>z punktu widzenia użytkownika zachowuje się jak perspektywa, służy
+do odczytu danych</li>
+<li>zapytanie po prostu odczytuje dane z tabeli</li>
+</ul></li>
+<li>Dane są przenoszone w momencie tworzenie ale trzeba je odświeżać, bo
+inaczej stracą ważność</li>
+</ul>
+<h3 id="konfiguracja">Konfiguracja</h3>
+<ul>
+<li><code>BUILD IMMEDIATE</code> - wypełnienie danymi przy
+utworzeniu</li>
+<li><code>REFRESH FORCE ON DEMAND</code>
+<ul>
+<li>odświeżanie na żądanie</li>
+<li>operacje na tabelach operacyjnych nie są obciążone odświeżaniem
+tabel analiztycznych</li>
+</ul></li>
+<li><code>REFRESH START WITH ... NEXT</code>
+<ul>
+<li>okresowe odświeżanie na podstawie czasu (o konkretnej godzinie
+itp)</li>
+</ul></li>
+<li>Jeśli tabela zawiera dane zagregowane po miesiącach to jest sens
+odświeżać ją na początku miesiąca
+<ul>
+<li>w środku miesiąca dane nie mają statystycznie sensu</li>
+<li>kolosalna poprawa względem odświeżania przy każdym INSERT do tabeli
+operacyjnej</li>
+</ul></li>
+</ul>
+<h3 id="zastosowania">Zastosowania</h3>
+<ul>
+<li>Replikacja danych, przetwarzanie rozproszone
+<ul>
+<li>centralna baza replikowana do wielu baz lokalnych</li>
+<li>tworzy się snapshot centralnej bazy i przesyła</li>
+</ul></li>
+<li>Hurtownie danych, agregacja
+<ul>
+<li>dane analityczne trzymane w zupełnie innej bazie niż dane
+operacyjne</li>
+<li>dane do widoku zmaterializowanego są pobierane z innej bazy</li>
+</ul></li>
+<li>Optymalizacja zapytań
+<ul>
+<li>jest celem denormalizacji</li>
+<li>wprowadzenie redundancji wymaga obsłużenia przez aplikację we
+właściwy sposób</li>
+<li>część problemów wydajnościowych wyjdzie dopiero po wdrożeniu
+aplikacji</li>
+</ul></li>
+<li>Query Rewrite
+<ul>
+<li>rozwiązanie Oracle</li>
+<li>silnik wykrywa zapytanie do oryginalnej tabeli, które pokrywa się z
+instniejącą perspektywą zmaterializowaną</li>
+<li>silnik automatycznie zamienia zapytanie na zapytanie do perspektywy
+zmaterializowanej</li>
+<li>wystarczy stworzyć strukturę w bazie i zostanie ona wykorzystana bez
+modyfikowania aplikacji</li>
+<li>pozwala zoptymalizować działający system</li>
+</ul></li>
+<li>Systemy mobilne
+<ul>
+<li>jak replikacja tylko, że dane są przepisywane z serwera do
+klienta</li>
+<li>użytkownik może pracować offline</li>
+</ul></li>
+</ul>
+<h3 id="rodzaje">Rodzaje</h3>
+<ul>
+<li>Jednokierunkowe - read only
+<ul>
+<li>może być dowolne zapytanie z grupowaniem itd.</li>
+</ul></li>
+<li>Dwukierunkowe - odczyt i zapis
+<ul>
+<li>tylko proste zapytania (w starszych wersjach)</li>
+<li>bardziej złożone zapytania ze złączeniami (w nowszych
+systemach)</li>
+<li>nie może być grupowania - zapis nie miałby sensu</li>
+<li>triggery typu <code>INSTEAD OF</code></li>
+</ul></li>
+</ul>
+<h3 id="tryby-odświeżania">Tryby odświeżania</h3>
+<ul>
+<li><code>ON STATEMENT</code> - tak samo jak przy użyciu triggera</li>
+<li><code>ON COMMIT</code> - na końcu transakcji
+<ul>
+<li>wiersze zablokowane na krótszy czas</li>
+</ul></li>
+<li><code>ON DEMAND</code> - na żądanie</li>
+<li><code>START WITH ... NEXT ...</code> - cykliczne
+<ul>
+<li>mało elastyczne bo zapisane na sztywno w bazie</li>
+<li>lepiej użyć <code>ON DEMAND</code> i odpalać np. przez
+<code>cron</code></li>
+</ul></li>
+<li><code>NEVER</code> - niedopuszczalne
+<ul>
+<li>snapshot stanu bazy danych</li>
+<li>np. archiwalny zapis stanu na koniec roku</li>
+</ul></li>
+<li><code>ON QUERY</code> - odświeżanie w czasie rzeczywistym
+<ul>
+<li>jak <code>ON DEMAND</code> w momencie zapytania</li>
+<li>nie odświeża całej tabeli</li>
+<li>wylicza tylko dane potrzebne do zapytania</li>
+<li>daje bieżące dane bez odświeżania</li>
+<li>lokalny cache</li>
+</ul></li>
+</ul>
+<h3 id="opcje-odświeżania">Opcje odświeżania</h3>
+<ul>
+<li><code>COMPLETE</code> - pełne
+<ul>
+<li>skasowanie danych z tabeli docelowej</li>
+<li>wykonanie zapytania na tabeli źródłowej i zapisanie danych do tabeli
+docelowej</li>
+<li>może trwać długo jeśli jest dużo danych w tabelach i zapytanie jest
+skomplikowane</li>
+<li>dobre jeśli mały wolumen i dużo operacji</li>
+</ul></li>
+<li><code>FAST</code> - szybkie
+<ul>
+<li>utrzymywany jest log operacji na tabeli źródłowej</li>
+<li>zapytanie musi być proste, musi być jednoznaczna odpowiedniość
+między wierszami w obu tabelach</li>
+<li>system powtarza operacje z logu na tabeli docelowej</li>
+<li>podobne działanie jak przyrostowa obsługa przez triggery</li>
+<li>czas odświeżania nie zależy od wolumenu danych tylko od liczby
+operacji</li>
+<li>może być wolniejsze od pełnego odświeżenia jeśli operacji było
+dużo</li>
+<li>dobre jeśli duży wolumen i mało operacji</li>
+</ul></li>
+<li><code>FORCE</code> - wymuszone
+<ul>
+<li>jeśli można <code>FAST</code> to <code>FAST</code>, a jak nie to
+<code>COMPLETE</code></li>
+<li>zapytanie musi być odpowiednio proste</li>
+</ul></li>
+<li>Wybór odpowiedniej opcji na podstawie testów wydajnościowych
+<ul>
+<li>no chyba że z góry wiemy jak będzie</li>
+</ul></li>
+</ul>
+<h3 id="rollup">Rollup</h3>
+<ul>
+<li><code>... GROUP BY ROLLUP ...</code></li>
+<li>Powstają dodatkowe wiersze agregujące dla każdego poziomu
+grupowania</li>
+<li>Np. przy agregacji po miesiącach są też wiersze agregujące dla
+całego roku</li>
+</ul>
+<h2 id="model-zewnętrzny">Model Zewnętrzny</h2>
+<ul>
+<li>Zapewnienie właściwego widoku danych dla różnych aplikacji i
+użytkowników
+<ul>
+<li>aplikacje wykorzystują odrębne modele danych tylko przez widoki</li>
+<li>dane są bardziej chronione i dostosowane do różnych potrzeb</li>
+</ul></li>
+<li>Jeden logiczny model dla instytucji, oddzielne widoki dla
+departamentów</li>
+<li>Stosowany w dużych organizacjach</li>
+<li>Ma sens tylko jeśli jest ich wiele dla jednego modelu
+logicznego</li>
+<li>Zastosowanie
+<ul>
+<li>dostosowanie widoku danych</li>
+<li>przyspieszenie dostępu do danych</li>
+<li>ograniczenie dostępu do danych</li>
+</ul></li>
+<li>Narzędzia
+<ul>
+<li>perspektywy</li>
+<li>perspektywy zmaterializowane</li>
+<li>prawa dostępu</li>
+<li>triggery <code>INSTEAD OF</code></li>
+</ul></li>
+<li>Logiczna niezależność danych
+<ul>
+<li>w bazie może równocześnie istnieć wiele modeli zewnętrznych dla tego
+samego modelu logicznego</li>
+</ul></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Trzeba mieć na uwadze działanie aplikacji i zachowanie
+użytkowników</li>
+<li>Model relacyjny wyprowadzony z ER raczej będzie znormalizowany</li>
+<li>Denormalizacja może być konieczna dla zapewnienia dobrej wydajności
+<ul>
+<li>lepiej to przewidzieć i zdenormalizować na etapie projektowania</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#model-relacyjny">Model relacyjny</a>
+<ul>
+<li><a href="#mapowanie-modelu-er-na-model-relacyjny">Mapowanie modelu
+ER na model relacyjny</a>
+<ul>
+<li><a href="#związek-jednoznaczny">Związek jednoznaczny</a></li>
+<li><a href="#związek-jednojednoznaczny">Związek
+jednojednoznaczny</a></li>
+<li><a href="#związek-identyfikujący">Związek identyfikujący</a></li>
+<li><a href="#wskazania-do-wprowadzenia-klucza-sztucznego">Wskazania do
+wprowadzenia klucza sztucznego</a></li>
+<li><a href="#encja-łącząca">Encja łącząca</a></li>
+<li><a href="#zachowanie-kluczy-obcych">Zachowanie kluczy
+obcych</a></li>
+<li><a href="#implementacja-podtypów">Implementacja podtypów</a></li>
+<li><a href="#implementacja-łuków">Implementacja łuków</a></li>
+</ul></li>
+<li><a href="#normalizacja">Normalizacja</a></li>
+<li><a href="#denormalizacja">Denormalizacja</a>
+<ul>
+<li><a href="#dekodowanie-danych">Dekodowanie danych</a></li>
+<li><a href="#pre-join-atrybuty">Pre-join (atrybuty)</a></li>
+<li><a href="#pre-join-klucze-obce">Pre-join (klucze obce)</a></li>
+<li><a href="#pre-join-słowniki">Pre-join (słowniki)</a></li>
+<li><a href="#kolumny-wyliczane">Kolumny wyliczane</a></li>
+<li><a href="#kolumny-agregujące">Kolumny agregujące</a></li>
+<li><a href="#tabele-agregujące">Tabele agregujące</a></li>
+<li><a href="#agregujący-widok-zmaterializowany">Agregujący widok
+zmaterializowany</a></li>
+</ul></li>
+<li><a href="#widoki-zmaterializowane">Widoki zmaterializowane</a>
+<ul>
+<li><a href="#konfiguracja">Konfiguracja</a></li>
+<li><a href="#zastosowania">Zastosowania</a></li>
+<li><a href="#rodzaje">Rodzaje</a></li>
+<li><a href="#tryby-odświeżania">Tryby odświeżania</a></li>
+<li><a href="#opcje-odświeżania">Opcje odświeżania</a></li>
+<li><a href="#rollup">Rollup</a></li>
+</ul></li>
+<li><a href="#model-zewnętrzny">Model Zewnętrzny</a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

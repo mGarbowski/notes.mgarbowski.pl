@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-model-koncepcyjny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wprowadzenie.html">Poprzedni: 01-wprowadzenie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-model-relacyjny.html">Następny: 03-model-relacyjny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="modelowanie-koncepcyjne">Modelowanie koncepcyjne</h1>
+<h2 id="entity-relationship">Entity-Relationship</h2>
+<p>Byty (encje) i związki między bytami</p>
+<ul>
+<li>Encje - posiadają atrybuty, wchodzą w związki z innymi encjami, są
+utrwalane</li>
+<li>Atrybuty
+<ul>
+<li>klucze</li>
+<li>pozostałe</li>
+</ul></li>
+<li>Związki
+<ul>
+<li>też mogą mieć przypisane atrybuty</li>
+</ul></li>
+</ul>
+<p>Istnieją kryteria co do wyboru atrybutu na klucz</p>
+<p>Encja jest jednoznacznie identyfikowalna przez atrybuty</p>
+<p>Model generalnie nie modeluje jednoznacznie rzeczywistego zagadnienia
+(mogą być różne poprawne modele, niektóre mogą być lepiej dostosowane do
+optymalnej realizacji w bazie)</p>
+<p>Modeluje strukturę danych a nie działania na nich</p>
+<h2 id="diagramy-związków-encji-erd">Diagramy związków encji (ERD)</h2>
+<ul>
+<li>encje jako prostokąty (węzły)</li>
+<li>związki jako linie (krawędzie)</li>
+<li>opisana krotność związku (0, 1, n) - jeden do wielu, wiele do wielu
+itp.</li>
+</ul>
+<p>Atrybuty wyliczane - zależą od liczności powiązanych encji,
+wyznaczane dynamicznie</p>
+<p>UML</p>
+<h2 id="encja">Encja</h2>
+<p>Fizycznie istneijący lub koncepcyjny obiekt</p>
+<ul>
+<li>Typ encji
+<ul>
+<li>określa zbiór encji</li>
+<li>ma nazwę i atrybuty</li>
+</ul></li>
+<li>Instancja encji - specyficzne wystąpienie encji</li>
+</ul>
+<h3 id="silne-i-słabe">Silne i słabe</h3>
+<ul>
+<li>Słabe encje - nie może istnieć w bazie samodzielnie bez odpowiedniej
+instancji innej encji</li>
+<li>Silne encje - nie są zależne od istnienia innych encji</li>
+</ul>
+<h2 id="atrybuty">Atrybuty</h2>
+<ul>
+<li>Cecha, właściwość encji lub związku</li>
+<li>Ma określoną dziedzinę dozwolonych wartości</li>
+<li>Atrybut prosty - niepodzielny (atomowy)</li>
+<li>Atrybut złożony - może być podzielony na mniejsze, prostrsze
+<ul>
+<li>Nie jest oczywiste co jest atrybutem a co powiązaną encją (adres),
+uznaniowe.</li>
+</ul></li>
+<li>Atrybut pochodny - zależy od innych atrybutów, wyliczalny</li>
+</ul>
+<h2 id="klucze">Klucze</h2>
+<p>Klucz to zbiór atrybutów jednoznacznie identyfikujący encję. Na
+atrybuty encji można nałożyć ograniczenie unikalności.</p>
+<h2 id="związki">Związki</h2>
+<p>Encje mogą być wzajemnie połączone przez związki</p>
+<ul>
+<li>typ związku</li>
+<li>element związku - jeden z typów połączonych encji</li>
+<li>egzemplarz związku - instancja</li>
+<li>atrybuty związku</li>
+<li>stopień typu związku</li>
+<li>nazwy ról w związku (etykiety na krawędziach)</li>
+</ul>
+<p>Krotność - 0, 1, wiele, m..n</p>
+<p>Wykluczenie - jeśli encja jest w jednej relacji to nie może być w
+drugiej</p>
+<h2 id="więzy-integralności">Więzy integralności</h2>
+<p>Definiowanie dziedzin i semantycznych warunków poprawności</p>
+<ul>
+<li>klucze</li>
+<li>więzy jednoznaczności</li>
+<li>integralność referencyjna</li>
+<li>integralność domenowa</li>
+<li>więzy zasadnicze</li>
+</ul>
+<h2 id="decyzje-na-poziomie-koncepcyjnym">Decyzje na poziomie
+koncepcyjnym</h2>
+<ul>
+<li>dokładność - powinien odzwierciedlać specyfikację</li>
+<li>unikanie redundancji</li>
+<li>prostota</li>
+<li>wybór włściwych związków</li>
+<li>dobór właściwych elementów do modelowania obiektu świata
+rzeczywistego</li>
+</ul>
+<h2 id="model-eer">Model EER</h2>
+<p>Rozszerzony model ER, powiązany z modelem obiektowym - podklasy,
+agregacja itd.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#modelowanie-koncepcyjne">Modelowanie koncepcyjne</a>
+<ul>
+<li><a href="#entity-relationship">Entity-Relationship</a></li>
+<li><a href="#diagramy-związków-encji-erd">Diagramy związków encji
+(ERD)</a></li>
+<li><a href="#encja">Encja</a>
+<ul>
+<li><a href="#silne-i-słabe">Silne i słabe</a></li>
+</ul></li>
+<li><a href="#atrybuty">Atrybuty</a></li>
+<li><a href="#klucze">Klucze</a></li>
+<li><a href="#związki">Związki</a></li>
+<li><a href="#więzy-integralności">Więzy integralności</a></li>
+<li><a href="#decyzje-na-poziomie-koncepcyjnym">Decyzje na poziomie
+koncepcyjnym</a></li>
+<li><a href="#model-eer">Model EER</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

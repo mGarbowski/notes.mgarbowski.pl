@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-14-komputer-wielocyklowy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-13-komputer-jednocyklowy.html">Poprzedni: wyklad-13-komputer-jednocyklowy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-16-potokowe-jednostki-wykonawcze.html">Następny: wyklad-16-potokowe-jednostki-wykonawcze.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h2 id="cykl-instrukcyjny-procesora">Cykl instrukcyjny procesora</h2>
+<ul>
+<li>Fetch</li>
+<li>Decode</li>
+<li>Read</li>
+<li>Execute</li>
+<li>Write</li>
+</ul>
+<p>W procesorze jednocyklowym etapy są odwzorowane w różnych fragmentach
+sprzętu</p>
+<p>Nie zawsze fizyczna budowa procesora musi odzwierciedlać dokładnie
+ten schemat</p>
+<h2 id="realizacja-wielocyklowa">Realizacja wielocyklowa</h2>
+<ul>
+<li>Przestarzała</li>
+<li>Wygląda tak jak wygląda ze względów historycznych, stan techniki w
+latach 60</li>
+<li>minimalizuje liczbe wykorzystanych bloków funkcjonalnych</li>
+<li>Wykonanie instrukcji dzieli się na kilka cyklów maszynowych
+<ul>
+<li>jednostka sterująca najczęściej implementowana jako automat
+mikroprogramowany - skomplikowana</li>
+<li>reużywanie bloków funkcjonalnyhc w różne sposoby w zależności od
+cyklu</li>
+<li>więcej multiplekserów</li>
+<li>rejestr instrukcji - zapamiętuje aktualnie wykonywaną instrukcję
+między cyklami - trzeba też czytać dane z pamięci</li>
+<li>rejestr danych pamięci</li>
+<li>rejestry robocze z pośrednimi wynikami ALU</li>
+<li>rejestry są niewidoczne z punktu widzenia modelu programowego</li>
+<li>nie narzuca sekwencji czynności w obrębie instrukcji - można mieć
+dowolnie skomplikowane instrukcje, wielofazowe</li>
+</ul></li>
+<li>Odwzorowanie między etapem cyklu instrukcyjnego w czasie (ten sam
+sprzęt, różne chwile w czasie)</li>
+</ul>
+<h2 id="połączenie-procesora-z-pamięcią">Połączenie procesora z
+pamięcią</h2>
+<ul>
+<li>Szyna</li>
+<li>Bus interface - w procesorze, układ obsługujący szynę</li>
+<li>wewnętrzna szyna procesora
+<ul>
+<li>jednostka sterująca</li>
+<li>rejestry</li>
+<li>alu z rejestrami na wejściu</li>
+</ul></li>
+</ul>
+<h3 id="cykl-maszynowy-pobrania-instrukcji">Cykl maszynowy pobrania
+instrukcji</h3>
+<p>Nie da się odczytać danej z pamięci z jednym cyklu.</p>
+<p>Cykl maszynowy składa się w różnej liczbie taktów zegara</p>
+<h2 id="wydajność">Wydajność</h2>
+<p>Komputer jednocyklowy zrealizowany w tej samej technologii wcale nie
+musi być szybszy</p>
+<h3 id="komputer-jednocyklowy">Komputer jednocyklowy</h3>
+<p>Ograniczona przez czas propagacji po najdłuższej ścieżce
+kombinacyjnej - okres zegara musi być dłuższy</p>
+<h3 id="komputer-wielocyklowy">Komputer wielocyklowy</h3>
+<p>Więcej cykli zegara ale mogą być dużo krótsze, bo nie muszą
+propagować przez cały układ</p>
+<p>Jedna ścieżka dla danych - potzreba wielu cykli żeby wykonać np
+operację trójargumentową, można dołożyć rejestr wynikowy ALU i zawinąć
+na wejście (akumulator) - wtedy nie potrzeba aż tylu instrukcji, jest
+druga, krótsza ściezka danych w obrębie ALU</p>
+<p>Więcej niezależnych szyn = mniej cykli maszynowych = szybszy procesor
+(?)</p>
+<p>Nie każda instrukcja odwołuje się do pamięci, niektóre obszary
+procesora nic nie robią w ciągu całej instrukcji</p>
+<p>Można jednocześnie wykonywać instrukcję bez odwołania do pamięci i
+zacząć pobierać następną instrukcję</p>
+<h2 id="prefetch">Prefetch</h2>
+<p>Pobieranie instrukcji na zapas</p>
+<ul>
+<li>prefetch register - bufor interfejsu szyny (albo kolejka FIFO, bo
+insturkcje w CISC mają zmienną długość)</li>
+<li>rejestr scanPC z lokalną kopią licznika instrukcji używany przez
+interfejs szyny
+<ul>
+<li>(PC zawiera adres następnej instrukcji - nextPC jest widoczne
+programowo, currentPC jest fizycznie istniejącym rejestrem)</li>
+<li>jednostka sterująca wysyła do interfejscu szyny nextPC</li>
+<li>interfejs szyny zapamiętuje zinkrementowaną wartość nextPC</li>
+<li>interfejs rozpoczyna pobieranie z pamięci i zapisuje to do prefetch
+register jeśli nie dostaje innych instrukcji od jednostki
+sterującej</li>
+<li>jednostka sterująca wysyła nextPC do interfejsu szyny</li>
+<li>jeśli nextPC == scanPC to nie trzeba czytać instrukcji z pamięci i
+jednostka sterująca czyta prosto z rejestru prefetch (nie potrzeba 3
+taktów zegara tylko 1)</li>
+</ul></li>
+<li>Jeśli procesor skończy wykonywać instrukcje zanim interfejs skończy
+prefetch to traci się czas</li>
+<li>Jeśli zadziała to skraca cykl instrukcyjny o etap pobierania
+instrukcji - ogromne przyspieszenie</li>
+<li>Działanie mechanizmu prefetch jest warunkowe - nie działa jeśli
+aktualna instrukcja jest skokiem (bo pobiera następną instrukcję)</li>
+<li>Statystycznie opłaca się robić prefetch mimo tego, że spowalnia
+niektóre instrukcje (co 10 instrukcja jest skokiem wydłużonym ok 2
+razy)</li>
+</ul>
+<h2 id="branch-penalty">Branch penalty</h2>
+<p>Opóźnienie skoku - skoki spowalniają procesor o kilka procent</p>
+<p>Dokładnie to różnica między wykonaniem instrukcji skoku (a właściwie
+czas tracony przez instrukcję skoku) i instrukcji niebędącej skokiem</p>
+<h2 id="redukcja-opóźnień-przy-skokach">Redukcja opóźnień przy
+skokach</h2>
+<ul>
+<li>Opóźnienie wynika z potrzeby przeładowania kolejki instrukcji</li>
+<li>Należy używać jak najmniej instrukcji skoku w kodzie
+assemblerowym</li>
+<li>Instrukcje iterowane - pozwalają zrealizować pętlę bez skoku</li>
+<li>Bufor pętli
+<ul>
+<li>procesor wykrywa krótkie pętle</li>
+<li>krótka pętla mieści się w buforze</li>
+<li>procesor nie pobiera instrukcji tlyko wykonuje cyklicznie instrukcje
+z kolejki</li>
+</ul></li>
+<li>Przykład z if-then-else …</li>
+</ul>
+<p>Struktura szynowa - jedna wiązka przewodów do której są przyłączone
+komponenty - procesor, sterowniki IO</p>
+<ul>
+<li>szyna adresowa</li>
+<li>szyna danych</li>
+<li>szyna sygnałów sterujących</li>
+</ul>
+<p>Dekodowanie adresu - rozpoznaje jakie urządzenie ma obsłużyć operację
+- tylko jedno w każdym momencie powinno używać szyny</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cykl-instrukcyjny-procesora">Cykl instrukcyjny
+procesora</a></li>
+<li><a href="#realizacja-wielocyklowa">Realizacja wielocyklowa</a></li>
+<li><a href="#połączenie-procesora-z-pamięcią">Połączenie procesora z
+pamięcią</a>
+<ul>
+<li><a href="#cykl-maszynowy-pobrania-instrukcji">Cykl maszynowy
+pobrania instrukcji</a></li>
+</ul></li>
+<li><a href="#wydajność">Wydajność</a>
+<ul>
+<li><a href="#komputer-jednocyklowy">Komputer jednocyklowy</a></li>
+<li><a href="#komputer-wielocyklowy">Komputer wielocyklowy</a></li>
+</ul></li>
+<li><a href="#prefetch">Prefetch</a></li>
+<li><a href="#branch-penalty">Branch penalty</a></li>
+<li><a href="#redukcja-opóźnień-przy-skokach">Redukcja opóźnień przy
+skokach</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

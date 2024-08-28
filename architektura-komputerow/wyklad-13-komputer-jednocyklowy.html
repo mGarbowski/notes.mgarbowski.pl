@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-13-komputer-jednocyklowy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-12-intel-x86.html">Poprzedni: wyklad-12-intel-x86.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-14-komputer-wielocyklowy.html">Następny: wyklad-14-komputer-wielocyklowy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="komputer-jednocyklowy-2023-04-12">Komputer jednocyklowy
+(2023-04-12)</h1>
+<h2 id="komputer-jednocyklowy">Komputer jednocyklowy</h2>
+<ul>
+<li>Układ synchroniczny wykonujący jedną instrukcję w jednym cyklu</li>
+<li>Automat zmieniający stan na końcu instrukcji</li>
+<li>Instrukcja wykonywana przez układ kombinacyjny</li>
+<li>Model programowy klasy RISC</li>
+<li>Musi mieć architekturę typu Harvard - stała pamięć programu typu
+ROM</li>
+<li>Adresowane całe słowa, nie indywidualne bajty, wymusza wyrównanie
+naturalne</li>
+<li>Uproszczony RISC-V</li>
+<li>Słowa 32-bitowe</li>
+</ul>
+<h2 id="budowa">Budowa</h2>
+<h3 id="licznik-instrukcji">Licznik instrukcji</h3>
+<ul>
+<li>Zawartość licznika instrukcji trafia na wejście pamięci instrukcji i
+na wejście układu inkrementującego</li>
+<li>Wyjściem inkrementera jest nextPC - zwiększony o 4 (następna
+instrukcja)</li>
+<li>Aktualna wartość PC też jest potrzebna</li>
+</ul>
+<h3 id="jednostka-sterująca">Jednostka sterująca</h3>
+<ul>
+<li>Wejścia
+<ul>
+<li>Opcode</li>
+<li>funct3</li>
+<li>funct7</li>
+</ul></li>
+<li>Wyjścia
+<ul>
+<li>Sygnał wyboru oepracji ALU</li>
+<li>Branch - czy instrukcja jest skokiem</li>
+<li>Load - czy instrukcja jest ładowaniem z pamięci</li>
+<li>Store - czy instrukcja jest składowaniem do pamięci</li>
+<li>Imm - czy drugi argument ALU jest stałą natychmiastową a nie
+rejestrem</li>
+<li>RegWrite - czy bieżąca instrukcja ma zapisać daną do rejestru</li>
+</ul></li>
+<li>Układ kombinacyjny</li>
+<li>Może być zrealizowany jako pamięć ROM</li>
+<li>Sygnały functx zawierają kod operacji dla ALU</li>
+</ul>
+<h3 id="generator-stałej">Generator stałej</h3>
+<ul>
+<li>Wyciąga stałą natychmiastową z instrukcji</li>
+<li>Przyjmuje sygnał Store z jednostki sterującej na wejście - są 2
+sposoby zapisu stałej natychmiastowej</li>
+<li>Rozszerzenie bitem znaku</li>
+</ul>
+<h3 id="blok-rejestrów">Blok rejestrów</h3>
+<ul>
+<li>Trzy wejścia adresowe
+<ul>
+<li>rs1</li>
+<li>rs2</li>
+<li>rd</li>
+</ul></li>
+<li>Model w logisimie używa sztuczek</li>
+</ul>
+<h3 id="alu">ALU</h3>
+<ul>
+<li>10 obsługiwanych instrukcji</li>
+<li>Jednostka Control generuje 4-bitowy kod wybierający operację
+ALU</li>
+<li>Pierwszy argument - zawsze rs1</li>
+<li>Drugi argument - wybierany na podstawie sygnału Imm z jednostki
+sterującej
+<ul>
+<li>rs2</li>
+<li>stała natychmiastowa</li>
+</ul></li>
+</ul>
+<h3 id="ładowanie-z-pamięci">Ładowanie z pamięci</h3>
+<ul>
+<li>Tryb adresowania rejestrowy pośredni z przemieszczeniem
+<ul>
+<li>suma wartości z rejestru bazowego i stałej natychmiastowej
+(przemieszczenia)</li>
+</ul></li>
+<li>Adres wyliczany w ALU</li>
+</ul>
+<h3 id="skoki-warunkowe">Skoki warunkowe</h3>
+<ul>
+<li>Przemieszczenie dodawane do bierzącej wartości PC</li>
+<li>Sumator generuje adres docelowy skoku</li>
+<li>Czy jest skok -&gt; instrukcja jest skokiem warunkowym oraz jest
+spełniony warunek</li>
+<li>Jeśli jest skok to do PC jest ładowany adres docelowy skoku zamiast
+zinkrementowanego nextPC</li>
+</ul>
+<h3 id="wartości-generowane-w-każdym-cyklu">Wartości generowane w każdym
+cyklu</h3>
+<ul>
+<li>Wartość PC dla następnej instrukcji</li>
+<li>Wartość, która ma być ładowana do rejestru (jeśli coś ma być
+ładowane)</li>
+<li>Wartość, która ma być składowana do pamięci (jeśli coś ma być
+składowane)</li>
+</ul>
+<h3 id="zegar">Zegar</h3>
+<ul>
+<li>do PC</li>
+<li>do rejestrów - bramkowany sygnałem RegWrite żeby nie nadpisać</li>
+<li>do pamięci</li>
+</ul>
+<h2 id="działanie-instrukcji-jalr-rd-rs-imm">Działanie instrukcji
+<code>jalr rd, rs, imm</code></h2>
+<ul>
+<li><p>wywołanie procedury</p></li>
+<li><p>powrót z procedury</p></li>
+<li><p>rd = nextPC</p></li>
+<li><p>PC = rs + imm</p></li>
+<li><p>Ścieżka danych</p></li>
+<li><p>Ścieżka sterowania</p></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Implementacja jednocyklowa nie jest i nigdy nie była faktycznie
+konstruowana. Nie jest w stanie spełnić modelu programowego CISC</li>
+<li>Długi łańcuch układów kombinacyjnych</li>
+<li>W ciągu jednego cyklu stan bramki się zmienia i do końca wykonywania
+instrukcji się nie zmieni (fala na poziomie bramek, bloków)</li>
+<li>Jeśli blok wykona swoją prace, to do końca instrukcji tylko
+utrzymuje stały stan (do tego służą rejestry)</li>
+<li>Za każdym dużym blokiem ustawia się rejestr na wyjściu</li>
+<li>Wszystkie tkaie rejestry są taktowane tym samym zegarem o
+odpowiednio krótszym czasie względem jednocyklowego</li>
+<li>Blok może zacząć wykonywać następną instrukcję</li>
+<li>Architektura potokowa</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#komputer-jednocyklowy-2023-04-12">Komputer jednocyklowy
+(2023-04-12)</a>
+<ul>
+<li><a href="#komputer-jednocyklowy">Komputer jednocyklowy</a></li>
+<li><a href="#budowa">Budowa</a>
+<ul>
+<li><a href="#licznik-instrukcji">Licznik instrukcji</a></li>
+<li><a href="#jednostka-sterująca">Jednostka sterująca</a></li>
+<li><a href="#generator-stałej">Generator stałej</a></li>
+<li><a href="#blok-rejestrów">Blok rejestrów</a></li>
+<li><a href="#alu">ALU</a></li>
+<li><a href="#ładowanie-z-pamięci">Ładowanie z pamięci</a></li>
+<li><a href="#skoki-warunkowe">Skoki warunkowe</a></li>
+<li><a href="#wartości-generowane-w-każdym-cyklu">Wartości generowane w
+każdym cyklu</a></li>
+<li><a href="#zegar">Zegar</a></li>
+</ul></li>
+<li><a href="#działanie-instrukcji-jalr-rd-rs-imm">Działanie instrukcji
+<code>jalr rd, rs, imm</code></a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

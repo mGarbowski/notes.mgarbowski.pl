@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08-risc-v</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07-budowa-modelu-programowego.html">Poprzedni: wyklad-07-budowa-modelu-programowego.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09-konsolidacja.html">Następny: wyklad-09-konsolidacja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="risc-v-2023-03-20">RISC-V (2023-03-20)</h1>
+<ul>
+<li>Otwarta architektura, nie chroniona patentem</li>
+<li>32/64 bity, rozszerzalna do 128</li>
+<li>Zmodernizowana wersja MIPS</li>
+</ul>
+<h2 id="pojęcia">Pojęcia</h2>
+<ul>
+<li>ISA - Instruction Set Architecture</li>
+<li>ABI - Application Binary Interface</li>
+<li>hart - hardware thread - procesor logiczny</li>
+<li>EEI - Execution Environment Interface - model programowy komputera
+<ul>
+<li>ISA</li>
+<li>pamięć</li>
+<li>IO</li>
+<li>parametry sprzętu</li>
+</ul></li>
+</ul>
+<h2 id="zestaw-rejestrów">Zestaw rejestrów</h2>
+<ul>
+<li>stałe 0 - x0</li>
+<li>31 rejestrów uniwersalnych (x1..x31)</li>
+<li>brak operacji stosowych</li>
+<li>x2 przewidziany jako wskaźnik stosu</li>
+<li>x1 przewidziany jako rejestr śladu</li>
+<li>opcjonalna jednostka zmiennopozycyjna - 32 rejestr f0..f31</li>
+<li>PC - program counter</li>
+<li>bezznacznikowy</li>
+<li>Przypisuje się alternatywne nazwy zgodne ze znaczeniem wg konwencji
+wołania</li>
+</ul>
+<h2 id="specyfikacje-isa">Specyfikacje ISA</h2>
+<h3 id="wersje-specyfikacji-podstawowej">Wersje specyfikacji
+podstawowej</h3>
+<ul>
+<li>RV32I - podstawowa 32-bitowa, 31 rejestrów</li>
+<li>RV32E - uproszczona 32-bitowa, 15 rejestrów</li>
+<li>RV64I - 64-bitowa, 32 rejestry</li>
+</ul>
+<h3 id="rozszerzenia">Rozszerzenia</h3>
+<ul>
+<li>RVM - mnożenie i dzielenie stałopozycyjne</li>
+<li>RVA - prymitywy synchronizacyjne</li>
+<li>RVF - jednostka zmiennopozycyjna 32-bitowa</li>
+<li>RVD - jednostka zmiennopozycyjna 64-bitowa</li>
+<li>RVC - alternatywny zapis binarny instrukcji (skompresowane, 2
+możliwe długości)</li>
+</ul>
+<h3 id="nowe-rzeczy">Nowe rzeczy</h3>
+<ul>
+<li>Hart - wątek sprzętowy</li>
+<li>rejestr bazy statycznej wątku</li>
+<li>Position-Independent Code
+<ul>
+<li>możliwość nieużywania adresów absolutnych</li>
+<li>wszystkie adresy skoku są względne</li>
+<li>możliwość relokacji kodu</li>
+</ul></li>
+</ul>
+<p>PIC umożliwia ładowanie plików wykonywalnych od razu do pamięci bez
+modyfikacji</p>
+<h2 id="dane">Dane</h2>
+<ul>
+<li>8-bitowe - byte</li>
+<li>16-bitowe - halfword</li>
+<li>32-bitowe - word</li>
+<li>64-bitowe - doubleword</li>
+<li>128-bitowe - quadword</li>
+</ul>
+<p>Dane mogą być interpretowane jako * wartość boolowska * liczba
+całkowita bez znaku * liczba całkowita ze znakiem * liczba
+zmiennopozycjyna</p>
+<p>Dane są wyrównane naturalnie w pamięci, przy rozszerzeniu RVC
+wyrównanie jest do 16 bitów</p>
+<p>Konkretne bity w instrukcji mają zazwyczaj to samo znaczenie -
+ułatwienie realizacji sprzętowej</p>
+<p>Różne formaty instrukcji różnie rozmieszczają stałe</p>
+<h2 id="formaty-instrukcji">Formaty instrukcji</h2>
+<ul>
+<li>R (register) - 2 rejestry źródłowe i docelowy</li>
+<li>I (immediate) - rejestr źródłowy, docelowy i stała</li>
+<li>S (store) - rejestr bazowy, przemieszczenie, źródło</li>
+<li>B (branch) - skoki warunkowe, inne rozmieszczenie stałych względem S
+<ul>
+<li>bit 0 nie jest zapisywany, bo wszystkie adresy są parzyste ze
+względu na wyrównanie</li>
+</ul></li>
+<li>U (upper immediate) - kawałek stałej 32-bitowej do ładowania długich
+wartości natychmiastowych</li>
+<li>J (jump) - dla skoków z długim zasięgiem</li>
+</ul>
+<h2 id="rv32i">RV32I</h2>
+<ul>
+<li>40 instrukcji</li>
+<li>niektóre instrukcje używają aktualnego PC a niektóre
+zinkrementowanego</li>
+</ul>
+<h3 id="grupy-instrukcji">Grupy instrukcji</h3>
+<ul>
+<li>wymiana z pamięcią</li>
+<li>arytmetyczne i logiczne</li>
+<li>przesunięcia bitowe
+<ul>
+<li>SLL logiczne w lewo (to samo co arytmetyczne) - mnożenie przez
+2^n</li>
+<li>SRL logiczne w prawo - dzielenie NKB przez 2^n</li>
+<li>SRA arytmetyczne w prawo - dzielenie U2 przez 2^n</li>
+</ul></li>
+<li>przekazywanie sterowania
+<ul>
+<li><code>jal</code> - skok ze śladem</li>
+<li><code>jalr</code> - skok ze śladem, adres docelowy w rejestrze</li>
+<li><code>beq</code></li>
+<li><code>bne</code></li>
+<li><code>blt</code></li>
+<li><code>bltu</code></li>
+<li><code>bge</code></li>
+<li><code>bgeu</code></li>
+</ul></li>
+<li>interakcja z systemem operacyjnym
+<ul>
+<li><code>ecall</code> - wywołanie systemu</li>
+<li><code>ebreak</code> - pułapka debuggowania</li>
+</ul></li>
+<li>RVM
+<ul>
+<li>mnożenie, mniej znacząca połowa wyniku</li>
+<li>mnożenie, bardziej znacząca połowa wyniku</li>
+<li>dzielenie</li>
+<li>reszta z dzielenia</li>
+</ul></li>
+</ul>
+<p>Assembler RISC-V udostępnia rozszerzony zestaw mnemoników -
+pseudoinstrukcje, przyjaźniejsze dla szłowieka</p>
+<p>Deklaracje danych przez dyrektywy assemblera</p>
+<p><code>.data</code> - otwarcie sekcji danych <code>.text</code> -
+otwarcie sekcji instrukcji <code>.space</code> - alokacja pamięci bez
+inicjalizowania</p>
+<h2 id="wołanie-usług-systemowych">Wołanie usług systemowych</h2>
+<p>wpis do odpowiednich rejestrów</p>
+<p>zawsze trzeba wywołać <code>Exit</code></p>
+<p>100 bajtowy bufor mieści realnie 98 znakow (<code>LF</code> i
+<code>NUL</code>)</p>
+<h2 id="praca-domowa">Praca domowa</h2>
+<ul>
+<li>Przejrzeć dodatek A do starego wydania Patterson-Hennessy</li>
+<li>Dokument wprowadzenie do zajęć laboratoryjnych - przykładowe
+zadania</li>
+</ul>
+<h2 id="zapis-kodu-assemblerowego">Zapis kodu assemblerowego</h2>
+<ul>
+<li>wierszowy, graficznie podzielony na kolumny</li>
+<li>etykieta
+<ul>
+<li>instrukcja
+<ul>
+<li>argumenty
+<ul>
+<li>komentarze</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Etykieta to symboliczna nazwa odpowiadająca adresowi (danej lub
+instrukcji).</p>
+<p>Etykieta jset widoczna w całym pliku źródłowym</p>
+<p>Niektóre asemblery wspierają etykiety lokalne</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#risc-v-2023-03-20">RISC-V (2023-03-20)</a>
+<ul>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#zestaw-rejestrów">Zestaw rejestrów</a></li>
+<li><a href="#specyfikacje-isa">Specyfikacje ISA</a>
+<ul>
+<li><a href="#wersje-specyfikacji-podstawowej">Wersje specyfikacji
+podstawowej</a></li>
+<li><a href="#rozszerzenia">Rozszerzenia</a></li>
+<li><a href="#nowe-rzeczy">Nowe rzeczy</a></li>
+</ul></li>
+<li><a href="#dane">Dane</a></li>
+<li><a href="#formaty-instrukcji">Formaty instrukcji</a></li>
+<li><a href="#rv32i">RV32I</a>
+<ul>
+<li><a href="#grupy-instrukcji">Grupy instrukcji</a></li>
+</ul></li>
+<li><a href="#wołanie-usług-systemowych">Wołanie usług
+systemowych</a></li>
+<li><a href="#praca-domowa">Praca domowa</a></li>
+<li><a href="#zapis-kodu-assemblerowego">Zapis kodu
+assemblerowego</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

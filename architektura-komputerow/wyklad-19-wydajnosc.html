@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-19-wydajnosc</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-18-kieszenie.html">Poprzedni: wyklad-18-kieszenie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-20-zarzadzanie-zasobami.html">Następny: wyklad-20-zarzadzanie-zasobami.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wydajność">Wydajność</h1>
+<h2
+id="opóżnienia-w-procesorach-superskalarnych-i-superpotokowych">Opóżnienia
+w procesorach superskalarnych i superpotokowych</h2>
+<p>15 stopni potoku, 4 instrukcje przetwarzane na raz - typowe
+parametry</p>
+<p>Opóźnienie jest wzmacniane - więcej instrukcji może wykonywać się na
+raz - więcej instrukcji się nie wykonuje przy samym czekaniu</p>
+<p>We współczesnych Intelach opóźnienie ze względu na skoki bez
+mechanizmów redukcji opóźnień zżerałoby ~80% wydajności</p>
+<h2 id="spekulatywne-wykonanie-instrukcji">Spekulatywne wykonanie
+instrukcji</h2>
+<ul>
+<li>Procesor zgaduje jakie instrukcje ma wykonać</li>
+<li>jeśli zgadł dobrze to instrukcje się zatwierdza</li>
+<li>jeśli zgadł źle to trzeba anulować wykonane i wciągnięte do potoku
+instrukcje - wtedy jest spadek 80%</li>
+</ul>
+<p>Spekulacja odbywa się wielopoziomowo - wiele skoków jest
+przewidywanych po sobie zanim pierwszy zostanie zweryfikowany, może
+trzeba będzie anulować wszystkie</p>
+<h2 id="skoki">Skoki</h2>
+<ul>
+<li>bezwarunkowe</li>
+<li>warunkowe
+<ul>
+<li>instrukcja może być wykonana bez skakania (niespełniony
+warunek)</li>
+</ul></li>
+<li>skoki statyczne - zawsze taki sam adres docelowy
+<ul>
+<li>względne - offset względem PC (liczba ze znakiem)</li>
+<li>bezwzględne - nowa wartość ładowana do PC (adres docelowy)</li>
+</ul></li>
+<li>skoki dynamiczne - adres może się zmieniać (np. powrót z procedury)
+<ul>
+<li>funkcje callback - adres wołanej funkcji jako zmienna</li>
+<li>metody wirtualne w C++</li>
+</ul></li>
+</ul>
+<h2 id="przewidywanie-skoków">Przewidywanie skoków</h2>
+<ul>
+<li>Przewidzenie adresu skoku przed faktycznym wykonaniem</li>
+<li>Licznik poziomu spekulacji
+<ul>
+<li>każde zgadnięcie zwiększa</li>
+<li>każde rozstrzygnięcie zmniejsza</li>
+</ul></li>
+<li>Jeśli rozstrzygnięcie skoku jest zgodne z przewidywaniem to licznik
+dla każdej instrukcji jest zmniejszany</li>
+<li>Jeśli rozstrzygnięcie jest sprzeczne z przewidywaniem to wszystkie
+instrukcje z niezerowym licznikiem są anulowane</li>
+<li>Instrukcja może zostać zatwierdzona kiedy poziom spekulacji wynosi
+0</li>
+<li>Instrukcja wchodzi do potoku z bieżącym poziomem spekulacji</li>
+</ul>
+<h2 id="co-to-znaczy-przewidzieć-skok">Co to znaczy przewidzieć
+skok</h2>
+<ul>
+<li>warunkowy - czy trzeba skakać</li>
+<li>każdy skok - pod jaki adres skakać</li>
+<li>przewidywanie wystąpienia instrukcji skoku w strumieniu instrukcji
+<ul>
+<li>procesor dowiaduje się że instrukcja jest skokiem dopiero w etapie
+dekodowania</li>
+</ul></li>
+</ul>
+<h2 id="w-któym-momencie-wiadomo-jak-wykonać-skok">W któym momencie
+wiadomo jak wykonać skok</h2>
+<ul>
+<li>skok statyczny bezwarunkowy - w momencie zdekodowania
+insturkcji</li>
+<li>skok statyczny warunkowy - po wyliczeniu warunku (późniejszy stopień
+potoku)</li>
+<li>skok dynamiczny - pobranie zmiennej z pamięci, najgorszy
+przypadek</li>
+</ul>
+<h2 id="przewidywanie-statyczne-i-dynamiczne">Przewidywanie statyczne i
+dynamiczne</h2>
+<ul>
+<li>statyczne
+<ul>
+<li>przewidywanie nie wymaga gromadzenia informacji o wykonaniu
+programu</li>
+<li>przewidywanie czy skok zostanie skoczony czy nie</li>
+</ul></li>
+<li>dynamiczne
+<ul>
+<li>gromadzenie informacji o tym jak wykonywał się program</li>
+</ul></li>
+</ul>
+<h2 id="przewidywanie-statyczne">Przewidywanie statyczne</h2>
+<ul>
+<li>przez kompilator lub programistę
+<ul>
+<li>zazwyczaj wiadomo że któraś ścieżka w kodzie jest bardziej
+prawdopodobna</li>
+<li>można podpowiedzieć procesorowi że skok raczej będzie/nie będzie
+skakany</li>
+<li>wprowadza się skok prawdopodobny i skok nieprawdopodobny (1b kodu
+operacyjnego) jako oddzielne instrukcje assemblerowe</li>
+</ul></li>
+<li>przewidywanie przez procesor
+<ul>
+<li>statystycznie 60% skoków warunkowych w tył jest realizowanych a w
+przód nierealizowanych</li>
+<li>najbardziej znaczący bit przemieszczenia skoku względnego (ujemna
+waga) jest traktowany jako bit prawdopodobieństwa - wszystkie
+współczesne architektury</li>
+</ul></li>
+</ul>
+<h2 id="przewidywanie-dynamiczne">Przewidywanie dynamiczne</h2>
+<ul>
+<li>realizowane sprzętowo przez BTB - branch target buffer
+<ul>
+<li>działa jak kieszeń</li>
+<li>gromadzi informacje o dotychczasowych skokach - pary - adres pod
+którym była instrukcja skoku i adres na który był skok</li>
+<li>zapis do bufora przy rozstrzygnięciu wykonania skoku</li>
+</ul></li>
+<li>trafienie bufora - na podstawie adresu instrukcji zwraca adres
+docelowy jakiegoś poprzedniego skoku
+<ul>
+<li>skok wykonany przed zdekodowaniem</li>
+<li>redukcja opóźnienia do 0</li>
+</ul></li>
+<li>mechanizm działa pod warunkiem że
+<ul>
+<li>nic się nie zmieniło w pamięci pod adresem</li>
+<li>skok jest statyczny - nie załatwia powrotu z procedury i metod
+wirtualnych</li>
+<li>jeśli skok był warunkowy to warunek jest tak samo
+spełniony/niespełniony jak był wcześniej</li>
+</ul></li>
+<li>skoki dynamiczne mogą być przewidywane jako statyczne
+<ul>
+<li>działa dobrze dla wskaźników na funkcje</li>
+</ul></li>
+</ul>
+<h2 id="przewidywanie-adresów-powrotów-z-procedur">Przewidywanie adresów
+powrotów z procedur</h2>
+<ul>
+<li>Wykorzystuje się sprzętowy stos powrotów
+<ul>
+<li>nie ma nic wspólnego ze stosem w pamięci</li>
+<li>nie zależy od architektury (też dla RISC bez instrukcji push i
+pop)</li>
+</ul></li>
+<li>Działa pod warunkiem że każde wywołanie jest instrukcją
+<code>call</code> a powrót instrukcją <code>ret</code></li>
+<li>Ślad jest niezależnie zapisywany też na stos powrotów</li>
+<li>Przy powrocie adres powrotny jest ściągany ze stosu sprzętowego a
+nie z pamięci</li>
+<li>Może być wykorzystany razem z buforem docelowym - bufor przewiduje
+wystąpienie powrotu a adres powrotu jest na stosie sprzętowym</li>
+</ul>
+<h2 id="predyktor-elementarny">Predyktor elementarny</h2>
+<ul>
+<li>Predyktor dwustanowy - przewiduje że następnym razem będzie to co
+było poprzednio</li>
+<li>Predyktor czterostanowy - zmiana decyzji po dwóch takich samych
+wykonaniach
+<ul>
+<li>strongly taken</li>
+<li>weakly taken</li>
+<li>weakly not taken</li>
+<li>strongly not taken</li>
+</ul></li>
+</ul>
+<h2 id="predyktor-dwupoziomowy">Predyktor dwupoziomowy</h2>
+<ul>
+<li>prawdopodobieństwo warunkowe</li>
+<li>rejestr historii
+<ul>
+<li>wsuwa się po 1 bicie - czy skok był skoczony</li>
+<li>może być oddzielny dla każdego skoku lub globalny dla wszystkich
+(gLocal, gShare)</li>
+</ul></li>
+<li>tablica predyktorów elementarnych jest indeksowana haszem adresu
+instrukcji skoku i historii</li>
+</ul>
+<h2 id="predyktor-wielopoziomowy">Predyktor wielopoziomowy</h2>
+<ul>
+<li>Wybiera predyktor który najlepiej będzie się uczył</li>
+</ul>
+<h2 id="fuzja-instrukcji">Fuzja instrukcji</h2>
+<ul>
+<li>robienie jednej instrukcji z dwóch</li>
+<li>np. <code>cmp</code> i <code>jz</code></li>
+<li>dwie instrukcje CISC traktowane jak pojedyncza instrukcja RISC</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wydajność">Wydajność</a>
+<ul>
+<li><a href="#opóżnienia-w-procesorach-superskalarnych-i-superpotokowych">Opóżnienia
+w procesorach superskalarnych i superpotokowych</a></li>
+<li><a href="#spekulatywne-wykonanie-instrukcji">Spekulatywne wykonanie
+instrukcji</a></li>
+<li><a href="#skoki">Skoki</a></li>
+<li><a href="#przewidywanie-skoków">Przewidywanie skoków</a></li>
+<li><a href="#co-to-znaczy-przewidzieć-skok">Co to znaczy przewidzieć
+skok</a></li>
+<li><a href="#w-któym-momencie-wiadomo-jak-wykonać-skok">W któym
+momencie wiadomo jak wykonać skok</a></li>
+<li><a href="#przewidywanie-statyczne-i-dynamiczne">Przewidywanie
+statyczne i dynamiczne</a></li>
+<li><a href="#przewidywanie-statyczne">Przewidywanie statyczne</a></li>
+<li><a href="#przewidywanie-dynamiczne">Przewidywanie
+dynamiczne</a></li>
+<li><a href="#przewidywanie-adresów-powrotów-z-procedur">Przewidywanie
+adresów powrotów z procedur</a></li>
+<li><a href="#predyktor-elementarny">Predyktor elementarny</a></li>
+<li><a href="#predyktor-dwupoziomowy">Predyktor dwupoziomowy</a></li>
+<li><a href="#predyktor-wielopoziomowy">Predyktor
+wielopoziomowy</a></li>
+<li><a href="#fuzja-instrukcji">Fuzja instrukcji</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

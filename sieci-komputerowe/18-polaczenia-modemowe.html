@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>18-polaczenia-modemowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="17-sieci-bezprzewodowe.html">Poprzedni: 17-sieci-bezprzewodowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="powtorzenie-do-kolokwium-01.html">Następny: powtorzenie-do-kolokwium-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="połączenia-modemowe-2023-05-16">Połączenia modemowe
+(2023-05-16)</h1>
+<h2 id="komunikacja-przez-port-szeregowy">Komunikacja przez port
+szeregowy</h2>
+<ul>
+<li>Null modem - kabel szeregowy ze skrzyżowanymi przewodami (żeby
+łączyć nadajnik z odbiornikiem)</li>
+<li>Emulator terminala - umożliwia pracsę zdalną</li>
+<li>Prymitywna komunikacja - przesyłanie znaków z klawiatury do drugiego
+komputera</li>
+</ul>
+<h2 id="sieć-telefoniczna">Sieć telefoniczna</h2>
+<ul>
+<li>Wyjorzystano istniejącą sieć telefoniczną do transmisji
+cyfrowych</li>
+<li>przystosowana do przesyłania ludzkiej mowy</li>
+<li>Częstotliwości dla pojedynczego pasma
+<ul>
+<li>od 200Hz - eliminuje zakłócenia od sieci energetycznej (50Hz)</li>
+<li>do 4kHz - maksymalne potrzebne do odwzorowania ludzkiej mowy dla
+większości ludzi</li>
+</ul></li>
+<li>Multipleksacja częstotliwościowa
+<ul>
+<li>jednym kablem można przesyłać na raz kilka transmisji jako sygnały z
+różnych przedziałów częstotliwości</li>
+<li>moduluje się sygnał tak, żeby przesunąć go w dziedzinie
+częstotliwości</li>
+<li>żeby zmieścić jak najwięcej transmisji na jednym kablu trzeba
+maksymalnie zawęzić pasmo dla pojedynczej transmisji</li>
+</ul></li>
+<li>Do transmisji cyfrowych trzeba stosować modulację
+<ul>
+<li>w jednym paśmie wyróżnia się 4 częstotliwości</li>
+<li>po 2 (logiczne 0 i logiczne 1) dla transmisji w obie strony</li>
+<li>osiągano w ten sposób transmisję cyfrową o szybkości rzędu
+1kbps</li>
+<li>praktyczne maskimum dla połączeń analogowych 33,6kbps</li>
+</ul></li>
+<li>Modem - modulator-demodulator</li>
+<li>DTE</li>
+<li>DCE - digital circuit termination equipment</li>
+</ul>
+<h3 id="homologacja">Homologacja</h3>
+<p>Certyfikat wystawiony urządzeniu przez odpowiedni urząd dla
+terytorium, który poświadcza że urządzenie nie będzie zakłócało
+transmijsi (korzystało z niedozwolonych częstotliwości)</p>
+<h3 id="sprzężenie-akustyczne">Sprzężenie akustyczne</h3>
+<p>Kładzie się słuchawkę telefonu na mikrofonie i głośniku - hack do
+obejścia regulacji telekomów</p>
+<h2 id="przejście-sieci-telefonicznej-na-transmisje-cyfrową">Przejście
+sieci telefonicznej na transmisje cyfrową</h2>
+<ul>
+<li>Połączenia między centralami zmieniono na cyfrowe</li>
+<li>Na stykach central z aparatami telefonicznymi trzeba było stosować
+przetworniki analogowo cyfrowe</li>
+<li>Odcinki analogowe sieci telekomunikacyjnej skróciły się tylko do
+połączenia telefon-centrala</li>
+<li>Dzięki temu da się osiągnąć szybkość transmisji cyfrowej 56kbps
+przez modemy</li>
+<li>Transmisja między centralami jest z szybkością 64kbps</li>
+</ul>
+<h2 id="isdn">ISDN</h2>
+<ul>
+<li>Połączenie cyfrowe do centarli (telefonu albo modemu)</li>
+<li>Pełne 64 kbps</li>
+</ul>
+<h2 id="adsl">ADSL</h2>
+<p>Asymmetric Digital Subscriber Line</p>
+<ul>
+<li>Neostrada</li>
+<li>Przesyłanie danych przez linie abonenckie</li>
+<li>Pasma częstotliwości
+<ul>
+<li>transmisje akustyczne - 33.6kbps</li>
+<li>upload - 1Mbps</li>
+<li>download - 8Mbps</li>
+</ul></li>
+</ul>
+<h2 id="transmisja-asynchroniczna-po-porcie-szeregowym">Transmisja
+asynchroniczna po porcie szeregowym</h2>
+<ul>
+<li>bit startu</li>
+<li>7-8 bitów danych</li>
+<li>0-1 bit parzystości</li>
+<li>1-2 bity stopu</li>
+<li>Sekwencja +++ zrywa połączenie modemowe, system operacyjny wstawia
+odstępy czasowe kiedy sekwencja pojawia się w przesyłanych danych</li>
+</ul>
+<h2 id="ppp">PPP</h2>
+<p>Point-to-Point Protocol</p>
+<ul>
+<li>Umożliwia enkapsulację np. protokołu IP dla transmisji po linii
+modemowej</li>
+<li>Połączenia modemowe są bardziej zawodne, lepiej stosować mniejsze
+MTU - mniejsze prawdopodobieństwo uszkodzenia ramki</li>
+</ul>
+<h2 id="generacje-telefonii-mobilnej">Generacje telefonii mobilnej</h2>
+<ul>
+<li>1G</li>
+<li>2G</li>
+<li>3G</li>
+<li>4G</li>
+<li>5G</li>
+</ul>
+<h2 id="światłowody">Światłowody</h2>
+<ul>
+<li>obecnie stosowane, najszybsze</li>
+<li>Stosowane od lat 80 na kolei i w energetyce do przesyłania sygnałów
+sterujących</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#połączenia-modemowe-2023-05-16">Połączenia modemowe
+(2023-05-16)</a>
+<ul>
+<li><a href="#komunikacja-przez-port-szeregowy">Komunikacja przez port
+szeregowy</a></li>
+<li><a href="#sieć-telefoniczna">Sieć telefoniczna</a>
+<ul>
+<li><a href="#homologacja">Homologacja</a></li>
+<li><a href="#sprzężenie-akustyczne">Sprzężenie akustyczne</a></li>
+</ul></li>
+<li><a href="#przejście-sieci-telefonicznej-na-transmisje-cyfrową">Przejście
+sieci telefonicznej na transmisje cyfrową</a></li>
+<li><a href="#isdn">ISDN</a></li>
+<li><a href="#adsl">ADSL</a></li>
+<li><a href="#transmisja-asynchroniczna-po-porcie-szeregowym">Transmisja
+asynchroniczna po porcie szeregowym</a></li>
+<li><a href="#ppp">PPP</a></li>
+<li><a href="#generacje-telefonii-mobilnej">Generacje telefonii
+mobilnej</a></li>
+<li><a href="#światłowody">Światłowody</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

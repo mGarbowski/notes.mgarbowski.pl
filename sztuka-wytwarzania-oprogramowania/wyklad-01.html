@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-00.html">Poprzedni: wyklad-00.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-02.html">Następny: wyklad-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="dobry-styl-programowania">Dobry styl programowania</h1>
+<h2 id="kiss">KISS</h2>
+<ul>
+<li>Keep It Simple Software</li>
+<li>Prosty projekt</li>
+<li>Pojedyncza odpowiedzialność</li>
+<li>Przedkłada się czytelność kodu nad jego optymalność
+<ul>
+<li>najpierw identyfikuje się wąskie gardła w działającej aplikacji i
+potem optymalizuje</li>
+</ul></li>
+</ul>
+<p>Programista spędza więcej czasu na czytaniu kodu niż na pisaniu, dla
+wydajnej pracy kod musi być czytelny.</p>
+<h2 id="standardy-kodowania">Standardy kodowania</h2>
+<ul>
+<li>Podział na pliki źródłowe</li>
+<li>Nazewnictwo
+<ul>
+<li>format - inaczej zmienne, inaczej stałe itd.</li>
+</ul></li>
+<li>Formatowanie kodu źródłowego</li>
+<li>Konsekwentne stosowanie stylów kodowanie</li>
+</ul>
+<h2 id="narzędzia">Narzędzia</h2>
+<ul>
+<li>Wykrywanie błędów w programach
+<ul>
+<li>Kompilator (translator)</li>
+<li>Stosujemy najwyższy poziom ostrzeżeń i dążymy do czystej kompilacji
+bez ostrzeżeń</li>
+<li>Ostrzeżenie to błąd projektu</li>
+</ul></li>
+<li>Zarządzanie kodami źródłowymi
+<ul>
+<li>Stosowanie repozytoriów</li>
+<li>git</li>
+</ul></li>
+<li>Systemy do automatycznej kompilacji
+<ul>
+<li>Kompilacje można podzielić na fazy</li>
+<li>Nie wszystko trzeba kompilować jeśli kod się nie zmienił</li>
+<li>Można rozproszyć obliczenia</li>
+</ul></li>
+<li>Optymalizacja oprogramowania
+<ul>
+<li>Nie optymalizować jeśli nie ma potrzeby</li>
+<li>Najpierw skupić się na poprawie złożoności obliczeniowej
+algorytmu</li>
+</ul></li>
+</ul>
+<h2 id="najczęstsze-przyczyny-niepowodzenia-projektu">Najczęstsze
+przyczyny niepowodzenia projektu</h2>
+<ul>
+<li>Niestabilne wymagania</li>
+<li>Optymistyczna estymacja kosztów realizacji (przede wszystkim
+czasu)</li>
+<li>Niska jakość oprogramowania
+<ul>
+<li>kod złej jakości ale działający to tak jakby go nie było</li>
+</ul></li>
+</ul>
+<h2 id="typowe-warunki-pracy-programisty">Typowe warunki pracy
+programisty</h2>
+<ul>
+<li>Praca z kodem zastanym - bardzo rzadko tworzy się aplikacje od
+początku</li>
+<li>Paleta narzędzi</li>
+<li>Wirtualizacja, konteneryzacja</li>
+</ul>
+<h2 id="scons">SCons</h2>
+<ul>
+<li>Narzędzie do budowania projektu</li>
+<li>Opis projektu to skrypt Pythona</li>
+<li>Łatwo rozszerzalny
+<ul>
+<li>automatyczna analiza zależności</li>
+<li>wsparcie dla wielu języków, bibliotek itd.</li>
+<li>wsparcie dla wielu systemów operacyjnych</li>
+<li>wsparcie dla kompilacji równoległej</li>
+<li>detekcja zmiany zawartości plików przy użyciu sygnatury MD5</li>
+</ul></li>
+</ul>
+<h2 id="obiektowe-wzorce-projektowe">Obiektowe wzorce projektowe</h2>
+<ul>
+<li>standardowe rozwiązania często pojawiających się problemów
+projektowych</li>
+<li>sprawdzone w praktyce</li>
+<li>najczęściej dotyczą programowania obiektowego</li>
+<li>znajomość wzorców projektowych pozwala lepiej zrozumieć obiektowe
+podejście do programowania</li>
+</ul>
+<h3 id="tworzenie-nowych-klas">Tworzenie nowych klas</h3>
+<ul>
+<li>dziedziczenie</li>
+<li>agregacja
+<ul>
+<li>daje prostszą kontrolę, należy ją preferować</li>
+</ul></li>
+</ul>
+<h3 id="agregacja">Agregacja</h3>
+<ul>
+<li>Budowanie z mniejszych kawałków większej całości</li>
+<li>“składa się z”, “posiada”</li>
+<li>Kompozycja jest szczególnym przypadkiem agregacji</li>
+</ul>
+<h3 id="dziedziczenie">Dziedziczenie</h3>
+<ul>
+<li>Wprowadza powiązanie między typami</li>
+<li>“jest”, “może być traktowany jako”</li>
+<li>Kierownik jest szczególnym przypadkiem Pracownika</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dobry-styl-programowania">Dobry styl programowania</a>
+<ul>
+<li><a href="#kiss">KISS</a></li>
+<li><a href="#standardy-kodowania">Standardy kodowania</a></li>
+<li><a href="#narzędzia">Narzędzia</a></li>
+<li><a href="#najczęstsze-przyczyny-niepowodzenia-projektu">Najczęstsze
+przyczyny niepowodzenia projektu</a></li>
+<li><a href="#typowe-warunki-pracy-programisty">Typowe warunki pracy
+programisty</a></li>
+<li><a href="#scons">SCons</a></li>
+<li><a href="#obiektowe-wzorce-projektowe">Obiektowe wzorce
+projektowe</a>
+<ul>
+<li><a href="#tworzenie-nowych-klas">Tworzenie nowych klas</a></li>
+<li><a href="#agregacja">Agregacja</a></li>
+<li><a href="#dziedziczenie">Dziedziczenie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

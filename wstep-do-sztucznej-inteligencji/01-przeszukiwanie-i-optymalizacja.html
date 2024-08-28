@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-przeszukiwanie-i-optymalizacja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-wstep.html">Poprzedni: 00-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-algorytmy-ewolucyjne.html">Następny: 02-algorytmy-ewolucyjne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="przeszukiwanie-i-optymalizacja">Przeszukiwanie i
+optymalizacja</h1>
+<h2 id="inżynierski-podział">Inżynierski podział</h2>
+<ul>
+<li>Uczenie maszynowe
+<ul>
+<li>modelowanie zjawisk i ich objaśnianie</li>
+<li>predykcja zjawisk</li>
+<li>analiza scenariuszy na podstawie modeli</li>
+</ul></li>
+<li>Wspomaganie decyzji
+<ul>
+<li>doradzanie optymalnej decyzji</li>
+<li>wybór optymalnej decyzji i jej wykonanie</li>
+</ul></li>
+</ul>
+<h2 id="problem-plecakowy">Problem plecakowy</h2>
+<ul>
+<li>Jest <span class="math inline">\(n\)</span> przedmiotów</li>
+<li>Każdy przedmiot ma wagę <span class="math inline">\(w_i\)</span> i
+wartość <span class="math inline">\(p_i\)</span></li>
+<li>Trzeba wybrać przedmioty o największej możliwej wartości i łącznej
+wadze nie większej niż <span class="math inline">\(W\)</span></li>
+</ul>
+<p><span class="math display">\[max \Sigma_{i=1}^{n}x_ip_i\]</span>
+<span class="math display">\[ \Sigma_{i=1}^n x_iw_i \le W\]</span> <span
+class="math display">\[x_i \in \{0, 1\}\]</span> Problem można
+zamodelować jako drzewo z etykietami, gdzie liście to finalne decyzje
+(który element wchodzi do plecaka, a który nie wchodzi), węzły
+nieterminalne są pośrednimi decyzjami. Etykieta liścia to sumaryczna
+wartość, etykieta węzła nieterminalnego to najlepsza z etykiet
+dzieci.</p>
+<h3 id="algorytm-best-first">Algorytm best-first</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> PriorityQueue(root)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">!</span>stop:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> A.pop()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x.isTerminal():</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        stop <span class="op">=</span> true</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> x.neighbors()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> A.push(Y)</span></code></pre></div>
+<p>Trzeba wykonać <span class="math inline">\(2n\)</span> operacji
+odczytania etykiet z węzłów - wysokość drzewa to <span
+class="math inline">\(n\)</span>, każdy węzeł ma <span
+class="math inline">\(2\)</span> sąsiadów (dzieci)</p>
+<p>Ale to działa przy założeniu że znamy etykiety (a nie znamy).</p>
+<p>Jeśli etykiety są tylko przybliżone to nie można zakończyć
+przeszukiwania od razu po osiągnięciu węzła terminalnego. Trzeba
+sprawdzić każdy węzeł dopuszczalny.</p>
+<h2 id="algorytm-a">Algorytm A*</h2>
+<p>Algorytm best-first + funkcja kosztu (zysku) + funkcja
+heurystyczna</p>
+<p>Elementy na pewno zapakowane w węźle nieterminalnym - funkcja zysku.
+Finalny zysk w węźle terminalnym będzie większy lub równy od
+wcześniejszego (z węzła nieterminalnego)</p>
+<p>Można zastosować heurystykę - wolne jednostki wagi * uśredniona
+wartość na kg z niezapakowanych przedmiotów. Zakłada, że przedmioty
+można podzielić - optymistyczne oszacowanie. Upycha się przedmioty do
+plecaka od najlepszych do najgorszych ucinając ostatni, który nie
+wejdzie w całości</p>
+<p>Funkcja zysku i funkcja heurystyczna nie mogą być od siebie zupełnie
+niezależne. Funkcja zysku wynika z definicji problemu. Każda kolejna
+decyzja nie zmniejsza zysku. Funkcja heurystyczna ma szacować przyrost
+funkcji zysku (w tych samych jednostkach miary).</p>
+<h3 id="funkcja-heurystyczna-powinna-być">Funkcja heurystyczna powinna
+być</h3>
+<ul>
+<li>dopuszczalność - <span class="math inline">\(g(x) + h(x) \ge
+g(x_t)\)</span>
+<ul>
+<li>wartość szacowana zawsze musi być większa lub równa od
+prawdziwej</li>
+<li>nadmierny optymizm</li>
+</ul></li>
+<li>monotoniczna <span class="math inline">\(g(x_{i+1}) + h(x_{i+1}) \le
+g(x_i) + h(x_i)\)</span>
+<ul>
+<li>w kolejnym kroku szacowana wartość musi zmaleć względem
+poprzedniego</li>
+<li>błąd musi maleć w miarę zbliżania się do węzła terminalnego</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> PriorityQueue(root)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> q.empty():</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> q.pop()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x.isTerminal() <span class="kw">and</span> g(x) <span class="op">&gt;</span> best</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> g(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g(x) <span class="op">+</span> h(x) <span class="op">&gt;=</span> best:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> x.neighbors()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        q.push(y)</span></code></pre></div>
+<p>Gwarancja optymalnego wyniku jest dopiero po wyczerpaniu kolejki, w
+najgorszym przypadku, nawet przy poprawnie zdefiniowanej funkcji
+heurystycznej rozwiązanie może być tak samo złe jak przy pełnym
+przeszukaniu</p>
+<p>Skoro etykiety są przeszacowane i błąd maleje to po znalezieniu
+jednego rozwiązania już nie trzeba rozważać poddrzew o niższej etykiecie
+bo na pewną nie dadzą lepszego rozwiązania</p>
+<h3 id="modelowanie-problemu">Modelowanie problemu</h3>
+<p>Żeby wykorzystać algorytm A* do rozwiązania problemu * Zamodelować
+rozwiązanie problemu jako wektor o wartościach 0, 1 lub ? * ? oznacza
+jeszcze nie podjętą decyzję, będzie zastąpiony przez 0 lub 1 *
+Uporządkować rozwiązania i pośrednie rozwiązania w drzewo jak na obrazku
+* Określić kryteria dopuszczalności rozwiązania * Określić funkcję zysku
+* Określić funkcję heurystyczną tak, żeby spełniała warunki
+dopuszczalności i monotoniczności</p>
+<p>[[img-drzewo-przeszukiwan.png]]</p>
+<h2 id="inny-model-przestrzeni-przeszukiwań">Inny model przestrzeni
+przeszukiwań</h2>
+<p>Węzły są połączone ze sobą relacją sąsiedztwa jeśli różnią się 1
+bitem (hipersześcian?). Nie ma hierarchii i narzuconego kierunku jak w
+drzewie.</p>
+<p>Węzły bez sąsiadów o lepszych wartościach funkcji zysku - optima
+lokalne, utrudniają przeszukiwanie.</p>
+<h2 id="algorytm-wspinaczkowy">Algorytm wspinaczkowy</h2>
+<p>Rozważyć wszystkich sąsiadów i wybrać najlepszego dopuszczalnego
+dopóki istnieje taki sąsiad. Zatrzyma się na pierwszym napotkanym
+optimum lokalnym.</p>
+<p>Można np. kilkukrotnie wylosować węzeł początkowy żeby wykonać lepszą
+eksplorację przestrzeni.</p>
+<h2 id="optymalizacja-w-przestrzeni-ciągłej">Optymalizacja w przestrzeni
+ciągłej</h2>
+<p>W przestrzeni <span class="math inline">\(\mathbb{R}^n\)</span> jest
+continuum sąsiadów (np. problem uczenia sieci neuronowej) - nie da się
+zbadać wszystkich elementów.</p>
+<h3 id="metdoa-najszybszego-wzrostu-gradient-ascent">Metdoa najszybszego
+wzrostu (gradient ascent)</h3>
+<p><span class="math inline">\(\beta_t\)</span> - ciąg dodatnich
+współczynników kroku (nie musi być stały) <span
+class="math inline">\(\nabla q(x)\)</span> - gradient funkcji celu w
+punkcie x <span class="math inline">\(x\)</span> - punk roboczy</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x_0</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">!</span>stop:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    wektor_poprawy <span class="op">=</span> gradient(q(x))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">+=</span> krok <span class="op">*</span> wektor_poprawy</span></code></pre></div>
+<p>W praktyce może bardziej się opłacać szacowanie gradientu przez
+losowe próbkowanie - metoda stochastycznego wzrostu / spadku</p>
+<p>Wyzwaniem jest dobranie właściwej wartości kroku, to zależy od
+funkcji celu, są różne strategie adaptacji.</p>
+<p>Współczynnik kroku * za mały - algorytm bardzo wolno zbliża się do
+optimum lokalnego * za duży - algorytm w kolejnych krokach przeskakuje
+przez minimum, może eksplodować do nieskończoności zamiast zbiegać do
+optimum lokalnego * można uruchomić algorytm kilka razy z różnymi
+wartościami i zobaczyć dla której zadziała najlepiej</p>
+<h3 id="metoda-newtona">Metoda Newtona</h3>
+<p>Macierz drugich pochodnych cząstkowych (hesjan - gradient gradientu),
+mówi o tym jak zmienia się gradient. Na tej podstawie można dostosowywać
+wartość <span class="math inline">\(\beta_t\)</span></p>
+<p>Korekta o odwrotność hesjanu - kierunek przechodzi przez optimum
+funkcji kwadratowej, a wiele funkcji można przybliżyć funkcją kwadratową
+(szererg Taylora)</p>
+<p>Metoda bazuje na przybliżeniu funkcji kosztu funkcją kwadratową
+(Taylora), dla funkcji niepodobnych do funkcji kwadratowej może dawać
+słabe rezultaty</p>
+<p><span class="math inline">\(d = H_q^{-1}(x) \cdot \nabla
+q(x)\)</span></p>
+<p>Funkcje zysku zazwyczaj są wynikiem jakiejś procedury obliczeniowej,
+nie da się wyliczyć gradientu analitycznie - szacuje się go numerycznie
+(różniczki) i hesjan też (BFGS, DFP)</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przeszukiwanie-i-optymalizacja">Przeszukiwanie i
+optymalizacja</a>
+<ul>
+<li><a href="#inżynierski-podział">Inżynierski podział</a></li>
+<li><a href="#problem-plecakowy">Problem plecakowy</a>
+<ul>
+<li><a href="#algorytm-best-first">Algorytm best-first</a></li>
+</ul></li>
+<li><a href="#algorytm-a">Algorytm A*</a>
+<ul>
+<li><a href="#funkcja-heurystyczna-powinna-być">Funkcja heurystyczna
+powinna być</a></li>
+<li><a href="#modelowanie-problemu">Modelowanie problemu</a></li>
+</ul></li>
+<li><a href="#inny-model-przestrzeni-przeszukiwań">Inny model
+przestrzeni przeszukiwań</a></li>
+<li><a href="#algorytm-wspinaczkowy">Algorytm wspinaczkowy</a></li>
+<li><a href="#optymalizacja-w-przestrzeni-ciągłej">Optymalizacja w
+przestrzeni ciągłej</a>
+<ul>
+<li><a href="#metdoa-najszybszego-wzrostu-gradient-ascent">Metdoa
+najszybszego wzrostu (gradient ascent)</a></li>
+<li><a href="#metoda-newtona">Metoda Newtona</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

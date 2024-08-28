@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-16-potokowe-jednostki-wykonawcze</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-14-komputer-wielocyklowy.html">Poprzedni: wyklad-14-komputer-wielocyklowy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-18-kieszenie.html">Następny: wyklad-18-kieszenie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="potokowe-jednostki-wykonawcze">Potokowe jednostki
+wykonawcze</h1>
+<p>Krótszy okres zegara, bo wygnał musi przepropagować tylko do
+najbliższego rejestru pośredniego</p>
+<p>W każdym takcie zegara rozpoczyna się kolejna instrukcja</p>
+<p>Jeżeli wprowadzi się gdzieś zrównoleglenie danych lub buforowanie to
+pojawiają się problemy z synchronizacją - zawsze!!!</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">add</span> x4<span class="op">,</span> x3<span class="op">,</span> x2</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">add</span> x6<span class="op">,</span> x5<span class="op">,</span> x4</span></code></pre></div>
+<p>Jeśli wykonają się jedna po drugiej to druga instrukcja wczyta starą
+wartość x4. Jeśli wykonywanie zostanie przerwane przez system operacyjny
+to wynik będzie poprawne</p>
+<p>Pojawia się hazard typu read-after-write - wynik jest
+niedeterministyczny</p>
+<p>Hazard musi być bezwzględnie usunięty, działanie systemu cyfrowego
+musi być deterministyczne</p>
+<h2 id="rozwiązanie-hazardu-typu-read-after-write-raw">Rozwiązanie
+hazardu typu Read-After-Write (RAW)</h2>
+<ul>
+<li>zakaz stwarzania sytuacji powodujących hazard (metoda
+administracyjna)
+<ul>
+<li>każdy programista zignoruje</li>
+<li>trzeba wstawiać puste instrukcje</li>
+</ul></li>
+<li>Wstrzymanie potoku po wykryciu hazardu
+<ul>
+<li>układ kombinacyjny porównujący numery rejestru docelowego i
+źródłowego w odpowiednich instrukcjach</li>
+<li>trzeba patrzeć 2 kroki do tyłu (w konkretnej realizacji,
+MIPS(?))</li>
+<li>jeśli układ wykrył hazard to zatrzywane są kroki IF i RD</li>
+<li>efekt jak wstrzyknięcie pustej instrukcji do stopnia ALU</li>
+<li>procesor nadal marnuje cykle zegara</li>
+</ul></li>
+<li>Poprwoadzić dodatkową szynę do stopnia RD ze stopni ALU i MEM
+(obejścia)
+<ul>
+<li>Właściwie to wynik jest wyliczony w stopniu ALU a nie WB, a stopień
+ALU jest bliżej stopnia RD</li>
+<li>Przy stopniu RD jest układ komparatorów i multiplekserów</li>
+<li>czyta wartość ALU albo wartość MEM albo zawartość rejestru (w tej
+kolejności)</li>
+</ul></li>
+</ul>
+<p>Analiza problemów synchronizacyjnych - producent, konsument, przebieg
+czasowy, dystans</p>
+<h2 id="load-use-penalty">Load-Use Penalty</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lw x4</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">add</span> x6<span class="op">,</span> x5<span class="op">,</span> x4</span></code></pre></div>
+<ul>
+<li>Nie da się rozwiązać hazardu bez wprowadzania opóźnienia - odczyt w
+stopniu MEM</li>
+<li>Load-use penalty - występuje we wszystkich współczesnych
+architekturach</li>
+<li>Poślizg potoku - procesor automatycznie wprowadza opóźnienie</li>
+</ul>
+<h2 id="instrukcje-skoku-w-potoku">Instrukcje skoku w potoku</h2>
+<ul>
+<li>Trzeba podjąć decyzję czy skakać czy nie skakać</li>
+<li>Przeładowanie PC może zajść dopiero kiedy adres wynikowy pojawi się
+w ALU</li>
+<li>Program może skoczyć a instrukcje już zostały wczytane i zaczęły się
+wykonywać</li>
+<li>Nie da się odzyskać czasu straconego na pobranie instrukcji po
+instrukcji skoku</li>
+<li>Każdy skok z przeładowaniem PC powoduje stratę jednego cyklu
+zegara</li>
+<li>Branch penalty - inny powód niż w procesorach wielocyklowych ale też
+wprowadza opóźnienie</li>
+</ul>
+<h3 id="delayed-branch">Delayed branch</h3>
+<ul>
+<li>Wykonuje następną instrukcję po instrukcji skoku i doopiero wtedy
+jest wykonywany skok</li>
+<li>“It’s a feature”
+<ul>
+<li>Program pisze się normalnie</li>
+<li>Jeśli przed instrukcją skoku jest instrukcja, która nie wpływa na
+warunek to umieszcza się ją po opóxnionym skoku</li>
+<li>(slot opóźnienia)</li>
+<li>W praktyce w 90% przypadków slot wypełnia się użyteczną instrukcją a
+w 10% NOP</li>
+</ul></li>
+<li>Współcześnie nie jest wykorzystywany, nie rozwiązauje problemów
+współczesnych architektur</li>
+</ul>
+<h2 id="wydajność-potoku">Wydajność potoku</h2>
+<p>W idealnym przypadku byłaby jedna instrukcja na cykl zegara</p>
+<h3 id="opóźnienia-powodują">Opóźnienia powodują</h3>
+<ul>
+<li>wewnątrz potoku
+<ul>
+<li>hazardy usuwane inaczej niż obejściami</li>
+<li>ładowanie danych z pamięci</li>
+<li>skoki</li>
+</ul></li>
+<li>na zewnątrz potoku
+<ul>
+<li>dostęp do hierarchii pamięci dłuższa niż 1 cykl</li>
+</ul></li>
+</ul>
+<p>Praktyczna wydajność osiągana przez procesory potokowe to ok. 1.2
+cyklu na instrukcję</p>
+<h2 id="przyspieszanie-potoku">Przyspieszanie potoku</h2>
+<ul>
+<li>Wydajność ogranicza czas propagacji</li>
+<li>Czas propagacji jest ograniczony przez aktualną technologię
+półprzewodnikową</li>
+<li>Można podzielić potok na większą liczbę faz, z których każda jest
+krótsza więc wykona się szybciej</li>
+<li>Superpotok - dłuższy niż 6 stopni
+<ul>
+<li>różnica względem procesorów potokowych jest tylko ilościowa</li>
+<li>występują takiego samego typu problemy synchronizacyjne tylko
+większe</li>
+<li>wymaga większych multiplekserów, więcej szyn</li>
+<li>3 razy większe load-use penalty</li>
+</ul></li>
+</ul>
+<h3 id="rozwiązanie-w-mips-r4000">Rozwiązanie w MIPS R4000</h3>
+<ul>
+<li>Rozbito stopień dostępu do pamięci na 3 stopnie</li>
+<li>Wymiana z cache instrukcji i cache pamięci odbywa się potokowo - w
+każdym takcie zegara zaczyna się w jednej i kończy w drugiej
+instrukcji</li>
+</ul>
+<h2 id="budowa-pamięci-każdej">Budowa pamięci (każdej)</h2>
+<ul>
+<li>Ma strukturę matrycową - komórki ułożone w prostokąt</li>
+<li>Dekoder wiersza</li>
+<li>Multiplekser kolumn</li>
+<li>Rozbicie dekodowania wiersza i odczytu kolumny można wykorzysta do
+potokowych odwołań w 2 fazach</li>
+</ul>
+<p>Architektura potokowa jest używana tylko w procesorach riscowych,
+architektura load-store Argumenty skalarne i zmienne lokalne skalarne są
+w rejestrach Odwołania do pamięci występują głównie w epilogu i prologu
+procedury, wiele na raz Można zmienić kolejność ładowania danych tak,
+żeby odpowiendio dużo użytecznych instrukcji rozdzielało ładowanie od
+używania danej</p>
+<h2 id="wydajność-superpotoków">Wydajność superpotoków</h2>
+<ul>
+<li>Gorsze CPI, rzędu 1.5</li>
+<li>2x krótszy okres zegara</li>
+<li>Wychodzi 50% lepsza wydajność(?)</li>
+</ul>
+<p>Wyższa częstotliwość pracy - większy pobór mocy</p>
+<p>Zależnie od potrzeb - może być potrzebna dłuższa praca na baterii w
+laptopach, kieyd i tak są wystarczająco szybkie</p>
+<h2 id="realizacja-potokowa-procesora-cisc">Realizacja potokowa
+procesora CISC</h2>
+<p>CISC nie nadaje się wprost do realizacji potokowej</p>
+<p>Procesor z transkodowaniem instrukcji - wszystkie współczesne</p>
+<ul>
+<li>kawałek procesroa odpowiada za pobieranie instrukcji CISC</li>
+<li>instrukcja CISC jest transkodowana na jedną lub więcej nistrukcji
+RISC</li>
+<li>instrukcje wymagające długiego ciągu instrukcji są odczytywane z
+pamięci ROM</li>
+<li>potokowa jednostka wykonawcza typu RISC</li>
+</ul>
+<h1 id="procesory-wielopotokowe-superskalarne">Procesory wielopotokowe
+(superskalarne)</h1>
+<p>Kiedy procesory potokowe są zbyt wolne</p>
+<p>Można wykonywać więcej niż jedną instrukcję jednocześnie w każdym
+takcie zegara</p>
+<ul>
+<li>wiele potoków wykonawczych</li>
+<li>wymaga porządkowania instrukcji</li>
+</ul>
+<h2 id="pseudosuperskalar">Pseudosuperskalar</h2>
+<ul>
+<li>intel 860</li>
+<li>jeden potok do obliczeń stałopozycyjnych i jeden do obliczeń
+zmiennopozycyjnych</li>
+<li>instrukcje sprawdzane parami</li>
+<li>specjalne instrukcje assemblerowe, które mogą być zrównoleglane</li>
+<li>jeśli któryś potok musi się zatrzymać to zatrzymują się razem</li>
+</ul>
+<h2 id="superskalar-z-kolejnym-wykonaniem-instrukcji">Superskalar z
+kolejnym wykonaniem instrukcji</h2>
+<ul>
+<li>mogą być różne potoki dla różnych klas instrukcji, mogą by
+identyczne</li>
+<li>musi być wolny potok do wykonania instrukcji</li>
+<li>instrukcje mogą być zrównoleglowe tylko jeśli nie są od siebie
+zależne</li>
+<li>wchodzi pewna liczba instrukcja do stopnia szeregującego</li>
+<li>w każdym takcie układ szeregujący wypycha tyle kolejnych instrukcji
+ile może</li>
+<li>nie zmiena się logika programu</li>
+<li>potoki pracują synchroniczne - wszystkie zatrzymują się
+równolegle</li>
+</ul>
+<h2
+id="superskalar-z-kolejnym-rozpoczynaniem-i-niekolejnym-kończeniem">Superskalar
+z kolejnym rozpoczynaniem i niekolejnym kończeniem</h2>
+<ul>
+<li>zatrzymuje się tylko ten potok, który musi się zatrzymać</li>
+<li>wzrasta wydajność</li>
+<li>zmiana kolejności powoduje problemy synchronizacyjne, jeszcze
+gorsze</li>
+</ul>
+<h2 id="superskalar-z-niekolejnym-wykonaniem-instrukcji">Superskalar z
+niekolejnym wykonaniem instrukcji</h2>
+<ul>
+<li>najbardziej wydajne i skomplikowane</li>
+<li>zdekodowane instrukcje gromadzone w stopniu szeregującym</li>
+<li>przekazywanie do wykonania nie są przekazywane do wykonania według
+kolejności w programie tylko według teego, której argumenty są już
+gotowe</li>
+<li>może być duży bufor instrukcji - złożone</li>
+<li>może być dekoder przydzielające instrukcje do danej klasy, do
+mniejszego buforu na początku potoku - prostsze
+<ul>
+<li>algorytm Tomasulo, stacje rezerwacyjne</li>
+</ul></li>
+<li>można zrobić jedno i drugie (AMD)</li>
+</ul>
+<h2 id="superskalarny-z-niekolejnym-wykonaniem-instrukcji">Superskalarny
+z niekolejnym wykonaniem instrukcji</h2>
+<ul>
+<li>Procesor musi mieć ważną wartość PC a wykonuje wiele naraz</li>
+<li>PC pokazuje pierwszą niewykonaną instrukcję</li>
+<li>Ostatnie 2 stopnie potoków są wspólne, odpowiadają za porządkowanie
+instrukcji</li>
+</ul>
+<h2
+id="synchronizacja-przy-superskalarze-ze-zmianą-kolejności">Synchronizacja
+przy superskalarze ze zmianą kolejności</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">add</span> t4<span class="op">,</span> t3<span class="op">,</span> t2</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">add</span> t2<span class="op">,</span> t5<span class="op">,</span> t6</span></code></pre></div>
+<p>Hazard WAR - zapis po odczycie</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>addu t4<span class="op">,</span> t3<span class="op">,</span> t2</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>addu t4<span class="op">,</span> t6<span class="op">,</span> t7</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>addu t2<span class="op">,</span> t5<span class="op">,</span> t4</span></code></pre></div>
+<p>Hazard WAW - zapis po zapisie</p>
+<p>Hazard wystąpi nawet jeśli instrukcje nie występują jedna po drugiej
+Nie wynikają z zależności instrukcji - coś jest nie tak mimo tego że są
+niezależne - antyzależność / zależność wsteczna</p>
+<p>Antyzależności się nie wykrywa, nie usuwa się ich tylko zapobiega</p>
+<h2 id="register-renaming">Register renaming</h2>
+<p>Przemianowywanie rejestrów</p>
+<ul>
+<li>Dodaje się dużo więcej rejestrów niż jest widoczne w modelu
+programowym</li>
+<li>Procesor przy dekodowaniu zastępuje numery rejestrów z instrukcji
+fizyczne rejestry których jest więcej (dłuższe numery)</li>
+<li>Używane przez wszystkie procesory out-of-order</li>
+<li>Stopnie przywracające kolejność instrukcji odpowiadają za zwalnianie
+rejestrów</li>
+</ul>
+<h2 id="półka">Półka</h2>
+<ul>
+<li>Zapis sekwencyjny</li>
+<li>Dostęp swobodny przez pozycję</li>
+</ul>
+<h3 id="antypółka">Antypółka</h3>
+<p>Używane przy przywracaniu kolejności instrukcji</p>
+<ul>
+<li><p>Dostęp sekwencyjny (tylko z początku)</p></li>
+<li><p>Zapis swobodny</p></li>
+<li><p>Jak pojawi się instrukcja na pozycji pierwszej to może zostać
+przekazana do stopnia zapisu</p></li>
+<li><p>Jeśli brakuje pierwszej instrukcji to żadna nie może zostać
+zdjęta</p></li>
+</ul>
+<p>Instrukcje w wewnętrznej reprezentacji są trójargumentowy - np.
+<code>add eax, ebx</code> - docelowy jest nowy eax a źródłowe stary eax
+i ebx</p>
+<h2 id="liczba-rejestrów-fizycznych">Liczba rejestrów fizycznych</h2>
+<p>p - liczba rejestrów modelu programowego s - liczba instrukcji
+przebywających w sekcji out-of-order (od bufora instrukcji do stopnia
+przywracania kolejności włącznie) r - liczba rejestrów fizycznych</p>
+<p>r = p + s - 1</p>
+<p>Wystarczy żeby nigdy nie musieć czekać na zwolnienie rejestru</p>
+<p>Instrukcja decrement and branch w motoroli - zatrzymuje system
+prefetch po tej instrukcji bo raczej będzie skakać, tylko przy ostatnim
+obrocie pętli będzie niepotrzebny prefetch z początku pętli</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#potokowe-jednostki-wykonawcze">Potokowe jednostki
+wykonawcze</a>
+<ul>
+<li><a href="#rozwiązanie-hazardu-typu-read-after-write-raw">Rozwiązanie
+hazardu typu Read-After-Write (RAW)</a></li>
+<li><a href="#load-use-penalty">Load-Use Penalty</a></li>
+<li><a href="#instrukcje-skoku-w-potoku">Instrukcje skoku w potoku</a>
+<ul>
+<li><a href="#delayed-branch">Delayed branch</a></li>
+</ul></li>
+<li><a href="#wydajność-potoku">Wydajność potoku</a>
+<ul>
+<li><a href="#opóźnienia-powodują">Opóźnienia powodują</a></li>
+</ul></li>
+<li><a href="#przyspieszanie-potoku">Przyspieszanie potoku</a>
+<ul>
+<li><a href="#rozwiązanie-w-mips-r4000">Rozwiązanie w MIPS
+R4000</a></li>
+</ul></li>
+<li><a href="#budowa-pamięci-każdej">Budowa pamięci (każdej)</a></li>
+<li><a href="#wydajność-superpotoków">Wydajność superpotoków</a></li>
+<li><a href="#realizacja-potokowa-procesora-cisc">Realizacja potokowa
+procesora CISC</a></li>
+</ul></li>
+<li><a href="#procesory-wielopotokowe-superskalarne">Procesory
+wielopotokowe (superskalarne)</a>
+<ul>
+<li><a href="#pseudosuperskalar">Pseudosuperskalar</a></li>
+<li><a href="#superskalar-z-kolejnym-wykonaniem-instrukcji">Superskalar
+z kolejnym wykonaniem instrukcji</a></li>
+<li><a href="#superskalar-z-kolejnym-rozpoczynaniem-i-niekolejnym-kończeniem">Superskalar
+z kolejnym rozpoczynaniem i niekolejnym kończeniem</a></li>
+<li><a href="#superskalar-z-niekolejnym-wykonaniem-instrukcji">Superskalar z
+niekolejnym wykonaniem instrukcji</a></li>
+<li><a href="#superskalarny-z-niekolejnym-wykonaniem-instrukcji">Superskalarny
+z niekolejnym wykonaniem instrukcji</a></li>
+<li><a href="#synchronizacja-przy-superskalarze-ze-zmianą-kolejności">Synchronizacja
+przy superskalarze ze zmianą kolejności</a></li>
+<li><a href="#register-renaming">Register renaming</a></li>
+<li><a href="#półka">Półka</a>
+<ul>
+<li><a href="#antypółka">Antypółka</a></li>
+</ul></li>
+<li><a href="#liczba-rejestrów-fizycznych">Liczba rejestrów
+fizycznych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

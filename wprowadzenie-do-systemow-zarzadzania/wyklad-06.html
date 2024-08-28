@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-06</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-1.html">Poprzedni: kolokwium-1.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wprowadzenie do systemów zarządzania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="01-systemy-informacyjne-w-zarzadzaniu.html">01-systemy-informacyjne-w-zarzadzaniu.html</a></li>
+                
+                <li><a href="02-architektury-systemow-zarzadzania.html">02-architektury-systemow-zarzadzania.html</a></li>
+                
+                <li><a href="03-modelowanie-procesow-biznesowych.html">03-modelowanie-procesow-biznesowych.html</a></li>
+                
+                <li><a href="04-modele-analityczne.html">04-modele-analityczne.html</a></li>
+                
+                <li><a href="kolokwium-1.html">kolokwium-1.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="programowanie-liniowe-2024-04-08">Programowanie liniowe
+(2024-04-08)</h1>
+<p>Projekt będzie wymagał zamodelowania i rozwiązania problemu
+decyzyjnego</p>
+<p>Nazwa jest zaszłością historyczną, bardziej poprawnie modele
+liniowe</p>
+<h2 id="zadanie-programowania-liniowego">Zadanie programowania
+liniowego</h2>
+<p>Polega na znalezieniu optymalnych wartości zmiennych decyzyjnych
+<span class="math inline">\(x = \langle x_1, x_2, \ldots, x_n
+\rangle\)</span> ze zbioru <strong>liczb rzeczywistych</strong>
+maksymalizujących funkcję celu <span class="math inline">\(\max_x x_0 =
+\sum_{j=1}^n c_jx_j = cx\)</span>, przy spełnieniu ograniczeń <span
+class="math inline">\(\sum_{j=1}^n a_{ij}x_j = b_i\)</span> (<span
+class="math inline">\(Ax=b\)</span>), <span class="math inline">\(x_j
+\ge 0\)</span>. Współczynniki <span class="math inline">\(a, b,
+c\)</span> są znane (są danymi wejściowymi modelu). Ograniczeń jest
+mniej niż zmiennych decyzyjnych (inaczej nie może być wielu
+rozwiązań).</p>
+<h3 id="inne-postaci-zadania-pl">Inne postaci zadania PL</h3>
+<ul>
+<li>Znak <span class="math inline">\(\le\)</span> lub <span
+class="math inline">\(\ge\)</span> w ograniczeniach
+<ul>
+<li>nie może być <span class="math inline">\(&lt;, &gt;\)</span> - źle
+zdefiniowane zadanie</li>
+</ul></li>
+<li><span class="math inline">\(\min\)</span> zamiast <span
+class="math inline">\(\max\)</span></li>
+<li><span class="math inline">\(x\)</span> nieograniczone lub
+ograniczone z jednej / obu stron</li>
+</ul>
+<h3 id="przekształcanie-modelu">Przekształcanie modelu</h3>
+<p>Z każdej postaci można przejść w każdą inną</p>
+<ul>
+<li>przez zmianę znaku przy min/max</li>
+<li>wprowadzenie zmiennych decyzyjnych dopełniających</li>
+<li>ograniczenie równościowe zamienić na dwa nierównościowe</li>
+<li>zamianę zmiennych niograniczonych na nieujemne</li>
+</ul>
+<p>Model liniowy możemy zastosować tylko jeśli wszystkie zalezności
+rosną proporcjonalnie - nie zawsze nadaje się do modelowania
+rzeczywistego problemu.</p>
+<p>Rozwiązanie spełniające ograniczenia - dopuszczalne (feasible)</p>
+<h2 id="interpretacja-graficzna">Interpretacja graficzna</h2>
+<ul>
+<li>Ograniczenia wyznaczają wielokąt (w przypadku 2-wymiarowym) - część
+wspólna półpłaszczyzn</li>
+<li>Punkt optymalny będzie na brzegu</li>
+<li>Może być więcej niż jedno rozwiązanie optymalne jeśli funkcja celu i
+jedno z ograniczeń są liniowo zależne</li>
+<li>Ograniczenia mogą być sprzeczne - część wspólna będzie zbiorem
+pustym</li>
+</ul>
+<h2 id="kiedy-nie-ma-optymalnego-rozwiązania">Kiedy nie ma optymalnego
+rozwiązania</h2>
+<ul>
+<li>Dzieli się ograniczenia na twarde i miękkie</li>
+<li>Miękkie ograniczenia można całkowicie pominąć</li>
+<li>Przekroczenie miękkich ograniczeń można minimalizować w funkcji
+celu</li>
+<li>Zbiór może być nieograniczony
+<ul>
+<li>najprawdopodobniej wynika z błędu modelowania</li>
+</ul></li>
+<li>Trzeba dokładnie czytać komunikat końcowy solvera</li>
+</ul>
+<h2 id="algorytm-simplex">Algorytm simplex</h2>
+<ul>
+<li>Wyznacz początkowy punkt wierzchołkowy</li>
+<li>Czy rozwiązanie jest gorsze od sąsiednich
+<ul>
+<li>jeśli nie to znaleziono rozwiązanie optymalne</li>
+</ul></li>
+<li>Przejdź do sąsiedniego punktu wierzchołkowego dającego lepszą
+wartość funkcji celu</li>
+<li>Powtarzaj od kroku 2</li>
+<li>W najgorszym wypadku ma wykładniczą złożoność</li>
+<li>Stosuje się heurystyki dla wyboru sąsiada</li>
+<li>Sam problem programowania liniowego daje się rozwiązać algorytmem
+wielomianowym (ale jest wolniejszy w praktyce)</li>
+<li>Powszechnie stosowany</li>
+<li>Wydajny w typowych przypadkach</li>
+</ul>
+<h2 id="modelowanie-funkcji-celu-typu-minmax">Modelowanie funkcji celu
+typu minmax</h2>
+<p>Sztuczka, może być przydatna do projektu Wyznaczanie <span
+class="math inline">\(\max (\min (x_1, x_2, x_3))\)</span>, z
+ograniczeniami liniowymi z góry</p>
+<p>Można zapisać w postaci programowania liniowego <span
+class="math inline">\(z \le x_1, z \le x_2, z \le x_3\)</span> <span
+class="math inline">\(\max z\)</span> ??</p>
+<h2 id="założenia-modelu">Założenia modelu</h2>
+<ul>
+<li>Liniowość</li>
+<li>Pełna podzielność</li>
+<li>Brak niepewności</li>
+<li>Jedno kryterium oceny</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#programowanie-liniowe-2024-04-08">Programowanie liniowe
+(2024-04-08)</a>
+<ul>
+<li><a href="#zadanie-programowania-liniowego">Zadanie programowania
+liniowego</a>
+<ul>
+<li><a href="#inne-postaci-zadania-pl">Inne postaci zadania PL</a></li>
+<li><a href="#przekształcanie-modelu">Przekształcanie modelu</a></li>
+</ul></li>
+<li><a href="#interpretacja-graficzna">Interpretacja graficzna</a></li>
+<li><a href="#kiedy-nie-ma-optymalnego-rozwiązania">Kiedy nie ma
+optymalnego rozwiązania</a></li>
+<li><a href="#algorytm-simplex">Algorytm simplex</a></li>
+<li><a href="#modelowanie-funkcji-celu-typu-minmax">Modelowanie funkcji
+celu typu minmax</a></li>
+<li><a href="#założenia-modelu">Założenia modelu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

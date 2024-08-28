@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-14</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-13.html">Poprzedni: wyklad-13.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-14-2024-01-23">Wykład 14 (2024-01-23)</h1>
+<p>Warstwy * procesy użytkownika * oprogramowanie niezależne od
+urządzenia * sterowniki urządzeń * procedury obsługi przerwań *
+sprzęt</p>
+<p>Jest urządzenie od producenta z dokumentacją (pod jakie porty się
+mapuje, jaki protokół komunikacji) Trzeba to zaimplementować w jądrze
+Jest wywoływane przez wywołania systemowe Muszą być jakieś
+identyfikatory wskazujące na konkretne urządzenie w unixie to para liczb
+major i minor Major to numer sterownika Minor to numer danego urządzenia
+w ramach jego sterownika Np dyski mają wspólny major i każdy ma własny
+minor</p>
+<h3 id="używanie-sterowników">Używanie sterowników</h3>
+<p>w unixie mknod tworzy pozycję katalogową dla pliku specjalnego,
+przyjmuje nazwę, typ (block/character) i parę major, minor Nazwa jest
+dla człowieka, istotne są typ, major i minor</p>
+<p>np można zmienić pozycję /dev/null tak żeby logować wszystko co miało
+być ukryte</p>
+<p>Zazwyczaj w katalogu /dev - urządzenia zarejestrowane w systemie
+plików wtedy można wykorzystać mechanizm otwierania plików żeby dostać
+się do urządzenia open, close, seek, read, write - te same wywołania co
+dla zwykłych plików - to znaczy unifikacja seek ustawia bieżącą pozycję
+(adres) w obrębie urządzenia</p>
+<p>zawartość funkcji read, write dla konkretnego urządzenia to “górne
+połówki”</p>
+<p>major to indeks sterownika w tablicy sterowników (np. sterownik do
+obsługi dysków) sterownik to struktura danych zgodna z dokumentacją
+danego systemu operacyjnego, zawiera procedury obsługi open, read,
+write, seek, close (te które mają sens dla urządzenia, nie czyta się z
+drukarki znakowej) taką strukturę rejestruje się w jądrze jako
+sterownik</p>
+<p>w linuxie jest koncepcja modułów ładowanych dynamicznie, można
+ładować sterownik niezależnie od reszty jądra przygotowuje się sterownik
+zgodnie z konwencją, kompiluje się i ładuje nowy moduł</p>
+<p>tak się też dostarcza sterowniki o zamkniętych źródłach</p>
+<p>Na egzamin pytanie typu na czym polega tworzenia sterownika * obsługa
+wywyołań * major minor * pozycja katalogowa</p>
+<p>Kurz szkodzi elektronice bo blokuje odprowadzanie ciepła</p>
+<h2 id="raid">RAID</h2>
+<ul>
+<li>redundancja</li>
+<li>większa niezawodność dysków</li>
+<li>kody detekcyjno-korekcyjne</li>
+</ul>
+<p>Poziomy RAID są od 0 do 6 (10 to 1+0, marketing)</p>
+<h3 id="raid-0">RAID 0</h3>
+<ul>
+<li>bez powielenia danych</li>
+<li>wiele dysków tworzy jeden logiczny dysk</li>
+<li>adresy mogą iść albo wzdłuż albo w poprzek (konkatenacja albo
+striping)</li>
+<li>striping
+<ul>
+<li>jest bardziej skomplikowany do zarządzania</li>
+<li>można robić równoległe odczyty i przyspieszyć dostęp</li>
+<li>ma sens dla dysków o jednakowej pojemności</li>
+</ul></li>
+<li>nie ma redundancji
+<ul>
+<li>jak padnie jeden dysk to pada wszystko</li>
+</ul></li>
+</ul>
+<h3 id="raid-1">RAID 1</h3>
+<ul>
+<li>Jak RAID 0 ale z lustrzaną kopią
+<ul>
+<li>może być więcej niż 1 kopia</li>
+</ul></li>
+<li>Najlepsza niezawodność</li>
+<li>Drogie, bo trzeba mieć przynajmniej drugie tyle dysków</li>
+<li>Ze względu na koszt ogranicza się użycie do krytycznych obszarów
+<ul>
+<li>bootowanie</li>
+</ul></li>
+<li>Lepsze są małe mirrory, duże concaty</li>
+</ul>
+<p>Żeby zrobić backup można * dynamicznie dołączyć 3 kopię * uaktualnić
+3. element * powstaje spójna kopia * można odłączyć i przenieść na inny
+nośnik</p>
+<h3 id="raid-2">RAID 2</h3>
+<ul>
+<li>już się nie stosuje</li>
+<li>kody detekcyjno-korekcyjne (Hamminga)
+<ul>
+<li>tylko ograniczoną liczbę można naprawić</li>
+</ul></li>
+<li>piekielnie niewydajne i drogie</li>
+</ul>
+<h3 id="raid-3">RAID 3</h3>
+<ul>
+<li>oddzielny dysk na bity parzystości</li>
+<li>analogiczny do RAID 2</li>
+<li>mała przepustowość zapytań</li>
+<li>bardziej wydajne niż RAID 2</li>
+<li>nie stosuje się już</li>
+</ul>
+<h3 id="raid-4">RAID 4</h3>
+<ul>
+<li>Niezależny dostęp do poszczególnych dysków</li>
+<li>Zwielokrotnienie na poziomie sektorów</li>
+</ul>
+<h3 id="raid-5">RAID 5</h3>
+<ul>
+<li>Wykorzystywany współcześnie</li>
+<li>redundancja kosztuje jeden dysk</li>
+<li>parzystość rozsiana między wieloma dyskami</li>
+<li>pasek można odtwrozyć na podstawie nadmiarowego bloku</li>
+<li>ekonomiczne</li>
+<li>dla kilku dysków, nie dla kilkudziesięciu</li>
+<li>nieelastyczny
+<ul>
+<li>ciężko rozszerzyć macierz o jeden dysk ze względu na paskowanie</li>
+<li>ale łatwo podmienić dysk</li>
+</ul></li>
+</ul>
+<h2 id="praktyka">Praktyka</h2>
+<ul>
+<li>dysk do bootowania w RAID 1</li>
+<li>macierz dyskowa podłączona sieciowo (sieć typu SAN)
+<ul>
+<li>z RAID 5</li>
+<li>kilka dysków poza RAID 5 w trybie standby</li>
+<li>nadmiarowe dyski zostaną automatycznie podmienione w razie awarii
+jednego z dysków macierzy</li>
+</ul></li>
+</ul>
+<p>Parzystość - trzeba rozumieć * operacja XOR * przemienna * pozwala
+odtworzyć zawartość zepsutego dysku</p>
+<h3 id="raid-6">RAID 6</h3>
+<ul>
+<li>Parzystość jest wyliczana 2 razy , trzymana w 2 miejscach</li>
+<li>Nie jest odporne na awarię 2 dysków na raz</li>
+<li>Po awarii jednego dysku działa jak RAID 5 dopóki nie zostanie
+naprawiony
+<ul>
+<li>jak dysk padnie w piątek wieczorem to macierz dalej będzie
+działać</li>
+<li>“last hope of administrator”</li>
+</ul></li>
+</ul>
+<p>Na linuxie można założyć partycję typu RAID - to bardziej udawanie że
+się zabezpiecza dane</p>
+<p>RAID z kontrolerem sprzętowym jest niewidoczne dla systemu
+operacyjnego (konfiguruje się macierz dyskową przez BIOS/UEFI)</p>
+<p>W centrum danych to typowo * RAID 1 dla krytycznych danych (system
+operacyjny) * RAID 5 dla dużych danych produkcyjnych * z nadmiarowymi
+dyskami standby * gwarantowane że można w trakcie działania macierzy
+wyciągnąć dysk i podpiąć nowy * obsługa centrum danych to przede
+wszystkim wymienianie twardych dysków, często, w dużej liczbie</p>
+<h2 id="egzamin">Egzamin</h2>
+<ul>
+<li>taka forma jak kolokwium, wyświetlane pytania</li>
+<li>40 pkt</li>
+<li>będzie podany zakres</li>
+<li>każdy ma obowiązek przyjść na egzamin</li>
+<li>do 80 minut</li>
+<li>chyba będzie zwalniał ale nie można wykluczyć że nie zwolni</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-14-2024-01-23">Wykład 14 (2024-01-23)</a>
+<ul>
+<li><a href="#używanie-sterowników">Używanie sterowników</a></li>
+<li><a href="#raid">RAID</a>
+<ul>
+<li><a href="#raid-0">RAID 0</a></li>
+<li><a href="#raid-1">RAID 1</a></li>
+<li><a href="#raid-2">RAID 2</a></li>
+<li><a href="#raid-3">RAID 3</a></li>
+<li><a href="#raid-4">RAID 4</a></li>
+<li><a href="#raid-5">RAID 5</a></li>
+</ul></li>
+<li><a href="#praktyka">Praktyka</a>
+<ul>
+<li><a href="#raid-6">RAID 6</a></li>
+</ul></li>
+<li><a href="#egzamin">Egzamin</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-liczby-calkowite</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-architektura-komputera.html">Poprzedni: 02-architektura-komputera.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-liczby-calkowite.html">Następny: 03-liczby-calkowite.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="reprezentacja-liczb-całkowitych-2022-10-20">Reprezentacja liczb
+całkowitych (2022-10-20)</h1>
+<p>Zmienna typu boolean na większości architektur zajmie conajmniej 1
+bajt (najmniejsza adresowalna jednostka)</p>
+<h2 id="naturalny-kod-binarny">Naturalny kod binarny</h2>
+<table>
+<thead>
+<tr class="header">
+<th>liczba bitów</th>
+<th>liczba stanów</th>
+<th>zakres wartości</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\(2^n\)</span></td>
+<td><span class="math inline">\(0\)</span> - <span
+class="math inline">\(2^n-1\)</span></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>256</td>
+<td>0 - 255</td>
+</tr>
+</tbody>
+</table>
+<p>Najbardziej znaczący bit - waga <span
+class="math inline">\(2^n-1\)</span></p>
+<p>Najmniej znaczący bit - waga <span
+class="math inline">\(1\)</span></p>
+<p>Występują 2 spodoby zapisu liczb wielobajtowych w pamięci ###
+Big-endian (TCP, UDP, IP) Najbardziej znaczący bajt jest pod
+najmniejszym adresem (od lewej do prawej)</p>
+<h3 id="little-endian-x86">Little-endian (x86)</h3>
+<p>Najbardziej znaczący bajt pod największym adresem</p>
+<h3 id="przekształcanie-liczb-dziesiętnych-na-nkb">Przekształcanie liczb
+dziesiętnych na NKB</h3>
+<ol type="1">
+<li>Dzielić przez 2 i zapisywać resztę z dzielenia</li>
+<li>Przewrócić kolumnę w prawo</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>57</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>28</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>32</th>
+<th>16</th>
+<th>8</th>
+<th>4</th>
+<th>2</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[57_{(10)} = 111001_{NB}\]</span></p>
+<h2 id="kodowanie-znak-moduł-zm">Kodowanie znak-moduł (ZM)</h2>
+<p>Najbardziej znaczący bit określa znak</p>
+<p><span class="math display">\[(-1)^{b_{N-1}}\sum_{i=0}^{N-2} 2^i *
+b_i\]</span> <span class="math display">\[11001001_{ZM} = -(64+8+1) =
+-73\]</span></p>
+<ul>
+<li>Dwie reprezentacje dla <span class="math inline">\(0\)</span></li>
+<li>Negacja przez zamainę jednego bitu</li>
+<li>Zakres wartości od <span class="math inline">\(-(2^{N-1}-1)\)</span>
+do <span class="math inline">\(2^{N-1}-1\)</span> (niesymetryczny)</li>
+<li>Niewygodne do operacji arytmetycznych</li>
+</ul>
+<h2 id="kod-uzupełnień-do-1-u1">Kod uzupełnień do 1 (U1)</h2>
+<p>Najbardziej znaczący bit ma ujemną wagę</p>
+<p><span class="math display">\[(-2^{N-1}+1) * b_{N-1} +
+\sum_{i=0}^{N-2}2^i*b_i\]</span> <span
+class="math display">\[11001001_{U1} = -127 + 64 + 8 + 1 =
+-54\]</span></p>
+<ul>
+<li>Negacja przez zanegowanie wszystkich bitów</li>
+<li>Zakres wartości od <span class="math inline">\(-(2^{N-1}-1)\)</span>
+do <span class="math inline">\(2^{N-1}-1\)</span></li>
+<li>Dwie reprezentacje dla 0</li>
+<li>Odejmowanie - dodawanie liczby zanegowanej</li>
+<li>Dodawanie tak samo jak w NKB + dodajemy 1 do wyniku przy
+przeniesieniu poza bit znaku</li>
+</ul>
+<h2 id="kod-uzupełnień-do-2-u2">Kod uzupełnień do 2 (U2)</h2>
+<p>Najbardziej znaczący bit ma ujemną wagę</p>
+<p><span class="math display">\[(-2^{N-1}) * b_{N-1} +
+\sum^{N-2}_{i=0}2^i*b_i\]</span> <span
+class="math display">\[11001001_{U2}=-128+64+8+1=-55\]</span></p>
+<ul>
+<li>Niesymetryczny zakres od <span
+class="math inline">\(-2^{N-1}\)</span> do <span
+class="math inline">\(2^{N-1}\)</span></li>
+<li>Jedna reprezentacja 0</li>
+<li>Negacja - zanegowanie bitów i dodanie 1</li>
+<li>Dodawanie - tak samo jak w NKB!</li>
+<li>Odejmowanie - dodanie liczby zanegowanej</li>
+<li>Używany w implementacjach C/C++</li>
+</ul>
+<h3 id="przepełnienie-w-u2">Przepełnienie w U2</h3>
+<p>Przepełnienie występuje kiedy przeniesienie poza granicę słowa jest
+różne od ostatniego przeniesienia * 01, 10 - przepełnienie * 00, 11 -
+nie ma przepełnienia</p>
+<h3 id="wydłużenie-liczby-w-zapisie-u2">Wydłużenie liczby w zapisie
+U2</h3>
+<p>0 na pierwszym bicie jest znaczące.</p>
+<p>Trzeba powielić najbardziej znaczący bit * <span
+class="math inline">\(-3\)</span> na 4 bitach <span
+class="math inline">\(1101\)</span> * <span
+class="math inline">\(-3\)</span> na 8 bitach <span
+class="math inline">\(11111101\)</span></p>
+<h2 id="przesunięcie-arytmetyczne-w-lewo">Przesunięcie arytmetyczne w
+lewo</h2>
+<p>(mnożenie przez 2)</p>
+<p>Wynik się zgadza pod warunkiem, że przed i po przesunięciu bit znaku
+zostaje taki sam</p>
+<h2 id="przesunięcie-arytmetyczne-w-prawo">Przesunięcie arytmetyczne w
+prawo</h2>
+<p>(dzielenie przez 2)</p>
+<ul>
+<li>Najmniej znaczący bit ginie</li>
+<li>Pierwszy bit (znaku) się kopiuje w U2</li>
+<li>Problem przy ujemnych liczbach nieparzystych U2!</li>
+</ul>
+<h3 id="obcinanie-vs-zaokrąglanie">Obcinanie vs zaokrąglanie</h3>
+<p>Kiedy jest w góre, a kiedy w dół?</p>
+<h3 id="dzielenie-i-przesunięcie-w-assemblerze">Dzielenie i przesunięcie
+w assemblerze</h3>
+<p>Przesunięcie i dzielenie nie zawsze jest równoważne! Kompilator sam
+sobie poradzi i zoptymalizuje operację. Nie warto kombinować!</p>
+<h2 id="przesuwanie">Przesuwanie</h2>
+<ul>
+<li>Arytmetyczne (ASL, ASR) - uwzględnia bit znaku</li>
+<li>Logiczne (LSL, LSR) - traktuje sekwencję bitów jako zwykły ciąg
+znaków</li>
+<li>Cykliczne - wysunięty bit wchodzi z drugiej strony</li>
+</ul>
+<h2 id="mnożenie-w-u2">Mnożenie w U2</h2>
+<ul>
+<li>Rozszerzenie operandów razy 2 (z 8 bitów do 16 itd.)</li>
+<li>Przesunięcie mnożnika w lewo i dodanie do pośredniego wyniku</li>
+</ul>
+<p>Wszystkimi operacjami zajmuje się ALU</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Zakres wartości słowa kodowego</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NBC</td>
+<td><span class="math inline">\(b_{n-1}b_{n-2}...b_1b_0\)</span></td>
+<td><span class="math inline">\(0\)</span> - <span
+class="math inline">\(2^n-1\)</span></td>
+</tr>
+<tr class="even">
+<td>ZM</td>
+<td><span class="math inline">\(b_{z}b_{n-2}...b_1b_0\)</span></td>
+<td><span class="math inline">\(-(2^{N-1}-1)\)</span> - <span
+class="math inline">\(2^{N-1}-1\)</span></td>
+</tr>
+<tr class="odd">
+<td>U1</td>
+<td><span class="math inline">\(b_{n-1}b_{n-2}...b_1b_0\)</span></td>
+<td><span class="math inline">\(-(2^{N-1}-1)\)</span> - <span
+class="math inline">\(2^{N-1}-1\)</span></td>
+</tr>
+<tr class="even">
+<td>U2</td>
+<td><span class="math inline">\(b_{n-1}b_{n-2}...b_1b_0\)</span></td>
+<td><span class="math inline">\(-2^{N-1}\)</span> - <span
+class="math inline">\(2^{N-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="oznaczenie">Oznaczenie</h2>
+<p>Liczby podawane w innych systemach oznacza się np, prefixem * 0b -
+binarne * 0o - oktalne * 0x - heksadecymalne</p>
+<h2 id="binary-coded-decimal">Binary coded decimal</h2>
+<p>Każda cyfra od 0 do 9 reprezentowana na 4 bitach w postaci NKB od
+0000 do 1001</p>
+<p>Nibble / tetrada - połówka bajtu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#reprezentacja-liczb-całkowitych-2022-10-20">Reprezentacja
+liczb całkowitych (2022-10-20)</a>
+<ul>
+<li><a href="#naturalny-kod-binarny">Naturalny kod binarny</a>
+<ul>
+<li><a href="#little-endian-x86">Little-endian (x86)</a></li>
+<li><a href="#przekształcanie-liczb-dziesiętnych-na-nkb">Przekształcanie
+liczb dziesiętnych na NKB</a></li>
+</ul></li>
+<li><a href="#kodowanie-znak-moduł-zm">Kodowanie znak-moduł
+(ZM)</a></li>
+<li><a href="#kod-uzupełnień-do-1-u1">Kod uzupełnień do 1 (U1)</a></li>
+<li><a href="#kod-uzupełnień-do-2-u2">Kod uzupełnień do 2 (U2)</a>
+<ul>
+<li><a href="#przepełnienie-w-u2">Przepełnienie w U2</a></li>
+<li><a href="#wydłużenie-liczby-w-zapisie-u2">Wydłużenie liczby w
+zapisie U2</a></li>
+</ul></li>
+<li><a href="#przesunięcie-arytmetyczne-w-lewo">Przesunięcie
+arytmetyczne w lewo</a></li>
+<li><a href="#przesunięcie-arytmetyczne-w-prawo">Przesunięcie
+arytmetyczne w prawo</a>
+<ul>
+<li><a href="#obcinanie-vs-zaokrąglanie">Obcinanie vs
+zaokrąglanie</a></li>
+<li><a href="#dzielenie-i-przesunięcie-w-assemblerze">Dzielenie i
+przesunięcie w assemblerze</a></li>
+</ul></li>
+<li><a href="#przesuwanie">Przesuwanie</a></li>
+<li><a href="#mnożenie-w-u2">Mnożenie w U2</a></li>
+<li><a href="#oznaczenie">Oznaczenie</a></li>
+<li><a href="#binary-coded-decimal">Binary coded decimal</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

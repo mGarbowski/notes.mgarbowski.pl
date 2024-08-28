@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="obiektowe-wzorce-projektowe-2024-03-04">Obiektowe wzorce
+projektowe (2024-03-04)</h1>
+<ul>
+<li>Wzorce to poprawne, standardowe rozwiązania typowych problemów</li>
+</ul>
+<h2 id="agregacja-i-dziedziczenie">Agregacja i dziedziczenie</h2>
+<ul>
+<li>Agregacja - kolekcja obiektów jako składowa</li>
+<li>Kompozycja - obiekt jako składowa</li>
+<li>Dziedziczenie - klasa pochodna i klasa bazowa</li>
+</ul>
+<h2 id="problem-wycinania">Problem wycinania</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Kierownik k<span class="op">(...);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Pracownik p <span class="op">=</span> k<span class="op">;</span></span></code></pre></div>
+<ul>
+<li>Zostanie wywołany konstruktor kopiujący</li>
+<li>Jest błędem logicznym, powoduje niespodzianki</li>
+<li>Należy przekazywać wskaźniki lub referencje do obiektów</li>
+<li>Mozna zabronić tworzyć obiektów klasy bazowej (klasa abstrakcyjna /
+prywatny konstruktor)</li>
+</ul>
+<h2 id="płytka-kopia">Płytka kopia</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Obj <span class="op">*</span>obj <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">();</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Obj <span class="op">*</span>copy <span class="op">=</span> obj<span class="op">;</span></span></code></pre></div>
+<ul>
+<li>Przy adresowaniu pośrednim (przez wskaźnik)</li>
+<li>Można skopiować sam wskaźnik
+<ul>
+<li>Szybkie, bo wskaźnik to jedna zmienna</li>
+<li>Wskaźnik wskazuje na ten sam obiekt</li>
+<li>Poprawne jeśli używamy obiektu do odczytu</li>
+</ul></li>
+</ul>
+<h2 id="kopia-głęboka">Kopia głęboka</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Obj <span class="op">*</span>obj <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">();</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Obj <span class="op">*</span>copy <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">(*</span>obj<span class="op">);</span></span></code></pre></div>
+<h2 id="kopia-z-hierarchią-dziedziczenia">Kopia z hierarchią
+dziedziczenia</h2>
+<p>Można przeciążyć metody w klasach pochodnych. Wołając metodę
+kopiująca na wskaźniku klasy bazowej zostanie wywołana odpowiednia
+implementacja w klasie pochodnej. Wzorzec prototypu.</p>
+<p>Importy, dołączanie przestrzeni nazw powinno być maksymalnie
+lokalne</p>
+<h2 id="prototyp">Prototyp</h2>
+<ul>
+<li>Odpowiedzialność przeniesiona na obiekty pochodne</li>
+</ul>
+<h2 id="kompozyt">Kompozyt</h2>
+<ul>
+<li>Reprezentacja drzewiastych struktur obiektów</li>
+<li>Traktowanie w ten sam sposób obiektów prostych i złożonych</li>
+<li>Łatwo dodawać nowe klasy do hierarchii</li>
+<li>Przykład plików i katalogów w systemie plików</li>
+<li>dyskusyjne jak powinny działać add i remove i czy powinny być w
+bazowym interfejsie</li>
+</ul>
+<h2 id="adapter">Adapter</h2>
+<ul>
+<li>Wrapper</li>
+<li>Rozwiązuje problem, gdzie klasa ma odpowiednie dane ale ma
+nieodpowiedni interfejs</li>
+<li>Nie zawsze można zmienić interfejs klasy która nie pasuje</li>
+<li>Adapter obiektów wykorzystuje agregację (preferowany)
+<ul>
+<li>obiekt adaptowany jest składową adaptera</li>
+<li>jego metody są wołane przez adapter</li>
+</ul></li>
+<li>Adapter klas wtykorzystuje dziedziczenie prywatne
+<ul>
+<li>Adapter dziedziczy publicznie po interfejsie i prywatnie po
+adaptowanym</li>
+<li>Można nadpisywać metody wirtualne adaptowanego</li>
+</ul></li>
+</ul>
+<h2 id="proxy">Proxy</h2>
+<ul>
+<li>Pośrednik</li>
+<li>Proxy to uchwyt (wskaźnik) do obiektu</li>
+<li>Sprytny wskaźnik to przykład proxy</li>
+<li>Proxy agreguje jeden obiekt rzeczywisty (trzyma wskaźnik)</li>
+<li>Proxy ma ten sam interfejs co obiekt rzeczywisty</li>
+<li>Przykłady
+<ul>
+<li>Virtual Proxy</li>
+<li>Copy-On-Write Proxy - odkłada tworzenie głębokiej kopii obiektu</li>
+<li>Smart Pointer - zarządza czasem życia obiektu na stercie</li>
+<li>Remote Proxy - obiekt w innej przestrzeni adresowej</li>
+<li>Protection Proxy - kontroluje prawa dostępu do obiektu</li>
+<li>Synchronization Proxy - synchronizuje dostęp do obiektu</li>
+</ul></li>
+</ul>
+<h3 id="virtual-proxy">Virtual Proxy</h3>
+<ul>
+<li>Tworzy obiekt przy pierwszym użyciu, odracza tworzenie obiektu</li>
+<li>Utworzenie obiektu jeszcze nie oznacza zajęcia zasobów</li>
+<li>Większy koszt - dwa skoki</li>
+<li>Np. drzewo gry - można reprezentować strukturę niemieszczącą się w
+pamięci</li>
+</ul>
+<h3 id="copy-on-write-proxy">Copy-On-Write Proxy</h3>
+<ul>
+<li>Leniwe kopiowanie</li>
+<li>Przy odczycie kopia płytka</li>
+<li>Przy zapisie kopia głęboka</li>
+<li>Przechowuje licznik referencji
+<ul>
+<li>Jeśli jeden to można modyfikować</li>
+<li>Jeśli więcej to można czytać albo trzeba utworzyć głęboką kopię</li>
+</ul></li>
+</ul>
+<h2 id="obserwator">Obserwator</h2>
+<ul>
+<li>Rozwiązuje problem, gdzie zmiana stanu jednego obiektu wymaga zmiany
+innych</li>
+<li>Naiwna implementacja prowadzi do cyklicznych zależności</li>
+<li>Aktywne oczekiwanie jest błędne (błąd projektowy), są niepotrzebne
+wywołania</li>
+<li>Obserwator nie ma ani cyklicznych zależności ani aktywnego
+oczekiwania</li>
+<li>Obiekt posiadający stan agreguje obserwatory</li>
+<li>Konkretne obserwatory mają metodę wirtualną <code>update</code></li>
+<li>Wysłanie powiadomienia przez temat obserwacji woła
+<code>update</code> na każdym z zarejestrowanych obserwatorów</li>
+<li>Obserwator zależy od tematu, ale temat nie zależy od
+obserwatora</li>
+<li>Przykłady
+<ul>
+<li>MVC - model to temat, widok to obserwator</li>
+<li>Qt - sygnał to temat, slot ot obserwator</li>
+</ul></li>
+</ul>
+<h2 id="komenda">Komenda</h2>
+<ul>
+<li>Wzorzec opóźnionego wołania</li>
+<li>Obiekt przechowuje akcję i parametry</li>
+<li>Pozwala zdefiniować komendę w jednym miejscu i wykonać w innym</li>
+<li>W C++ używa się do tego operatora wołania funkcyjnego
+<code>operator()(...)</code></li>
+<li>Jest semantycznie wartością
+<ul>
+<li>Można kopiować</li>
+<li>Można przechować w kolekcji</li>
+<li>Można zwracać jako wynik</li>
+<li>Można przekazać jako argument</li>
+</ul></li>
+<li>Można dostarczyć możliwość wycofywania komendy
+<ul>
+<li>funkcja odwrotna</li>
+<li>zapamiętanie stanu i przywracanie</li>
+</ul></li>
+<li>Mozna wykorzystać do przetwarzania równoległego</li>
+<li>Zawiera wszystkie informacje potzrebne do wykonania akcji</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>window<span class="op">.</span>resize<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">300</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Command <span class="op">*</span>cmd <span class="op">=</span> <span class="kw">new</span> ResizeCommand<span class="op">(</span>window<span class="op">,</span> <span class="op">&amp;</span>Window<span class="op">::</span>resize<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">300</span><span class="op">);</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* ... */</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cmd<span class="op">-&gt;</span>run<span class="op">();</span></span></code></pre></div>
+<h2 id="dekorator">Dekorator</h2>
+<ul>
+<li>Zmiana funkcjonalności dla obiektów w czasie działania</li>
+<li>Alternatywa dla dziedziczenia (inna funkcjonalność w czasie
+kompilacji)</li>
+<li>Powstaje łańcuch obiektów</li>
+<li>Jak odczyt z plików z buforowaniem w Java</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#obiektowe-wzorce-projektowe-2024-03-04">Obiektowe wzorce
+projektowe (2024-03-04)</a>
+<ul>
+<li><a href="#agregacja-i-dziedziczenie">Agregacja i
+dziedziczenie</a></li>
+<li><a href="#problem-wycinania">Problem wycinania</a></li>
+<li><a href="#płytka-kopia">Płytka kopia</a></li>
+<li><a href="#kopia-głęboka">Kopia głęboka</a></li>
+<li><a href="#kopia-z-hierarchią-dziedziczenia">Kopia z hierarchią
+dziedziczenia</a></li>
+<li><a href="#prototyp">Prototyp</a></li>
+<li><a href="#kompozyt">Kompozyt</a></li>
+<li><a href="#adapter">Adapter</a></li>
+<li><a href="#proxy">Proxy</a>
+<ul>
+<li><a href="#virtual-proxy">Virtual Proxy</a></li>
+<li><a href="#copy-on-write-proxy">Copy-On-Write Proxy</a></li>
+</ul></li>
+<li><a href="#obserwator">Obserwator</a></li>
+<li><a href="#komenda">Komenda</a></li>
+<li><a href="#dekorator">Dekorator</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

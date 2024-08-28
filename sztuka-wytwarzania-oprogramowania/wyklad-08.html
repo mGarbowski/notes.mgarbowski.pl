@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07.html">Poprzedni: wyklad-07.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09.html">Następny: wyklad-09.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="metryki-2024-04-22">Metryki (2024-04-22)</h1>
+<ul>
+<li>Metryka - miara odległości między elementami zbioru
+<ul>
+<li>służy przede wszystkim do porównywania</li>
+</ul></li>
+<li>W inżynierii oprogramowania - liczbowa reprezentacja wybranej cechy
+oprogramowania
+<ul>
+<li>powinna być obiektywnie mierzalna</li>
+</ul></li>
+<li>Używane do
+<ul>
+<li>oceny oprogramowania (np. jakości)</li>
+<li>estymacji kosztów</li>
+<li>walidacji wymagań</li>
+</ul></li>
+</ul>
+<h2 id="metryki-i-procesy">Metryki i procesy</h2>
+<ul>
+<li>Metryki mogą dotyczyć procesów (wytwarzania oprogramowania)
+<ul>
+<li>np. liczba otwartych issues</li>
+<li>może warto śledzić wybrane metryki</li>
+</ul></li>
+<li>Może pomagać określać postęp w pracy</li>
+<li>Może pomóc pilnować oczekiwanej jakości</li>
+</ul>
+<h2 id="przykładowe-metryki">Przykładowe metryki</h2>
+<ul>
+<li>Wielkość programu (pliku wykonywalnego / paczki instalacyjnej)
+<ul>
+<li>żeby nowa gra nie zajmowała całego dysku</li>
+<li>żeby strona internetowa szybko się ładowała</li>
+</ul></li>
+<li>Czas wykonania programu</li>
+<li>Czas ładowania programu</li>
+<li>Zużycie pamięci / procesora / dysku przez program</li>
+<li>Liczba linii kodu (LOC)
+<ul>
+<li>obiektywna</li>
+<li>nie może służyć porównywaniu programów w różnych kategoriach
+złożoności</li>
+<li>można robić zgrubne oszacowania do podobnych projektów</li>
+</ul></li>
+<li>Procent linii komentarzy w kodzie
+<ul>
+<li>dobre dla nagłówków bibliotek</li>
+<li>w kodzie to słaby pomysł</li>
+</ul></li>
+<li>Złożoność cyklometryczna
+<ul>
+<li>liczba punktów decyzyjnych w kodzie + 1</li>
+<li>bez żadnego <code>if</code>a wynosi 1</li>
+<li>próba mierzenia złożoności kodu</li>
+<li>może sygnalizować potencjalnie złe funkcje</li>
+<li>źle traktuje instrukcje <code>switch</code></li>
+</ul></li>
+<li>Liczba linii w funkcji / module</li>
+<li>Liczba argumentów w funkcji / pól w klasie
+<ul>
+<li>powiązane ze seobą argumenty można upakować w klasę</li>
+</ul></li>
+<li>Głębokość zagnieżdżeń w kodzie</li>
+<li>Warto przyjąć jakieś wartości ostrzegawcze i robić inspekcje, gdy
+zostaną przekroczone</li>
+<li>Mogą być dynamiczne i statyczne</li>
+</ul>
+<h2 id="metryki-oprogramowania">Metryki oprogramowania</h2>
+<ul>
+<li>Mogą występować jako
+<ul>
+<li>średnie</li>
+<li>maksymalne</li>
+<li>zmierzone w specyficznych warunkach</li>
+</ul></li>
+<li>Sposób pomiaru jest elementem definiującym metrykę</li>
+<li>Często stosuje się skróty myślowe, ale warto pamiętać o ścisłym
+definiowaniu</li>
+</ul>
+<h2 id="metryki-kodu">Metryki kodu</h2>
+<ul>
+<li>Aspekty, które powinne same wyjść podczas code review</li>
+<li>Są obiektywne, więc mogą ucinać jałowe dyskusje
+<ul>
+<li>automat zauważy rzeczy, które mogą przemknąć przez code review</li>
+<li>warto je podpiąć pod CI</li>
+<li>klienci mogą wymagać <em>dowodów</em></li>
+</ul></li>
+<li>Mogą zmusić do szybszego naprawiania kodu</li>
+<li>Bardziej ambitne metryki próbują mierzyć poziom powiązań (coupling)
+lub samą utrzymywalność kodu</li>
+</ul>
+<h2 id="metryki-procesów">Metryki procesów</h2>
+<ul>
+<li>Pomiarom można poddawać proces wytwarzania oprogramowania
+<ul>
+<li>to nie jest zadanie tylko dla menadżerów</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>czs poświęcony przez zespół (np. w stosunku do zpalanowanego
+czasu)</li>
+<li>częstotliwość zgłaszania problemów</li>
+<li>czas rozwiązania problemów zgłaszanych przez klientów</li>
+<li><em>masa</em> w sprintach</li>
+</ul></li>
+<li>Warto interesować się przyjętymi w firmie metrykami
+<ul>
+<li>może pomóc lepiej pracować</li>
+</ul></li>
+</ul>
+<h2 id="metryki-testów">Metryki testów</h2>
+<ul>
+<li>Wszystkie metryki do kodu nadają się też do testów</li>
+<li>Kod testu to też kod!</li>
+<li>Dla testów można przyjąć inne wartości metryk, ale te same zasady co
+do kodu stosują się do testów
+<ul>
+<li>testy to najlepsza dokumentacja</li>
+</ul></li>
+<li>Jest grupa metryk specyficzna dla testowania</li>
+<li>Pokrycie (coverage)
+<ul>
+<li>może pomóc ocenić jakość testów (w obrębie danego projektu)</li>
+</ul></li>
+</ul>
+<h3 id="pokrycie">Pokrycie</h3>
+<ul>
+<li>Pokrycie linii - linie kodu wywołane przez test</li>
+<li>Pokrycie gałęzi - ściezki kodu wykonane przez test
+<ul>
+<li>dla <code>if</code>a muszą być dwa testy żeby uzyskać 100%</li>
+</ul></li>
+<li>Pokrycie decyzji - każda wykonana decyzja
+<ul>
+<li>jeśli w warunku jest <code>and</code> to jest więcej niż 1
+decyzja</li>
+<li>w większości języków operatory są <em>short-circuiting</em> - nie ma
+de facto 4 możliwości dla <code>and</code></li>
+<li>pokrycie gałęzi w kodzie asemblerowym</li>
+</ul></li>
+<li>Pokrycie wymagań przez testy
+<ul>
+<li>mniej obiektywne</li>
+<li>czy każde testowalne wymaganie ma swój test</li>
+</ul></li>
+<li>Jak dobrze napiszemy testy i jakiś kod nie jest pokryty to może nie
+jest potrzebny</li>
+<li>Raczej mierzy się z wyłączoną optymalizacją
+<ul>
+<li>inaczej trudno określić pokrycie bo linijki <em>wylatują</em> z kodu
+maszynowego</li>
+<li>czesto wymaga ingerencji w kod wykonywalny</li>
+<li>często wolniejsze niż przy normalnym działaniu</li>
+</ul></li>
+<li>Nie musi dotyczyć testów jednostkowych</li>
+<li>Pokrycie 100% dla całego projektu jest nierealne
+<ul>
+<li>może dla samej biblioteki albo jej konkretnych fragmentów</li>
+</ul></li>
+<li>To ze badamy pokrycie, nie oznacza od razu, że robimy white-box
+<ul>
+<li>pokrycie dotyczy mierzenie, a nie sposobu konstrukcji testu</li>
+<li>ale trzeba mieć wgląd do kodu żeby było sens mierzyć pokrycie</li>
+</ul></li>
+</ul>
+<h3 id="pokrycie-a-jakość">Pokrycie a jakość</h3>
+<ul>
+<li>Pokrycie inne niż 100% gałęzi oznacza, że są miejsca w programie,
+których nie uruchomiliśmy
+<ul>
+<li>nie wiemy co się w nich dzieje</li>
+</ul></li>
+<li>Uzyskanie 100% jest naprawdę drogie
+<ul>
+<li>przyjmujje się że 80-90% to już dobrze</li>
+<li>wszystkie moduły funkcjonalne są pokryte na 100%, a części operujące
+na dysku, bazie danych (funkcja <code>main</code>) itp nie są</li>
+<li>oprogramowanie krytyczne musi mieć 100%</li>
+<li>TDD pomaga uzyskać 100%</li>
+</ul></li>
+<li>100% pokrycia nie gwarantuje poprawności działania programu</li>
+<li>Jakoś testu opiera się na jego konstrukcji i zgodności z wymaganiami
+<ul>
+<li>to może być niemierzalne</li>
+<li>asercje muszą być odpowiednie</li>
+<li>scenariusz musi być reprezentatywny</li>
+<li>trzeba sprawdzać wartości brzegowe</li>
+</ul></li>
+</ul>
+<h2 id="jak-napisać-dobry-test-funkcjonalny">Jak napisać dobry test
+funkcjonalny</h2>
+<ul>
+<li>Żeby w pełni przetestować <code>int fun(int a)</code> trzeba by
+napisać <span class="math inline">\(2^{32}\)</span> testów
+<ul>
+<li>chyba że wiemy coś o kodzie (white-box) albo o wymaganiach
+(black-box)</li>
+<li>jeśli wiem że funkcja ma sens dla wartości <span
+class="math inline">\([0,100)\)</span> to można napisać przynajmniej 101
+testów (w przedziale i tuż za krańcami, ew. wartości minimalna i
+maksymalna int)</li>
+</ul></li>
+<li>Testowanie dla kilku reprezentatywnych wartości - <strong>klasy
+równoważności</strong>
+<ul>
+<li>dobrze zacząć pisanie testów od określenia klas równoważności</li>
+</ul></li>
+</ul>
+<h3 id="dobry-test-jednostkowy">Dobry test jednostkowy</h3>
+<ul>
+<li>Automatyczny</li>
+<li>Powtarzalny i deterministyczny</li>
+<li>Szybki</li>
+<li>Jednoznaczny</li>
+<li>Skoncentrowany na pojedynczym aspekcie</li>
+<li>Czytelny</li>
+<li>Niezależny
+<ul>
+<li>zmiana kolejności wykonywania testów nie powinna wpływać na
+wynik</li>
+</ul></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Nic nie zastąpi code review</li>
+<li>Metryki mogą pomagać wychwytywać problemy
+<ul>
+<li>porównać program z dzisiaj z programem z wczoraj</li>
+</ul></li>
+<li>Może dostarczyć dowodów na podparcie odczuć</li>
+<li>dobry kod i dobre testy to wciąż domena rzetelności i
+profesjonalizmu
+<ul>
+<li>automaty mogą pomóc, ale nie mogą zastąpić dobrego procesu
+inżynieryjnego</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#metryki-2024-04-22">Metryki (2024-04-22)</a>
+<ul>
+<li><a href="#metryki-i-procesy">Metryki i procesy</a></li>
+<li><a href="#przykładowe-metryki">Przykładowe metryki</a></li>
+<li><a href="#metryki-oprogramowania">Metryki oprogramowania</a></li>
+<li><a href="#metryki-kodu">Metryki kodu</a></li>
+<li><a href="#metryki-procesów">Metryki procesów</a></li>
+<li><a href="#metryki-testów">Metryki testów</a>
+<ul>
+<li><a href="#pokrycie">Pokrycie</a></li>
+<li><a href="#pokrycie-a-jakość">Pokrycie a jakość</a></li>
+</ul></li>
+<li><a href="#jak-napisać-dobry-test-funkcjonalny">Jak napisać dobry
+test funkcjonalny</a>
+<ul>
+<li><a href="#dobry-test-jednostkowy">Dobry test jednostkowy</a></li>
+</ul></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

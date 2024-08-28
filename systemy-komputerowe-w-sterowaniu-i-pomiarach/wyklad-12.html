@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-12</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-11.html">Poprzedni: wyklad-11.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="obsługa-io-2024-05-27">Obsługa IO (2024-05-27)</h1>
+<h2 id="komunikacja-ze-sprzętem">Komunikacja ze sprzętem</h2>
+<ul>
+<li>Każdy system potrzebuje IO żeby pełnić dowolną użyteczną
+funkcję</li>
+<li>Z komunikacją z peryferiami wiąże się wiele zagadnień związanych z
+pracą w czasie rzeczywistym
+<ul>
+<li>np. karta dźwiękowa</li>
+</ul></li>
+<li>Niektóre urządzenia mogą wymagać spełnienia ściśle określonych
+wymagań czasowych
+<ul>
+<li>zachowanie minimalnego odstępu między pewnymi działaniami</li>
+<li>nie przekroczenie maksymalnego dopuszczalnego odstępu między pewnymi
+działaniami</li>
+</ul></li>
+</ul>
+<h2 id="urządzenie-io-z-punktu-widzenia-procesora">Urządzenie IO z
+punktu widzenia procesora</h2>
+<ul>
+<li>Zbiór rejestrów</li>
+<li>Poszczególne bity lub grupy bitów w tych rejestrach mają określone
+znaczenie wpływające na pracę sprzętu
+<ul>
+<li>zapis / odczyt do rejestru może mieć konsekwencje</li>
+</ul></li>
+<li>Dostęp do rejestrów
+<ul>
+<li>dostępne za pośrednictwem magistrali</li>
+<li>wybór urządzenia i rejestru przez podanie adresu</li>
+<li>np. bardziej znaczące bity wybierają urządzenie, a mniej znaczące
+rejestr tetgo urządzenia</li>
+<li>zapis / odczyt pod wybrany adres</li>
+</ul></li>
+<li>Każda magistrala w hierarchii ma własny system adresowania</li>
+<li>Urządzenia potrzebują do pracy sygnału zegarowego</li>
+<li>Urządzenie może generować asynchroniczne przerwania
+<ul>
+<li>wymaga połączenia do odpowiednich linii</li>
+<li>może być 1 linia przerwań w prostych systemach</li>
+<li>może być oddzielny kontroler przerwań albo hierarchia kontrolerów
+przerwań</li>
+</ul></li>
+</ul>
+<h2 id="magistrala-systemowa">Magistrala systemowa</h2>
+<ul>
+<li>W praktyce magistrala często pozwala na odróżnienie operacji na IO i
+pamięci</li>
+</ul>
+<h2 id="i2c">I2C</h2>
+<ul>
+<li>Kontroler I2C podłączony do magistrali systemowej (zarządzana przez
+procesor)</li>
+<li>Oddzielna magistrala I2C do komunikacji kontrolera z urządzeniami
+IO</li>
+<li>Hierarchiczna struktura</li>
+</ul>
+<h2 id="połączenia-między-cpu-a-sprzętem">Połączenia między CPU a
+sprzętem</h2>
+<ul>
+<li>Dawniej tworzono pliki opisu płyty
+<ul>
+<li>w strukturach C opisywano hierarchię</li>
+<li>każda zmiana wymaga rekompilacji jądra</li>
+</ul></li>
+<li>Opisu płyty potrzebuje jądro systemu i bootloader</li>
+<li>Obecnie standardowe rozwiązanie - drzewo urządzeń
+<ul>
+<li>potrzeba wzięła się z procesorów ARM, które wymagają wyłączania i
+włączania wybranych komponentów dla oszczędzania mocy (np. w
+urządzeniach mobilnych)</li>
+<li>struktura pliku podobna do JSON</li>
+<li>dostęp do wartości po ścieżkach</li>
+<li>można używać odwołań do węzłów po ich etykietach</li>
+<li>określa z jakim sterownikiem urządzenie ma współpracować</li>
+<li>deklaracja zgodności, a nie nazwa sterowanika, która może się
+zmieniać</li>
+</ul></li>
+</ul>
+<h2 id="dynamiczne-drzewo-urządzeń">Dynamiczne drzewo urządzeń</h2>
+<ul>
+<li>Nakładana na określony węzeł</li>
+<li>Jedna nakładka może obsługiwać wiele urządzeń</li>
+<li>Nakłada się przez odpowiednie komendy bootloadera</li>
+<li>Modyfikowanie drzewa urządzeń podczas pracy systemu jest
+niebezpieczne
+<ul>
+<li>ze względu na możliwość użycia odniesień w poprzek hierarchii</li>
+<li>modyfikacja wymaga prześledzenia zależności</li>
+<li>do raspberry pi jest komenda <code>dtoverlay</code></li>
+</ul></li>
+</ul>
+<h2 id="dodatkowe-komplikacje">Dodatkowe komplikacje</h2>
+<ul>
+<li>Jeśli system ma magistralę obsługującą autodetekcję lub hotplugging
+to obsługa się komplikuje</li>
+<li>Demon systemowy udev, eudev, mdev
+<ul>
+<li>może automatycznie ładować i usuwać sterowniki</li>
+<li>tworzyć i usuwać pliki specjalne urządzeń</li>
+<li>pozwala konfigurować kontrolę dostępu do urządzeń</li>
+</ul></li>
+</ul>
+<h2 id="obsługa-urządzenia">Obsługa urządzenia</h2>
+<ul>
+<li>Urządzenie jest już podłączone do systemu, do magistrali
+systemowej</li>
+<li>Specjalne instrukcje procesora jeśli architektura to wspiera
+<code>in</code>, <code>out</code></li>
+<li>Kontrola uprawnień przez <code>ioperm</code>, <code>iopl</code></li>
+<li>Rejestry mogą być zmapowane do pamięci
+<ul>
+<li><code>/dev/mem</code> - dostęp do fizycznej przestrzeni adresowej
+CPU</li>
+</ul></li>
+<li>Sterownik <code>uio</code> pozwala tworzyć sterowniki w przestrzeni
+użytkownika dla urządzeń z rejestrami zmapowanymi do pamięci
+<ul>
+<li>specjalny plik mapuje się przez <code>mmap</code></li>
+<li>rejestry są dostępne w zmapowanym bloku pamięci</li>
+<li>trzeba uważać na to co się zapisuje pod dany adres, bo sygnał może
+pójść prosto na magistralę</li>
+<li>trzeba uważać na odpowiednie wyrównanie</li>
+<li>może wymagać napisania kodu jądra do włączania i wyłączania
+przerwań</li>
+</ul></li>
+<li>Przy rejestrach zmapowanych do pamięci
+<ul>
+<li>można zdefiniować odpowiednią strukturę</li>
+<li>musi być dobrze wyrównana</li>
+<li>wtedy można pisać i czytać do rejestrów przez pola struktury</li>
+<li>trzeba uwzględnić optymalizacje kompilatora kodu (użycie
+<code>volatile</code>)</li>
+<li>trzeba uwzględnić optymalizacje odczytów pamięci samych procesorów
+(trzeba użyć odpowiednich funkcji libc)</li>
+</ul></li>
+</ul>
+<h2 id="pełne-wykorzystanie-możliwości-urządzenia">Pełne wykorzystanie
+możliwości urządzenia</h2>
+<ul>
+<li>Sekcje krytyczne, pełna kontrola nad przerwaniami, …</li>
+<li>Trzeba stworzyć własny sterownik</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#obsługa-io-2024-05-27">Obsługa IO (2024-05-27)</a>
+<ul>
+<li><a href="#komunikacja-ze-sprzętem">Komunikacja ze sprzętem</a></li>
+<li><a href="#urządzenie-io-z-punktu-widzenia-procesora">Urządzenie IO z
+punktu widzenia procesora</a></li>
+<li><a href="#magistrala-systemowa">Magistrala systemowa</a></li>
+<li><a href="#i2c">I2C</a></li>
+<li><a href="#połączenia-między-cpu-a-sprzętem">Połączenia między CPU a
+sprzętem</a></li>
+<li><a href="#dynamiczne-drzewo-urządzeń">Dynamiczne drzewo
+urządzeń</a></li>
+<li><a href="#dodatkowe-komplikacje">Dodatkowe komplikacje</a></li>
+<li><a href="#obsługa-urządzenia">Obsługa urządzenia</a></li>
+<li><a href="#pełne-wykorzystanie-możliwości-urządzenia">Pełne
+wykorzystanie możliwości urządzenia</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-13</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-12.html">Poprzedni: wyklad-12.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-14.html">Następny: wyklad-14.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="obsługa-wejściawyjścia-2024-01-16">Obsługa wejścia/wyjścia
+(2024-01-16)</h1>
+<h2 id="obsługa-przerwań">Obsługa przerwań</h2>
+<p>(powtórka) Są mechanizmem reagowania na normalnie występujące
+asynchroniczne zdarzenia</p>
+<p>Urządzenia zewnętrzne mają fizyczne linie sygnałowe do kontrolera
+przerwań. To kontroler przerwań ma dostęp do magistrali systemowej
+Kontroler ustala priorytety CPU w pętli odpytuje kontroler przerwań (na
+poziomie mikrorozkazu) o najważniejsze przerwanie CPU musi odesłać
+sygnał potwierdzający odbiór</p>
+<p>Przerwanie o wyższym priorytecie może przerwać obsługę przerwania o
+niższym priorytecie</p>
+<p>Przerwanie precyzyjne - pozostawia proces w dobrze zdefiniowanym
+stanie</p>
+<h2 id="direct-memory-access-dma">Direct Memory Access (DMA)</h2>
+<p>Większość operacji IO to transfer danych między pamięcią główną a
+urządzeniem zewnętrznych (zazwyczaj duży blok danych)</p>
+<p>Odczyt danych bez DMA (aktywne oczekiwanie lub przerwania) odbywa się
+w słowach procesora (mało), na odczyt jednego bloku potrzeba np kilkuset
+przerwań, każde przerwanie do przełączenie kontekstu, które unieważnia
+cache</p>
+<p>Układ DMA to procesor (prosty), kontroluje wymianę danych między
+pamięcią główną a urządzeniami zewnętrznymi. Operacja zapisu bloku na
+dysk z DMA 1. Procesor zleca układowi DMA wykonanie zapisu 2. Procesor
+przełącza się i wykonuje inne procesy 3. DMA będzie rywalizować z CPU o
+dostęp do magistrali (arbitraż dostępu do szyny, to obniża wydajność) 4.
+DMA zajmuje magistralę w czasie tych cykli procesora kiedy CPU nie czyta
+z pamięci 5. Nie ma przerwań generowanych przez urządzenia zewnętrzne 6.
+Na koniec odczytu, kontroler DMA generuje przerwanie informujące CPU o
+zakończeniu operacji</p>
+<p>Zamiast kilkuset przerwań jest jedno przerwanie Operacje z DMA nie
+muszą być szybsze niż bez DMA, to zależy</p>
+<h2 id="typy-urządzeni-zewnętrznych">Typy urządzeni zewnętrznych</h2>
+<ul>
+<li>Urządzenie blokowe
+<ul>
+<li>Jeśli na poziomie urządzenia istnieje pojęcie adresu</li>
+<li>Np dysk twardy</li>
+</ul></li>
+<li>Urządzenie znakowe
+<ul>
+<li>Np. klawiatura</li>
+</ul></li>
+<li>Urządzenia komunikacyjne / sieciowe
+<ul>
+<li>nie pasują ani do blokowych ani do znakowych</li>
+</ul></li>
+<li>Zegary</li>
+</ul>
+<p>W Unixie każde urządzenie jest widoczne w pliku jako plik specjalny
+(pozycja katalogowa) Wiąże nazwę z grupą atrybutów identyfikującą
+odpowiednią strukturę jądra (a nie i-node jak dla normalnych plików)</p>
+<p>Numer major - identyfikator sterownika Numer minor - identyfikator
+urządzenia w obrębie sterownika</p>
+<p>np. dyski to standardowo /dev/sda /dev/sdb … a partycje to np.
+/dev/sda1 /dev/sda2 …</p>
+<p>Można podmienić numery major i minor /dev/null i zbierać informacje,
+które miały być ukryte</p>
+<p>Złożoność systemu operacyjnego to głównie złożoność w obsłudze
+wejścia/wyjścia</p>
+<h2 id="cele-oprogramowania-io">Cele oprogramowania IO</h2>
+<ul>
+<li>Niezależność obsługi ogólnej od specyfiki urządzenia</li>
+<li>Ujednolicenie nazewnictwa</li>
+<li>Obsługa błędów
+<ul>
+<li>w im niższej warstwie tym lepiej</li>
+</ul></li>
+<li>Metoda przesyłania
+<ul>
+<li>blokująca / nieblokująca</li>
+<li>synchroniczna / asynchroniczna</li>
+</ul></li>
+<li>Buforowanie
+<ul>
+<li>Podwójne buforowanie - jak bufor odczytu się zapełni to przełącza
+się na pusty, a tamten można teraz opróżniać</li>
+</ul></li>
+</ul>
+<p>W praktyce rozwiązania blokujące “na zawsze” się nie sprawdzają,
+zawsze muszą być timeouty</p>
+<h2 id="poziomy-obsługi-urządzeń-io">Poziomy obsługi urządzeń IO</h2>
+<ol type="1">
+<li>Poziom fizyczny</li>
+<li>Poziom procesu</li>
+<li>Poziom usług</li>
+</ol>
+<h2 id="komiunikacja-z-urządzeniami-io">Komiunikacja z urządzeniami
+IO</h2>
+<h3 id="porty-wejścia-wyjścia">Porty wejścia / wyjścia</h3>
+<p>Z rejestrami kontrolnymi są skojarzone porty (odrębna przestrzeń
+adresowa) o ustalonych numerach, komunikacja przez instrukcje
+asemblerowe (dostępne tylko z poziomu jądra), które wykorzystuje się w
+implementacji wywołań systemowych</p>
+<pre><code>in reg, port
+out port, reg</code></pre>
+<p>Numery portu mogą być wbite na sztywno na płycie głównej,
+konfigurowane w BIOS/UEFI Zazwyczaj są po 2 porty na urządzenie - 1 do
+komunikatów kontrolnych, 1 do danych</p>
+<h3 id="io-odwzorowywane-w-pamięci">IO odwzorowywane w pamięci</h3>
+<p>Porty są zmapowane do konkretnych adresów komórek pamięci</p>
+<ul>
+<li>Taki sterownik można zaimplementować w całości w C bez wstawek
+asemblerowych</li>
+<li>Nie wymaga dedykowanego mechanizmu ochrony</li>
+<li>Komplikuje architekturę, wiele typów szyn</li>
+<li>Wymaga wyłączenia cache dla tego regionu pamięci</li>
+</ul>
+<h2 id="programowanie-urządzeń-io">Programowanie urządzeń IO</h2>
+<ol type="1">
+<li>Programowalne IO, polling, busy waiting</li>
+<li>Programowanie z wykorzystaniem przerwań</li>
+<li>Z wykorzystaniem DMA</li>
+</ol>
+<h3 id="busy-waiting">Busy waiting</h3>
+<p>Drukowanie tekstu na drukarce znakowej</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>copy_from_user<span class="op">(</span>buffer<span class="op">,</span> p<span class="op">,</span> count<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> count<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(*</span>printer_status_reg <span class="op">!=</span> READY<span class="op">);</span>  <span class="co">// busy waiting</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>printer_data_register <span class="op">=</span> p<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>return_to_user<span class="op">();</span></span></code></pre></div>
+<p>Wskaźniki to porty IO zmapowane do pamięci To jest najszybsza metoda
+obsługi tej operacji ale zajmuje czas CPU innym procesom Stosuje się w
+praktyce do urządzeń o bardzo szybkich transferach albo np. myszek</p>
+<h3 id="przerwania">Przerwania</h3>
+<p>Górna połówka - treść wywołania systemowego</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>copy_from_user<span class="op">(</span>buffer<span class="op">,</span> p<span class="op">,</span> count<span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>enable_interrupts<span class="op">();</span>  <span class="co">// przygotowuje obsługę przerwania (inicjuje liczniki itd)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(*</span>printer_status_reg <span class="op">!=</span> READY<span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>printer_data_register <span class="op">=</span> p<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>scheduler<span class="op">();</span>  <span class="co">// proces użytkowy jest dalej zawieszony, oddaje CPU innemu procesowi</span></span></code></pre></div>
+<p>Planista wznowi jakiś inny proces</p>
+<p>Dolna połówka - treść funkcji obsługi przerwania</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>count <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    unblock_user<span class="op">();</span>  <span class="co">// zmień stan procesu na gotowy do uruchomienia</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>printer_data_register <span class="op">=</span> p<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    count<span class="op">--;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>acknowledge_interrupt<span class="op">();</span>  <span class="co">// inne przerwania mogą się dostać do procesora</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>return_from_interrupt<span class="op">();</span></span></code></pre></div>
+<p>Kiedy drukarka będzie gotowa na przyjęcie kolejnego znaku to
+wygeneruje przerwanie, a procesor obsłuży to przerwanie czyli wykona kod
+dolenj połówki</p>
+<p><code>acknowledge_interrupt</code> musi być wykonanye jak najszybciej
+bo to kończy sekcję krytyczną kiedy procedura obsługi przerwania jest
+wyłącznym dysponentem systemu</p>
+<h3 id="programowanie-z-wykorzystaniem-dma">Programowanie z
+wykorzystaniem DMA</h3>
+<p>Górna połówka</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>copy_from_user<span class="op">(</span>buffer<span class="op">,</span> p<span class="op">,</span> count<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>set_up_dma_controller<span class="op">();</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>scheduler<span class="op">();</span></span></code></pre></div>
+<p>Procedura obsługi przerwania generowanego przez kontroler DMA (na
+końcu operacji)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>acknowledge_interrupt<span class="op">();</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>unblock_user<span class="op">();</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>return_from_interrupt<span class="op">();</span></span></code></pre></div>
+<p>Za tydzień tworzenie sterownika urządzenia</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#obsługa-wejściawyjścia-2024-01-16">Obsługa wejścia/wyjścia
+(2024-01-16)</a>
+<ul>
+<li><a href="#obsługa-przerwań">Obsługa przerwań</a></li>
+<li><a href="#direct-memory-access-dma">Direct Memory Access
+(DMA)</a></li>
+<li><a href="#typy-urządzeni-zewnętrznych">Typy urządzeni
+zewnętrznych</a></li>
+<li><a href="#cele-oprogramowania-io">Cele oprogramowania IO</a></li>
+<li><a href="#poziomy-obsługi-urządzeń-io">Poziomy obsługi urządzeń
+IO</a></li>
+<li><a href="#komiunikacja-z-urządzeniami-io">Komiunikacja z
+urządzeniami IO</a>
+<ul>
+<li><a href="#porty-wejścia-wyjścia">Porty wejścia / wyjścia</a></li>
+<li><a href="#io-odwzorowywane-w-pamięci">IO odwzorowywane w
+pamięci</a></li>
+</ul></li>
+<li><a href="#programowanie-urządzeń-io">Programowanie urządzeń IO</a>
+<ul>
+<li><a href="#busy-waiting">Busy waiting</a></li>
+<li><a href="#przerwania">Przerwania</a></li>
+<li><a href="#programowanie-z-wykorzystaniem-dma">Programowanie z
+wykorzystaniem DMA</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

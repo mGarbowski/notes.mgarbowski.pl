@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-funkcje-stos-pamiec-w-procesie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-algorytmy.html">Poprzedni: 06-algorytmy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-funkcje-stos-pamiec-w-procesie.html">Następny: 08-funkcje-stos-pamiec-w-procesie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="funkcje-stos-i-struktura-pamięci-procesu">Funkcje, stos i
+struktura pamięci procesu</h1>
+<h2 id="funkcje">Funkcje</h2>
+<p>Mając instrukcję skoku można skoczyć na początek fragmentu kodu,
+który realizuje konkretną funkcję. Trzeba jakoś wiedzieć do której
+instrukcji wrócić po zakończeniu funkcji.</p>
+<p>skoczyć -&gt; przetworzyć -&gt; wrócić</p>
+<p>Licznik instrukcji zwiększa się w fazie Instruction Fetch, kiedy
+instrukcja jest wykonywana, rejestr już trzyma adres następnej
+instrukcji.</p>
+<ul>
+<li>Komputer odkłada na wierzch stosu stan przetwarzania i adres
+powrotny dla funkcji (PC)</li>
+<li>Skacze do instrukcji funkcji i wykonuje operacje</li>
+<li>Wraca do poprzedniego stanu operacji (ze stosu)</li>
+</ul>
+<h2 id="stos">Stos</h2>
+<p>Struktura LIFO Last In - First Out</p>
+<p>Ostatni włożony element wychodzi jako pierwszy</p>
+<h3 id="do-zrealizowania-stosu-potrzeba">Do zrealizowania stosu
+potrzeba</h3>
+<ul>
+<li>operacji push</li>
+<li>operacji pop</li>
+<li>rejestru do obsługi stosu
+<ul>
+<li>SP Stack Pointer - adres wierzchołka stosu (albo pierwszego
+niewykorzystanego miejsca wyżej)</li>
+</ul></li>
+</ul>
+<h2 id="surowe-wywołanie-funkcji">Surowe wywołanie funkcji</h2>
+<pre><code>    push AFTER_CALL_LABEL
+    jmp FUNC_LABEL
+AFTER_CALL_LABEL:
+    ...
+
+FUNC_LABEL:
+    ...
+    pop PC</code></pre>
+<h3 id="ramka-wywołania">Ramka wywołania</h3>
+<p>Adres powrotny zrzucony na stos</p>
+<ul>
+<li>Odłóż adres powrotny na szczyt stosu</li>
+<li>Skocz na początek funkcji</li>
+<li>Po wykonaniu funkcji zdejmij zdejmij adres powrotny z wierzchołka
+stosu i zapisz go do PC - skok</li>
+<li>Zagnieżdżone wywołania spowodują wrzucenie na stos kolejnych ramek
+wywołania</li>
+</ul>
+<h2 id="instrukcje-call-i-ret">Instrukcje call i ret</h2>
+<p>Można uprościć surowe wołanie funkcji przez wprowadzenie specjalnych
+instrukcji</p>
+<h3 id="call">Call</h3>
+<p>Zrzuca na stos adres następnej instrukcji po <code>call</code> i robi
+skok do adresu docelowego funkcji</p>
+<h3 id="ret">Ret</h3>
+<p>Zdejmuje ze stosu adres powrotny do rejestru Program Counter
+(wykonuje skok)</p>
+<pre><code>    call FUN_LABEL
+    ...
+FUN_LABEL:
+    # kod funkcji
+    ret</code></pre>
+<p>Nie trzeba przygotowywać ani sprzątać stosu - zrobi się
+automatycznie</p>
+<h2 id="zwrócenie-wyniku-z-funkcji">Zwrócenie wyniku z funkcji</h2>
+<ul>
+<li>Do rejestru procesora (w x86 standardowo do EAX lub RAX)
+<ul>
+<li>wartość może się nie zmieścić w rejestrze</li>
+</ul></li>
+<li>Wkorzystując ramkę wywołania funkcji
+<ul>
+<li>zarezerwować w ramce miejsce na wynik</li>
+</ul></li>
+</ul>
+<p>Kompilator może przeznaczyć rejestr na odłożenie wyniku bez
+zapisywania go w pamięci i wczytaniu z powrotem - trzeba ustalić
+konwencję mechanizmu wywoływania.</p>
+<h2 id="zachowanie-kontekstu">Zachowanie kontekstu</h2>
+<p>Funkcja z zagnieżdżonego wywołania też potrzebuje rejestrów, żeby
+wykonać swoje operacje.</p>
+<p>Wywołanie funkcji zależy od stanu rejestrów procesora. Trzeba je
+zachować przed skokiem i odtworzyć po powrocie, żeby funkcja mogła mieć
+dostęp do swoich danych.</p>
+<p>Można to zrealizować przez odłożenie stanu rejestrów na stosie przed
+i zdjęcie ze stosu po wykonaniu skoku.</p>
+<h2 id="przekazanie-argumentów-do-funkcji">Przekazanie argumentów do
+funkcji</h2>
+<ul>
+<li>Przez rejestry procesora
+<ul>
+<li>najczęściej się nie zmieszczą</li>
+</ul></li>
+<li>Przez ramkę wywołania
+<ul>
+<li>trzeba zarezerwować w niej miejsce na argumenty</li>
+</ul></li>
+</ul>
+<h3 id="parametr-funkcji">Parametr funkcji</h3>
+<p>W kodzie statycznym (wewnątrz funkcji)</p>
+<h3 id="argument-funkcji">Argument funkcji</h3>
+<p>W momencie wywołania funkjci przypisane jako wartość parametrów</p>
+<h2 id="zmienne-lokalne">Zmienne lokalne</h2>
+<p>Muszą być widoczne tylko w ramach konkretnego wywołania, w
+zagnieżdżonym wywołaniu, zmienne nazywają się tak samo i trzymają inne
+wartości.</p>
+<p>Można je trzymać w ramce wywołania na stosie. Po powrocie z wywołania
+przestaną istnieć* razem z ramką (będą możliwe do nadpisania ale w
+rzeczywistości zostaną na stosie).</p>
+<p>Argumenty też są zmiennymi lokalnymi.</p>
+<h2 id="rejestr-bazowy-base-pointer---ebp">Rejestr bazowy (Base Pointer)
+- EBP</h2>
+<p>W trakcie wykonywania funkcji na stosie są trzymane informacje o
+adresie powrotu itp. Ale stos może pracować podczas wykonywania funkcji.
+SP nie nadaje się do adresowania zmiennych lokalnych, ale sposób
+adresowania musi być jakoś uzależniony od wierzhołka stosu.</p>
+<p>EBP przechowuje adres bieżącej ramki. Sam musi być przechowywany w
+ramce i zostać odtworzony po powrocie z funkcji. Służy do adresowania
+zmiennych lokalnych w ramach aktualnej ramki.</p>
+<h2 id="ramka-stosu-w-x86">Ramka stosu w x86</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Adres względem EBP</th>
+<th>Zawartość</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[ebp+16]</td>
+<td>Trzeci argument funkcji</td>
+</tr>
+<tr class="even">
+<td>[ebp+12]</td>
+<td>Drugi argument funkcji</td>
+</tr>
+<tr class="odd">
+<td>[ebp+8]</td>
+<td>Pierwszy argument funkcji</td>
+</tr>
+<tr class="even">
+<td>[ebp+4]</td>
+<td>Poprzedni PC - adres powrotny z funkcji</td>
+</tr>
+<tr class="odd">
+<td>[ebp]</td>
+<td>Poprzedni EBP - adres bazowy ramki funkcji wywołującej</td>
+</tr>
+<tr class="even">
+<td>[ebp-4]</td>
+<td>Pierwsza zmienna lokalna</td>
+</tr>
+<tr class="odd">
+<td>[ebp-8]</td>
+<td>Pierwsza zmienna lokalna</td>
+</tr>
+<tr class="even">
+<td>[ebp-12]</td>
+<td>Pierwsza zmienna lokalna</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Stos rośnie “w dół” - w stronę niższych adresów</li>
+<li>Zmienne lokalne i argumenty adresowane względem EBP</li>
+<li>Przesunięcia względem EBP są takie same dla każdego wykonania danej
+funkcji (określone w momencie kompilacji)</li>
+<li>Argumenty na początku ramki - muszą być znane przed samym
+wywołaniem</li>
+<li>poprzedni PC i poprzedni EBP na środku ramki</li>
+<li>Zmienne lokalne na końcu ramki</li>
+</ul>
+<h2 id="czemu-stos-rośnie-w-dół">Czemu stos rośnie w dół</h2>
+<p>Ze względu na sposób organizacji pamięci procesu przez system
+operacyjny.</p>
+<ul>
+<li>Procesor przełącza się między wykonywaniem różnych procesów (context
+switch)</li>
+<li>Do odtworzenia stanu procesu trzeba odtworzyć stan rejestrów</li>
+<li>Scheduler wybiera procesy do odtworzenia, po sygnale przerwania</li>
+<li>Proces dostaje pamięć wirtualną</li>
+<li>OS wirtualizuje dostęp do pamięci i decyduje kto gdzie może się
+dostać</li>
+</ul>
+<h3 id="mechanizm-stronicowania-pamięci">Mechanizm stronicowania
+pamięci</h3>
+<ul>
+<li>Proces użytkownika nigdy nie dostanie całej pamięci</li>
+<li>Część pamięci zawsze zajmuje sam system operacyjny, musi być
+wmapowany w pamięć wirtualną procesu
+<ul>
+<li>w 32 bitowym systemie (4GiB pamięci) 1GiB jest zarezerwowany na
+kernel, dla procesu użytkownika zostają 3GiB</li>
+<li>procesy mogą wywołać funkcje kernela</li>
+<li>wywołania funkcji kernela przez 2 różne procesy muszą być
+oddzielone</li>
+</ul></li>
+<li>Część pamięci jest zarezerwowana na wektor przerwań
+<ul>
+<li>potrzebny do przełączania procesów</li>
+</ul></li>
+</ul>
+<p>Program ma dostęp tylko do środkowej części pamięci</p>
+<figure>
+<img
+src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkangxiaoning.github.io%2Fimages%2Fos%2Flinux-process-memory-layout.png&amp;f=1&amp;nofb=1&amp;ipt=039885e9134c772a6baa0e859eea0fd65788888eaccd44d147c379d108e446be&amp;ipo=images"
+alt="Układ pamięci w procesie" />
+<figcaption aria-hidden="true">Układ pamięci w procesie</figcaption>
+</figure>
+<h3 id="segmenty-pamięci">Segmenty pamięci</h3>
+<ul>
+<li>Text segment - kod assemblerowy wykonywanych instrukcji</li>
+<li>Data - wartości statyczne</li>
+<li>Niezainicjalizowane dane</li>
+<li>Sterta
+<ul>
+<li>obiekty, których rozmiar jest nieznany w czasie kompilacji</li>
+<li>nie da się zarezerwować pamięci na stosie jeśli nie wiadomo ile
+potrzeba</li>
+</ul></li>
+<li>Stos</li>
+<li>Kernel</li>
+</ul>
+<p>Stos rośnie z góry na dół a sterta z dołu na góre - rosną do środka.
+Lepiej żeby się nie spotkały.</p>
+<h2 id="przekazywanie-argumentów">Przekazywanie argumentów</h2>
+<ul>
+<li>Wartość
+<ul>
+<li>wywołana funkcja dostaje kopię wartości</li>
+<li>oryginał się nie zmienia</li>
+</ul></li>
+<li>Adres (pointer, wskaźnik)
+<ul>
+<li>wywołana funkcja dostaje adres</li>
+<li>zmienia oryginalną wartość</li>
+</ul></li>
+<li>Referencja
+<ul>
+<li>to samo co przez adres tylko z prostym zapisem (bez <code>*</code> i
+<code>&amp;</code> jak w C++)</li>
+</ul></li>
+</ul>
+<h2 id="python">Python</h2>
+<p>W Pythonie wszystko jest przekazywane przez referencję</p>
+<ul>
+<li>typy mutowalne - referencja na obiekt oryginalny</li>
+<li>typy niemutowalne - przy zmodyfikowaniu zmiennej powstaje nowy
+obiekt więc zachowuje się jak przez wartość</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a</span></code></pre></div>
+<p>Przypisuje do zmiennej <code>b</code> referencję na obiekt na który
+wskazuje zmienna <code>a</code></p>
+<h3 id="kopia-płytka">Kopia płytka</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> copy.copy(a)</span></code></pre></div>
+<p>Kopiuje obiekt z referencji zmiennej <code>a</code></p>
+<p>Ale np. dwie różne listy trzymają referencje na te same obiekty</p>
+<h3 id="kopia-głęboka">Kopia głęboka</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> copy.deepcopy()</span></code></pre></div>
+<p>Kopiuje rekurencyjne wszystkie zagnieżdżone obiekty</p>
+<p>Nie kopiuje typów niemutowalnych - one i tak się nie zmieną, każda
+ich modyfikacja tworzy nową instancję i zmieni tylko jedną
+referencję</p>
+<h2 id="lambda">Lambda</h2>
+<p>Skoro zmienna jest adresem i funkcja jest adresem to:</p>
+<ul>
+<li>można przypisać funkcję do zmiennej</li>
+<li>można przekazać funkcję jako argument do innej funkcji</li>
+<li>można zwrócić funkcję jako wynik innej funkcji</li>
+</ul>
+<p>Funkcja nie musi być nazwana</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>action <span class="op">=</span> <span class="kw">lambda</span> message, data: <span class="bu">print</span>(message <span class="op">+</span> <span class="bu">str</span>(data))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> action(message, data):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(message <span class="op">+</span> <span class="bu">str</span>(data))</span></code></pre></div>
+<h2 id="rekurencja">Rekurencja</h2>
+<p>Funkcja może wywołać sama siebie</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>Rekurencji musi się kiedyś skończyć, inaczej skończy się
+pamięć.</li>
+<li>W interpreterze Pythona jest ustawiony limit</li>
+<li>W językach kompilowanych - system operacyjny blokuje sięganie po
+niedozwolone fragmenty pamięci (poza pamięć przydzieloną dla stosu)
+<ul>
+<li>Segmentaion fault - przerwanie przy sięgnięciu po niedozwolony
+segment pamięci, system zabija proces</li>
+<li>System może nie mieć modułu zarządzania pamięcią - stos zajmie całą
+przestrzeń adresową</li>
+</ul></li>
+</ul>
+<h2 id="buffer-overflow">Buffer overflow</h2>
+<p>Napis jako zmienna lokalna znajduje się w ramce stosu, da się sięgnąć
+po dalsze komórki pamięci (ignorując znak końca napisu).</p>
+<p>Skopiowanie dłuższej zawartości do zbyt krótkiego bufora może
+nadpisać adres powrotny który też znajduje się w ramce. Na przykład
+adres do złośliwego kodu wstrzykniętego gdzieś dalej w buforze.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    func<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> func<span class="op">(</span><span class="dt">char</span><span class="op">*</span> v<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> buffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    strcpy<span class="op">(</span>buffer<span class="op">,</span> v<span class="op">);</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure>
+<img
+src="./obrazy/https://cdn.acunetix.com/wp-content/uploads/2019/06/11110858/buffer-overflow-910x471.png"
+alt="Schemat stosu przy buffer overflow" />
+<figcaption aria-hidden="true">Schemat stosu przy buffer
+overflow</figcaption>
+</figure>
+<p>NOP - no operation - nic nie robi</p>
+<p>W języku C, funkcje <code>printf</code>, <code>sprintf</code>,
+<code>strcat</code>, <code>strcpy</code> i <code>gets</code> nie mają
+żadnych zabezpieczeń przed buffer overflow.</p>
+<p>Zmienne po powrocie z wywołania funkcji pozostają na stosie dopóki
+nie zostaną nadpisane - kolejne niebezpieczeństwo np. do wykorzystania
+przy buffer overflow.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#funkcje-stos-i-struktura-pamięci-procesu">Funkcje, stos i
+struktura pamięci procesu</a>
+<ul>
+<li><a href="#funkcje">Funkcje</a></li>
+<li><a href="#stos">Stos</a>
+<ul>
+<li><a href="#do-zrealizowania-stosu-potrzeba">Do zrealizowania stosu
+potrzeba</a></li>
+</ul></li>
+<li><a href="#surowe-wywołanie-funkcji">Surowe wywołanie funkcji</a>
+<ul>
+<li><a href="#ramka-wywołania">Ramka wywołania</a></li>
+</ul></li>
+<li><a href="#instrukcje-call-i-ret">Instrukcje call i ret</a>
+<ul>
+<li><a href="#call">Call</a></li>
+<li><a href="#ret">Ret</a></li>
+</ul></li>
+<li><a href="#zwrócenie-wyniku-z-funkcji">Zwrócenie wyniku z
+funkcji</a></li>
+<li><a href="#zachowanie-kontekstu">Zachowanie kontekstu</a></li>
+<li><a href="#przekazanie-argumentów-do-funkcji">Przekazanie argumentów
+do funkcji</a>
+<ul>
+<li><a href="#parametr-funkcji">Parametr funkcji</a></li>
+<li><a href="#argument-funkcji">Argument funkcji</a></li>
+</ul></li>
+<li><a href="#zmienne-lokalne">Zmienne lokalne</a></li>
+<li><a href="#rejestr-bazowy-base-pointer---ebp">Rejestr bazowy (Base
+Pointer) - EBP</a></li>
+<li><a href="#ramka-stosu-w-x86">Ramka stosu w x86</a></li>
+<li><a href="#czemu-stos-rośnie-w-dół">Czemu stos rośnie w dół</a>
+<ul>
+<li><a href="#mechanizm-stronicowania-pamięci">Mechanizm stronicowania
+pamięci</a></li>
+<li><a href="#segmenty-pamięci">Segmenty pamięci</a></li>
+</ul></li>
+<li><a href="#przekazywanie-argumentów">Przekazywanie
+argumentów</a></li>
+<li><a href="#python">Python</a>
+<ul>
+<li><a href="#kopia-płytka">Kopia płytka</a></li>
+<li><a href="#kopia-głęboka">Kopia głęboka</a></li>
+</ul></li>
+<li><a href="#lambda">Lambda</a></li>
+<li><a href="#rekurencja">Rekurencja</a></li>
+<li><a href="#buffer-overflow">Buffer overflow</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-10</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-09.html">Poprzedni: wyklad-09.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-11.html">Następny: wyklad-11.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="refaktoring-2024-05-13">Refaktoring (2024-05-13)</h1>
+<ul>
+<li>Modyfikaja projektu aplikacji bez zmiany jej funkcjonalności
+<ul>
+<li>kod ale też projekt wyższego poziomu</li>
+</ul></li>
+<li>Ma na celu poprawę jakości i utrzymywalności projektu (kodu)</li>
+<li>Nie jest odrębnym procesem, tylkko stałym elementem pracy
+<ul>
+<li>w TDD jest obowiązkowy w każdym mini-cyklu</li>
+<li>w dużych/starych projektach może być wymagany żeby dodać obsługę
+nowego wymagania</li>
+<li>jeśli jest na to czas to warto poprawiać każdy zły kawałek kodu</li>
+</ul></li>
+<li>Książka Refactoring - Martin Fowler</li>
+</ul>
+<h2 id="po-co-refaktoryzować">Po co refaktoryzować</h2>
+<ul>
+<li>Dług techniczny projektów rośnie
+<ul>
+<li>entropia w układzie izolowanym może tylko wzrastać</li>
+<li>kapitalizuje odstetki - robi się coraz gorzej z każdym odroczeniem
+poprawy</li>
+</ul></li>
+<li>Nikt nie pisze idealego kodu
+<ul>
+<li>code review wymusza refaktoring</li>
+</ul></li>
+<li>Kod gnije (code rot)
+<ul>
+<li>nowe wymagania mogą być niewygodne do implementacji</li>
+<li>zmiany w jednej części kodu mogą wpłynąć na to jak inny fragment
+pasuje do reszty</li>
+<li>wiedza zespołu się powiększa w trakcie tworzenia projektu, niektóre
+rzeczy można później zrobić lepiej</li>
+<li>zmiany technologii, nowe biblioteki, moda</li>
+</ul></li>
+</ul>
+<h2 id="błędy-refaktoringu">Błędy refaktoringu</h2>
+<ul>
+<li>Przepisanie od zera to nie refaktoring
+<ul>
+<li>najczęściej strzelanie sobie w stopę</li>
+</ul></li>
+<li>Nie ruszać czegoś co działa
+<ul>
+<li>zależy co się rozumie przez <em>działa</em></li>
+<li>utrzymywalność często definiuje czy biznes działa (a nie tylko
+kod)</li>
+</ul></li>
+<li>Strach przed regresją oprogramowania</li>
+<li>Jedyne co pomaga to testy
+<ul>
+<li>najlepiej jeśli pokrywają całość oczekiwań klienta</li>
+<li>pokrywają przynajmniej część, którą chcemy refaktorować</li>
+</ul></li>
+<li>Strach przed ugrzęźnięciem w refaktoringu
+<ul>
+<li>trzeba wiedzieć kiedy przestać</li>
+</ul></li>
+</ul>
+<h2 id="dobry-refaktoring">Dobry refaktoring</h2>
+<ul>
+<li>Robiony małymi krokami</li>
+<li>Testowany na każdym kroku
+<ul>
+<li>czy funkcjonalność nie jest zmieniana</li>
+</ul></li>
+<li>Spowodowany możliwie obiektywnymi powodami</li>
+<li>Zazwyczaj robiony przy okazji innego zadania</li>
+<li>Zakończony w rozsądnym czasie
+<ul>
+<li>nie ma dobrej reguły</li>
+</ul></li>
+</ul>
+<h2 id="po-czym-poznać-że-kod-wymaga-refaktoringu">Po czym poznać że kod
+wymaga refaktoringu</h2>
+<ul>
+<li>Zgniły kod posiada zapachy (code smells)</li>
+<li>Zduplikowany kod</li>
+<li>Nieczytelne nazwy</li>
+<li>Długa metoda</li>
+<li>Duża klasa
+<ul>
+<li>jeśli większość metod używa większości składowych to raczej jest
+ok</li>
+</ul></li>
+<li>Dużo parametrów
+<ul>
+<li>grupowanie w obiekty</li>
+<li>w C++ są bezkosztowe abstrakcje</li>
+</ul></li>
+<li>Parametry boolowskie
+<ul>
+<li>lepiej użyć enum, bardziej czytelne</li>
+</ul></li>
+<li>Złamane reguły SOLID</li>
+<li>Zazdrość (feature envy)</li>
+<li>Zlepki danych (data clumps)
+<ul>
+<li><code>Point</code> zamiast <code>x, y, z</code></li>
+</ul></li>
+<li>Obsesja prymitywów</li>
+<li>Wyrażenie switch
+<ul>
+<li>nie każde użycie jest złe</li>
+<li>często przy przetwarzaniu serializowanych danych</li>
+<li>nie powinien zastępować polimorfizmu</li>
+</ul></li>
+<li>Złożony schemat dziedziczenia</li>
+<li>Nieuzasadniona generyczność
+<ul>
+<li>warto pisać generyczny kod jeśli jest taka potrzeba</li>
+</ul></li>
+<li>Tymczasowa wartość
+<ul>
+<li><code>int tmp</code></li>
+<li><code>std::swap</code></li>
+</ul></li>
+<li>Wywołania łańcuchowe
+<ul>
+<li><code>a().b().c()</code></li>
+<li>są użycia które są ok</li>
+</ul></li>
+<li>Komentarze
+<ul>
+<li>komentarz zostawiony w miejscu którego nie potrafiłem zrobić
+lepiej</li>
+<li>zostaje tech debt dla następnej osoby</li>
+</ul></li>
+</ul>
+<h2 id="operacje-refaktoryzujące">Operacje refaktoryzujące</h2>
+<ul>
+<li>Extract Method</li>
+<li>Inline method
+<ul>
+<li>dla krótkiej metody wywoływanej w jednym miejscu</li>
+<li>operacje są odwracalne</li>
+<li>refaktoring można robić w obie strony</li>
+</ul></li>
+<li>Replace Temp with Query
+<ul>
+<li><code>int tmp = f(); g(tmp);</code></li>
+<li><code>g(f())</code></li>
+<li>zależy co będzie bardziej czytelne</li>
+</ul></li>
+<li>Move Method / Field</li>
+<li>Extract / Inline Class</li>
+<li>Remove Middle Man
+<ul>
+<li>może stać w sprzeczności ze wzorcami projektowymi (bridge,
+proxy)</li>
+</ul></li>
+<li>Encapsulate Field
+<ul>
+<li>dobry setter to taki, który coś sprawdza</li>
+<li>jeśli para get/set nic szczególnego nie robi to równie dobrze można
+zamienić pole na publiczne</li>
+</ul></li>
+<li>Rename Method / Field</li>
+<li>Collapse Hierarchy</li>
+<li>Pull Up Field / Method
+<ul>
+<li>przesunięcie w hierarchii klas</li>
+</ul></li>
+<li>Push Down Field / Method</li>
+<li>Extract Interface / Superclass</li>
+<li>Separate Query From Modifier
+<ul>
+<li>jeśli metoda cokolwiek zwraca to powinna być <code>const</code></li>
+<li>oddzielne metody które coś zwracają i które modyfikują stan</li>
+</ul></li>
+<li>Replace Parameter with Explicite Methods</li>
+<li>Replace Inheritance with Delegation</li>
+</ul>
+<h2 id="jak-refaktorować">Jak refaktorować</h2>
+<ul>
+<li>Trzeba mieć testy
+<ul>
+<li>szybkie testy jednostkowe są najwygodniejsze</li>
+<li>ale nie wszystko sprawdzą</li>
+</ul></li>
+<li>Małe kroki</li>
+<li>Nie bać się refaktorować starego kodu</li>
+<li>Nie robić od razu rewolucje</li>
+<li>Nie naruszać lokalnego standardu kodowania
+<ul>
+<li>o ile nie wymusza złych praktyk</li>
+<li>ewolucyjne zmiany</li>
+</ul></li>
+<li>Przede wszystkim realizować potrzeby klienta</li>
+<li>Może być tak źle że trzeba go zaplanować
+<ul>
+<li>ciężko przekonać żeby ktoś za to zapłacił</li>
+</ul></li>
+</ul>
+<h2 id="refactoring-katas">Refactoring Katas</h2>
+<p>Dobre linki do trenowania przed lab 4</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#refaktoring-2024-05-13">Refaktoring (2024-05-13)</a>
+<ul>
+<li><a href="#po-co-refaktoryzować">Po co refaktoryzować</a></li>
+<li><a href="#błędy-refaktoringu">Błędy refaktoringu</a></li>
+<li><a href="#dobry-refaktoring">Dobry refaktoring</a></li>
+<li><a href="#po-czym-poznać-że-kod-wymaga-refaktoringu">Po czym poznać
+że kod wymaga refaktoringu</a></li>
+<li><a href="#operacje-refaktoryzujące">Operacje
+refaktoryzujące</a></li>
+<li><a href="#jak-refaktorować">Jak refaktorować</a></li>
+<li><a href="#refactoring-katas">Refactoring Katas</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

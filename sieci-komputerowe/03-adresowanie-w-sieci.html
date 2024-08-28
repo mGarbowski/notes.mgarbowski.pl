@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-adresowanie-w-sieci</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-organizacje-standaryzacyjne.html">Poprzedni: 02-organizacje-standaryzacyjne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-protokol-arp.html">Następny: 04-protokol-arp.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="adresowanie-w-sieci">Adresowanie w sieci</h1>
+<p>Każdy z nagłówków MAC, IP, TCP/UDP zawiera adres nadawcy i
+odbiorcy.</p>
+<p>TCP - numer portu, rozszerza adres IP komputera (interfejsu
+sieciowego). Numer portu adresuje proces na komputerze (działający
+program), są przydzielane przez system operacyjny.</p>
+<p>Adresy w nagłówkach IP i MAC są redundantne, oba wskazują na
+interfejs sieciowy (komputer). Jest tak częściowo z przyczyn
+historycznych.</p>
+<p>Adresy MAC (inaczej EUI-48) są globalnie unikalne, historycznie
+dzieliły się na 3 bajty prefiksu przydzielanego producentowi i 3 bajty
+numeru seryjnego, obecnie przydziela się dłuższe prefiksy dla mniejszych
+producentów.</p>
+<p>Adresy MAC nie nadają się do routingu w sieci globalnej, tabele
+routingu IP pozwalają na oszczędniejsze i bardziej efektywne adresowanie
+dzięki agregacji. Sposób przydzielania adresów IP jest nastawiony na
+umożliwienie agregacji. Hierarchia instytucji IANA -&gt; rejestry
+regionalne -&gt; dostawcy internetu (ISP) jest nastawiona na
+odzwierciedlenie topologii sieci.</p>
+<p>Program może bez problemu wypełnić pola adresu nadawcy. Port odbiorcy
+wynika z rodzaju usługi (port 80 dla HTTP itd.). IANA określa listę
+well-known services, która przydziela numery portu usługom. Adres IP
+jest rozwiązywany na podstawie nazwy domeny przez protokół DNS. Adres
+sprzętowy (MAC) jest rozwiązywany na podstawie adresu IP przez protokół
+ARP (Address Resolution Protocol).</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#adresowanie-w-sieci">Adresowanie w sieci</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-nosql</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-model-fizyczny.html">Poprzedni: 05-model-fizyczny.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="podstawy-nosql">Podstawy NoSQL</h1>
+<ul>
+<li>NoSQL - not only SQL</li>
+<li>Idea, nie określona technologia
+<ul>
+<li>jest wiele sposobów myślenia o bazach nierelacyjnych</li>
+</ul></li>
+<li>Rezygnacja z relacyjnego modelu tam, gdzie się nie sprawdza</li>
+</ul>
+<h2 id="problemy-baz-relacyjnych">Problemy baz relacyjnych</h2>
+<ul>
+<li>Nie nadają się do wszystkiego
+<ul>
+<li>mit z czasów klasycznych systemów OLTP</li>
+<li>statyczność, niezmienność modelu</li>
+<li>kontorla danych</li>
+<li>obligatoryjność mechanizmów RDBMS - nie można ich obejść</li>
+<li>mit o bezproblemowym i transparentnym rozpraszaniu danych</li>
+<li>niedostosowane do obliczania w chmurze</li>
+</ul></li>
+<li>Wysoka złożoność i komplikacja nie zawsze potrzebnych zasobów
+<ul>
+<li>struktury dyskowe - wszystkie dane i indeksy</li>
+<li>dostęp do danych zależny od optymalizatora</li>
+<li>transakcyjność</li>
+<li>synchronizacja oparta na blokadach</li>
+<li>trwałość danych oparta na dziennikach</li>
+<li>wieloprocesowość</li>
+<li>wielowątkowość</li>
+</ul></li>
+<li>Architektura
+<ul>
+<li>wywodzi się z czasów mainframe</li>
+<li>komunikacja przez pamięć współdzieloną</li>
+<li>wymóg dużej mocy obliczeniowej serwera</li>
+<li>skomplilkowana i niewydajna architektura baz rozproszonych</li>
+<li>tylko skanowanie pionowe</li>
+</ul></li>
+<li>Dostęp
+<ul>
+<li>obiektowe języki nie pasują do bazy relacyjnej</li>
+<li>ORM - komplikuje i dodaje narzut</li>
+<li>różnica koncepcyjna metod dostępu</li>
+<li>zamkniętość mechanizmów RDBMS</li>
+</ul></li>
+</ul>
+<h2 id="motywacja">Motywacja</h2>
+<h3 id="acid">ACID</h3>
+<ul>
+<li>Atomicity - wystarczająca na poziomie poleceń</li>
+<li>Consistency - często nadmiarowa na poziomie bazy</li>
+<li>Isolation - często zbędna (brak konfliktów)</li>
+<li>Durability - możliwa do zrealizowana w inny sposób (np. przez
+redundancję na wielu serwerach)</li>
+</ul>
+<h3 id="trwałośc-i-integralność">Trwałośc i integralność</h3>
+<ul>
+<li>Zastąpienie rozwiązań w założeniu pewnych, rozwiązaniami opartymi na
+prawdopodobieństwie</li>
+<li>Ale są też prawdopodobieństwa awarii</li>
+<li>Trwałość zapewniona przez redundancję na wielu instancjach</li>
+<li>Izolacja przez małe prawdopodobieństwo równoczesności</li>
+</ul>
+<h3 id="wydajność">Wydajność</h3>
+<ul>
+<li>Orientacja na wydajność operacji zamiast na poprawność danych</li>
+<li>Proste mechanizmy dostępu do danych zamiast skomplikowanych funkcji
+interpretacji SQL</li>
+<li>Wykorzystanie znajomości struktury i mechanizmów dostępu
+<ul>
+<li>zamiast niezależności fizycznej i optymalizacji zapytań</li>
+</ul></li>
+<li>Jendowątkowość prostych i szybkich operacji, brak potrzeby
+synchronizacji</li>
+</ul>
+<h3 id="skalowalność-pozioma">Skalowalność pozioma</h3>
+<ul>
+<li>Akceptacja braku możliwości zapewnienia sprzętu z góry wyskalowanego
+na system docelowy</li>
+<li>Użycie dużej liczby tanich elementów dostosowanych w miarę
+potrzeb</li>
+<li>Rozproszenie geograficzne</li>
+<li>Skalowalność jako podstawowe założenie, a nie dodatkowa cecha</li>
+</ul>
+<h3 id="niezgodność-z-paradygmatem-programowania">Niezgodność z
+paradygmatem programowania</h3>
+<ul>
+<li>Ułatwienie programowania, prostsze środowisko
+<ul>
+<li>jednolity model</li>
+<li>brak potrzeby ORM</li>
+<li>brak konieczności wbudowywania zapytań SQL w kod</li>
+</ul></li>
+<li>Zysk wydajnościowy</li>
+<li>Łatwość obsługi niestandardowych typów danych</li>
+</ul>
+<h2 id="cechy-baz-nosql">Cechy baz NoSQL</h2>
+<ul>
+<li>Elastyczne skalowanie poziome</li>
+<li>Elastyczny model danych (lub brak modelu)</li>
+<li>Specyficzny język danych</li>
+<li>Big Data</li>
+<li>Uproszczona administracja</li>
+<li>Uproszczone mechanizmy, wydajność</li>
+<li>Ekonomia, tani sprzęt</li>
+</ul>
+<h2 id="rodzaje-baz-nosql">Rodzaje baz NoSQL</h2>
+<h3 id="klucz-wartość">Klucz-wartość</h3>
+<ul>
+<li>Baza bez schematu</li>
+<li>Zastosowanie
+<ul>
+<li>szybkie przetwarzanie prostych danych</li>
+<li>zarządzanie zawartością</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Redis</li>
+<li>Cassandra</li>
+<li>Amazon Dynamo</li>
+<li>Oracle NoSQL</li>
+</ul></li>
+<li>Często bazy pamięciowe, bo i tak jest mały narzut</li>
+<li>Zalety
+<ul>
+<li>szybki dostęp do danych</li>
+<li>wysoka dostępność</li>
+</ul></li>
+</ul>
+<h3 id="bazy-dokumentowe">Bazy dokumentowe</h3>
+<ul>
+<li>Baza zorientowana na przechowywanie dokumentów</li>
+<li>Zastosowanie
+<ul>
+<li>zarządzanie dokumentami</li>
+<li>aplikacje www</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>MongoDB</li>
+<li>CouchDB</li>
+<li>DocumentDB</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>łatwe operowanie na dokumentach</li>
+<li>dynamiczny model danych (XML)</li>
+</ul></li>
+</ul>
+<h3 id="bazy-kolumnowe-tablicowe">Bazy kolumnowe / tablicowe</h3>
+<ul>
+<li>Baza o kolumnowej reprezentacji danych</li>
+<li>Zastosowanie
+<ul>
+<li>zbieranie i przetwarzanie dużej ilości prostych danych</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Apache Cassandra</li>
+<li>Google Bigtable</li>
+<li>HBase</li>
+<li>SAP HANA</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>szybki zapis danych</li>
+<li>wysoka dostępność</li>
+<li>bardzo duża sklaowalność</li>
+</ul></li>
+</ul>
+<h3 id="bazy-obiektowe">Bazy obiektowe</h3>
+<ul>
+<li>Baza z obiektowym modelem danych</li>
+<li>Zastosowanie
+<ul>
+<li>aplikacje ze złożonym modelem danych</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Versant OD</li>
+<li>Objectivity</li>
+<li>ObjectStore</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>efektywne przetwarzanie danych</li>
+<li>łatwe powiązanie baza-aplikacja</li>
+</ul></li>
+</ul>
+<h3 id="grafowe">Grafowe</h3>
+<ul>
+<li>Baza dedykowana do reprezentacji danych grafowych</li>
+<li>Zastosowanie
+<ul>
+<li>przetwarzanie powiązanych danych</li>
+<li>sieci społecznościowe i inne (transport, telekom)</li>
+</ul></li>
+<li>Większość danych w związkach</li>
+<li>Przykłady
+<ul>
+<li>ArangoDB</li>
+<li>InfiniteGraph</li>
+<li>Neo4J</li>
+<li>Apache Giraph</li>
+<li>OrientDB</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>efektywne wykonywanie algorytmów grafowych</li>
+</ul></li>
+</ul>
+<h3 id="wielomodelowe">Wielomodelowe</h3>
+<ul>
+<li>Różnorodne bazy pozwalające na mieszanie modeli danych</li>
+<li>Zastosowanie
+<ul>
+<li>przetwarzanie różnorodnych danych</li>
+<li>dane strukturalne i niestrukturalne</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>ArangoDB</li>
+<li>Couchbase</li>
+<li>MarkLogic</li>
+<li>OrientDB</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>możliwość przechowywania i przetwrzania różnorodnych danych</li>
+<li>wiele mechanizmów w jednym systemie</li>
+</ul></li>
+</ul>
+<h2 id="paradygmaty-nosql">Paradygmaty NoSQL</h2>
+<h3 id="base">BASE</h3>
+<ul>
+<li>Basically Available</li>
+<li>Soft-state
+<ul>
+<li>może zmieniać swój stan, nawet jeśli nie są wykonywane operacje</li>
+<li>np. propagacja danych w bazie rozproszonej</li>
+</ul></li>
+<li>Eventually consistent
+<ul>
+<li>w odróżnieniu od spójności transakcyjnej</li>
+<li>następuje po jakimś czasie</li>
+<li>nie musi być spójna w danym momencie</li>
+</ul></li>
+</ul>
+<h3 id="cap">CAP</h3>
+<ul>
+<li>Consistency
+<ul>
+<li>baza bez consistency - BASE</li>
+</ul></li>
+<li>Availability</li>
+<li>Partition-tolerance
+<ul>
+<li>niewrażliwość na rozspójnienie bazy rozproszonej</li>
+<li>baza bez partition tolerance - ACID</li>
+</ul></li>
+<li>Można mieć 2 z 3</li>
+</ul>
+<h2 id="podstawowe-mechanizmy">Podstawowe mechanizmy</h2>
+<h3 id="sharding">Sharding</h3>
+<ul>
+<li>Partycjonowanie rozproszone na wiele węzłów</li>
+<li>Replikacja małyhc struktur pomiędzy węzły</li>
+<li>Zalety
+<ul>
+<li>możliwość wykorzystania słabszego sprzętu przy bardzo dużej ilości
+danych</li>
+<li>wzrost wydajności - przetwarzanie równoległe</li>
+<li>wzrost dostępności (części danych - BASE)</li>
+<li>ułatwienie administrowania - mniejsze wolumeny</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>wzrost złożoności i komplikacji (systemu i aplikacji)</li>
+<li>trudność realizacji pewnej klasy zapytań</li>
+<li>dodatkowy narzut na replikację i utrzymanie spójności</li>
+<li>wrażliwość na parametry łączności pomiędzy serwerami</li>
+<li>obniżenie dostępności (pełnych danych - ACID)</li>
+<li>utrudnienie administrowania - złożona struktura</li>
+</ul></li>
+</ul>
+<h3 id="hinted-handoff">Hinted Handoff</h3>
+<ul>
+<li>Mechanizm obsługi sytuacji awaryjnej</li>
+<li>Zapis danych do działającego węzła zamiast do węzła uszkodzonego aby
+zchować kworum</li>
+<li>Dane są zapisywane z podpowiedzią, aby przepisać je do węzła
+docelowego gdy tylko będzie to możliwe</li>
+</ul>
+<h3 id="read-repair">Read-repair</h3>
+<ul>
+<li>Mechanizm obsługi niespójności</li>
+<li>Podczas odczytu - zapis danych aktualnych do węzła, który zwrócił
+dane o niaktualnej wersji</li>
+<li>Odczyt spowolniony, ale poprawia spójność danych</li>
+<li>Stosowany w bazach, w których optymalizowana jest szybkość
+zapisu</li>
+</ul>
+<h3 id="anti-entropy-repair">Anti-entropy repair</h3>
+<ul>
+<li>Mechanizm obsługi niespójności</li>
+<li>Mechanizm uzgadniania replik na podstawie analizy drzew hashujących
+(Merkle’a)</li>
+<li>Szybkie porównanie wartości funkcji w drzewie - wykrycie różnic
+pomiędzy replikami</li>
+<li>Synchronizacja wykrytych różnic na podstawie wersji</li>
+</ul>
+<h3 id="consistent-hashing">Consistent Hashing</h3>
+<ul>
+<li>Mechanizm funkcji mieszającej</li>
+<li>Przypisuje wartości do poszczególnych węzłów bazy w sposób
+pozwalający łatwo usuwać i dodawać węzły</li>
+</ul>
+<h3 id="vector-clock">Vector Clock</h3>
+<ul>
+<li>Mechanizm oznaczania danych znacznikami zdarzeń (nie czasu)</li>
+<li>Pozwala określić relację częściowego porządku w zbiorze danych w
+systemie rozproszonym</li>
+<li>Dzięki temu wiadomo, czy dane są od siebie zależne czy
+niezależne</li>
+<li>Pozwala wykryć sytuacje, w których
+<ul>
+<li>mamy do czynienia z kolejnymi wersjami danych</li>
+<li>dane pochodzą z dwóch różnych źródeł i może być konieczne
+rozwiązanie konfliktu</li>
+</ul></li>
+<li>Na początku wszystkie zegary mają wartość 0</li>
+<li>Węzeł inkrementuje swój zegar przy każdym zdarzeniu (modyfikacji
+danych)</li>
+<li>Z każdym komunikatem rozsyłany jest cały wektor zegarów</li>
+<li>Przy odbiorze komunikatu węzeł inkrementuje swój zegar i aktualizuje
+pozostałe na wartości maksymalne (własna / otrzymana)</li>
+</ul>
+<h3 id="gossip">Gossip</h3>
+<ul>
+<li>Protokół komunikacji pomiędzy węzłami bazy rozproszonej działający w
+tle</li>
+<li>Cykliczna wymiana małych komunikatów pomiędzy losowymi węzłami</li>
+<li>Niska częstotliwość - pomijalny narzut</li>
+<li>Aktualizacja stanu agentów</li>
+<li>Brak gwarancji niezawodności komunikacji</li>
+<li>Zastosowania
+<ul>
+<li>wymiana informacji o stanie klastrów i węzłów</li>
+<li>wykrywanie awarii</li>
+<li>uzgadnianie niespójnych danych (anti-entropy)</li>
+<li>wyliczanie i agregacja informacji</li>
+</ul></li>
+</ul>
+<h2 id="apache-cassandra">Apache Cassandra</h2>
+<ul>
+<li>Baza postrelacyjna</li>
+<li>Połączenie 2 rozwiązań
+<ul>
+<li>Amazon Dynamo - architektura rozproszona</li>
+<li>Google BigTable - model kolumnowy</li>
+</ul></li>
+<li>Architektura węzłów równorzędnych
+<ul>
+<li>możliwość rekonfiguracji online</li>
+<li>wysoka skalowalność</li>
+</ul></li>
+<li>Konfigurowalna replikacja
+<ul>
+<li>wysoka dostępność</li>
+<li>odporność na awarie</li>
+</ul></li>
+<li>Dwie opcje spójności
+<ul>
+<li>BASE (AP)</li>
+<li>ACID (CP)</li>
+</ul></li>
+<li>Wsparcie dla przetwarzanie rozproszonego</li>
+</ul>
+<h3 id="model-danych">Model danych</h3>
+<ul>
+<li>Oparty na strukturze kolumnowej</li>
+<li>Podobny do relacyjnego, ale bardziej elastyczny</li>
+<li>Column family z możliwością dynamicznego dodawania kolumn</li>
+<li>Brak odpowiednika kluczy obcych - konieczność denormalizacji</li>
+<li>Pełne możliwości indeksowania - kluczy i innych kolumn</li>
+</ul>
+<h3 id="operacje-na-danych">Operacje na danych</h3>
+<ul>
+<li>Język bazy danych CQL - wzorowany na SQL
+<ul>
+<li>większość poleceń z SQL</li>
+<li>brak operacji <code>JOIN</code></li>
+<li>brak możliwości wyszukiwania części klucza</li>
+</ul></li>
+<li>Wyszukiwanie pełnotekstowe dzięki integracji z narzędziami
+<ul>
+<li>Apache Solr/Lucene</li>
+<li>DataStax Enterprise Search</li>
+</ul></li>
+<li>API dla wielu języków programowania</li>
+</ul>
+<h3 id="wsparcie-mapreduce">Wsparcie MapReduce</h3>
+<ul>
+<li>Integracja z Hadoop</li>
+<li>Apache Pig - platforma programowania MapReduce z językiem Pig
+Latin</li>
+<li>Apache Hive - platforma BI oparta na Hadoop</li>
+</ul>
+<h2 id="marklogic">MarkLogic</h2>
+<ul>
+<li>Baza XML o mechanizmach transakcyjnych</li>
+<li>Architektura dwuwarstwowa
+<ul>
+<li>D-nodes</li>
+<li>E-nodes</li>
+<li>możliwość rekonfiguracji online</li>
+<li>wysoka skalowalnosć</li>
+</ul></li>
+<li>Konfigurowalna replikacja
+<ul>
+<li>wysoka dostępność</li>
+<li>odporność na awarie</li>
+</ul></li>
+<li>Transakcje ACID</li>
+<li>Wielowersyjna kontrola współbieżności (MVCC)</li>
+<li>Wsparcie dla przetwarzania rozproszonego</li>
+</ul>
+<h3 id="model-danych-1">Model danych</h3>
+<ul>
+<li>Model oparty na strukturze XML</li>
+<li>Model dynamiczny oparty na schematach XSD i metadanych</li>
+<li>Pełne możliwości indeksowania
+<ul>
+<li>zawartość i metadane</li>
+<li>indeksy zwykłe, XML, skalarne, odwrócone, pełnotekstowe,
+przestrzenne</li>
+</ul></li>
+<li>Wielowersyjna baza danych
+<ul>
+<li>aktualizacja - nowa wersja</li>
+</ul></li>
+</ul>
+<h3 id="operacje-na-danych-1">Operacje na danych</h3>
+<ul>
+<li>Języki danych
+<ul>
+<li>XQuery</li>
+<li>XSLT</li>
+<li>JSON</li>
+</ul></li>
+<li>Wyszukiwanie atrybutów, wartości</li>
+<li>Wyszukiwanie zakresowe</li>
+<li>Wyszukiwanie pełnotekstowe</li>
+<li>Wyszukiwanie przestrzenne</li>
+<li>Jest implementacja operacji złączenia</li>
+<li>Zapytania odwrócone
+<ul>
+<li>jakie zapytanie odnosi się do określonych danych</li>
+</ul></li>
+<li>Dostęp przez XDBC</li>
+<li>Wymiana danych przez WebDAV</li>
+</ul>
+<h3 id="wsparcie-mapreduce-1">Wsparcie MapReduce</h3>
+<ul>
+<li>Integracja z Hadoop
+<ul>
+<li>jako źródło danych przez konektor</li>
+<li>jako warstwa dostępu do danych nad HDFS</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#podstawy-nosql">Podstawy NoSQL</a>
+<ul>
+<li><a href="#problemy-baz-relacyjnych">Problemy baz
+relacyjnych</a></li>
+<li><a href="#motywacja">Motywacja</a>
+<ul>
+<li><a href="#acid">ACID</a></li>
+<li><a href="#trwałośc-i-integralność">Trwałośc i integralność</a></li>
+<li><a href="#wydajność">Wydajność</a></li>
+<li><a href="#skalowalność-pozioma">Skalowalność pozioma</a></li>
+<li><a href="#niezgodność-z-paradygmatem-programowania">Niezgodność z
+paradygmatem programowania</a></li>
+</ul></li>
+<li><a href="#cechy-baz-nosql">Cechy baz NoSQL</a></li>
+<li><a href="#rodzaje-baz-nosql">Rodzaje baz NoSQL</a>
+<ul>
+<li><a href="#klucz-wartość">Klucz-wartość</a></li>
+<li><a href="#bazy-dokumentowe">Bazy dokumentowe</a></li>
+<li><a href="#bazy-kolumnowe-tablicowe">Bazy kolumnowe /
+tablicowe</a></li>
+<li><a href="#bazy-obiektowe">Bazy obiektowe</a></li>
+<li><a href="#grafowe">Grafowe</a></li>
+<li><a href="#wielomodelowe">Wielomodelowe</a></li>
+</ul></li>
+<li><a href="#paradygmaty-nosql">Paradygmaty NoSQL</a>
+<ul>
+<li><a href="#base">BASE</a></li>
+<li><a href="#cap">CAP</a></li>
+</ul></li>
+<li><a href="#podstawowe-mechanizmy">Podstawowe mechanizmy</a>
+<ul>
+<li><a href="#sharding">Sharding</a></li>
+<li><a href="#hinted-handoff">Hinted Handoff</a></li>
+<li><a href="#read-repair">Read-repair</a></li>
+<li><a href="#anti-entropy-repair">Anti-entropy repair</a></li>
+<li><a href="#consistent-hashing">Consistent Hashing</a></li>
+<li><a href="#vector-clock">Vector Clock</a></li>
+<li><a href="#gossip">Gossip</a></li>
+</ul></li>
+<li><a href="#apache-cassandra">Apache Cassandra</a>
+<ul>
+<li><a href="#model-danych">Model danych</a></li>
+<li><a href="#operacje-na-danych">Operacje na danych</a></li>
+<li><a href="#wsparcie-mapreduce">Wsparcie MapReduce</a></li>
+</ul></li>
+<li><a href="#marklogic">MarkLogic</a>
+<ul>
+<li><a href="#model-danych-1">Model danych</a></li>
+<li><a href="#operacje-na-danych-1">Operacje na danych</a></li>
+<li><a href="#wsparcie-mapreduce-1">Wsparcie MapReduce</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

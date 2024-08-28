@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10.html">Poprzedni: wyklad-10.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wzajemne-wyklucanie-i-synchronizacja">Wzajemne wyklucanie i
+synchronizacja</h1>
+<h2 id="kolokwium">Kolokwium</h2>
+<ul>
+<li>będzie podana jutro lista pytań</li>
+<li>to co było powiedziane że będzie to będzie
+<ul>
+<li>prosty skrypt shella (niedopuszczony bash)</li>
+<li>4 albo 5 pytań</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-petersona">Algorytm Petersona</h2>
+<p>Wywołania <code>enter_region</code> i <code>leave_region</code></p>
+<p>Przykład jest dla 2 procesów ale da się uogólnić dla większej
+liczby</p>
+<p><code>turn == process</code> obsługuje przypadek kiedy procesy w tym
+samym czasie próbują wejść do sekcji krytycznej bo warunek może być
+spełniony tylko dla jednego z dwóch procesów ten który ustawił turn na
+swoje id wejdzie jako pierwszy po tym jak drugi proces nadpisze
+<code>turn</code> swoim id</p>
+<h2 id="instrukcja-tsl">Instrukcja <code>TSL</code></h2>
+<p>Test and set lock (xchg - exchange) - instrukcja assemblera Dwa
+argumenty - rejestr i zmienna w pamięci instrukcja wymienia zawartości
+miejscami z punktu widzenia innych instrukcji (procesów, wątków) ta
+instrukcja jest atomowa, niepodzielna i to zapwewnia sprzęt (np. przez
+blokadę magistrali systemowej)</p>
+<p>W języku C są wstawki assemblerowe</p>
+<p>Można interpretować tą instrukcję jako
+<code>if (condition) then set flag</code></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">enter_region:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">; w register musi być nie-zero na początku</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    tsl register<span class="op">,</span> flag</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cmp</span> register<span class="op">,</span> <span class="op">#</span><span class="dv">0</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">jnz</span> enter_region</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ret</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">leave_region:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">mov</span> flag<span class="op">,</span> <span class="op">#</span><span class="dv">0</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ret</span></span></code></pre></div>
+<p>ponieważ <code>tsl</code> nie może być przerwane przez inne
+instrukcje to tylko jeden proces zobaczy w rejestrze wartość
+<code>0</code></p>
+<h2 id="wada-aktywnego-oczekiwania">Wada aktywnego oczekiwania</h2>
+<ul>
+<li>marnuje się czas procesora na busy loop</li>
+<li>możliwość blokady systemu przy wielopriorytetowym sposobie
+szeregowania procesów - inwersja priorytetów</li>
+<li>planista może przydzielić czas procesowi, który czeka na wejście do
+sekcji krytycznej - bez sensu</li>
+</ul>
+<h2 id="semafor">Semafor</h2>
+<p>Remedium na rozwiązanie ze <code>sleep</code> i <code>wakeup</code> p
+zawsze opuszcza bezwarunkowo ale może musieć wcześniej poczekać</p>
+<p>Semafor pozwala realizować kontrolę przepływu</p>
+<h3 id="mutex">Mutex</h3>
+<p>Semafor binarny Służy tylko do zapewniania mechanizmu wzajemnego
+wykluczania w dostępie do sekcji krytycznej</p>
+<p>Implementacja może być bardziej wydajna dla mutexu niż dla liczącego
+semafora</p>
+<p>W implementacji można wykorzystać instrukcję <code>TSL</code></p>
+<h2 id="monitory">Monitory</h2>
+<p>Zbiór procedur, zmiennych i struktur danych zgrupowanych w module
+(obiekcie), tylko jeden proces może przebywać na raz w module (metodach
+obiektu)</p>
+<p>Wzajemne wykluczanie jest zapewnione wewnętrznie w implementacji</p>
+<p>Mądry programista może zaimplementować dobrą klasę i wystawić
+bezpieczny interfejs</p>
+<p>instrukcje nie są atomowe ale to nie szkodzi bo o to dba monitor</p>
+<p>koncepcje Hoare’a i Hansena działania operacji
+<code>signal</code></p>
+<p><code>synchronized</code> w Javie jest niezalecane przez twórców</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wzajemne-wyklucanie-i-synchronizacja">Wzajemne wyklucanie
+i synchronizacja</a>
+<ul>
+<li><a href="#kolokwium">Kolokwium</a></li>
+<li><a href="#algorytm-petersona">Algorytm Petersona</a></li>
+<li><a href="#instrukcja-tsl">Instrukcja <code>TSL</code></a></li>
+<li><a href="#wada-aktywnego-oczekiwania">Wada aktywnego
+oczekiwania</a></li>
+<li><a href="#semafor">Semafor</a>
+<ul>
+<li><a href="#mutex">Mutex</a></li>
+</ul></li>
+<li><a href="#monitory">Monitory</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

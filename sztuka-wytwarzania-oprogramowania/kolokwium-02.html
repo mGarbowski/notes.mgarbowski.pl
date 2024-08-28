@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-01.html">Poprzedni: kolokwium-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-00.html">Następny: wyklad-00.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kolokwium-2">Kolokwium 2</h1>
+<h2 id="analiza-metryki">Analiza, metryki</h2>
+<h3 id="czym-różni-się-analiza-statyczna-od-dynamicznej">Czym różni się
+analiza statyczna od dynamicznej</h3>
+<p>Analiza dynamiczna wymaga uruchomienia programu (np. w
+zwirtualizowanym środowisku), a analiza statyczna dotyczy
+<em>martwego</em> programu (bez uruchamiania)</p>
+<h3 id="czym-się-różni-metryka-statyczna-od-dynamicznej">Czym się różni
+metryka statyczna od dynamicznej</h3>
+<p>Metryka dynamiczna wymaga uruchomienia programu (np. zużycie
+pamięci), a statyczna nie (np. procent linii komentarzy)</p>
+<h3 id="przykłady-analizy-dynamicznej">Przykłady analizy
+dynamicznej</h3>
+<ul>
+<li>Użycie pamięci i wycieki</li>
+<li>Użycie cache</li>
+<li>Użycie procesora</li>
+<li>Wykorzystanie sieci</li>
+<li>Wykorzystanie dysku</li>
+</ul>
+<h3
+id="jakie-aspekty-oprogramowania-można-mierzyć-jakie-grupy-metryk-oprogramownia-można-wyznaczyć">Jakie
+aspekty oprogramowania można mierzyć (jakie grupy metryk oprogramownia
+można wyznaczyć)?</h3>
+<ul>
+<li>Metryki kodu
+<ul>
+<li>liczba linijek</li>
+<li>procent linii komentarzy</li>
+<li>średnia liczba linijek w funkcji</li>
+<li>maksymalna liczba parametrów funkcji</li>
+</ul></li>
+<li>Metryki procesu wytwarzania oprogramowania
+<ul>
+<li>liczba zgłoszonych błędów</li>
+<li>średnie przekroczenia szacowanego czasu</li>
+</ul></li>
+<li>Metryki testów
+<ul>
+<li>pokrycie linii</li>
+<li>pokrycie gałęzi</li>
+</ul></li>
+</ul>
+<h3 id="przykłady-metryk-dynamicznych">Przykłady metryk
+dynamicznych</h3>
+<ul>
+<li>Czas wykonania programu</li>
+<li>Czas ładowania programu</li>
+<li>Zużycie CPU/pamięci/dysku</li>
+</ul>
+<h3 id="przykłady-metryk-statycznych">Przykłady metryk statycznych</h3>
+<ul>
+<li>Liczba linii kodu</li>
+<li>Złożoność cyklometryczna</li>
+<li>Liczba linii w funkcji</li>
+<li>Procent linii komentarzy</li>
+</ul>
+<h3 id="czy-i-ewentualnie-jak-można-mierzyć-utrzymywalność-kodu">Czy (i
+ewentualnie jak) można mierzyć “utrzymywalność” kodu?</h3>
+<ul>
+<li>Każda metoda wyliczania utzrymywalności jest obarczona wadami</li>
+<li>Można wykorzystać różne metryki, które mogą być pomocne w ocenianiu
+utrzymywalności</li>
+<li>Przykładowe metryki
+<ul>
+<li>złożoność cyklometryczna</li>
+<li>średnia długość funkcji</li>
+<li>liczba linijek kodu</li>
+<li>itp.</li>
+</ul></li>
+</ul>
+<h3 id="czy-i-ewentualnie-jak-można-mierzyć-jakość-testu">Czy (i
+ewentualnie jak) można mierzyć jakość testu</h3>
+<ul>
+<li>Można wykorzystać metryki takie jak do zwykłego kodu</li>
+<li>Można wykorzystać metryki specyficzne dla testów
+<ul>
+<li>pokrycie linii</li>
+<li>pokrycie decyzji</li>
+</ul></li>
+<li>Pokrycie (i inne metryki) nie gwarantują że test jest dobry
+<ul>
+<li>scenariusze mogą nie być reprezentatywne</li>
+<li>asercje mogą być nie takie jak trzeba</li>
+<li>wymagania klienta mogą nie być weryfikowane przez test</li>
+</ul></li>
+</ul>
+<h3 id="czy-analiza-dynamiczna-ma-przewagę-nad-statyczną">Czy analiza
+dynamiczna ma przewagę nad statyczną?</h3>
+<ul>
+<li>Generalnie nie
+<ul>
+<li>analiza dynamiczna i statyczna służą do różnych rzeczy</li>
+<li>są rzeczy, które da się sprawdzić tylko przez analizę dynamiczną
+(np. wykorzystanie zasobów, IO, wycieki pamięci)</li>
+</ul></li>
+</ul>
+<h3 id="co-pokrycie-kodu-mówi-o-jakości-testu">Co pokrycie kodu mówi o
+jakości testu?</h3>
+<ul>
+<li>Mówi jaka część kodu (linijki / gałęzie) jest wykonywana przez
+testy</li>
+<li>Pokrycie powinno być wysokie, ale to nie znaczy że przy 100%
+gwarantuje poprawne działanie</li>
+<li>Zgodność testu z wymaganiami jest niemierzalna</li>
+</ul>
+<h3 id="jak-ocenić-jakość-testu-na-ile-ocena-będzie-obiektywna">Jak
+ocenić jakość testu? Na ile ocena będzie obiektywna?</h3>
+<ul>
+<li>Ocena na podstawie metryki (np. pokrycie gałęzi) jest obiektywna
+<ul>
+<li>to że jest obiektywna nie znaczy, że jeśli jest odpowiednio wysoka
+to test jest dobry</li>
+</ul></li>
+<li>Właściwa ocena jakości testu (czy faktycznie testuje to co ma
+testować) nie jest mierzalna przez metryki
+<ul>
+<li>ocena przez człowieka będzie subiektywna</li>
+<li>poddanie testu pod code review da lepszą subiektywną
+(intersubiektywną?) ocenę niż pojedyncza osoba</li>
+</ul></li>
+</ul>
+<h3 id="w-jakim-celu-prowadzi-się-analizę-aplikacji">W jakim celu
+prowadzi się analizę aplikacji</h3>
+<ul>
+<li>W celu poprawienia jakości
+<ul>
+<li>wykrycia błędów</li>
+<li>wykrycia niezgodności ze standardem kodowania</li>
+<li>profilowanie w celu poprawy wydajności</li>
+</ul></li>
+</ul>
+<h2 id="pokrycie">Pokrycie</h2>
+<h3 id="section">1</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>shared_ptr<span class="op">&lt;</span>Item<span class="op">&gt;</span> Service<span class="op">::</span>method<span class="op">(</span><span class="at">const</span> Other<span class="op">*</span> obj<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>obj <span class="op">!=</span> <span class="kw">nullptr</span> <span class="op">&amp;&amp;</span> obj<span class="op">-&gt;</span>hasSomeProperty<span class="op">())</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>x <span class="op">&lt;</span> <span class="op">-</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">throw</span> InvalidArgument<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">&gt;</span> <span class="dv">5</span> <span class="op">?</span> Item<span class="op">::</span>Default <span class="op">:</span> <span class="bu">std::</span>make_shared<span class="op">&lt;</span>Item<span class="op">&gt;(</span>x<span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>100% pokrycia linii
+<ul>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;hasSomeProperty()</code></li>
+<li><code>obj == nullptr &amp;&amp; x == -11</code></li>
+<li><code>obj == nullptr &amp;&amp; x == 0</code></li>
+</ul></li>
+<li>100% pokrycia gałęzi
+<ul>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;hasSomeProperty()</code></li>
+<li><code>obj != nullptr &amp;&amp; !obj-&gt;hasSomeProperty()</code></li>
+<li><code>obj == nullptr &amp;&amp; x == -11</code></li>
+<li><code>obj == nullptr &amp;&amp; x == 6</code></li>
+<li><code>obj == nullptr &amp;&amp; x == 4</code></li>
+</ul></li>
+</ul>
+<h3 id="section-1">2</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>shared_ptr<span class="op">&lt;</span>Item<span class="op">&gt;</span> Service<span class="op">::</span>method<span class="op">(</span><span class="at">const</span> Other<span class="op">*</span> obj<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>x <span class="op">&lt;</span> <span class="kw">this</span><span class="op">-&gt;</span>range<span class="op">().</span>lowerBound<span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">throw</span> InvalidArgument<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>obj <span class="op">==</span> <span class="kw">nullptr</span><span class="op">)</span> <span class="op">||</span> <span class="op">(</span>obj<span class="op">-&gt;</span>isExcluded<span class="op">()))</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>x <span class="op">&gt;=</span> <span class="kw">this</span><span class="op">-&gt;</span>range<span class="op">().</span>upperBound<span class="op">)</span> <span class="op">?</span> Item<span class="op">::</span>Default <span class="op">:</span> <span class="bu">std::</span>make_shared<span class="op">&lt;</span>Item<span class="op">&gt;(</span>x<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>100% pokrycia linii
+<ul>
+<li><code>x &lt; this-&gt;range().lowerBound</code>, <code>obj</code>
+dowolnie</li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj == nullptr</code></li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj != nullptr &amp;&amp; !obj-&gt;isExcluded()</code></li>
+</ul></li>
+<li>100% pokrycia gałęzi
+<ul>
+<li><code>x &lt; this-&gt;range().lowerBound</code>, <code>obj</code>
+dowolnie</li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj == nullptr</code></li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj != nullptr &amp;&amp; obj-&gt;isExcluded()</code></li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj != nullptr &amp;&amp; !obj-&gt;isExcluded() &amp;&amp; x &gt;= this-&gt;range().upperBound</code></li>
+<li><code>x &gt;= this-&gt;range().lowerBound &amp;&amp; obj != nullptr &amp;&amp; !obj-&gt;isExcluded() &amp;&amp; x &lt; this-&gt;range().upperBound</code></li>
+</ul></li>
+</ul>
+<h3 id="section-2">3</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>Event<span class="op">&gt;</span> Service<span class="op">::</span>method<span class="op">(</span><span class="dt">double</span> d<span class="op">,</span> <span class="at">const</span> Other<span class="op">*</span> obj<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>obj <span class="op">==</span> <span class="kw">nullptr</span><span class="op">)</span> <span class="op">||</span> <span class="op">!</span>obj<span class="op">-&gt;</span>isEnabled<span class="op">())</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span>IgnoredValueEvent<span class="op">&gt;(</span>d<span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>d <span class="op">&lt;</span> obj<span class="op">-&gt;</span>minimumSupportedValue<span class="op">())</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">throw</span> InvalidArgument<span class="op">(</span>d<span class="op">);</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">(</span>obj<span class="op">-&gt;</span>threshold<span class="op">()</span> <span class="op">&lt;</span> d<span class="op">)</span> <span class="op">?</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span>LimitReachedEvent<span class="op">&gt;(</span>d<span class="op">)</span> <span class="op">:</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>100% pokrycia linii
+<ul>
+<li><code>obj == nullptr</code></li>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;isEnabled() &amp;&amp; d &lt; obj-&gt;minimumSupportedValue()</code></li>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;isEnabled() &amp;&amp; d &gt;= obj-&gt;minimumSupportedValue()</code></li>
+</ul></li>
+<li>100% pokrycia gałęzi
+<ul>
+<li><code>obj == nullptr</code></li>
+<li><code>obj != nullptr &amp;&amp; !obj-&gt;isEnabled()</code></li>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;isEnabled() &amp;&amp; d &lt; obj-&gt;minimumSupportedValue()</code></li>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;isEnabled() &amp;&amp; d &gt;= obj-&gt;minimumSupportedValue() &amp;&amp; obj-&gt;threshold() &lt; d</code></li>
+<li><code>obj != nullptr &amp;&amp; obj-&gt;isEnabled() &amp;&amp; d &gt;= obj-&gt;minimumSupportedValue() &amp;&amp; obj-&gt;threshold() &gt;= d</code></li>
+</ul></li>
+</ul>
+<h2 id="co-jest-nie-tak-z-poniższym-kodem">Co jest nie tak z poniższym
+kodem</h2>
+<h3 id="section-3">1</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Service<span class="op">::</span>process<span class="op">(</span><span class="at">const</span> Request<span class="op">&amp;</span> r<span class="op">,</span> <span class="dt">bool</span> ignored<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">// sprawdzamy, czy usługa działa  </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>isConfigured<span class="op">()</span> <span class="op">&amp;&amp;</span> registry<span class="op">-&gt;</span>isEnabled<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="op">&amp;&amp;</span> subservice <span class="op">!=</span> <span class="kw">nullptr</span> <span class="op">&amp;&amp;</span> subservice<span class="op">-&gt;</span>isConfigured<span class="op">()</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;&amp;</span> subservice<span class="op">-&gt;</span>isActive<span class="op">()</span> <span class="op">&amp;&amp;</span> registry<span class="op">-&gt;</span>isEnabled<span class="op">(</span>subservice<span class="op">))</span>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>r<span class="op">.</span>header<span class="op">.</span>topic<span class="op">.</span>items<span class="op">.</span>contain<span class="op">(</span>Request<span class="op">::</span>Header<span class="op">::</span>Type<span class="op">::</span>Active<span class="op">))</span>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span><span class="op">;</span>  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> tmp <span class="op">=</span> r<span class="op">.</span>body<span class="op">.</span>items<span class="op">[</span><span class="dv">3</span><span class="op">].</span>data<span class="op">;</span>  </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tmp <span class="op">&gt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> <span class="dv">15</span> <span class="op">*</span> itemCount<span class="op">();</span>  </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>ignored<span class="op">)</span>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> IncorrectRequest<span class="op">(</span>r<span class="op">);</span>  </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> sendResponse<span class="op">(</span>r<span class="op">,</span> tmp<span class="op">);</span>  </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>tmp <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span>  </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> tmp<span class="op">;</span>  </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>  </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>  </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>ignored<span class="op">)</span>  </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> IncorrectRequest<span class="op">(</span>r<span class="op">);</span>  </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> sendResponse<span class="op">(</span>r<span class="op">,</span> <span class="dv">15</span> <span class="op">*</span> itemCount<span class="op">()</span> <span class="op">-</span> <span class="dv">2</span><span class="op">);</span>  </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>tmp <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span>  </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> tmp<span class="op">;</span>  </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>  </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">4</span><span class="op">;</span>  </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">5</span><span class="op">;</span>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>Argument typu <code>bool</code> - lepiej użyć <code>enum</code></li>
+<li>Pierwszy <code>if</code> można uprościć
+<ul>
+<li>to samo jest robione na <code>this</code> i
+<code>subservice</code></li>
+<li>można to wydzielić jako oddzielną metodę</li>
+</ul></li>
+<li>Zmienna o nazwie <code>tmp</code>
+<ul>
+<li>nazwa powinna być deskryptywna, tu nie wiadomo o co chodzi</li>
+</ul></li>
+<li>Drugi <code>if</code>
+<ul>
+<li>sprawdzany warunek mógłby być metodą
+<code>Request::isActive</code></li>
+</ul></li>
+<li>Użycie <em>magic numbers</em>
+<ul>
+<li>lepiej użyć stałych / <code>#define</code></li>
+<li>z deskryptywnymi nazwami</li>
+</ul></li>
+<li>Głębokie zagnieżdżenia
+<ul>
+<li>zewnętrzny <code>if</code> można odwrócić i spłaszczyć</li>
+</ul></li>
+</ul>
+<h3 id="section-4">2</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Service<span class="op">::</span>process<span class="op">(</span><span class="at">const</span> Request<span class="op">&amp;</span> r<span class="op">,</span> <span class="dt">bool</span> ignored<span class="op">,</span> Type t<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// sprawdzamy, czy usªuga dziaªa  </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>isConfigured<span class="op">()</span> <span class="op">&amp;&amp;</span> registry<span class="op">-&gt;</span>isEnabled<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="op">&amp;&amp;</span> subservice <span class="op">!=</span> <span class="kw">nullptr</span> <span class="op">&amp;&amp;</span> subservice<span class="op">-&gt;</span>isConfigured<span class="op">()</span>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;&amp;</span> subservice<span class="op">-&gt;</span>isActive<span class="op">()</span> <span class="op">&amp;&amp;</span> registry<span class="op">-&gt;</span>isEnabled<span class="op">(</span>subservice<span class="op">))</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>r<span class="op">.</span>header<span class="op">.</span>topic<span class="op">.</span>items<span class="op">.</span>contain<span class="op">(</span>Request<span class="op">::</span>Header<span class="op">::</span>Type<span class="op">::</span>Active<span class="op">))</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span><span class="op">;</span>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> tmp <span class="op">=</span> r<span class="op">.</span>body<span class="op">.</span>items<span class="op">[</span><span class="dv">3</span><span class="op">].</span>data<span class="op">;</span>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tmp <span class="op">&gt;</span> <span class="dv">5</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> <span class="dv">1685</span> <span class="op">*</span> itemCount<span class="op">();</span>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>ignored<span class="op">)</span>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> IncorrectRequest<span class="op">(</span>r<span class="op">);</span>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">switch</span> <span class="op">(</span>t<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Type<span class="op">::</span>Responding<span class="op">:</span> <span class="cf">return</span> sendResponse<span class="op">(</span>r<span class="op">,</span> tmp<span class="op">);</span>  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Type<span class="op">::</span>Blocked<span class="op">:</span> <span class="cf">return</span> <span class="op">-</span><span class="dv">3</span><span class="op">;</span>  </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">default</span><span class="op">:</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>  </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>ignored<span class="op">)</span>  </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">throw</span> IncorrectRequest<span class="op">(</span>r<span class="op">);</span>  </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">switch</span> <span class="op">(</span>t<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Type<span class="op">::</span>Responding<span class="op">:</span> sendResponse<span class="op">(</span>r<span class="op">,</span> <span class="dv">15</span> <span class="op">*</span> itemCount<span class="op">()</span> <span class="op">-</span> <span class="dv">2</span><span class="op">);</span>  </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Type<span class="op">::</span>Blocked<span class="op">:</span> <span class="cf">return</span> <span class="op">-</span><span class="dv">3</span><span class="op">;</span>  </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">default</span><span class="op">:</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>  </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">4</span><span class="op">;</span>  </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">5</span><span class="op">;</span>  </span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>Użycie <em>magic numbers</em>
+<ul>
+<li>powinny być deskryptywnie nazwane stałe</li>
+</ul></li>
+<li>Użycie parametry <code>Type t</code> i instrukcji
+<code>switch</code> zamiast polimorfizmu</li>
+<li>Użycie parametru <code>bool ignored</code>
+<ul>
+<li>lepiej użyć deskryptywnie nazwany <code>enum</code></li>
+</ul></li>
+<li>Nazwa zmiennej <code>tmp</code>
+<ul>
+<li>powinna być nazwana deskryptywnie</li>
+</ul></li>
+<li>Pierwszy <code>if</code>
+<ul>
+<li>jest duplikacja kodu</li>
+<li>jest zbyt długi i skomplikowany</li>
+</ul></li>
+<li>Drugi <code>if</code>
+<ul>
+<li>powinien być wywołaniem metody na <code>r</code></li>
+</ul></li>
+<li>Zduplikowany <code>throw IncorrectRequest(r)</code>
+<ul>
+<li>można wyjąć przed instrukcję <code>if</code></li>
+</ul></li>
+<li>Instrukcja <code>case</code> bez <code>break</code> albo
+<code>return</code></li>
+<li>Mocno zagłębione <code>if</code>y
+<ul>
+<li>można odwrócić warunki i spłaszczyć zagłebienie (<code>return</code>
+bez <code>else</code>)</li>
+</ul></li>
+<li>Ostatni <code>return</code> jest nieosiągalny</li>
+</ul>
+<h3 id="section-5">3</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> Client<span class="op">::</span>download<span class="op">(</span><span class="at">const</span> Item<span class="op">&amp;</span> i<span class="op">,</span> Processing p<span class="op">,</span> <span class="dt">bool</span> confirmed<span class="op">)</span>  </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// sprawdzamy połączenie  </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>isConnected<span class="op">()</span> <span class="op">&amp;&amp;</span> isActive<span class="op">()</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>requests<span class="op">.</span>size<span class="op">()</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">((</span>security <span class="op">==</span> <span class="kw">nullptr</span><span class="op">)</span> <span class="op">||</span> security<span class="op">-&gt;</span>isAdmin<span class="op">()</span> <span class="op">||</span> security<span class="op">-&gt;</span>allowsDownloads<span class="op">()))</span>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> tmp <span class="op">=</span> i<span class="op">.</span>options<span class="op">.</span>flags<span class="op">[</span><span class="dv">3</span><span class="op">].</span>value<span class="op">;</span>  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tmp <span class="op">&lt;</span> <span class="dv">15</span><span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            tmp <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> i<span class="op">.</span>size<span class="op">();</span>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">switch</span> <span class="op">(</span>p<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Processing<span class="op">::</span>Async<span class="op">:</span> <span class="cf">return</span> confirmed <span class="op">?</span> startDownload<span class="op">(</span>i<span class="op">,</span> tmp<span class="op">)</span> <span class="op">:</span> <span class="op">-</span> <span class="dv">5</span><span class="op">;</span>  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Processing<span class="op">::</span>Sync<span class="op">:</span> <span class="cf">return</span> confirmed <span class="op">?</span> downloadNow<span class="op">(</span>i<span class="op">)</span> <span class="op">:</span> <span class="op">-</span><span class="dv">3</span><span class="op">;</span>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                <span class="cf">default</span><span class="op">:</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">switch</span> <span class="op">(</span>p<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Processing<span class="op">::</span>Sync<span class="op">:</span> <span class="cf">return</span> confirmed <span class="op">?</span> downloadNow<span class="op">(</span>i<span class="op">)</span> <span class="op">:</span> <span class="op">-</span><span class="dv">3</span><span class="op">;</span>  </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">case</span> Processing<span class="op">::</span>Async<span class="op">:</span> <span class="cf">return</span> confirmed <span class="op">?</span> startDownload<span class="op">(</span>i<span class="op">,</span> tmp <span class="op">-</span> <span class="dv">2</span><span class="op">)</span> <span class="op">:</span> <span class="op">-</span> <span class="dv">5</span><span class="op">;</span>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">default</span><span class="op">:</span> <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span>  </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span>  </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>  </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>  </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>parent<span class="op">.</span>mainProvider<span class="op">.</span>registry<span class="op">.</span>items<span class="op">.</span>cache<span class="op">.</span>contains<span class="op">(</span>i<span class="op">))</span>  </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">2</span><span class="op">;</span>  </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">4</span><span class="op">;</span>  </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">5</span><span class="op">;</span>  </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>Argument <code>p</code> i <code>switch</code> zamiast
+polimorfizmu</li>
+<li><em>Magic numbers</em></li>
+<li>Argument boolowski zamiast enum</li>
+<li>Nieosiągalny kod</li>
+<li>Zmienna <code>tmp</code></li>
+<li>Długi warunek w pierwszym <code>if</code>ie</li>
+<li>Odwołania głęboko w hierarchię w ostatnim <code>if</code>ie i w
+definicji <code>tmp</code></li>
+<li>Głęboko zagnieżdżone <code>if</code>y</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kolokwium-2">Kolokwium 2</a>
+<ul>
+<li><a href="#analiza-metryki">Analiza, metryki</a>
+<ul>
+<li><a href="#czym-różni-się-analiza-statyczna-od-dynamicznej">Czym
+różni się analiza statyczna od dynamicznej</a></li>
+<li><a href="#czym-się-różni-metryka-statyczna-od-dynamicznej">Czym się
+różni metryka statyczna od dynamicznej</a></li>
+<li><a href="#przykłady-analizy-dynamicznej">Przykłady analizy
+dynamicznej</a></li>
+<li><a href="#jakie-aspekty-oprogramowania-można-mierzyć-jakie-grupy-metryk-oprogramownia-można-wyznaczyć">Jakie
+aspekty oprogramowania można mierzyć (jakie grupy metryk oprogramownia
+można wyznaczyć)?</a></li>
+<li><a href="#przykłady-metryk-dynamicznych">Przykłady metryk
+dynamicznych</a></li>
+<li><a href="#przykłady-metryk-statycznych">Przykłady metryk
+statycznych</a></li>
+<li><a href="#czy-i-ewentualnie-jak-można-mierzyć-utrzymywalność-kodu">Czy (i
+ewentualnie jak) można mierzyć “utrzymywalność” kodu?</a></li>
+<li><a href="#czy-i-ewentualnie-jak-można-mierzyć-jakość-testu">Czy (i
+ewentualnie jak) można mierzyć jakość testu</a></li>
+<li><a href="#czy-analiza-dynamiczna-ma-przewagę-nad-statyczną">Czy
+analiza dynamiczna ma przewagę nad statyczną?</a></li>
+<li><a href="#co-pokrycie-kodu-mówi-o-jakości-testu">Co pokrycie kodu
+mówi o jakości testu?</a></li>
+<li><a href="#jak-ocenić-jakość-testu-na-ile-ocena-będzie-obiektywna">Jak
+ocenić jakość testu? Na ile ocena będzie obiektywna?</a></li>
+<li><a href="#w-jakim-celu-prowadzi-się-analizę-aplikacji">W jakim celu
+prowadzi się analizę aplikacji</a></li>
+</ul></li>
+<li><a href="#pokrycie">Pokrycie</a>
+<ul>
+<li><a href="#section">1</a></li>
+<li><a href="#section-1">2</a></li>
+<li><a href="#section-2">3</a></li>
+</ul></li>
+<li><a href="#co-jest-nie-tak-z-poniższym-kodem">Co jest nie tak z
+poniższym kodem</a>
+<ul>
+<li><a href="#section-3">1</a></li>
+<li><a href="#section-4">2</a></li>
+<li><a href="#section-5">3</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

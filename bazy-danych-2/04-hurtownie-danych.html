@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-hurtownie-danych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-model-relacyjny.html">Poprzedni: 03-model-relacyjny.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-model-fizyczny.html">Następny: 05-model-fizyczny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="hurtownie-danych">Hurtownie danych</h1>
+<h2 id="definicje">Definicje</h2>
+<h3 id="definicja-billa-inmona">Definicja Billa Inmona</h3>
+<ul>
+<li>Zorientowana na problem
+<ul>
+<li>nie dotyczy szczegółów bieżących operacji</li>
+<li>dotyczy danego problemu biznesowego</li>
+</ul></li>
+<li>Zintegrowana
+<ul>
+<li>dane są zbierane z wielu źródeł</li>
+<li>połączone w jedną całość</li>
+<li>nie jest widokiem na jedną bazę danych</li>
+</ul></li>
+<li>Wersjonowana w czasie
+<ul>
+<li>często jest potrzeba badania zmienności zjawisk w czasie</li>
+<li>wszystkie dane są przypisane do odpowiedniego okresu</li>
+</ul></li>
+<li>Niezmienna
+<ul>
+<li>najczęściej nie podlegają modyfikacji</li>
+<li>dotyczą faktów, które nastąpiły</li>
+<li>rejestruje się zdarzenie modyfikacji, a nie nadpisuje stan w
+hurtowni</li>
+<li>usuwanie jest czynnością administracyjną, a nie biznesową (czas
+retencji danych)</li>
+</ul></li>
+</ul>
+<h3 id="definicja-ralpha-kimballa">Definicja Ralpha Kimballa</h3>
+<ul>
+<li>Kopia danych transakcyjnych ustrukturalizowania w specyficzny sposób
+do wykonywania zapytań i analiz</li>
+<li>Specyficzna struktura
+<ul>
+<li>zorientowana wyłącznie na optymalizację zapytań analitycznych</li>
+<li>nie obsługuje żadnych zadań operacyjnych</li>
+<li>transakcje nie są istotne</li>
+</ul></li>
+<li>Zapytania i analizy
+<ul>
+<li>zapytania nie są ustandaryzowane jak w aplikacjach operacyjnych</li>
+<li>w aplikacji wiadomo jakie zapytania będą zadawane (z odpowiednimi
+parametrami)</li>
+<li>mogą być zadawane ad-hoc</li>
+<li>z reguły wykonywane przez narzędzia BI</li>
+<li>nie wiadomo z góry jakie zapytania będą wykonywane przez
+analityków</li>
+</ul></li>
+</ul>
+<h3 id="inna-definicja">Inna definicja</h3>
+<ul>
+<li>Zawiera dane z wielu źródeł</li>
+<li>Przeznaczone do użycia przez aplikacje wspomagania decyzji
+<ul>
+<li>ze szczególnym uwzględnieniem przetwarzania analitycznego
+online</li>
+</ul></li>
+<li>Dane są z reguły
+<ul>
+<li>wielowymiarowe</li>
+<li>historyczne</li>
+<li>niezmienne</li>
+</ul></li>
+</ul>
+<h3 id="dss">DSS</h3>
+<ul>
+<li>Systemy wspomagania decyzji
+<ul>
+<li>systemy informatyczne pozwalające osobom odpowiedzialnym
+(menedżerom) szybko podejmować właściwe decyzje</li>
+</ul></li>
+<li>Zestaw standardowych sposobów przetwarzania danych, z góry
+ustalone</li>
+<li>Zbliżone do systemów raportujących</li>
+</ul>
+<h3 id="olap">OLAP</h3>
+<ul>
+<li>Online Analytical Processing</li>
+<li>System BI pozwalający na szybkie pozyskiwanie informacji z
+wielowymiarowych baz danych w celu podejmowania decyzji</li>
+<li>Mają ustandaryzowaną metodę wykonywania analiz na wielowymiarowych
+bazach danych</li>
+<li>Wykorzystywane przez analityków, pozwala na szybkie wykonywanie
+pracy</li>
+<li>Wyniki analiz są wykorzystywane do podejmowania decyzji</li>
+<li>Dowolne zapytania w dowolnym momencie</li>
+</ul>
+<h2 id="architektura">Architektura</h2>
+<ul>
+<li>OLTP</li>
+<li>OLAP
+<ul>
+<li>odpowiednio ustrukturyzowane i wyczyszczone dane</li>
+</ul></li>
+<li>Nietransakcyjne
+<ul>
+<li>zorientowane na aplikację</li>
+<li>do wymiany informacji</li>
+<li>np. platformy społecznościowe</li>
+</ul></li>
+<li>Big Data
+<ul>
+<li>surowe dane</li>
+<li>zorientowane na wyciąganie użytecznych informacji (nawet z błędnych
+danych)</li>
+</ul></li>
+</ul>
+<h3 id="odrębność-hurtowni-i-systemu-oltp">Odrębność hurtowni i systemu
+OLTP</h3>
+<ul>
+<li>Zawawrtość bazy danych
+<ul>
+<li>hurtownia może zbierać dane z wielu baz transakcyjnych i
+zewnętrznych źródeł danych</li>
+</ul></li>
+<li>Organizacja danych
+<ul>
+<li>te same informacje są zorganizowane w inny sposób</li>
+</ul></li>
+<li>Metody dostępu do danych
+<ul>
+<li>OLTP musi wspierać jak najefektywniej <code>INSERT</code>,
+<code>UPDATE</code>, <code>DELETE</code></li>
+<li>do hurtowni dane są tylko dodawane i odczytywane</li>
+<li>normalizacja nie jest potrzebna bo dane nie są aktualizowane</li>
+</ul></li>
+<li>Obciążenie systemu
+<ul>
+<li>OLTP - obciążenie punktowe, modyfikacje pojedynczych wierszy, dużo
+małych transakcji</li>
+<li>OLAP - duże zapytania przetwarzające duże ilości danych</li>
+<li>wymaga innej konfiguracji do zoptymalizowania tego typu poleceń</li>
+</ul></li>
+</ul>
+<h3 id="rodzaje-hurtowni-danych">Rodzaje hurtowni danych</h3>
+<ul>
+<li>Hurtownia korporacyjna (detaliczna)
+<ul>
+<li>zawiera szczegółowe informacje o każdym fakcie wynikającym z danych
+bazy OLTP</li>
+<li>wszystko co można wyciągnąć z pierwotnych danych</li>
+</ul></li>
+<li>Składnica tematyczna (Data Mart)
+<ul>
+<li>zorientowana na konkretny problem/temat</li>
+<li>szybkie wyciąganie informacji na konkretny temat</li>
+<li>wstępnie zagregowane dane</li>
+</ul></li>
+<li>Hurtownia wirtualna
+<ul>
+<li>nie ma faktycznej hurtowni</li>
+<li>utrzymuje się niezależne źródła danych</li>
+<li>mechanizmy do pozyskiwania danych na bieżąco ze źródeł</li>
+</ul></li>
+</ul>
+<h3 id="warstwy-dss">Warstwy DSS</h3>
+<ul>
+<li>Serwer hurtowni
+<ul>
+<li>obsługuje bazę danych</li>
+</ul></li>
+<li>Serwery OLAP
+<ul>
+<li>może być zintegrowany z serwerem hurtowni</li>
+<li>obsługuje zapytania analityczne</li>
+<li>ROLAP</li>
+<li>MOLAP</li>
+<li>HOLAP</li>
+</ul></li>
+<li>Aplikacje i narzędzia
+<ul>
+<li>raportujące</li>
+<li>analityczne</li>
+<li>data mining</li>
+</ul></li>
+</ul>
+<h3 id="rolap">ROLAP</h3>
+<ul>
+<li>Relational OLAP</li>
+<li>Implementacja bazy wielowymiarowej jako struktury gwiazdy w bazie
+relacyjnej</li>
+<li>Te same mechanizmy co do baz transakcyjnych, inne ułożenie
+danych</li>
+<li>Dowolność w definiowaniu struktur</li>
+<li>SQL</li>
+<li>Standardowe mechanizmy optymalizacji</li>
+<li>Dodatkowe narzędzia/nakładki specyficzne dla OLAP</li>
+<li>Mniej wydajne niż MOLAP</li>
+<li>SQL może być mało wydajny w niektórych zastosowaniach</li>
+<li>Bez ograniczeń na pojemność (mała wrażliwość na wolumen)</li>
+</ul>
+<h3 id="molap">MOLAP</h3>
+<ul>
+<li>Multidimensional OLAP</li>
+<li>Wielowymiarowość na poziomie fizycznym</li>
+<li>Wysoka wydajność</li>
+<li>Dedykowane narzędzia</li>
+<li>Ściśle określona struktura danych</li>
+<li>Łatwa integracja z systemami BI</li>
+<li>Wrażliwe na wolumen danych</li>
+<li>Nieefektywne dla rzadkich danych</li>
+<li>Duże narzuty przy ładowaniu danych</li>
+</ul>
+<h3 id="holap">HOLAP</h3>
+<ul>
+<li>Hybrid OLAP</li>
+<li>Mieszana reprezentacja danych
+<ul>
+<li>łączy zalety baz relacyjnych i wielowymiarowych</li>
+</ul></li>
+<li>Część danych w postaci relacyjnej, część w postaci
+wielowymiarowej</li>
+<li>Dobór mechanizmów dostępu do potrzeb
+<ul>
+<li>tylko wybrane pola są w bazie wielowymiarowej</li>
+<li>tylko świeże dane w bazie wielowymiarowej</li>
+</ul></li>
+<li>Reprezentacja wertykalna i horyzontalna</li>
+<li>Skomplikowana i droga w utrzymaniu</li>
+</ul>
+<h3 id="architektura-cif">Architektura CIF</h3>
+<ul>
+<li>Corporate Information Factory</li>
+<li>Dane źródłowe poddawane procesowi ETL
+<ul>
+<li>trafiają do Enterprise Data Warehouse</li>
+</ul></li>
+<li>Enterprise Data Warehouse (EDW)
+<ul>
+<li>hurtownia detaliczna</li>
+<li>znormalizowana</li>
+<li>dane w procesie ETL trafiają do Data Marts</li>
+<li>dane używane bezpośrednio przez narzędzia BI</li>
+</ul></li>
+<li>Data Mart
+<ul>
+<li>składnice tematyczne</li>
+<li>zagregowane dane</li>
+<li>podział ze względu na organizację</li>
+</ul></li>
+<li>Narzędzia analityczne
+<ul>
+<li>dostają się do danych detalicznych w EDW lub zagregowanych w DM</li>
+</ul></li>
+</ul>
+<h3 id="architektura-edw-bus">Architektura EDW Bus</h3>
+<ul>
+<li>Enterprise Data Warehouse - hurtownia detaliczna
+(znormalizowana)</li>
+<li>Dane źródłowe trafiają do EDW w procesie ETL</li>
+<li>Dane z EDW trafiają do Data Marts w procesie ETL</li>
+<li>Data Marts - składnice tematyczne
+<ul>
+<li>dane zagregowane i detaliczne</li>
+<li>dane uzgodnione</li>
+<li>podział ze względu na procesy</li>
+</ul></li>
+<li>EDW Bus
+<ul>
+<li>moduł pośredni między narzędziami analitycznymi a Data Marts</li>
+<li>narzędzia analityczne nie korzystają bezpośrednio z hurtowni
+detalicznej</li>
+</ul></li>
+</ul>
+<h3 id="independent-data-marts">Independent Data Marts</h3>
+<ul>
+<li>Wiele niezależnych Data Marts
+<ul>
+<li>dane zagregowane i detaliczne</li>
+<li>dane nieuzgodnione</li>
+<li>podział ze względu na organizację</li>
+<li>każdy niezależnie uzupełniany danymi ze źródeł w procesie ETL</li>
+</ul></li>
+<li>Bez hurtowni korporacyjnej</li>
+<li>Łatwe do wdrożenia</li>
+<li>Chaotyczna struktura, może prowadzić do niezgodności danych</li>
+<li>Nie ma centralnego miejsca na obowiązujący zbiór danych</li>
+<li>Raczej jako prototyp</li>
+<li>Dedykowane narzędzia do konkretnych DM</li>
+<li>Brak spójności i integracji</li>
+</ul>
+<h2 id="procesy-i-narzędzia">Procesy i narzędzia</h2>
+<h3 id="etl">ETL</h3>
+<ul>
+<li>Extraction-Transformation-Loading</li>
+<li>Ekstrakcja danych ze źródeł
+<ul>
+<li>wykonywanie złożonych zapytań na bazach źródłowych</li>
+<li>wczytywanie i analiza plików</li>
+<li>pobieranie danych strumieniowych</li>
+<li>zapis danych w bazie pośredniej (stage)</li>
+</ul></li>
+<li>Czyszczenie danych
+<ul>
+<li>usuwanie błędnych wartości, śmieci</li>
+<li>wykrywanie anomalii (np. na podstawie spodziewanego rozkładu danych,
+dane są poprawne ale wymagają dodatkowej analizy)</li>
+<li>wykrywanie naruszonych więzów integralności</li>
+<li>wykrywanie braków w danych</li>
+<li>deduplikacja (ta sama wartość wprowadzona na różne sposoby, np.
+adres)</li>
+<li>uspójnianie formatów i wartości</li>
+</ul></li>
+<li>Transformacja
+<ul>
+<li>do spójnego formatu np. daty</li>
+</ul></li>
+<li>Integracja
+<ul>
+<li>np. ta sama osoba może być różnie identyfikowana w różnych systemach
+(PESEL, id pracownika)</li>
+</ul></li>
+<li>Znakowanie czasem</li>
+<li>Ładowanie do hurtowni
+<ul>
+<li>operacje (transformacja, czyszczenie) są wykonywane na bazie
+pośredniej</li>
+<li>wyniki są zapisywane w bazie hurtowni</li>
+<li>przetwarzanie załadowanych danych w hurtowni (agregaty)</li>
+</ul></li>
+<li>Obsługa danych szczególnych i metadanych
+<ul>
+<li>obsługa danych wyliczanych, pochodnych</li>
+<li>tworzenie struktur OLAP</li>
+<li>obsługa przestarzałych danych - dane źródłowe pojawią się z
+opóźnieniem</li>
+<li>obsługa metadanych</li>
+</ul></li>
+<li>Hurtownia musi zawierać dane w odpowieniej strukturze</li>
+</ul>
+<h3 id="projektowanie-etl">Projektowanie ETL</h3>
+<ul>
+<li>Wymaga zrozumienia potrzeb biznesowych
+<ul>
+<li>są inne niż wobec bazy OLTP</li>
+</ul></li>
+<li>Ustalenie KPI - Key Performance Indicators
+<ul>
+<li>wskaźniki wyliczane na podstawie danych</li>
+</ul></li>
+<li>Ustalenie i zrozumienie przepisów
+<ul>
+<li>jakie dane i jak długo wolno przechowywać</li>
+</ul></li>
+<li>Określenie jakości danych źródłowych i opracowanie technik
+zapewnienia jakości</li>
+<li>Określenie zakresu dostępu do danych
+<ul>
+<li>zasady bezpieczeństwa</li>
+<li>może wpływać na architekturę</li>
+</ul></li>
+<li>Opracowanie metod integracji danych
+<ul>
+<li>utożsamienie identyfikatorów</li>
+<li>uzgadnianie faktów i wymiarów</li>
+</ul></li>
+<li>Określenie potrzeb czasowych, częstotliwości i trybu zasilania
+<ul>
+<li>zazwyczaj dane są ładowane cyklicznie</li>
+<li>różne dane mogą mieć różne potrzeby czasowe</li>
+<li>uzupełnianie bazy OLAP obciąża bazę OLTP</li>
+</ul></li>
+<li>Dostosowanie wzajemne ETL i narzędzi BI
+<ul>
+<li>wykorzystanie odpowiednich struktur</li>
+</ul></li>
+</ul>
+<h3 id="moduły-etl">Moduły ETL</h3>
+<ul>
+<li>Ekstrakcja
+<ul>
+<li>profilowanie danych (jakość, przydatność, pełność)</li>
+<li>wyszukiwanie zmian od ostatniego ETL (CDC - Change Data
+Capture)</li>
+<li>odczyt danych z bazy</li>
+</ul></li>
+<li>Czyszczenie
+<ul>
+<li>czyszczenie</li>
+<li>obsługa błędów</li>
+<li>deduplikacja</li>
+<li>uzgadnianie danych</li>
+</ul></li>
+<li>Dostarczanie
+<ul>
+<li>zarządzanie zmiennością wymiarów (np. klient jako punkt w wymiarze
+klientów, mogą dochodzić nowi klienci)</li>
+<li>generacja kluczy sztucznych - klucze z baz źródłowych nie mają
+znaczenia, dane ze strumieni mogą nie mieć kluczy</li>
+<li>zarządzanie hierarchiami (np. podział administracyjny, czas)</li>
+<li>zarządzanie szczególnymi wymiarami (czas, zbiorcze, mini, skurczone,
+statyczne, użytkownika)</li>
+<li>budowa i ładowanie tabel faktów</li>
+<li>zarządzanie powiązaniami, mapowanie kluczy</li>
+<li>obsługa danych wielowartościowych</li>
+<li>obsługa danych spóźnionych</li>
+<li>udostępnianie uzgodnionych wymiarów</li>
+<li>udostępnianie uzgodnionych faktów</li>
+<li>budowa agregatów</li>
+<li>budowa kostek MOLAP</li>
+<li>sortowanie</li>
+<li>zarządzanie powiązaniami (dane źródłowe - dane hurtowni -
+raporty)</li>
+<li>propagacja danych, udostępnianie na zewnątrz</li>
+</ul></li>
+<li>Zarządzanie
+<ul>
+<li>szeregowanie zadań</li>
+<li>backup</li>
+<li>restart i odtwarzanie</li>
+<li>kontrola wersji</li>
+<li>migracja (test - produkcja)</li>
+<li>zarządzanie przepływem zadań biznesowych</li>
+<li>bezpieczeństwo</li>
+<li>zarządzanie zgodnością z przepisami</li>
+<li>zarządzanie metadanymi</li>
+</ul></li>
+</ul>
+<h2 id="model-danych">Model danych</h2>
+<p>Standardowo w hurtowniach stosuje się model wielowymiarowy, struktura
+jest prosta</p>
+<h3 id="podstawowe-struktury">Podstawowe struktury</h3>
+<h4 id="gwiazda">Gwiazda</h4>
+<ul>
+<li>1 tabela faktów - opisuje zdarzenia biznesowe i ich cechy</li>
+<li>1 tabela na wymiar - opisują kontekst w jakim wystąpił dany
+fakt</li>
+<li>Hierarchie wymiarów są ukryte (denormalizacja)</li>
+</ul>
+<h4 id="płatek-śniegu">Płatek śniegu</h4>
+<ul>
+<li>1 tabela faktów</li>
+<li>Możliwe wiele tabel na wymiar</li>
+<li>Wymiary hierarchiczne są znormalizowane (rozgałęzienia)</li>
+</ul>
+<h4 id="konstelacja">Konstelacja</h4>
+<ul>
+<li>Wiele tabel faktów</li>
+<li>Współdzielenie wymiarów</li>
+</ul>
+<h4 id="tabele-agregatów">Tabele agregatów</h4>
+<ul>
+<li>Dla optymalizacji dostępu do danych zagregowanych</li>
+</ul>
+<h3 id="wymiary">Wymiary</h3>
+<ul>
+<li>Model hurtowni - podajemy parametry, dostajemy wyniki</li>
+<li>Działa jak zbiór funkcji ze zmiennymi zależnymi i niezależnymi (x i
+y)</li>
+<li>Wymiary są tym czego chcemy używać jako parametry analiz
+<ul>
+<li>używane w <code>WHERE</code> i <code>GROUP BY</code></li>
+</ul></li>
+<li>Opisy, etykiety</li>
+<li>Parametry grupowania</li>
+<li>Parametry analiz</li>
+<li>Wymiar nie musi być zbiorem ciągłym ani uporządkowanym</li>
+<li>Różne rodzaje skali pozwalają na różne operacje
+<ul>
+<li>narzędzia nie powinny wykonywać na wymiarze operacji
+niedozwolonych</li>
+</ul></li>
+</ul>
+<h4 id="skale">Skale</h4>
+<ul>
+<li>Skala nominalna, dychotomiczna
+<ul>
+<li>np. województwo, płeć</li>
+<li>istnieje określony zbiór wartości, nie ma określonego porządku</li>
+<li>zliczanie, frakcja, dominanta</li>
+</ul></li>
+<li>Skala porządkowa
+<ul>
+<li>ustalony porządek między elementami</li>
+<li>jakiś naturalny porządek, nie ustalony arbitralnie (można
+uporządkować województwa alfabetycznie ale nie o to chodzi)</li>
+<li>porównywanie, min, max</li>
+<li>można określić co jest większe ale nie ma sensu pytanie <em>o
+ile</em></li>
+<li>np. wykształcenie</li>
+</ul></li>
+<li>Skala interwałowa
+<ul>
+<li>np. data-czas, temperatura w stopniach Celsjusza</li>
+<li>odejmowanie, średnia, wariancja</li>
+<li>ale dodawanie nie ma sensu</li>
+</ul></li>
+<li>Skala ilorazowa, absolutna
+<ul>
+<li>wszystkie operacje</li>
+<li>np. temperatura w stopniach Kelvina, liczba obiektów, stopa
+procentowa, interwał czasowy</li>
+<li>można określić np. że coś jest 2 razy większe</li>
+</ul></li>
+</ul>
+<h4 id="wymiary-hierarchiczne">Wymiary hierarchiczne</h4>
+<ul>
+<li>Wymiary dzielące się na jednostki niższego rzędu
+<ul>
+<li>okresy - rok, kwartał, miesiąc</li>
+<li>podział administracyjny - województwo, powiat, gmina</li>
+<li>struktura organizacji</li>
+<li>kategorie towarów</li>
+</ul></li>
+<li>Kluczowe cechy to głębokość podziału i jego zmienność</li>
+<li>Hierarchie stałej głębokości, pozycyjne
+<ul>
+<li>poziomy jako atrybuty w tabeli wymiarów (zdenormalizowane)</li>
+<li>poziomy jako powiązane tabele wymiarów w modelu płatka śniegu
+(znormalizowane)</li>
+<li>np. województwo-powiat-gmina-miejscowość</li>
+</ul></li>
+<li>Hierarchie o ograniczenie zmiennej głębokości
+<ul>
+<li>np. wiadomo że głębokość jest maksymalnie 5</li>
+<li>poziomy jako atrybuty (tyle ile maksymalna głębokość)</li>
+<li>ewentualnie dodatkowe atrybuty z opisami poziomów (drugie tyle
+kolumn)</li>
+<li>np. podział administracyjny w różnych krajach</li>
+<li>raczej nie ma sensu stosować oddzielnych tabel w stylu płatka śniegu
+ze względu na niejasność podziału</li>
+</ul></li>
+<li>Hierarchie o dowolnie zmiennej głębokości
+<ul>
+<li>rekursywny klucz obcy</li>
+<li>tabele łączące</li>
+<li>ścieżka w postaci sformatowanego stringa (jak ścieżka w systemie
+plików)</li>
+</ul></li>
+</ul>
+<h4 id="szczególne-rodzaje-wymiarów">Szczególne rodzaje wymiarów</h4>
+<h5 id="wielowartościowe">Wielowartościowe</h5>
+<ul>
+<li>Większa granulacja niż tabela faktów</li>
+<li>Z jednym faktem wiąże się wiele wartości</li>
+<li>Np. kontakty, choroby pacjenta</li>
+<li>Realizacja pozycyjna
+<ul>
+<li>ograniczenie liczby wartości do zadanej stałej</li>
+<li>odrębny atrybut dla każdej wartości</li>
+<li>prosta struktura</li>
+<li>niewygodne do rozszerzenia - wymaga dodania nowej kolumny</li>
+</ul></li>
+<li>Tabela łącząca (bridge)
+<ul>
+<li>struktura znormalizowana</li>
+<li>pozwala na obsługę dowolnej liczby wartości</li>
+<li>konieczne stworzenie perspektywy w formie tabeli przestawnej</li>
+<li>pivot zamieniający wiele weirszy na kolumny</li>
+</ul></li>
+<li>Realizacja bezpośrednia
+<ul>
+<li>string - wartości oddzielone separatorem</li>
+<li>wymaga analizy przy odczycie</li>
+<li>trudność tworzenia zapytań</li>
+</ul></li>
+</ul>
+<h5 id="wymiary-skurczone">Wymiary skurczone</h5>
+<ul>
+<li>Do budowy zagregowanych tabel faktów</li>
+<li>Podzbiór wierszy i kolumn wymiaru
+<ul>
+<li>odrzucenie danych z niższych poziomów</li>
+</ul></li>
+<li>Przy budowaniu tabel agregatów o mniejszej granulacji
+<ul>
+<li>np czas w dniach, a agregat w miesiącach</li>
+</ul></li>
+</ul>
+<h5 id="wymiary-zbiorcze">Wymiary zbiorcze</h5>
+<ul>
+<li>Zbierają w jednej tabeli wiele wymiarów o niskiej kardynalności</li>
+<li>Np. checkboxy zaznaczane w jednym formularzu przez użytkownika</li>
+<li>Uwzględniające dopuszczalne kombinacje wartości</li>
+</ul>
+<h5 id="wymiary-statyczne">Wymiary statyczne</h5>
+<ul>
+<li>Wymiary nie mające odpowiedników w danych źródłowych</li>
+<li>Tworzone przez kod ETL</li>
+<li>Np. arbitralnie określone zakresy lub opisy
+<ul>
+<li>czas</li>
+</ul></li>
+</ul>
+<h5 id="wymiary-użytkownika">Wymiary użytkownika</h5>
+<ul>
+<li>Wymiary wynikające z potrzeb raportowych</li>
+<li>Utrzymywane ręczne przez użytkownika hurtowni (dedykowaną
+aplikację)</li>
+<li>Przykłady
+<ul>
+<li>zakresy wartości grupowania</li>
+<li>specyficzne hierarchie</li>
+<li>mogą być wymagane różne dla różnych raportów</li>
+</ul></li>
+</ul>
+<h4 id="przykłady">Przykłady</h4>
+<ul>
+<li>Data
+<ul>
+<li>w bazie operacyjnej zapisuje się timestamp</li>
+<li>w hurtowni będzie mieć wszelkie atrybuty jakie mogą być potrzebne do
+analizy</li>
+<li>np. kwartał, dzień tygodnia, czy dzień roboczy itd</li>
+</ul></li>
+</ul>
+<h3 id="projektowanie-tabel-wymiarów">Projektowanie tabel wymiarów</h3>
+<h4 id="zasady-projektowania">Zasady projektowania</h4>
+<ul>
+<li>Prosty klucz sztuczny</li>
+<li>Klucz trwały
+<ul>
+<li>jeśli istnieje wiele wersji tego samego obiektu to klucz trwały
+identyfikuje ten obiekt</li>
+<li>charakterystyczne dla danych historyzowanych</li>
+</ul></li>
+<li>Duża liczba kolumn opisowych
+<ul>
+<li>bez kodów i skrótów</li>
+<li>wszystko ma być gotowe do odczytu i wyświetlenia przez generyczną
+aplikację</li>
+</ul></li>
+</ul>
+<h4 id="normalizacja-i-denormalizacja">Normalizacja i
+denormalizacja</h4>
+<ul>
+<li>Zdenormalizowane - gwiazda</li>
+<li>Znormalizowane - płatek śniegu</li>
+<li>Znormalizowane z kluczami obcymi pochodnymi do wymiarów głębiej w
+hierarchii
+<ul>
+<li>model stonogi</li>
+</ul></li>
+</ul>
+<h4 id="wymiary-wolnozmienne-scd">Wymiary wolnozmienne (SCD)</h4>
+<ol start="0" type="1">
+<li>Zachowywanie oryginału (niezmienne)</li>
+<li>Aktualizacja (korekta)
+<ul>
+<li>po poprawieniu błędu w bazie źródłowej</li>
+</ul></li>
+<li>Nowy wiersz (historia)
+<ul>
+<li>zalecany klucz trwały</li>
+<li>znacnziki czasu aktualności</li>
+</ul></li>
+<li>Nowe atrybuty (alternatywna rzeczywistość)
+<ul>
+<li>np. zmiana podziału administracyjnego</li>
+</ul></li>
+<li>Miniwymiary
+<ul>
+<li>podział wymiaru na podzbiory atrybutów zmieniających się
+wspólnie</li>
+</ul></li>
+<li>Miniwymiary + powiązanie z danymi aktualnymi
+<ul>
+<li>klucz obcy w jednym wymiarze do aktualnej powiązanej wartości w
+podwymiarze</li>
+</ul></li>
+<li>Atrybtu aktualny w wierszach historycznych typu 2
+<ul>
+<li>w jednym wierszu i dana historyczna i aktualna</li>
+</ul></li>
+<li>Połączenie typu 1 i 2 - klucz sztuczny i klucz trwały
+<ul>
+<li>widok z wartościami aktualnymi wybieranymi na podstawie flagi
+aktualności</li>
+<li>w fakcie jeden klucz obcy do wymiaru z tamtego momentu</li>
+<li>drugi klucz obcy trwały do widoku wymiaru z aktualnymi
+wartościami</li>
+</ul></li>
+</ol>
+<h3 id="fakty">Fakty</h3>
+<ul>
+<li>Opisują zdarzenia biznesowe</li>
+<li>Zmienne zależne (y)</li>
+<li>Wyniki analiz</li>
+<li>Wyniki zapytań
+<ul>
+<li>w wyrażeniu <code>SELECT</code></li>
+</ul></li>
+</ul>
+<h4 id="rodzaje-tabel-faktów">Rodzaje tabel faktów</h4>
+<ul>
+<li>Transakcyjne
+<ul>
+<li>np. zakup</li>
+<li>związane z konkretnymi zdarzeniami biznesowymi</li>
+</ul></li>
+<li>Akumulacyjne
+<ul>
+<li>np. krok w procesie</li>
+<li>wyjątkowo - aktualizowane po każdym kroku</li>
+<li>przez cały czas trwania jakiegoś procesu, rekord jest
+aktualizowany</li>
+</ul></li>
+<li>Periodyczne
+<ul>
+<li>np. stany rachunków</li>
+<li>snapshot stanu w danej chwili czasu</li>
+</ul></li>
+<li>Bezmiarowe
+<ul>
+<li>np. uczestnictwo w zajęciach</li>
+<li>żadnych dodatkowych informacji</li>
+</ul></li>
+<li>Skonsolidowane
+<ul>
+<li>np. zamówienie-faktura-płatność-wysyłka</li>
+<li>integruje w sobie kilka powiązanych zdarzeń biznesowych</li>
+</ul></li>
+<li>Zagregowane
+<ul>
+<li>według hierarchii wymiaru</li>
+<li>np. miesięczny obrót</li>
+</ul></li>
+</ul>
+<h4 id="miary">Miary</h4>
+<ul>
+<li>Wartości liczbowe opisujące fakty</li>
+<li>Z rodzaju wynika jakie operacje będą dopuszczalne</li>
+<li>Addytywne
+<ul>
+<li>sumowanie według każdego wymiaru</li>
+<li>np. wartość zakupu, ilość towaru, czas połączenia</li>
+</ul></li>
+<li>Semi-addytywne
+<ul>
+<li>sumowanie tylko według niektórych wymiarów</li>
+<li>np. stan konta - nie ma sensu sumowanie po czasie</li>
+</ul></li>
+<li>Nieaddytywne
+<ul>
+<li>nie można sumować</li>
+<li>np. temperatura, procenty</li>
+</ul></li>
+</ul>
+<h4 id="granulacja-faktów">Granulacja faktów</h4>
+<ul>
+<li>Odpowieniość wiersza w tabeli faktów do zdarzenia biznesowego</li>
+<li>Dla struktury hierarchicznej
+<ul>
+<li>fakty na poziomie podrzędnym (alokacja faktów, fakty
+generyczne)</li>
+<li>fakty na poziomie nadrzędnym (spłaszczenie)</li>
+<li>fakty na obu poziomach (odpowieniość 1-1 z bazą operacyjną)</li>
+</ul></li>
+</ul>
+<h4 id="alokacja-faktów">Alokacja faktów</h4>
+<ul>
+<li>Przypisanie faktów z wyższego poziomu do faktów niższego poziomu
+<ul>
+<li>np. faktura do pozycji na fakturze</li>
+</ul></li>
+<li>Brak konieczności budowy tabel faktów na różnych poziomach</li>
+</ul>
+<h4 id="fakty-generyczne">Fakty generyczne</h4>
+<ul>
+<li>Fakty, których znaczenie jest opisane typem</li>
+<li>Powodują zamianę kolumn tabeli faktów na wiersze</li>
+<li>Miara jest interpretowana poprzez wymiar</li>
+<li>Sensowne tylko jeśli nie są wykonywane obliczenia na wielu
+wartościach faktów generycznych</li>
+</ul>
+<h4 id="szczególne-rodzaje-faktów">Szczególne rodzaje faktów</h4>
+<ul>
+<li>Derywaty
+<ul>
+<li>fakty wyliczane w procesie ETL</li>
+<li>ułatwiają analizę, ale komplikują ETL</li>
+<li>definicja i algorytm wyliczania muszą być precyzyjne i stałe</li>
+<li>obliczenia muszą być wykonalne w czasie wykonywania procesu ETL</li>
+</ul></li>
+<li>Dane dodatkowe
+<ul>
+<li>dane zewnętrzne</li>
+<li>niepowiązane bezpośrednio z faktami</li>
+<li>np. kurs waluty w momencie wykonania jakiejś transakcji</li>
+<li>umieszczane w dodatkowych kolumnach tabeli faktów</li>
+</ul></li>
+</ul>
+<h4 id="projektowanie">Projektowanie</h4>
+<ul>
+<li>Należy dobrze zdefiniować jednolite znaczenie biznesowe faktów</li>
+<li>Minimalizować liczbę wierszy w tabeli faktów o ile to możliwe</li>
+<li>Ujęcie czasu
+<ul>
+<li>znacznik czasu zdarzenia</li>
+<li>początek, koniec, znacznik aktualności</li>
+</ul></li>
+</ul>
+<h3 id="inne-zagadnienia">Inne zagadnienia</h3>
+<h4 id="wymiar-vs-miara">Wymiar vs miara</h4>
+<ul>
+<li>Decyzja zależy od zastosowanie
+<ul>
+<li>zgodnie z definicją (wynik vs kryterium wyszukiwania)</li>
+</ul></li>
+<li>Informacja może być w obu miejscach
+<ul>
+<li>data może być i wymiarem i miarą</li>
+</ul></li>
+<li>Wartość dokładna jako miara, przedział jako wymiar</li>
+<li>Wartość jako miara, dokładny opis wartości jako wymiar</li>
+</ul>
+<h4 id="fakty-zgodne">Fakty zgodne</h4>
+<ul>
+<li>Conformed facts</li>
+<li>Miara występująca w różnych tabelach faktów mająca to samo znaczenie
+biznesowe</li>
+<li>Kluczowe dla integracji danych z różnych źródeł
+<ul>
+<li>wymaga weryfikacji zgodności znaczenia (np. zysk netto/brutto
+itd.)</li>
+</ul></li>
+</ul>
+<h4 id="wymiary-zgodne">Wymiary zgodne</h4>
+<ul>
+<li>Conformed dimensions</li>
+<li>Wymiary używane w różnych tabelach faktów mające to samo znaczenie
+biznesowe</li>
+<li>Mają te same nazwy kolumn i ich znaczenie</li>
+<li>Kluczowe dla integracji danych</li>
+</ul>
+<h4 id="fakty-opóźnione">Fakty opóźnione</h4>
+<ul>
+<li>Nie wszystkie informacje są dostępne w tym samym czasie</li>
+<li>Dane w tabeli faktów nie odpowiadają aktualnemu stanowi tabeli
+wymiarów</li>
+<li>Odszukanie właściwych danych przeszłych w historii wymiarów</li>
+<li>Konieczność przeliczania agregatów
+<ul>
+<li>zmieniono przeszłość</li>
+</ul></li>
+<li>Tabela wymiaru musi mieć znaczniki okresu obowiązywania</li>
+<li>Ewentualna konieczność dodatkowego uzyskania zgodności z przepisami
+<ul>
+<li>np. zbyt duże opóźnienie</li>
+</ul></li>
+</ul>
+<h4 id="wymiary-opóźnione">Wymiary opóźnione</h4>
+<ul>
+<li>Dane przychodzą szybciej niż kontekst
+<ul>
+<li>np. z danych strumieniowych</li>
+</ul></li>
+<li>Tworzenie pustych wierszy w tabeli wymiarów i późniejsze
+wypełnienie</li>
+<li>Warunki występowania
+<ul>
+<li>bieżące zasilanie hurtowni</li>
+<li>proces biznesowy pozwala na późniejsze uzupełnienie danych</li>
+</ul></li>
+</ul>
+<h3 id="operacje">Operacje</h3>
+<ul>
+<li>Roll up
+<ul>
+<li>np. sumowanie danych miesięcznych do rocznych</li>
+</ul></li>
+<li>Drill down
+<ul>
+<li>np. przejście od poziomu województwa do powiatu</li>
+</ul></li>
+<li>Slice &amp; dice
+<ul>
+<li>wybór zakresów w wymiarach</li>
+<li>np. wybór województwa, kategorii towaru i zakresu czasowego</li>
+</ul></li>
+<li>Pivot
+<ul>
+<li>np. przejście od sumy po towarach na sumę po klientach</li>
+</ul></li>
+<li>Drill across
+<ul>
+<li>połączenie danych dotyczących różnych faktów</li>
+<li>unika się takich operacji bo są bardzo nieefektywne</li>
+<li>np. zamówienia, płatności i wysyłki w jednym raporcie</li>
+</ul></li>
+</ul>
+<h3 id="zasady-projektowania-1">Zasady projektowania</h3>
+<ul>
+<li>Zapewniać zgodność wymiarów i faktów</li>
+<li>Unikać miar tekstowych</li>
+<li>Zapewniać właściwe opisy tekstowe wymiarów
+<ul>
+<li>bez kodów, skrótów itd</li>
+<li>zrozumiałe</li>
+</ul></li>
+<li>Unikać normalizacji hierarchii wymiarów
+<ul>
+<li>model gwiazdy gdzie się da</li>
+</ul></li>
+<li>Unikać faktów generycznych
+<ul>
+<li>minimalizacja liczby weirszy w tabeli faktów</li>
+</ul></li>
+<li>Przewidywać zmiany wymiarów
+<ul>
+<li>odpowiedni model może się dostosować do zmienności</li>
+<li>jest wiele metod</li>
+</ul></li>
+<li>Nie używać kluczy naturalnych
+<ul>
+<li>tylko sztuczne (i trwałe)</li>
+</ul></li>
+<li>Zapewniać struktury przyspieszające zapytania</li>
+<li>Zachowywać konsekwencję w granulacji tabel faktów</li>
+<li>Nie normalizować faktów</li>
+<li>Nie wymagać złączeń między tabelami faktów
+<ul>
+<li>można np. połączyć informacje w jednej tabeli</li>
+</ul></li>
+<li>Unikać dostosowywania tabel faktów do struktury raportów</li>
+</ul>
+<h2 id="proces-projektowania">Proces projektowania</h2>
+<h3 id="definicja-biznesowa">Definicja biznesowa</h3>
+<ul>
+<li>Określenie procesów i zdarzeń biznesowych</li>
+<li>Co skutkuje pojawiniem się danych
+<ul>
+<li>działania użytkowników aplikacji</li>
+<li>kroki procesów biznesowych</li>
+</ul></li>
+<li>Zdefiniowanie istotnych wartości oraz metryk zdarzeń procesów</li>
+</ul>
+<h3 id="dobór-granulacji-danych">Dobór granulacji danych</h3>
+<ul>
+<li>Co reprezentuje wiersz w tabeli faktów</li>
+<li>Przykładowo
+<ul>
+<li>skan towaru przy kasie</li>
+<li>pozycja faktury</li>
+<li>skan karty pokładowej</li>
+<li>dokument przyjęty w sprawie</li>
+<li>stan magazynowy towaru na koniec dnia</li>
+<li>stan rachunku karty na koniec okresu rozliczeniowego</li>
+</ul></li>
+<li>Zależy jakie informacje są potrzebne dla biznesu</li>
+</ul>
+<h3 id="identyfikacja-wymiarów">Identyfikacja wymiarów</h3>
+<ul>
+<li>Jak biznes opisuje dane tworzone przez kroki procesów
+biznesowych</li>
+<li>W jakim kontekście widzą zdarzenia biznesowe</li>
+</ul>
+<h3 id="identyfikacja-faktów">Identyfikacja faktów</h3>
+<ul>
+<li>Konfrontacja potrzeb biznesowych z realnymi danymi</li>
+<li>Co ma być mierzone</li>
+<li>Jakie są generowane wartości i jaka jest ich dostępność</li>
+<li>Jakie są metryki</li>
+<li>Jaka jest wartość biznesowa, KPI</li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Hurtownia danych służy wyłącznie celom biznesowym organizacji</li>
+<li>Projektując hurtownię należy poddać analizie procesy biznesowe
+<ul>
+<li>nie skupiać się na samych danych źródłowych</li>
+</ul></li>
+<li>Hurtownia jest optymalizowana wyłącznie dla efektywności zapytań
+<ul>
+<li>dyski są tanie</li>
+</ul></li>
+<li>Wielowymiarowy model bazy hurtowni jest stosunkowo prosty
+<ul>
+<li>kluczowe jest zrozumienie biznesowego znaczenia danych</li>
+</ul></li>
+<li>Przestrzeganie kilku prostych zasad i stosowanie standardowych
+technik z reguły wystarcza do stworzenia udanego projektu bazy</li>
+<li>Najwięcej pracy i umiejętności wymaga opracowanie dobrego procesu
+ETL</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#hurtownie-danych">Hurtownie danych</a>
+<ul>
+<li><a href="#definicje">Definicje</a>
+<ul>
+<li><a href="#definicja-billa-inmona">Definicja Billa Inmona</a></li>
+<li><a href="#definicja-ralpha-kimballa">Definicja Ralpha
+Kimballa</a></li>
+<li><a href="#inna-definicja">Inna definicja</a></li>
+<li><a href="#dss">DSS</a></li>
+<li><a href="#olap">OLAP</a></li>
+</ul></li>
+<li><a href="#architektura">Architektura</a>
+<ul>
+<li><a href="#odrębność-hurtowni-i-systemu-oltp">Odrębność hurtowni i
+systemu OLTP</a></li>
+<li><a href="#rodzaje-hurtowni-danych">Rodzaje hurtowni danych</a></li>
+<li><a href="#warstwy-dss">Warstwy DSS</a></li>
+<li><a href="#rolap">ROLAP</a></li>
+<li><a href="#molap">MOLAP</a></li>
+<li><a href="#holap">HOLAP</a></li>
+<li><a href="#architektura-cif">Architektura CIF</a></li>
+<li><a href="#architektura-edw-bus">Architektura EDW Bus</a></li>
+<li><a href="#independent-data-marts">Independent Data Marts</a></li>
+</ul></li>
+<li><a href="#procesy-i-narzędzia">Procesy i narzędzia</a>
+<ul>
+<li><a href="#etl">ETL</a></li>
+<li><a href="#projektowanie-etl">Projektowanie ETL</a></li>
+<li><a href="#moduły-etl">Moduły ETL</a></li>
+</ul></li>
+<li><a href="#model-danych">Model danych</a>
+<ul>
+<li><a href="#podstawowe-struktury">Podstawowe struktury</a></li>
+<li><a href="#wymiary">Wymiary</a></li>
+<li><a href="#projektowanie-tabel-wymiarów">Projektowanie tabel
+wymiarów</a></li>
+<li><a href="#fakty">Fakty</a></li>
+<li><a href="#inne-zagadnienia">Inne zagadnienia</a></li>
+<li><a href="#operacje">Operacje</a></li>
+<li><a href="#zasady-projektowania-1">Zasady projektowania</a></li>
+</ul></li>
+<li><a href="#proces-projektowania">Proces projektowania</a>
+<ul>
+<li><a href="#definicja-biznesowa">Definicja biznesowa</a></li>
+<li><a href="#dobór-granulacji-danych">Dobór granulacji danych</a></li>
+<li><a href="#identyfikacja-wymiarów">Identyfikacja wymiarów</a></li>
+<li><a href="#identyfikacja-faktów">Identyfikacja faktów</a></li>
+</ul></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

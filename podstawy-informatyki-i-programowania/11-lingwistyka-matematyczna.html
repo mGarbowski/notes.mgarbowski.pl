@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-lingwistyka-matematyczna</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-wstep-do-inzynierii-oprogramowania.html">Poprzedni: 09-wstep-do-inzynierii-oprogramowania.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-lingwistyka-matematyczna.html">Następny: 11-lingwistyka-matematyczna.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="lingwistyka-matematyczna">Lingwistyka matematyczna</h1>
+<h2 id="translacja-w-c">Translacja w C</h2>
+<p>Jednostka translacyjna * plik źródłowy * preprocesor - dołącza pliki
+nagłówkowe * kompilator * dokonuje optymalizacji tylko w obrębie
+jednostki translacyjnej - zna jej kontekst * generuje plik obiektowy
+(obj)</p>
+<p>Konsolidacja (linker) * dołącza statyczne biblioteki * generuje pliki
+wykonywalne (lib, dll, exe)</p>
+<p>Dołączanie zewnętrznych bibliotek * statyczne - przed wygenerowaniem
+kodu wykonywalnego * dynamiczne - w trakcie wykonywania kodu, nie są
+znane w trakcie kompilacji, tylko na podstawie plików nagłówkowych</p>
+<p>Kompilator dekomponuje problem tłumaczenia kodu źródłowego na
+instrukcje maszynowe * warstwa leksykalna - wydzielenie wyrazów *
+warstwa składniowa * sprawdzenie czy wyrazy poprawnie łączą się w
+większe struktury * stworzenie drzewa rozbioru składniowego</p>
+<h2 id="translator">Translator</h2>
+<p>Translator przetwarza kod źródłowy do innej postaci</p>
+<ul>
+<li>Assembler - z kodu assemblerowego do postaci binarnej</li>
+<li>Kompilator - z kodu źródłowego do postaci binarnej</li>
+<li>Kompilator skrośny (cross-compiler) - z kodu źródłowego do postaci
+binarnej innej platformy</li>
+<li>Transkompilator - z kodu w jednym języku na drugi</li>
+<li>Interpreter:
+<ul>
+<li>wykonuje bezpośrednio kod źródłowy po przetworzeniu do wewnętrznej
+reprezentacji</li>
+<li>maszyna wirtualna wykonująca kod pośredni (JVM)</li>
+<li>JIT (just-in-time compilation) - kod pośredni tłumaczony przed
+wykonaniem do instrukcji natywnych danej platformy</li>
+</ul></li>
+</ul>
+<h2 id="konsolidator-linker">Konsolidator (linker)</h2>
+<p>Dołącza kod bibliotek i scala kod powstały z wielu plików podczas
+kompilacji. * Statycznie - podczas kompilacji * Dynamicznie - w trakcie
+wykonywania programu</p>
+<h2 id="kompilacja-vs-interpretacja">Kompilacja vs Interpretacja</h2>
+<p>Oba podejścia mają swoje wady i zalety, wpływają na:</p>
+<ul>
+<li>Przenośność kodu między platformami</li>
+<li>Sposób zarządzania pamięcią</li>
+<li>Statyczne / dynamiczne typowanie</li>
+<li>Wydajność kodu</li>
+<li>Możliwość dbugowania</li>
+</ul>
+<p>Zastosowanie pośredniego kodu (np. Java bytecode) pozwala na
+wykonanie tego samego kodu na różnych platformach ale kosztem
+wydajności.</p>
+<h2 id="gramatyka">Gramatyka</h2>
+<p><span class="math display">\[G=&lt;T, N, P, S&gt;\]</span></p>
+<ul>
+<li>T - zbiór symboli terminalnych - alfabet, skończony zbiór
+symboli</li>
+<li>N - zbiór symboli nieterminalnych (pomocniczych) - używane w
+produkcjach</li>
+<li>P - zbiór produkcji - reguły generowania poprawnych słów / zdań</li>
+<li>S - symbol główny (startowy) <span class="math inline">\(S \in
+N\)</span></li>
+</ul>
+<p>Opisuje jak przy pomocy skończonej liczby reguł wyrazić zasady *
+generowania poprawnych (składniowo) sekwencji * rozpoznawania czy dana
+sekwencja jest poprawna (składniowo)</p>
+<p>Składnia - reguły budowania poprawnych sekwencji, opisuje się
+formalnie.</p>
+<p>Semantyka - reguły określające znaczenie poprawnych sekwencji. Nie ma
+formalnego sposobu no opis semantyki, pozostaje nieformalny opis w
+języku naturalnym.</p>
+<p>Przetwarzanie (dowolne) - przekształcanie sekwencji symboli w nowe
+sekwencje symboli, rządzi się regułami lingwistyki matematycznej.
+Przetwarzanie jest ciągiem kroków, sekwencja zdarzeń jest językiem
+przetwarzania.</p>
+<p>Język - to co się da wyprowadzić w dowolnej liczbie kroków od symbolu
+startowego - zbiór wszystkich zdań. Język generowany gramatyką <span
+class="math inline">\(G\)</span> - oznaczenie <span
+class="math inline">\(L(G)\)</span></p>
+<p>Ciąg pusty - ε (oznaczenie)</p>
+<p>Generowanie - przejście od symbolu startowego do poprawnego zdania
+wykorzystując produkcje</p>
+<p>Rozbiór (parsing) - sprawdzenie czy zdanie jest poprwane składniowo.
+Przejście od zdania do symbolu startowego (aksjomatu) - odwrotność
+generowania</p>
+<h3 id="gramatyka-wyrażeń-algebraicznych">Gramatyka wyrażeń
+algebraicznych</h3>
+<p>G = &lt;{a, +, *, (, )}, {A, B, S}, P, S&gt;</p>
+<p>P = {S -&gt; S+A | A, A -&gt; A*B | B, B -&gt; (S) | a}</p>
+<p>Wyrazy w danej gramatyce otrzymuje się przez podstawianie zgodnie z
+produkcjami, zaczynając od symbolu startowego</p>
+<p>S -&gt; S+A -&gt; A+A -&gt; B+A -&gt; a+A -&gt; a+A*B -&gt; a+B*B
+-&gt; a+a*B -&gt; a+a*a</p>
+<h2 id="niejednoznaczność-gramatyk">Niejednoznaczność gramatyk</h2>
+<p>Różne ciągi produkcji mogą dać w rezultacie ten sam wyraz ale dają
+różne drzewa wyprowadzeń. Mogą dawać inne rezultaty.</p>
+<p>Np. 1+2*3 może oznaczać (1+2)*3 albo 1+(2*3)</p>
+<h2 id="backus-naur-form">Backus-Naur Form</h2>
+<p>Notacja BNF - spsoób formalnego opisu produkcji.</p>
+<pre class="bnf"><code>&lt;Wyrażenie&gt; ::= &lt;Składnik&gt; | &lt;Wyrażenie&gt; + &lt;Składnik&gt; | &lt;Wyrażenie&gt; - &lt;Składnik&gt; ;
+&lt;Skladnik&gt; ::= &lt;Czynnik&gt; | &lt;Składnik&gt; * &lt;Czynnik&gt; ;
+&lt;Czynnik&gt; ::= ( &lt;Wyrażenie&gt; ) | x | 0 | 1 ;</code></pre>
+<ul>
+<li>Oparty na rekursji</li>
+<li>Wprowadza hierarchię</li>
+<li>Nie ma iteracji</li>
+<li>Nie ma możliwości grupowania symboli wewnątrz wyrażenia</li>
+<li>Rozwłekła</li>
+<li>Dużo specjalnych symboli</li>
+<li>Prosta konstrukcja drzewa rozbioru</li>
+</ul>
+<p>Rekurencyjna definicja wyrażenia daje nieskończony język</p>
+<p><code>&lt;Skladnik&gt; ::= &lt;Czynnik&gt; | &lt;Składnik&gt; * &lt;Czynnik&gt; ;</code></p>
+<h2 id="extended-backus-naur-form">Extended Backus-Naur Form</h2>
+<ul>
+<li>Standard ISO/IEC 14977</li>
+<li>Symbole terminalne w cudzosłowie</li>
+<li>Symbole w sekwencji oddzielone przecinkami</li>
+<li>Reguła zakończona średnikiem</li>
+<li>Stosuje się iteracyjne definicje zamiast rekursywnych</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Znaczenie</th>
+<th>Zapis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>definicja</td>
+<td>=</td>
+</tr>
+<tr class="even">
+<td>złączenie</td>
+<td>,</td>
+</tr>
+<tr class="odd">
+<td>zakończenie</td>
+<td>;</td>
+</tr>
+<tr class="even">
+<td>alternatywa</td>
+<td><code>\|</code></td>
+</tr>
+<tr class="odd">
+<td>zawartość opcjonalna</td>
+<td><code>[...]</code></td>
+</tr>
+<tr class="even">
+<td>powtórzenie</td>
+<td><code>{...}</code></td>
+</tr>
+<tr class="odd">
+<td>tekst dosłowny (literał)</td>
+<td><code>"..."</code> lub <code>'...'</code></td>
+</tr>
+<tr class="even">
+<td>grupowanie</td>
+<td><code>(...)</code></td>
+</tr>
+<tr class="odd">
+<td>komentarz</td>
+<td><code>(*...*)</code></td>
+</tr>
+<tr class="even">
+<td>wyrażenie specjalne</td>
+<td><code>?...?</code></td>
+</tr>
+<tr class="odd">
+<td>wyjątek</td>
+<td><code>-</code></td>
+</tr>
+<tr class="even">
+<td>powtórzenie</td>
+<td><code>*</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="ebnf"><code>(* poziom składni *)
+expression = term, {&quot;+&quot;, expression};
+term = factor, {&quot;*&quot;, term};
+factor = constant | variable | &quot;(&quot;, expression, &quot;)&quot;;
+
+(* poziom leksyki *)
+variable = &quot;x&quot; | &quot;y&quot; | &quot;z&quot;;
+constant = digit, {digit};
+digit = &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot;;</code></pre>
+<h3 id="diagramy-składniowe-railroad-diagrams">Diagramy składniowe
+(railroad diagrams)</h3>
+<figure>
+<img src="./obrazy/https://www.json.org/img/object.png"
+alt="Diagram składniowy z json.org" />
+<figcaption aria-hidden="true">Diagram składniowy z
+json.org</figcaption>
+</figure>
+<h2 id="wyrażenia-regularne">Wyrażenia regularne</h2>
+<p>Wyrażenia regularne pozwalają na rozpoznawanie wzorców i analizę
+leksykalną.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>Alfabet</td>
+<td><code>{0, 1}</code></td>
+</tr>
+<tr class="even">
+<td>Łańcuch – skończona sekwencja symboli</td>
+<td><code>0 0 1</code></td>
+</tr>
+<tr class="odd">
+<td>Długość łańcucha <code>x</code></td>
+<td><code>\|x\|</code></td>
+</tr>
+<tr class="even">
+<td>Pusty łańcuch</td>
+<td><code>ε</code></td>
+</tr>
+<tr class="odd">
+<td>Konkatenacja <code>x</code> i <code>y</code></td>
+<td><code>xy</code></td>
+</tr>
+<tr class="even">
+<td>Łańcuch <code>x</code> powtórzony i-krotnie</td>
+<td><code>x^i</code></td>
+</tr>
+<tr class="odd">
+<td>Dowolna ilość (Kleene star)</td>
+<td><code>*</code></td>
+</tr>
+<tr class="even">
+<td>Alternatywa</td>
+<td><code>\|</code></td>
+</tr>
+<tr class="odd">
+<td>Grupowanie wyrażeń</td>
+<td><code>(...)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="priorytety">Priorytety</h3>
+<ul>
+<li><code>*</code> powtórzenie - najwyższy</li>
+<li>iloczyn (konkatenacja)</li>
+<li><code>|</code> suma - najniższy</li>
+</ul>
+<h3 id="aksjomaty">Aksjomaty</h3>
+<ul>
+<li><code>r|s</code> = <code>s|r</code> przemienność <code>|</code></li>
+<li><code>r|(s|t)</code> = <code>(r|s)|t</code> łączność
+<code>|</code></li>
+<li><code>r(st)</code> = <code>(rs)t</code> iloczyn jest łączny</li>
+<li><code>r(s|t)</code> = <code>(rs)|(rt)</code></li>
+<li><code>(s|t)r</code> = <code>(sr)|(tr)</code></li>
+<li><code>εr</code> = <code>rε</code> = <code>r</code></li>
+</ul>
+<h3 id="metaznaki">Metaznaki</h3>
+<ul>
+<li><code>\</code> literalne traktowanie metaznaku (escaping)</li>
+<li><code>+</code> jeden lub więcej razy <code>a+</code> =
+<code>aa*</code></li>
+<li><code>?</code> zero lub 1 raz <code>a?</code> =
+<code>(a|ε)</code></li>
+<li><code>{n}</code> n-krotne powtórzenie</li>
+<li><code>{n,}</code> conajmniej n-krotne powtórzenie</li>
+<li><code>{,m}</code> maksymalnie m-krotne powtórzenie</li>
+<li><code>{n,m}</code> powtórzenie między n a m razy</li>
+<li><code>.</code> dowolny znak, pojedynczy literał</li>
+<li><code>[]</code> jeden znak z podanego zbioru
+<ul>
+<li><code>[abcd]</code>, <code>[a-d]</code> - jeden spośród znaków
+a,b,c,d</li>
+</ul></li>
+<li><code>[^]</code> jeden znak spoza podanego zbioru
+<ul>
+<li><code>[^abc]</code> jeden znak inny niż a,b,c</li>
+</ul></li>
+<li><code>^</code> początek łańcucha (linii, pliku, zależnie od
+kontekstu)</li>
+<li><code>$</code> koniec łańcucha</li>
+</ul>
+<p>Różne standardy, implementacje definiują pomocnicze klasy literałów
+(znaki alfanumeryczne <code>\w</code>, cyfry <code>\d</code>, białe
+znaki <code>\s</code>).</p>
+<p>Kwantyfikatory domyślnie są zachłanne (greedy), dopasowują najdłuższe
+możliwe wyrażenie. Dodanie <code>?</code> zmienia kwantyfikator na
+leniwy (lazy, nongreedy).</p>
+<p><code>&lt;h1&gt;Hello world!&lt;/h1&gt;</code></p>
+<ul>
+<li>Wyrażenie <code>&lt;.+&gt;</code> dopasuje cały napis (greedy)</li>
+<li>Wyrażenie <code>&lt;.+?&gt;</code> dopasuje tylko
+<code>&lt;h1&gt;</code> (lazy, nongreedy)</li>
+</ul>
+<h3 id="sprawdzanie-wyrażeń-regularnych">Sprawdzanie wyrażeń
+regularnych</h3>
+<ul>
+<li>https://regexr.com</li>
+<li>https://regex101.com</li>
+<li>https://emailregex.com/index.html</li>
+<li>https://www.regextester.com</li>
+</ul>
+<p>Wyrażenia regularne nie zawsze są dobrym rozwiązaniem, często
+niepotrzebnie komplikują rozwiązanie, nie da się rozwiązać problemu
+wyrażeniami regularnymi (poprawna walidacja adresu email) albo da się
+rozwiązać problem prościej bez wyrażeń regularnych.</p>
+<h2 id="automaty">Automaty</h2>
+<ul>
+<li>Automat skończony, skończenie stanowy, FSM, Finite State Machine
+<ul>
+<li>zbiory stanów i alfabetu są skończone</li>
+</ul></li>
+<li>Automat deterministyczny, DFA, Deterministic Finite Automaton
+<ul>
+<li>Jest tylko jeden stan początkowy</li>
+<li>Przejście jest określone jednoznacznie dla każdego wejścia (relacja
+przejść jest funkcją)</li>
+</ul></li>
+<li>Automat niedeterministyczny, NFA, Nondeterministic Finite
+Automaton</li>
+<li>Automat zupełny
+<ul>
+<li>Ma zdefiniowane przejście dla każdej pary stanu i wejścia</li>
+</ul></li>
+<li>Automat niezupełny</li>
+</ul>
+<h2 id="automat-rabina-scotta">Automat Rabina-Scotta</h2>
+<p>Pozwala na rozpoznawanie wyrażeń regularnych.</p>
+<ul>
+<li>Skończony zbiór stanów (FSM)</li>
+<li>W zbiorze stanów są wyróżnione
+<ul>
+<li>stany początkowe</li>
+<li>stany akceptujące</li>
+</ul></li>
+<li>Przechodzi do następnego stanu na podstawie symbolu z taśmy
+wejściowej, według określonej funkcji przejść</li>
+<li>Dojście do stanu akceptującego oznacza, że sekwencja spełnia
+wyrażenie</li>
+</ul>
+<h2 id="automaty-skończone-w-informatyce">Automaty skończone w
+informatyce</h2>
+<ul>
+<li>Akceptory
+<ul>
+<li>rozpoznaje sekwencję</li>
+<li>jedna taśma</li>
+<li>wyjście “tak” lub “nie”</li>
+</ul></li>
+<li>Klasyfikatory
+<ul>
+<li>przyporządkowuje sekwencję do kategorii</li>
+<li>jedna taśma</li>
+<li>jeden symbol wyjściowy ale więcej niż 2 możliwości</li>
+</ul></li>
+<li>Transduktor
+<ul>
+<li>generuje sekwencję wyjściową na podstawie wejściowej</li>
+<li>dwie taśmy</li>
+</ul></li>
+<li>Sekwencer / Generator
+<ul>
+<li>na żądanie generuje sekwencję wyjściową</li>
+</ul></li>
+</ul>
+<p>Automat skończony (FSM) można przedstawić jako etykietowany graf
+skierowany (Moore’a i Mealy’ego).</p>
+<p>Dla każdego automatu Moore’a da się skontruować równoważny
+(produkujący takie same sekwencje wyjściowe) automat Mealy’ego i na
+odwrót.</p>
+<h2 id="diagramy-stanów-statecharts">Diagramy stanów (statecharts)</h2>
+<p>Koncepcja statecharts pozwala na łatwiejsze modelowanie złożonych
+automatów i ich podfunkcjonalności.</p>
+<ul>
+<li>Model skończenie stanowy</li>
+<li>Zdarzenia są wejściami automatu</li>
+<li>Reakcje na zdarzenia to stany automatu</li>
+<li>Hierarchiczne zagnieżdżanie - stan może zawierać statechart</li>
+<li>Może modelować równoległe działanie automatów</li>
+<li>Dodatkowe typy stanów początkowych</li>
+</ul>
+<h2 id="uml---unified-modeling-language">UML - Unified Modeling
+Language</h2>
+<p>Notacja opisująca diagramy stanów.</p>
+<p>Modeluje diagramy: * Przypadków użycia * Struktury * Klas *
+Implementacji * Pakietów * Zachowania * Sekwencji * Współpracy * Stanów
+* Aktywności</p>
+<h2 id="stan-jako-wzorzec-projektowy"><a
+href="https://refactoring.guru/design-patterns/state">Stan jako wzorzec
+projektowy</a></h2>
+<figure>
+<img
+src="https://refactoring.guru/images/patterns/diagrams/state/structure-en.png?id=38c5cc3a610a201e5bc26a441c63d327"
+alt="Diagram wzorca stanu" />
+<figcaption aria-hidden="true">Diagram wzorca stanu</figcaption>
+</figure>
+<ul>
+<li><code>Context</code> przechowuje aktualny stan, deleguje do niego
+operacje, obsługuje zmianę stanu.</li>
+<li><code>State</code> określa operacje wspierane przez stany.</li>
+<li>Konkretne implementacje mogą przechowywać kontekst i inicjalizować
+przejście do kolejnego stanu.</li>
+<li>Kontekst i konkretne stany mogą zmieniać aktualny stan przez zmianę
+referencji do aktualnego stanu w kontekście.</li>
+<li>Każdą implementację stanu można przetestować niezależnie.</li>
+</ul>
+<p>Implementacja z wykorzystaniem tabeli przejść i wyjść albo jednym
+wielkim <code>switch(...) case: ...</code> jest nieobiektowe, źle się
+skaluje i jest ciężkie do testowania.</p>
+<h2 id="związek-między-gramatyką-i-automatem">Związek między gramatyką i
+automatem</h2>
+<p>Gramatyki generują (produkują) słowa i zdania. Automaty akceptują
+słowa i zdania.</p>
+<h3 id="i-twierdzenie-kleenego">I Twierdzenie Kleene’go</h3>
+<p>Dla każdego niedeterministycznego automatu <span
+class="math inline">\(A\)</span> istnieje gramatyka regularna <span
+class="math inline">\(G\)</span> taka, że <span
+class="math inline">\(L(A) = L(G)\)</span></p>
+<h3 id="ii-twierdzenie-kleenego">II Twierdzenie Kleene’go</h3>
+<p>Dla każdej gramatyki regularnej <span
+class="math inline">\(G\)</span> istnieje skończony automat <span
+class="math inline">\(A\)</span> taki, że <span
+class="math inline">\(L(G) = L(A)\)</span></p>
+<h3 id="konstrukcja-thompsona">Konstrukcja Thompsona</h3>
+<p>Sposób na zbudowanie automatu rozpoznającego wyrażenie regularne.
+Tworzy automat niedeterministyczny.</p>
+<p>Istnieje algorytm budowania automatu deterministycznego z
+niedeterministycznego albo z wyrażenia regularnego.</p>
+<p>Automat rozpoznający wyrażenie nie musi być zupełny ale można tak
+uzupełnić przejścia i stany, żeby dodatkowo wprowadzić diagnostykę na
+podstawie tego, w którym stanie nieakceptującym automat wyląduje.</p>
+<h2 id="hierarchia-gramatyk-chomskyego">Hierarchia gramatyk
+Chomsky’ego</h2>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Chomsky-hierarchy.svg/1024px-Chomsky-hierarchy.svg.png"
+alt="Hierarchia Chomsky’ego" />
+<figcaption aria-hidden="true">Hierarchia Chomsky’ego</figcaption>
+</figure>
+<table>
+<thead>
+<tr class="header">
+<th>Typ języka</th>
+<th>Automat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rekurencyjnie przeliczalny</td>
+<td>Maszyna Turinga</td>
+</tr>
+<tr class="even">
+<td>Kontekstowy</td>
+<td>Automat liniowo ograniczony</td>
+</tr>
+<tr class="odd">
+<td>Bezkontekstowy</td>
+<td>Automat ze stosem</td>
+</tr>
+<tr class="even">
+<td>Regularny</td>
+<td>Automat skończony</td>
+</tr>
+</tbody>
+</table>
+<p>Języki regularne dają się wyrazić przez wyrażenia regularne -
+równoważnie z automatami skończonymi.</p>
+<p>Notacja nawiasowa z nieograniczoną liczbą zagnieżdżeń nie daje się
+opisać wyrażeniem regularnym ze względu na brak informacji o historii
+dojścia do danego stanu - potrzebny jest automat stosowy.</p>
+<h2 id="automat-stosowy">Automat stosowy</h2>
+<p>Automat rozbudowanay o pamięć stosową</p>
+<p><span class="math display">\[A = &lt;Z, K, next, z_0, q_0,
+H&gt;\]</span></p>
+<ul>
+<li><span class="math inline">\(Z\)</span> alfabet stosu</li>
+<li><span class="math inline">\(K\)</span> zbiór stanów automatu</li>
+<li><span class="math inline">\(T\)</span> alfabet taśmy wejściowej</li>
+<li><span class="math inline">\(next\)</span> relacja przejść</li>
+<li><span class="math inline">\(z_0 \in Z\)</span> symbol początkowy
+stosu</li>
+<li><span class="math inline">\(q_0 \in K\)</span> stan początkowy
+automatu</li>
+<li><span class="math inline">\(H \subseteq K\)</span> zbiór stanów
+akceptowalnych</li>
+</ul>
+<h2 id="maszyna-turinga">Maszyna Turinga</h2>
+<ul>
+<li>Nieskończona taśma podzielona na komórki
+<ul>
+<li>załadowana danymi wejściowymi</li>
+</ul></li>
+<li>Głowinca czytająco-pisząca
+<ul>
+<li>wykonuje operacje na podstawie grafu sterowania</li>
+<li>może przesuwać się o jedną komórkę w lewo lub w prawo</li>
+<li>ma określone położenie początkowe</li>
+</ul></li>
+<li>Alfabet - symbole znajdujące się na taśmie danych
+<ul>
+<li>w tym symbol pusty</li>
+</ul></li>
+<li>Graf sterowania
+<ul>
+<li>skończenie stanowy</li>
+<li>ma stan początkowy i stany końcowe</li>
+</ul></li>
+</ul>
+<p>Po dojściu do stanu końcowego na taśmie znajduje się wynik.</p>
+<p>Jest teoretycznym modelem dla każdego komputera. Taśma - przestrzeń
+adresowa. Procesor jest uniwersalną maszyną Turinga (sekwencer - graf
+sterowania).</p>
+<p>Maszyna Turinga ma wszystkie możliwości atuomatu stanowego, więc
+każdy język formalny akceptowany przez FSM jest też akceptowany przez
+odpowiednio ograniczoną maszynę Turinga.</p>
+<h3 id="teza-churcha-turinga">Teza Churcha-Turinga</h3>
+<ul>
+<li>Maszyna Turinga jest w stanie rozwiązać każdy efektywnie
+rozwiązywalny problem algorytmiczny</li>
+<li>Dla każdego efektywnie rozwiązywalnego problemu algorytmicznego da
+się skonstruować maszynę Turinga, która go rozwiązuje.</li>
+<li>Jeśli nie da się skonstruować maszyna Turinga rozwiązującej dany
+problem to jest on nierozwiązywalny.</li>
+</ul>
+<h3 id="symulatory">Symulatory</h3>
+<ul>
+<li><a href="https://turingmachinesimulator.com">Symulator maszyny
+Turinga #1</a></li>
+<li><a href="https://morphett.info/turing/turing.html">Symulator maszyny
+Turinga #2</a></li>
+<li><a href="https://turingmachine.io">Symulator maszyny Turinga
+#3</a></li>
+</ul>
+<pre><code>// http://turingmachinesimulator.com/shared/iwhwburkwb
+
+name: Negate number in two&#39;s complement encoding
+init: negating
+accept: stop
+
+negating,0
+negating,1,&gt;
+
+negating,1
+negating,0,&gt;
+
+negating,_
+goBackToAdd,_,&lt;  // Finished negating, adding one
+
+goBackToAdd,_
+addOne,_,&lt;
+
+addOne,0
+stop,1,-
+
+addOne,1
+addOne,0,&lt;
+
+addOne,_
+stop,_,-</code></pre>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#lingwistyka-matematyczna">Lingwistyka matematyczna</a>
+<ul>
+<li><a href="#translacja-w-c">Translacja w C</a></li>
+<li><a href="#translator">Translator</a></li>
+<li><a href="#konsolidator-linker">Konsolidator (linker)</a></li>
+<li><a href="#kompilacja-vs-interpretacja">Kompilacja vs
+Interpretacja</a></li>
+<li><a href="#gramatyka">Gramatyka</a>
+<ul>
+<li><a href="#gramatyka-wyrażeń-algebraicznych">Gramatyka wyrażeń
+algebraicznych</a></li>
+</ul></li>
+<li><a href="#niejednoznaczność-gramatyk">Niejednoznaczność
+gramatyk</a></li>
+<li><a href="#backus-naur-form">Backus-Naur Form</a></li>
+<li><a href="#extended-backus-naur-form">Extended Backus-Naur Form</a>
+<ul>
+<li><a href="#diagramy-składniowe-railroad-diagrams">Diagramy składniowe
+(railroad diagrams)</a></li>
+</ul></li>
+<li><a href="#wyrażenia-regularne">Wyrażenia regularne</a>
+<ul>
+<li><a href="#priorytety">Priorytety</a></li>
+<li><a href="#aksjomaty">Aksjomaty</a></li>
+<li><a href="#metaznaki">Metaznaki</a></li>
+<li><a href="#sprawdzanie-wyrażeń-regularnych">Sprawdzanie wyrażeń
+regularnych</a></li>
+</ul></li>
+<li><a href="#automaty">Automaty</a></li>
+<li><a href="#automat-rabina-scotta">Automat Rabina-Scotta</a></li>
+<li><a href="#automaty-skończone-w-informatyce">Automaty skończone w
+informatyce</a></li>
+<li><a href="#diagramy-stanów-statecharts">Diagramy stanów
+(statecharts)</a></li>
+<li><a href="#uml---unified-modeling-language">UML - Unified Modeling
+Language</a></li>
+<li><a href="#stan-jako-wzorzec-projektowy"><span>Stan jako wzorzec
+projektowy</span></a></li>
+<li><a href="#związek-między-gramatyką-i-automatem">Związek między
+gramatyką i automatem</a>
+<ul>
+<li><a href="#i-twierdzenie-kleenego">I Twierdzenie Kleene’go</a></li>
+<li><a href="#ii-twierdzenie-kleenego">II Twierdzenie Kleene’go</a></li>
+<li><a href="#konstrukcja-thompsona">Konstrukcja Thompsona</a></li>
+</ul></li>
+<li><a href="#hierarchia-gramatyk-chomskyego">Hierarchia gramatyk
+Chomsky’ego</a></li>
+<li><a href="#automat-stosowy">Automat stosowy</a></li>
+<li><a href="#maszyna-turinga">Maszyna Turinga</a>
+<ul>
+<li><a href="#teza-churcha-turinga">Teza Churcha-Turinga</a></li>
+<li><a href="#symulatory">Symulatory</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

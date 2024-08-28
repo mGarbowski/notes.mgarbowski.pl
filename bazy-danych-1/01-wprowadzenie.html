@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wprowadzenie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-model-koncepcyjny.html">Następny: 02-model-koncepcyjny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wprowadzenie-do-baz-danych">Wprowadzenie do baz danych</h1>
+<h2 id="pojęcia">Pojęcia</h2>
+<ul>
+<li>Dane - fakty, reprezentują zdarzenia</li>
+<li>Informacje - dane umieszczone w kontekście nadającym im znaczenie
+<ul>
+<li>te same dane, w różnych kontekstach mogą oznaczać co innego</li>
+</ul></li>
+<li>Wiedza - informacje osadzone w szerszym kontekście syntaktycznym,
+semantycznym i pragmatycznym</li>
+<li>Decyzje - czynności podejmowane w kontekście informacji aby
+zrealizować cele</li>
+</ul>
+<h2 id="baza-danych-zapewnia">Baza danych zapewnia</h2>
+<ul>
+<li>trwałość danych</li>
+<li>oddzielenie definicji danych od danych
+<ul>
+<li>dostosowanie sposobu przechowywania do danych</li>
+</ul></li>
+<li>wielość widoków na dane</li>
+<li>różne poziomy abstrakcji</li>
+<li>niezależność danych od aplikacji</li>
+</ul>
+<h2 id="model-danych">Model danych</h2>
+<p>Specyfikacja reguł definiujących</p>
+<ul>
+<li>strukturę danych</li>
+<li>dozwolone operacje</li>
+<li>więzy integralności</li>
+</ul>
+<h2 id="baza-danych">Baza danych</h2>
+<p>Zbiór danych / faktów przechowywanych zgodnie z określonym modelem
+danych</p>
+<h2 id="system-zarządzania-bazą-danych">System zarządzania bazą
+danych</h2>
+<p>Program komputerowy wyspecjalizowany do gromadzenia i przetwarzania
+danych</p>
+<h2 id="system-bazy-danych">System bazy danych</h2>
+<p>Cały ekosystem, system zarządzania bazą danych, modelem danych,
+językiem komunikowania się, modelem obliczeniowym</p>
+<h2 id="tok-modelowania">Tok modelowania</h2>
+<ol type="1">
+<li>Świat rzeczywisty</li>
+<li>Model koncepcyjny - projekt związków encji, diagramy ER
+<ul>
+<li>abstrakcyjny model świata rzeczywistego</li>
+<li>niezależny od szczegółów implementacyjnych</li>
+<li>opisuje elementy świata rzeczywistego podlegające odwzorowaniu w
+bazie</li>
+</ul></li>
+<li>Model logiczny - schemat relacyjny
+<ul>
+<li>Odwzorowuje elementy z modelu koncepcyjnego w struktury odpowiednie
+dla danego modelu logicznego (np. relacje)</li>
+<li>Tutaj wybiera się system relacyjny / dokumentowy itp</li>
+</ul></li>
+<li>Model fizyczny - system zarządzania bazą danych
+<ul>
+<li>Efektywnie realizuje wybrany model logiczny</li>
+</ul></li>
+</ol>
+<p>Ważne jest stworzenie spójnego modelu, do tych samych zbiorów danych
+mogą mieć dostęp różne grupy użytkowników</p>
+<p>Model pozwala opisać problem ze świata rzeczywistego w języku
+zrozumiałym przez różne zainteresowane grupy (programiści, architekci,
+użytkownicy, osoby nietechniczne).</p>
+<p>Zdefiniowanie scenariuszy użycia, na podstawie historyjek można
+napisać testy.</p>
+<p>Opis w nie w pełni formalnym języku nie jest modelem danych.</p>
+<h3 id="model-er">Model E/R</h3>
+<p>Entity Relationship, najpopularniejszy model koncepcyjny, zawiera</p>
+<ul>
+<li>encje</li>
+<li>relacje (związki)</li>
+<li>atrybuty</li>
+<li>więzy integralności</li>
+</ul>
+<h3 id="logiczne-modele-danych">Logiczne modele danych</h3>
+<ul>
+<li>Klasyczne
+<ul>
+<li>hierarchiczny - drzewa</li>
+<li>sieciowy</li>
+<li>relacyjny - tabele</li>
+</ul></li>
+<li>obiektowy</li>
+<li>dedukcyjny - możliwość wnioskowania na podstawie danych</li>
+<li>post-relacyjny - rozszerzenia modelu relacyjnego</li>
+<li>XML (dokumentowy)</li>
+<li>grafowy</li>
+</ul>
+<h3 id="fizyczny-model-danych">Fizyczny model danych</h3>
+<p>Określa takie aspekty jak</p>
+<ul>
+<li>fizyczne struktury danych
+<ul>
+<li>fizyczna reprezentacja nie musi być taka sama jak logiczna - nie
+będzie odwzorowania tabel 1-1</li>
+<li>musi zapewniać jak najlepszą wydajność</li>
+</ul></li>
+<li>indeksy - przyspieszenie wyszukiwania</li>
+<li>klastry - rozproszone bazy danych</li>
+<li>zapewnianie więzów integralności</li>
+<li>metadane</li>
+<li>zarządzanie wielodostępem - obsługa transakcji, unikanie
+deadlocku</li>
+<li>zarządzanie wydajnością
+<ul>
+<li>zachowanie spójności bez blokowania całej bazy</li>
+</ul></li>
+<li>bezpieczeństwo danych</li>
+<li>użytkownicy i role</li>
+</ul>
+<h2 id="system-zarządzania-bazą-danych-dbms">System zarządzania bazą
+danych (DBMS)</h2>
+<h3 id="podstawowe-własności">Podstawowe własności</h3>
+<ul>
+<li>przechowywanie danych zgodnych z określonym modelem danych</li>
+<li>operacje CRUD</li>
+<li>definiowanie schematu bazy danych</li>
+<li>definiowanie więzów integralności</li>
+<li>wykonywanie zapytań</li>
+<li>wykonywanie raportów i zestawień</li>
+</ul>
+<h3 id="oferują">Oferują</h3>
+<ul>
+<li>przechowywanie</li>
+<li>trwałość</li>
+<li>niezawodność</li>
+<li>replikacje</li>
+<li>mirroring</li>
+<li>klastrowanie</li>
+<li>spójność</li>
+<li>transakcje</li>
+<li>backupy</li>
+<li>konfigurowalność</li>
+<li>bezpieczeństwo</li>
+<li>poufność</li>
+<li>odtworzenia</li>
+</ul>
+<h2 id="użytkownicy-bazy-danych">Użytkownicy bazy danych</h2>
+<ul>
+<li>użytkownicy końcowi</li>
+<li>użytkownicy końcowi zaawansowani</li>
+<li>analitycy biznesowi</li>
+<li>analitycy danych</li>
+<li>projektanci, architekci bazy danych</li>
+<li>architekci technologiczni</li>
+<li>programiści baz danych</li>
+<li>testerzy</li>
+<li>administratorzy baz danych</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie-do-baz-danych">Wprowadzenie do baz danych</a>
+<ul>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#baza-danych-zapewnia">Baza danych zapewnia</a></li>
+<li><a href="#model-danych">Model danych</a></li>
+<li><a href="#baza-danych">Baza danych</a></li>
+<li><a href="#system-zarządzania-bazą-danych">System zarządzania bazą
+danych</a></li>
+<li><a href="#system-bazy-danych">System bazy danych</a></li>
+<li><a href="#tok-modelowania">Tok modelowania</a>
+<ul>
+<li><a href="#model-er">Model E/R</a></li>
+<li><a href="#logiczne-modele-danych">Logiczne modele danych</a></li>
+<li><a href="#fizyczny-model-danych">Fizyczny model danych</a></li>
+</ul></li>
+<li><a href="#system-zarządzania-bazą-danych-dbms">System zarządzania
+bazą danych (DBMS)</a>
+<ul>
+<li><a href="#podstawowe-własności">Podstawowe własności</a></li>
+<li><a href="#oferują">Oferują</a></li>
+</ul></li>
+<li><a href="#użytkownicy-bazy-danych">Użytkownicy bazy danych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

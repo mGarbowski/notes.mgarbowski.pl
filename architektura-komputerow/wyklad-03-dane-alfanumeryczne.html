@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03-dane-alfanumeryczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02-klasyfikacja-pamieci.html">Poprzedni: wyklad-02-klasyfikacja-pamieci.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04-reprezentacja-danych-w-pamieci.html">Następny: wyklad-04-reprezentacja-danych-w-pamieci.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-03-2023-02-27">Wykład 03 (2023-02-27)</h1>
+<h2 id="dane-alfanumeryczne">Dane alfanumeryczne</h2>
+<h3 id="ascii">ASCII</h3>
+<ul>
+<li>128 pozycji, 7 bitów w podstawowej wersji
+<ul>
+<li>alfabet łaciński</li>
+<li>cyfry</li>
+<li>znaki interpunkcyjne, arytmetyczne</li>
+<li>95 znaków widocznych, 33 kody sterujące</li>
+</ul></li>
+<li>256 pozycji, 8 bitów w wersji rozszerzonej do lokalnych potrzeb</li>
+<li>grupy symboli zaczynają się od pozycji o numerach 32 lub 16
+<ul>
+<li><ol start="32" type="1">
+<li>spacja</li>
+</ol></li>
+<li><ol start="48" type="1">
+<li>cyfry</li>
+</ol></li>
+<li><ol start="65" type="1">
+<li>wielkie litery</li>
+</ol></li>
+<li><ol start="97" type="1">
+<li>małe litery</li>
+</ol></li>
+</ul></li>
+<li>kody sterujące
+<ul>
+<li>CR - carriage return - powrót na początek wiersza</li>
+<li>LF - line feed - przejście do następnego wiersza</li>
+<li>CAN - kasowanie znaku</li>
+<li>na końcu linii CR, LF (Unix) lub CRLF (Windows)</li>
+</ul></li>
+</ul>
+<h3 id="ebcdic">EBCDIC</h3>
+<ul>
+<li>Używane przez komputery IBM</li>
+<li>8 bitowe</li>
+<li>bazowany na BCD</li>
+</ul>
+<h3 id="unicode">Unicode</h3>
+<ul>
+<li>Reprezentacji wszystkich znaków używanych na świecie</li>
+<li>32 bitowy, de facto 2^21 pozycji</li>
+<li>wstecznie kompatybilny z ASCII</li>
+</ul>
+<h3 id="utf-8">UTF-8</h3>
+<ul>
+<li>reprezentacja znaku unicode na zmiennej liczbie bajtów</li>
+<li>wstecznie kompatybilny z ASCII</li>
+<li>można rozpoznać gdzie zaczyna się znak</li>
+</ul>
+<h3 id="zapis-łańcuchów-tekstowych-string">Zapis łańcuchów tekstowych
+(string)</h3>
+<p>Program musi wiedzieć gdzie kończy się łańcuch albo jaka jest jego
+długość * łańcuch zakończony znakiem NUL (0x00) - C * zapisanie liczby
+określającej długość na początku - Basic</p>
+<h2 id="dźwięk">Dźwięk</h2>
+<ul>
+<li>8 kHz, 8 bitów - próbkowanie wystarczające do zrozumiałego
+przekazania mowy</li>
+<li>48 kHz, 16 bitów - standard</li>
+</ul>
+<h2 id="obraz-rastrowy">Obraz rastrowy</h2>
+<ul>
+<li>prostokątna macierz pikseli</li>
+<li>pixel - picture element</li>
+<li>RGB 24-bitowe nie odzwierciedla możliwości ludzkiego oka</li>
+</ul>
+<h2 id="jednostki-informacji">Jednostki informacji</h2>
+<ul>
+<li>tetrada - 4 bity</li>
+<li>oktet - 8 bitów</li>
+<li>bajt - różnie, zazwyczaj 8 bitów</li>
+<li>słowo - jednostka na której operuje komputer, zazwyczaaj 1/2/4/8/16
+bajtów</li>
+<li>słowo procesora - jesdnostka informacji o długości naturalnej dla
+danego procesora (długość rejestru), 32 lub 64 bity</li>
+<li>słowo pamięci …</li>
+</ul>
+<h2 id="zapis-danych-boolowskich">Zapis danych boolowskich</h2>
+<p>Wystarczyłby jeden bit ale większość architektur operuje minimalnie
+na bajcie.</p>
+<p>Standardowo przy czytaniu wartość 0 oznacza fałsz, a dowolna inna
+oznacza prawdę. Przy zapisywaniu, językach pochodnych od C, prawda jest
+zapisywana jako liczba całkowita 1, w Visual Basic jako ciąg samych
+<code>1</code>.</p>
+<p>W C są oddzielne operatory boolowskie (<code>||</code>,
+<code>&amp;&amp;</code>, <code>!</code>) i bitowe (<code>|</code>,
+<code>&amp;</code>, <code>~</code>). Języki, które nie mają tego
+rozróżnienia zachowują się jak operatory bitowe. Trzeba uważać przy
+operacjach i przekazywaniu danych między programami używających innych
+reprezentacji.</p>
+<h2 id="zapis-danych-liczbowych">Zapis danych liczbowych</h2>
+<h3 id="liczby-ze-znakiem">Liczby ze znakiem</h3>
+<ul>
+<li>Kod uzupełnień do dwóch (U2)
+<ul>
+<li>jedyny wykorzystywany współcześnie</li>
+</ul></li>
+<li>Kod uzupełnień do jedynek (U1)</li>
+<li>Kod znak-moduł (ZM)</li>
+<li>Zapis spolaryzowany (biased)
+<ul>
+<li>wykładnik w liczbie zmiennopozycyjnej</li>
+<li>wygodniejszy przy projektowaniu FPU</li>
+</ul></li>
+</ul>
+<h3 id="własności-sposobu-kodowania">Własności sposobu kodowania</h3>
+<ul>
+<li>Reprezentacja zera</li>
+<li>Symetria zakresu</li>
+<li>Reprezentacja znaku</li>
+<li>Zamiana znaku</li>
+<li>Łatwość wykonywania operacji arytmetycznych
+<ul>
+<li>dodawanie i odejmowanie U2 realizują identyczne układy do NKB</li>
+<li>inaczej wykrywa się przepełnienie w NKB i U2</li>
+<li>mnożenie dwóch n-bitowych liczb z wynikiem 2n-bitowym jest inne ale
+z n-bitowym wynikiem realizuje je identyczny układ co NKB</li>
+</ul></li>
+</ul>
+<h3 id="binary-coded-decimal-bcd">Binary Coded Decimal (BCD)</h3>
+<ul>
+<li>Wykorzystywany historycznie dla liczb dziesiętnych
+stałopozycyjnych.</li>
+<li>Używa 4 bity na każdą cyfrę</li>
+<li>Postać spakowana - 2 cyfry na bajt</li>
+<li>Postać niespakowana - 1 cyfra w bajcieh</li>
+</ul>
+<h3 id="zapis-stałopozycyjny">Zapis stałopozycyjny</h3>
+<ul>
+<li>Przesunięcie wag w zapisie całkowitoliczbowym</li>
+<li>Takie same operacje arytmetyczne jak na liczbach całkowitych (ze
+skalowaniem przy mnożeniu i dzieleniu)</li>
+<li>Nie wymaga oddzielnych instrukcji dla procesora</li>
+<li>Dokładny wynik</li>
+</ul>
+<h3 id="zapis-zmiennopozycyjny">Zapis zmiennopozycyjny</h3>
+<ul>
+<li>Standard IEEE754/IEC60559</li>
+<li>Bazuje na notacji wykładniczej</li>
+<li>Postać znormalizowana - część całkowita równa 1</li>
+<li>Wartości specjalne
+<ul>
+<li>+/- nieskończoność</li>
+<li>głośna nieliczba - jednostka sygnalizuje błąd (na poziomie sprzętu)
+kiedy będzie podana jako argument</li>
+<li>cicha nieliczba - jednostka przepisuje argument na wynik ale nie
+sygnalizuje błędu (dopiero na koniec obliczeń)</li>
+</ul></li>
+</ul>
+<p>Standardowe formaty * binary32 (IEEE single) * binary64 (IEEE double)
+* BF16 - używany w sztucznej inteligencji * 128-bitowa - obliczenia o
+wysokiej precyzji, nie wspierane sprzętowo (póki co)</p>
+<p>Będzie przeliczanie IEEE single na kolokwium</p>
+<h2 id="arytmetyka-zmiennopozycyjna">Arytmetyka zmiennopozycyjna</h2>
+<ul>
+<li>Reprezentacja i wynik operacji są przybliżone</li>
+<li>Dodawanie nie jest przemienne, należy wykonywać w kolejności
+rosnącej wartości bezwzględnej</li>
+<li>Nie należy używać relacji równości, tylko
+<code>abs(a-b) &lt; epsilon</code></li>
+<li>32-bitowy float ma mniejszą precyzję niż 32-bitowy int</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-03-2023-02-27">Wykład 03 (2023-02-27)</a>
+<ul>
+<li><a href="#dane-alfanumeryczne">Dane alfanumeryczne</a>
+<ul>
+<li><a href="#ascii">ASCII</a></li>
+<li><a href="#ebcdic">EBCDIC</a></li>
+<li><a href="#unicode">Unicode</a></li>
+<li><a href="#utf-8">UTF-8</a></li>
+<li><a href="#zapis-łańcuchów-tekstowych-string">Zapis łańcuchów
+tekstowych (string)</a></li>
+</ul></li>
+<li><a href="#dźwięk">Dźwięk</a></li>
+<li><a href="#obraz-rastrowy">Obraz rastrowy</a></li>
+<li><a href="#jednostki-informacji">Jednostki informacji</a></li>
+<li><a href="#zapis-danych-boolowskich">Zapis danych
+boolowskich</a></li>
+<li><a href="#zapis-danych-liczbowych">Zapis danych liczbowych</a>
+<ul>
+<li><a href="#liczby-ze-znakiem">Liczby ze znakiem</a></li>
+<li><a href="#własności-sposobu-kodowania">Własności sposobu
+kodowania</a></li>
+<li><a href="#binary-coded-decimal-bcd">Binary Coded Decimal
+(BCD)</a></li>
+<li><a href="#zapis-stałopozycyjny">Zapis stałopozycyjny</a></li>
+<li><a href="#zapis-zmiennopozycyjny">Zapis zmiennopozycyjny</a></li>
+</ul></li>
+<li><a href="#arytmetyka-zmiennopozycyjna">Arytmetyka
+zmiennopozycyjna</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

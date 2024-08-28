@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-stosy-protokolow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-organizacje-standaryzacyjne.html">Następny: 02-organizacje-standaryzacyjne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="stosy-protokołów">Stosy protokołów</h1>
+<h2 id="model-isoosi">Model ISO/OSI</h2>
+<ul>
+<li><ol start="7" type="1">
+<li>warstwa aplikacji</li>
+</ol></li>
+<li><ol start="6" type="1">
+<li>warstwa prezentacji</li>
+</ol>
+<ul>
+<li>wewnętrzna reprezentacja danych</li>
+<li>konwencje little/big endian</li>
+<li>kodowanie znaków</li>
+</ul></li>
+<li><ol start="5" type="1">
+<li>warstwa sesji</li>
+</ol>
+<ul>
+<li>nawiązywanie/zrywanie połączenia</li>
+<li>uwierzytelnianie, autoryzacja</li>
+</ul></li>
+<li><ol start="4" type="1">
+<li>warstwa transportowa</li>
+</ol>
+<ul>
+<li>adresowanie procesów (numer portu)</li>
+<li>niezawodność transmisji</li>
+</ul></li>
+<li><ol start="3" type="1">
+<li>warstwa sieciowa</li>
+</ol>
+<ul>
+<li>globalne adresowanie</li>
+<li>routing pakietów</li>
+</ul></li>
+<li><ol start="2" type="1">
+<li>warstwa łącza</li>
+</ol>
+<ul>
+<li>poziomy napięcia</li>
+<li>postać ramki</li>
+</ul></li>
+<li><ol type="1">
+<li>warstwa fizyczna</li>
+</ol>
+<ul>
+<li>specyfikacje kabli, gniazdek</li>
+<li>właściwości fizyczne</li>
+</ul></li>
+</ul>
+<h2 id="model-tcpip">Model TCP/IP</h2>
+<ul>
+<li>warstwa aplikacji (aplikacji, prezentacji, sesji OSI)</li>
+<li>warstwa transportowa</li>
+<li>warstwa internetu (sieciowa OSI)</li>
+<li>warstwa interfejsu (łącza OSI)</li>
+<li>warstwa sprzętowa (fizyczna OSI)</li>
+</ul>
+<p>Do danych dołączane są 3 nagłówki MAC, IP i TCP/UDP i końcówka z sumą
+kontrolną w sieci Ethernet - enkapsulacja</p>
+<p>Model ISO/OSI nie pokrywa się z protokołami stosu IP.</p>
+<p>Protokoły oddzielają sprzęt od oprogramowania, to umożliwia
+niezależny rozwój wszystkich warstw (oprogramowania i sprzętu). Każde
+oprogramowanie poprawnie wspierające protokół będzie działać na każdym
+sprzęcie wspierającym ten protokół.</p>
+<p>Protokoły bardzo rzadko się zmieniają, specyfikacje są stabilne.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#stosy-protokołów">Stosy protokołów</a>
+<ul>
+<li><a href="#model-isoosi">Model ISO/OSI</a></li>
+<li><a href="#model-tcpip">Model TCP/IP</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

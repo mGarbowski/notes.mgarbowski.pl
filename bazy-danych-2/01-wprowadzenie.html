@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wprowadzenie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-model-pojeciowy.html">Następny: 02-model-pojeciowy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wprowadzenie">Wprowadzenie</h1>
+<h2 id="model-pojęciowy-e-r">Model pojęciowy (E-R)</h2>
+<p>Entity-relationship - model związków encji</p>
+<ul>
+<li>Encja</li>
+<li>Atrybut</li>
+<li>Związek</li>
+<li>Unikatowy identyfikator</li>
+</ul>
+<h2 id="model-relacyjny">Model relacyjny</h2>
+<ul>
+<li>Relacja (tabela)
+<ul>
+<li>podzbiór iloczynu kartezjańskiego dziedzin atrybutów</li>
+<li>zbiór danych umieszczonych w tabeli</li>
+<li>schemat relacyjny- struktura tabeli</li>
+</ul></li>
+<li>Atrybut (kolumna)</li>
+<li>Krotka (wiersz)</li>
+<li>Kucz obcy</li>
+<li>Klucz główny</li>
+</ul>
+<p>Nie mylić <em>realtion</em> z <em>relathionship</em></p>
+<h2 id="założenia-przy-projektowaniu">Założenia przy projektowaniu</h2>
+<ul>
+<li>Celem jest zbudowanie modelu bazy danych
+<ul>
+<li>opisuje jakiś wycinek świata</li>
+<li>opiera się na przeprowadzonej analizie</li>
+</ul></li>
+<li>Model bazy danych jest statyczny
+<ul>
+<li>model tworzy się raz i aplikacje korzystają z niego przez długi
+czas</li>
+</ul></li>
+<li>Aplikacje są oparte na statycznym modelu danych</li>
+<li>Model musi być elastyczny, żeby odzwierciedlać zmiany w świecie
+rzeczywistym
+<ul>
+<li>w praktyce model może ulec zmianie w trakcie życia systemu</li>
+<li>bardzo często tak się dzieje</li>
+<li>chodzi o to żeby stworzone statyczne struktury mogły spełniać
+dynamicznie rozwijające się wymagania</li>
+</ul></li>
+</ul>
+<p>Założenia dotyczą baz relacyjnych. W sytuacjach gdzie model jest
+bardzo zmienny albo w ogóle nieznany, dopoki dane nie zostaną
+dostarczone, stosuje się rozwiązania NoSQL.</p>
+<h2 id="encja">Encja</h2>
+<ul>
+<li>Odpowiednik pojęcia, terminu</li>
+<li>Grupuje obiekty o zbliżonej strukturze informacyjnej
+<ul>
+<li>dla jednych obiektów mozemy znać jakieś cechy, a dla innych nie
+znamy / nie są określone / nie ma ich</li>
+<li>np. encja <em>pojazd</em> może opisywać i samochody i pociągi, nie
+wszystkie atrybuty stosują się do obu z nich</li>
+</ul></li>
+<li>Cechy opisuje się atrybutami encji</li>
+<li>Pozwala jednoznacznie określić przynależność obiektu do danej encji
+<ul>
+<li>mając obiekt i dobrze określoną encję możemy określić czy ten obiekt
+należy do encji czy nie (daje się opisać pojęciem albo nie)</li>
+</ul></li>
+<li>Dla poprawności modelu ER (i później modelu relacyjnego) potrzebna
+jest możliwość odróżniania od siebie obiektów w ramach enjcji
+<ul>
+<li>trzeba z góry wiedzieć czym różnią się między sobą</li>
+<li>obiekt musi różnić się od innych zestawem cech</li>
+<li>musimy mieć możliwość efektywnego korzystania z tych cech</li>
+<li>bez tej własność encja nie nadaje się do poprawnego modelu</li>
+<li>unikatowy identyfikator</li>
+</ul></li>
+<li>Musi przynajmniej jedną cechę (atrybut)</li>
+<li>Można stosować różną granulację pojęć
+<ul>
+<li>pojazd vs lądowy/wodny/powietrzny</li>
+<li>pojazd lądowy vs samochód/szynowy/jednoślad</li>
+<li>co lepsze? to zależy</li>
+<li>np. zależy czy bardziej nas interesują podobieństwa czy różnice</li>
+<li>perspektywa, punkt widzenia określa potrzeby względem modelu
+danych</li>
+<li>nie ma generycznego modelu rzeczywistości (są dla niektórych
+dziedzin np. ubezpieczenia)</li>
+<li>model zawsze tworzy się w jakimś kontekście (baza danych do
+wykorzystania przez system informatyczny)</li>
+</ul></li>
+<li>Można równocześnie używać różnych poziomów encji w jednym modelu
+(podtypy)</li>
+</ul>
+<h3 id="rodzaje-pojęć-opisywanych-przez-encje">Rodzaje pojęć opisywanych
+przez encje</h3>
+<ul>
+<li>Przedmioty fizyczne</li>
+<li>Przedmioty niefizyczne</li>
+<li>Przedmioty fikcyjne</li>
+<li>Relacja (ontologiczna)
+<ul>
+<li>zapis na kurs</li>
+<li>leasing pojazdu</li>
+</ul></li>
+<li>Czas
+<ul>
+<li>rzadko w praktyce traktuje się czas jako encję, częściej jako
+atrybut</li>
+<li>w kalendarzu, terminarzu</li>
+</ul></li>
+<li>Proces
+<ul>
+<li>obieg dokumentu</li>
+<li>sprawa w urzędzie</li>
+</ul></li>
+</ul>
+<h2 id="notacja-barkera">Notacja Barkera</h2>
+<ul>
+<li>Nazwa encji - rzeczownik w liczbie pojedynczej</li>
+<li>Encja - prostokąt</li>
+<li>Atrybuty
+<ul>
+<li><code>*</code> - atrybut obowiązkowy</li>
+<li>kółko - atrybut opcjonalny</li>
+<li><code>#</code> - unikatowy identyfikator</li>
+</ul></li>
+<li>Arność
+<ul>
+<li>ile związek ma końców</li>
+<li>w tej notacji tylko binarne</li>
+<li>związek o większej arności można zastąpić oddzielną encją</li>
+<li>w modelu relacyjnym to i tak musi być oddzielna tabela</li>
+</ul></li>
+<li>Krotność
+<ul>
+<li>ile obiektów encji wchodzi w związek po danej stronie</li>
+<li>jeden do wielu, jeden do jednego, itd.</li>
+<li>krotność jest różna w zależności od którego końca się patrzy</li>
+</ul></li>
+<li>Krotność minimalna - ile obiektów z drugiej encji minimalnie wchodzi
+w dany związek
+<ul>
+<li>0 - wychodząca linia przerywana - związek opcjonalny</li>
+<li>1 - wychodząca linia ciągła - związek obligatoryjny</li>
+</ul></li>
+<li>krotność maksymalna
+<ul>
+<li>przeciwny koniec linii</li>
+<li>rozgałęziony - wiele</li>
+<li>pojedynczy - jeden</li>
+</ul></li>
+<li>Rola związku w semantyce modelu
+<ul>
+<li>etykieta przy linii</li>
+<li>musimy wiedzieć co oznacza dany związek</li>
+</ul></li>
+<li>Używana w Oracle Datamodeler</li>
+</ul>
+<p><img src="./obrazy/notacja-barkera.png" /></p>
+<p>Każdy <em>encja A</em> (może|musi) <em>rola A</em> (dokładnie 1 |
+wiele) <em>encja B</em> Każdy <em>encja B</em> (może|musi) <em>rola
+B</em> (dokładnie 1 | wiele) <em>encja A</em></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie">Wprowadzenie</a>
+<ul>
+<li><a href="#model-pojęciowy-e-r">Model pojęciowy (E-R)</a></li>
+<li><a href="#model-relacyjny">Model relacyjny</a></li>
+<li><a href="#założenia-przy-projektowaniu">Założenia przy
+projektowaniu</a></li>
+<li><a href="#encja">Encja</a>
+<ul>
+<li><a href="#rodzaje-pojęć-opisywanych-przez-encje">Rodzaje pojęć
+opisywanych przez encje</a></li>
+</ul></li>
+<li><a href="#notacja-barkera">Notacja Barkera</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-indeksowanie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-analiza-wizyjna.html">Poprzedni: 12-analiza-wizyjna.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="14-steganografia.html">Następny: 14-steganografia.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="indeksowanie">Indeksowanie</h1>
+<h2 id="indeskowanie-multimediów">Indeskowanie multimediów</h2>
+<ul>
+<li>Potrzeba wynika z dużej ilości multimediów</li>
+<li>Danych multimedialnych jest coraz więcej</li>
+<li>Coraz trudniej wyszukiwać / filtrować</li>
+<li>Dane są użyteczne jeśli można je odnaleźć</li>
+<li>Najprościej indeksować przez opis tekstowy
+<ul>
+<li>dla dokumentów tekstowych to łatwe, np. słowa kluczowe</li>
+<li>dla audio / wideo można dodać tekstowe atrybuty</li>
+<li>opis jest subiektywny, może zwracać uwagę na inne aspekty</li>
+<li>“co autor miał na myśli”</li>
+</ul></li>
+<li>Pojawia się potrzeba automatyzacji opisów / indeksowania</li>
+</ul>
+<h2 id="wyszukiwanie-tekstowe">Wyszukiwanie tekstowe</h2>
+<ul>
+<li>Dla danych audiowizualnych trzeba stworzyć odpowiedni opis</li>
+<li>Słowa kluczowe mogą być wieloznaczne</li>
+<li>Różni ludzie mogą opisać to samo zdjęcie w różny sposób</li>
+</ul>
+<h2 id="informacja-o-danych">Informacja o danych</h2>
+<ul>
+<li>Może być nadawany przez twórcę i nie wynikać z treści
+<ul>
+<li>data i sposób uzyskania</li>
+<li>autor, prawa autorskie</li>
+<li>odsyłacze do powiązanych materiałów</li>
+<li>raczej dodawane ręcznie</li>
+</ul></li>
+<li>Opis sygnałowy (zawarty w treści)
+<ul>
+<li>niezależny od kontekstu i twórcy</li>
+<li>możliwe mapowanie na cechy semantyczne</li>
+<li>nie ogranicza możliwości wyszukiwania</li>
+<li>cechy bez wartości semantycznej</li>
+<li>możliwa automatyczna ekstrakcja cech</li>
+</ul></li>
+<li>Opis semantyczny (zawarty w treści)
+<ul>
+<li>cechy wysokopoziomowe</li>
+<li>zależny od kontekstu i twórcy</li>
+<li>odnosi się do ludzkiej interpretacji</li>
+<li>ogranicza wyszukiwanie tylko do użytych pojęć</li>
+<li>typowo ręczna i półautomatyczna ekstrakcja cech (wymaga
+weryfikacji)</li>
+<li>subiektywny</li>
+</ul></li>
+<li>Oba typy opisu są potrzebne w praktyce</li>
+</ul>
+<h2 id="metadane">Metadane</h2>
+<ul>
+<li>Opis danych multimedialnych w celu ich indeksowania
+<ul>
+<li>tekst naturalny</li>
+<li>słowa kluczowe</li>
+<li>tekst ustrukturyzowany (XML, JSON)</li>
+<li>cechy wizualne (kolor, tekstura, kształt, …)</li>
+<li>cechy audio (widmo, linia melodyczna, …)</li>
+</ul></li>
+<li>Wyszukiwanie “językiem obrazu” - szkic obrazu jako zapytanie</li>
+</ul>
+<h2 id="wyszukiwanie-semantyczne">Wyszukiwanie semantyczne</h2>
+<ul>
+<li>Można przybliżyć wyszukiwanie semantyczne wykorzystując różne cechy
+opisu sygnałowego</li>
+<li>Np. “bramki z meczów piłkarskich”
+<ul>
+<li>szybki ruch kamery</li>
+<li>powtórki</li>
+</ul></li>
+<li>Wyszukiwanie abstrakcyjnych pojęć (“nadzieja”, “tragedia”)
+<ul>
+<li>raczej nie dają się wyciągnąć z cech sygnałowych obrazu</li>
+</ul></li>
+</ul>
+<h2 id="automatyczna-adnotacja">Automatyczna adnotacja</h2>
+<ul>
+<li>Proces, w którym system komputerowy automatycznie przypisuje
+metadane w postaci podpisów lub słów kluczowych do obrazu cyfrowego</li>
+<li>Realizowana za pomocą wieloklasowej klasyfikacji z bardzo dużą
+liczbą klas</li>
+<li>Sieci neuronowe uzyskują najlepsze wyniki</li>
+<li>Uczenie z dodatkowym opisem tekstowym umożliwia generowanie zdań dla
+nowych obrazów</li>
+</ul>
+<h2 id="system-z-indeksowaniem">System z indeksowaniem</h2>
+<ul>
+<li>Wykorzystanie deskryptorów jako zwięzłego zapisu metadanych/cech
+<ul>
+<li>podobieństwo deskryptorów oznacza podobieństwo treści</li>
+</ul></li>
+<li>Standaryzacja technik pozwalających na wyszukiwanie, przeglądanie,
+filtrowanie danych multimedialnych</li>
+<li>Dane audiowizualne na wejściu
+<ul>
+<li>podlegają ekstrakcji cech - powstają deskryptory audiowizualne</li>
+<li>dane zapisywane w bazie razem z deskryptorami</li>
+</ul></li>
+<li>Użytkownik wykonuje zapytanie
+<ul>
+<li>dostaje wynik na podstawie podobieństwa do deskryptorów, a nie
+plików multimedialnych</li>
+<li>wybiera mały podzbiór danych</li>
+<li>odległość euklidesowa deskryptorów (wektorów liczb)</li>
+</ul></li>
+</ul>
+<h2 id="standard-mpeg-7">Standard MPEG-7</h2>
+<ul>
+<li>Multimedia Content Description Interface</li>
+<li>Standard do wyszukiwania, przeglądania i filtrowania</li>
+<li>Cechy uzyskane po ekstrakcji opisuje się w tym standardzie</li>
+<li>Definicja języka opisu (DDL) opartego na XML</li>
+<li>Zawiera definicje różnych deskryptorów (metadanych)
+<ul>
+<li>ogólne - data/czas, komentarze, autorzy, podział na ujęcia</li>
+<li>wizualne - kolor, tekstura, kształt, ruch</li>
+<li>audio - melodia, widmo</li>
+</ul></li>
+<li>Definiuje relacje między deskryptorami (grupowania i
+hierarchizacja)</li>
+</ul>
+<h3 id="wymagania">Wymagania</h3>
+<ul>
+<li>Deskryptor powinien być
+<ul>
+<li>ogólny</li>
+<li>efektywny do wyszukiwania i filtrowania</li>
+<li>upakowany (mały rozmiar)</li>
+<li>niezależny od skali, obrotu, kompresji itd</li>
+</ul></li>
+</ul>
+<h3 id="opis-sceny">Opis sceny</h3>
+<ul>
+<li>Do skutecznego opisu sceny dobrze jest ją posegmentować na obiekty
+<ul>
+<li>opisana przez wiele deskryptorów</li>
+<li>deskryptory ułożone hierarchicznie, odzwierciedlają hierarchię
+obiektów na scenie</li>
+<li>deskryptory kolorów</li>
+<li>opisy tekstowe dodawane ręcznie</li>
+</ul></li>
+<li>Obiekty muszą najpierw zostać wyróżnione</li>
+<li>Podejście obiektowe było modne dawniej</li>
+<li>Wymaga dużego nakładu pracy i nie daje dużych korzyści</li>
+</ul>
+<h3 id="podsumowania">Podsumowania</h3>
+<ul>
+<li>Deskryptor jako spis treści
+<ul>
+<li>pozwala znaleźć reprezentatywne fragmenty</li>
+<li>np. na podstawie kluczowych ramek</li>
+</ul></li>
+<li>Podsumowanie może być hierarchiczne</li>
+<li>Podobnie jak pole MFRA w kontenerze MP4</li>
+</ul>
+<h3 id="deskryptory-koloru">Deskryptory koloru</h3>
+<h4 id="deskryptor-koloru-dominującego">Deskryptor koloru
+dominującego</h4>
+<ul>
+<li>Reprezentuje do 8 dominujących kolorów</li>
+<li>Na różne sposoby można określać w jaki sposób się je wyznacza</li>
+<li>Kolor opisywany przez indeks kwantyzacji
+<ul>
+<li>opcjonalnie wariancja wartości kolorów w klastrze</li>
+<li>opcjonalnie koherencja przestrzenna kolorów (jak rozproszone /
+skupione)</li>
+</ul></li>
+</ul>
+<h4 id="porównywanie-kolorów-dominujących">Porównywanie kolorów
+dominujących</h4>
+<ul>
+<li>Mogą być różne liczby kolorów w deskryptorach</li>
+<li>Bierze się pod uwagę procentowe udziały kolorów w obrazie
+<ul>
+<li>sumują się do 1</li>
+<li>pozostałe kolory są pomijane</li>
+</ul></li>
+<li>Oblicza się odległość między histogramami na podstawie wzoru</li>
+</ul>
+<h4 id="skalowalny-histogram-kolorów">Skalowalny histogram kolorów</h4>
+<ul>
+<li>Kolory w przestrzeni HSV
+<ul>
+<li>256 komórek</li>
+<li>współrzędne kwantowane do mniejszej liczby poziomów nieliniowo do 4
+bitów</li>
+</ul></li>
+<li>Transformacja Haara skwantyzowanych wartości
+<ul>
+<li>obliczanie sum i różnic kolejnych par</li>
+<li>redukuje się do jednej wartości</li>
+<li>umożliwia skalowanie histogramu (liczby komórek)</li>
+</ul></li>
+<li>Skalowalna reprezentacja histogramu
+<ul>
+<li>zmienna liczba kolorów</li>
+<li>zmienna dokładność reprezentacji wartości</li>
+<li>pomijanie mniej znaczących płaszczyzn bitowych</li>
+</ul></li>
+</ul>
+<h4 id="deskryptor-color-structure">Deskryptor Color Structure</h4>
+<ul>
+<li>Histogram koloru z uwzględnieniem struktury pikseli danego
+koloru</li>
+<li>Informacja czy piksele danego koloru stanowią drobne elementy czy
+zwarte grupy</li>
+<li>Przykłada się maskę do obrazu wielokrotnie</li>
+</ul>
+<h4 id="deskryptor-color-layout">Deskryptor Color Layout</h4>
+<ul>
+<li>Jakie kolory są reprezentatyzwne dla odpowiednich części obrazu</li>
+<li>Reprezentanci jako średnia lub kolor dominujący</li>
+</ul>
+<h4 id="deskryptor-color-temperature-browsing">Deskryptor Color
+Temperature Browsing</h4>
+<ul>
+<li>Określa temperaturę barwową związaną z wrażeniem ciepła</li>
+<li>Związane z częstotliwościami emitowanymi przez ciało doskonale
+czarne</li>
+<li>Jeden bajt, wartości 0-255</li>
+</ul>
+<h3 id="deskryptory-tekstury">Deskryptory tekstury</h3>
+<ul>
+<li>Texture Browsing
+<ul>
+<li>cechy powtarzanych wzorców</li>
+<li>regularność</li>
+<li>kierunkowość</li>
+<li>skala</li>
+</ul></li>
+<li>Homogeneous Texture
+<ul>
+<li>rozkład energii i odchylenia w kanałach częstotliwościowych</li>
+<li>transformacja w układzie biegunowym</li>
+</ul></li>
+<li>Edge Histogram
+<ul>
+<li>globalne i lokalne histogramy krawędzi</li>
+</ul></li>
+</ul>
+<h3 id="deskryptory-kształtu">Deskryptory kształtu</h3>
+<ul>
+<li>Region Shape
+<ul>
+<li>kształt jako ważona suma regionów bazowych</li>
+<li>obiekt może składać się z wielu regionów</li>
+<li>transformata biegunowa Angular Radial Transform (ART)</li>
+</ul></li>
+<li>Contour Shape
+<ul>
+<li>opis konturu obiektu jako punkty przegięcia wzdłuż krzywizny</li>
+<li>maksymalne krzywizny konturu</li>
+<li>przestrzeń CSS - curvature scale space</li>
+<li>można iteracyjnie redukować liczbę punktów przegięcia</li>
+<li>funkcja filtrowana filtrem dolnoprzepustowym</li>
+</ul></li>
+</ul>
+<h3 id="deskryptory-ruchu">Deskryptory ruchu</h3>
+<ul>
+<li>Motion Activity
+<ul>
+<li>ogólne parametry określające natężenie ruchu i rozmieszczenie</li>
+<li>wektory ruchu</li>
+<li>podobnie jak przy estymacji ruchu dla kompresji wideo</li>
+</ul></li>
+<li>Camera Motion
+<ul>
+<li>opis ruchu kamery za pomocą zestawu operacji podstawowych</li>
+</ul></li>
+<li>Motion Trajectory
+<ul>
+<li>opis trajektorii wybranego punktu poruszającego się obiektu za
+pomocą wielomianów</li>
+</ul></li>
+</ul>
+<h3 id="deskryptory-twarzy">Deskryptory twarzy</h3>
+<ul>
+<li>Face Recognition
+<ul>
+<li>opis cech twarzy do celów automatycznej identyfikacji i weryfikacji
+osób</li>
+</ul></li>
+</ul>
+<h3 id="podsumowanie">Podsumowanie</h3>
+<p>Deskryptory MPEG-7 są rzadko używane bezpośrednio ale pokazują
+możliwe cechy sygnałowe przydatne jako wejście dla CNN. Takie cechy
+można wyznaczyć podczas wstępnego przetwarzania, przed podaniem danych
+do sieci neuronowej.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#indeksowanie">Indeksowanie</a>
+<ul>
+<li><a href="#indeskowanie-multimediów">Indeskowanie
+multimediów</a></li>
+<li><a href="#wyszukiwanie-tekstowe">Wyszukiwanie tekstowe</a></li>
+<li><a href="#informacja-o-danych">Informacja o danych</a></li>
+<li><a href="#metadane">Metadane</a></li>
+<li><a href="#wyszukiwanie-semantyczne">Wyszukiwanie
+semantyczne</a></li>
+<li><a href="#automatyczna-adnotacja">Automatyczna adnotacja</a></li>
+<li><a href="#system-z-indeksowaniem">System z indeksowaniem</a></li>
+<li><a href="#standard-mpeg-7">Standard MPEG-7</a>
+<ul>
+<li><a href="#wymagania">Wymagania</a></li>
+<li><a href="#opis-sceny">Opis sceny</a></li>
+<li><a href="#podsumowania">Podsumowania</a></li>
+<li><a href="#deskryptory-koloru">Deskryptory koloru</a></li>
+<li><a href="#deskryptory-tekstury">Deskryptory tekstury</a></li>
+<li><a href="#deskryptory-kształtu">Deskryptory kształtu</a></li>
+<li><a href="#deskryptory-ruchu">Deskryptory ruchu</a></li>
+<li><a href="#deskryptory-twarzy">Deskryptory twarzy</a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="shell-cd-2023-10-31">Shell cd (2023-10-31)</h1>
+<p>Laboratorium z kompilacji jądra i wywołań systemowych będzie na 2
+laby za 8 pkt Wymogi czasowe określają prowadzący</p>
+<p><code>cat&lt;&lt;EOT</code> pozwala wbudować plik tekstowy do skryptu
+shellowego</p>
+<p><code>1&gt;&amp;2</code> przekierowanie stdout na stderr</p>
+<p>Generalnie kolejność zadawania przekierowań nie ma znaczenia</p>
+<p><code>a &lt;b &gt;c</code> - uruchamia proces <code>a</code>, pobiera
+standardowe wejście z pliku <code>b</code> i zapisuje standardowe
+wyjście do pliku <code>c</code> <code>a &gt; c &lt; b</code> działa tak
+samo</p>
+<p><code>a 2&gt;/dev/null</code> - chowa wyjście diagnostyczne</p>
+<p><code>find . 2&gt;&amp;1 &gt;/dev/null</code> - tylko strumień
+diagnostyczny pójdzie na wyjście
+<code>find . &gt;/dev/null 2&gt;&amp;1</code> - oba strumienie pójdą do
+/dev/null <code>cat &gt;&gt; x.txt</code> - append</p>
+<p>Można podać wartości zmiennych środowiskowych które będą dostępne dla
+programu <code>VAR=value command arg1 arg2</code></p>
+<p>Przykład <code>env-example.sh</code>
+<code>GREETING="hello" ./env-example</code></p>
+<p>export - zmianna środowiskowa będzie dostepna dla podprocesów</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#shell-cd-2023-10-31">Shell cd (2023-10-31)</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

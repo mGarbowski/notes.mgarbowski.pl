@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-sztuczne-sieci-neuronowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-uczenie-ze-wzmocnieniem.html">Poprzedni: 05-uczenie-ze-wzmocnieniem.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-sieci-bayesowskie.html">Następny: 07-sieci-bayesowskie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="sztuczne-sieci-neuronowe">Sztuczne sieci neuronowe</h1>
+<p>Modelowane na podstawie biologicznego mózgu</p>
+<p>Nie do wszystkiego warto stosować sieci, trzeba przygotować zbiór
+uczący i często trenować model na mocnym sprzęcie, jeśli prostsze
+rozwiązanie wystarcza to lepiej użyć prostszego!</p>
+<h2 id="model-neuronu">Model neuronu</h2>
+<ul>
+<li>Neuron ma skończoną liczbę wejść (wektor n-elementowy)</li>
+<li>Każdy element wektora ma przypisaną wagę (weight)</li>
+<li>Neuron ma przypisane obciążenie (bias) - liczbę rzeczywistą</li>
+<li>Każdy z elementów wejściowych jest mnożony przez wagę i iloczyny są
+sumowane (iloczyn skalarny)</li>
+<li>Do sumy dodaje się obciążenie</li>
+<li>Wynik przepuszcza się przez funkcję aktywacji</li>
+</ul>
+<p>Perceptrom dwuwarstwowy - dwie warstwy neuronów n klas w problemie
+klasyfikacji -&gt; n neuronów w ostatniej warstwie</p>
+<h2 id="funkcja-aktywacji">Funkcja aktywacji</h2>
+<ul>
+<li>Neuron liniowy
+<ul>
+<li><span class="math inline">\(\psi(s) = s\)</span></li>
+</ul></li>
+<li>Neuron sigmoidalny - funkcja ciągła, różniczkowalna, rosnąca
+<ul>
+<li><span class="math inline">\(\psi(s) = tanh(s)\)</span></li>
+<li><span class="math inline">\(\psi(s) =
+\frac{exp(s)}{1+exp(s)}\)</span></li>
+</ul></li>
+<li>Neuron ReLU
+<ul>
+<li><span class="math inline">\(\psi(s) = max(0, s)\)</span></li>
+<li><span class="math inline">\(\psi(s) = min(max(0, s),
+M)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="perceptron-dwuwastwowy">Perceptron dwuwastwowy</h2>
+<ul>
+<li>Warstwa ukryta
+<ul>
+<li>neurony sigmoidalne</li>
+</ul></li>
+<li>Wastwa wyjściowa
+<ul>
+<li>neurony liniowe</li>
+</ul></li>
+</ul>
+<h3 id="własność-uniwersalnej-aproksymacji">Własność uniwersalnej
+aproksymacji</h3>
+<p>Dla ograniczonego i domkniętego zbioru <span
+class="math inline">\(\mathbb{X}\)</span>, dla każdego <span
+class="math inline">\(\epsilon\)</span> istnieją takie <span
+class="math inline">\(n\)</span> i <span
+class="math inline">\(\theta\)</span>, że <span
+class="math display">\[max_{x \in \mathbb{X}} ||f(x) - \bar{f}(x,
+\theta)|| \le \epsilon\]</span></p>
+<p>Perceptron dwuwarstwowy ma własność uniwersalnej aproksymacji - można
+tak dobrać parametry żeby na zadanym zbiorze aproksymować funkcję z
+zadaną precyzją (im większy zbiór tym bardziej rozbudowany model)</p>
+<h3 id="jako-klasyfikator">Jako klasyfikator</h3>
+<ul>
+<li>Tyle neuronów wyjściowych ile klas</li>
+<li>Idealne działanie to wyjście sieci w postaci 1 z <span
+class="math inline">\(n\)</span></li>
+<li>Wybiera się tą klasę, której neuron ma największą aktywację</li>
+</ul>
+<h2 id="uczenie-sieci">Uczenie sieci</h2>
+<ul>
+<li>Definiuje się funkcję straty (typowo MSE)</li>
+<li>W procesie uczenia potrzebujemy wyliczyć wektor pochodnych funkcji
+straty po wagach i obciążeniach sieci - gradient
+<ul>
+<li>gradient mówi o tym jak zmienić odpowiednie parametry sieci</li>
+<li>stosuje się do metody optymalizacji gradientowej</li>
+</ul></li>
+<li>Minimalizujemy stratę - różnicę między prawdziwą wartością i
+aproksymowaną</li>
+</ul>
+<h3 id="wsteczna-propagacja-gradientu">Wsteczna propagacja
+gradientu</h3>
+<ul>
+<li>Służy do wydajnego obliczania gradientu funkcji straty po wagach i
+obciążeniach</li>
+<li>Wylicza pochodne iterując od ostatniej warstwy do warstwy
+wejściowej</li>
+<li>Unika nadmiarowych operacji obliczania wyników pośrednich</li>
+<li>Zamiast stosowania reguły łańcuchowej</li>
+</ul>
+<h3 id="metoda-gradientu-prostego">Metoda gradientu prostego</h3>
+<ul>
+<li>Parametr kroku (ciąg parametrów)</li>
+<li>Wartość aktualizowana o <span class="math inline">\(-\nabla\)</span>
+przeskalowany przez parametr kroku</li>
+</ul>
+<h3 id="metoda-stochastycznego-najszybszego-spadku">Metoda
+stochastycznego najszybszego spadku</h3>
+<ul>
+<li>Jest bardziej wydajny od gradientu prostego, nie operuje na całym
+zbiorze uczącym</li>
+<li>Wykorzystuje estymaty gradientu zamiast dokładnej wartości</li>
+<li>Zbiór uczący dzieli się na mini-pakiety</li>
+<li>Wartość aktualizuje się na podstawie estymaty gradientu</li>
+<li>Są dodatkowe warunki na zbieżność</li>
+</ul>
+<h3 id="uczenie-off-line">Uczenie off-line</h3>
+<ul>
+<li>Wykonuje się w epokach</li>
+<li>Jedna epoka to
+<ul>
+<li>przetasowanie zbioru uczącego</li>
+<li>podział na mini-pakiety</li>
+<li>zaktualizowanie wag na podstawie każdego mini-pakietu</li>
+</ul></li>
+</ul>
+<h3 id="inicjalizacja-parametrów">Inicjalizacja parametrów</h3>
+<ul>
+<li>Najlepiej jak wartości wejściowe i wyjściowe są z przedziału <span
+class="math inline">\([-1, 1]\)</span>
+<ul>
+<li>pojęcie nasycenia neuronu</li>
+<li>na tym przedziale funkcja sigmoid jest stroma, poza nim się
+wypłaszcza</li>
+<li>stosuje się skalowanie tak żeby odchylenie standardowe <span
+class="math inline">\(\simeq 1\)</span></li>
+</ul></li>
+<li>Wagi neuronów wyjściowych inicjuje się zerami</li>
+<li>Wagi neuronów warst ukrytych inicjuje się wartościami <span
+class="math inline">\(\mathcal{U}([-1/\sqrt{n}, 1/\sqrt{n}])\)</span>
+<ul>
+<li><span class="math inline">\(n\)</span> to wymiar wejścia
+neuronu</li>
+</ul></li>
+</ul>
+<h2 id="zapobieganie-przeuczeniu">Zapobieganie przeuczeniu</h2>
+<ul>
+<li>Wczesne zatrzymanie uczenia
+<ul>
+<li>przerywa się uczenie kiedy strata na zbiorze walidacyjnym przestaje
+spadać</li>
+</ul></li>
+<li>Regularyzacja
+<ul>
+<li><span class="math inline">\(\bar{q_t}(\theta) = q_t(\bar{f}(x_t,
+\theta) + \lambda ||\theta ||^2\)</span></li>
+<li>dodatkowa kara za duże wartości wag i obciążeń</li>
+</ul></li>
+<li>Odrzucanie (drop-out)
+<ul>
+<li><span class="math inline">\(p\)</span> jest parametrem warstwy</li>
+<li>podczas uczenia każde wejście warstwy może być ignorowane z
+prawdopodobieństwem <span class="math inline">\(p\)</span></li>
+<li>podczas testowania używane są wszystkie wejścia ale wagi mnoży się
+przez <span class="math inline">\((1-p)\)</span> żeby skompensować</li>
+<li>ma oduczać sieć bazowania na przypadkowych zależnościach między
+neuronami</li>
+</ul></li>
+<li>Dostrojenie hiperparametrów</li>
+<li>Zebranie większego zbioru danych</li>
+<li>Stosowanie komitetów
+<ul>
+<li>zespół modeli i agregowanie wyniku</li>
+<li>jak las losowy</li>
+</ul></li>
+</ul>
+<h2 id="perceptron-wielowarstwowy">Perceptron wielowarstwowy</h2>
+<ul>
+<li>Uogólnienie percpetronu dwuwarstwowego</li>
+<li>Wiele warstw ukrytych
+<ul>
+<li>neurony sigmoidalne</li>
+</ul></li>
+<li>Warstwa wyjściowa z neuronami liniowymi</li>
+<li>Ma takie same możliwości aproksymacji jak perceptron dwuwarstwowy
+<ul>
+<li>jeśli jest wystarczająco dużo neuronów</li>
+</ul></li>
+<li>Lepiej reprezentuje niektóre wysokopoziomowe zależności</li>
+</ul>
+<h2 id="inne-modele">Inne modele</h2>
+<ul>
+<li>Sieci głębokie i bardzo głębokie
+<ul>
+<li>głębokie to <span class="math inline">\(\ge 3\)</span> warstw</li>
+<li>bardzo głebokie to <span class="math inline">\(\ge 10\)</span>
+warstw</li>
+</ul></li>
+<li>Sieci konwolucyjne (splotowe)</li>
+<li>Sieci rekurencyjne
+<ul>
+<li>cykliczne połączenie z opóźnieniami</li>
+</ul></li>
+<li>Sieci impulsowe</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sztuczne-sieci-neuronowe">Sztuczne sieci neuronowe</a>
+<ul>
+<li><a href="#model-neuronu">Model neuronu</a></li>
+<li><a href="#funkcja-aktywacji">Funkcja aktywacji</a></li>
+<li><a href="#perceptron-dwuwastwowy">Perceptron dwuwastwowy</a>
+<ul>
+<li><a href="#własność-uniwersalnej-aproksymacji">Własność uniwersalnej
+aproksymacji</a></li>
+<li><a href="#jako-klasyfikator">Jako klasyfikator</a></li>
+</ul></li>
+<li><a href="#uczenie-sieci">Uczenie sieci</a>
+<ul>
+<li><a href="#wsteczna-propagacja-gradientu">Wsteczna propagacja
+gradientu</a></li>
+<li><a href="#metoda-gradientu-prostego">Metoda gradientu
+prostego</a></li>
+<li><a href="#metoda-stochastycznego-najszybszego-spadku">Metoda
+stochastycznego najszybszego spadku</a></li>
+<li><a href="#uczenie-off-line">Uczenie off-line</a></li>
+<li><a href="#inicjalizacja-parametrów">Inicjalizacja
+parametrów</a></li>
+</ul></li>
+<li><a href="#zapobieganie-przeuczeniu">Zapobieganie
+przeuczeniu</a></li>
+<li><a href="#perceptron-wielowarstwowy">Perceptron
+wielowarstwowy</a></li>
+<li><a href="#inne-modele">Inne modele</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

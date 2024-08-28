@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-18-kieszenie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-16-potokowe-jednostki-wykonawcze.html">Poprzedni: wyklad-16-potokowe-jednostki-wykonawcze.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-19-wydajnosc.html">Następny: wyklad-19-wydajnosc.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kieszenie">Kieszenie</h1>
+<h2 id="zasada-lokalności-odwołań">Zasada lokalności odwołań</h2>
+<ul>
+<li>zbiór roboczy</li>
+</ul>
+<h2 id="kieszeń-pełnoasocjacyjna">Kieszeń pełnoasocjacyjna</h2>
+<ul>
+<li>Każde chybienie wymaga zapamiętania danej i adresu z pamięci do
+kieszeni</li>
+<li>Niepraktyczna w prawdziwej implementacji (problemy elektryczne)</li>
+<li>Heurystyka LRU - wyrzuć to co najdłużej nie było używane</li>
+<li>Działa bardzo źle kiedy zbiór roboczy jest większy od pojemności
+kieszeni - gwarantuje 100% chybień</li>
+</ul>
+<h2 id="budowa-kieszeni">Budowa kieszeni</h2>
+<ul>
+<li>linie - długie bloki danych z pojedynczym adresem</li>
+<li>długość linii jest potęgą 2</li>
+<li>nie trzeba przechowywać najmniej znaczących bitów adresu ze względu
+na wyrównanie naturalne (pomija się najmniej znaczące bity służące do
+indeksowania bajtów wewnątrz bloku)</li>
+<li>użyteczna jest ta część pamięci, która trzyma dane, dlatego nie
+trzyma się pojedynczych bajtów</li>
+<li>zazwyczaj linia jest 4x większa od słowa pamięci</li>
+</ul>
+<h2 id="kieszeń-bezpośrednio-adresowana">Kieszeń bezpośrednio
+adresowana</h2>
+<ul>
+<li>Zbudowana na bazie pamięci RAM i komparatora równościowego</li>
+<li>Dostęp swobodny do linii przez podanie adresu</li>
+<li>Najmniej znaczące bity adresu będą wybierać bajt w obrębie linii w
+przypadku trafienia</li>
+<li>Środkowe bity adresu są wprowadzone na wejście adresowe pamięci -
+wybierają pojedynczą linię</li>
+<li>Odczytany z kieszeni znacznik adresu zawiera bardziej znaczące bity
+adresu głównej pamięci</li>
+<li>Komparator porównuje najbardziej znaczące bity adresu z wejścia z
+wartością znacznika z początku linii kieszeni - jeśli są równe to jest
+trafienie</li>
+<li>W przypadku chybienia to zastępowana jest ta wybrana linia -
+algorytm narzucony przez budowę</li>
+</ul>
+<h3 id="pętla-dłuższa-od-kieszeni">Pętla dłuższa od kieszeni</h3>
+<ul>
+<li>Kolejne instrukcje nie zastępują najdawniejszych tylko instrukcje o
+takich samych środkowych częściach adresów.</li>
+<li>Instrukcje ze środka pętli zostaną w kieszeni</li>
+<li>100% chybień przy pętli 2x większej od kieszeni, skuteczna ale coraz
+mniej kiedy pętla jest dłuższa od kieszeni</li>
+</ul>
+<h3
+id="dwie-części-obszaru-roboczego-o-takich-samych-środkowych-bitach-adresu">Dwie
+części obszaru roboczego o takich samych środkowych bitach adresu</h3>
+<ul>
+<li>Złośliwy przypadek ale występuje rzadko</li>
+<li>Dwie części będą się zamieniać naprzemian</li>
+<li>Taka sama sytuacja jest bezbolesna dla LRU</li>
+</ul>
+<h2 id="kieszeń-zbiorowo-asocjacyjna">Kieszeń zbiorowo-asocjacyjna</h2>
+<ul>
+<li>Połączenie kilku kieszeni bezpośrednio adresowanych - bloków</li>
+<li>Uniewrażliwienie na pokrywające się adresy - takie dane mogą trafić
+do różnych bloków</li>
+</ul>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Z każdego bloku jest wybierana jedna linia</li>
+<li>Każdy znacznik jest porównywany ze znacznikiem z procesora w
+komparatorze każdego bloku - działanie jak dla małej kieszeni
+pełnoasocjacyjnej</li>
+<li>Grupa linii wybranych z każdego bloku na podstawie adresu procesora
+- zbiór</li>
+</ul>
+<p>Blok zachowuje się jak kieszeń bezpośrednio adresowana Zbiór
+zachowuje się jak kieszeń pełnoasocjacyjna Łączy zalety obu
+rozwiązań</p>
+<h3 id="algorytm-zastępowania">Algorytm zastępowania</h3>
+<ul>
+<li>W zbiorze w przypadku chybienia jest wiele możliwości</li>
+<li>Automat musi być oddzielny dla każdego zbioru</li>
+<li>LRU jest użyteczne dla 3 bloków (3 przerzutniki)</li>
+<li>Dla więcej niż 3 bloków stosuje się pseudoLRU - drzewo binarne z
+przerzutników</li>
+<li>Algorytm losowy z wykluczeniem ostatnio używanego - często używany w
+praktyce - tani i prosty</li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Najczęściej używa się zbiorowo-asocjacyjnych</li>
+<li>Pełnoasocjacyjne nie są używane do instrukcji i danych</li>
+</ul>
+<h2 id="współczynnik-trafień">Współczynnik trafień</h2>
+<p>liczba trafień / całkowita liczba odwołań</p>
+<h3 id="zależy-od">Zależy od</h3>
+<ul>
+<li>pojemności kieszeni</li>
+<li>organizacji kiesezeni i algorytmu wymiany</li>
+<li>specyfiki wykonywanego programu (zbioru roboczego) - do benchmarku
+używa się różnych typów programów</li>
+<li>dla każdej kieszeni da się dobrać program, który da współczynnik
+trafień 0 i taki który da blisko 1</li>
+</ul>
+<p>Zazwyczaj między 8-16 KiB pojemności kieszeni osiąga się współczynnik
+rzędu 0.9, dla wyższych warrtości korzyść się wypłaszcza Dla małych
+pojemności zależy głównie od pojemności, dla większych głównie od
+algorytmu wymiany</p>
+<h2 id="wydajność">Wydajność</h2>
+<p>Miarodajną wartością jest liczba B/s (albo analogicznie odwrotność),
+sam niemianowany współczynnik nie bardzo</p>
+<p>Dwa poziomy kieszenie dają średni czas na granicy akteptowalności, w
+wydajniejszych procesorach stosuje się 3 poziomy</p>
+<p>L3 przechowuje jednocześnie dane i kod kilku zadań L2 generalnie
+przechowuje kod jednego zadania</p>
+<h2 id="zachowanie-kieszeni-przy-zapisie">Zachowanie kieszeni przy
+zapisie</h2>
+<ul>
+<li>zapis przezroczysty - zawsze do pamięci, a przy trafieniu też do
+kieszeni (jednocześnie)</li>
+<li>zapis zwrotny - zapis do pamięci tylko wtedy kiedy jest to potrzebne
+<ul>
+<li>bez alokacji przy chybieniu zapisu - przy chybieniu odczytu trzeba
+będzie zapisać linię kieszeni do pamięci (ofiarę)</li>
+<li>z alokacją przy chybieniu zapisu - żeby zapisać tylko do kieszeni to
+trzeba najpierw pobrać linię z pamięci i może wcześniej zapisać linię
+kieszeni do pamięci</li>
+</ul></li>
+</ul>
+<p>Kieszeń może inicjować transakcje</p>
+<p>Chybienie odczytu - wyznacza się ofiarę - linię wyrzucaną z
+kieszeni</p>
+<h2 id="kieszenie-inkluzywne">Kieszenie inkluzywne</h2>
+<ul>
+<li>Już nie stosowane</li>
+<li>Każdy obiekt zawarty w wyższej warstwie jest też obecny w niższej
+warstwie</li>
+<li>Efektywna pojemność to zestawu kieszeni to pojemność największej
+(L3)</li>
+</ul>
+<h2 id="kieszenie-wyłączne">Kieszenie wyłączne</h2>
+<ul>
+<li>Linia może się znajdować tylko w jednej kieszeni na raz</li>
+<li>Współczesna</li>
+<li>Efektywna pojemność jest sumą pojemności wszystkich kieszeni</li>
+<li>Kieszeń niższa nigdy nie jest napełniana danymi z pamięci tylko
+danymi wyrzucanymi z wyższej kieszeni</li>
+<li>tzw. victim cache - napełniony ofiarami wyższej kieszeni</li>
+<li>schemat ścieżek przepływu …</li>
+<li>Przy chybieniu L1 odczytu danej z L2 linia z L1 jest wymieniana z
+linią w L2 (narzucony algorytm wymieniania)</li>
+<li>Przy chybieniu odczytu w L1 i L2 - cykl duży - z pamięci do L1,
+ofiara z L1 do L2, ofiara z L2 do pamięci</li>
+</ul>
+<p>Dotyczą połączenia dwóch kieszeni, można na jeden sposób połączyć L1
+z L2 a na drugi L2 z L3</p>
+<p>Przy większych pojemnościach kieszeni większą rolę na wydajność
+kieszeni zaczyna odgrywać algorytm wymiany. L2 powinno mieć większą
+asocjacyjność od L1</p>
+<h2 id="spójność-hierarchii-pamięci">Spójność hierarchii pamięci</h2>
+<p>Każdy odczyt danej z hierarchii musi zwrócić najbardziej aktualną
+wartość, dla każdego czytającego</p>
+<p>Zagrożenie przy więcej niż 1 ścieżce dostępu * architektura
+Harvard-Princeton z oddzielnym L1 dla kodu i danych * komputer
+wieloprocesorowy * urządzenia IO czytające / piszące bezpośrednio do
+pamięci (sterowniki sieciowe)</p>
+<p>Spójność fizyczna - na każdym poziomie jest to samo Spójność logiczna
+- wiadomo gdzie jest aktualna kopia, unieważnianie linii kieszeni
+(mechanizm gwarantowany sprzętowo)</p>
+<h3 id="protokoły-utrzymania-spójności">Protokoły utrzymania
+spójności</h3>
+<p>Automat zrealizowany oddzielnie dla każdej linii, minimalizuje liczbę
+unieważnień linii</p>
+<p>Więcej stanów linii wyróżnianych przez protokół - mniej unieważnień
+linii</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kieszenie">Kieszenie</a>
+<ul>
+<li><a href="#zasada-lokalności-odwołań">Zasada lokalności
+odwołań</a></li>
+<li><a href="#kieszeń-pełnoasocjacyjna">Kieszeń
+pełnoasocjacyjna</a></li>
+<li><a href="#budowa-kieszeni">Budowa kieszeni</a></li>
+<li><a href="#kieszeń-bezpośrednio-adresowana">Kieszeń bezpośrednio
+adresowana</a>
+<ul>
+<li><a href="#pętla-dłuższa-od-kieszeni">Pętla dłuższa od
+kieszeni</a></li>
+<li><a href="#dwie-części-obszaru-roboczego-o-takich-samych-środkowych-bitach-adresu">Dwie
+części obszaru roboczego o takich samych środkowych bitach
+adresu</a></li>
+</ul></li>
+<li><a href="#kieszeń-zbiorowo-asocjacyjna">Kieszeń
+zbiorowo-asocjacyjna</a>
+<ul>
+<li><a href="#działanie">Działanie</a></li>
+<li><a href="#algorytm-zastępowania">Algorytm zastępowania</a></li>
+</ul></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+<li><a href="#współczynnik-trafień">Współczynnik trafień</a>
+<ul>
+<li><a href="#zależy-od">Zależy od</a></li>
+</ul></li>
+<li><a href="#wydajność">Wydajność</a></li>
+<li><a href="#zachowanie-kieszeni-przy-zapisie">Zachowanie kieszeni przy
+zapisie</a></li>
+<li><a href="#kieszenie-inkluzywne">Kieszenie inkluzywne</a></li>
+<li><a href="#kieszenie-wyłączne">Kieszenie wyłączne</a></li>
+<li><a href="#spójność-hierarchii-pamięci">Spójność hierarchii
+pamięci</a>
+<ul>
+<li><a href="#protokoły-utrzymania-spójności">Protokoły utrzymania
+spójności</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

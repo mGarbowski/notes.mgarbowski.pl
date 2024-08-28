@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>19-cyfrowe-przetwarzanie-dzwieku</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="18-cyfrowe-sygnaly-foniczne.html">Poprzedni: 18-cyfrowe-sygnaly-foniczne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="20-filtracja-efekty-dzwiekowe-synteza.html">Następny: 20-filtracja-efekty-dzwiekowe-synteza.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="cyfrowe-przetwarzanie-dźwięku">Cyfrowe przetwarzanie
+dźwięku</h1>
+<h2 id="cyfrowe-przetwarzanie-sygnałów-fonicznych">Cyfrowe przetwarzanie
+sygnałów fonicznych</h2>
+<ul>
+<li>Ekstrakcja cech
+<ul>
+<li>głównie analiza częstotliwościowa</li>
+</ul></li>
+<li>Filtracja</li>
+<li>Efekty dźwiękowe</li>
+<li>Synteza</li>
+</ul>
+<h2 id="okno-analizy-fft">Okno analizy FFT</h2>
+<ul>
+<li>Kiedy okno jest wielokrotnością okresu sygnału
+<ul>
+<li>nie ma nieciągłości</li>
+<li>pojedynczy prążek w widmie</li>
+</ul></li>
+<li>Raczej nie da się osiągnąć dokładnej wielokrotności (jest wiele
+częstotliwości w sygnale)
+<ul>
+<li>pojawiają się nieciągłości</li>
+<li>prążki w widmie się rozlewają</li>
+</ul></li>
+<li>Sygnał przemnaża się przez odpowiednie wagi
+<ul>
+<li>mnożenie przez 0 wartości, które “przeszkadzają”</li>
+<li>istotne składowe zostaną w widmie</li>
+<li>okno Hanninga, okno prostokątne</li>
+<li>odpowiednie okno ogranicza przeciekanie widma</li>
+</ul></li>
+</ul>
+<h2 id="spektrogram">Spektrogram</h2>
+<ul>
+<li>Ilustruje czas, częstotliwość i natężenie
+<ul>
+<li>czas - oś pozioma</li>
+<li>częstotliwość - oś pionowa</li>
+<li>natężenie - kolor</li>
+</ul></li>
+<li>Zamienia dźwięk na obraz
+<ul>
+<li>pozwala użyć wszystkich mechanizmów do przetwarzania obrazów</li>
+<li>np. uczenie maszynowe, ekstrakcja cech, rozpoznawanie mowy</li>
+</ul></li>
+</ul>
+<h2 id="rozmiar-okna">Rozmiar okna</h2>
+<ul>
+<li>Dłuższe okno
+<ul>
+<li>większa liczba próbek</li>
+<li>lepsza rozdzielczość częstotliwości</li>
+<li>gorsza rozdzielczość czasowa</li>
+<li>dłuższa obserwacja - różnice czasowe się zamazują</li>
+</ul></li>
+<li>Krótsze okno
+<ul>
+<li>mniejsza liczba próbek</li>
+<li>gorsza rozdzielczość częstotliwości</li>
+<li>lepsza rozdzielczość czasowa</li>
+</ul></li>
+<li>Można zrobić dwa razy analizę tego samego sygnału i mieć oba</li>
+<li>Rozmiar okna to tradeoff w rozdzielczości w czasie i
+częstotliwości</li>
+</ul>
+<p>Widmo dla określonego czasu trwania vs widmo w czasie rzeczywistym vs
+spektrogram</p>
+<h2 id="ekstrakcja-cech-dźwięku">Ekstrakcja cech dźwięku</h2>
+<h3 id="spectral-roll-off">Spectral roll-off</h3>
+<ul>
+<li>Parametr <em>opadania widma</em></li>
+<li>Częstotliwość poniżej której znajduje się określony procent całej
+energii</li>
+<li>Dobrze wskazuje początki i końce słów, nut</li>
+</ul>
+<p><span class="math display">\[
+v_{SR}(n) = i | \quad \sum_{k=0}^i |X(k,n)| = \kappa
+\]</span></p>
+<h3 id="spectral-flux">Spectral flux</h3>
+<ul>
+<li>Parametr określający szybkość zmian widma</li>
+<li>Porównanie widma z bieżącego okna do widma z poprzedniego okna</li>
+<li>Wykorzystywany do opisu barwy dźwięku</li>
+<li>Do wykrywania początków słów, nut</li>
+</ul>
+<p><span class="math display">\[
+v_{SF}(n) =
+\frac
+{\sqrt{\sum_{k=0}^{\kappa/2-1}(|X(k,n)| - |X(k,n-1)|)^2}}
+{\kappa / 2}
+\]</span></p>
+<h3 id="spectral-centroid">Spectral centroid</h3>
+<ul>
+<li>Środek ciężkości widma</li>
+<li>Określa jasność brzmienia
+<ul>
+<li>im większa wartość, tym jaśniejsza barwa dźwięku</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+v_{SC}(n) = \frac
+{\sum_{k=0}^{\kappa/2-1} k |X(k,n)|^2}
+{\sum_{k=0}^{\kappa/2-1} |X(k,n)|^2}
+\]</span></p>
+<h3 id="spectral-spread">Spectral spread</h3>
+<ul>
+<li>Opisuje średnie odchylenie od centroidy</li>
+<li>Dla szumów duża wartość</li>
+<li>Dla dźwięków tonalnych niska wartość</li>
+</ul>
+<p><span class="math display">\[
+v_{SS}(n) = \sqrt{\frac
+{\sum_{k=0}^{\kappa/2-1} (k-v_{SC}(n))^2 |X(k,n)|^2}
+{\sum_{k=0}^{\kappa/2-1} |X(k,n)|^2}
+}
+\]</span></p>
+<h3 id="spectral-decrease">Spectral decrease</h3>
+<ul>
+<li>Opisuje stromość zbocza widma</li>
+<li>Niskie wartości wskazują na koncentrację energii dla niskich
+częstotliwości</li>
+</ul>
+<p><span class="math display">\[
+v_{SD}(n) = \frac
+{\sum_{k=0}^{\kappa/2-1}\frac{1}{k}(|X(k,n)| - |X(0,n)|)}
+{\sum_{k=0}^{\kappa/2-1} |X(k,n)|}
+\]</span></p>
+<h3 id="mfcc---mel-frequency-cepstral-coefficients">MFCC - MEL-Frequency
+Cepstral Coefficients</h3>
+<ul>
+<li>Cepstrum sygnału przedstawione w skali melowej</li>
+<li>Wektor parametrów mel-cepstralnych to wektor współczynników cepstrum
+w odpowiednich pasmach melowych</li>
+<li>Mają za zadanie odzwierciedlać naturalną odpowiedź układu słuchowego
+na pobudzenie dźwiękami mowy</li>
+</ul>
+<p><span class="math display">\[
+v_{MFCC}^j(n) =
+\sum_{k&#39;=1}^{\kappa&#39;}
+\log (|X&#39;(k&#39;,n)|)
+\cdot
+\cos(j(k-\frac{1}{2})\frac{\pi}{\kappa&#39;})
+\]</span></p>
+<h3 id="skala-melowa">Skala melowa</h3>
+<ul>
+<li>Skala melowa odpowiada ludzkiemu postrzeganiu częstotliwości</li>
+<li>Oparte o filtrację bankiem filtrów o charakterystyce trójkątnej</li>
+<li>K-ty współczynnik mel-cepstralny odpowiada zawartości k-tego
+pasma</li>
+<li>Zazwyczaj liczba pasm wynosi od 12 do 20</li>
+</ul>
+<h2 id="zastosowania">Zastosowania</h2>
+<h3 id="asr">ASR</h3>
+<ul>
+<li>ASR - Automatic Speech Recognition</li>
+<li>STT - Speech-To-Text</li>
+<li>LVCSR - Large Vocabulary Continuous Speech
+<ul>
+<li>mowa ciągła</li>
+<li>dyktowanie tekstu</li>
+</ul></li>
+</ul>
+<h3 id="rozpoznawanie-mówcy">Rozpoznawanie mówcy</h3>
+<ul>
+<li>Speaker recognition
+<ul>
+<li>speaker identification</li>
+<li>speaker detection</li>
+<li>speaker verification</li>
+</ul></li>
+</ul>
+<h3 id="rozpoznawanie-emocji-w-głosie">Rozpoznawanie emocji w
+głosie</h3>
+<ul>
+<li>Daje się dobrze wyznaczyć na podstawie wyliczonych (wcześniej
+wymienionych) statystyk</li>
+</ul>
+<h2 id="kompresja-dźwięku">Kompresja dźwięku</h2>
+<ul>
+<li>Redukcja ilości danych</li>
+<li>Redukcja przepływności</li>
+<li>Redukcja wielkości pliku</li>
+<li>Kompresja w sensie zawężania dynamiki dźwięku to co innego (nie
+mylić)</li>
+<li>Umożliwia zwiększenie ilości danych zapisanych na nośniku</li>
+<li>Umożliwia zmniejszenie szerokości pasma w systemie
+transmisyjnym</li>
+<li>Umożliwia szybszą transmisję w danym paśmie</li>
+</ul>
+<h3 id="rodzaje-kompresji">Rodzaje kompresji</h3>
+<ul>
+<li>Bezstratna
+<ul>
+<li>wav</li>
+<li>flac</li>
+</ul></li>
+<li>Stratna
+<ul>
+<li>mp3</li>
+<li>ogg</li>
+<li>wma</li>
+</ul></li>
+</ul>
+<h3 id="kompresja-bezstratna">Kompresja bezstratna</h3>
+<ul>
+<li>Bez utraty informacji o sygnale pierwotnym</li>
+<li>Kodowanie ciszy przez czas jej trwania</li>
+<li>Kodowanie mono i różnic między kanałami zamiast stereo</li>
+<li>Przykłady
+<ul>
+<li>FLAC</li>
+<li>WMA</li>
+<li>MLP</li>
+<li>M4A</li>
+<li>APE</li>
+</ul></li>
+</ul>
+<h3 id="kompresja-stratna">Kompresja stratna</h3>
+<ul>
+<li>Utrata informacji o sygnale pierwotnym (może być znacząca)</li>
+<li>Usuwanie skrajnie wysokich i niskich częstotliwości</li>
+<li>Usuwanie dźwięków o niskim poziomie</li>
+<li>Wykorzystywanie modeli psychoakustycznych
+<ul>
+<li>wycina się to co zostanie najmniej zauważone</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>MP1, MP2, MP3</li>
+<li>AAC</li>
+<li>MPC</li>
+<li>OGG</li>
+<li>ATRAC</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cyfrowe-przetwarzanie-dźwięku">Cyfrowe przetwarzanie
+dźwięku</a>
+<ul>
+<li><a href="#cyfrowe-przetwarzanie-sygnałów-fonicznych">Cyfrowe
+przetwarzanie sygnałów fonicznych</a></li>
+<li><a href="#okno-analizy-fft">Okno analizy FFT</a></li>
+<li><a href="#spektrogram">Spektrogram</a></li>
+<li><a href="#rozmiar-okna">Rozmiar okna</a></li>
+<li><a href="#ekstrakcja-cech-dźwięku">Ekstrakcja cech dźwięku</a>
+<ul>
+<li><a href="#spectral-roll-off">Spectral roll-off</a></li>
+<li><a href="#spectral-flux">Spectral flux</a></li>
+<li><a href="#spectral-centroid">Spectral centroid</a></li>
+<li><a href="#spectral-spread">Spectral spread</a></li>
+<li><a href="#spectral-decrease">Spectral decrease</a></li>
+<li><a href="#mfcc---mel-frequency-cepstral-coefficients">MFCC -
+MEL-Frequency Cepstral Coefficients</a></li>
+<li><a href="#skala-melowa">Skala melowa</a></li>
+</ul></li>
+<li><a href="#zastosowania">Zastosowania</a>
+<ul>
+<li><a href="#asr">ASR</a></li>
+<li><a href="#rozpoznawanie-mówcy">Rozpoznawanie mówcy</a></li>
+<li><a href="#rozpoznawanie-emocji-w-głosie">Rozpoznawanie emocji w
+głosie</a></li>
+</ul></li>
+<li><a href="#kompresja-dźwięku">Kompresja dźwięku</a>
+<ul>
+<li><a href="#rodzaje-kompresji">Rodzaje kompresji</a></li>
+<li><a href="#kompresja-bezstratna">Kompresja bezstratna</a></li>
+<li><a href="#kompresja-stratna">Kompresja stratna</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

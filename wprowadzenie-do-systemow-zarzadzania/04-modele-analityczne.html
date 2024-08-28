@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-modele-analityczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-modelowanie-procesow-biznesowych.html">Poprzedni: 03-modelowanie-procesow-biznesowych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-1.html">Następny: kolokwium-1.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wprowadzenie do systemów zarządzania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="01-systemy-informacyjne-w-zarzadzaniu.html">01-systemy-informacyjne-w-zarzadzaniu.html</a></li>
+                
+                <li><a href="02-architektury-systemow-zarzadzania.html">02-architektury-systemow-zarzadzania.html</a></li>
+                
+                <li><a href="03-modelowanie-procesow-biznesowych.html">03-modelowanie-procesow-biznesowych.html</a></li>
+                
+                <li><a href="04-modele-analityczne.html">04-modele-analityczne.html</a></li>
+                
+                <li><a href="kolokwium-1.html">kolokwium-1.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="modele-analityczne">Modele analityczne</h1>
+<h2 id="model">Model</h2>
+<p>Model matematyczny jest odzwierciedleniem fragmentu rzeczywistości w
+formie zależności matematycznych (algebraicznych)</p>
+<ul>
+<li>Model abstrakcyjny i model danych</li>
+<li>Model powinien być ogólny, a szczególna sytuacja jest opisywana
+przez dane</li>
+<li>Model podlega walidacji - jak udowodnić poprawność</li>
+</ul>
+<h2 id="model-rzeczowy">Model rzeczowy</h2>
+<ul>
+<li><span class="math inline">\(y = f(x,p)\)</span>
+<ul>
+<li><span class="math inline">\(x \in X\)</span> - wektor zmiennych
+decyzyjnych</li>
+<li><span class="math inline">\(p \in P\)</span> - wektor
+parametrów</li>
+<li><span class="math inline">\(y \in Y\)</span> - wektor zmiennych
+wyjściowych</li>
+<li><span class="math inline">\(X\)</span> - zbiór decyzji
+dopuszczalnych</li>
+<li><span class="math inline">\(Y\)</span> - zbiór ograniczeń na zmienne
+wyjściowe</li>
+<li><span class="math inline">\(P\)</span> - zbiór ograniczeń na
+parametry</li>
+</ul></li>
+</ul>
+<h2 id="zadania-analizy-modelu">Zadania analizy modelu</h2>
+<ul>
+<li>Symulacja</li>
+<li>Symulacja odwrotna</li>
+<li>Optymalizacja jednokryterialna</li>
+<li>Analiza wielokryterialna</li>
+</ul>
+<h3 id="symulacja">Symulacja</h3>
+<ul>
+<li>Na etapie weryfikacji modelu</li>
+<li>Podajemy przykładowe wejście i parametry</li>
+<li>Patrzymy, czy wyjścia mają sens</li>
+</ul>
+<h3 id="symulacja-odwrotna">Symulacja odwrotna</h3>
+<ul>
+<li>Jakie powinny być zmienne decyzyjne, żeby uzyskać określone
+wyjście</li>
+<li>Zadanie optymalizacji</li>
+<li><span class="math inline">\(\min_{x \in X} |y - \hat{y}| + \rho |x -
+\hat{x}|\)</span>
+<ul>
+<li><span class="math inline">\(\rho\)</span> - czynnik
+regularyzacji</li>
+</ul></li>
+</ul>
+<h3 id="optymalizacja">Optymalizacja</h3>
+<ul>
+<li>Minimalizacja funkcji kosztu, określonego wyjścia</li>
+<li>Dotyczy jednego wyjścia</li>
+<li><span class="math inline">\(\min_{x \in X} q_i\)</span></li>
+</ul>
+<h3 id="analiza-wielokryterialna">Analiza wielokryterialna</h3>
+<ul>
+<li>Często konfliktowe cele (np. cena vs jakość)</li>
+<li><span class="math inline">\(\min_{x \in X} \bf{q}\)</span></li>
+<li>Nie jest dobrze zdefiniowanym matematycznie zadaniem (nie jest
+optymalizacją w ścisłym sensie)</li>
+</ul>
+<h2 id="klasyfikacja-modeli">Klasyfikacja modeli</h2>
+<ul>
+<li>Statyczne
+<ul>
+<li>liniowe - jeśli się da, to najlepiej budować model liniowy, stosować
+aproksymacje, są łatwiejsze obliczeniowo, bardzo wydajne solvery</li>
+<li>dyskretne</li>
+<li>nieliniowe</li>
+</ul></li>
+<li>Dynamiczne</li>
+<li>Stochastyczne</li>
+<li>Inne (np. oparte o zbiory rozmyte)</li>
+</ul>
+<h2 id="zadanie-liniowe">Zadanie liniowe</h2>
+<ul>
+<li><span class="math inline">\(\min_{x \in X} c^Tx\)</span> -
+minimalizacja kosztu</li>
+<li><span class="math inline">\(Ax \le b, x \ge 0\)</span> - opis
+ograniczeń na <span class="math inline">\(x\)</span></li>
+</ul>
+<h3 id="poziomica-funkcji">Poziomica funkcji</h3>
+<p>Zbiór punktów dziedziny funkcji rzeczywistej wielu zmiennych, dla
+których przyjmuje ona tę samą wartość</p>
+<h3 id="rough-set">Rough set</h3>
+<p>Do wygooglowania</p>
+<h2 id="operations-research-vs-optimization">Operations research vs
+optimization</h2>
+<ul>
+<li>Badania operacyjne - zorientowane na zastosowania w przemyśle i
+usługach</li>
+<li>Optymalizacja - bardziej ogólny kontekst</li>
+</ul>
+<h2 id="modele-w-systemach-zarządzania">Modele w systemach
+zarządzania</h2>
+<p>Model musi być włączony w proces biznesowe, chyba że dotyczy
+jednorazowanego planowania lub analizy strategicznej.</p>
+<ul>
+<li>Modele planowania i realizacji produkcji i usług
+<ul>
+<li>planowanie (lokalizacja i dystrybucja)</li>
+<li>zadania operacyjne (problem pakowania)</li>
+</ul></li>
+<li>Harmonogramowanie i szeregowanie zadań</li>
+<li>Modele dystrybucji (operacyjne)
+<ul>
+<li>najkrótsza ścieżka</li>
+<li>sieci przepływowe</li>
+<li>zadanie transportowe</li>
+</ul></li>
+</ul>
+<h2
+id="narzędznia-do-modelowania-i-rozwiązywania-zadań-optymalizacji">Narzędznia
+do modelowania i rozwiązywania zadań optymalizacji</h2>
+<ul>
+<li>Narzędzia do modelowania
+<ul>
+<li>AMPL</li>
+<li>AIMMS</li>
+<li>GAMS</li>
+<li>GNU MathProg</li>
+<li>Pyomo (python)</li>
+</ul></li>
+<li>Solwery optymalizacyjne
+<ul>
+<li>MINOS</li>
+<li>CPLEX</li>
+<li>GUROBI</li>
+<li>GLPK</li>
+</ul></li>
+</ul>
+<h2 id="model-1">Model</h2>
+<ul>
+<li>Model abstrakcyjny
+<ul>
+<li>zbiory, indeksy, parametry, zmienne decyzyjne</li>
+<li>jest sparametryzowany</li>
+<li>symbole, pod które zostaną podstawione wartości (dane)</li>
+</ul></li>
+<li>Instancja modelu
+<ul>
+<li>model abstrakcyjny o konkretnych wartościach parametrów</li>
+<li>załadowany danymi</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#modele-analityczne">Modele analityczne</a>
+<ul>
+<li><a href="#model">Model</a></li>
+<li><a href="#model-rzeczowy">Model rzeczowy</a></li>
+<li><a href="#zadania-analizy-modelu">Zadania analizy modelu</a>
+<ul>
+<li><a href="#symulacja">Symulacja</a></li>
+<li><a href="#symulacja-odwrotna">Symulacja odwrotna</a></li>
+<li><a href="#optymalizacja">Optymalizacja</a></li>
+<li><a href="#analiza-wielokryterialna">Analiza
+wielokryterialna</a></li>
+</ul></li>
+<li><a href="#klasyfikacja-modeli">Klasyfikacja modeli</a></li>
+<li><a href="#zadanie-liniowe">Zadanie liniowe</a>
+<ul>
+<li><a href="#poziomica-funkcji">Poziomica funkcji</a></li>
+<li><a href="#rough-set">Rough set</a></li>
+</ul></li>
+<li><a href="#operations-research-vs-optimization">Operations research
+vs optimization</a></li>
+<li><a href="#modele-w-systemach-zarządzania">Modele w systemach
+zarządzania</a></li>
+<li><a href="#narzędznia-do-modelowania-i-rozwiązywania-zadań-optymalizacji">Narzędznia
+do modelowania i rozwiązywania zadań optymalizacji</a></li>
+<li><a href="#model-1">Model</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

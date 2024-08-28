@@ -1,0 +1,1261 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-01.html">Poprzedni: kolokwium-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-01.html">Następny: wyklad-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kolokwium-2">Kolokwium 2</h1>
+<h2
+id="drzewo-urządzeń---co-to-jest-do-czego-służy-jakie-są-możliwości-jego-modyfikacji">Drzewo
+urządzeń - co to jest, do czego służy, jakie są możliwości jego
+modyfikacji?</h2>
+<ul>
+<li>Standard opisu połączenia między CPU a sprzętem</li>
+<li>Pliki DTS</li>
+<li>Pozwala na łatwą rozbudowę</li>
+<li>Pozwala na dynamiczną zmianę opisu systemu</li>
+<li>Mechanizm nakładek
+<ul>
+<li>bezpieczna modyfikacja przez bootloader</li>
+<li>potencjalnie niebezpieczna modyfikacja podczas pracy -
+<code>dtoverlay</code> ## Obsługa magistral zapewniających autodetekcję
+urządzeń (np. USB, PCI Express) w systemie Linux</li>
+</ul></li>
+<li>Jądro monitoruje stan magistrale i ładuje odpowiedni sterownik po
+wykryciu urządzenia</li>
+<li>Program <code>udev</code> tworzy odpowiednie wpisy w
+<code>/dev</code>
+<ul>
+<li>można definiować własne reguły ## Komunikacja z urządzeniami we/wy -
+rejestry mapowane w pamięć, lub w oddzielną przestrzeń adresową I/O,
+sposoby ich obsługi</li>
+</ul></li>
+<li>Dla rejestrów w przestrzeni adresowej IO
+<ul>
+<li>niektóre architektury wspierają operacje typu <code>in</code> i
+<code>out</code> w przestrzeni adresowej IO</li>
+<li>określenie praw dostępu przez instrukcje <code>ioperm</code> i
+<code>iopl</code></li>
+</ul></li>
+<li>Dla rejestrów zmapowanych do pamięci
+<ul>
+<li>dostęp przez <code>/dev/mem</code> do fizycznej przstrzeni adresowej
+CPU</li>
+<li>sterownik <code>uio</code> pozwala tworzyć mikrosterowniki w
+przestrzeni użytkownika</li>
+<li>po zmapowaniu odpowiedniego obszaru pamięci do przestrzeni adresowej
+procesu można odwoływać się do rejestrów np. jako do pól struktury</li>
+</ul></li>
+</ul>
+<h2
+id="szeregowanie-procesów---zwykłe-tryby-szeregowania-tradycyjne-tryby-szeregowania-czasu-rzeczywistego-używanie-trybu-terminowego.-jak-ich-używać-jak-system-radzi-sobie-z-błędnymi-procesami-szeregowanymi-w-trybach-czasu-rzeczywistego">Szeregowanie
+procesów - zwykłe tryby szeregowania, tradycyjne tryby szeregowania
+czasu rzeczywistego, używanie trybu terminowego. Jak ich używać? Jak
+system radzi sobie z “błędnymi” procesami szeregowanymi w trybach czasu
+rzeczywistego?</h2>
+<ul>
+<li>Zwykłe tryby szeregowanie
+<ul>
+<li><code>SCHED_OTHER</code> - podstawowy tryb, zadania po kolei dostają
+kwanty czasu (round robin)</li>
+<li><code>SCHED_BATCH</code> - dla zadań wsadowych, większa
+przepustowość kosztem opóźnień</li>
+<li><code>SCHED_IDLE</code> - dla zadań w tle</li>
+</ul></li>
+<li>Tryby szeregowania czasu rzeczywistego
+<ul>
+<li><code>SCHED_FIFO</code> - FIFO bez ograniczeń czasowych, proces o
+wyższym priorytecie może wywłaszczyć</li>
+<li><code>SCHED_RR</code> - round robin, FIFO ale tylko na przydzielony
+kwant czasu</li>
+<li><code>SCHED_DEADLINE</code></li>
+</ul></li>
+<li>Błędne procesy
+<ul>
+<li>FIFO i RR - proces z wyższym priorytetem może uniemożliwić wykonanie
+procesów o niższych priorytetach</li>
+<li>DEADLINE - nie może, jeśli proces nie zakończy działania w terminie
+to jest zawieszany do następnego okresu (throttling)</li>
+</ul></li>
+<li><code>SCHED_DEADLINE</code>
+<ul>
+<li>czas wykonywania (runtime)</li>
+<li>termin (deadline)</li>
+<li>okres (period)</li>
+<li>runtime &lt;= deadline &lt;= period</li>
+<li>po wykonaniu dobrowolnie wywołuje <code>sched_yield</code>, albo
+zawiesza się na IO</li>
+</ul></li>
+<li>Tryb szeregowania wybiera się przez wywołanie
+<code>sched_setscheduler</code>
+<ul>
+<li><code>pid</code> - wybrany lub wołający</li>
+<li><code>policy</code> - jedna z wymienionych</li>
+<li><code>sched_param</code> - parametry (np. priorytet) ## Jak powinno
+zachowywać się zadanie czasu rzeczywistego, żeby nie zakłócić działania
+systemu?</li>
+</ul></li>
+<li>Używać odpowiedniego priorytetu i polityki harmonogramowania</li>
+<li>Ograniczenie do minimum sekcji krytycznych, blokowania</li>
+<li>Nie posiadać błędów</li>
+<li>Nie powodować zakleszczeń</li>
+</ul>
+<h2
+id="emulator-qemu-i-jego-możliwości---emulowane-platformy-standardowo-dostępne-modele-urządzeń-możliwości-dodawania-własnych-modeli-urządzeń.-sposoby-jego-wykorzystania-do-testowania-naszego-obrazu-systemu-operacyjnego-i-aplikacji.">Emulator
+QEMU i jego możliwości - emulowane platformy, standardowo dostępne
+modele urządzeń, możliwości dodawania własnych modeli urządzeń. Sposoby
+jego wykorzystania do testowania naszego obrazu systemu operacyjnego i
+aplikacji.</h2>
+<ul>
+<li>Emulowane platformy
+<ul>
+<li>ARM</li>
+<li>Intel</li>
+<li>RISC-V</li>
+<li>wiele innych</li>
+</ul></li>
+<li>Standardowo dostępne modele urządzeń
+<ul>
+<li>karty sieciowe</li>
+<li>urządzenia USB</li>
+<li>urządzenia pamięci masowej</li>
+</ul></li>
+<li>Można definiować własne urządzenie i dodawać je wykorzystując
+mechanizm device tree</li>
+<li>Może być wykorzystany do testowania aplikacji i systemu
+<ul>
+<li>w wirtualnym środowisku</li>
+<li>bez dostępu do fizycznego sprzętu</li>
+<li>przy różnych emulowanych konfiguracjach sprzętowych</li>
+<li>przy różnej dostępności zasobów</li>
+</ul></li>
+</ul>
+<h2
+id="komunikacja-międzyprocesowa---dostępne-mechanizmy-komunikacji-ich-właściwości-i-sposoby-wykorzystania-mechanizmy-synchronizacji-i-ich-wykorzystanie.-uruchamianie-poszczególnych-procesów-systemu.-sposoby-nawiązywania-komunikacji-między-procesami---np.-dostęp-przez-nazwy-do-kolejek-itp.">Komunikacja
+międzyprocesowa - dostępne mechanizmy komunikacji, ich właściwości i
+sposoby wykorzystania, mechanizmy synchronizacji i ich wykorzystanie.
+Uruchamianie poszczególnych procesów systemu. Sposoby nawiązywania
+komunikacji między procesami - np. dostęp przez nazwy do kolejek
+itp.</h2>
+<h3 id="kolejki-komunikatów">Kolejki komunikatów</h3>
+<ul>
+<li>Jednokierunkowa komunikacja między 2 procesami
+<ul>
+<li>przy wielu procesach trzeba użyć tyle samo kolejek</li>
+<li>do dwustronnej komunikacji potrzeba 2 kolejek</li>
+</ul></li>
+<li>Wymiana komunikatów
+<ul>
+<li>nie trzeba ich wyodrębniać ze strumienia danych</li>
+</ul></li>
+<li>Dane są kopiowane 2 razy
+<ul>
+<li>przy nadawaniu i odbieraniu</li>
+<li>niewydajne dla dużych ilości danych</li>
+<li>można przesyłać kolejkami same deskryptory, a duże dane przesyłać w
+inny sposób</li>
+</ul></li>
+<li>Identyfikowane przez nazwę
+<ul>
+<li>nazwa zaczyna się od <code>/</code></li>
+</ul></li>
+<li>Funkcje
+<ul>
+<li><code>mq_open</code> - otwarcie / utworzenie</li>
+<li><code>mq_setattr</code> - ustawienie parametrów</li>
+<li><code>mq_close</code> - zamknięcie</li>
+<li><code>mq_unlink</code> - usunięcie</li>
+<li><code>mq_send</code> - wysłanie komunikatu</li>
+<li><code>mq_receive</code> - odbiór komunikatu</li>
+<li><code>mq_notify</code> - powiadomienie z użyciem sygnału</li>
+<li><code>poll</code>, <code>epoll</code>, <code>select</code> - do
+oczekiwania na komunikat, jak do plików</li>
+</ul></li>
+</ul>
+<h3 id="semafory">Semafory</h3>
+<ul>
+<li>Zezwala na dostęp do dzielonego zasobu przez ustaloną liczbę
+procesów</li>
+<li>Użycie do synchronizacji procesów (a nie wątków) wymaga ustawienia
+flagi <code>PTHREAD_PROCESS_SHARED</code></li>
+<li>Mogą być nazwane</li>
+<li>Funkcje
+<ul>
+<li><code>sem_init</code> - tworzenie (podanie początkowej
+wartości)</li>
+<li><code>sem_destroy</code> - usunięcie</li>
+<li><code>sem_wait</code> - próba uzyskania dostępu i zamknięcie
+blokady</li>
+<li><code>sem_post</code> - zwolnienie blokady</li>
+<li><code>sem_open</code> - tworzenie / otwieranie nazwanego
+semafora</li>
+<li><code>sem_close</code> - zamknięcie nazwanego semafora</li>
+<li><code>sem_unlink</code> - usunięcie nazwanego semafora</li>
+</ul></li>
+</ul>
+<h3 id="mutex">Mutex</h3>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>semafor binarny</li>
+<li>realizacja sekcji krytycznej</li>
+<li>tylko jeden proces / wątek może mieć zamkniętą blokadę</li>
+</ul></li>
+<li>Funkcje
+<ul>
+<li><code>pthread_mutex_init</code> - tworzenie</li>
+<li><code>pthread_mutex_destroy</code> - niszczenie</li>
+<li><code>pthread_mutex_lock</code> - pozyskanie blokady (też opcje z
+timeoutem i nieblokująca)</li>
+<li><code>pthread_mutex_unlock</code> - zwolnienie blokady</li>
+<li><code>pthread_mutexattr_setpshared</code> - umożliwienie
+synchronizacji procesów</li>
+<li><code>pthread_mutexattr_setrobust</code> - dodatkowe funkcji (np.
+zachowanie po śmierci procesu bez zwalniania mutexu)</li>
+</ul></li>
+</ul>
+<h3 id="zmienne-warunkowe">Zmienne warunkowe</h3>
+<ul>
+<li>Pozwalają oczekiwać na spełnienie określonego warunku</li>
+<li>Funkcje
+<ul>
+<li><code>pthread_cond_init</code> - tworzenie</li>
+<li><code>pthread_cond_destroy</code> - niszczenie</li>
+<li><code>pthread_condattr_setpshared</code> - umożliwienie
+synchronizacji procesów</li>
+<li><code>pthread_cond_wait</code> - oczekiwanie na zdarzenie</li>
+<li><code>pthread_cond_braodcast</code> - wybudzenie wszystkich
+oczekujących procesów</li>
+<li><code>pthread_cond_signal</code> - wybudzenie jednego z oczekujących
+procesów</li>
+</ul></li>
+<li>Poprawne użycie z mutexem
+<ul>
+<li>oczekiwanie na zdarzenie przy zamkniętym mutexie</li>
+<li>wątek jest zablokowany do czasu wystąpienia zdarzenie
+(broadcast/signal), a mutex zostaje zwolniony</li>
+<li>po wystąpieniu zdarzenia sterowanie wraca do wątku, wątek ma
+zamknięty mutex</li>
+</ul></li>
+</ul>
+<h3 id="blokada-zapisodczyt">Blokada zapis/odczyt</h3>
+<ul>
+<li>Równeczesny dostęp wielu konsumentów danych przy równoczesnej
+synchronizacji producenta danych z konsumentami</li>
+<li>Proble czytelników i pisarza
+<ul>
+<li>semafor się nie nadaje, bo chcemy rozróżnić konsumentów
+nielbokujących się nawzajem od producenta blokującego wszystkich</li>
+</ul></li>
+<li>Bez dodatkowych mechanizmów jest ryzyko zagłodzenia producenta
+<ul>
+<li>któryś z konsumentów zawsze będzie blokował dostęp producentowi</li>
+</ul></li>
+<li>Funkcje
+<ul>
+<li><code>pthread_rwlockattr_setkind_np</code> - ustawienie właściwości
+(np. zapobieganie zagłodzeniu)</li>
+<li><code>pthread_rwlock_init</code> - tworzenie</li>
+<li><code>pthread_rwlock_destroy</code> - niszczenie</li>
+<li><code>pthread_rwlockattr_setpshared</code> - umożliwienie
+synchronizacji procesów</li>
+<li><code>pthread_rwlock_wrlock</code> - pozyskanie blokady do
+zapisu</li>
+<li><code>pthread_rwlock_rdlock</code> - pozyskanie blokady do
+odczytu</li>
+<li>są też wersje z timeoutem i nieblokujące</li>
+<li><code>pthread_rwlock_unlock</code> - zwolnienie blokady</li>
+</ul></li>
+</ul>
+<h3 id="bariera">Bariera</h3>
+<ul>
+<li>Synchronizacja wykonania kodu (a nie dostępu do zasobów)</li>
+<li>Wątek może wykonywać kod dalej, kiedy określona liczba wątków
+dojdzie do wybranego punktu</li>
+<li>Funkcje
+<ul>
+<li><code>pthread_barrier_init</code> - utworzenie z określeniem liczby
+wątków</li>
+<li><code>pthread_barrier_wait</code> - dojście do bariery / oczekiwanie
+aż wszystkie wątki dojdą do bariery</li>
+<li><code>pthread_barrier_destroy</code> - niszczenie</li>
+<li><code>pthread_barrierattr_setpshared</code> - umożliwienie
+synchronizacji procesów</li>
+</ul></li>
+</ul>
+<h3 id="spinlock">Spinlock</h3>
+<ul>
+<li>Jak semafor, ale oczekuje aktywnie na zwolnienie zajętej blokady
+zamiast usypiać wątek</li>
+<li>Ma sens tylko w systemie wieloprocesowym i kiedy czas oczekiwania na
+zwolnienie blokady jest krótki</li>
+<li>Pozwala uniknąć narzutu na przełączanie procesów</li>
+<li>Funkcje
+<ul>
+<li><code>pthread_spin_init</code> - tworzenie</li>
+<li><code>pthread_spin_destroy</code> - niszczenie</li>
+<li><code>pthread_spin_lock</code> - pozyskanie blokady</li>
+<li><code>pthread_spin_unlock</code> - zwolnienie blokady ### Pamięć
+dzielona</li>
+</ul></li>
+<li>Są nazwane</li>
+<li>Pliki w <code>/dev/shm</code></li>
+<li>Trzeba je usuwać ręcznie, bo przeżywają koniec procesu</li>
+<li>Równoczesny dostęp wymaga użycia mechanizmów synchronizacji</li>
+<li>Funkcje
+<ul>
+<li><code>shm_open</code> - otwarce / utworzenia</li>
+<li><code>close</code> - zamknięcie</li>
+<li><code>shm_unlink</code> - usunięcie</li>
+<li><code>ftruncate</code> - nadanie wielkości</li>
+<li><code>mmap</code> - zmapowanie obszaru do przestrzeni adresowej
+procesu</li>
+<li><code>munmap</code> - odmapowanie</li>
+</ul></li>
+</ul>
+<h3 id="uruchamianie-procesów">Uruchamianie procesów</h3>
+<ul>
+<li>Dwa podejścia do uruchamiania aplikacji wieloprocesowej
+<ul>
+<li>proces główny uruchamia inne procesy jako potomne</li>
+<li>procesy uruchamiane niezależnie (np. z linii poleceń)</li>
+</ul></li>
+<li><code>fork</code>
+<ul>
+<li>proces potomny dziedziczy otwarte pliki i kolejki komunikatów</li>
+<li>do uruchomienia programu używa się <code>execve</code></li>
+</ul></li>
+<li>Inne dostępne funkcje
+<ul>
+<li><code>posix_spawn</code></li>
+<li><code>clone</code></li>
+<li><code>system</code>, <code>popen</code> - uruchomienie przez powłokę
+## Możliwości rezerwacji rdzenia CPU - realizacja, do czego się
+przydaje, jak z tego skorzystać?</li>
+</ul></li>
+<li>Przydatne kiedy zdarzenie wymaga szybkiej obsługi przy aktywnym
+oczekiwaniu</li>
+<li>Funkcje
+<ul>
+<li><code>sched_setaffinity</code></li>
+<li><code>sched_getaffinity</code></li>
+</ul></li>
+</ul>
+<h2
+id="oczekiwanie-na-zdarzenie-sprzętowe---oczekiwanie-aktywne-wykorzystanie-przerwań-porównanie-tych-rozwiązań.-rola-sterownika-urządzenia-w-oczekiwaniu-z-wykorzystaniem-przerwań.-sposoby-optymalizacji-obsługi-przerwań-w-sterownikach.">Oczekiwanie
+na zdarzenie sprzętowe - oczekiwanie aktywne, wykorzystanie przerwań,
+porównanie tych rozwiązań. Rola sterownika urządzenia w oczekiwaniu z
+wykorzystaniem przerwań. Sposoby optymalizacji obsługi przerwań w
+sterownikach.</h2>
+<ul>
+<li>Obsługa sprzętu w procedurze obsługi przerwania
+<ul>
+<li>jest asynchroniczna, nie trzeba czekać na przydział czasu od
+planisty</li>
+<li>rozpoczęcie i zakończenie ma własny narzut</li>
+<li>może być opóźnione przez przerwanie o wyższym priorytecie</li>
+</ul></li>
+<li>To czy aktywne oczekiwanie, czy przerwania dadzą lepszy wynik zależy
+od warunków pracy systemu</li>
+<li>Dla optymalizacji można podzielić obsługę przerwanie na
+<ul>
+<li>górną połówkę - zasadnicza obsługa, może wyłączyć inne
+przerwania</li>
+<li>dolna połówka - odroczona procedura obsługi przerwania</li>
+<li>obsługa dolnej połówki przez tasklets, workqueues lub theaded
+interrupts ## System przetwarzający dane zbudowany jest z aplikacji
+dwóch rodzajów - serwera, pobierającego dane z czujników pomiarowych i
+udostępniającego je przez bufor w pamięci dzielonej, oraz z programów
+klienckich. Liczba programów klienckich nie jest z góry znana i mogą one
+być uruchamiane i zamykane niezależnie. W jaki sposób programy klienckie
+powinny uzyskiwać dostęp do bufora w pamięci dzielonej? W jaki sposób
+powinniśmy zapewnić zwolnienie tego bufora przy kończeniu działania
+systemu?</li>
+</ul></li>
+<li>Bufor powinien być umieszczony w nazwanym obszarze pamięci
+dzielonej</li>
+<li>Dostęp do bufora musi wykorzystać odpowiedni dla parametrów systemu
+mechanizm synchronizacji (mutex, semafor, blokada zapis/odczyt, zmienne
+warunkowe)
+<ul>
+<li>muszą być nazwane i mieć znane, ustalone nazwy, lub znajdować się w
+tej samej pamięci współdzielonej co bufor</li>
+</ul></li>
+<li>Pamięć dzielona z buforem powinna być usuwana przez
+<code>shm_unlink</code> przez ostatni korzystający z niego proces
+<ul>
+<li>np. proces serwera po zakończeniu pracy</li>
+</ul></li>
+</ul>
+<h2
+id="w-jaki-sposób-standardowe-drzewo-urządzeń-systemu-wbudowanego-umożliwia-opis-maksymalnej-konfiguracji-tego-systemu-i-aktualnie-używanej-konfiguracji-w-jaki-sposób-możemy-wybrać-jakich-podsystemów-chcemy-używać-w-jaki-sposób-możliwe-jest-dostosowanie-drzewa-urządzeń-do-niestandardowych-rozszerzeń-które-dodaliśmy-do-systemu">W
+jaki sposób standardowe drzewo urządzeń systemu wbudowanego umożliwia
+opis ‘’maksymalnej’’ konfiguracji tego systemu i ‘’aktualnie używanej’’
+konfiguracji? W jaki sposób możemy wybrać jakich podsystemów chcemy
+używać? W jaki sposób możliwe jest dostosowanie drzewa urządzeń do
+niestandardowych rozszerzeń, które dodaliśmy do systemu?</h2>
+<ul>
+<li>Można to osiągnąć przez mechanizm nakładek na drzewo urządzeń</li>
+<li><em>Maksymalna</em> konfiguracja w pliku drzewa urządzeń
+<ul>
+<li>opcjonalne podsystemy mają odpowiedni parametr - są domyślnie
+wyłączone</li>
+<li>`status = “disabled”</li>
+</ul></li>
+<li>Aktualnie używana konfiguracja
+<ul>
+<li>nakładka na bazowe drzewo urządzeń</li>
+<li>korzysta z referencji (<code>&amp;</code>) do węzłów zdefiniowanych
+w hierarchii drzewa urządzeń</li>
+<li>nadpisuje wybrane parametry dla używanych urządzeń</li>
+<li><code>status = "okay"</code> ## Jak możemy zapewnić minimalny czas
+reakcji naszego oprogramowania (sterownika urządzenia i/lub programu w
+przestrzeni użytkownika) na oczekiwane zdarzenie sprzętowe. Proszę
+uwzględnić dwie możliwości: a) system z jednym rdzeniem CPU, b) system z
+kilkoma rdzeniami CPU.</li>
+</ul></li>
+<li>Z jednym rdzeniem
+<ul>
+<li>ustawienie wysokiego priorytetu</li>
+<li>w zależności od potrzeb użycie odpowiedniego trybu szeregowania
+czasu rzeczywistego</li>
+<li>obsługa z wykorzystaniem przerwania</li>
+</ul></li>
+<li>Z wieloma rdzeniami
+<ul>
+<li>zarezerwowanie rdzenia CPU pod to zadanie</li>
+<li>obsługa z aktywnym oczekiwaniem</li>
+<li>obsługa z wykorzystaniem przerwania i zarezerwowanie rdzenia
+wyłącznie na obsługę tego przerwania ## Dlaczego wykorzystanie DMA
+wymaga sterownika działającego w przestrzeni jądra?</li>
+</ul></li>
+<li>Sterownik musi komunikować się ze sprzętowym kontrolerem DMA</li>
+<li>Sterownik musi obsłużyć przerwanie zgłaszane przez kontroler DMA po
+zakończeniu transferu ## Proszę porównać komunikację między procesami za
+pomocą kolejek komunikatów z komunikacją za pomocą potoków. Proszę
+wymienić cechy wspólne i różnice.</li>
+<li>Kolejki i potoki mogą być nazwane</li>
+<li>Kolejki i potki zapewniają jednokierunkową komunikację między 2
+procesami</li>
+<li>Kolejka przesyła dane zorganizowane w komunikaty (o określonej
+strukturze)</li>
+<li>Potok przesyła strumień bajtów</li>
+<li>Komunikatom w kolejce można ustawiać priorytety ## Na czym polega
+mapowanie rejestrów urządzenia w pamięć? Jak to jest realizowane? Jakie
+mechanizmy są tu niezbędne? Jakie potencjalne problemy są z tym
+związane? Jakie funkcje w języku C musimy wykorzystać aby móc odwołać
+się do tak udostępnionych rejestrów urządzenia?</li>
+<li>Adresy z wirtualnej przestrzeni adresowej procesu odpowiadają
+rejestrom urządzenia
+<ul>
+<li>można korzystać z obszaru pamięci jak ze struktury o określonych
+polach</li>
+<li>rejestry jako pola struktury - pisanie i czytanie zmiennych</li>
+<li>urządzenie jest podłączone do magistrali systemowej</li>
+</ul></li>
+<li>Potencjalne problemy
+<ul>
+<li>błędy wyrównania</li>
+<li>zapis nieprawidłowej wartości może wysłać fizyczny sygnał na
+magistralę</li>
+<li>optymalizacje kompilatora mogą spowodować nieprawidłowe
+działanie</li>
+<li>optymalizacje odczytów z pamięci przez procesor mogą spowodować
+nieprawidłowe działanie</li>
+</ul></li>
+<li>Do mapowania pliku specjalnego <code>/dev/mem</code> do pamięci
+służy funkcja <code>mmap</code>
+<ul>
+<li><code>open</code> i <code>close</code> do otwarcia / zamknięcia
+pliku</li>
+</ul></li>
+</ul>
+<h2
+id="w-systemie-komputerowym-używanym-do-sterowania-działa-kilka-procesów-nie-wątków.-w-pewnym-momencie-konieczne-jest-wstrzymanie-działania-pozostałych-procesów-do-chwili-gdy-jeden-z-nich-zainicjalizuje-pewną-strukturę-danych.-proszę-opisać-jak-należy-rozwiązać-ten-problem.-jakiego-mechanizmu-synchronizującego-należy-użyć">W
+systemie komputerowym używanym do sterowania działa kilka procesów (nie
+wątków!). W pewnym momencie konieczne jest wstrzymanie działania
+pozostałych procesów do chwili, gdy jeden z nich zainicjalizuje pewną
+strukturę danych. Proszę opisać, jak należy rozwiązać ten problem.
+Jakiego mechanizmu synchronizującego należy użyć?</h2>
+<ul>
+<li>Do rozwiązania problemu można użyć zmiennej warunkowej i mutexu
+<ul>
+<li>zmienna warunkowa pozwala wybudzić wszystkie oczekujące procesy</li>
+<li>mutex zapewnia synchronizację dostępu do zmiennej warunkowej</li>
+</ul></li>
+<li>Pozostałe wątki kolejno pozyskują mutex i zawieszają się na zmiennej
+warunkowej</li>
+<li>Wątek inicjujący
+<ul>
+<li>pozyskuje mutex</li>
+<li>inicjuje strukturę danych</li>
+<li>wykonuje operację broadcast na zmiennej warunkowej</li>
+<li>zwalnia mutex</li>
+</ul></li>
+<li>Oczekujące wątki są kolejno wybudzane po otrzymaniu sygnału i
+zwalniają mutex</li>
+</ul>
+<h2
+id="system-komputerowy-jest-wyposażony-w-czterordzeniowy-procesor.-dwa-urządzenia-peryferyjne-wymagają-bardzo-szybkiej-obsługi-przy-czym-potrzebę-obsługi-zgłaszają-przez-wygenerowanie-przerwania-które-można-maskować-oraz-przez-zmianę-wartości-w-swoim-rejestrze-statusu.-jak-skonfigurować-system-aby-jak-najlepiej-spełnić-wymagania-tych-dwóch-urządzeń-a-zarazem-umożliwić-realizację-innych-zadań">System
+komputerowy jest wyposażony w czterordzeniowy procesor. Dwa urządzenia
+peryferyjne wymagają bardzo szybkiej obsługi, przy czym potrzebę obsługi
+zgłaszają przez wygenerowanie przerwania (które można maskować) oraz
+przez zmianę wartości w swoim rejestrze statusu. Jak skonfigurować
+system, aby jak najlepiej spełnić wymagania tych dwóch urządzeń, a
+zarazem umożliwić realizację innych zadań?</h2>
+<ul>
+<li>Aktywne oczekiwanie
+<ul>
+<li>oba urządzenia są obsługiwane w oddzielnych procesach</li>
+<li>te procesy mają zarezerwowane po 1 rdzeniu procesora</li>
+<li>przerwania są maskowane</li>
+<li>obsługa wykorzystuje aktywne oczekiwanie na rejestrze statusu</li>
+</ul></li>
+<li>Przerwania
+<ul>
+<li>zarezerwować po 1 (oddzielnym) rdzeniu procesora na obsługę przerwań
+związanych z urządzeniem</li>
+</ul></li>
+<li>W obu przypadkach pozostają 2 wolne rdzenie na realizację innych
+zadań</li>
+<li>To, które rozwiązanie będzie lepsze może zależeć od różnych
+parametrów pracy systemu
+<ul>
+<li>najlepiej przeprowadzić pomiary w różnych warunkach</li>
+</ul></li>
+</ul>
+<h2
+id="w-systemie-komputerowym-z-procesorem-arm-pewne-urządzenie-peryferyjne-jest-podłączone-do-magistrali-systemowej-przy-czym-do-pracy-wymaga-pewnego-sygnału-zegarowego-który-nie-jest-zawsze-aktywny.-w-jaki-sposób-system-operacyjny-powinien-zostać-poinformowany-o-potrzebie-włączenia-tego-sygnału-oraz-o-adresach-rejestrów-tego-urządzenia-i-wykorzystywanej-przez-nie-linii-przerwań">W
+systemie komputerowym z procesorem ARM, pewne urządzenie peryferyjne
+jest podłączone do magistrali systemowej, przy czym do pracy wymaga
+pewnego sygnału zegarowego, który nie jest zawsze aktywny. W jaki sposób
+system operacyjny powinien zostać poinformowany o potrzebie włączenia
+tego sygnału, oraz o adresach rejestrów tego urządzenia i
+wykorzystywanej przez nie linii przerwań?</h2>
+<ul>
+<li>Adresy rejestrów i inne informacje są określone w drzewie
+urządzeń</li>
+<li>Do obsługi podłączonego urządzenia w czasie pracy systemu można użyć
+<code>udev</code> z odpowiednimi regułami</li>
+<li>Po wykryciu podłączenia urządzenia do magistrali systemowej (np.
+przez monitorowanie jej stanu) można dynamicznie załadować nakładkę na
+drzewo urządzeń aktywującą sygnał zegarowy
+<ul>
+<li>potencjalnie niebezpieczna operacja</li>
+</ul></li>
+</ul>
+<h2
+id="co-to-są-bufory-rozproszone-sg-z-czego-wynika-potrzeba-ich-stosowania">Co
+to są bufory rozproszone (SG) z czego wynika potrzeba ich
+stosowania?</h2>
+<ul>
+<li>Zaalokowanie dużego ciągłego bufora może nie być możliwe</li>
+<li>Proste urządzenia używające DMA potrzebują dużych ciągłych buforów
+do transferów danych</li>
+<li>Bufory rozproszone składają się z wielu mniejszych segmentów i
+deskryptorów
+<ul>
+<li>tworzą listę ## W systemie komputerowym (pracującym pod kontrolą
+Linuxa) zbierającym dane i sterującym na ich podstawie pewnym
+urządzeniem działa kilka procesów: Proces “A” obsługuje czujniki
+pomiarowe, przetwarza ich dane i na ich podstawie generuje sygnały
+sterujące. Proces “B” obsługuje graficzny interfejs użytkownika,
+wyświetlając przebiegi mierzonych parametrów dla operatora nadzorującego
+urządzenie. Proces “C” zajmuje się archiwizacją danych pomiarowych i
+komend sterujących, w celu ewentualnej późniejszej analizy zaistniałych
+nieprawidłowości. Proszę zaproponować, uzasadniając, jakie parametry
+szeregowania powinny zostać nadane poszczególnym procesom.</li>
+</ul></li>
+<li>Proces A
+<ul>
+<li>najwyższy priorytet</li>
+<li>kluczowe dla działania systemu</li>
+<li>opóźnienia powinny być możliwie jak najniższe</li>
+<li>można użyć trybu czasu rzeczywistego, np.
+<code>SCHED_DEADLINE</code> zależnie od potrzeb</li>
+</ul></li>
+<li>Proces B
+<ul>
+<li>średni priorytet</li>
+<li>GUI powinno być wystarczająco responsywne, ale tolerowane opóźnienia
+są na ogół większe</li>
+</ul></li>
+<li>Proces C
+<ul>
+<li>najniższy priorytet</li>
+<li>zadanie nie jest krytyczne czasowo</li>
+<li>proces może działać w tle</li>
+<li>ważniejsze jest poprwane działanie niż szybkość reakcji ## Czy do
+synchronizacji dostępu do danych, współużywanych przez dwa procesy, mogę
+użyć semafora, tworzonego jako globalna zmienna statyczna, przed
+wywołaniem funkcji “fork”? Jeśli nie, to dlaczego i jak poprawie
+utworzyć taki semafor?</li>
+</ul></li>
+<li>Nie można, proces potomny ma własną, oddzielną kopię globalnej
+zmiennej semafora</li>
+<li>Poprawne użycie to wykorzystanie nazwanego semafora lub semafora w
+pamięci współdzielonej
+<ul>
+<li>należy ustawić flagę do pracy z wieloma procesami ## Jakie jest
+zastosowanie nakładek na drzewo urządzeń? Kiedy i jak je stosujemy?
+Odpowiedź może być oparta na konkretnych rozwiązaniach dla Raspberry
+Pi.</li>
+</ul></li>
+<li>Pozwala dostosować konfigurację sprzętu (z drzewa urządzeń) do
+własnych potrzeb</li>
+<li>Nakładka może być użyta do modyfikacji drzewa urządzeń przez
+bootloader</li>
+<li>Można załadować nakładkę podczas pracy systemu przez
+<code>dtoverlay</code> ale to potencjalnie niebezpieczne ## Co
+powinniśmy zrobić, żeby w Linuksie zbudowanym za pomocą środowiska
+OpenWRT (np. w pobranej prekompilowanej wersji) zapewnić automatyczne
+uruchomienie karty dźwiękowej USB po jej podłączeniu do systemu?</li>
+<li>Zainstalować program <code>udev</code> / <code>eudev</code></li>
+<li>Dodać właściwą regułę dla karty wybranej karty dźwiękowej</li>
+<li>Upewnić się że działa daemon</li>
+</ul>
+<h2
+id="na-czym-polega-mapowanie-rejestrów-urządzenia-w-pamięć-aplikacji-w-przypadku-jak-podłączonych-urządzeń-daje-się-zastosować-takie-podejście-jakie-są-zalety-i-wady-takiego-rozwiązania">Na
+czym polega mapowanie rejestrów urządzenia w pamięć aplikacji? W
+przypadku jak podłączonych urządzeń daje się zastosować takie podejście?
+Jakie są zalety i wady takiego rozwiązania?</h2>
+<ul>
+<li>Urządzenie musi być podłączone do magistrali systemowej</li>
+<li>Fizyczne rejestry urządzenia są widoczne pod określonymi adresami w
+przestrzeni adrresowej procesu (po zmapowaniu przez
+<code>mmap</code>)</li>
+<li>Zalety
+<ul>
+<li>możliwosć odwoływania się do rejestrów jak do zwykłych
+zmiennych</li>
+<li>proste sterowniki można tworzyć w przestrzeni użytkownika</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>możliwe błędy wyrównania</li>
+<li>możliwe błędy wynikające z cahce’owania, optymalizacji kompilatora i
+procesora (trzeba wyłączać dane mechanizmy)</li>
+</ul></li>
+</ul>
+<h2
+id="w-jaki-sposób-możemy-za-pomocą-drzewa-urządzeń-włączać-i-wyłączać-komponenty-systemu-w-jaki-sposób-możemy-dodawać-do-drzewa-urządzeń-informacje-o-nowo-dołączonych-urządzeniach">W
+jaki sposób możemy za pomocą drzewa urządzeń włączać i wyłączać
+komponenty systemu? W jaki sposób możemy dodawać do drzewa urządzeń
+informacje o nowo dołączonych urządzeniach?</h2>
+<ul>
+<li>Przez zastosowanie mechanizmu nakładek na drzewo urządzeń
+<ul>
+<li>nakładane z poziomu bootloadera</li>
+<li>nakłądane podczas pracy systemu przez <code>dtoverlay</code>
+(niebezpieczne)</li>
+</ul></li>
+<li>Włączanie/wyłączanie
+<ul>
+<li>komponent jest zdefiniowany w bazowym drzewie urządzeń jako
+wyłączony</li>
+<li>nakładka odwołuje się do węzła z bazowego drzewa i nadpisuje jego
+status na aktywny</li>
+</ul></li>
+<li>W nakładce możne dodać nowy komponent, nieznajdujący się w bazowym
+drzewie (nowy węzeł)</li>
+</ul>
+<h2
+id="pewne-urządzenie-może-obsługiwać-równocześnie-maksymalnie-4-zlecenia.-jaki-mechanizm-pozwoli-najłatwiej-zsynchronizować-dostęp-do-niego-tak-aby-zapewnić-spełnienie-tego-warunku-czym-różni-się-użycie-tego-mechanizmu-w-następujących-sytuacjach-a-o-dostęp-do-tego-urządzenia-konkurują-różne-wątki-tego-samego-procesu-b-o-dostęp-do-tego-urządzenia-konkurują-różne-procesy.">Pewne
+urządzenie może obsługiwać równocześnie maksymalnie 4 zlecenia. Jaki
+mechanizm pozwoli najłatwiej zsynchronizować dostęp do niego tak, aby
+zapewnić spełnienie tego warunku? Czym różni się użycie tego mechanizmu
+w następujących sytuacjach: a) o dostęp do tego urządzenia konkurują
+różne wątki tego samego procesu; b) o dostęp do tego urządzenia
+konkurują różne procesy.</h2>
+<ul>
+<li>Można użyć semafora inicjowanego wartością 4
+<ul>
+<li>liczba jest znana</li>
+<li>zapewni, że tylko tyle procesów / wątków może mieć jednocześnie
+dostęp</li>
+</ul></li>
+<li>Konkurują wątki jednego procesu
+<ul>
+<li>semafor może być zmienną globalną</li>
+<li>przestrzeń adresowa jest wspólna dla wątków w obrębie jednego
+procesu</li>
+</ul></li>
+<li>Konkurują różne procesy
+<ul>
+<li>przestrzenie adresowe są izolowane</li>
+<li>trzeba użyć semafora nazwanego lub semafora w pamięci
+współdzielonej</li>
+</ul></li>
+</ul>
+<h2
+id="jak-działa-tryb-szeregowania-terminowego-sched_deadline-jakimi-parametrami-opisujemy-wymagania-dotyczące-szeregowania-procesu-jakie-wymagania-są-weryfikowane-przez-system">Jak
+działa tryb szeregowania terminowego (SCHED_DEADLINE)? Jakimi
+parametrami opisujemy wymagania dotyczące szeregowania procesu? Jakie
+wymagania są weryfikowane przez system?</h2>
+<ul>
+<li>Służy do szeregowania okresowych zadań czasu rzeczywistego</li>
+<li>Parametry
+<ul>
+<li>runtime - czas wykonywania</li>
+<li>deadline - termin</li>
+<li>period - okres</li>
+</ul></li>
+<li>Proces powinien zakończyć działanie przed upływem czasu wykonania
+<ul>
+<li><code>sched_yield</code></li>
+<li>zablokowanie się na IO</li>
+</ul></li>
+<li>Jeśli proces nie wyrobi się przed końcem czasu zostanie zawieszony
+do następnego okresu</li>
+<li>System weryfikuje spełnienie warunku <span
+class="math inline">\(runtime \le deadline \le period\)</span></li>
+</ul>
+<h2
+id="pewna-struktura-danych-umieszczona-w-pamięci-współdzielonej-shared-memory-jest-często-odczytywana-przez-wiele-procesów-a-dość-rzadko-modyfikowana-przez-małą-liczbę-procesów.-jakiego-prymitywu-synchronizacyjnego-powinniśmy-użyć-do-synchronizacji-dostępu-wszystkich-użytkowników-tej-struktury-gdzie-powinien-on-być-umieszczony-jak-powinien-on-być-zainicjalizowany">Pewna
+struktura danych, umieszczona w pamięci współdzielonej (shared memory)
+jest często odczytywana przez wiele procesów, a dość rzadko modyfikowana
+przez małą liczbę procesów. Jakiego prymitywu synchronizacyjnego
+powinniśmy użyć do synchronizacji dostępu wszystkich użytkowników tej
+struktury? Gdzie powinien on być umieszczony? Jak powinien on być
+zainicjalizowany?</h2>
+<ul>
+<li>Można użyć blokady zapisu/odczytu
+<ul>
+<li>pozwoli na wydajny, jednoczesny dostęp wielu konsumentów</li>
+</ul></li>
+<li>Powinna być umieszczona w pamięci współdzielonej
+<ul>
+<li>np. w tym samym bloku co wspomniana struktura</li>
+</ul></li>
+<li>Powinna być zainicjowana z flagą umożliwiającą synchronizację
+procesów</li>
+</ul>
+<h2
+id="w-jakim-celu-wprowadzono-mechanizm-podziału-procedury-obsługi-przerwania-na-dwie-części-proszę-opisać-przynajmniej-dwie-możliwe-realizacje-tego-mechanizmu.">W
+jakim celu wprowadzono mechanizm podziału procedury obsługi przerwania
+na dwie części? Proszę opisać przynajmniej dwie możliwe realizacje tego
+mechanizmu.</h2>
+<ul>
+<li>Mechanizm wprowadzono w celu optymalizacji
+<ul>
+<li>oddzielenie górnej połówki blokującej inne przerwania od dolnej
+(odroczonej)</li>
+</ul></li>
+<li>Sposoby obsługi dolnej połówki
+<ul>
+<li>tasklets - w kontekście obsługi przerwania</li>
+<li>workqueue - w kontekście procesu</li>
+</ul></li>
+</ul>
+<h2
+id="używamy-systemu-wbudowanego-z-procesorem-arm.-skąd-system-linux-uzyskuje-informacje-jaki-sterownik-wybrać-do-obsługi-konkretnego-urządzenia-sprzętowego-w-jaki-sposób-dowiaduje-się-jak-uzyskać-dostęp-do-jego-rejestrów-co-i-jak-możemy-zmienić-w-konfiguracji-systemu-żeby-umożliwić-obsługę-nowo-dołączonego-urządzenia">Używamy
+systemu wbudowanego z procesorem ARM. Skąd system Linux uzyskuje
+informacje, jaki sterownik wybrać do obsługi konkretnego urządzenia
+sprzętowego? W jaki sposób dowiaduje się, jak uzyskać dostęp do jego
+rejestrów? Co i jak możemy zmienić w konfiguracji systemu, żeby
+umożliwić obsługę nowo dołączonego urządzenia?</h2>
+<ul>
+<li>Informacje o sterownikach, adresach mapowania rejestrów itp znajdują
+się w drzewie urządzeń</li>
+<li>Nowe urządzenia można obsłużyć przez załadowanie nakładki na drzewo
+urządzeń</li>
+</ul>
+<h2 id="strategie-szeregowania-zadań">Strategie szeregowania zadań</h2>
+<ul>
+<li>Szeregowanie stałe
+<ul>
+<li>znany, powtarzalny rozkład zadań</li>
+<li>długie okresy powtarzania (w stosunku do czasu wykonania)</li>
+<li>cykliczny program sekwencyjny (bez wywłaszczania)</li>
+</ul></li>
+<li>Szeregowanie na bieżąco
+<ul>
+<li>brak powtarzalnego schematu wykonania zadań</li>
+<li>czasy wkonania przekraczają okresy powtarzania</li>
+<li>system wielozadaniowy z wywłaszczaniem</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-rms">Algorytm RMS</h2>
+<ul>
+<li>Rate Monotonic Scheduling</li>
+<li>Priorytety zadań proporcjonalne do częstotliwości</li>
+<li>Optymalny warunek stało-priorytetowy</li>
+<li>Warunek dostateczny <span class="math inline">\(\sum_{i=1}^n t_i/c_i
+\le n(2^{1/n} - 1)\)</span>
+<ul>
+<li><span class="math inline">\(n\)</span> - liczba zadań</li>
+<li><span class="math inline">\(t_i\)</span> - czas wykonania</li>
+<li><span class="math inline">\(c_i\)</span> - okres powtarzania</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-edf">Algorytm EDF</h2>
+<ul>
+<li>Earliest Deadline First</li>
+<li>Priorytety zadań związane z terminem zakończenia</li>
+<li>Optymalny algorytm zmienno-priorytetowy</li>
+<li>Warunek dostateczny <span class="math inline">\(\sum_{i=1}^n t_i/c_i
+\le 1\)</span></li>
+</ul>
+<h2 id="zadania-sporadyczne">Zadania sporadyczne</h2>
+<ul>
+<li>Charakterystyka
+<ul>
+<li>nieznany z góry czas zgłoszenia</li>
+<li>możliwe zgłoszenia <em>stadne</em> (wiele, nagle)</li>
+</ul></li>
+<li>Obsługa w tle
+<ul>
+<li>niższy priorytet od zadań cyklicznych</li>
+<li>nie narusza terminów zadań cyklicznych</li>
+<li>długi czas odpowiedzi dla zadań sporadycznych</li>
+</ul></li>
+<li>Obsługa w przerwaniach
+<ul>
+<li>najwyższy priorytet</li>
+<li>krótki czas odpowiedzi zadań sporadycznych</li>
+<li>możliwe opóźnienia zadań cyklicznych</li>
+</ul></li>
+</ul>
+<h2 id="serwer-sporadyczny">Serwer sporadyczny</h2>
+<ul>
+<li>Zadanie obsługujące zgłoszenia sporadyczne</li>
+<li>Parametry
+<ul>
+<li><span class="math inline">\(s\)</span> - budżet czasu</li>
+<li><span class="math inline">\(c\)</span> - okres odnowienia</li>
+<li><span class="math inline">\(p\)</span> - wysoki priorytet</li>
+<li><span class="math inline">\(l\)</span> - niski priorytet</li>
+</ul></li>
+<li>Algorytm
+<ul>
+<li>przez czas <span class="math inline">\(s\)</span> pracuje na
+priorytecie <span class="math inline">\(p\)</span></li>
+<li>pracuje na priorytecie <span class="math inline">\(l\)</span></li>
+<li>po okresie <span class="math inline">\(c\)</span> odnawia budżet i
+znowu pracuje na priorytecie <span class="math inline">\(p\)</span></li>
+</ul></li>
+</ul>
+<h2 id="bezpieczeństwo">Bezpieczeństwo</h2>
+<h3 id="bezpieczeństwo-1">Bezpieczeństwo</h3>
+<p>Brak nieakceptowalnego ryzyka śmierci lub uszczerbku na zdrowiu
+człowieka wynikającego z działania systemu lub pośrednio z uszkodzenia
+środowiska</p>
+<h3 id="system-związany-z-bezpieczeństwem">System związany z
+bezpieczeństwem</h3>
+<p>System, którego prawidłowe działanie jest niezbędne do zapewnienia
+lub utrzymania bezpieczeństwa ludzi</p>
+<h3 id="zdarzenie-zagrażające">Zdarzenie zagrażające</h3>
+<p>Zdarzenie którego wynikiem jest fizyczny uraz lub pogorszenie stanu
+zdrowia ludzi, zarówno bezpośrednio jak i pośrednio na skutek szkód w
+środowisku</p>
+<h3 id="ryzyko">Ryzyko</h3>
+<p>Prawdopodobieństwo <span class="math inline">\(\times\)</span>
+stopień szkodliwości</p>
+<h3 id="funkcja-bezpieczeństwa">Funkcja bezpieczeństwa</h3>
+<p>Funkcja przeznaczona do utrzymania bezpiecznego stanu instalacji w
+odniesieniu do konkretnego zdarzenia zagrażającego. Może być integralną
+częścią sterownika lub odrębnym urządzeniem</p>
+<h2 id="analiza-drzewa-niezdatności">Analiza drzewa niezdatności</h2>
+<ul>
+<li>Fault Tree Analysis (FTA)</li>
+<li>Analiza systemu i celów jego działania</li>
+<li>Identyfikacja zdarzeń zagrażających</li>
+<li>Budowa drzewa niezdatności dla każdego zdarzenia</li>
+<li>Badania drzewa w celu określenia
+<ul>
+<li>zdarzeń prostych powodujących uszkodzenie systemu</li>
+<li>oszacowanie tolerancji na uszkodzenia</li>
+<li>prawdopodobieństwa uszkodzenia systemu</li>
+<li>lokalizacji elementów krytycznych</li>
+</ul></li>
+</ul>
+<h2 id="cykl-utrzymania-bezpieczeństwa">Cykl utrzymania
+bezpieczeństwa</h2>
+<ul>
+<li>Identyfikacja i ocena zagrożeń</li>
+<li>Analiza bezpieczeństwa</li>
+<li>Określenie i alokacja wymagań bezpieczeństwa</li>
+<li>Planowanie i realizacja funkcji bezpieczeństwa</li>
+<li>Ocena i zatwierdzenie</li>
+<li>Eksploatacja obsługa, naprawy</li>
+</ul>
+<h2 id="poziom-nienaruszalności-bezpieczeństwa">Poziom nienaruszalności
+bezpieczeństwa</h2>
+<ul>
+<li>Safety Integrity Level</li>
+<li>Od 1 do 4</li>
+<li>Prawdopodobieństwo, że system wykona wymagane funkcje bezpieczeństwa
+w zadanych warunkach i czasie</li>
+<li>Tryby pracy
+<ul>
+<li>na rzadkie przywołanie - prawdopodobieństwo nie zadziałania w
+trakcie obsługi</li>
+<li>na częste lub ciągłe przywołanie - prawdopodobieństwo nie
+zadziałania na godzinę</li>
+</ul></li>
+<li>Szacowane na podstawie
+<ul>
+<li>skutków awarii</li>
+<li>częstotliwości / czasu przebywania ludzi w warunkach zagrożenia</li>
+<li>nieuchronności zagrożenia</li>
+<li>prawdopodobieństwa zdarzenia</li>
+</ul></li>
+</ul>
+<h2 id="protokoły-dostępu-do-kabla">Protokoły dostępu do kabla</h2>
+<h3 id="ehernet-csmacd">Ehernet CSMA/CD</h3>
+<ul>
+<li>Działanie
+<ul>
+<li>obserwacja stanu kabla i nadawanie jeśli wolny</li>
+<li>przerwanie nadawania po wykryciu kolizji</li>
+<li>odczekanie losowego czasu i ponowna próba</li>
+</ul></li>
+<li>Właściwości
+<ul>
+<li>niedeterministyczny czas</li>
+<li>minimalna długość komunikatu</li>
+<li>bardzo szybka transmisja</li>
+</ul></li>
+</ul>
+<h3 id="odpytywanie">Odpytywanie</h3>
+<ul>
+<li>Węzeł master i węzły slave
+<ul>
+<li>węzeł master odpytuje węzły slave</li>
+<li>węzły slave odpowiadają na zapytania</li>
+<li>węzły slave nadają tylko w odpowiedzi na zapytanie węzła master</li>
+</ul></li>
+<li>Właściwości
+<ul>
+<li>czas przekazu określa master</li>
+<li>awaria mastera zatrzymuje całą sieć</li>
+<li>brak komunikacji między węzłami slave</li>
+<li>brak kolizji</li>
+<li>możliwe krótkie komunikaty</li>
+</ul></li>
+</ul>
+<h3 id="przekazywanie-znacznika">Przekazywanie znacznika</h3>
+<ul>
+<li>Znacznik - przechodnie prawo nadawania</li>
+<li>Właściwości
+<ul>
+<li>deterministyczny czas przekazu</li>
+<li>możliwe krótkie komunikaty</li>
+<li>równoprawne węzły</li>
+<li>narzut przekazywania znacznika</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>utrata znacznika</li>
+<li>rozmnożenie znacznika</li>
+<li>dołączanie nowego węzła</li>
+</ul></li>
+<li>Można połączyć z odpytywaniem</li>
+</ul>
+<h2 id="i2c">I2C</h2>
+<ul>
+<li>Szyna
+<ul>
+<li>linia danych SDA</li>
+<li>linia zegara SCL</li>
+</ul></li>
+<li>Jeden master i wiele slave
+<ul>
+<li>slave wybierany po numerze (adresie)</li>
+</ul></li>
+<li>Komunikacja przez ramki
+<ul>
+<li>start</li>
+<li>adres</li>
+<li>odczyt/zapis</li>
+<li>potwierdzenie</li>
+<li>dane</li>
+<li>potwierdzenie</li>
+<li>stop</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>sterowanie audio, video</li>
+<li>odczyt EPROM i RTC</li>
+<li>sterowanie LED/OLED</li>
+<li>dostęp A/C, C/A i czujników</li>
+<li>pętle regulacji</li>
+<li>włączanie zasilania modułów</li>
+</ul></li>
+<li>Driver w jądrze Linuxa
+<ul>
+<li>zapis</li>
+<li>odczyt</li>
+<li>transfer</li>
+</ul></li>
+</ul>
+<h2 id="standardy">Standardy</h2>
+<h3 id="interbus">Interbus</h3>
+<ul>
+<li>Topologia
+<ul>
+<li>główna magistrala - master i slave</li>
+<li>lokalne magistrale - peryferia</li>
+</ul></li>
+<li>Protokół dostępu
+<ul>
+<li>odpytywanie</li>
+<li>jeden master</li>
+</ul></li>
+</ul>
+<h3 id="can-bus">CAN bus</h3>
+<ul>
+<li>Topologia magistrali</li>
+<li>Protokół bezpołączeniowy</li>
+<li>Rozgłaszanie komunikatów</li>
+<li>Bez adresowania węzłów</li>
+<li>Arbitraż kolizji</li>
+<li>Stan 0 dominujący przy nadawaniu</li>
+</ul>
+<h3 id="profibus">Profibus</h3>
+<ul>
+<li>Topologia magistrali z odgałęzieniami</li>
+<li>Wiele węzłów master z przekazywaniem znacznika</li>
+<li>Wiele węzłów slave - odpytywanie</li>
+<li>Zdefiniowana warstwa aplikacyjna
+<ul>
+<li>API</li>
+<li>słownik obiektów</li>
+<li>klient-serwer</li>
+<li>określenie dostępnych usług</li>
+<li>definiowane relacje komunikacyjne</li>
+</ul></li>
+</ul>
+<h3 id="ethercat">EtherCAT</h3>
+<ul>
+<li>Ethernet ze zmienioną warstwą MAC</li>
+<li>Sprzęg sieciowy
+<ul>
+<li>master - karta ethernet + software</li>
+<li>slave - sprzętowy (ASIC/FPGA)</li>
+</ul></li>
+<li>Ramki Ethernet</li>
+<li>Warstwa aplikacyjna CANopen</li>
+</ul>
+<h2 id="ethernet-przemysłowy">Ethernet przemysłowy</h2>
+<ul>
+<li>Szybki</li>
+<li>Wykorzystuje standardowe narzędzia</li>
+<li>Łatwy do integracji ze standardowymi sieciami Ethernet</li>
+<li>Standardowe lub własne / zmodyfikowane protokoły modelu ISO/OSI</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kolokwium-2">Kolokwium 2</a>
+<ul>
+<li><a href="#drzewo-urządzeń---co-to-jest-do-czego-służy-jakie-są-możliwości-jego-modyfikacji">Drzewo
+urządzeń - co to jest, do czego służy, jakie są możliwości jego
+modyfikacji?</a></li>
+<li><a href="#szeregowanie-procesów---zwykłe-tryby-szeregowania-tradycyjne-tryby-szeregowania-czasu-rzeczywistego-używanie-trybu-terminowego.-jak-ich-używać-jak-system-radzi-sobie-z-błędnymi-procesami-szeregowanymi-w-trybach-czasu-rzeczywistego">Szeregowanie
+procesów - zwykłe tryby szeregowania, tradycyjne tryby szeregowania
+czasu rzeczywistego, używanie trybu terminowego. Jak ich używać? Jak
+system radzi sobie z “błędnymi” procesami szeregowanymi w trybach czasu
+rzeczywistego?</a></li>
+<li><a href="#emulator-qemu-i-jego-możliwości---emulowane-platformy-standardowo-dostępne-modele-urządzeń-możliwości-dodawania-własnych-modeli-urządzeń.-sposoby-jego-wykorzystania-do-testowania-naszego-obrazu-systemu-operacyjnego-i-aplikacji.">Emulator
+QEMU i jego możliwości - emulowane platformy, standardowo dostępne
+modele urządzeń, możliwości dodawania własnych modeli urządzeń. Sposoby
+jego wykorzystania do testowania naszego obrazu systemu operacyjnego i
+aplikacji.</a></li>
+<li><a href="#komunikacja-międzyprocesowa---dostępne-mechanizmy-komunikacji-ich-właściwości-i-sposoby-wykorzystania-mechanizmy-synchronizacji-i-ich-wykorzystanie.-uruchamianie-poszczególnych-procesów-systemu.-sposoby-nawiązywania-komunikacji-między-procesami---np.-dostęp-przez-nazwy-do-kolejek-itp.">Komunikacja
+międzyprocesowa - dostępne mechanizmy komunikacji, ich właściwości i
+sposoby wykorzystania, mechanizmy synchronizacji i ich wykorzystanie.
+Uruchamianie poszczególnych procesów systemu. Sposoby nawiązywania
+komunikacji między procesami - np. dostęp przez nazwy do kolejek
+itp.</a>
+<ul>
+<li><a href="#kolejki-komunikatów">Kolejki komunikatów</a></li>
+<li><a href="#semafory">Semafory</a></li>
+<li><a href="#mutex">Mutex</a></li>
+<li><a href="#zmienne-warunkowe">Zmienne warunkowe</a></li>
+<li><a href="#blokada-zapisodczyt">Blokada zapis/odczyt</a></li>
+<li><a href="#bariera">Bariera</a></li>
+<li><a href="#spinlock">Spinlock</a></li>
+<li><a href="#uruchamianie-procesów">Uruchamianie procesów</a></li>
+</ul></li>
+<li><a href="#oczekiwanie-na-zdarzenie-sprzętowe---oczekiwanie-aktywne-wykorzystanie-przerwań-porównanie-tych-rozwiązań.-rola-sterownika-urządzenia-w-oczekiwaniu-z-wykorzystaniem-przerwań.-sposoby-optymalizacji-obsługi-przerwań-w-sterownikach.">Oczekiwanie
+na zdarzenie sprzętowe - oczekiwanie aktywne, wykorzystanie przerwań,
+porównanie tych rozwiązań. Rola sterownika urządzenia w oczekiwaniu z
+wykorzystaniem przerwań. Sposoby optymalizacji obsługi przerwań w
+sterownikach.</a></li>
+<li><a href="#w-jaki-sposób-standardowe-drzewo-urządzeń-systemu-wbudowanego-umożliwia-opis-maksymalnej-konfiguracji-tego-systemu-i-aktualnie-używanej-konfiguracji-w-jaki-sposób-możemy-wybrać-jakich-podsystemów-chcemy-używać-w-jaki-sposób-możliwe-jest-dostosowanie-drzewa-urządzeń-do-niestandardowych-rozszerzeń-które-dodaliśmy-do-systemu">W
+jaki sposób standardowe drzewo urządzeń systemu wbudowanego umożliwia
+opis ‘’maksymalnej’’ konfiguracji tego systemu i ‘’aktualnie używanej’’
+konfiguracji? W jaki sposób możemy wybrać jakich podsystemów chcemy
+używać? W jaki sposób możliwe jest dostosowanie drzewa urządzeń do
+niestandardowych rozszerzeń, które dodaliśmy do systemu?</a></li>
+<li><a href="#w-systemie-komputerowym-używanym-do-sterowania-działa-kilka-procesów-nie-wątków.-w-pewnym-momencie-konieczne-jest-wstrzymanie-działania-pozostałych-procesów-do-chwili-gdy-jeden-z-nich-zainicjalizuje-pewną-strukturę-danych.-proszę-opisać-jak-należy-rozwiązać-ten-problem.-jakiego-mechanizmu-synchronizującego-należy-użyć">W
+systemie komputerowym używanym do sterowania działa kilka procesów (nie
+wątków!). W pewnym momencie konieczne jest wstrzymanie działania
+pozostałych procesów do chwili, gdy jeden z nich zainicjalizuje pewną
+strukturę danych. Proszę opisać, jak należy rozwiązać ten problem.
+Jakiego mechanizmu synchronizującego należy użyć?</a></li>
+<li><a href="#system-komputerowy-jest-wyposażony-w-czterordzeniowy-procesor.-dwa-urządzenia-peryferyjne-wymagają-bardzo-szybkiej-obsługi-przy-czym-potrzebę-obsługi-zgłaszają-przez-wygenerowanie-przerwania-które-można-maskować-oraz-przez-zmianę-wartości-w-swoim-rejestrze-statusu.-jak-skonfigurować-system-aby-jak-najlepiej-spełnić-wymagania-tych-dwóch-urządzeń-a-zarazem-umożliwić-realizację-innych-zadań">System
+komputerowy jest wyposażony w czterordzeniowy procesor. Dwa urządzenia
+peryferyjne wymagają bardzo szybkiej obsługi, przy czym potrzebę obsługi
+zgłaszają przez wygenerowanie przerwania (które można maskować) oraz
+przez zmianę wartości w swoim rejestrze statusu. Jak skonfigurować
+system, aby jak najlepiej spełnić wymagania tych dwóch urządzeń, a
+zarazem umożliwić realizację innych zadań?</a></li>
+<li><a href="#w-systemie-komputerowym-z-procesorem-arm-pewne-urządzenie-peryferyjne-jest-podłączone-do-magistrali-systemowej-przy-czym-do-pracy-wymaga-pewnego-sygnału-zegarowego-który-nie-jest-zawsze-aktywny.-w-jaki-sposób-system-operacyjny-powinien-zostać-poinformowany-o-potrzebie-włączenia-tego-sygnału-oraz-o-adresach-rejestrów-tego-urządzenia-i-wykorzystywanej-przez-nie-linii-przerwań">W
+systemie komputerowym z procesorem ARM, pewne urządzenie peryferyjne
+jest podłączone do magistrali systemowej, przy czym do pracy wymaga
+pewnego sygnału zegarowego, który nie jest zawsze aktywny. W jaki sposób
+system operacyjny powinien zostać poinformowany o potrzebie włączenia
+tego sygnału, oraz o adresach rejestrów tego urządzenia i
+wykorzystywanej przez nie linii przerwań?</a></li>
+<li><a href="#co-to-są-bufory-rozproszone-sg-z-czego-wynika-potrzeba-ich-stosowania">Co
+to są bufory rozproszone (SG) z czego wynika potrzeba ich
+stosowania?</a></li>
+<li><a href="#na-czym-polega-mapowanie-rejestrów-urządzenia-w-pamięć-aplikacji-w-przypadku-jak-podłączonych-urządzeń-daje-się-zastosować-takie-podejście-jakie-są-zalety-i-wady-takiego-rozwiązania">Na
+czym polega mapowanie rejestrów urządzenia w pamięć aplikacji? W
+przypadku jak podłączonych urządzeń daje się zastosować takie podejście?
+Jakie są zalety i wady takiego rozwiązania?</a></li>
+<li><a href="#w-jaki-sposób-możemy-za-pomocą-drzewa-urządzeń-włączać-i-wyłączać-komponenty-systemu-w-jaki-sposób-możemy-dodawać-do-drzewa-urządzeń-informacje-o-nowo-dołączonych-urządzeniach">W
+jaki sposób możemy za pomocą drzewa urządzeń włączać i wyłączać
+komponenty systemu? W jaki sposób możemy dodawać do drzewa urządzeń
+informacje o nowo dołączonych urządzeniach?</a></li>
+<li><a href="#pewne-urządzenie-może-obsługiwać-równocześnie-maksymalnie-4-zlecenia.-jaki-mechanizm-pozwoli-najłatwiej-zsynchronizować-dostęp-do-niego-tak-aby-zapewnić-spełnienie-tego-warunku-czym-różni-się-użycie-tego-mechanizmu-w-następujących-sytuacjach-a-o-dostęp-do-tego-urządzenia-konkurują-różne-wątki-tego-samego-procesu-b-o-dostęp-do-tego-urządzenia-konkurują-różne-procesy.">Pewne
+urządzenie może obsługiwać równocześnie maksymalnie 4 zlecenia. Jaki
+mechanizm pozwoli najłatwiej zsynchronizować dostęp do niego tak, aby
+zapewnić spełnienie tego warunku? Czym różni się użycie tego mechanizmu
+w następujących sytuacjach: a) o dostęp do tego urządzenia konkurują
+różne wątki tego samego procesu; b) o dostęp do tego urządzenia
+konkurują różne procesy.</a></li>
+<li><a href="#jak-działa-tryb-szeregowania-terminowego-sched_deadline-jakimi-parametrami-opisujemy-wymagania-dotyczące-szeregowania-procesu-jakie-wymagania-są-weryfikowane-przez-system">Jak
+działa tryb szeregowania terminowego (SCHED_DEADLINE)? Jakimi
+parametrami opisujemy wymagania dotyczące szeregowania procesu? Jakie
+wymagania są weryfikowane przez system?</a></li>
+<li><a href="#pewna-struktura-danych-umieszczona-w-pamięci-współdzielonej-shared-memory-jest-często-odczytywana-przez-wiele-procesów-a-dość-rzadko-modyfikowana-przez-małą-liczbę-procesów.-jakiego-prymitywu-synchronizacyjnego-powinniśmy-użyć-do-synchronizacji-dostępu-wszystkich-użytkowników-tej-struktury-gdzie-powinien-on-być-umieszczony-jak-powinien-on-być-zainicjalizowany">Pewna
+struktura danych, umieszczona w pamięci współdzielonej (shared memory)
+jest często odczytywana przez wiele procesów, a dość rzadko modyfikowana
+przez małą liczbę procesów. Jakiego prymitywu synchronizacyjnego
+powinniśmy użyć do synchronizacji dostępu wszystkich użytkowników tej
+struktury? Gdzie powinien on być umieszczony? Jak powinien on być
+zainicjalizowany?</a></li>
+<li><a href="#w-jakim-celu-wprowadzono-mechanizm-podziału-procedury-obsługi-przerwania-na-dwie-części-proszę-opisać-przynajmniej-dwie-możliwe-realizacje-tego-mechanizmu.">W
+jakim celu wprowadzono mechanizm podziału procedury obsługi przerwania
+na dwie części? Proszę opisać przynajmniej dwie możliwe realizacje tego
+mechanizmu.</a></li>
+<li><a href="#używamy-systemu-wbudowanego-z-procesorem-arm.-skąd-system-linux-uzyskuje-informacje-jaki-sterownik-wybrać-do-obsługi-konkretnego-urządzenia-sprzętowego-w-jaki-sposób-dowiaduje-się-jak-uzyskać-dostęp-do-jego-rejestrów-co-i-jak-możemy-zmienić-w-konfiguracji-systemu-żeby-umożliwić-obsługę-nowo-dołączonego-urządzenia">Używamy
+systemu wbudowanego z procesorem ARM. Skąd system Linux uzyskuje
+informacje, jaki sterownik wybrać do obsługi konkretnego urządzenia
+sprzętowego? W jaki sposób dowiaduje się, jak uzyskać dostęp do jego
+rejestrów? Co i jak możemy zmienić w konfiguracji systemu, żeby
+umożliwić obsługę nowo dołączonego urządzenia?</a></li>
+<li><a href="#strategie-szeregowania-zadań">Strategie szeregowania
+zadań</a></li>
+<li><a href="#algorytm-rms">Algorytm RMS</a></li>
+<li><a href="#algorytm-edf">Algorytm EDF</a></li>
+<li><a href="#zadania-sporadyczne">Zadania sporadyczne</a></li>
+<li><a href="#serwer-sporadyczny">Serwer sporadyczny</a></li>
+<li><a href="#bezpieczeństwo">Bezpieczeństwo</a>
+<ul>
+<li><a href="#bezpieczeństwo-1">Bezpieczeństwo</a></li>
+<li><a href="#system-związany-z-bezpieczeństwem">System związany z
+bezpieczeństwem</a></li>
+<li><a href="#zdarzenie-zagrażające">Zdarzenie zagrażające</a></li>
+<li><a href="#ryzyko">Ryzyko</a></li>
+<li><a href="#funkcja-bezpieczeństwa">Funkcja bezpieczeństwa</a></li>
+</ul></li>
+<li><a href="#analiza-drzewa-niezdatności">Analiza drzewa
+niezdatności</a></li>
+<li><a href="#cykl-utrzymania-bezpieczeństwa">Cykl utrzymania
+bezpieczeństwa</a></li>
+<li><a href="#poziom-nienaruszalności-bezpieczeństwa">Poziom
+nienaruszalności bezpieczeństwa</a></li>
+<li><a href="#protokoły-dostępu-do-kabla">Protokoły dostępu do kabla</a>
+<ul>
+<li><a href="#ehernet-csmacd">Ehernet CSMA/CD</a></li>
+<li><a href="#odpytywanie">Odpytywanie</a></li>
+<li><a href="#przekazywanie-znacznika">Przekazywanie znacznika</a></li>
+</ul></li>
+<li><a href="#i2c">I2C</a></li>
+<li><a href="#standardy">Standardy</a>
+<ul>
+<li><a href="#interbus">Interbus</a></li>
+<li><a href="#can-bus">CAN bus</a></li>
+<li><a href="#profibus">Profibus</a></li>
+<li><a href="#ethercat">EtherCAT</a></li>
+</ul></li>
+<li><a href="#ethernet-przemysłowy">Ethernet przemysłowy</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

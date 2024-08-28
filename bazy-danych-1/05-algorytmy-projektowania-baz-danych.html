@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-algorytmy-projektowania-baz-danych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-jezyk-sql.html">Poprzedni: 04-jezyk-sql.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-podstawy-rachunku-relacyjnego.html">Następny: 06-podstawy-rachunku-relacyjnego.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-06-2023-03-30">Wykład 06 (2023-03-30)</h1>
+<p>Kolos - 30 zadań bez cofania na 30 minut na Moodle</p>
+<p>O 16:45-17:15, od 16 otwarte teamsy</p>
+<h2 id="projektowanie-schematu">Projektowanie schematu</h2>
+<p>Równoważne bazy danych - te same zapytania dają te same rezultaty,
+Można matematycznie udowodnić równoważność dwóch baz</p>
+<h2 id="domknięcie">Domknięcie</h2>
+<p>Domknięcie zbioru zależności funkcyjnych F nad zbiorem atrybutów -
+zbiór wszystkich zależności funkcyjnych będący konsekwencją zbioru F
+(wywnioskowanych za pomocą reguł wnioskowania)</p>
+<p>Równoważność - dwa zbiory zależności funkcyjnych generujące to samo
+domknięcie</p>
+<p>Połączenie przez relacje przechodnią</p>
+<p>Startuje się z określonym zbiorem i rozszerza do domknięcia i szuka
+się najmniejszego zbioru, z którego można by dojść do tego samego
+domknięcia</p>
+<h3 id="przykład">Przykład</h3>
+<p>F = {B-&gt;A, D-&gt;A, AB-&gt;D}</p>
+<h2 id="aksjomaty-armstronga">Aksjomaty Armstronga</h2>
+<p>Reguły wyprowadzania dla zalezności funkcyjnych, poprawne i
+kompletne.</p>
+<ol type="1">
+<li>zwrotność X jest podzbiorem Y =&gt; Y-&gt;X</li>
+<li>poszerzalność X-&gt;Y =&gt; XZ-&gt;YZ</li>
+<li>przechodniość X-&gt;Y i Y-&gt;Z =&gt; X-&gt;Z</li>
+</ol>
+<h3 id="wyprowadzalne-z-aksjomatów">Wyprowadzalne z aksjomatów</h3>
+<ol type="1">
+<li>psudoprzechodniość X-&gt;Y i YW-&gt;Z =&gt; XW-&gt;Z
+<ul>
+<li>poszerzalność X-&gt;Y =&gt; XW-&gt;YW</li>
+<li>przechodniość XW-&gt;YW i YW-&gt;Z =&gt; XW-&gt;Z</li>
+</ul></li>
+<li>addytywność X-&gt;Y i X-&gt;Z =&gt; X-&gt;YZ
+<ul>
+<li>X-&gt;Y =&gt; XZ-&gt;YZ</li>
+<li>X-&gt;Z =&gt; XX-&gt;XZ =&gt; X-&gt;XZ</li>
+<li>X-&gt;XZ i XZ-&gt;YZ =&gt; X-&gt;YZ</li>
+</ul></li>
+<li>dekompozycyjność</li>
+</ol>
+<h3 id="domknięcia-zbioru-atrybutów">Domknięcia zbioru atrybutów</h3>
+<p>Do wyznaczenia domknięcia zbioru atrybutów korzysta się ze zbioru
+zależności funkcyjnych</p>
+<p>Do wyznaczania domknięcia zbioru zależności funkcyjnych używa się
+aksjomatów Armstronga</p>
+<h2 id="równoważność-zbiorów-zależności-funkcyjnych">Równoważność
+zbiorów zależności funkcyjnych</h2>
+<p>Zbiór zależności funkcyjnych F pokrywa zbiór zależności funkcyjnych
+E, jeśli każda zależność funkcyjna ze zbioru E występuje w zbiorze
+F+</p>
+<p>Dwa zbiory zależnośći funkcyjnych E i F są równoważne jeśli E+ =
+F+</p>
+<p>Pokrycie minimalne zbioru zależności funkcyjnych E to najmmiejszy
+zbiór zależności F taki że</p>
+<ul>
+<li>Każda zależność w zbiorze F posiada po prawej stornie pojedynczy
+atrybut</li>
+<li>dowolna zależność funkcyjna ze zbioru zależności E występuje w
+domknięciu F+ zbioru F</li>
+<li>…</li>
+</ul>
+<h2 id="atrybut-nadmiarowy">Atrybut nadmiarowy</h2>
+<h2
+id="atrybut-znajdowania-pokrycia-minimalnego-zbioru-zależności-funkcyjnych">Atrybut
+znajdowania pokrycia minimalnego zbioru zależności funkcyjnych</h2>
+<h3 id="przykład-1">Przykład</h3>
+<p>Relacja {A,B,D} E = {B-&gt;A, D-&gt;A, AB-&gt;D}</p>
+<p>…</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-06-2023-03-30">Wykład 06 (2023-03-30)</a>
+<ul>
+<li><a href="#projektowanie-schematu">Projektowanie schematu</a></li>
+<li><a href="#domknięcie">Domknięcie</a>
+<ul>
+<li><a href="#przykład">Przykład</a></li>
+</ul></li>
+<li><a href="#aksjomaty-armstronga">Aksjomaty Armstronga</a>
+<ul>
+<li><a href="#wyprowadzalne-z-aksjomatów">Wyprowadzalne z
+aksjomatów</a></li>
+<li><a href="#domknięcia-zbioru-atrybutów">Domknięcia zbioru
+atrybutów</a></li>
+</ul></li>
+<li><a href="#równoważność-zbiorów-zależności-funkcyjnych">Równoważność
+zbiorów zależności funkcyjnych</a></li>
+<li><a href="#atrybut-nadmiarowy">Atrybut nadmiarowy</a></li>
+<li><a href="#atrybut-znajdowania-pokrycia-minimalnego-zbioru-zależności-funkcyjnych">Atrybut
+znajdowania pokrycia minimalnego zbioru zależności funkcyjnych</a>
+<ul>
+<li><a href="#przykład-1">Przykład</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

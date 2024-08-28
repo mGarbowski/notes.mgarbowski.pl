@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-08.html">Następny: wyklad-08.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="cykl-wytwarzania-oprogramowania-cd-2024-04-08">Cykl wytwarzania
+oprogramowania cd (2024-04-08)</h1>
+<h2 id="testowanie-oprogramowania">Testowanie oprogramowania</h2>
+<ul>
+<li>Najważniejsza część z punktu widzenia klienta
+<ul>
+<li>nie zawsze klient zdaje sobie z tego sprawę</li>
+<li>może lepiej nazwać to zapewnianiem jakości</li>
+</ul></li>
+<li>Weryfikuje zgodność programu z oczekiwaniami</li>
+<li>Nic innego nie daje informacji co program naprawdę robi
+<ul>
+<li>kod to życzenie programisty</li>
+<li>istnieją metody weryfikacji formalnej, są piekielnie drogie</li>
+<li>języki funkcyjne to zapewniają jeśli nie mają interakcji ze światem
+zewnętrznym</li>
+<li>można np. wykazać poprawność albo określić złożoność samego
+algorytmu ale trudno dla całego systemu</li>
+<li>modelowanie może pomagać ale zależy od procesu (czy model jest
+przetwarzany czy przepisywany) ale i jakości samego modelu</li>
+</ul></li>
+</ul>
+<h3 id="dwa-użycia">Dwa użycia</h3>
+<ul>
+<li>Oddzielny element cyklu, dedykowana czynność
+<ul>
+<li>raczej nazywany walidacją, kwalifikacją, certyfikacją</li>
+</ul></li>
+<li>Integralny element implementacji, codziennej pracy
+<ul>
+<li>nie można ocenić wykonanej pracy bez jej przetestowania</li>
+</ul></li>
+<li>Oba podejścia mają sens</li>
+<li>Testowanie może zweryfikować tylko czy nie ma znanych błędów</li>
+<li>Testy robi się na coś
+<ul>
+<li>jeśli test przechodzi to testowanie się nie powiodło - nie wykryto
+błędu</li>
+</ul></li>
+<li>Testowanie nie daje gwarancji poprawności działania
+<ul>
+<li>to nie znaczy że należy testować na produkcji</li>
+</ul></li>
+</ul>
+<h2 id="rodzaje-testów">Rodzaje testów</h2>
+<ul>
+<li>Każde uruchomienie programu i obserwacja zachowania to też test
+<ul>
+<li>istnieją dedykowani specjaliści zajmujący się aspektami
+testowania</li>
+<li>product assurance, quality assurance</li>
+</ul></li>
+<li>Testowanie nie musi dotyczyć wyłącznie kodu
+<ul>
+<li>np. zgodność instrukcji użytkownika z rzeczywistym
+oprogramowaniem</li>
+</ul></li>
+</ul>
+<h2 id="podział-testów">Podział testów</h2>
+<h3 id="czy-program-jest-fizycznie-uruchamiany">Czy program jest
+fizycznie uruchamiany</h3>
+<ul>
+<li>dynamiczne</li>
+<li>statyczne ### Ze względu na obiekty objęte testem</li>
+<li>jednostkowe
+<ul>
+<li>najmniejszy moduł jaki jest sens testować</li>
+<li>np. pojedyncza funkcja, klasa</li>
+</ul></li>
+<li>integracyjne
+<ul>
+<li>podział jest rozmyty</li>
+<li>może być backend z rzeczywistą bazą</li>
+<li>może być kilka klas</li>
+</ul></li>
+<li>systemowe
+<ul>
+<li>test całego systemu</li>
+</ul></li>
+<li>akceptacyjne
+<ul>
+<li>czy klient akceptuje produkt</li>
+<li>właściwie to oddzielna kategoria</li>
+<li>test akceptacyjny może dotyczyć jednostki</li>
+<li>factory acceptance test i site acceptance test</li>
+<li>dotyczą konkretnej wersji, konkretnego momentu w czasie</li>
+</ul></li>
+</ul>
+<h3 id="testy-walidacyjne">Testy walidacyjne</h3>
+<p>Testy bezpośrenio weryfikujące wymagania</p>
+<h3 id="ze-względu-na-podejście-do-obserwacji-wyniku">Ze względu na
+podejście do obserwacji wyniku</h3>
+<ul>
+<li>white box
+<ul>
+<li>wgląd do kodu źródłowego, szczegółów implementacyjnych</li>
+<li>np kolejność wywołanych metod na mocku</li>
+</ul></li>
+<li>black box
+<ul>
+<li>bez znajomości szczegółów implementacyjnych</li>
+<li>testy jednostkowe mogą być typu black box - sprawdzają działanie
+modułu</li>
+</ul></li>
+<li>gray box?
+<ul>
+<li>piszemy testy jednostkowe jak black box ale znamy implementację</li>
+</ul></li>
+</ul>
+<h3 id="ze-względu-na-sposób-przeprowadzenia">Ze względu na sposób
+przeprowadzenia</h3>
+<ul>
+<li>automatyczne</li>
+<li>manualne
+<ul>
+<li>test może polegać na uruchomieniu programu w debuggerze i
+sprawdzeniu stanu rejestrów</li>
+<li>nie wszystko można zautomatyzować</li>
+</ul></li>
+</ul>
+<h3 id="ze-względu-na-badane-aspekty">Ze względu na badane aspekty</h3>
+<ul>
+<li>testy funkcjonalne
+<ul>
+<li>sprawdzają wymagania funkcjonalne</li>
+<li>większość testów jednostkowych to testy funkcjonalne</li>
+<li>część testów integracyjnych to testy funkcjonalne</li>
+</ul></li>
+<li>testy wydajnościowe
+<ul>
+<li>raczej na poziomie systemowym albo integracyjnym</li>
+<li>wyrobienie się w określonym czasie</li>
+<li>obsłużenie liczby zapytań w określonym czasie</li>
+<li>oszczędzanie baterii</li>
+<li>określenie że mieścimy się w dostępnych zasobach przy normalnej
+pracy</li>
+</ul></li>
+<li>testy przeciążeniowe
+<ul>
+<li>granice wytrzymałości programu, warunki ekstremalne</li>
+<li>jeśli wiemy że program się wysypie przy 5000 zapytań to przy 4000
+możemy uruchomić drugą instancję</li>
+<li>sam komunikat, że system jest przeciążony może być ok</li>
+</ul></li>
+<li>testy bezpieczeństwa (security)
+<ul>
+<li>czy ktoś niepowołany może uzyskać dostęp do danych itp</li>
+</ul></li>
+<li>testy bezpieczeństwa (safety)
+<ul>
+<li>np. sprawdzamy, że winda nie spada, kiedy system jest
+przeciążony</li>
+</ul></li>
+<li>testy niezawodności (dependability)
+<ul>
+<li>szersze niż safety</li>
+<li>dostępność - prawdopodobieństwo, że system jest dostępny w chwili
+czasu</li>
+<li>stabilność - prawdopodobieństwo że będzie działał w chwili Y jeśli
+działał w chwili X</li>
+</ul></li>
+<li>testy odporności (recovery)
+<ul>
+<li>odtworzenie systemu po tym jak padnie</li>
+<li>można robić backup i nie testować jego odtwarzania (lepiej nie)</li>
+</ul></li>
+<li>testy zgodności (compatibility)
+<ul>
+<li>mogą być dołożone do testów akceptacyjnych</li>
+</ul></li>
+<li>testy dokumentacji</li>
+</ul>
+<h3 id="inne-rodzaje-testów">Inne rodzaje testów</h3>
+<ul>
+<li>testy dymne (smoke test)
+<ul>
+<li>kiedy nie można przetestować całego systemu</li>
+<li>włączamy do prądu i patrzymy czy nie płonie</li>
+<li>czy w ogóle jest sens odpalać wszystkie testy</li>
+</ul></li>
+<li>testy regresji (regression testing)
+<ul>
+<li>każdy test jest de facto testem regresji</li>
+<li>test sprawdza czy nie zepsuliśmy czegoś co wcześniej działało</li>
+<li>przy bardzo złożonych systemach można sprawdzić tylko część systemu,
+która została zmieniona</li>
+<li>np. istnieje jedna instancja systemu i korzysta z pamięci flash</li>
+</ul></li>
+<li>testy destrukcyjne (destructive)
+<ul>
+<li>rozwalamy system i patrzymy na efekty</li>
+</ul></li>
+<li>testy interakcji z człowiekiem
+<ul>
+<li>testy tłumaczeń i regionalizacji</li>
+<li>testy używalności (usability)</li>
+<li>testy dostępności (accessibility)</li>
+</ul></li>
+</ul>
+<h2 id="dobry-test">Dobry test</h2>
+<ul>
+<li>cel jest jednoznacznie ustalony</li>
+<li>czytelny jak normalny kod</li>
+<li>określony warunek końca testu</li>
+<li>określony warunek oceny testu (zaakceptowania)
+<ul>
+<li>duży napis failed/passed</li>
+</ul></li>
+<li>jeśli możliwe to odwołanie do wymagań, z których test wynika</li>
+<li>idealnie
+<ul>
+<li>automatyczny</li>
+<li>deterministyczny i powtarzalny</li>
+<li>jednoznacznie i łatwo oceniany</li>
+<li>szybki</li>
+</ul></li>
+</ul>
+<h2 id="testy-jednostkowe">Testy jednostkowe</h2>
+<ul>
+<li>najwyższa stopa zwrotu w jakości</li>
+<li>najlepszy przyjaciel programisty
+<ul>
+<li>wiadomo co jest zrobione na koniec dnia</li>
+</ul></li>
+<li>wymusza lepszą architekturę decoupling
+<ul>
+<li>żeby móc przetestować moduł to musi być niezależny od innych</li>
+</ul></li>
+<li>nie wszystko da się unit testować</li>
+<li>brak formalnej definicji jednostki</li>
+<li>nie zawsze odpowiada bezpośrednio wymaganiom
+<ul>
+<li>usunie drobne błędy ale nie poważne naruszenia funkcjonalności</li>
+</ul></li>
+</ul>
+<h2 id="automatyzacja-cyklu">Automatyzacja cyklu</h2>
+<ul>
+<li>wytwarzanie oprogramowania jest jakimś procesem</li>
+<li>lepiej gdybym nie musiał pamiętać o uruchomieniu testów po
+wypchnięciu na gita</li>
+</ul>
+<h3 id="automatyzacja-procesu-a-jakość">Automatyzacja procesu a
+jakość</h3>
+<ul>
+<li>rozsądny poziom formalizacji zazwyczaj pomaga osiągnąć zakładane
+cele</li>
+<li>automatyzacja to forma formalizacji, mamy określony proces</li>
+</ul>
+<h2 id="continuous-integration">Continuous integration</h2>
+<ul>
+<li>proces ciągłej integracji i weryfikacji zmian wprowadzonych do
+projektu
+<ul>
+<li>często stosowane razem z <em>feature branches</em></li>
+</ul></li>
+<li>można zasymulować merge nowego brancha</li>
+<li>ma zapobiegać popsuciu głównej gałęzi kodu</li>
+<li>może przeprowadzać walidacje niedostępne programistom na co dzień
+<ul>
+<li>kompilacja kilkunastoma kompilatorami</li>
+<li>wiele instancji</li>
+</ul></li>
+<li>nie rozwiązuje wszystkich problemów</li>
+<li>co może robić
+<ul>
+<li>kompilować kod</li>
+<li>analizować kod statycznie</li>
+<li>uruchamiać testy jednostkowe i zbierać pokrycie</li>
+<li>uruchamiać testy walidacyjne / akceptacyjne</li>
+<li>generować dokumentacje</li>
+<li>przygotowywać pakiety instalacyjne</li>
+<li>…</li>
+</ul></li>
+</ul>
+<h2 id="continuous-delivery-continuous-deployment">Continuous Delivery /
+Continuous Deployment</h2>
+<ul>
+<li>Potok może dostarczyć produkt na serwery produkcyjne</li>
+<li>Stan repozytorium, który można przekazać klientowi</li>
+</ul>
+<h2 id="realizacja-ci">Realizacja CI</h2>
+<ul>
+<li>Najczęściej sprzęgnięte z systemem kontroli wersji</li>
+<li>Może wymagać dużo zasobów</li>
+<li>Stabilne / powtarzalne środowisko
+<ul>
+<li>wirtualizacja / konteneryzacja</li>
+</ul></li>
+<li>Proces dzieli się na samodzielne kroki</li>
+<li>Narzędza wbudowane w system kontroli wersji
+<ul>
+<li>Github Actions</li>
+<li>Gitlab CI</li>
+</ul></li>
+<li>Narzędzia dedykowane
+<ul>
+<li>Jenkins</li>
+<li>Travis CI</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cykl-wytwarzania-oprogramowania-cd-2024-04-08">Cykl
+wytwarzania oprogramowania cd (2024-04-08)</a>
+<ul>
+<li><a href="#testowanie-oprogramowania">Testowanie oprogramowania</a>
+<ul>
+<li><a href="#dwa-użycia">Dwa użycia</a></li>
+</ul></li>
+<li><a href="#rodzaje-testów">Rodzaje testów</a></li>
+<li><a href="#podział-testów">Podział testów</a>
+<ul>
+<li><a href="#czy-program-jest-fizycznie-uruchamiany">Czy program jest
+fizycznie uruchamiany</a></li>
+<li><a href="#testy-walidacyjne">Testy walidacyjne</a></li>
+<li><a href="#ze-względu-na-podejście-do-obserwacji-wyniku">Ze względu
+na podejście do obserwacji wyniku</a></li>
+<li><a href="#ze-względu-na-sposób-przeprowadzenia">Ze względu na sposób
+przeprowadzenia</a></li>
+<li><a href="#ze-względu-na-badane-aspekty">Ze względu na badane
+aspekty</a></li>
+<li><a href="#inne-rodzaje-testów">Inne rodzaje testów</a></li>
+</ul></li>
+<li><a href="#dobry-test">Dobry test</a></li>
+<li><a href="#testy-jednostkowe">Testy jednostkowe</a></li>
+<li><a href="#automatyzacja-cyklu">Automatyzacja cyklu</a>
+<ul>
+<li><a href="#automatyzacja-procesu-a-jakość">Automatyzacja procesu a
+jakość</a></li>
+</ul></li>
+<li><a href="#continuous-integration">Continuous integration</a></li>
+<li><a href="#continuous-delivery-continuous-deployment">Continuous
+Delivery / Continuous Deployment</a></li>
+<li><a href="#realizacja-ci">Realizacja CI</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

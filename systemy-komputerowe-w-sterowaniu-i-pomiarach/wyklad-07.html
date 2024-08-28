@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-08.html">Następny: wyklad-08.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="komunikacja-międzyprocesowa-w-linuxie-2024-04-15">Komunikacja
+międzyprocesowa w Linuxie (2024-04-15)</h1>
+<ul>
+<li>Zalety rozwiązanie z wieloma procesami
+<ul>
+<li>lepsza separacja realizowanych zadań</li>
+<li>w razie awarii jednego procesu, łatwiej zapewnić poprawną pracę
+reszty systemu</li>
+</ul></li>
+</ul>
+<h2 id="różnice-względem-wielowątkowego-programu">Różnice względem
+wielowątkowego programu</h2>
+<ul>
+<li>Oddzielne przestrzenie adresowe
+<ul>
+<li>nie ma logicznego sensu przekazanie wskaźnika</li>
+</ul></li>
+<li>Nie ma możliwości bezpośredniej komunikacji (modyfikowania
+zmiennych)</li>
+</ul>
+<h2 id="dostępne-formy-komunikacji">Dostępne formy komunikacji</h2>
+<ul>
+<li>Sygnały
+<ul>
+<li>przerywa działanie procesu</li>
+<li>brutalne, może być niespójny stan</li>
+</ul></li>
+<li>Potoki</li>
+<li>Gniazda</li>
+<li>Kolejki komunikatów</li>
+<li>Semafory</li>
+<li>Pamięć dzielona</li>
+</ul>
+<h2 id="uruchamianie-procesów">Uruchamianie procesów</h2>
+<ul>
+<li>Proces główny uruchamia inne procesy jako potomne
+<ul>
+<li>może utworzyć jakieś obiekty, które odziedziczą procesy potomne</li>
+</ul></li>
+<li>Dodatkowe procesy są uruchamiane niezależnie
+<ul>
+<li>przez skrypt albo linię poleceń</li>
+<li>można łatwo uruchomić system w różnych wersjach (produkcyjna,
+diagnostyczna, itp)</li>
+</ul></li>
+<li><code>fork</code>
+<ul>
+<li>proces potomny dziedziczy otwarte pliki i kolejki komunikatów</li>
+<li>zazwyczaj potem wywołuje się <code>execve</code> - załadowany inny
+program</li>
+<li>strony działają jako copy-on-write - oszczędza się pamięć na
+identyczną kopię</li>
+</ul></li>
+<li><code>posix_spawn</code>
+<ul>
+<li>podobne jak <code>fork</code></li>
+<li>lepsza kontrola</li>
+</ul></li>
+<li><code>clone</code>
+<ul>
+<li>może zachować się jak <code>pthread_create</code> - współdzielenie
+wszystkiego</li>
+<li>może działać jak <code>fork</code></li>
+<li>dużo parametrów wywołania, precyzyjna kontrola</li>
+</ul></li>
+<li><code>system</code>, <code>popen</code>
+<ul>
+<li>wywołanie innego programu jak przez shella</li>
+<li>niezalecane</li>
+<li>łatwe do zaatakowania</li>
+</ul></li>
+</ul>
+<p>Są przykładowe programy</p>
+<h2 id="kolejki-komunikatów">Kolejki komunikatów</h2>
+<ul>
+<li>Kanał umożliwiający komunikację jednokierunkową</li>
+<li>Na jeden koniec wkłada się dane</li>
+<li>Z drugiego końca wyjmuje się dane</li>
+<li>W potoku przesyła się nieustrukturyzowane bajty</li>
+<li>W kolejce są komunikaty
+<ul>
+<li>określona struktura</li>
+</ul></li>
+<li>Do komunikacji dwukierunkowej powinno się użyć 2 oddzielnych
+kolejek</li>
+<li>Dla jednego producenta i wielu konsumentów lepiej użyć oddzielnej
+kolejki dla każdego</li>
+<li>Może być jedna kolejka jeśli mamy pulę procesów typu worker i chcemy
+żeby którykolwiek obsłużył dane</li>
+<li>Oczekiwanie na dostępność komunikatu w kolejce
+<ul>
+<li>proces powinien się usypiać na czas oczekiwania</li>
+<li>nie ma co marnować energii</li>
+</ul></li>
+<li>Kolejka przypomina plik</li>
+<li><code>poll</code>
+<ul>
+<li>tworzy się tablicę deskryptorów plików i oczekuje aż coś się z nimi
+stanie</li>
+<li>zwraca jeśli coś się zmieni, będzie timeout albo przyjdzie
+sygnał</li>
+</ul></li>
+<li><code>select</code></li>
+</ul>
+<h2 id="odnalezienie-kolejki">Odnalezienie kolejki</h2>
+<ul>
+<li>Jeśli proces uruchamia się przez fork to rodzic bierze jeden koniec,
+a dziecko drugi</li>
+<li>Jeśli procesy uruchamiają się niezależnie to muszą mieć możliwość
+znalezienia kolejki
+<ul>
+<li>Do tego są kolejki nazwane</li>
+</ul></li>
+<li><code>mq_open</code>
+<ul>
+<li>otwarcie lub utworzenie kolejki</li>
+<li>można określić maksymalną liczbę komunikatów, maksymalny rozmiar
+komunikatu</li>
+<li>flaga readonly, writeonly, readwrite - niezalecane</li>
+<li>blokująca / nieblokująca</li>
+</ul></li>
+<li><code>mq_close</code>
+<ul>
+<li>zamyka kolejkę</li>
+<li>nie usuwa</li>
+</ul></li>
+<li><code>mq_unlink</code> - usunięcie kolejki</li>
+<li><code>mq_send</code> - wysyłanie komunikatu</li>
+<li><code>mq_receive</code> - odbieranie komunikatu
+<ul>
+<li>zwraca rozmiar rzeczywiście otrzymanego komunikatu</li>
+</ul></li>
+<li>Komunikaty mogą mieć priorytety</li>
+<li>Bufor musi pomieścić komunikat o maksymalnym rozmiarze</li>
+<li><code>mq_timedreceive</code>
+<ul>
+<li>odczyt blokujący z timeoutem</li>
+</ul></li>
+<li><code>mq_notify</code> - powiadomienie o komunikacie używając
+sygnału</li>
+<li>Trzeba pamiętać o usunięciu</li>
+</ul>
+<h2 id="wady-kolejek">Wady kolejek</h2>
+<ul>
+<li>Dane są kopiowane 2 razy</li>
+<li>Pamięć dzielone na poziomie jądra systemu</li>
+<li>Problem można obejść
+<ul>
+<li>przesyłać w kolejce tylko pomocnicze struktury, deskryptory
+danych</li>
+<li>właściwe dane przechowywać w pamięci dzielonej</li>
+</ul></li>
+</ul>
+<h2 id="pamięć-współdzielona">Pamięć współdzielona</h2>
+<ul>
+<li>Nazwane</li>
+<li>Pliki w <code>/dev/shm</code></li>
+<li>Równoczesny dostęp wymaga mechanizmów synchronizacji bo inaczej będą
+niespójności</li>
+<li><code>shm_open</code>
+<ul>
+<li>utworzenie i otwarcie</li>
+<li>tryby dostępu jak do plików</li>
+<li>inne flagi</li>
+</ul></li>
+<li><code>ftruncate</code> - nowy obszar ma domyślnie rozmiar 0, trzeba
+jawnie nadać mu rozmiar</li>
+<li><code>mmap</code>, <code>munmap</code>
+<ul>
+<li>uzyskanie dostępu do pamięci dzielonej</li>
+<li>nie trzeba mapować całego obszaru</li>
+<li>uprawnienia jak do pliku</li>
+<li>można pozwolić na wykonywanie kodu w załadowanym obszarze</li>
+<li>czy ma być współdzielone, czy robić copy-on-write</li>
+<li><code>mmap</code> służy nie tylko do pamięci dzielonej, można
+zmapować plik do pamięci (dobre dla aplikacji bazodanowych, działa jak
+bufor)</li>
+</ul></li>
+<li><code>shm_unlink</code> - usunięcie obszaru</li>
+<li><code>close</code> - zamknięcie, ale nie usunięcie</li>
+<li>Usunięty obiekt dalej istnieje tak długo jak ktoś go trzyma
+(zostanie faktycznie usunięty dopiero po zamknięciu)</li>
+</ul>
+<h3 id="zagrożenia-przy-pamięci-współdzielonej">Zagrożenia przy pamięci
+współdzielonej</h3>
+<ul>
+<li>Procesor optymalizuje dostęp do pamięci
+<ul>
+<li>dostęp bez standardowych mechanizmów do synchronizacji może dać
+dziwne efekty</li>
+<li>procesor może sam przestawić kolejność zapisów do kolejnych
+adresów</li>
+<li>mechanizm barier w jądrze</li>
+</ul></li>
+<li><code>gcc</code> może obsłużyć specjalne atomowe tryby dostępu do
+pamięci, które korzystają z barier (fence)</li>
+<li>można po prostu korzystać z semaforów, mutexów itp</li>
+</ul>
+<h2 id="synchronizacja-dostępu-do-pamięci-współdzielonej">Synchronizacja
+dostępu do pamięci współdzielonej</h2>
+<ul>
+<li>Te same obiekty co do wątków z <code>pthread</code>
+<ul>
+<li>odpowiednia flaga dla procesów</li>
+</ul></li>
+<li>Semafory</li>
+<li>Mutexy</li>
+<li>Zmienne warunkowe</li>
+<li>Blokady zapis/odczyt</li>
+<li>Wirujące blokady (spinlock, rygle pętlowe)</li>
+<li>Bariery</li>
+</ul>
+<h3 id="semafory">Semafory</h3>
+<ul>
+<li><code>sem_init</code> - tworzenie</li>
+<li><code>sem_destroy</code> - niszczenie</li>
+<li><code>sem_wait</code> - zamknięcie, uzyskanie dostępu, blokuje
+proces
+<ul>
+<li><code>sem_trywait</code> - nieblokująca próba uzyskania dostępu,
+zwraca informację czy się udało</li>
+<li><code>sem_timedwait</code> - blokujące dostęp ale z timeoutem</li>
+</ul></li>
+<li><code>sem_post</code> - zwolnienie</li>
+<li>Nienazwane semafory - mogą być trzymane w pamięci dzielonej</li>
+<li>Można utworzyć nazwany semafor
+<ul>
+<li>dostępne dla zainteresowanych procesów przez nazwę</li>
+<li><code>sem_open</code></li>
+<li><code>sem_close</code></li>
+<li><code>sem_unlink</code> - pamiętać o usunięciu przez ostatniego
+użytkownika</li>
+</ul></li>
+</ul>
+<h3 id="mutexy">Mutexy</h3>
+<ul>
+<li>Tylko jeden proces/wątek może mieć dostęp</li>
+<li><code>pthread_mutex_init</code></li>
+<li><code>pthread_mutex_lock</code></li>
+<li><code>pthread_mutex_unlock</code></li>
+<li><code>pthread_mutex_setpshared</code> - do dzielenia między
+procesami</li>
+<li><code>pthread_mutex_setrobust</code>
+<ul>
+<li>ustala co ma się dziać z mutexem jeśli zostanie osierocony</li>
+<li>np. proces zamknie mutex i wyleci na błędzie bez otwierania
+mutexu</li>
+<li>można dostać wiadomość, można przejąć, można zostawić
+zablokowany</li>
+</ul></li>
+</ul>
+<h3 id="zmienne-warunkowe">Zmienne warunkowe</h3>
+<ul>
+<li>Oczekują na spełnienie określonego warunku</li>
+<li><code>pthread_cond_init</code></li>
+<li><code>pthread_cond_wait</code>
+<ul>
+<li>oczekiwanie przy zamkniętym mutexie</li>
+<li>mutex jest zwolniony kiedy proces czeka na zmienną</li>
+<li>chroni przed jednoczesnym wejściem w oczekiwanie przez 2
+procesy</li>
+<li>zapobiega wyścigowi</li>
+</ul></li>
+<li><code>pthread_cond_signal</code> - budzi 1 proces oczekujący</li>
+<li><code>pthread_cond_broadcast</code> - budzi wszystkie procesy
+oczekujące</li>
+</ul>
+<h3 id="blokady-zapisodczyt">Blokady zapis/odczyt</h3>
+<ul>
+<li>Jeśli proces tylko czyta dane to i tak zajmuje semafor innym
+konsumentom</li>
+<li>Pojawia się konieczność rozróżnienia konsumenta od producenta</li>
+<li>Chcemy żeby
+<ul>
+<li>producent blokował dostęp wszytkim konsumentom i innym
+producentom</li>
+<li>konsument blokował producentów ale nie innych konsumentów</li>
+</ul></li>
+<li>Jest ryzyko zagłodzenia producenta</li>
+<li><code>pthread_rwlockattr_setkind_np</code>
+<ul>
+<li>pozwala określić preferencje</li>
+<li>pozwala preferować konsumenta - przeciwdziałać zagłodzeniu (nie
+dopuszczać nowych konsumentów)</li>
+<li>zależy od charakterystyki systemu co lepsze</li>
+</ul></li>
+<li><code>pthread_rw_lock_init</code></li>
+<li><code>pthread_rw_lock_destroy</code></li>
+<li><code>pthread_rw_lock_wrlock</code></li>
+<li><code>pthread_rw_lock_rdlock</code></li>
+</ul>
+<h3 id="bariery">Bariery</h3>
+<ul>
+<li>Określamy liczbę procesów jakie mają dotrzeć do fragmentu w kodzie
+zanim wszystkie zostaną odblokowane</li>
+</ul>
+<h3 id="rygle-pętlowe">Rygle pętlowe</h3>
+<ul>
+<li>Semafor usypia proces
+<ul>
+<li>wywłaszczenia, przełączenie kontekstu</li>
+<li>kiedyś scheduler wznowi proces</li>
+</ul></li>
+<li>Jeśli wiemy że oczekiwanie będzie krótkie to można nie dać uśpić
+procesu dobrowolnie</li>
+</ul>
+<h2 id="jak-realizować-komunikację-z-wieloma-konsumentami">Jak
+realizować komunikację z wieloma konsumentami</h2>
+<ul>
+<li>Dane trzymać w pamięci współdzielonej np w buforze cyklicznym
+<ul>
+<li>trzeba synchronizować dostęp</li>
+</ul></li>
+<li>Kolejką rozsyłać komunikaty o dostępności danych</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#komunikacja-międzyprocesowa-w-linuxie-2024-04-15">Komunikacja
+międzyprocesowa w Linuxie (2024-04-15)</a>
+<ul>
+<li><a href="#różnice-względem-wielowątkowego-programu">Różnice względem
+wielowątkowego programu</a></li>
+<li><a href="#dostępne-formy-komunikacji">Dostępne formy
+komunikacji</a></li>
+<li><a href="#uruchamianie-procesów">Uruchamianie procesów</a></li>
+<li><a href="#kolejki-komunikatów">Kolejki komunikatów</a></li>
+<li><a href="#odnalezienie-kolejki">Odnalezienie kolejki</a></li>
+<li><a href="#wady-kolejek">Wady kolejek</a></li>
+<li><a href="#pamięć-współdzielona">Pamięć współdzielona</a>
+<ul>
+<li><a href="#zagrożenia-przy-pamięci-współdzielonej">Zagrożenia przy
+pamięci współdzielonej</a></li>
+</ul></li>
+<li><a href="#synchronizacja-dostępu-do-pamięci-współdzielonej">Synchronizacja
+dostępu do pamięci współdzielonej</a>
+<ul>
+<li><a href="#semafory">Semafory</a></li>
+<li><a href="#mutexy">Mutexy</a></li>
+<li><a href="#zmienne-warunkowe">Zmienne warunkowe</a></li>
+<li><a href="#blokady-zapisodczyt">Blokady zapis/odczyt</a></li>
+<li><a href="#bariery">Bariery</a></li>
+<li><a href="#rygle-pętlowe">Rygle pętlowe</a></li>
+</ul></li>
+<li><a href="#jak-realizować-komunikację-z-wieloma-konsumentami">Jak
+realizować komunikację z wieloma konsumentami</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

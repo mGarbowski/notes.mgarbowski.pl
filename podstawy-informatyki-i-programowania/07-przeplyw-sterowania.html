@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-przeplyw-sterowania</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-znaki-i-napisy.html">Poprzedni: 05-znaki-i-napisy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-przeplyw-sterowania.html">Następny: 07-przeplyw-sterowania.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="przepływ-sterowania-control-flow">Przepływ sterowania (control
+flow)</h1>
+<h2 id="pętla">Pętla</h2>
+<ul>
+<li>procesor potrzebuje operacji porównania i zapętlenia</li>
+<li>potrzebuje skoku do początku bloku kodu
+<ul>
+<li>skoki przez modyfikację rejestru Program Counter</li>
+</ul></li>
+</ul>
+<h2 id="instrukcje-porównania">Instrukcje porównania</h2>
+<p>Porównanie liczb to sprawdzenie wartości ich różnicy</p>
+<table>
+<thead>
+<tr class="header">
+<th>warunek</th>
+<th>True jeśli a-b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a &gt; b</td>
+<td>dodatnia</td>
+</tr>
+<tr class="even">
+<td>a &lt; b</td>
+<td>ujemna</td>
+</tr>
+<tr class="odd">
+<td>a == b</td>
+<td>zero</td>
+</tr>
+</tbody>
+</table>
+<p>Od tego są flagi ALU N (Negative) i Z (Zero)</p>
+<h3 id="liczba-przeciwna">Liczba przeciwna</h3>
+<ul>
+<li>A -&gt; -A+1</li>
+<li>Dodanie do negacji 0 i 1 bitu przeniesienia</li>
+</ul>
+<p>Dodawanie lub odejmowanie można zrealizować przez przepuszczenie
+argumentów do ALU przez multiplekser odpowiednio z afirmacją / negacją
+każdego bitu.</p>
+<p>Przez połączenia wyjść rejestrów można zrobić operacjie bit-wise
+-&gt; multipleksery i dodawanie 0 przez przeniesienie</p>
+<p>Tak można zrealizować operację odejmowania <code>SUB</code></p>
+<h2 id="instrukcje-skoku">Instrukcje skoku</h2>
+<p>Skok warunkowy * JZ - skacz jeśli zero * JG - skacz jeśli większe *
+JL - skacz jeśli mniejsze</p>
+<p>Skok bezwarunkowy - JMP</p>
+<p>Instrukcja skoku wymaga argumentu - adresu instrukcji do której
+chcemy skoczyć * Można rozważyć skoki bliskie i dalekie * Może nie
+potrzeba aż 64b adresu jeśli chcę skoczyć o kilka linijek dalej *
+Adresowanie bezpośrednie i pośrednie</p>
+<p><code>JZ R0</code> skok pod adres, który siedzi w rejestrze R0</p>
+<p><code>JG [R1]</code> skok pod adres zapisany w komórce pamięci,
+której adres jest w rejestrze</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>    mov     [i], R0
+START_WHILE_LABEL:
+    sub     R0, 10
+    jg      END_WHILE_LABEL
+    jz      END_WHILE_LABEL
+    add     R0, 1
+    mov     A, R0
+    jmp     START_WHILE_LABEL
+END_WHILE_LABEL:
+    mov     R0, [i]</code></pre>
+<p>Zmienna i siedzi w dwóch miejscach - pamięci i rejestrze. Może
+pojawić się hazard.</p>
+<p>Wystarczy raz odczytać <code>i</code> z pamięci na początku i raz
+zapisać do pamięci na końcu. Dostęp do rejestru jest znacznie szybszy.
+Skopiowanie zmiennej z pamięci do rejestru jest dużą optymalizacją.</p>
+<p>Label’e odpowiadają adresom instrukcji w pamięci</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przepływ-sterowania-control-flow">Przepływ sterowania
+(control flow)</a>
+<ul>
+<li><a href="#pętla">Pętla</a></li>
+<li><a href="#instrukcje-porównania">Instrukcje porównania</a>
+<ul>
+<li><a href="#liczba-przeciwna">Liczba przeciwna</a></li>
+</ul></li>
+<li><a href="#instrukcje-skoku">Instrukcje skoku</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

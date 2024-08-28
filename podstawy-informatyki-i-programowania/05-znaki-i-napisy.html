@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-znaki-i-napisy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-liczby-calkowite.html">Poprzedni: 03-liczby-calkowite.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-znaki-i-napisy.html">Następny: 05-znaki-i-napisy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="znaki-i-napisy-2022-11-03">Znaki i napisy (2022-11-03)</h1>
+<h2 id="alfabet-morsea">Alfabet Morse’a</h2>
+<p>Pierwsze ustandaryzowane kodowanie angielskiego alfabetu - Alfabet
+Morse’a i pierwszy telegraf. Zoptymalizowany na podstawie częstotliwości
+występowania znaku (częściej występujący znak kodowany mniejszą
+liczbą).</p>
+<p>Pojawia się problem z rozpoznaniem gdzie zaczyna się litera jeśli
+dołączy się w środku transmisji.</p>
+<h2 id="ascii">ASCII</h2>
+<p>American Standard Code for Information Interchange (1963)</p>
+<ul>
+<li>Znaki kodowane na 7 bitach</li>
+<li>0-31 Kody sterujące (CR, LF, NUL, ESC)
+<ul>
+<li>CR (Carriage Return) - powrót na początek wiersza</li>
+<li>LF (Line feed) - przejście do następnej linii</li>
+</ul></li>
+<li>32 spacja</li>
+<li>48-57 cyfry</li>
+<li>65-90 wielkie litery</li>
+<li>97-122 małe litery
+<ul>
+<li>Przesunięte o 32 względem wielkich</li>
+</ul></li>
+<li>127 (DEL) kasowanie znaku</li>
+</ul>
+<p>Mógł być 7-bitowy, ale zaczęto wykorzystywać MSB jako kontrolny bit
+parzystości.</p>
+<p>Kody detekcyjne i kody korekcyjne - techniki pozwalające wykryć i/lub
+naprawić błędy w transmisji danych .</p>
+<h2 id="strony-kodowe">Strony kodowe</h2>
+<p>Powstało wiele standardów pokrywających konkretne narodowe
+symbole.</p>
+<p>International Standards Organization (ISO) zajęła się normalizacją
+stron kodowych.</p>
+<p>Międy klawiszem na klawiaturze a wyświetleniem symbolu jest bardzo
+daleka droga. System operacyjny dekoduje numer klawisza na znak według
+wybranego układu klawiatury itd.</p>
+<h2 id="unicode">Unicode</h2>
+<p>Tworzony przez międzynarodowe konsorcjum Unicode. Zwiększona potrzeba
+ustandaryzowania z pojawieniem się internetu.</p>
+<p>Standard stron kodowych, każdy znak ma mieć przypisany numer (2^32
+miejsc w tabeli 2^16 x 2^16). Pierwsza kolumna tabeli (64K znaków) to
+Basic Multilingual Plane na symbole wszystkich języków.</p>
+<p>Znak != glif, ten sam znak może mieć być reprezentowany w różnych
+czcionkach i z różnymi atrybutami (podkreślenie, pogrubienie, wielkość
+itp.)</p>
+<p>Numer Unicode to nie to samo co reprezentacja w pamięci komputera.
+Szkoda używać 4B jeśli znak zmieści się na 1B.</p>
+<p>Wszystkie kody znaków w ASCII i Unicode są takie same.</p>
+<h2 id="utf-8">UTF-8</h2>
+<p>Unicode Transformation Format</p>
+<p>Oszczędne kodowanie numerów znaków w Unicode. Rozwiązuje problem
+rozpoznania gdzie zaczyna się znak.</p>
+<p>Wszystkie kody znaków ASCII i UTF-8 są takie same. Nawet jeśli plik
+tekstowy jest zakodowany w UTF-8 a program tego nie wspiera to większość
+znaków i tak wyświetli się poprawnie (bo mieści się w ASCII)</p>
+<p>Sekwencja bajtów jest ustalona w pliku (nie zależy od specyfikacji
+little/big endian)</p>
+<h3 id="wady">Wady</h3>
+<ul>
+<li>Znaki alfabetów niełacińskich zajmują więcej bajtów (do 6B) niż w
+narodowych standardach kodowania</li>
+<li>Niejednoznaczność zapisu
+<ul>
+<li>wiele kodów opisuje tak smao wyglądający znak np. ‘-’</li>
+<li>sprawia problemy przy wyszukiwaniu</li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>liczba bajtów</th>
+<th>bajt 1</th>
+<th>bajt 2</th>
+<th>bajt 3</th>
+<th>bajt 4</th>
+<th>bajt 5</th>
+<th>bajt 6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0xxxxxxx</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>110xxxxx</td>
+<td>10xxxxxx</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1110xxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>11110xxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>111110xx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>1111110x</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+<td>10xxxxxx</td>
+</tr>
+</tbody>
+</table>
+<p>Na 1 bajcie - tak samo jak ASCII</p>
+<p>Na kilku bajtach * w pierwszym jest tyle 1 ile bajtów ma znak, potem
+jedno 0 * każdy kolejny bajt zaczyna się od 10</p>
+<p>W ten sposób rozwiązuje się problem z rozpoznaniem znaku jeśli
+rozpocznie się odczyt w środku transmisji</p>
+<h2 id="utf-16">UTF-16</h2>
+<ul>
+<li>Bardziej kompaktowy dla chińskiego i japońskiego</li>
+<li>Musi być obsługiwany przez procesory XML</li>
+<li>Niezgodne z ASCII</li>
+</ul>
+<h2 id="utf-32">UTF-32</h2>
+<ul>
+<li>Po prostu 32 bity kodu Unicode w NKB</li>
+<li>Różnica w little / big endian</li>
+<li>Niezgodne z ASCII</li>
+</ul>
+<h2 id="byte-order-mark-bom">Byte Order Mark (BOM)</h2>
+<p>Specjalny znak na początku pliku, określa sposób kodowania (wersję
+UTF) i little endian / big endian</p>
+<h2 id="napisy">Napisy</h2>
+<p>Jak określić gdzie w pamięci kończy się napis skoro może być różnej
+długości</p>
+<ul>
+<li>length-prefixed string - najpierw długość, potem znaki
+<ul>
+<li>używane dawniej (Pascal)</li>
+<li>szybkie określenie długości</li>
+</ul></li>
+<li>null-terminated string - znak specjalny na końcu (ASCII 0)
+<ul>
+<li>obecnie najczęściej używany</li>
+<li>kosztowne sprawdzenie długości (szczególnie w UTF-8 gdzie nie
+wystarczy policzyć bajtów)</li>
+</ul></li>
+</ul>
+<h3 id="w-języku-c">W języku C</h3>
+<p>W programie: <code>char napis[] = "Hi Peter";</code> W pamięci:
+<code>48 69 20 50 65 74 65 72 00</code> &lt;- NUL na końcu</p>
+<p>Napis trzeaba kopiować razem z końcowym 00 albo będą problemy.</p>
+<p>Zmienna <code>napis</code> jest adresem piewszej litery (stąd
+indeksowanie od 0)</p>
+<p><code>*(napis + 1)</code> litera na indeksie 1 i potencjalna
+podatność na atak (bez sprawdzenia zakresu). To rozwiązują języki
+wyższego poziomu i obiekty string.</p>
+<h3 id="w-języku-c-1">W języku C++</h3>
+<p><code>std::string napis("Hi Peter");</code></p>
+<p>Napis jako obiekt * umieszcza ciąg bajtów zakończony 0x00 w pamięci
+(tak jak w C) * rezerwuje pamięć na wydłużenie napisu * przechowuje
+informacje o długości napisu - size i dostępnym (zarezerwowanym) miejscu
+- capacity</p>
+<h2 id="null-terminated-string">Null-terminated string</h2>
+<ul>
+<li>Problem przy kopiowaniu - trzeba pamiętać o końcowym 0x00</li>
+<li>Wstawienie 0x00 w środek napisu powoduje obcięcie, a reszta zostaje
+w pamięci
+<ul>
+<li>wyciek danych, potencjalny problem z bezpieczeńśtwem</li>
+</ul></li>
+<li>Błędne indeksowanie prowadzi do sięgnięcia do danych poza
+napisem</li>
+</ul>
+<h2 id="row-hammer">Row hammer</h2>
+<p>Exploit bezpieczeństwa w pamięci DRAM. Zmiana zawartości komórek,
+które nie były zaadresowane przez odwoływanie się do sąsiednich komórek.
+Wykorzystuje efekt uboczny, elektryczne oddziaływanie między
+komórkami.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#znaki-i-napisy-2022-11-03">Znaki i napisy (2022-11-03)</a>
+<ul>
+<li><a href="#alfabet-morsea">Alfabet Morse’a</a></li>
+<li><a href="#ascii">ASCII</a></li>
+<li><a href="#strony-kodowe">Strony kodowe</a></li>
+<li><a href="#unicode">Unicode</a></li>
+<li><a href="#utf-8">UTF-8</a>
+<ul>
+<li><a href="#wady">Wady</a></li>
+</ul></li>
+<li><a href="#utf-16">UTF-16</a></li>
+<li><a href="#utf-32">UTF-32</a></li>
+<li><a href="#byte-order-mark-bom">Byte Order Mark (BOM)</a></li>
+<li><a href="#napisy">Napisy</a>
+<ul>
+<li><a href="#w-języku-c">W języku C</a></li>
+<li><a href="#w-języku-c-1">W języku C++</a></li>
+</ul></li>
+<li><a href="#null-terminated-string">Null-terminated string</a></li>
+<li><a href="#row-hammer">Row hammer</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>17-ocena-jakosci-dzwieku</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="16-lokalizacja-zrodla-dzwieku.html">Poprzedni: 16-lokalizacja-zrodla-dzwieku.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="18-cyfrowe-sygnaly-foniczne.html">Następny: 18-cyfrowe-sygnaly-foniczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="ocena-jakości-dźwięku">Ocena jakości dźwięku</h1>
+<ul>
+<li>W jaki sposób ocenić jakość dźwięku
+<ul>
+<li>jakość urządzeń audio</li>
+<li>jakość transmisji</li>
+<li>jakość kodowania</li>
+<li>jakość dźwięku w pomieszczeniu</li>
+</ul></li>
+<li>Czy A brzmi dobrze czy źle</li>
+<li>Czy A brzmi lepiej niż B</li>
+</ul>
+<h2 id="metody-oceny-jakości-dźwięku">Metody oceny jakości dźwięku</h2>
+<ul>
+<li>Pomiar parametrów fizycznych
+<ul>
+<li>tzw. obiektywne</li>
+<li>często nie dają wystarczającej informacji o jakości dźwięku</li>
+<li>SNR</li>
+<li>zniekształcenia harmoniczne (THD, THD+N)</li>
+<li>zniekształcenia intermodulacyjne</li>
+<li>przepływność</li>
+</ul></li>
+<li>Percepcyjne modele oceny
+<ul>
+<li>wykorzystują modele zjawisk psychoakustycznych do programowego
+obliczania jakości dźwięku</li>
+<li>MOS</li>
+<li>PEAQ / PESQ</li>
+</ul></li>
+<li>Testy słuchowe
+<ul>
+<li>tzw. subiektywne</li>
+<li>opierają się na indywidualnym wrażeniu słuchaczy</li>
+<li>test AB</li>
+<li>test ABC</li>
+<li>test ABX</li>
+<li>MUSHRA</li>
+</ul></li>
+</ul>
+<h3 id="mean-opinion-score-mos">Mean Opinion Score (MOS)</h3>
+<ul>
+<li><em>Subjective</em> MOS</li>
+<li><em>Objective</em> MOS</li>
+<li>Ocena w skali od 1 do 5</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Ocena</th>
+<th>Jakość</th>
+<th>Zniekształcenia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5</td>
+<td>Doskonała</td>
+<td>Niesłyszalne</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Dobra</td>
+<td>Słyszalne, niedokuczliwe</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Średnia</td>
+<td>Lekko dokuczliwe</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Słaba</td>
+<td>Dokuczliwe</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>Zła</td>
+<td>Bardzo dokuczliwe</td>
+</tr>
+</tbody>
+</table>
+<h3 id="peaq-pesq">PEAQ / PESQ</h3>
+<ul>
+<li>Perceptual Evaluation of Audio / Speech Quality</li>
+<li>Kompresja stratna dźwięków opiera się na wykorzystaniu modeli
+psychoakustycznych</li>
+<li>To powoduje, że zniekształcenia, które wprowadza kompresja, są
+niesłyszalne dla słuchacza</li>
+<li>Zniekształcenia występują jednak w sygnale, więc obiektywne pomiary
+zniekształceń mogą nie oddawać właściwej informacji o wrażeniowej
+jakości</li>
+</ul>
+<h3 id="mushra">MUSHRA</h3>
+<ul>
+<li>Multiple stimuli with hidden reference and anchor</li>
+</ul>
+<h2 id="schemat-percepcji-słuchowej">Schemat percepcji słuchowej</h2>
+<ul>
+<li>Bodziec</li>
+<li>Obraz słuchowy - na podstawie bodźca</li>
+<li>Decyzja - które lepsze
+<ul>
+<li>oparta o reakcję wrażeniową i emocjonalną</li>
+<li>chcemy mierzyć tylko reakcję wrażeniową</li>
+</ul></li>
+</ul>
+<h3 id="reakcje-i-postawa-wobec-decyzji">Reakcje i postawa wobec
+decyzji</h3>
+<ul>
+<li>Reakcja wrażeniowa
+<ul>
+<li>efekt procesów fizjologicznych zachodzących w trakcie słuchania</li>
+<li>związane z cehcami bodźca</li>
+</ul></li>
+<li>Reakcja emocjonalna
+<ul>
+<li>odbicie nastawienia człowieka do obrazu słuchowego</li>
+<li>związana z jego gustem i przyzwyczajeniami</li>
+</ul></li>
+<li>Postawa wobec decyzji
+<ul>
+<li>niektórzy mówią <em>tak</em>, tylko gdy są absolutnie pewni, inni
+częściej</li>
+</ul></li>
+</ul>
+<h3 id="obiektywizacja-ocen">Obiektywizacja ocen</h3>
+<ul>
+<li>W celu obiektywizacji oceny słuchowej należy minimalizować wpływ
+reakcji emocjonalnej i postawy wobec decyzji na wyniki</li>
+<li>Metody
+<ul>
+<li>odpowiednie formułowanie zadań testowych</li>
+<li>dobór i szkolenie słuchaczy</li>
+<li>statystyczna obróbka wyników</li>
+</ul></li>
+</ul>
+<h2 id="planowanie-testu">Planowanie testu</h2>
+<h3 id="merytorycznie">Merytorycznie</h3>
+<ul>
+<li>Określenie co podlega ocenia i jakiego zjawiska dotyczy
+<ul>
+<li>detekcja - jest czy nie</li>
+<li>dyskryminacja - rozróżnianie próbek</li>
+<li>identyfikacja - wskazanie próbki o danej cesze</li>
+<li>skalowanie - ocena od x do y</li>
+</ul></li>
+<li>Wybór
+<ul>
+<li>rodzaju</li>
+<li>zakresu</li>
+<li>metody oceny</li>
+</ul></li>
+</ul>
+<h3 id="technicznie">Technicznie</h3>
+<ul>
+<li>Konstrukcja testu</li>
+<li>Wybór pomieszczenia odsłuchowego</li>
+<li>Skompletowanie urządzeń toru odsłuchowego</li>
+<li>Zorganizowanie grupy słuchaczy
+<ul>
+<li>rozróżnia się laików od ekspertów</li>
+</ul></li>
+<li>Zebranie i analiza wyników</li>
+</ul>
+<h2 id="przykłady">Przykłady</h2>
+<h3 id="test-oceny-bezwzględnej">Test oceny bezwzględnej</h3>
+<ul>
+<li>Np. ocena zestawu głośnikowego</li>
+<li>Prezentujemy sygnały testowe</li>
+<li>Słuchacz musi ocenić jakość sygnału</li>
+<li>Musi sam znaleźć punkt odniesienia</li>
+<li>Nie uzyskamy dobrych wyników od laików, potrzebni eksperci</li>
+</ul>
+<h3 id="test-oceny-względnej">Test oceny względnej</h3>
+<ul>
+<li>Np. ocena stopnia kompresji</li>
+<li>Oceniana jest różnica między sygnałem oryginalnym a badanym</li>
+<li>Prostsze do oceny, podany sygnał odniesienia</li>
+<li>Test odpowiedni dla laików, ale trzeba sprawdzić ich
+wiarygodność</li>
+<li>Skala od -3 do 3</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ocena-jakości-dźwięku">Ocena jakości dźwięku</a>
+<ul>
+<li><a href="#metody-oceny-jakości-dźwięku">Metody oceny jakości
+dźwięku</a>
+<ul>
+<li><a href="#mean-opinion-score-mos">Mean Opinion Score (MOS)</a></li>
+<li><a href="#peaq-pesq">PEAQ / PESQ</a></li>
+<li><a href="#mushra">MUSHRA</a></li>
+</ul></li>
+<li><a href="#schemat-percepcji-słuchowej">Schemat percepcji
+słuchowej</a>
+<ul>
+<li><a href="#reakcje-i-postawa-wobec-decyzji">Reakcje i postawa wobec
+decyzji</a></li>
+<li><a href="#obiektywizacja-ocen">Obiektywizacja ocen</a></li>
+</ul></li>
+<li><a href="#planowanie-testu">Planowanie testu</a>
+<ul>
+<li><a href="#merytorycznie">Merytorycznie</a></li>
+<li><a href="#technicznie">Technicznie</a></li>
+</ul></li>
+<li><a href="#przykłady">Przykłady</a>
+<ul>
+<li><a href="#test-oceny-bezwzględnej">Test oceny bezwzględnej</a></li>
+<li><a href="#test-oceny-względnej">Test oceny względnej</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-22-wyjatki</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-20-zarzadzanie-zasobami.html">Poprzedni: wyklad-20-zarzadzanie-zasobami.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-23-wejscie-wyjscie.html">Następny: wyklad-23-wejscie-wyjscie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wyjątki-2023-05-15">Wyjątki (2023-05-15)</h1>
+<p>Zdarzenie w systemie komputerowym wymagające przerwania wykonania
+bieżącego strumienia instrukcji i przekazania sterowania do systemu
+operacyjnego (procedury, którąwybiera system)</p>
+<ul>
+<li>asynchroniczne - niewynikające z wykonywanych instrukcji lub
+niemożliwe do powiązania z konkretną instrukcją
+<ul>
+<li>przerwania (interrupt) - obsługa może być odsunięta w czasie</li>
+<li>błędy krytyczne - obsługiwane natychmiast</li>
+</ul></li>
+<li>synchroniczne - wynikające z wykonania instrukcji i dokładnie
+powiązane z instrukcją
+<ul>
+<li>pułapki (traps)</li>
+<li>błędy (errors)
+<ul>
+<li>naprawialne (faults)</li>
+<li>nienaprawialne (aborts) - w niektórych architekturach są
+asynchroniczne</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="przerwania">Przerwania</h2>
+<ul>
+<li>poza procesorem
+<ul>
+<li>urządzenia IO</li>
+<li>timer systemowy</li>
+</ul></li>
+</ul>
+<h2 id="pułapki">Pułapki</h2>
+<p>Wyjątki generowane przez wykonanie instrukcji - zaplanowane</p>
+<ul>
+<li>wywołanie systemu operacyjnego (SYSCALL, ECALL)</li>
+<li>błędy wykonywanych instrukcji (nadmiar dzielenia)</li>
+<li>pułapki śledzenia
+<ul>
+<li>generowane przez dowolną instrukcje jeśli ustwi się w procesroze
+tryb śledzenia</li>
+<li>służy do debuggowania</li>
+</ul></li>
+</ul>
+<h2 id="błędy">Błędy</h2>
+<ul>
+<li>generowane przez procesor (na ogół)</li>
+<li>np próba wykonania instrukcji o nieznanym kodzie operacyjnym</li>
+<li>np błąd wyrównania</li>
+<li>np niewystarczający poziom uprzywilejowania</li>
+</ul>
+<h2 id="obsługa-wyjątków">Obsługa wyjątków</h2>
+<ul>
+<li>Każdy musi zostać obsłużony
+<ul>
+<li>błędy i pułapki - od razu po wystąpieniu</li>
+<li>przerwania - kiedy OS jest gotowy</li>
+</ul></li>
+<li>Obsługa na poziomie sprzęu - do momentu wykonania pierwszej
+instrukcji procedury systemowej (kończy się obsługa przez procesor,
+zaczyna się obsługa przez OS)</li>
+<li>Obsługa programowa - procedura systemowa</li>
+</ul>
+<h3 id="fazy">Fazy</h3>
+<ul>
+<li>wykrycie wyjątku</li>
+<li>identyfikacja źródła wyjątku</li>
+<li>przerwanie wykonania strumienia instrukcji i zapamiętanie bieżącego
+kontekstu procesora (tak żeby można było go przywrócic)</li>
+<li>załadowanie nowego kontekstu procesora i rozpoczęcie wykonywania
+nowego strumienia instrukcji - procedury systemowej obsługującej
+wyjątek</li>
+</ul>
+<h2 id="priorytet-procesora">Priorytet procesora</h2>
+<p>(co innego niż poziom uprzywilejowania!)</p>
+<ul>
+<li>wszystkie zadania systemowe działają na najniższym prorytecie
+procesora</li>
+<li>przerwanie jest obsługiwane kiedy priorytet przerwania jest wyższy
+niż priorytet procesora</li>
+<li>wielopoziomowy system przerwań
+<ul>
+<li>można określić mniej i bardziej pilne przerwania</li>
+</ul></li>
+<li>Układ arbitrażu przerwań (sterownik przerwań)
+<ul>
+<li>odpowiada procesorowmi id przerwania o najwyższym priorytecie</li>
+</ul></li>
+</ul>
+<h2 id="zapamiętanie-kontekstu">Zapamiętanie kontekstu</h2>
+<ul>
+<li>Cel
+<ul>
+<li>Powrót po obsłudze</li>
+<li>Komunikat diagnostyczny</li>
+</ul></li>
+<li>Treść - informacje o stanie procesora - wszystko to co procesor
+będzie musiał sprzętowo zmienić
+<ul>
+<li>PC</li>
+<li>rejestr stanu</li>
+<li>priorytet procesora</li>
+<li>informacje o odwołaniu do pamięci</li>
+<li>rejestry z modelu programowego mogą zostać zapamiętane przez
+oprogramowanie</li>
+</ul></li>
+<li>Zapamiętywany w miejscu naturalnym dla architektury
+<ul>
+<li>na stosie w CISC</li>
+<li>w rejestrach systemowych w CISC</li>
+</ul></li>
+<li>Licznik instrukcji
+<ul>
+<li>jeśli wyjątek nie ma związnku z instrukcją albo jest normalnym
+zakończeniem (syscall) to ma sens zachowanie nextPC</li>
+<li>currentPC - ma sens dla pułapek sygnalizujących błąd wykonania i dla
+błędów (trzeba wiedzieć która insturkcja powoduje błąd)</li>
+</ul></li>
+</ul>
+<h2
+id="zmiany-kontekstu-systemowego-w-czasie-obsługi-sprzętowej-wyjątku">Zmiany
+kontekstu systemowego w czasie obsługi sprzętowej wyjątku</h2>
+<ul>
+<li>Na poziomie uprzywilejowania systemu (na ogół)</li>
+<li>Wyłącza tryb śledzenia</li>
+<li>Przyjmuje priorytet obsługiwanego przerwania</li>
+<li>Każdy poziom uprzywilejowana musi mieć własny, oddzielny stos,
+system nie może polegać na poprwanym działaniu programu użytkowego</li>
+</ul>
+<h2 id="sekwencja-czynności">Sekwencja czynności</h2>
+<ul>
+<li>tradycyjna
+<ul>
+<li>wykrycie i arbitraż</li>
+<li>identyfikacja</li>
+<li>składowanie kontekstu</li>
+<li>ładowanie nowego kontekstu</li>
+</ul></li>
+<li>współczesne (ARM Cortex)
+<ul>
+<li>wykrycie</li>
+<li>składowanie kontekstu</li>
+<li>arbitraź i identyfikacja</li>
+<li>załadowanie nowego kontekstu</li>
+<li>opóźnienie arbitrażu umożliwia szybszą obsługę wyjątków o wyższych
+priorytetach któe występująod razu po niższych (rozwiązuje problem
+inwersji priorytetów)</li>
+</ul></li>
+</ul>
+<h2 id="przełączanie-stosów">Przełączanie stosów</h2>
+<ul>
+<li>każdy poziom uprzywilejowania ma swój oddzielny stos</li>
+<li>procesor decyduje o wyborze rejestru wskaźnika stosu</li>
+<li>dany poziom ma dostęp do wskaźnika stosu poziomu mniej
+uprzywilejowanaego</li>
+<li>oprogramowanie systemowe powinno mieć możliwośćoperowania na pamięci
+z poziomu uprzywilejowania aplikacji</li>
+</ul>
+<h2 id="priorytety-przerwań">Priorytety przerwań</h2>
+<ul>
+<li>Obsługa przerwania może być przerwana tylko przez przerwanie o
+wyższym priorytecie</li>
+<li>Niektóre procedury jądra wymagają zablokowania przerwań (sekcje
+krytyczne, np. przełączanie zadań, komunikacja między zadaniami)</li>
+</ul>
+<h2 id="ładowanie-nowego-kontekstu">Ładowanie nowego kontekstu</h2>
+<p>Są różne często stosowane rozwiązania</p>
+<ul>
+<li>wspólny punkt wejścia</li>
+<li>wiele ustalonych adresó początkowych procedur</li>
+<li>tablica adresów procedur obsługi (wektorowy system obsługi
+wyjątków)</li>
+</ul>
+<h2 id="wyjątki-w-x86">Wyjątki w x86</h2>
+<ul>
+<li>256 możliwych do zdefiniowania, 32 dla procesoraw</li>
+<li>8-bitowy identyfikator używany jako indeks tablicy bram
+wyjątków</li>
+<li>Klasyfikacja wyjątków
+<ul>
+<li>przerwania</li>
+<li>pułapki</li>
+<li>błędy</li>
+<li>błędy nienaprawialne</li>
+</ul></li>
+</ul>
+<p>Każdy wątek ma własny, oddzielny stos aplikacyjny i stos
+systemowy</p>
+<p>Zatrzymanie wątku wiąże się z wywołaniem schedulera - procesor
+zostanie przełączony na inny wątek który wcześniej został wstrzymany
+(przełącza się stos systemowy)</p>
+<p>Instrukcja powrotu z procedury obsługi wyjątku nie tylko przeładowuje
+PC ale też rejestr stanu (instrukcja tylko systemowa)</p>
+<p>Po powrocie z obsługi błędu może nastąpić * restart instrukcji która
+spowodowała błąd - używane we współczesnych superskalarach bo już jest
+zaimplementowane anulowanie instrukcji * kontynuacja instrukcji od
+czynności mikrokodu, która spowodowała błąd</p>
+<p>Procesor może wykorzystywać mechanizm wyjątków np do realizacji
+mechanizmu zarządzania zasobami (np. leniwa alokacja)</p>
+<h2 id="asynchroniczne-przerwanie-programowe">Asynchroniczne przerwanie
+programowe</h2>
+<ul>
+<li>przydatne do budowania systemów zdarzeniowych</li>
+</ul>
+<h2 id="błąd-podwójny">Błąd podwójny</h2>
+<ul>
+<li>błąd w trakcie obsługi błedu</li>
+<li>odwołanie do pamięci może spowodować błąd</li>
+<li>procesor nie ma ważnej wartości licznika instrukcji</li>
+<li>zdarza się tylko przy błędach w systemie operacyjnym - sygnalizuje
+awarię systemu</li>
+</ul>
+<h2 id="inicjowanie-działania-procesora---reset">Inicjowanie działania
+procesora - Reset</h2>
+<p>Zrealizowane jak wyjątek bez składowania stanu</p>
+<ul>
+<li>…</li>
+</ul>
+<h2 id="priorytety-typów-wyjątków">Priorytety typów wyjątków</h2>
+<p>Dla mikrokodu procesora błąd -&gt; pułapka -&gt; przerwanie</p>
+<p>Pilność dla systemu operacyjnego przerwania -&gt; pułapki -&gt; błędy
+(przerwania są najbardziej krytyczne czasowo)</p>
+<h2 id="wymagania-czasowe">Wymagania czasowe</h2>
+<ul>
+<li>obsługa przerwań jest krytyczna czasowo (zwłaszcza w systemach czasu
+rzeczywistego)</li>
+<li>parametry czasowe
+<ul>
+<li>czas programowej reakcji</li>
+<li>czas sprzętowej reakcji</li>
+<li>determinizm czasu odpowiedzi</li>
+</ul></li>
+<li>może być tylko jedno przerwanie o gwarantowanym maksymalnym czasie
+wykonania (o najwyższym priorytecie)</li>
+<li>mogą istnieć pojedyncze bardzo wolne instrukcje które opóxniają
+obsługę przerwań</li>
+<li>instrukcje iteracyjne są przerywalne</li>
+</ul>
+<h2 id="późne-nadejście-late-arrival">Późne nadejście (late
+arrival)</h2>
+<p>rozwiązane w ARM Cortex</p>
+<h2 id="łańczuchowanie-przerwań-chaining">Łańczuchowanie przerwań
+(chaining)</h2>
+<p>Jeśli po zakończeniu obsługi przerwania procesor musi wrócić do
+obsługi kolejnego przerwanie to nie odtwarza stanu</p>
+<h2 id="determinizm-czasu-odpowiedzi">Determinizm czasu odpowiedzi</h2>
+<ul>
+<li>W niektórych zastosowaniach (sterowanie urządzeniami elektrycznymi)
+ważne jest żeby czas był stały</li>
+<li>W procesorze umieszcza się timer sprzętowy odliczający większy czas
+niż maksymalny gwarantowany i odczekuje po obsłudze przerwania żeby
+kolejna instrukcja wykonała się w deterministycznym czasie</li>
+</ul>
+<h2 id="pamięć-wirtualna">Pamięć wirtualna</h2>
+<ul>
+<li>wymaga podziału przestrzeni adresowe jprocesu na wiele obszarów</li>
+<li>aktualnie używane obszary zaalokowane są w pamięci operacyjnej -
+pamięć operacyjna jest buforem pamięci wirtualnej</li>
+<li>…</li>
+</ul>
+<h3 id="implementacja">Implementacja</h3>
+<ul>
+<li>strony przydzielone programowi ale których nie ma w pamięci mają
+nieważne deskryptory</li>
+<li>odwołanie po nieważnym deskryptorze generuje błąd</li>
+<li>2 bity deskryptora
+<ul>
+<li>accessed - nastąpił odczyt</li>
+<li>modified/dirty - do strony nastąpił zapis</li>
+<li>system operacyjny zawsze zeruje te bity</li>
+<li>jednostka stronicowania ustawia bit accessed jeśli z niego
+skorzystała (nastąpił odczyt)</li>
+</ul></li>
+<li>system co jakiś czas (1s) przegląda wszystkie deskryptory i gromadzi
+historie użycia każdej strony i ustawia bit accessed na 0</li>
+<li>przy wyznaczaniu ofiary, w pierwszej kolejności są wyrzucane storny
+które najdawniej nie były używane</li>
+<li>Jeśli do strony nastąpił zapis to przed wyrzuceniem z pamięci trzeba
+najpierw zapisać ją na dysk</li>
+</ul>
+<p>Moduły 14 i 15 do zrobienia samemu</p>
+<p>Obsługa wejścia/wyjścia - wady zalety</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wyjątki-2023-05-15">Wyjątki (2023-05-15)</a>
+<ul>
+<li><a href="#przerwania">Przerwania</a></li>
+<li><a href="#pułapki">Pułapki</a></li>
+<li><a href="#błędy">Błędy</a></li>
+<li><a href="#obsługa-wyjątków">Obsługa wyjątków</a>
+<ul>
+<li><a href="#fazy">Fazy</a></li>
+</ul></li>
+<li><a href="#priorytet-procesora">Priorytet procesora</a></li>
+<li><a href="#zapamiętanie-kontekstu">Zapamiętanie kontekstu</a></li>
+<li><a href="#zmiany-kontekstu-systemowego-w-czasie-obsługi-sprzętowej-wyjątku">Zmiany
+kontekstu systemowego w czasie obsługi sprzętowej wyjątku</a></li>
+<li><a href="#sekwencja-czynności">Sekwencja czynności</a></li>
+<li><a href="#przełączanie-stosów">Przełączanie stosów</a></li>
+<li><a href="#priorytety-przerwań">Priorytety przerwań</a></li>
+<li><a href="#ładowanie-nowego-kontekstu">Ładowanie nowego
+kontekstu</a></li>
+<li><a href="#wyjątki-w-x86">Wyjątki w x86</a></li>
+<li><a href="#asynchroniczne-przerwanie-programowe">Asynchroniczne
+przerwanie programowe</a></li>
+<li><a href="#błąd-podwójny">Błąd podwójny</a></li>
+<li><a href="#inicjowanie-działania-procesora---reset">Inicjowanie
+działania procesora - Reset</a></li>
+<li><a href="#priorytety-typów-wyjątków">Priorytety typów
+wyjątków</a></li>
+<li><a href="#wymagania-czasowe">Wymagania czasowe</a></li>
+<li><a href="#późne-nadejście-late-arrival">Późne nadejście (late
+arrival)</a></li>
+<li><a href="#łańczuchowanie-przerwań-chaining">Łańczuchowanie przerwań
+(chaining)</a></li>
+<li><a href="#determinizm-czasu-odpowiedzi">Determinizm czasu
+odpowiedzi</a></li>
+<li><a href="#pamięć-wirtualna">Pamięć wirtualna</a>
+<ul>
+<li><a href="#implementacja">Implementacja</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

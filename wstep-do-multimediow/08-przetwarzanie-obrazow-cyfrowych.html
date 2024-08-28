@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-przetwarzanie-obrazow-cyfrowych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-swiatlo-obraz-cyfrowy-percepcja.html">Poprzedni: 07-swiatlo-obraz-cyfrowy-percepcja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-kompresja-obrazow.html">Następny: 09-kompresja-obrazow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="przetwarzanie-obrazów-cyfrowych">Przetwarzanie obrazów
+cyfrowych</h1>
+<ul>
+<li>Operacje punktowe, lokalne, globalne</li>
+<li>Na wejściu wartość pojedynczego piksela, na wyjściu wartość
+wynikowego piksela</li>
+<li>Wejście to może być wartość kilku składowych (w ogólności kilku
+obrazów)</li>
+<li>Nie każdy piksel wejścia musi znaleźć odzwierciedlenie w wyjściu
+(podbróbkowanie)</li>
+</ul>
+<h2 id="histogram-obrazu">Histogram obrazu</h2>
+<ul>
+<li>Liczba wystąpień poszczególnych wartości w obrazie</li>
+<li>Dla obrazu monochromatycznego to wartości jasności</li>
+<li>Histogram w formie znormalizowanej - podzielenie przez liczbę
+pikseli w obrazie
+<ul>
+<li>de facto funkcja rozkładu prawdopodobieństwa</li>
+</ul></li>
+<li>Skala znormalizowana - wartości od 0 do 1
+<ul>
+<li>podzielenie przez wartość maksymalną (np. 255)</li>
+</ul></li>
+</ul>
+<h2 id="operacje-punktowe">Operacje punktowe</h2>
+<p>Na pojedynczych pikselach ### Zmiana jasności * <span
+class="math inline">\(y[m,n] = x[m,n] + o\)</span> * Możliwe jest
+wyjście poza zakres - trzeba przycinać wartości * Histogram przesuwa się
+w prawo - jasność się zwiększa</p>
+<h3 id="zmiana-kontrastu">Zmiana kontrastu</h3>
+<ul>
+<li>Rozciąganie histogramu</li>
+<li><span class="math inline">\(y[m,n] = k \cdot x[m,n]\)</span>
+<ul>
+<li><span class="math inline">\(k &gt; 1\)</span> - ekspancja</li>
+<li><span class="math inline">\(k &lt; 1\)</span> - komprymacja</li>
+</ul></li>
+<li>Dla <span class="math inline">\(k&gt;1\)</span> uwydatnia szum
+<ul>
+<li>można wcześniej odszumić obraz</li>
+</ul></li>
+</ul>
+<h3 id="rozciągnięcie-histogramu">Rozciągnięcie histogramu</h3>
+<ul>
+<li>Połączenie zmiany kontrastu i zmiany jasności</li>
+<li>Musimy znać wartości maskymalne i minimalne</li>
+<li><span class="math inline">\(y[m,n] = k \cdot x[m,n] + o = k \cdot
+(x[m,n] + o&#39;)\)</span></li>
+<li>Charakterystyka dla skali znormalizowanej
+<ul>
+<li>stała, liniowa, stała</li>
+<li>nachylenie <span class="math inline">\(1/k\)</span></li>
+<li>przycinanie zamiast wyjścia poza zakres (w skali znormalizowanej do
+<span class="math inline">\([0,1]\)</span>)</li>
+</ul></li>
+</ul>
+<h4 id="przykład">Przykład</h4>
+<ul>
+<li>Rozciągnięcie do zakresu <span class="math inline">\([i_{min},
+i_{max}]\)</span></li>
+<li>Znaleźć wartości minimalną <span
+class="math inline">\(v_{min}\)</span> i maksymalną <span
+class="math inline">\(v_{max}\)</span> dla rozważanych pikseli</li>
+<li>Rozwiązać układ
+<ul>
+<li><span class="math inline">\(i_{max} = k \cdot v_{max} +
+d\)</span></li>
+<li><span class="math inline">\(i_{min} = k \cdot v_{min} +
+d\)</span></li>
+</ul></li>
+<li>Wartość pikselu po rozciągnięciu to <span class="math inline">\(i =
+k \cdot v + d\)</span>
+<ul>
+<li><span class="math inline">\(i\)</span> nowa wartość</li>
+<li><span class="math inline">\(v\)</span> stara wartość</li>
+</ul></li>
+</ul>
+<h3 id="wyrównanie-histogramu">Wyrównanie histogramu</h3>
+<ul>
+<li>Rozciąga histogram ale nierównomiernie
+<ul>
+<li>większe odstępy dla częstszych wartości jasności</li>
+</ul></li>
+<li>Funkcja dystrybuanty <span class="math inline">\(cdf\)</span></li>
+<li><span class="math inline">\(y[m,n] = cdf[x[m,n]]\)</span>
+<ul>
+<li><span class="math inline">\(cdf[k] = \sum_{l=0}^k
+pdf[l]\)</span></li>
+</ul></li>
+<li>Należy przeprowadzać tylko na składowej luminancyjnej (jasności) w
+YCbCr
+<ul>
+<li>robienie oddzielnie dla składowych RGB zmienia zupełnie kolory na
+wyjściu</li>
+</ul></li>
+<li>Może uwydatnić szum - lepiej wstępnie przefiltrować</li>
+<li>Implementacja przez lookup table - wylicza się <span
+class="math inline">\(cdf\)</span> raz dla całego obrazu i potem
+odczytuje dla każdego piksela</li>
+</ul>
+<h3 id="korekcja-gamma">Korekcja gamma</h3>
+<ul>
+<li>Naśladuje potęgowe prawo Stevensa</li>
+<li>Przetwarzanie obrazu w skali odpowiadającej wrażliwości na zmiany
+postrzegania jasności, a nie proporcjonalnie do zmiany energii
+światła</li>
+<li>Nieliniowa operacja</li>
+<li><span class="math inline">\(y[m,n] = A \cdot
+(x[m,n])^\gamma\)</span>
+<ul>
+<li><span class="math inline">\(A\)</span> - parametr
+proporcjonalności</li>
+<li>przy wartościach maksymalnych wejścia powinna dać maksymalną wartość
+wyjścja</li>
+<li>krzywe zbiegają się w punktach <span
+class="math inline">\((0,0)\)</span> i <span
+class="math inline">\((1,1)\)</span></li>
+<li>dla skali znormalizowanej to <span
+class="math inline">\(1\)</span></li>
+</ul></li>
+</ul>
+<h3 id="progowanie">Progowanie</h3>
+<ul>
+<li>Porównanie wartości każdego piksela</li>
+<li>Jeśli wpada do zakresu przypisujemy 1, jeśli nie 0</li>
+<li>W wyniku powstaje obraz binarny</li>
+<li>Progowanie podwójne
+<ul>
+<li>dwa progi</li>
+<li>wartości pomiędzy dostają <span
+class="math inline">\(1\)</span></li>
+</ul></li>
+<li>Pseudoprogowanie
+<ul>
+<li>zamiast przypisać <span class="math inline">\(1\)</span>, przepuszca
+się wartość wejściową na wyjście</li>
+<li>zerowanie pozostałych</li>
+</ul></li>
+</ul>
+<h2 id="lut">LUT</h2>
+<ul>
+<li>Look-up table</li>
+<li>Można przyspieszyć wiele operacji</li>
+<li>Mogą być zależne od statystyk</li>
+<li>Może mieć duży rozmiar</li>
+<li>Można podzielić zakres na odcinki o w przybliżeniu liniowej
+charakterystyce i interpolować
+<ul>
+<li>jak wartość jest pomiędzy tymi zapamiętanymi w tablicy stosuje się
+interpolację liniową</li>
+</ul></li>
+</ul>
+<h2 id="operacje-lokalne">Operacje lokalne</h2>
+<ul>
+<li>Oprócz pojedynczego piksela używa się też pikseli z jego otoczenia w
+obrazie wejściowym</li>
+<li>Np. 3x3</li>
+<li>Różne rozmiary sąsiedztwa, maski</li>
+<li>Zazwyczaj symetryczne ale niekoniecznie</li>
+<li><span class="math inline">\(y[m,n] = f(x[m,n], x[m-1,n],
+\ldots)\)</span></li>
+</ul>
+<h3 id="filtry-liniowe-2d">Filtry liniowe 2D</h3>
+<ul>
+<li>Operacja splotu maski filtru z pikselami obrazu</li>
+<li>Problem z traktowaniem brzegów obrazu
+<ul>
+<li>można dodać padding</li>
+<li>zera mogą zmienić statystyki</li>
+<li>można powielić wartości pikseli z brzegu</li>
+<li>można zrobić odbicie lustrzane</li>
+</ul></li>
+<li><span class="math inline">\(y[m,n] = \sum_{k=-K/2}^{K/2}
+\sum_{l=-L/w}^{L/2} a[k,l] \cdot x[m+k, n+l] = x[m,n] *
+a[k,l]\)</span></li>
+</ul>
+<h4 id="filtr-uśredniający">Filtr uśredniający</h4>
+<ul>
+<li><span class="math inline">\(a[k,l] = \frac{1}{K \cdot
+L}\)</span></li>
+<li>Filtr dolnoprzepustowy</li>
+</ul>
+<h4 id="filtr-gaussa">Filtr Gaussa</h4>
+<ul>
+<li><span class="math inline">\(a[k,l] = \frac{1}{\sqrt{2\pi} \sigma^2}
+\exp(-\frac{k^2+l^2}{2\sigma^2})\)</span></li>
+<li>Dolnoprzepustowy</li>
+<li>Dwuwymiarowa krzywa Gaussa</li>
+<li>Kernel to macierz próbek z funkcji Gaussa</li>
+<li>Np. maska 3x3</li>
+<li>Można zastosować większą maskę albo taką samą maskę
+wielokrotnie</li>
+<li>Wygładza obraz</li>
+<li>Parametryzowany wariancją</li>
+<li>Oprócz usuwania szumu rozmywa krawędzie</li>
+</ul>
+<h4 id="filtr-prewitta">Filtr Prewitta</h4>
+<ul>
+<li>Filtr krawędziowy</li>
+<li>8 wariantów wykrywających krawędzie w różnych kierunkach
+<ul>
+<li>poziome</li>
+<li>pionowe</li>
+<li>skośne</li>
+</ul></li>
+<li>Suma elementów maski daje zero</li>
+<li>Można zsumować wartości bezwzględne wyników dla różnych filtrów (i
+poziomych i pionowych)
+<ul>
+<li><span class="math inline">\(abs\)</span> przy sumowanie, ale nie
+przy wyostrzaniu</li>
+<li><span class="math inline">\(y_H[m,n] = x[m,n] *
+a_H[k,l]\)</span></li>
+<li><span class="math inline">\(y_V[m,n] = x[m,n] *
+a_V[k,l]\)</span></li>
+<li><span class="math inline">\(y[m,n] = abs(y_H[m,n]) +
+abs(y_V[m,n])\)</span></li>
+</ul></li>
+<li>Dostajemy obraz krawędziowy</li>
+</ul>
+<p><span class="math display">\[
+a_H[k,l] = \begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 0 \\
+-1 &amp; -1 &amp; -1 \\
+\end{bmatrix}
+\]</span></p>
+<h4 id="filtr-sobela">Filtr Sobela</h4>
+<ul>
+<li>Filtr krawędziowy</li>
+<li>Filtr górnoprzepustowy</li>
+</ul>
+<p><span class="math display">\[
+a_H[k,l] = \begin{bmatrix}
+1 &amp; 2 &amp; 1 \\
+0 &amp; 0 &amp; 0 \\
+-1 &amp; -2 &amp; -1 \\
+\end{bmatrix}
+\]</span></p>
+<h4 id="filtr-laplacea">Filtr Laplace’a</h4>
+<ul>
+<li>Filtr górnoprzepustowy</li>
+<li>Wykorzystuje laplasjan funkcji (sumę drugich pochodnych cząstkowych)
+<ul>
+<li>8 lub 4 pochodne cząstkowe</li>
+</ul></li>
+<li>Detekcja krawędzi</li>
+</ul>
+<p><span class="math display">\[
+a_H[k,l] =
+\begin{bmatrix}
+-1 &amp; -1 &amp; -1 \\
+-1 &amp; 8 &amp; -1 \\
+-1 &amp; -1 &amp; -1 \\
+\end{bmatrix}
+\quad
+a_H[k,l] =
+\begin{bmatrix}
+0 &amp; -1 &amp; 0 \\
+-1 &amp; 4 &amp; -1 \\
+0 &amp; -1 &amp; 0 \\
+\end{bmatrix}
+\]</span></p>
+<h4 id="wyostraznie-obrazu">Wyostraznie obrazu</h4>
+<ul>
+<li>Dodanie obrazu krawędziowego przemnożonego przez stałą</li>
+<li>Można od razu wyostrzyć obraz stosując zmienioną maskę
+<ul>
+<li>zamiast najpierew wyliczać obraz krawędziowy</li>
+</ul></li>
+</ul>
+<h3 id="filtry-nieliniowe">Filtry nieliniowe</h3>
+<ul>
+<li>Wykorzystuje statystykę pozycyjną (w otoczeniu)</li>
+<li>Redukcja zakłóceń</li>
+<li>Poprawa jakości obrazu</li>
+</ul>
+<p><span class="math display">\[
+y[m,n] = f(x[m,n], x[m-1,n], \ldots) = \sum_{i=1}^{k \cdot L} a_i x_i
+\]</span></p>
+<h4 id="filtr-medianowy">Filtr medianowy</h4>
+<ul>
+<li>Środkowy indeks w uszeregowanym ciągu wartości pikseli objętych
+maską</li>
+<li>Dobrze usuwa szum
+<ul>
+<li>szczególnie szum impulsowy (salt and pepper)</li>
+</ul></li>
+<li>Dobrze zachowuje krawędzie</li>
+<li>Problem z narożnikami</li>
+</ul>
+<p><span class="math display">\[
+a_i = \begin{cases}
+    1 &amp; i = \lceil K \cdot L/2 \rceil \\
+    0 &amp; i \ne \lceil K \cdot L/2 \rceil \\
+\end{cases}
+\]</span></p>
+<h4 id="filtry-morfologiczne">Filtry morfologiczne</h4>
+<ul>
+<li>Ograniczający (erozja) - <span
+class="math inline">\(\min\)</span></li>
+<li>Rozszerzający (dylacja) - <span
+class="math inline">\(\max\)</span></li>
+<li>Otwarcie - <span
+class="math inline">\(\max(\min(\ldots))\)</span></li>
+<li>Domknięcie - <span
+class="math inline">\(\min(\max(\ldots))\)</span></li>
+<li>Otwarcie-domknięcie, domknięcie-otwarcie</li>
+<li>Gradient - <span
+class="math inline">\(\max(\ldots)-\min(\ldots)\)</span></li>
+</ul>
+<h2 id="dyskretna-transformata-kosinusowa">Dyskretna transformata
+kosinusowa</h2>
+<ul>
+<li>Transformacja bloków obrazu w blok współczynników częstotliwości
+przestrzennych</li>
+<li>Dekorelacja wartości wejściowych</li>
+<li>Skpienie większości energii w kilku współczynnikach
+<ul>
+<li>najczęściej niskoczęstotliwościowych</li>
+</ul></li>
+<li>Większość współczynników jest mało znacząca
+<ul>
+<li>wartości bliskie 0</li>
+</ul></li>
+<li>Większość bloków zawiera tylko kilka znaczących współczynników
+<ul>
+<li>z reguły niskoczęstotliwościowych</li>
+</ul></li>
+<li>Każdy blok obrazu można przedstawić jako sumę funkcji bazowych
+tranformaty (wzorców)
+<ul>
+<li>suma ważona przez współczynniki otrzymane z DCT</li>
+<li>głównie niskoczęstotliwościowe</li>
+<li>większość wynosi <span class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Wyjściem DCT jest zestaw wag dla wzorców (współczynniki DCT)</li>
+<li>Odtworzenie obrazu
+<ul>
+<li>przemnożenie wzorców przez wagi</li>
+<li>zsumowanie</li>
+</ul></li>
+<li>Wzorce to funkcje bazowe 2D <span class="math inline">\(\cos() \cdot
+\cos()\)</span></li>
+<li>Współczynniki DCT można uzyskać za pomocą DFT/FFT przez odwzorowanie
+oryginalnego bloku <span class="math inline">\(N\)</span> próbek na blok
+<span class="math inline">\(2N\)</span> próbek
+<ul>
+<li>odbicie lustrzane eliminuje składniki urojone <span
+class="math inline">\(\sin()\)</span> w DFT</li>
+<li><span class="math inline">\(N\)</span> pierwszych współczynników DFT
+jest lustrzanie taka sama jak <span class="math inline">\(N\)</span>
+kolejnych</li>
+<li>współczynniki DCT są równoważne pierwszym <span
+class="math inline">\(N\)</span> współczynnikom przekształcenia DFT dla
+bloku <span class="math inline">\(2N\)</span> próbek</li>
+</ul></li>
+<li>Wykorzystanie FFT pozwala szybko obliczyć DCT</li>
+</ul>
+<h2 id="operacje-globalne">Operacje globalne</h2>
+<ul>
+<li>Wartość piksela wyjściowego zależy od wszystkich pikseli obrazu
+wejściowego
+<ul>
+<li>albo obrazów wejściowych jak przy RGB ### FFT, IFFT</li>
+</ul></li>
+<li>Mmożna przepuścic tylko dolne częstotliwości przez wycięcie części
+transformaty blisko (0,0)</li>
+<li>Przedstawia statystykę, która nie jest stacjonarna
+<ul>
+<li>różne części obrazu mają różne właściwości</li>
+</ul></li>
+<li>Energia po przekształceniu powinna być skupiona</li>
+<li>Zamiast dla całego obrazu można stosować transformatę lokalnie</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przetwarzanie-obrazów-cyfrowych">Przetwarzanie obrazów
+cyfrowych</a>
+<ul>
+<li><a href="#histogram-obrazu">Histogram obrazu</a></li>
+<li><a href="#operacje-punktowe">Operacje punktowe</a>
+<ul>
+<li><a href="#zmiana-kontrastu">Zmiana kontrastu</a></li>
+<li><a href="#rozciągnięcie-histogramu">Rozciągnięcie
+histogramu</a></li>
+<li><a href="#wyrównanie-histogramu">Wyrównanie histogramu</a></li>
+<li><a href="#korekcja-gamma">Korekcja gamma</a></li>
+<li><a href="#progowanie">Progowanie</a></li>
+</ul></li>
+<li><a href="#lut">LUT</a></li>
+<li><a href="#operacje-lokalne">Operacje lokalne</a>
+<ul>
+<li><a href="#filtry-liniowe-2d">Filtry liniowe 2D</a></li>
+<li><a href="#filtry-nieliniowe">Filtry nieliniowe</a></li>
+</ul></li>
+<li><a href="#dyskretna-transformata-kosinusowa">Dyskretna transformata
+kosinusowa</a></li>
+<li><a href="#operacje-globalne">Operacje globalne</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

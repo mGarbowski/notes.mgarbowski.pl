@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-zagrozenia-sieciowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-infrastruktura-klucza-publicznego.html">Poprzedni: 04-infrastruktura-klucza-publicznego.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-systemy-zapewniajace-bezpieczenstwo.html">Następny: 06-systemy-zapewniajace-bezpieczenstwo.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wprowadzenie-do-zagrożeń-sieciowych">Wprowadzenie do zagrożeń
+sieciowych</h1>
+<h2 id="podstawowe-pojęcia">Podstawowe pojęcia</h2>
+<ul>
+<li>Zagrożenie (threat)
+<ul>
+<li>możliwa do wykonania akcja prowazdąca do niechcianych efektów</li>
+<li>wykorzystuje podatność</li>
+<li>np. możliwość poznania poufnych danych</li>
+</ul></li>
+<li>Podatność (vulnerability)
+<ul>
+<li>błąd w oprogramowaniu lub konfiguracji pozwalający na uzyskanie
+nieautoryzowanego dostępu do pewnych zasobów</li>
+<li>SQL injection</li>
+<li>nieszyfrowana transmisja</li>
+<li>błąd w logice programu</li>
+</ul></li>
+<li>Atak (exploitation)
+<ul>
+<li>wykorzystanie dostępu do podatności i doprowadzenie do sytuacji
+niezamierzonej przez programistę</li>
+<li>powodujące odmowę wykonania usługi</li>
+<li>poznanie poufnych danych</li>
+<li>uzyskanie zdalnego dostępu do maszyny</li>
+</ul></li>
+<li>Jeśli w oprogramowaniu istnieje błąd to jeszcze niekoniecznie da się
+go wykorzystać</li>
+<li>Ryzyko
+<ul>
+<li>jakie jest prawdopodobieństwo ataku i jak groźne są jego skutki</li>
+</ul></li>
+</ul>
+<h2 id="podatności">Podatności</h2>
+<ul>
+<li>Podatności są katalogowane przez wiel firm i organizacji</li>
+<li>Lista CVE - Common Vulnerabilities and Exposures
+<ul>
+<li>jednoznaczne identyfikowanie podatności</li>
+</ul></li>
+<li>Listy producentów oprogramowania (Microsoft, Cisco)</li>
+<li>Listy producentów oprogramowania antywirusowego</li>
+<li>Ogólnie przyjęto że posługuje się numerami CVE</li>
+<li>Z podatnością są związane
+<ul>
+<li>aspekty techniczne umożliwiające lub uniemożliwiające jej
+wykorzystanie</li>
+<li>możliwe efekty wykorzystania</li>
+<li>prawdopodobieństwo wykorzystania</li>
+<li>opisuje się poziom ważności (krytyczna, groźna, niewielka)</li>
+</ul></li>
+</ul>
+<h2 id="ryzyko">Ryzyko</h2>
+<ul>
+<li>Systemy są tak skomplikowane, że nie da się stworzyć w 100%
+bezpiecznego systemu</li>
+<li>Trzeba szacować ryzyko związane z działaniem aplikacji</li>
+<li>Wykorzystuje się model zagrożeń</li>
+<li>Bezpieczeństwo jest na ten moment
+<ul>
+<li>po audycie może wyjść na jaw nowa podatność</li>
+</ul></li>
+</ul>
+<h2 id="exploit">Exploit</h2>
+<ul>
+<li>Specjalnie spreparowana porcja danych umożliwiająca wykorzystanie
+błędu w oprogramowaniu przez atakującego</li>
+<li>Exploitem może być
+<ul>
+<li>odpowiednio spreparowany plik</li>
+<li>odpowiednie zapytanie / dane wprowadzane przez użytkownika</li>
+<li>żądanie do serwera / sesja komunikacyjna</li>
+</ul></li>
+<li>W efekcie aplikacja wykonuje niezamierzone przez autora, a
+zamierzone przez atakującego akcje</li>
+</ul>
+<h2 id="remote-code-execution">Remote code execution</h2>
+<ul>
+<li>Podatność umożliwiająca zdalne wykonanie kodu na zaatakowanej
+maszynie</li>
+<li>W efekcie atakujący może wykonać dowolny program i przejąć kontrolę
+nad dalszym wykonywaniem programu</li>
+</ul>
+<h2 id="shellcode">Shellcode</h2>
+<ul>
+<li>Nazwa historyczna
+<ul>
+<li>pierwsze exploity dawały dostęp do powłoki Unixa</li>
+</ul></li>
+<li>Kod wykonywalny (instrukcje dla procesora)
+<ul>
+<li>instrukcje asemblerowe w postaci binarnej</li>
+</ul></li>
+</ul>
+<h2 id="atak-odmowy-usługi">Atak odmowy usługi</h2>
+<ul>
+<li>Atak uniemożliwiający użytkownikowi wykonanie jego zadań</li>
+<li>Można to zrobić na wiele sposobów
+<ul>
+<li>wykonanie instrukcji wyłączającej zaatakowaną aplikację</li>
+<li>wykorzystanie zasobów atakowanej maszyny</li>
+</ul></li>
+</ul>
+<h2 id="spoofing">Spoofing</h2>
+<ul>
+<li>Fałszowanie adresu nadawcy (podszycie się)</li>
+<li>W wielu systemach do dostarczenia wykorzystuje się tylko adres
+docelowy (sieć IP)</li>
+<li>Bez dodatkowych zabezpieczeń, jako adres źródłowy można ustawić
+dowolną wartość</li>
+<li>Wtedy na ten fałszywy adres może przyjść odpowiedź</li>
+</ul>
+<h2 id="sniffing">Sniffing</h2>
+<ul>
+<li>Podsłuch transmisji w celu uzyskania wartościowych informacji</li>
+<li>Wiele informacji powinno być, a nie jest szyfrowanych</li>
+<li>Kartę sieciową można przestawić w tryb <em>promiscuous</em>
+<ul>
+<li>odbiera wszystkie ramki</li>
+<li>nie tylko te zaadresowane do niej</li>
+</ul></li>
+<li>Segmentacja sieci utrudnia bezpośrednie wykorzystanie podsłuchu</li>
+</ul>
+<h2 id="przykładowe-ataki">Przykładowe ataki</h2>
+<h3 id="rekonesans">Rekonesans</h3>
+<ul>
+<li>Zdobycie jak największej liczby informacji o atakowanym
+<ul>
+<li>usługa, system, organizacja</li>
+</ul></li>
+<li>Przykładowe techniki i narzędzia
+<ul>
+<li>nmap</li>
+<li>skanery podatności</li>
+<li>pasywna analiza</li>
+<li>whois, nslookup</li>
+<li>Shodan</li>
+<li>google</li>
+</ul></li>
+</ul>
+<h4 id="nmap">nmap</h4>
+<ul>
+<li>Skaner sieciowy</li>
+<li>Pozwala skanowac otwarte porty na danej maszynie</li>
+<li>Pozwala zidentyfikować system operacyjny</li>
+<li>Nowsze wersje umożliwia rozpoznanie działającej usługi</li>
+<li>Wykorzystuje normalne zachowanie stosu TCP/IP</li>
+<li>nmap nie nawiązuje pełnego połączania, zamyka półotwarte połączenie
+<ul>
+<li>SYN, SYN/ACK, RST - to dzieje się w jądrze systemu operacyjnego</li>
+<li>nic nie dzieje się na poziomie aplikacji, nie ma jak trafić do logów
+bez dodatkowych narzędzi (np. sprzętowych)</li>
+</ul></li>
+</ul>
+<h4 id="skanery-podatności">Skanery podatności</h4>
+<ul>
+<li>Automatycznie sprawdza potencjalne podatności na wskazanej maszynie
+<ul>
+<li>znane podatności w wykrytym oprogramowaniu</li>
+<li>standardowe hasła</li>
+<li>znane błędy w konfiguracji</li>
+</ul></li>
+<li>Narzędzia
+<ul>
+<li>SATAN, SAINT (historyczne)</li>
+<li>Nessus</li>
+</ul></li>
+</ul>
+<h4 id="p0f">p0f</h4>
+<ul>
+<li>Program umożliwia identyfikację systemu operacyjnego zdalnej maszyny
+<ul>
+<li>z którą się łączymy</li>
+<li>która łączy się do nas</li>
+<li>której ruch obserwujemy</li>
+</ul></li>
+<li>Specyfikacja RFC stosu TCP/IP pozostawia elastyczność w
+implementacji
+<ul>
+<li>obserwując zawartość pakietów można z dużym prawdopodobieństwem
+określić na jakim systemie operacyjnym działa</li>
+</ul></li>
+</ul>
+<h4 id="whois-nslookup">whois, nslookup</h4>
+<ul>
+<li>Baza danych dotycząca właścicieli osób rejestrujących i firm
+obsługujących wpisy w systemie DNS</li>
+<li>Bezpośrednio z systemu DNS można często uzyskać dużo informacji na
+temat sieci</li>
+</ul>
+<h4 id="google-hack">Google hack</h4>
+<ul>
+<li>Wyszukiwanie podatnych usług za pomocą wyszukiwarki
+internetowej</li>
+<li>Niektóre aplikacje udostępniają dane, które da się wyszukać przez
+google</li>
+</ul>
+<h4 id="shodan">Shodan</h4>
+<ul>
+<li>Dedykowana wyszukiwarka maszyn podłączonych do sieci</li>
+</ul>
+<h3 id="ataki-man-in-the-middle">Ataki man in the middle</h3>
+<p>Atakujący umieszcza się między dwiema komunikującymi się ofiarami,
+żeby przechwycić komunikację (podsłuchać, modyfikować)</p>
+<h4 id="atak-na-wartswie-drugiej">Atak na wartswie drugiej</h4>
+<ul>
+<li>Sieci wykorzystując przełączniki (switch)</li>
+<li>Mozna wymusić na przełączniku, wysyłając fałszywy adres MAC, żeby
+przekierowywał komunikację do złej maszyny</li>
+<li>Można przepełnić tablicę CAM przełącznika zalewając go sfałszowanymi
+adresami MAC
+<ul>
+<li>przełącznik zaczyna działać jak koncentrator - rozsyła na wszystkie
+porty</li>
+</ul></li>
+</ul>
+<h4 id="atak-na-warstwie-trzeciej-z-dhcp">Atak na warstwie trzeciej z
+DHCP</h4>
+<ul>
+<li>Komputer atakującego uruchamia serwer DHCP</li>
+<li>Komputery podłączające się do sieci dostają od niego adresy IP</li>
+<li>Komunikacja przechodzi przez wrogi serwer</li>
+<li>Są mechanizmy, które pozwalają się przed tym obronić</li>
+</ul>
+<h4 id="atak-na-warstwie-trzeciej-z-ipv6">Atak na warstwie trzeciej z
+IPv6</h4>
+<ul>
+<li>Komputer atakującego zgłasza się jako router w IPv6</li>
+<li>Atakujący uruchamia własny DNS</li>
+<li>Urządzenia dual stack mogą szukać w pierwszej kolejności routera
+IPv6</li>
+</ul>
+<h3 id="ataki-dos">Ataki DoS</h3>
+<ul>
+<li>Prymitywny flooding / wykorzystanie sieci botów (botnetu)
+<ul>
+<li>już nieefektywne, odcinane przez automatyczne systemy</li>
+</ul></li>
+<li>DDoS
+<ul>
+<li>Rozproszony atak, z wielu przejętych maszyn</li>
+</ul></li>
+</ul>
+<h4 id="flooding">Flooding</h4>
+<ul>
+<li>Zalanie serwera zapytaniami</li>
+<li>Prymitywny</li>
+<li>Wersja rozproszona wykonywana przez sieć botów</li>
+</ul>
+<h4 id="syn-flooding">SYN-flooding</h4>
+<ul>
+<li>Wykorzystuje połączenia półotwarte TCP</li>
+<li>Wysyła pakiety z flagą SYN z fałszywym adresem źródłowym, ofiara
+odpowiada i czeka</li>
+<li>System operacyjny utrzymuje ograniczoną kolejkę połączeń
+półotwartych (embryonic)</li>
+<li>Po zapchaniu kolejki, kolejne zgłoszenia są ignorowane</li>
+<li>SYN/ACK trafia do “czarnej dziury” - nigdy nie wyjdzie odpowiedź
+ACK</li>
+<li>Można to rozwiązać przez odpowiednie dobieranie numerów
+sekwencyjnych w ramkach TCP i kryptograficzne weryfikowanie
+<ul>
+<li>nie potrzeba nawet kolejki</li>
+</ul></li>
+<li>Już nie działa (raczej)</li>
+</ul>
+<h4 id="zwielokrotnienie-ruchu---atak-smurf">Zwielokrotnienie ruchu -
+atak smurf</h4>
+<ul>
+<li>Pakiety ICMP na adres broadcastowy</li>
+<li>Jeden pakiet wysyłany, wiele pakietów odpowiedzi</li>
+<li>Atakujący wysyła ICMP z adresem źródłowym ofiery, na adres
+broadcastowy</li>
+<li>Już nie działa
+<ul>
+<li>administratorzy blokują ICMP w firewallu</li>
+</ul></li>
+</ul>
+<h4 id="zwielokrotnienie-ruchu---dns">Zwielokrotnienie ruchu - DNS</h4>
+<ul>
+<li>Wykorzystuje otwarte resolvery DNS</li>
+<li>Atakujący wysyła zapytanie DNS typu ANY z adresem źródłowym
+ofiary</li>
+<li>Odpowiedź jest dużo większa niż zapytanie, w TCP można uzyskać np.
+200-krotne zwielokrotnienie</li>
+<li>Nie konfiguruje się już serwerów DNS jako open resolver</li>
+</ul>
+<h4 id="slowloris">Slowloris</h4>
+<ul>
+<li>Na serwery webowe</li>
+<li>Poprzednie ataki polegały na generowanie dużej ilości danych</li>
+<li>Atak polego na utrzymywanie jak najwięcej jak najwolniejszych
+sesji</li>
+<li>Wysyła 1 bajt i czeka</li>
+<li>Dopiero po ponagleniu od serwera (keep-alive) wysyła kolejny
+itd</li>
+<li>Zajmuje zasoby serwera, a atakującego to niewiele kosztuje</li>
+</ul>
+<h3 id="ataki-wykorzystujące-błędy-w-oprogramowaniu">Ataki
+wykorzystujące błędy w oprogramowaniu</h3>
+<ul>
+<li>Command Injection</li>
+<li>Błąd w programie
+<ul>
+<li>średnio wykrycie błędu zajmuje 200 dni</li>
+<li>możliwość pominięcia procesu uwierzytelniania</li>
+</ul></li>
+<li>Remote Code Execution</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie-do-zagrożeń-sieciowych">Wprowadzenie do
+zagrożeń sieciowych</a>
+<ul>
+<li><a href="#podstawowe-pojęcia">Podstawowe pojęcia</a></li>
+<li><a href="#podatności">Podatności</a></li>
+<li><a href="#ryzyko">Ryzyko</a></li>
+<li><a href="#exploit">Exploit</a></li>
+<li><a href="#remote-code-execution">Remote code execution</a></li>
+<li><a href="#shellcode">Shellcode</a></li>
+<li><a href="#atak-odmowy-usługi">Atak odmowy usługi</a></li>
+<li><a href="#spoofing">Spoofing</a></li>
+<li><a href="#sniffing">Sniffing</a></li>
+<li><a href="#przykładowe-ataki">Przykładowe ataki</a>
+<ul>
+<li><a href="#rekonesans">Rekonesans</a></li>
+<li><a href="#ataki-man-in-the-middle">Ataki man in the middle</a></li>
+<li><a href="#ataki-dos">Ataki DoS</a></li>
+<li><a href="#ataki-wykorzystujące-błędy-w-oprogramowaniu">Ataki
+wykorzystujące błędy w oprogramowaniu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

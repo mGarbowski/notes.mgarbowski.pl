@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>15-laczenie-sieci</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="14-vpn.html">Poprzedni: 14-vpn.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="16-multicast.html">Następny: 16-multicast.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="łączenie-sieci">Łączenie sieci</h1>
+<p>Maksymalna odległość jest ważnym parametrem technologii seiciowej,
+wynika z tego że sygnał ulega tłumieniu i z opóźnień</p>
+<p>Sieć energetyczna powoduje zakłócenia o takiej częstotliwości (50Hz w
+Europie) Silniki elektryczne Świetlówki, zwłaszcza przy włączaniu</p>
+<h2 id="urządzenia-wykorzystywane-do-łączenia-ze-sobą-sieci">Urządzenia
+wykorzystywane do łączenia ze sobą sieci</h2>
+<ul>
+<li>Repeater</li>
+<li>Bridge</li>
+<li>Router</li>
+<li>Gateway</li>
+</ul>
+<h2 id="repeater">Repeater</h2>
+<ul>
+<li>Co maksymalną długość umieszcza się repeater (wzmacniacz
+sygnału)</li>
+<li>Repeater regeneruje sygnał, rozpoznaje oryginalny sygnał ze
+zniekształconej wersji i nadaje go dalej w wersji idealnej</li>
+<li>Musi rozpoznawać i odtwarzać kolizje</li>
+<li>Działa na poziomie warstwy fizycznej modelu ISO, rozpoznaje sygnał
+bit po bicie, nie ma rozróżnienia na ramki itp</li>
+<li>Może mieć wiele portów, port na który dochodzi sygnał zostaje portem
+wejściowym, a pozostałe wyjściowymi</li>
+<li>Nie można zamknąć pętli - sprzężenie</li>
+</ul>
+<p>Żeby do sieci ethernet w standardzie kabli koncentrycznych przyłączyć
+jak najwięcej komputerów stosuje się sieć szkieletową (backbone)</p>
+<h3 id="repeater-utp">Repeater UTP</h3>
+<p>Stosuje się topologię gwiazdy z dwoma piętrami repeaterów, prawdziwym
+ograniczeniem jest tak naprawdę czas opóźnienia w danej technologii</p>
+<h2 id="bridge">Bridge</h2>
+<ul>
+<li>Pracuje w warstwie 2 (łącza)</li>
+<li>Rozpoznaje nagłówki ramek i adresy fizyczne</li>
+<li>Prowadzi filtrację ruchu</li>
+<li>Przesyła ramki tylko we właściwym kierunku - mniejsze natężenie
+ruchu w sieci</li>
+<li>Decyzje o kierunku przesyłania są podejmowanie na podstawie tabel
+FDB</li>
+</ul>
+<h3 id="forwarding-database-fdb">Forwarding Database (FDB)</h3>
+<ul>
+<li>Kojarzy adresy fizyczne z portami bridge’a</li>
+<li>Tablice są utrzymywane automatycznie przez bridge, są rozsyłane
+pomiędzy bridge’ami</li>
+<li>Rozmiary tabel w każdym bridge’u są proporcjonalne do liczby
+wszystkich komputerów we wszystkich segmentach</li>
+<li>To rozwiązanie nie jest skalowalne</li>
+</ul>
+<h3 id="end-bridge">End Bridge</h3>
+<ul>
+<li>Wpisuje do tabeli FDB tylko informacje na temat komputerów
+przyłączonych bezpośrednio do tego bridge’a</li>
+<li>Drastycznie zmniejsza rozmiar tabel FDB</li>
+<li>Zapewnia gorszą filtrację - przesyła nadmiarowe ramki</li>
+</ul>
+<h3 id="spanning-tree-protocol-stp">Spanning Tree Protocol (STP)</h3>
+<ul>
+<li>Bridge’e rozpoznają się nawzajem, rozpoznają topologię sieci i
+znajdują drzewo rozpinające (graf acykliczny) - nie transmitują przez
+odpowiednie interfejsy</li>
+<li>Podłączenie bridge’ów w pętle nie stworzy problemów</li>
+<li>W razie awarii drzewo rozpinające zostanie przebudowane i mogą być
+wykorzystane wcześniej nieaktywne interfejsy</li>
+</ul>
+<h3 id="podwójny-szkielet-podwójna-gwiazda">Podwójny szkielet, podwójna
+gwiazda</h3>
+<p>Podwójna szyna łącząca wszystkie bridge’e, protokół STP zapewnia
+rozwiązanie problemów wynikających z pętli i zapewnia redundancję na
+wypadek awarii łącza</p>
+<p>Podwójna gwiazda jest analogicznym rozwiązaniem dla szkieletu UTP o
+topologii gwiazdy</p>
+<p>Administrator musi wiedzieć kiedy dochodzi do przełączenia spanning
+tree</p>
+<h2 id="router">Router</h2>
+<ul>
+<li>Na poziomie warstwy sieciowej</li>
+</ul>
+<h2 id="gateway">Gateway</h2>
+<ul>
+<li>Działa na poziomie od warstwy 4 (transportowej) w górę</li>
+</ul>
+<h2 id="hub">Hub</h2>
+<p>Marketingowe określenie - repeater, bridge, router…?</p>
+<h2 id="switch">Switch</h2>
+<p>To samo co bridge zaimplementowany w jednym układzie scalonym,
+marketingowe określenie</p>
+<ul>
+<li>FDB</li>
+<li>STP</li>
+<li>zaimplementowany sprzętowo (w przeciwieństwie do klasycznego
+bridge’a)</li>
+<li>store and forward - pobranie całej ramki z bufora i wysłanie ramki z
+bufora</li>
+<li>cut through
+<ul>
+<li>odbiera nagłówek</li>
+<li>od razu po odebraniu nagłówka już zaczyna transmitować dalej
+ramkę</li>
+<li>nie sprawdza się do architektur klient-serwer gdzie ruch skupia się
+na jednym porcie</li>
+</ul></li>
+</ul>
+<h2 id="domena-kolizyjna">Domena kolizyjna</h2>
+<ul>
+<li>Zbiór urządzeń, których transmisje mogą ze sobą kolidować</li>
+<li>Repeater nie rozwiązuje problemu</li>
+<li>Bridge (działając w trybie store and forward) rozdziela domeny
+kolizyjne</li>
+<li>Tak samo router rozdziela domeny kolizyjne - oddzielne
+interfejsy</li>
+</ul>
+<h2 id="domena-rozgłoszeniowa">Domena rozgłoszeniowa</h2>
+<ul>
+<li>Zbiór urządzeń, do których dotrą pakiet broadcastowe</li>
+<li>Repeater niczego nie ogranicza</li>
+<li>Bridge’e na ogół nie ograniczają broadcastu, pakiety są rozsyłane na
+wszystkie porty</li>
+<li>Router rozdziela domeny rozgłoszeniowe - każdy interfejs to
+oddzielna domena</li>
+</ul>
+<h2 id="multi-protocol-label-switching-mpls">Multi-Protocol Label
+Switching (MPLS)</h2>
+<ul>
+<li>Routing wykonuje siętylko na wejściu do sieci operatora</li>
+<li>Każdy router w sieci operatora może współdzielić informacje</li>
+<li>Pierwszy router wstawia do pakietu etykietę</li>
+<li>Liczba wszystkich etykiet to liczba sieci klienckich</li>
+<li>Każdy kolejny router wykonuje już tylko przełączanie na podstawie
+etykiety, bez routingu</li>
+<li>Z etykietą poza ścieżką można związać parametry jakościowe</li>
+<li>Pole flow label w nagłówku IPv6 zastępuje MPLS</li>
+</ul>
+<h2 id="generalized-mpls">Generalized MPLS</h2>
+<ul>
+<li>Rozszerzenie MPLS o więcej typów etykiet
+<ul>
+<li>Etykiety MPLS</li>
+<li>Długość fali</li>
+<li>Numer szczeliny czasowej</li>
+<li>Port przełącznika optycznego</li>
+</ul></li>
+</ul>
+<h2 id="software-defined-networking">Software defined networking</h2>
+<ul>
+<li>Definiowanie na poziomie software’u reguł przesyłania danych na
+podstawie różnych parametrów (adresy IP, MAC, porty, …)</li>
+<li>Może pełnić funkcję routera, bridge’a, …</li>
+<li>Stosowane w chmurach, więcej elastyczności niż klasyczne urządzenia
+sieciowe</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#łączenie-sieci">Łączenie sieci</a>
+<ul>
+<li><a href="#urządzenia-wykorzystywane-do-łączenia-ze-sobą-sieci">Urządzenia
+wykorzystywane do łączenia ze sobą sieci</a></li>
+<li><a href="#repeater">Repeater</a>
+<ul>
+<li><a href="#repeater-utp">Repeater UTP</a></li>
+</ul></li>
+<li><a href="#bridge">Bridge</a>
+<ul>
+<li><a href="#forwarding-database-fdb">Forwarding Database
+(FDB)</a></li>
+<li><a href="#end-bridge">End Bridge</a></li>
+<li><a href="#spanning-tree-protocol-stp">Spanning Tree Protocol
+(STP)</a></li>
+<li><a href="#podwójny-szkielet-podwójna-gwiazda">Podwójny szkielet,
+podwójna gwiazda</a></li>
+</ul></li>
+<li><a href="#router">Router</a></li>
+<li><a href="#gateway">Gateway</a></li>
+<li><a href="#hub">Hub</a></li>
+<li><a href="#switch">Switch</a></li>
+<li><a href="#domena-kolizyjna">Domena kolizyjna</a></li>
+<li><a href="#domena-rozgłoszeniowa">Domena rozgłoszeniowa</a></li>
+<li><a href="#multi-protocol-label-switching-mpls">Multi-Protocol Label
+Switching (MPLS)</a></li>
+<li><a href="#generalized-mpls">Generalized MPLS</a></li>
+<li><a href="#software-defined-networking">Software defined
+networking</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

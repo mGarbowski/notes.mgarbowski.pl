@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-uczenie-ze-wzmocnieniem</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-klasyfikacja-i-regresja.html">Poprzedni: 04-klasyfikacja-i-regresja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-sztuczne-sieci-neuronowe.html">Następny: 06-sztuczne-sieci-neuronowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="uczenie-ze-wzmocnieniem">Uczenie ze wzmocnieniem</h1>
+<p>Reinforcement learning (RL)</p>
+<ul>
+<li>Uczenie się celowego zachowania na podstawie interakcji ze
+środowiskiem na podstawie prób i błędów</li>
+<li>Cel ucznia (agenta) - długoterminowa maksymalizacja nagród</li>
+<li>Działania ucznia (akcje) podlegają ocenie, źródło oceny lepiej
+nazwać krytykiem niż nauczycielem (bo nie ma dokładnej wiedzy)</li>
+<li>Ocena nazywana jest wzmocnieniem (termin z badań nad uczeniem się
+zwierząt) - jeżeli pewna akcja prowadzi do lepszego stanu to
+prawdopodobieństwa wybrania tej akcji będzie wzmacniane</li>
+</ul>
+<h2 id="uczeń-i-środowisko">Uczeń i środowisko</h2>
+<ul>
+<li>Stan początkowy</li>
+<li>Wzmocnienie początkowe</li>
+<li>Uczeń generuje akcję na podstawie aktualnego stanu</li>
+<li>Środowisko przyjmuje akcję i coś z nią zrobi (wykona albo nie
+wykona)</li>
+<li>Środowisko przekazuje uczniowi nowy stan i nowe wzmocnienie</li>
+<li>W praktyce nagroda (wzmocnienie) najczęściej jest równa <span
+class="math inline">\(0\)</span>, nie w każdej iteracji</li>
+<li>Zwykle zakłada się nieznajomość i niepewność środowiska</li>
+<li>Te same akcje mogą powodować przejście do różnych stanów</li>
+<li>Stan absorbujący kończy epizod algorytmu</li>
+<li>Uczeń maksymalizuje funkcję oceny, która opiera się na otrzymanych
+wzmocnieniach</li>
+</ul>
+<h3 id="zadanie-ucznia">Zadanie ucznia</h3>
+<ul>
+<li>Ma nauczyć się takiej strategii wybierania akcji, która długofalowo
+maksymalizuje nagrody</li>
+<li>Powinien uwzględniać wcześniej odwiedzone stany jeśli doprowadziły
+do dobrego rezultatu</li>
+<li>Zwykle maksymalizuje się zdyskontowaną sumę nagród
+<ul>
+<li>współczynnik dyskontowania reguluje jak ważne są względem siebie
+krótko i długoterminowe wzmocnienia</li>
+<li><span class="math inline">\(\mathbb{E}[\sum_{t=0}^\infty \gamma^t
+\cdot r_t]\)</span></li>
+<li><span class="math inline">\(\gamma \in [0,1]\)</span></li>
+</ul></li>
+</ul>
+<h2 id="zadania-epizodyczne">Zadania epizodyczne</h2>
+<ul>
+<li>Zwykle interakcje ucznia ze środowiskiem są podzielone na serie prób
+- epizody</li>
+<li>Dla interesujących zdarzeń można zdefiniować stan absorbujący, który
+kończy epizod</li>
+<li>Stan absorbujący może być związany z sukcesem lub porażką</li>
+<li>Każdy epizod zaczyna się od chwili <span
+class="math inline">\(t=0\)</span> ale wiedza ucznia przechodzi do
+kolejnych epizodów</li>
+<li>Zwykle nie wiemy ile kroków zajmie epizod</li>
+</ul>
+<h2 id="model-markowa">Model Markowa</h2>
+<p>Model matematyczny dla RL to model Markowa</p>
+<p><span class="math display">\[
+\langle X, A, \rho, \sigma \rangle
+\]</span> * <span class="math inline">\(X\)</span> - skończony zbiór
+stanów * <span class="math inline">\(A\)</span> - skończony zbiór akcji
+* <span class="math inline">\(\rho(x,a)\)</span> - funkcja wzmocnienia
+(zmienna losowa) * <span class="math inline">\(\sigma(x,a)\)</span> -
+funkcja przejść stanów (zmienna losowa)</p>
+<ul>
+<li>W każdym kroku nagroda i stan zależą tylko od stanu aktualnego</li>
+<li>Strategia definiuje zasady zgodnie z którymi wybierane są akcje
+czyli to funkcja <span class="math inline">\(\pi: X \rightarrow
+A\)</span>
+<ul>
+<li>posługiwanie się strategią <span class="math inline">\(\pi\)</span>
+oznacza zawsze wykonywanie akcji <span class="math inline">\(a_t =
+\pi(x_t)\)</span></li>
+</ul></li>
+<li>Do oceny strategii służy funkcja wartości
+<ul>
+<li><span class="math inline">\(V^{\pi}(x) = \mathbb{E}_\pi
+[\sum_{t=0}^\infty \gamma^t r_t | x_0 = x]\)</span></li>
+</ul></li>
+<li>Można oceniać pary stan-akcja
+<ul>
+<li><span class="math inline">\(Q^\pi(x, a) = \mathbb{E}_\pi [\rho(x,a)
++ \sum_{t=0}^\infty \gamma^t r_t | x_0 = x, a_0 = a]\)</span></li>
+<li><span class="math inline">\(V^\pi(x) = Q^\pi(x,
+\pi(x))\)</span></li>
+</ul></li>
+</ul>
+<h3 id="ocena-strategii">Ocena strategii</h3>
+<ul>
+<li>Strategia jest lepsza jeśli nie jest gorsza i istnieje stan dla
+którego jest lepsza</li>
+<li>Jeśli nie istnieje lepsza strategia to strategia jest optymalna
+<ul>
+<li>optymalność zależy od współczynnik dyskontowania <span
+class="math inline">\(\gamma\)</span></li>
+</ul></li>
+<li>Strategia zachłanna
+<ul>
+<li>w każdym stanie wybiera akcję, która daje największą ocenę <span
+class="math inline">\(Q(x,a)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="metody-różnic-czasowych">Metody różnic czasowych</h2>
+<ul>
+<li>W każdym kroku generujemy prognozę na podstawie dostępnej
+informacji</li>
+<li>Zakładamy że kolejne prognozy są coraz lepsze</li>
+<li>W kroku <span class="math inline">\(t\)</span>
+<ul>
+<li><span class="math inline">\(a_t \leftarrow \pi(x_t)\)</span></li>
+<li><span class="math inline">\(r_t, x_{t+1} \leftarrow\)</span> wykonaj
+<span class="math inline">\(a_t\)</span></li>
+<li><span class="math inline">\(\Delta = r_t + \gamma V_t(x_{t+1}) -
+V_t(x_t)\)</span></li>
+<li><span class="math inline">\(V_{t+1} \leftarrow V_t + \beta
+\Delta\)</span></li>
+</ul></li>
+</ul>
+<h2 id="algorytm-ahc">Algorytm AHC</h2>
+<p>Adaptive Heuristic Critic</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ahc(t_max, gamma, beta_v, beta_p):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    V, state <span class="op">=</span> initialize()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    preference <span class="op">=</span> initialize()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> t <span class="op">&lt;=</span> t_max:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        reward, next_state <span class="op">=</span> make_action(preference(state))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        delta <span class="op">=</span> reward <span class="op">+</span> gamma <span class="op">*</span> V[next_state] <span class="op">-</span> V[state]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        V[state] <span class="op">+=</span> beta_v <span class="op">*</span> delta</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        preference[state, action] <span class="op">+=</span> beta_p <span class="op">*</span> delta</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> next_state</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>Parametr <span class="math inline">\(\beta\)</span> - szybkość
+uczenia</li>
+<li>Już się nie stosuje w praktyce, są lepsze</li>
+</ul>
+<h2 id="q-learning">Q-learning</h2>
+<ul>
+<li>Często stosowany w praktyce</li>
+<li>Korzysta z funkcji <span class="math inline">\(Q\)</span> ocena pary
+stan akcja (tabela dwuwymiarowa)</li>
+<li>W każdym kroku każda akcja musi mieć szansę być wybrana - na
+potrzeby eksploracji</li>
+<li>Współczynnik kroku beta (learning rate)
+<ul>
+<li>dla 0 agent się nie uczy tylko wykorzystuje już zdobytą wiedzę</li>
+<li>dla 1 agent patrzy tylko na najnowsze informacje i zpaomina
+stare</li>
+<li>1 jest akceptowalne tylko dla środowisk deterministycznych</li>
+</ul></li>
+<li>Współczynnik dyskontowania gamma
+<ul>
+<li>dla 0 agent patrzy tylko na nagrody, nie uwzględnia zdobytej
+wiedzy</li>
+<li>dla bliskich 1 agent dąży do długoterminowego maksymalizowania
+nagród</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> q_learning(t_max, gamma, beta):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    state, Q <span class="op">=</span> initialize()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> t <span class="op">&lt;=</span> t_max:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        action <span class="op">=</span> choose_action(state, Q)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        reward, next_state <span class="op">=</span> make_action(action)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        delta <span class="op">=</span> reward <span class="op">+</span> gamma <span class="op">*</span> <span class="bu">max</span>(Q[next_state]) <span class="op">-</span> Q[state, action]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        Q[state, action] <span class="op">+=</span> beta <span class="op">*</span> delta</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> next_state</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<h3 id="wybór-akcji">Wybór akcji</h3>
+<ul>
+<li>Strategia <span class="math inline">\(\epsilon\)</span>-zachłanna
+<ul>
+<li>z prawdopodobieństwem <span class="math inline">\(\epsilon\)</span>
+wybierana losowa akcja</li>
+<li>z prawdopodobieństwem <span
+class="math inline">\(1-\epsilon\)</span> wybierana zachłanna akcja na
+podstawie Q</li>
+<li><span class="math inline">\(\epsilon\)</span> może maleć w czasie -
+wtedy na początku będzie więcej eksploracji a potem eksploatacji</li>
+</ul></li>
+<li>Wybór oparty na rozkładzie Boltzmanna</li>
+<li>Strategie licznikowe
+<ul>
+<li>ile razy akcja była wykonana</li>
+<li>ile kroków minęło od jej ostatniego wykonania</li>
+<li>modyfikowanie na podstawie liczników poprzednich strategii</li>
+</ul></li>
+</ul>
+<h2 id="eksploracja-vs-eksploatacja">Eksploracja vs eksploatacja</h2>
+<ul>
+<li>Zachłanne wybieranie akcji uniemożliwia przeszukanie całej
+przestrzeni</li>
+<li>Całkowicie losowe wybieranie akcji nie korzysta ze zgromadzonej
+wiedzy
+<ul>
+<li>w nietrywialnych środowiskach można nie dojść do stanu akceptującego
+w rozsądnym czasie</li>
+</ul></li>
+</ul>
+<p>Zapamiętać na egzamin jak się oblicza wyceny</p>
+<h2 id="algorytm-sarsa">Algorytm SARSA</h2>
+<p>State Action Reward State Action</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sarsa(t_max, gamma, beta):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    state, Q <span class="op">=</span> initialize()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    action <span class="op">=</span> choose_action(state, Q)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> t <span class="op">&lt;=</span> t_max:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        reward, next_state <span class="op">=</span> make_action(action)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        next_action <span class="op">=</span> choose_action(next_state, Q)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        delta <span class="op">=</span> reward <span class="op">+</span> gamma <span class="op">*</span> Q[next_state, next_action] <span class="op">-</span> Q[state, action]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        Q[state, action] <span class="op">+=</span> beta <span class="op">*</span> delta</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> next_state</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>Akcja jest wybierana i wykonywana, nie jest wybierana maksymalna dla
+następnego kroku</li>
+<li>Ta sama akcja do poruszania się i wyliczania delty</li>
+</ul>
+<h2 id="sarsa-vs-q-learning">SARSA vs Q-Learning</h2>
+<ul>
+<li>Q-Learning szybciej znajduje optymalną drogą</li>
+<li>SARSA wybiera bardziej ostrożne strategie
+<ul>
+<li>lepszy jeśli pomyłki są kosztowne</li>
+</ul></li>
+<li>Jeśli <span class="math inline">\(\epsilon\)</span> dąży do <span
+class="math inline">\(0\)</span> to oba nauczą się tej samej
+ścieżki</li>
+</ul>
+<p>Na egzamin * obliczenia * różnice i podobieństwa między algorytmami
+(Q-Learning vs SARSA, Q-Learning vs AHC) * nie będzie liczenia równań
+Bellmana</p>
+<h2 id="programowanie-dynamiczne">Programowanie dynamiczne</h2>
+<ul>
+<li>Dla procesu Markowa istnieje strategia optymalna, trzeba mieć pełną
+wiedzę o procesie decyzyjnym żeby ją znaleźć - nie opłaca się stosować
+np Q-Learning</li>
+<li>Nie każdy problem da się rozwiązać programowaniem dynamicznym, musi
+dzielić się na etapy (podproblemy) i tą wiedzę da się wykorzystać do
+rozwiązania większego problemu</li>
+<li>Problem dyliżansu</li>
+<li>Opiera się na równaniach Bellmana</li>
+</ul>
+<h2 id="rl-vs-programowanie-dynamiczne">RL vs programowanie
+dynamiczne</h2>
+<h3 id="programowanie-dynamiczne-1">Programowanie dynamiczne</h3>
+<ul>
+<li>Wyznacza strategię optymalną</li>
+<li>Wymaga znajomości wartości oczekiwanych nagród i prawdopodobieństw
+przejść</li>
+<li>Duża złożoność obliczeniowa</li>
+</ul>
+<h3 id="rl">RL</h3>
+<ul>
+<li>Nabycie umiejętności działania, może nie być optymalne</li>
+<li>Może nie rozważać całej przestrzeni</li>
+<li>Nie wymaga pełnej znajomości, odpytuje się środowisko</li>
+<li>Środowisko może się powoli zmieniać w czasie (zmieniać swoje
+parametry, Q-Learning będzie się douczał)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uczenie-ze-wzmocnieniem">Uczenie ze wzmocnieniem</a>
+<ul>
+<li><a href="#uczeń-i-środowisko">Uczeń i środowisko</a>
+<ul>
+<li><a href="#zadanie-ucznia">Zadanie ucznia</a></li>
+</ul></li>
+<li><a href="#zadania-epizodyczne">Zadania epizodyczne</a></li>
+<li><a href="#model-markowa">Model Markowa</a>
+<ul>
+<li><a href="#ocena-strategii">Ocena strategii</a></li>
+</ul></li>
+<li><a href="#metody-różnic-czasowych">Metody różnic czasowych</a></li>
+<li><a href="#algorytm-ahc">Algorytm AHC</a></li>
+<li><a href="#q-learning">Q-learning</a>
+<ul>
+<li><a href="#wybór-akcji">Wybór akcji</a></li>
+</ul></li>
+<li><a href="#eksploracja-vs-eksploatacja">Eksploracja vs
+eksploatacja</a></li>
+<li><a href="#algorytm-sarsa">Algorytm SARSA</a></li>
+<li><a href="#sarsa-vs-q-learning">SARSA vs Q-Learning</a></li>
+<li><a href="#programowanie-dynamiczne">Programowanie
+dynamiczne</a></li>
+<li><a href="#rl-vs-programowanie-dynamiczne">RL vs programowanie
+dynamiczne</a>
+<ul>
+<li><a href="#programowanie-dynamiczne-1">Programowanie
+dynamiczne</a></li>
+<li><a href="#rl">RL</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

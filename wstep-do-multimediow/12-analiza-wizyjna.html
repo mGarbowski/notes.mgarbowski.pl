@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-analiza-wizyjna</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-strumieniowanie-multimediow.html">Poprzedni: 11-strumieniowanie-multimediow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="13-indeksowanie.html">Następny: 13-indeksowanie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="analiza-wizyjna">Analiza wizyjna</h1>
+<h2 id="wizyjna-analiza-semantyczna">Wizyjna analiza semantyczna</h2>
+<ul>
+<li>Ma na celu wydobycie informacji wyższego poziomu z surowych danych
+<ul>
+<li>próbek wizyjnych / dźwiękowych</li>
+</ul></li>
+</ul>
+<h2 id="przykłady-w-analizie-obrazu">Przykłady w analizie obrazu</h2>
+<ul>
+<li>Lokalizacja, śledzenie i rozpoznawanie obiektów
+<ul>
+<li>twarzy, samochodów, pisma</li>
+</ul></li>
+<li>Detekcja sytuacji nietypowych</li>
+<li>Analiza oka, pozy twarzy</li>
+<li>Śledzenie sztywnych obiektów w 6-wymiarach
+<ul>
+<li>3 położenia, 3 obrotu</li>
+</ul></li>
+<li>Śledzenie, modelowanie twarzy</li>
+<li>Monitorowanie ruchu ulicznego
+<ul>
+<li>detekcja poruszających się obiektów</li>
+<li>obiekty stojące traktowane jako tło</li>
+</ul></li>
+<li>Analiza dłoni do zastosowania w wirtualnej rzeczywistości</li>
+<li>Wykrywanie kierunku patrzenia</li>
+<li>Modelowanie sceny 3-wymiarowej i rozpoznawanie obiektów
+3-wymiarowych
+<ul>
+<li>informacja o głębi z kamery głębi lub estymacji dysparycji
+stereowizyjnej</li>
+<li>obroty sceny odsłaniają miejsca o których brak informacji
+wizyjnej</li>
+</ul></li>
+<li>Detekcja replik obrazów</li>
+<li>Rozpoznawanie liter (OCR)</li>
+<li>Odciski palców</li>
+<li>Rozpoznawanie tęczówki</li>
+<li>Analiza emocji</li>
+</ul>
+<h2 id="mapy-głębi">Mapy głębi</h2>
+<ul>
+<li>Uzyskiwane z kamer wykorzystujących promień laserowy</li>
+<li>Najpopularniejsza kamera to Kinect</li>
+<li>Problemy z przesłonięciami, oświetleniem, odbiciami i większymi
+odległościami</li>
+</ul>
+<h2 id="estymacja-dysparycji-stereowizyjnej">Estymacja dysparycji
+stereowizyjnej</h2>
+<ul>
+<li>Rejestruje się obraz z dwóch kamer</li>
+<li>Mozna wyznaczyć mapę głębi znając geometrię kamer porównując oba
+obrazy
+<ul>
+<li>można dostać 2 mapy (lewa względem prawej i na odwrót)</li>
+</ul></li>
+<li>Problemy z przesłonięciami, małymi obiektami, powierzchniami
+płaskimi, powtarzanymi wzorcami</li>
+<li>Przed estymacją konieczna jest rektyfikacja
+<ul>
+<li>algorytmy zakładają, że linia sobie odpowiadają w obu obrazach</li>
+<li>obraz z kamery może być zniekształcony</li>
+<li>obrazy wymagają przekształcenia</li>
+</ul></li>
+</ul>
+<h2 id="zbiory-danych">Zbiory danych</h2>
+<ul>
+<li>Kluczowy element przy
+<ul>
+<li>uczeniu algorytmów</li>
+<li>weryfikacji skuteczności</li>
+<li>porównywaniu różnych algorytmów</li>
+</ul></li>
+<li>Istnieje wiele gotowych baz obrazów, filmów, audio</li>
+<li>Wyniki analizy w dużym stopniu zależą od zbioru danych, na którym
+algorytm był trenowany i weryfikowany</li>
+<li>Znane zbiory
+<ul>
+<li>ImageNet</li>
+<li>MNIST - pismo odręczne</li>
+<li>Wider Face - zdjęcia twarzy</li>
+<li>MsCeleb - zdjęcia celebrytów</li>
+<li>COCO - detekcja i segmentacja</li>
+</ul></li>
+</ul>
+<h2 id="schemat-analizy">Schemat analizy</h2>
+<ul>
+<li>Przetwarzanie wstępne</li>
+<li>Normalizacja</li>
+<li>Ekstrakcja cech
+<ul>
+<li>wektory liczb rzeczywistych</li>
+<li>porównywalne z cechami innych obrazów np. przez odległość
+euklidesową</li>
+</ul></li>
+<li>Klasyfikacja
+<ul>
+<li>klasyfikator bayesowski</li>
+<li>svm</li>
+<li>analiza dyskryminacyjna LDA</li>
+<li>sieci neuronowe, uczenie głębokie</li>
+</ul></li>
+<li>Przetwarzanie końcowe</li>
+</ul>
+<p>Ekstrakcja cech i klasyfikacja mogą być wykonywane przez jedną sieć
+neuronową</p>
+<h2 id="przetwarzanie-wstępne">Przetwarzanie wstępne</h2>
+<ul>
+<li>Filtracja szumów
+<ul>
+<li>madianowa</li>
+<li>gaussowska</li>
+</ul></li>
+<li>Operacje na histogramie
+<ul>
+<li>rozciąganie</li>
+<li>wyrównanie histogramu</li>
+</ul></li>
+<li>Logarytmowanie obrazu</li>
+<li>Usuwanie określonych częstotliwości</li>
+<li>Uwypuklenie / wyostrzenie krawędzi</li>
+<li>Korekcja zniekształceń geometrycznych</li>
+<li>Normalizacja geometryczna</li>
+<li>Detekcja obiektów</li>
+<li>Przetwarzanie ma poprawić skuteczność systemu, a nie jakość obrazu
+dla człowieka</li>
+</ul>
+<h3 id="algorytm-chena-normalizacji-jasności">Algorytm Chena
+normalizacji jasności</h3>
+<ul>
+<li>Cienie są częstym problemem</li>
+<li>Algorytm
+<ul>
+<li>zlogarytmuj obraz</li>
+<li>wykonaj DCT</li>
+<li>usuń niskie częstotliwości</li>
+<li>wykonaj odwrotne DCT</li>
+</ul></li>
+<li>Bez odwrotnego logarytmowania</li>
+</ul>
+<h3 id="korekcja-zniekształceń-geometrycznych">Korekcja zniekształceń
+geometrycznych</h3>
+<ul>
+<li>W większości kamer i aparatów występuje zniekształcenia geometryczne
+<ul>
+<li>ramka nie jest płaska</li>
+<li>piksele nie są rozmieszczone regularnie</li>
+<li>soczewki wprowadzają zniekształcenia geometryczne</li>
+</ul></li>
+<li>Rodzaje zniekształceń
+<ul>
+<li>“beczka”</li>
+<li>“poduszka”</li>
+<li>tangensoidalne</li>
+</ul></li>
+</ul>
+<h3 id="modelowanie-tła">Modelowanie tła</h3>
+<ul>
+<li>Dobrze jest wydzielić tło, żeby móc odróżnić je od interesującego
+obiektu</li>
+<li>Podejścia
+<ul>
+<li>w najprostszym przypadku - tło modelowane na podstawie klatki
+referencyjnej (odejmowana od obrazu w skali szarości)</li>
+<li>w przypadku wielokanałowym (RGB) można stosować analizę zmian
+wektora (change vector analysis)</li>
+<li>image ratioing - stosunek sygnałów zamiast różnicy</li>
+</ul></li>
+<li>Zapamiętanie obrazu pod warunkiem braku obiektów w scenie
+<ul>
+<li>częso nierealizowalne (np. ulica)</li>
+<li>brak adaptacyjności - zmiany oświetlenia i warunków
+atmosferycznych</li>
+<li>brak uwzględnienia ruchomych obiektów tła</li>
+</ul></li>
+<li>Modelowanie piksela wartością średnią
+<ul>
+<li>w każdej klatce aktualizowana wartość</li>
+<li><span class="math inline">\(\mu_{t+1} = w\mu_t +
+O((1-w)i)\)</span></li>
+<li>waga z przedziału <span class="math inline">\([0,1]\)</span></li>
+<li>jeśli odchylenie od średniej przekracza próg, to obraz nie należy do
+tła</li>
+<li>można modelować piksel rozkładem gaussowskim (oddzielnym dla każdego
+piksela)</li>
+</ul></li>
+<li>Modelowanie tła serią rozkładów gaussowskich
+<ul>
+<li>dobre dla wieloelementowego tła (poruszające się liście, zmienne
+warunki atmosferyczne)</li>
+<li>każdemu pikselowi przypisane jest kilka rozkładów</li>
+<li>część rozkładów odpowiada tłu, a część aktualnie widzianemu
+obiektowi</li>
+<li>każdy rozkład ma przypisaną wagę</li>
+<li>większa waga - rozkład występuje częściej</li>
+<li>daje się rozszerzyć na 3 wymiary</li>
+<li>efekt ducha po krótkim zatrzymaniu obiektu</li>
+</ul></li>
+<li>Algorytm
+<ul>
+<li>ustalenie liczby rozkładów na piksel</li>
+<li>jeśli piksel pasuje do rozkładu to zwiększa się wagę i aktualizuje
+wariancję i średnią</li>
+<li>jeśli nie pasuje to usuwa się rozkład o najmniejszej wadze i dodaje
+nowy</li>
+<li>zakładamy że tło jest modelowane rozkładem o dużej wadze i małej
+wariancji</li>
+<li>tło to średnia ze średnich rozkładów o największej wadze z każdego
+piksela</li>
+</ul></li>
+</ul>
+<h3 id="wyznaczanie-obiektów-zainteresowania">Wyznaczanie obiektów
+zainteresowania</h3>
+<ul>
+<li>Detekcja twarzy na podstawie punktów zainteresowania i ich
+orientacji</li>
+<li>Detekcja tablic rejestracyjnych</li>
+<li>Detekcja dłoni</li>
+<li>Detekcja zestawu klas obiektów (samochody, ludzie, …)</li>
+</ul>
+<h2 id="normalizacja">Normalizacja</h2>
+<ul>
+<li>Najczęściej obejmuje
+<ul>
+<li>normalizację zakresu wartości do <span class="math inline">\([-1,
+1]\)</span></li>
+<li>normalizację średniej</li>
+<li>normalizację odchylenia standardowego / wariancji</li>
+</ul></li>
+<li>Normalizacja geometryczna
+<ul>
+<li>normalizacja obrotu (np. względem pozycji oczu)</li>
+<li>wycięcie obszaru obiektu</li>
+<li>normalizacja wielkości obrazu (skalowanie do określonego
+rozmiaru)</li>
+</ul></li>
+</ul>
+<h2 id="ekstrakcja-cech">Ekstrakcja cech</h2>
+<h3 id="analiza-składowych-głównych">Analiza składowych głównych</h3>
+<ul>
+<li>Principal Components Analysis (PCA)</li>
+<li>Celem jest wyznaczenie kierunków głównych zbioru
+<ul>
+<li>kierunek o największej wariancji i prostopadłe o mniejszej
+wariancji</li>
+</ul></li>
+<li>Chodzi o taki kierunek, dla kturego wariancja rzutu punktów jest
+maksymalna</li>
+<li>Maksymalizacja funkcji wariancji względem wektora jednostkowego</li>
+<li>Rozwiązanie przez wyznaczenie wartości własnych i wektorów własnych
+macierzy kowariancji</li>
+<li>Zalety
+<ul>
+<li>prosta interpretacja</li>
+<li>liniowe przekształcenia (operacje macierzowe)</li>
+<li>pozwala na redukcję wymiaru danych bez utraty znaczących
+informacji</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>nie uwzględnia klas przypisanych elementom</li>
+<li>może powodować utratę ważnych informacji zawartych w danych</li>
+</ul></li>
+</ul>
+<h4 id="pca-wielowymiarowe-dla-rozpoznawania-twarzy">PCA wielowymiarowe
+dla rozpoznawania twarzy</h4>
+<ul>
+<li>Każdy piksel jest traktowany jako oddzielny wymiar</li>
+<li>Każdy obraz to jeden punkt w tej przestrzeni</li>
+<li>Wektory własne PCA odpowiadające najwyższym wartościom własnym
+formują “twarze własne”</li>
+<li>Ekstrakcja cech polega na przemnożeniu wektora obrazu przez macierz
+twarzy własnych
+<ul>
+<li>wynikiem jest wektor wag</li>
+</ul></li>
+<li>Rekonstrukcja twarzy polega na stworzeniu kombinacji liniowej twarzy
+średniej i twarzy własnych</li>
+</ul>
+<h2 id="klasyfikacja">Klasyfikacja</h2>
+<h3 id="dla-rozpoznawania-twarzy">Dla rozpoznawania twarzy</h3>
+<ul>
+<li>Tworzy się bazę twarzy</li>
+<li>Każda twarz jest opisywana przez deskryptor (wektor liczb)</li>
+<li>Porównuje się klasyfikowany obraz z każdym i wybiera się ten o
+najmniejszej odległości euklidesowej</li>
+<li>Może powodować utratę ważnych informacji zawartych w danych</li>
+</ul>
+<h3 id="k-najbliższych-sąsiadów">k najbliższych sąsiadów</h3>
+<ul>
+<li>Jako wybraną kategorię wyznaczamy tę do której należy najwięcej
+najbliższych k sąsiadów badanego elementu</li>
+<li>Przy badaniu bliskości zazwyczaj stosowana miara euklidesowa lub
+Mahalanobisa</li>
+<li>Skuteczny dla nietypowych rozkładów prawdopodobieństwa</li>
+</ul>
+<h3 id="liniowa-analiza-dyskryminacyjna">Liniowa analiza
+dyskryminacyjna</h3>
+<ul>
+<li>Służy do znalezienia liniowej kombinacji cech, które najlepiej
+rozróżniają klasy obiektów</li>
+<li>LDA - linear discriminant analysis</li>
+<li>LDA i PCA redukują wymiarowość przestrzeni</li>
+<li>PCA znajduje kierunki główne</li>
+<li>LDA bierze pod uwagę przynależność punktów do klas</li>
+<li>Bierze pod uwagę wariancję międzyklasową <span
+class="math inline">\(var_B(X)\)</span> i wewnątrzklasową <span
+class="math inline">\(var_W(X)\)</span> (odległość przykładów klas od
+środka ciężkości klasy)</li>
+<li>Maksymalizowany jest stosunek wariancji międzyklasowej do
+wewnątrzklasowej <span
+class="math inline">\(\frac{var_B(X)}{var_W(X)}\)</span></li>
+<li>Szukamy kierunku dla którego rzutowanie (mnożenie przez wektor) da
+klasy jak najbardziej od siebie oddalone</li>
+<li>Szukamy kiernku dla którego rzutowanie da klasy jak najbardziej
+zwarte</li>
+<li>W ogólnym podejściu zastępuje się wariancje odpowienimi macierzami
+kowariancji <span class="math inline">\(S_W\)</span> i <span
+class="math inline">\(S_B\)</span></li>
+<li>Równanie w postaci <span
+class="math inline">\(S_W^{-1}(X)S_B(X)W&#39; = W&#39; \Lambda\)</span>
+<ul>
+<li>rozwiązywane przez wyznaczenie wektorów własnych odpowiadających
+największym wartościom własnym iloczynu macierzy rozproszenia</li>
+<li>można rozwiązać przez wyznaczenie wektorów osobliwych
+odpowiadających największym wartościom osobliwym</li>
+</ul></li>
+</ul>
+<h3 id="analiza-dyskryminacyjna-w-podklasach">Analiza dyskryminacyjna w
+podklasach</h3>
+<ul>
+<li>SDA - subclass discriminant analysis</li>
+<li>Klasy nie są spójne - dobrze je podzielić na podklasy (np. oczy
+zamknięte i otwarte)</li>
+<li>Podział można realizować przez algorytm k-średnich</li>
+<li>Jeśli uda się uzyskać spójne klasy, klasyfikacja będzie
+skuteczniejsza</li>
+<li>Wynikowa liczba klas będzie większa niż pierwotna</li>
+</ul>
+<h3 id="sieci-neuronowe">Sieci neuronowe</h3>
+<ul>
+<li>Kiedy wagi neuronów odpowiadają wektorowi rzutowania z analizy PCA
+to neuron wykonuje analizę PCA</li>
+<li>Kiedy wagi neuronów są kierunkami maksymalizującymi separację i
+minimalizującymi separację klas to mamy LDA</li>
+<li>Kiedy wagi neuronów transformują do podprzestrzeni rozdzielającej
+klasy hiperpłaszczyzną to mamy SVM</li>
+<li>Nieliniowość pełni rolę klasyfikacyjną</li>
+<li>Więcej warstw daje większą zdolność klasyfikacyjną</li>
+</ul>
+<h3 id="sieci-splotowe">Sieci splotowe</h3>
+<ul>
+<li>CNN - convolutional neural networks</li>
+<li>Rodzaj filtrów z maską lokalną
+<ul>
+<li>podobne działanie jak filtracja na obrazach</li>
+</ul></li>
+<li>Wagi filtrów dobierane na etapie uczenia
+<ul>
+<li>algorytm propagacji wstecznej</li>
+</ul></li>
+<li>Wykorzystywane w
+<ul>
+<li>klasyfikacji obrazów</li>
+<li>poprawianiu jakości</li>
+<li>steganografii</li>
+<li>kompresji</li>
+<li>modelowaniu głębii</li>
+<li>automatycznym podpisywaniu</li>
+</ul></li>
+<li>Na przemian 2 warstwy (zazwyczaj)
+<ul>
+<li>splot z wytrenowanym filtrem</li>
+<li>max-pooling - wybór maksimum w otoczeniu i podpróbkowanie</li>
+</ul></li>
+<li>Końcowe warstwy są gęste (fully connected) - klasyfikacja</li>
+<li>Sposoby rozszerzenia sieci na większą liczbę osób
+<ul>
+<li>żeby rozpoznawała nie tylko tych, na których została
+wytrenowana</li>
+<li>bottleneck - odcięcie ostatniej warstwy sieci (etykiety)</li>
+<li>założenie, że w ostatniej wartswie będziemy mieli sensowną
+reprezentację wszystkich twarzy</li>
+<li>ostatnia warstwa służy jako wektor cech do rozpoznawania dowolnych
+twarzy</li>
+<li>nie wiadomo czy ostatnia warstwa jest faktycznie dobrą reprezentacją
+innych twarzy</li>
+</ul></li>
+</ul>
+<h3 id="śledzenie-ruchu">Śledzenie ruchu</h3>
+<ul>
+<li>Musi być poprzedzone detekcją obiektów</li>
+<li>Redukuje złożoność obliczeniową w relacji do detekcji</li>
+<li>Śledzenie punktu
+<ul>
+<li>metody deterministyczne</li>
+<li>metody statystyczne (Kalman, filtry cząsteczkowe, roje cząstek)</li>
+</ul></li>
+<li>Śledzenie kształtu
+<ul>
+<li>oparte na wzorcach</li>
+<li>oparte na wielowidokowych modelach wyglądu</li>
+</ul></li>
+<li>Śledzenie sylwetki
+<ul>
+<li>dopasowywanie kształtu</li>
+<li>ewolucja konturów</li>
+</ul></li>
+<li>Mean shift, CAMSHIFT</li>
+</ul>
+<h3 id="filtr-kalmana">Filtr Kalmana</h3>
+<ul>
+<li>Predykcja i pomiar są zaszumione</li>
+<li>Szum powinien być gaussowaski i zmienny w czasie</li>
+<li>Wzmocnienie Kalmana decyduje czy bardziej zdać się na predykcję czy
+pomiar
+<ul>
+<li>zależy od szumu (kowariancji) w obu przypadkach</li>
+</ul></li>
+<li>Model predykcji <span class="math inline">\(\hat{x_k} = Ax_{k-1} +
+Bu_{k-1} + w_{k-1}\)</span>
+<ul>
+<li>aktualny stan <span class="math inline">\(x_i\)</span></li>
+<li>macierz dynamiki <span class="math inline">\(A\)</span> (położenie,
+prędkość, przyspieszenie)</li>
+<li>macierz kontroli modelu <span class="math inline">\(B\)</span></li>
+<li>wektor kontroli <span class="math inline">\(u_i\)</span> - zwykle
+zerowy</li>
+<li>szum predykcji <span class="math inline">\(w_i\)</span></li>
+</ul></li>
+<li>Aktualizacja pomiarem <span class="math inline">\(x_k = \hat{x}_k +
+K_n(z_k - H \hat{x}_k)\)</span>
+<ul>
+<li>Wzmocnienie Kalmana <span class="math inline">\(K_n\)</span></li>
+</ul></li>
+<li>Model pomiaru <span class="math inline">\(z_k = Hx_k + v\)</span>
+<ul>
+<li>pomiar <span class="math inline">\(z_k\)</span></li>
+<li>model obserwacji <span class="math inline">\(H\)</span></li>
+<li>aktualny stan <span class="math inline">\(x_k\)</span></li>
+<li>szum pomiaru <span class="math inline">\(v\)</span></li>
+</ul></li>
+<li>Polega na ważeniu między predykcją a pomiarem</li>
+</ul>
+<h3 id="przepływ-optyczny">Przepływ optyczny</h3>
+<ul>
+<li>Siatka wektorów określających przmieszczanie się punktów w kolejnych
+klatkach</li>
+<li>Metody na określenie przemieszczenia
+<ul>
+<li>metody najmniejszej różnicy</li>
+<li>metoda gradientowa</li>
+</ul></li>
+</ul>
+<h3 id="mean-shift">Mean shift</h3>
+<ul>
+<li>Pozwala na znalezienie lokalnych maksimów rozkładu gęstości punktów
+charakterystycznych (np. kącików oka)</li>
+<li>Otrzymuje się początkowe estymacje (pozycje) i funkcję jądra <span
+class="math inline">\(K(x)\)</span></li>
+<li>W kolejnych iteracjach oblicza się środek ciężkości</li>
+</ul>
+<h3 id="camshift">CAMSHIFT</h3>
+<ul>
+<li>Continuously Adaptive Mean Shift</li>
+<li>Rozszerzenie algorytmu mean shift</li>
+<li>Prawdopodobieństwo z histogramu koloru zamiast funkcji jądra
+<ul>
+<li>przestrzeń HSV</li>
+</ul></li>
+<li>Iteracyjne obliczanie środka ciężkości ważone kolorami</li>
+<li>Zmienne okno analizy
+<ul>
+<li>regulowane powierzchnią lub wariancją</li>
+</ul></li>
+<li>Służy do śledzenia przemieszczającego się obiektu na podstawie
+położenia punktów charakterystycznych
+<ul>
+<li>wyznacza się histogram kolorów</li>
+<li>na podstawie histogramu wylicza się prawdopodobieńśtwo należenia
+piksela do obiektu</li>
+</ul></li>
+<li>Mean Shift z adaptacją rozmiaru okna</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#analiza-wizyjna">Analiza wizyjna</a>
+<ul>
+<li><a href="#wizyjna-analiza-semantyczna">Wizyjna analiza
+semantyczna</a></li>
+<li><a href="#przykłady-w-analizie-obrazu">Przykłady w analizie
+obrazu</a></li>
+<li><a href="#mapy-głębi">Mapy głębi</a></li>
+<li><a href="#estymacja-dysparycji-stereowizyjnej">Estymacja dysparycji
+stereowizyjnej</a></li>
+<li><a href="#zbiory-danych">Zbiory danych</a></li>
+<li><a href="#schemat-analizy">Schemat analizy</a></li>
+<li><a href="#przetwarzanie-wstępne">Przetwarzanie wstępne</a>
+<ul>
+<li><a href="#algorytm-chena-normalizacji-jasności">Algorytm Chena
+normalizacji jasności</a></li>
+<li><a href="#korekcja-zniekształceń-geometrycznych">Korekcja
+zniekształceń geometrycznych</a></li>
+<li><a href="#modelowanie-tła">Modelowanie tła</a></li>
+<li><a href="#wyznaczanie-obiektów-zainteresowania">Wyznaczanie obiektów
+zainteresowania</a></li>
+</ul></li>
+<li><a href="#normalizacja">Normalizacja</a></li>
+<li><a href="#ekstrakcja-cech">Ekstrakcja cech</a>
+<ul>
+<li><a href="#analiza-składowych-głównych">Analiza składowych
+głównych</a></li>
+</ul></li>
+<li><a href="#klasyfikacja">Klasyfikacja</a>
+<ul>
+<li><a href="#dla-rozpoznawania-twarzy">Dla rozpoznawania
+twarzy</a></li>
+<li><a href="#k-najbliższych-sąsiadów">k najbliższych sąsiadów</a></li>
+<li><a href="#liniowa-analiza-dyskryminacyjna">Liniowa analiza
+dyskryminacyjna</a></li>
+<li><a href="#analiza-dyskryminacyjna-w-podklasach">Analiza
+dyskryminacyjna w podklasach</a></li>
+<li><a href="#sieci-neuronowe">Sieci neuronowe</a></li>
+<li><a href="#sieci-splotowe">Sieci splotowe</a></li>
+<li><a href="#śledzenie-ruchu">Śledzenie ruchu</a></li>
+<li><a href="#filtr-kalmana">Filtr Kalmana</a></li>
+<li><a href="#przepływ-optyczny">Przepływ optyczny</a></li>
+<li><a href="#mean-shift">Mean shift</a></li>
+<li><a href="#camshift">CAMSHIFT</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

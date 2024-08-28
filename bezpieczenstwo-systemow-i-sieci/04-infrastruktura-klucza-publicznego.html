@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-infrastruktura-klucza-publicznego</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-funkcje-skrotu.html">Poprzedni: 03-funkcje-skrotu.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-zagrozenia-sieciowe.html">Następny: 05-zagrozenia-sieciowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="infrastruktura-klucza-publicznego">Infrastruktura klucza
+publicznego</h1>
+<h2 id="dwa-klucze">Dwa klucze</h2>
+<ul>
+<li>Prywatny - znany tylko właścicielowi</li>
+<li>Publiczny - ogólnie rozpowszechniony</li>
+</ul>
+<h2 id="przykłady-algorytmów-szyfrowania-asymetrycznego">Przykłady
+algorytmów szyfrowania asymetrycznego</h2>
+<ul>
+<li>RSA</li>
+<li>Algorytm Diffiego-Hellmana</li>
+<li>Oparte okrzywe eliptyczne</li>
+</ul>
+<h2 id="szyfrowanie-asymetryczne">Szyfrowanie asymetryczne</h2>
+<ul>
+<li>Szyfrujemy dane kluczem publicznym odbiorcy i je wysyłamy</li>
+<li>Odbiorca odszyfrowuje wiadomość swoim kluczem prywatnym</li>
+<li>Można zrobić na odwrót
+<ul>
+<li>zaszyfrować kluczem prywatnym, każdy może odszyfrować</li>
+<li>wykorzystuje się do uwierzytelninaia i podpisów cyfrowych</li>
+</ul></li>
+</ul>
+<h3 id="uwierzytelnianie-użytkownika">Uwierzytelnianie użytkownika</h3>
+<ul>
+<li>Użytkownik wysyła nazwę i klucz publiczny (certyfikat)</li>
+<li>Strona wykonująca uwierzytelnienie wysyła losowe wyzwanie
+(challenge) z prośbą o zaszyfrowanie</li>
+<li>Po otrzymaniu zaszyfrowanej wiadomości próbuje ją odszyfrować
+<ul>
+<li>jeśli otrzyma wysłane wcześniej wyzwanie to jest ok</li>
+</ul></li>
+</ul>
+<h3 id="podpis-cyfrowy">Podpis cyfrowy</h3>
+<ul>
+<li>Do potwierdzenia autentyczności lub wyrażenia zgody dotyczącej
+dokumentu cyfrowego</li>
+<li>Realizuje się przez zaszyfrowanie kluczem prywatnym skrótu dokumentu
+<ul>
+<li>szkoda czasu na cały dokument</li>
+</ul></li>
+<li>Każda osoba może zweryfikować podpis odszyfrowując skrót kluczem
+publicznym, wyliczyć samemu skrót dokumentu i porównać
+<ul>
+<li>jeśli skróty się zgadzają to podpis jest autentyczny</li>
+</ul></li>
+</ul>
+<h3 id="problemy">Problemy</h3>
+<ul>
+<li>Wymaga znajomości przypisania kluczy publicznych podmiotom
+<ul>
+<li>osobom, serwerom, urządzeniom sieciowym</li>
+</ul></li>
+<li>Wiarygodna dystrybucja tych informacji jest realizowana w oparciu o
+infrastrukturę klucza publicznego</li>
+</ul>
+<h2 id="infrastruktura-klucza-publicznego-1">Infrastruktura Klucza
+Publicznego</h2>
+<ul>
+<li>Wymaga istnienia zaufanej trzeciej strony
+<ul>
+<li>bez zaufania ten schemat nie działa</li>
+<li>obie strony (sprawdzająca i sprawdzana) muszą ufać trzeciej
+stronie</li>
+<li>powierzamy część bezpieczeństwa innemu podmiotowi</li>
+</ul></li>
+<li>Służy do zapewnienia wiarygodnego mapowania nazwy podmiotu do jego
+klucza publicznego</li>
+</ul>
+<h3 id="certyfikat">Certyfikat</h3>
+<ul>
+<li>Najważniejszy obiekt w PKI</li>
+<li>Wiąże w zaufany i możliwy do weryfikacji sposób informację o
+podmiocie i kluczu publicznym</li>
+<li>Standardy certyfikatów X.509 lub PKCS</li>
+<li>Elementy
+<ul>
+<li>nazwa podmiotu (osoba, serwer, router)</li>
+<li>klucz publiczny podmiotu</li>
+<li>podpis zaufanej trzeciej strony (CA) - chroni przed manipulacją
+certyfikatem</li>
+<li>inne (timestampy, numer seryjny, id algorytmu, wskazanie na listę
+CRL)</li>
+</ul></li>
+<li>Standardowo reprezentacja binarna zakodowana w base64</li>
+</ul>
+<h3 id="typy-certfikatów">Typy certfikatów</h3>
+<ul>
+<li>Autocertyfikat (self-signed)
+<ul>
+<li>zawierający klucz publiczny podpisany połączonym z nim kluczem
+prywatnym</li>
+<li>początek łańcucha zaufania</li>
+</ul></li>
+<li>Certyfikat kwalifikowany
+<ul>
+<li>umożliwia składanie podpisu kwalifikowanego</li>
+<li>uznawany w danej jurysdykcji za równoważny podpisowi odręcznemu
+(określone przez prawo)</li>
+<li>raczej nie jest przesyłany pocztą czy na pendrivie tylko na
+dedykowanym sprzęcie odpornym na penetrację</li>
+</ul></li>
+<li>Certyfikat niekwalifikowany
+<ul>
+<li>każdy inny certyfikat</li>
+</ul></li>
+</ul>
+<h3 id="podpis-zaufany">Podpis zaufany</h3>
+<ul>
+<li>Jedna z usług profilu zaufanego</li>
+<li>Dokumenty są podpisane podpisem cyfrowym ministra do spraw
+informatyzacji w czyimś imieniu</li>
+<li>Nie jest tożsamy z podpisem kwalifikowanym, wszystko zależy od
+konkretnych aktów prawnych</li>
+</ul>
+<h3 id="urząd-certyfikacyjny-ca">Urząd certyfikacyjny (CA)</h3>
+<ul>
+<li>Techniczna realizacja zaufanej trzeciej strony
+<ul>
+<li>zazwyczaj software</li>
+<li>klucz ląduje na dysku</li>
+</ul></li>
+<li>W porządnym rozwiązaniu jest dedykowany moduł sprzętowy
+<ul>
+<li>odporny na penetrację (metalowa puszka, wyczyści się przy próbie
+rozkręcenia)</li>
+</ul></li>
+<li>Generuje certyfikaty korzystając ze swojego klucza prywatnego
+<ul>
+<li>podpisuje cudze klucze publiczne</li>
+</ul></li>
+<li>Dostępny publicznie certyfikat CA pozwala weryfikować prawdziwość
+certyfikatów wystawionych przez dane CA</li>
+<li>Verification Authority (VA) to w praktyce przeglądarka albo klient
+pocztowy</li>
+</ul>
+<h3 id="hierarchia-urzędów-certyfikacji">Hierarchia urzędów
+certyfikacji</h3>
+<ul>
+<li>To technicznie niemożliwe żeby wszystkich obsłużył jeden urząd</li>
+<li>Istnieje możliwość delegowania uprawnień do podpisywania
+certyfikatów przez inne podmioty</li>
+<li>Ścieżka zaufania</li>
+<li>Działanie
+<ul>
+<li>zweryfikowanie certyfikatu najniższego poziomu</li>
+<li>to samo dla certyfikatu poziom wyżej</li>
+<li>powtarzanie aż dojdziemy do certyfikatu, który jest zapisany jako
+zaufany</li>
+</ul></li>
+<li>Nie dodawać do przeglądarki niezaufanych certyfikatów
+<ul>
+<li>można wtedy wszystko podrobić</li>
+<li>np. pracodawca może odszyfrować komunikację z bankiem</li>
+</ul></li>
+<li>W systemy operacyjne i przeglądarki są wbudowane listy zaufanych
+certyfikatów</li>
+</ul>
+<h3 id="lista-crl">Lista CRL</h3>
+<ul>
+<li>Certificate Revocation List</li>
+<li>Lista odwołanych certyfikatów, którym już nie należy ufać</li>
+<li>Laptopa można ukraść, klucz prywatny można wysłać przez pomyłkę</li>
+<li>Certyfikat można zgłosić do listy CRL</li>
+<li>Przeglądarka powinna weryfikować taką listę</li>
+<li>Lista zaweira numery seryjne, jest generowana okresowo przez CA</li>
+<li>Musi być podpisana przez CA</li>
+<li>Jest specjalna lista certyfikatów odwołanych CA (Authority
+Revocation List)</li>
+<li>Może być za wolne
+<ul>
+<li>zbyt duży czas między wyciekiem klucza, a ogłoszeniem nowej listy
+CRL</li>
+</ul></li>
+</ul>
+<h3 id="ocsp">OCSP</h3>
+<ul>
+<li>Alternatywa do list CRL</li>
+<li>Online Certificate Status Protocol</li>
+<li>Wysyła się zapytanie do CA, które wystawiło certyfikat</li>
+<li>CA odpowiada czy certyfikat jest ok</li>
+<li>Skraca czas między zgłoszeniem certyfikatu jako nieważny do wykrycia
+tego przez użytkowników</li>
+</ul>
+<h3 id="odzyskiwanie-i-powiernictwo-kluczy">Odzyskiwanie i powiernictwo
+kluczy</h3>
+<ul>
+<li>Usługi urzędów certyfikacji, wspierane przez rządy</li>
+<li>Musi istnieć backup klucza prywatnego</li>
+<li>Ktoś ma dostęp do klucza</li>
+</ul>
+<h3 id="generacja-kluczy-na-potrzeby-pki">Generacja kluczy na potrzeby
+PKI</h3>
+<ul>
+<li>PKI nie musi generować dla nas kluczy</li>
+<li>Do wystawienia certyfikatu potrzeba tylko klucza publicznego</li>
+<li><strong>Nie ma potrzeby przekazywania klucza
+prywatnego</strong></li>
+</ul>
+<h2 id="scep">SCEP</h2>
+<ul>
+<li>Simple Certificate Enrollment Protocol</li>
+<li>Umozliwia występowanie o certyfikat i zarządzanie listą CRL</li>
+<li>Oparty o HTTP</li>
+</ul>
+<h2 id="nieporozumienia-z-pki">Nieporozumienia z PKI</h2>
+<h3 id="publiczna-infrastruktura-kluczy">Publiczna infrastruktura
+kluczy</h3>
+<ul>
+<li>To co można nazwać <em>otwartym PKI</em></li>
+<li>Każda nowa aplikacja może oprzeć pewne usługi (poufność itd) o
+istniejące certyfikaty</li>
+<li>90% rynku należy do jednej firmy</li>
+<li>Problem - atak z mafią po środku
+<ul>
+<li>prośba o podpisanie niewinnych danych w celu uwierzytelnienia</li>
+<li>w rzeczywistości podpisywany jest inny dokument</li>
+<li>czy jest pewność, że software wyświetlający dokument, wyliczający
+skrót, sterowniki do czytnika karty nie był modyfikowany</li>
+</ul></li>
+</ul>
+<h3 id="zamknięte-pki">Zamknięte PKI</h3>
+<ul>
+<li>Wykorzystanie technologii PKI dla zamkniętego środowiska
+<ul>
+<li>np. dla jednej organizacji</li>
+</ul></li>
+<li>Kryptografia asymetryczna w sieci SWIFT
+<ul>
+<li>PKI tylko dla określonych banków</li>
+<li>te same urządzenia, ten sam software</li>
+</ul></li>
+</ul>
+<h2 id="wady-pki">Wady PKI</h2>
+<ul>
+<li>Cała infrastruktura opiera się na zaufanej trzeciej stornie na
+której wiarygodności budujemy bezpieczeństwo</li>
+<li>Sprawdzający i sprawdzany muszą mieć wspólny korzeń (zaufany
+CA)</li>
+</ul>
+<h2 id="alternatywa-do-pki">Alternatywa do PKI</h2>
+<ul>
+<li>Sieć zaufania (web of trust) zamiast zaufanej trzeciej strony</li>
+<li>PGP, GPG</li>
+<li>Użytkownicy sami podpisują certyfikaty zaufanym i znanym im
+osobom</li>
+<li>Sami decydujemy czy ufamy danej osobie</li>
+<li>Key Signing Party</li>
+</ul>
+<h2 id="ssl-tls">SSL, TLS</h2>
+<ul>
+<li>SSL został wymyślony przez firmę Netscape</li>
+<li>Dalej rozwijany przez IETF jako TLS</li>
+</ul>
+<h3 id="nawiązanie-sesji-tls">Nawiązanie sesji TLS</h3>
+<ul>
+<li>Klient nawiązuje połączenie TCP z serwerem</li>
+<li>Serwer odsyła certyfikat i wszystkie informacje o protokołach</li>
+<li>Klient (przeglądarka) weryfikuje certyfikat</li>
+<li>Klient sprawdza cały łańcuch certyfikatów, podpisy, daty
+ważności</li>
+<li>Klient generuje klucz sesyjny, szyfruje kluczem publicznym i
+odsyła</li>
+<li>Serwer odczytuje klucz sesyjny, odszyfrowując kluczem prywatnym</li>
+<li>Serwer może poprosić o certyfikat klienta
+<ul>
+<li>np. karta elektroniczna wydana przez pracodawcę</li>
+</ul></li>
+<li>Możliwość wzajemnego uwierzytelnienia</li>
+</ul>
+<h3 id="dodanie-wsparcia-tls-do-aplikacji">Dodanie wsparcia TLS do
+aplikacji</h3>
+<ul>
+<li>Aplikacja na każdym przychodzącym połączeniu zaczyna negocjację
+TLS</li>
+<li>Można zrobić oddzielny port dla szyfrowanej i nieszyfrowanej wersji
+protokołu
+<ul>
+<li>http 80 i https 443</li>
+</ul></li>
+<li>Mozna użyć tego samego portu i wydać komendę StartTLS
+<ul>
+<li>opportunistic TLS</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#infrastruktura-klucza-publicznego">Infrastruktura klucza
+publicznego</a>
+<ul>
+<li><a href="#dwa-klucze">Dwa klucze</a></li>
+<li><a href="#przykłady-algorytmów-szyfrowania-asymetrycznego">Przykłady
+algorytmów szyfrowania asymetrycznego</a></li>
+<li><a href="#szyfrowanie-asymetryczne">Szyfrowanie asymetryczne</a>
+<ul>
+<li><a href="#uwierzytelnianie-użytkownika">Uwierzytelnianie
+użytkownika</a></li>
+<li><a href="#podpis-cyfrowy">Podpis cyfrowy</a></li>
+<li><a href="#problemy">Problemy</a></li>
+</ul></li>
+<li><a href="#infrastruktura-klucza-publicznego-1">Infrastruktura Klucza
+Publicznego</a>
+<ul>
+<li><a href="#certyfikat">Certyfikat</a></li>
+<li><a href="#typy-certfikatów">Typy certfikatów</a></li>
+<li><a href="#podpis-zaufany">Podpis zaufany</a></li>
+<li><a href="#urząd-certyfikacyjny-ca">Urząd certyfikacyjny
+(CA)</a></li>
+<li><a href="#hierarchia-urzędów-certyfikacji">Hierarchia urzędów
+certyfikacji</a></li>
+<li><a href="#lista-crl">Lista CRL</a></li>
+<li><a href="#ocsp">OCSP</a></li>
+<li><a href="#odzyskiwanie-i-powiernictwo-kluczy">Odzyskiwanie i
+powiernictwo kluczy</a></li>
+<li><a href="#generacja-kluczy-na-potrzeby-pki">Generacja kluczy na
+potrzeby PKI</a></li>
+</ul></li>
+<li><a href="#scep">SCEP</a></li>
+<li><a href="#nieporozumienia-z-pki">Nieporozumienia z PKI</a>
+<ul>
+<li><a href="#publiczna-infrastruktura-kluczy">Publiczna infrastruktura
+kluczy</a></li>
+<li><a href="#zamknięte-pki">Zamknięte PKI</a></li>
+</ul></li>
+<li><a href="#wady-pki">Wady PKI</a></li>
+<li><a href="#alternatywa-do-pki">Alternatywa do PKI</a></li>
+<li><a href="#ssl-tls">SSL, TLS</a>
+<ul>
+<li><a href="#nawiązanie-sesji-tls">Nawiązanie sesji TLS</a></li>
+<li><a href="#dodanie-wsparcia-tls-do-aplikacji">Dodanie wsparcia TLS do
+aplikacji</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

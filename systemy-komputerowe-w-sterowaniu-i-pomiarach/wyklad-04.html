@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="buildroot-cd-2024-03-11">Buildroot cd (2024-03-11)</h1>
+<h2 id="rozszerzenie-buildroota-o-skrypty">Rozszerzenie Buildroota o
+skrypty</h2>
+<ul>
+<li>Można dodać na etapie kompilacji przez mechanizm nakładek na system
+plików</li>
+<li>Przez SSH jeśli buildroot ma klienta SSH</li>
+<li>Można postawić serwer HTTP na stacji roboczej i pobrać na maszynie
+przez wget
+<ul>
+<li>wget domyślnie usuwa atrybut wykonywalności</li>
+</ul></li>
+<li>Można przez konsolę szeregową jeśli nie ma komunikacji sieciowej,
+ale będzie wolno i niewygodnie</li>
+</ul>
+<h3 id="uruchomienie-skryptu-przy-starcie-systemu">Uruchomienie skryptu
+przy starcie systemu</h3>
+<ul>
+<li>Zależy jaki jest używany mechanizm uruchamiania systemu
+<ul>
+<li>dla systemV i busybox jest katalog <code>/etc/init.d</code></li>
+<li>może być problem jak skrpyt ma rozszerzenie .sh i zawiera błąd</li>
+<li>skrpyt musi się zakończyć, oddać sterowanie</li>
+<li>puszczenie procesu w tle przez <code>&amp;</code> ma tragiczne
+konsekwencje</li>
+<li>do włączania usług służy makro <code>start-stop-daemon</code></li>
+</ul></li>
+</ul>
+<h2 id="kompilowanie-programu-w-języku-c">Kompilowanie programu w języku
+C</h2>
+<ul>
+<li>Buildroot kompiluje programy na maszynę docelową - może mieć inną
+architekturę</li>
+<li>Trzeba użyć odpowiedniego kompilatora skrośnego
+<ul>
+<li>np. w Makefile można ustawić jako zmienną</li>
+<li>to jest ok dla małych programów</li>
+<li>nie są poustawiane flagi z buildroota itp(?)</li>
+</ul></li>
+<li><code>make sdk</code> tworzy przenośną wersję własnego
+toolchainu</li>
+<li>Do bardziej złożonych programów tworzy się własne pakiety (nie
+omawiamy, są linki na slajdach i przykład)
+<ul>
+<li>Trzeba jeszcze dodać wpis w nadrzędnym <code>Config.in</code></li>
+</ul></li>
+<li>Można źródła własnych pakietów przechowywać poza katalogiem
+buildroot
+<ul>
+<li><code>BR2_EXTERNAL</code></li>
+</ul></li>
+</ul>
+<h2 id="hot-plug">Hot plug</h2>
+<ul>
+<li>Podłączanie urządzeń w czasie działania systemu wymaga
+doinstalowania <code>eudev</code>
+<ul>
+<li>reguły udev - do doczytania</li>
+</ul></li>
+</ul>
+<h2 id="debuggowanie">Debuggowanie</h2>
+<ul>
+<li>Można przez gdb podłączyć podłączyć się do systemu z
+buildrootem</li>
+<li>Musiał być zbudowany na tej stacji roboczej na której odpalamy gdb
+(z obrazem, symbolami debuggera itd)</li>
+</ul>
+<h2 id="openwrt">OpenWRT</h2>
+<ul>
+<li>Buildroot kompiluje się szybko ale często może wymagać pełnej
+rekompilacji</li>
+<li>OpenWRT pozwala instalować i odinstalowywać pakiety bez reinstalacji
+systemu i jest prekompilowana wersja do pobrania</li>
+<li>Używa zapisywalnego systemu plików
+<ul>
+<li>squashfs - mocno skompresowany, read-only - fabryczna wersja</li>
+<li>jffs2 - nakładka na ten podstawowy system plików - własne
+modyfikacje</li>
+</ul></li>
+<li>System <code>opkg</code> - package manager</li>
+<li>Żeby uruchomić prekompilowany system trzeba dołożyć odpowiednie
+moduły jądra
+<ul>
+<li>np. sterowniki urządzeń <code>kmod-*</code></li>
+</ul></li>
+</ul>
+<h2 id="jak-zacząć-pracę-z-openwrt">Jak zacząć pracę z OpenWRT</h2>
+<ul>
+<li>Pobranie najnowszej stabilnej wersji dla naszej platformy (qemu
+arm-virt, raspberry pi)
+<ul>
+<li>obraz, system plików</li>
+<li>można opcjonalnie pobrać sdk</li>
+</ul></li>
+<li>Domyślnie przyznaje sobie adres <code>192.168.1.1</code> -
+niedobrze</li>
+<li>LuCI, UCI - do konfiguracji tekstowy i graficzny
+<ul>
+<li>uwaga na UCI bo może kasować komentarze</li>
+</ul></li>
+<li>Trzeba coś ręcznie zmienić żeby mieć łączność sieciową
+<ul>
+<li><code>/etc/config/network</code> static -&gt; dhcp</li>
+</ul></li>
+<li>Można skompilować własną wersję OpenWRT ze źródeł</li>
+<li><code>make menuconfig</code></li>
+<li><code>make kernel_menuconfig</code></li>
+<li><code>make clean</code> nie niszczy kongiuracji</li>
+<li>Można kompilować wielowątkowo!</li>
+<li>Czyszczenie
+<ul>
+<li>clean tylko bin i build_dir</li>
+<li>dirclean czyści powyższe, staging_dir, toolchain, logs</li>
+<li>distclean najgłębsze czyszczenie</li>
+</ul></li>
+<li>Dodawanie własnych pakietów w oparciu o Makefile</li>
+<li>Można określać zależności między pakietami</li>
+</ul>
+<h2 id="tworzenie-własnego-pakietu">Tworzenie własnego pakietu</h2>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#buildroot-cd-2024-03-11">Buildroot cd (2024-03-11)</a>
+<ul>
+<li><a href="#rozszerzenie-buildroota-o-skrypty">Rozszerzenie Buildroota
+o skrypty</a>
+<ul>
+<li><a href="#uruchomienie-skryptu-przy-starcie-systemu">Uruchomienie
+skryptu przy starcie systemu</a></li>
+</ul></li>
+<li><a href="#kompilowanie-programu-w-języku-c">Kompilowanie programu w
+języku C</a></li>
+<li><a href="#hot-plug">Hot plug</a></li>
+<li><a href="#debuggowanie">Debuggowanie</a></li>
+<li><a href="#openwrt">OpenWRT</a></li>
+<li><a href="#jak-zacząć-pracę-z-openwrt">Jak zacząć pracę z
+OpenWRT</a></li>
+<li><a href="#tworzenie-własnego-pakietu">Tworzenie własnego
+pakietu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

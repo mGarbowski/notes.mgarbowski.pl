@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wprowadzenie-do-teorii-sygnalow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-szereg-i-transformata-fouriera.html">Następny: 02-szereg-i-transformata-fouriera.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wprowadzenie-do-teorii-sygnałów">Wprowadzenie do teorii
+sygnałów</h1>
+<p>Sygnały i Systemy - Wojciechowski</p>
+<h2 id="sygnał">Sygnał</h2>
+<p>Sygnał to wielkość fizyczna zmieniająca się w czasie</p>
+<h3 id="podział">Podział</h3>
+<ul>
+<li>Ze względu na naturę zjawiska
+<ul>
+<li>deterministyczne - opisywane wzorem matematycznym</li>
+<li>stochastyczne (losowe) - opisywane rachunkiem
+prawdopodobieństwa</li>
+</ul></li>
+<li>Ze względu na wymiar
+<ul>
+<li>jednowymiarowe</li>
+<li>wielowymiarowe</li>
+</ul></li>
+<li>Ze względu na dziedzinę
+<ul>
+<li>czasu ciągłego</li>
+<li>czasu dyskretnego</li>
+</ul></li>
+<li>Ze względu na zbiór wartości
+<ul>
+<li>ciągły / dyskretny</li>
+<li>rzeczywiste / zespolone</li>
+</ul></li>
+<li>Ze względu na okresowość
+<ul>
+<li>okresowe</li>
+<li>nieokresowe</li>
+</ul></li>
+<li>Ze względu na czas trwania
+<ul>
+<li>o skończonym czasie trwania (impulsowe)</li>
+<li>o nieskończonym czasie trwania ### Przykłady</li>
+</ul></li>
+<li>Sygnał ciągły czasu dyskretnego - sygnał po próbkowaniu idealnym
+sygnału analogowego</li>
+<li>Sygnał dyskretny czasu ciągłego - sygnał schodkowy na wyjściu
+przetwornika analogowo-cyfrowego</li>
+<li>Sygnał dyskretny czasu dyskretnego - sygnał spróbkowany idealnie po
+kwantyzacji równomiernej</li>
+</ul>
+<h3 id="sygnał-okresowy-czasu-ciągłego">Sygnał okresowy czasu
+ciągłego</h3>
+<ul>
+<li><span class="math inline">\(T_0\)</span> - okres podstawowy
+<ul>
+<li><span class="math inline">\(\min_{T_0} \exists T_0 &gt; 0: \forall t
+\in \mathbb{R}: x(t) = x(t + T_0)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(f_0 = \frac{1}{T_0}\)</span> -
+częstotliwość podstawowa</li>
+<li><span class="math inline">\(\omega_0 = 2 \pi f_0\)</span> - pulsacja
+podstawowa</li>
+</ul>
+<h3 id="sygnał-okresowy-czasu-dyskretnego">Sygnał okresowy czasu
+dyskretnego</h3>
+<ul>
+<li><span class="math inline">\(N_0\)</span> - okres podstawowy</li>
+</ul>
+<h2 id="sygnały-o-skończonym-czasie-trwania">Sygnały o skończonym czasie
+trwania</h2>
+<h3 id="czasu-ciągłego">Czasu ciągłego</h3>
+<h4 id="impuls-prostokątny">Impuls prostokątny</h4>
+<p><span class="math display">\[
+x(t) = A \cdot \Pi(\frac{t}{\tau})
+= \begin{cases}
+    A/2 &amp; t=\pm\tau/2 \\
+    A &amp; t \in (\tau/2, \tau/2) \\
+    0 &amp; w \quad p. p.
+\end{cases}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(A\)</span> - amplituda</li>
+<li><span class="math inline">\(\tau\)</span> - czas trwania
+impulsu</li>
+</ul>
+<h4 id="impuls-trójkątny">Impuls trójkątny</h4>
+<p><span class="math display">\[
+x(t) = A \cdot \Lambda(\frac{t}{\tau})
+\]</span> * <span class="math inline">\(A\)</span> - amplituda * <span
+class="math inline">\(2\tau\)</span> - czas trwania impulsu</p>
+<h3 id="czasu-dyskretnego">Czasu dyskretnego</h3>
+<h4 id="impuls-jednostkowy">Impuls jednostkowy</h4>
+<p>(Delta Kroneckera) <span class="math display">\[
+\delta(n) = \begin{cases}
+    1 &amp; n=0 \\
+    0 &amp; n \ne 0
+\end{cases}
+\]</span> #### Impuls prostokątny <span class="math display">\[
+\Pi_N(n) = \begin{cases}
+    1 &amp; n \in [-N,N] \\
+    0 &amp; n \notin [-N,N]
+\end{cases}
+\]</span></p>
+<h2 id="sygnały-o-nieskończonym-czasie-trwania">Sygnały o nieskończonym
+czasie trwania</h2>
+<h4 id="sygnał-sa">Sygnał Sa</h4>
+<p><span class="math display">\[Sa(\omega_0 t) = \frac{sin(\omega_0
+t)}{\omega_0 t}\]</span> * <span class="math inline">\(\omega_0
+t\)</span> - obwiednia sygnału</p>
+<h4 id="sygnał-gaussa">Sygnał Gaussa</h4>
+<p><span class="math display">\[g(t) = \frac{1}{\sigma
+\sqrt{2\pi}}exp(-\frac{(t-\mu)^2}{2\sigma^2})\]</span> #### Skok
+jednostkowy <span class="math display">\[\mathbb{1}(t) = \begin{cases}
+    1 &amp; t &gt; 0 \\
+    1/2 &amp; t=0 \\
+    0 &amp; t &lt; 0
+\end{cases}\]</span> #### Skok rampowy <span class="math display">\[r(t)
+= t \cdot \mathbb{1}(t) = \begin{cases}
+    t &amp; t \ge 0 \\
+    0 &amp; t &lt; 0
+\end{cases}\]</span> * <span class="math inline">\(\frac{d}{dt}r(t) =
+\mathbb{1}(t)\)</span> #### Skok jednostkowy (dyskretny) <span
+class="math display">\[
+\mathbb{1}(n) = \begin{cases}
+    1 &amp; n \ge 0 \\
+    0 &amp; n &lt; 0
+\end{cases}
+\]</span></p>
+<h2 id="operacje-na-sygnałach">Operacje na sygnałach</h2>
+<h3 id="przesunięcie-w-czasie-translacja">Przesunięcie w czasie
+(translacja)</h3>
+<ul>
+<li><span class="math inline">\(t \rightarrow t - t_0\)</span> -
+przesunięcie w prawo o <span class="math inline">\(t_0\)</span></li>
+</ul>
+<h3 id="skalowanie-osi-czasu">Skalowanie osi czasu</h3>
+<ul>
+<li><span class="math inline">\(t \rightarrow a \cdot t\)</span>
+<ul>
+<li><span class="math inline">\(a &gt; 1\)</span> - ściśnięcie</li>
+<li><span class="math inline">\(a &lt; 1\)</span> - rozciągnięcie</li>
+</ul></li>
+</ul>
+<h3 id="mnożenie-sygnałów">Mnożenie sygnałów</h3>
+<ul>
+<li>Mnożenie dwóch sygnałów</li>
+<li>Mnożenie przez stałą (wzmocnienie / tłumienie)</li>
+<li>Mnożenie przez skok jednostkowy (sygnał przyczynowy)</li>
+<li>Mnożenie przez okno (okienkowanie)</li>
+<li>Mnożenie przez cos/sin (modulacja)</li>
+<li>Mnożenie przez deltę (delta Diraca albo impuls jednostkowy)
+<ul>
+<li><span class="math inline">\(x(t) \cdot \delta(t-t_0) = x(t_0) \cdot
+\delta(t-t_0)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="podstawowe-parametry-sygnałów">Podstawowe parametry
+sygnałów</h2>
+<ul>
+<li>Wartość średnia</li>
+<li>Energia</li>
+<li>Moc średnia</li>
+</ul>
+<p>Dla sygnałów okresowych oblicza się wartości dla jednego okresu</p>
+<h2 id="sygnały-energii-i-mocy">Sygnały energii i mocy</h2>
+<ul>
+<li>Sygnał energii - energia jest ograniczona (liczba rzeczywista)
+<ul>
+<li>wszystkie o ograniczonym czasie trwania (impulsowe)</li>
+<li>sygnały o drganiach gasnących (np. Sa)</li>
+<li>sygnały rzeczywiste spełniające własność
+<ul>
+<li><span class="math inline">\(\lim_{\tau \rightarrow \infty}
+\int_{-\tau}^\tau |x(t)|^2dt &lt; \infty\)</span></li>
+<li><span class="math inline">\(\lim_{M\rightarrow+\infty} \sum_{n=-M}^M
+|x(n)|^2 &lt; \infty\)</span></li>
+<li>np. sygnał Gaussa</li>
+</ul></li>
+</ul></li>
+<li>Sygnał mocy - moc średnia jest ograniczona (liczba rzeczywista)
+<ul>
+<li>sygnały okresowe</li>
+<li>sygnały rzeczywiste dążące do stałej w nieskończoności
+<ul>
+<li>np. sygnał stały, skok jednostkowy, signum</li>
+</ul></li>
+</ul></li>
+<li>Klasy są rozłączne</li>
+<li>Energia ograniczona <span class="math inline">\(\implies P_x =
+0\)</span></li>
+<li>Moc ograniczona <span class="math inline">\(\implies E_x =
+\infty\)</span></li>
+</ul>
+<h2 id="delta-diraca">Delta Diraca</h2>
+<p><span class="math display">\[
+\delta(t) = \begin{cases}
+0 &amp; t \ne 0 \\
+\infty &amp; t = 0 \\
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[\int_{-\infty}^\infty \delta(t)dt =
+1\]</span></p>
+<p>Delta diraca nie jest funkcją w zwykłym sensie bo dla <span
+class="math inline">\(t=0\)</span> nie przyjmuje wartości liczbowej.
+Jest modelem matematyznym sygnału impulsowego o nieskończenie krótkim
+czasie trwania i nieskończenie dużej amplitudzie.</p>
+<h3 id="ciągi-aproksymujące-deltę-diraca-przy-tau-rightarrow-0">Ciągi
+aproksymujące deltę Diraca przy <span class="math inline">\(\tau
+\rightarrow 0\)</span></h3>
+<ul>
+<li><span class="math inline">\(1/\tau \Lambda(t/\tau)\)</span></li>
+<li><span class="math inline">\(1/\tau \Pi(t/\tau)\)</span></li>
+</ul>
+<h3 id="własności-delty-diraca">Własności delty Diraca</h3>
+<ul>
+<li>Parzystość <span class="math inline">\(\delta(-t) =
+\delta(t)\)</span></li>
+<li>Mnożenie przez stałą <span class="math inline">\(\int A \cdot
+\delta(t) dt = A \int \delta(t)dt = A\)</span></li>
+<li>Związek ze skokiem jednostkowym <span
+class="math inline">\(\frac{d}{dt}\mathbb{1}(t) =
+\delta(t)\)</span></li>
+<li>Własność próbkowania <span class="math inline">\(x(t) \delta(t-t_0)
+= x(t_0) \delta(t-t_0)\)</span></li>
+<li>Własność filtracji <span class="math inline">\(\int x(t)
+\delta(t-t_0)dt = x(t_0)\)</span></li>
+<li>Zmiana skali <span class="math inline">\(\delta(t/t_0) = |t_0|
+\delta(t)\)</span></li>
+<li>Splot <span class="math inline">\(x(t) * \delta(t-t_0) =
+x(t-t_0)\)</span></li>
+</ul>
+<h2 id="splot">Splot</h2>
+<p><span class="math display">\[x(t) * y(t) = \int_{-\infty}^\infty
+x(\tau)y(t-\tau)d\tau\]</span> <span
+class="math inline">\(y(t-\tau)\)</span> - złożenie inwersji czasowej z
+przesunięciem o <span class="math inline">\(t\)</span> w dziedzinie
+<span class="math inline">\(\tau\)</span></p>
+<h2 id="dystrybucja-grzebieniowa">Dystrybucja grzebieniowa</h2>
+<p><span class="math display">\[\delta_T(t) = \sum_{n=-\infty}^\infty
+\delta(t-nT)\]</span></p>
+<ul>
+<li>Jest modelem okresowego sygnału próbkującego do próbkowania
+równomiernego</li>
+<li>Służy do próbkowania równomiernego</li>
+<li>Próbkowanie polega na przemnożeniu sygnału przez <span
+class="math inline">\(\delta_T(t)\)</span>
+<ul>
+<li><span class="math inline">\(T\)</span> - okres próbkowania.</li>
+</ul></li>
+</ul>
+<h3 id="próbkowanie">Próbkowanie</h3>
+<p><span class="math display">\[x_S(t)
+= x(t) \cdot \delta_{T_s}(t)
+= x(t) \sum_{n=-\infty}^{\infty} \delta(t-nT_s)
+= \sum_{n=-\infty}^{\infty} x(t) \delta(t-nT_s)
+= \sum_{n=-\infty}^{\infty} x(nT_s) \delta(t-nT_s)
+\]</span> <span class="math inline">\(x_S(t)\)</span> - sygnał
+spróbkowany</p>
+<h3 id="powielenie-okresowe-sygnału-impulsowego">Powielenie okresowe
+sygnału impulsowego</h3>
+<p><span class="math display">\[
+x(t)
+= z(t) * \delta_{T_0}(t)
+= z(t) * \sum_{n=-\infty}^{\infty}\delta(t-nT_0)
+= \sum_{n=-\infty}^{\infty} z(t) * \delta(t-nT_0)
+= \sum_{n=-\infty}^\infty z(t-nT_0)
+\]</span> * <span class="math inline">\(x(t)\)</span> to sygnał okresowy
+składający się z powielonych impulsów <span
+class="math inline">\(z(t)\)</span> * <span
+class="math inline">\(z(t)\)</span> jest sygnałem impulsowym o czasie
+trwania <span class="math inline">\(\tau &lt; T_0\)</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie-do-teorii-sygnałów">Wprowadzenie do teorii
+sygnałów</a>
+<ul>
+<li><a href="#sygnał">Sygnał</a>
+<ul>
+<li><a href="#podział">Podział</a></li>
+<li><a href="#sygnał-okresowy-czasu-ciągłego">Sygnał okresowy czasu
+ciągłego</a></li>
+<li><a href="#sygnał-okresowy-czasu-dyskretnego">Sygnał okresowy czasu
+dyskretnego</a></li>
+</ul></li>
+<li><a href="#sygnały-o-skończonym-czasie-trwania">Sygnały o skończonym
+czasie trwania</a>
+<ul>
+<li><a href="#czasu-ciągłego">Czasu ciągłego</a></li>
+<li><a href="#czasu-dyskretnego">Czasu dyskretnego</a></li>
+</ul></li>
+<li><a href="#sygnały-o-nieskończonym-czasie-trwania">Sygnały o
+nieskończonym czasie trwania</a></li>
+<li><a href="#operacje-na-sygnałach">Operacje na sygnałach</a>
+<ul>
+<li><a href="#przesunięcie-w-czasie-translacja">Przesunięcie w czasie
+(translacja)</a></li>
+<li><a href="#skalowanie-osi-czasu">Skalowanie osi czasu</a></li>
+<li><a href="#mnożenie-sygnałów">Mnożenie sygnałów</a></li>
+</ul></li>
+<li><a href="#podstawowe-parametry-sygnałów">Podstawowe parametry
+sygnałów</a></li>
+<li><a href="#sygnały-energii-i-mocy">Sygnały energii i mocy</a></li>
+<li><a href="#delta-diraca">Delta Diraca</a>
+<ul>
+<li><a href="#ciągi-aproksymujące-deltę-diraca-przy-tau-rightarrow-0">Ciągi
+aproksymujące deltę Diraca przy <span class="math inline">\(\tau
+\rightarrow 0\)</span></a></li>
+<li><a href="#własności-delty-diraca">Własności delty Diraca</a></li>
+</ul></li>
+<li><a href="#splot">Splot</a></li>
+<li><a href="#dystrybucja-grzebieniowa">Dystrybucja grzebieniowa</a>
+<ul>
+<li><a href="#próbkowanie">Próbkowanie</a></li>
+<li><a href="#powielenie-okresowe-sygnału-impulsowego">Powielenie
+okresowe sygnału impulsowego</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

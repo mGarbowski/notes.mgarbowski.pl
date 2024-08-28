@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-filtracja-cyfrowa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-cyfrowe-przetwarzanie-sygnalow.html">Poprzedni: 04-cyfrowe-przetwarzanie-sygnalow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-teoria-informacji.html">Następny: 06-teoria-informacji.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="filtracja-cyfrowa">Filtracja cyfrowa</h1>
+<h2 id="system-ls">System LS</h2>
+<p>Liniowy i stacjonarny (LTI - Linear Time-Invariant) ### Liniowość
+<span class="math display">\[\alpha x_1(n) + \beta x_2(n) \rightarrow
+\alpha y_1(n) + \beta y_2(n)\]</span> ### Stacjonarność <span
+class="math display">\[x(n-N) \rightarrow y(n-N) \quad N &gt; 0, n \in
+\mathbb{Z}\]</span></p>
+<h2 id="charakterystyki-czasowe">Charakterystyki czasowe</h2>
+<ul>
+<li>Odpowiedź impulsowa filtru cyfrowego <span
+class="math inline">\(h(n)\)</span>
+<ul>
+<li>z jednej odpowiedzi można dowiedzieć się wszystkiego o systemie</li>
+<li><span class="math inline">\(\delta(n) \rightarrow h(n)\)</span></li>
+</ul></li>
+<li>Odpowiedź jednostkowa (skokowa) filtru cyfrowego
+<ul>
+<li><span class="math inline">\(\mathbb{1}(n) \rightarrow
+k(n)\)</span></li>
+</ul></li>
+<li>Sygnał wejściowy = wymuszenie = pobudzenie</li>
+<li>Sygnał wyjściowy = odpowiedź <span class="math display">\[
+\delta(n) = \mathbb{1}(n) \mathbb{1}(n-1) \implies h(n) = k(n) - k(n-1)
+\]</span> ## Odpowiedź na dowolne pobudzenie Odpowiedź <span
+class="math inline">\(y(n)\)</span> na dowolne pobudzenie <span
+class="math inline">\(x(n)\)</span> jest splotem czasu dyskretnego tego
+pobudzenia z odpowiedzią impulsową <span
+class="math inline">\(h(n)\)</span></li>
+</ul>
+<p><span class="math display">\[y(n) = h(n) * x(n)\]</span></p>
+<h2 id="równanie-wejście-wyjście">Równanie wejście-wyjście</h2>
+<p>Równanie ma postać równania różnicowego zwyczajnego o stałych
+współczynnikach z warunkami początkowymi <span
+class="math inline">\(y(n_0), y(N_0-1), \ldots, y(n_0 -m +
+1)\)</span></p>
+<p><span class="math display">\[
+y(n)
+= -\sum_{i=1}^m a_i y(n-i) + \sum_{j=0}^l b_j x(n-j)
+\quad n \ge n_0
+\]</span> ### Filtry SOI * O skończonej odpowiedzi impulsowej *
+Nierekursywne równanie</p>
+<p><span class="math display">\[y(n) = \sum_{j=0}^l b_j x(n-j)\]</span>
+Odpowiedź impulsowa <span class="math display">\[h(n) = \sum_{j=0}^l b_j
+\delta(n-j)\]</span></p>
+<h3 id="filtry-noi">Filtry NOI</h3>
+<ul>
+<li>O nieskończonej odpowiedzi impulsowej</li>
+<li>Opisany równaniem rekursywnym</li>
+</ul>
+<h2 id="elementy-schematów-blokowych">Elementy schematów blokowych</h2>
+<ul>
+<li>Węzeł rozgałęziający</li>
+<li>Węzeł sumacyjny</li>
+<li>Blok proporcjonalny</li>
+<li>Blok opóźniający</li>
+</ul>
+<p><img src="./obrazy/elementy-schematow-blokowych.png" /></p>
+<h2 id="opis-w-dziedzinie-czestotliwości">Opis w dziedzinie
+czestotliwości</h2>
+<h3 id="charakterystyka-częstotliwościowa">Charakterystyka
+częstotliwościowa</h3>
+<ul>
+<li><span class="math inline">\(H(\Omega)\)</span> - charakterystyka
+częstotliwościowa filtru cyfrowego
+<ul>
+<li><span class="math inline">\(h(n) \leftrightarrow H(\Omega)\)</span>
+- dyskretna transformata Fouriera</li>
+<li><span class="math inline">\(Y(\Omega) =
+X(\Omega)H(\Omega)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(A(\Omega)\)</span> - charakterystyka
+amplitudowa
+<ul>
+<li>parzysta</li>
+</ul></li>
+<li><span class="math inline">\(\phi(\Omega)\)</span> - charakterystyka
+fazowa
+<ul>
+<li>nieparzysta</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[H(\Omega) = |H(\Omega)| \exp(j
+\arg(H(\Omega))) = A(\Omega) \exp(j\phi(\Omega))\]</span></p>
+<h3 id="podział-filtrów">Podział filtrów</h3>
+<ul>
+<li>LP (low-pass) - dolnoprzepustowy</li>
+<li>HP (high-pass) - górnoprzepustowy</li>
+<li>BP (band-pass)</li>
+<li>BS (band-stop)</li>
+</ul>
+<h2 id="odpowiedź-na-pobudzenie-harmoniczne">Odpowiedź na pobudzenie
+harmoniczne</h2>
+<p><span class="math display">\[\exp(j\Omega_0 n) \rightarrow
+\exp(j\Omega_0 n) H(\Omega_0)\]</span> <span class="math display">\[K
+\rightarrow KH(0)\]</span> ## Opis w dziedzinie zespolonej</p>
+<h3 id="transformata-z">Transformata Z</h3>
+<ul>
+<li>Rozwiązywanie równań różnicowych i układów równań różnicowych</li>
+<li>Wyznaczanie składowej wymuszonej i swobodnej odpowiedzi</li>
+<li>Wyznaczanie transmitancji filtru</li>
+<li>Wyznaczanie odpowiedzi impulsowej z transmitancji</li>
+<li>Wyznaczanie odpowiedzi jednostkowej w dziedzinie <span
+class="math inline">\(z\)</span></li>
+<li>Wyznaczanie odpowiedzi filtru na pobudzenie przyczynowe</li>
+<li>Rozkład zer i biegunów transmitancji w płaszczyźnie zmiennej
+zespolonej <span class="math inline">\(z\)</span></li>
+<li>Badanie stabilności systemu</li>
+</ul>
+<h3 id="definicja-jednostronnej-transformaty-z">Definicja jednostronnej
+transformaty Z</h3>
+<p><span class="math display">\[X(z) = \sum_{n=0}^\infty x(n)z^{-n}, z
+\in \mathbb{C}\]</span> * Przekształcenie z dziedziny <span
+class="math inline">\(n\)</span> do dziedziny zmiennej zespolonej <span
+class="math inline">\(z\)</span> * Nieskończony szereg potęgowy zmiennej
+zespolonej <span class="math inline">\(z\)</span></p>
+<h3 id="transmitancja">Transmitancja</h3>
+<ul>
+<li><span class="math inline">\(h(n) \leftrightarrow H(z)\)</span> -
+transformata Z odpowiedzi impulsowej</li>
+<li><span class="math inline">\(Y(z) = X(z)H(z)\)</span></li>
+<li>Związek między transmitancją a charakterystyką częstotliwościową
+<ul>
+<li><span class="math inline">\(H(\Omega) = H(z)
+|_{z=e^{j\Omega}}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="transmitancja-filtrów-soi-i-noi">Transmitancja filtrów SOI i
+NOI</h3>
+<p><span class="math display">\[
+y(n)
+= -\sum_{i=1}^m a_i y(n-i) + \sum_{j=0}^l b_j x(n-j)
+\quad n \ge n_0
+\]</span></p>
+<ul>
+<li>Transmitancja filtru SOI
+<ul>
+<li><span class="math inline">\(H(z) = b_0 + b_1z^{-1} + \ldots +
+b_lz^{-l}\)</span></li>
+</ul></li>
+<li>Transmitancja filtru NOI
+<ul>
+<li><span class="math inline">\(H(z) = \frac{b_0 + b_1z^{-1} + \ldots +
+b_lz^{-l}}{1 + a_1z^{-1} + \ldots + a_mz^{-m}}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="połączenie-szeregowe">Połączenie szeregowe</h3>
+<p><span class="math display">\[h = h_1 * h_2\]</span> <span
+class="math display">\[H(z) = H_1(z) \cdot H_2(z)\]</span></p>
+<h3 id="połączenie-równoległe">Połączenie równoległe</h3>
+<p><span class="math display">\[h = h_1 + h_2\]</span> <span
+class="math display">\[H(z) = H_1(z) + H_2(z)\]</span> ### Połączenie ze
+sprzężeniem zwrotnym</p>
+<p><span class="math display">\[H(z) = \frac{H_1(z)}{1 + H_1(z) \cdot
+H_2(z)}\]</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#filtracja-cyfrowa">Filtracja cyfrowa</a>
+<ul>
+<li><a href="#system-ls">System LS</a></li>
+<li><a href="#charakterystyki-czasowe">Charakterystyki czasowe</a></li>
+<li><a href="#równanie-wejście-wyjście">Równanie wejście-wyjście</a>
+<ul>
+<li><a href="#filtry-noi">Filtry NOI</a></li>
+</ul></li>
+<li><a href="#elementy-schematów-blokowych">Elementy schematów
+blokowych</a></li>
+<li><a href="#opis-w-dziedzinie-czestotliwości">Opis w dziedzinie
+czestotliwości</a>
+<ul>
+<li><a href="#charakterystyka-częstotliwościowa">Charakterystyka
+częstotliwościowa</a></li>
+<li><a href="#podział-filtrów">Podział filtrów</a></li>
+</ul></li>
+<li><a href="#odpowiedź-na-pobudzenie-harmoniczne">Odpowiedź na
+pobudzenie harmoniczne</a>
+<ul>
+<li><a href="#transformata-z">Transformata Z</a></li>
+<li><a href="#definicja-jednostronnej-transformaty-z">Definicja
+jednostronnej transformaty Z</a></li>
+<li><a href="#transmitancja">Transmitancja</a></li>
+<li><a href="#transmitancja-filtrów-soi-i-noi">Transmitancja filtrów SOI
+i NOI</a></li>
+<li><a href="#połączenie-szeregowe">Połączenie szeregowe</a></li>
+<li><a href="#połączenie-równoległe">Połączenie równoległe</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

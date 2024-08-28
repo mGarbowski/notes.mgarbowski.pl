@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>16-multicast</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="15-laczenie-sieci.html">Poprzedni: 15-laczenie-sieci.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="17-sieci-bezprzewodowe.html">Następny: 17-sieci-bezprzewodowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="multicast-ip">Multicast IP</h1>
+<ul>
+<li>Transmisja od jednego nadawcy do wielu odbiorców jednocześnie</li>
+<li>Wymaga innych protokołów routingu, więcej niż jedna decyzja dla
+każdego adresu</li>
+<li>Jest szeroko zaimplementowany ale w praktyce w niewielu routerach
+jest skonfigurowany</li>
+<li>W praktyce ze względu na mały stopień rozpowszechnienia jest
+praktycznie nieużywany</li>
+<li>Jest integralną częścią IPv6</li>
+</ul>
+<h2 id="adresy">Adresy</h2>
+<ul>
+<li>Klasa D - przeznaczona na transmisje multicast</li>
+<li>Przydziela się adresy na potrzebę konkretnej transmisji</li>
+<li>zakres <code>224.0.0.0</code>-<code>239.255.255.255</code></li>
+</ul>
+<h2 id="multicast-w-sieci-lokalnej">Multicast w sieci lokalnej</h2>
+<ul>
+<li>Adres MAC budowany na podstawie adresu IP multicast</li>
+<li>Ramka odbierana przez wszystkie zainteresowane hosty</li>
+<li>Broadcast jest odbierany zawsze (przez system operacyjny) a
+multicast tylko na życzenie systemu operacyjnego</li>
+<li>multicast jest filtrowany przez kartę sieciową, nie przerywają pracy
+systemu operacyjnego</li>
+</ul>
+<h2 id="internet-group-management-protocol">Internet Group Management
+Protocol</h2>
+<ul>
+<li>2 typy pakietów
+<ul>
+<li>report</li>
+<li>query</li>
+</ul></li>
+<li>Host chcący odbierać pakiety multicast wpisuje odpowiedni adres do
+rejestrów karty sieciowej i wysyła pakiet report do routera</li>
+<li>Router przechowuje listę adresów odbierających multicast i zgłasza
+zmianę do routera nadrzędnego</li>
+<li>Router okresowo rozsyła pakiety query to hostów, którzy mają odesłać
+pakiet report żeby nie zostać usuniętym z listy - zapewnia czyszczenie
+listy</li>
+<li>Zaprojektowany dla sieci hierarchicznej, nie nadaje się do sieci
+szkieletowej internetu (topologia kraty), nadaje się tylko do sieci
+lokalnych</li>
+</ul>
+<h2 id="adres-multicastowy-ipv6">Adres multicastowy IPv6</h2>
+<ul>
+<li>stałe 0xff</li>
+<li>scope - 4 bity - jak szeroko mają być rozsyłane pakiety
+<ul>
+<li>node-local</li>
+<li>link-local</li>
+<li>site-local</li>
+<li>organization-local</li>
+<li>global - nie wszędzie dotrze, routery mają ograniczenia i nie
+przepuszczą pakietów</li>
+</ul></li>
+<li>flag - 4 bity
+<ul>
+<li>well known address</li>
+<li>transient address - tymczasowy adres przeznaczony na konkretną
+transmisję</li>
+</ul></li>
+<li>group ID - 112 bitów</li>
+</ul>
+<h2 id="multicast-listener-discovery">Multicast Listener Discovery</h2>
+<ul>
+<li>Współczesny odpowiednik IGMP</li>
+<li>Przeznaczony do pracy w sieci lokalnej</li>
+</ul>
+<h2 id="protocol-independent-multicast">Protocol Independent
+Multicast</h2>
+<h3 id="sparse-mode">Sparse mode</h3>
+<ul>
+<li>router zaczyna przekazywać pakiety do odbiorcy</li>
+<li>w międzyczasie może zostać znaleziona lepsza ścieżka z pominięciem
+routera kontaktowego</li>
+<li>Router odbiorcy nawiązuje bezpośrednie połączenie z nadawcą i zrywa
+połączenie z routerem kontaktowym</li>
+</ul>
+<h3 id="dense-mode">Dense mode</h3>
+<ul>
+<li>Rozsyłanie do wszystkich routerów - flooding</li>
+<li>Routery zgłaszają chęć odłączenia się od transmisji</li>
+</ul>
+<h2 id="application-layer-multicast">Application Layer Multicast</h2>
+<ul>
+<li>Wybiera się klientów, którzy będą działać jako przekaźniki</li>
+<li>Tylko jeden klient ma kontakt z centralnym serwerem, reszta klientów
+kontaktuje się z nim</li>
+</ul>
+<h2 id="reliable-multicast">Reliable Multicast</h2>
+<ul>
+<li>Dla sytuacji kiedy wszystkie pakiety muszą na pewno dotrzeć do
+każdego klienta</li>
+<li>sender initiated - oparty na potwierdzeniach, jeśli nie dotrą to
+serwer retransmituje</li>
+<li>receiver initiated - oparty na negatywnych potwierdzeniach od
+klientów, powodują retransmisję</li>
+<li>tree based</li>
+<li>ring based</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#multicast-ip">Multicast IP</a>
+<ul>
+<li><a href="#adresy">Adresy</a></li>
+<li><a href="#multicast-w-sieci-lokalnej">Multicast w sieci
+lokalnej</a></li>
+<li><a href="#internet-group-management-protocol">Internet Group
+Management Protocol</a></li>
+<li><a href="#adres-multicastowy-ipv6">Adres multicastowy IPv6</a></li>
+<li><a href="#multicast-listener-discovery">Multicast Listener
+Discovery</a></li>
+<li><a href="#protocol-independent-multicast">Protocol Independent
+Multicast</a>
+<ul>
+<li><a href="#sparse-mode">Sparse mode</a></li>
+<li><a href="#dense-mode">Dense mode</a></li>
+</ul></li>
+<li><a href="#application-layer-multicast">Application Layer
+Multicast</a></li>
+<li><a href="#reliable-multicast">Reliable Multicast</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

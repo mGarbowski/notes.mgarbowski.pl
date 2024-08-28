@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-architektury-systemow-zarzadzania</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-systemy-informacyjne-w-zarzadzaniu.html">Poprzedni: 01-systemy-informacyjne-w-zarzadzaniu.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-modelowanie-procesow-biznesowych.html">Następny: 03-modelowanie-procesow-biznesowych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wprowadzenie do systemów zarządzania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="01-systemy-informacyjne-w-zarzadzaniu.html">01-systemy-informacyjne-w-zarzadzaniu.html</a></li>
+                
+                <li><a href="02-architektury-systemow-zarzadzania.html">02-architektury-systemow-zarzadzania.html</a></li>
+                
+                <li><a href="03-modelowanie-procesow-biznesowych.html">03-modelowanie-procesow-biznesowych.html</a></li>
+                
+                <li><a href="04-modele-analityczne.html">04-modele-analityczne.html</a></li>
+                
+                <li><a href="kolokwium-1.html">kolokwium-1.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="architektury-informatycznych-systemów-zarządzania">Architektury
+informatycznych systemów zarządzania</h1>
+<h2 id="architektura-systemu">Architektura systemu</h2>
+<p>Architektura systemu to model koncepcyjny, który określa strukturę,
+zachowanie i pożądane widoki systemu.</p>
+<p>Opis architektury to formalny opis i reprezentacja systemu,
+zorganizowana w sposób, który wspiera rozumowanie dotyczące struktur i
+zachowań systemu.</p>
+<p>Architektura może dotyczyć przedsiębiorstwa, oprogramowania,
+sprzętu</p>
+<h2 id="modelowanie-architektury-archimate">Modelowanie architektury
+ArchiMate</h2>
+<ul>
+<li>Warstwa motywacyjna
+<ul>
+<li>domena analityków biznesowych</li>
+</ul></li>
+<li>Warstwa strategiczna
+<ul>
+<li>określenie celów strategiczynch (np. skrócić czas realizacji
+zamówień przez wdrożenie systemu MRP)</li>
+</ul></li>
+<li>Warstwa architektury biznesowej
+<ul>
+<li>opis procesów biznesowych</li>
+</ul></li>
+<li>Aplikacja
+<ul>
+<li>mapowanie aplikacji i usług na procesy biznesowe</li>
+</ul></li>
+<li>Technologie</li>
+<li>Implementacja / migracje</li>
+</ul>
+<h2 id="wymagania-biznesowe">Wymagania biznesowe</h2>
+<ul>
+<li>Enterprise Architect - komercyjny program do modelowania</li>
+<li>Można modelować bardziej skompikowane zależności między
+wymaganiami</li>
+<li>Proces biznesowy
+<ul>
+<li>diagram przedstawia relacje między aktywnościami</li>
+<li>np. wystawienie faktury jest powiązane z określoną aplikacją</li>
+<li>modeluje powiązanie między aktywnościami a funkcjonalnościami
+serwisów (mikroserwisów)</li>
+<li>obszar biznesowy i obszar aplikacyjny (oprogramowanie, które
+wspomaga obszar biznesowy)</li>
+</ul></li>
+</ul>
+<h2 id="widok-aplikacji-i-usług">Widok aplikacji i usług</h2>
+<ul>
+<li>HLD - high level design
+<ul>
+<li>np. będzie wykorzystywana baza danych</li>
+<li>określa jakie informacje będą przechowywane</li>
+</ul></li>
+<li>LLD - low level design
+<ul>
+<li>np. będzie wykorzystywana baza Postgres</li>
+<li>określone tabele</li>
+</ul></li>
+</ul>
+<h2 id="infrastruktura">Infrastruktura</h2>
+<ul>
+<li>Duży problem przy realizowaniu przedsięwzięcia
+<ul>
+<li>Ile serwerów potrzeba dla rozwiązania on-premise</li>
+<li>Jakie parametry</li>
+<li>Jaki software</li>
+<li>Monolit czy mikroserwisy</li>
+</ul></li>
+<li>Skomplikowana konfiguracja przy rozwiązaniach chmurowych
+<ul>
+<li>load balancing</li>
+<li>bezpieczeństwo</li>
+<li>logi</li>
+</ul></li>
+</ul>
+<h2 id="architektura-systemów-zarządzania">Architektura systemów
+zarządzania</h2>
+<ul>
+<li>Rządzą się tymi samymi prawami co inne systemy informatyczne</li>
+<li>Firmy raczej preferują systemy oparte na sprawdzonych rozwiązaniach,
+często wykorzystuje się dużo gotowych modułów</li>
+<li>Jest dużo pracy przy konfiguracji gotowców</li>
+</ul>
+<h3 id="architektury-warstwowe">Architektury warstwowe</h3>
+<ul>
+<li>3-wastwowa
+<ul>
+<li>klient</li>
+<li>serwer</li>
+<li>baza danych</li>
+</ul></li>
+<li>1-warstwowe i 2-wastwowe odchodzą z użycia</li>
+</ul>
+<h3 id="architektury-oparte-o-chmury-obliczeniowe">Architektury oparte o
+chmury obliczeniowe</h3>
+<ul>
+<li>Nie wszystkie dane można trzymać w chmurach</li>
+<li>Firmy budują prywatne chmury</li>
+<li>Zalety chmury
+<ul>
+<li>Początkowe koszty (dyskusyjne)</li>
+<li>Niezawodność</li>
+<li>Gotowce</li>
+<li>Skalowanie</li>
+<li>Koszty administracji przerzucone na dostawcę chmury</li>
+</ul></li>
+</ul>
+<h2 id="odoo">Odoo</h2>
+<ul>
+<li>System ERP</li>
+<li>Open source</li>
+<li>Oparty na PostgreSQL</li>
+<li>Modułowy, łatwy do rozbudowy</li>
+<li>Moduły pisane w Pythonie</li>
+<li>Gotowe moduły i predefiniowane tabele do księgowości, sprzedaży
+itd.</li>
+<li>Ok dla małych firm</li>
+</ul>
+<p>Comarch - komercyjne rozwiązanie na polski rynek</p>
+<h2 id="sap">SAP</h2>
+<ul>
+<li>Duże koszty</li>
+<li>Bardzo rozbudowane moduły</li>
+<li>Dostosowane do międzynarodowych firm
+<ul>
+<li>Wspiera rozliczenia w różnych systemach finansowych itp.</li>
+</ul></li>
+<li>Bardziej specyficznie przystosowane moduły
+<ul>
+<li>np. specjalne dla przemysłu chemicznego</li>
+</ul></li>
+<li>Język ABAP ale są też interfejsy do Javy</li>
+<li>Predefiniowane procesy</li>
+<li>Ustandaryzowana struktura organizacja
+<ul>
+<li>podział na działy sprzedaży, marketingu itd.</li>
+</ul></li>
+</ul>
+<h2 id="architektury-mikroserwisowe">Architektury mikroserwisowe</h2>
+<ul>
+<li>Mikroserwisy są trudniejsze do analizy</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#architektury-informatycznych-systemów-zarządzania">Architektury
+informatycznych systemów zarządzania</a>
+<ul>
+<li><a href="#architektura-systemu">Architektura systemu</a></li>
+<li><a href="#modelowanie-architektury-archimate">Modelowanie
+architektury ArchiMate</a></li>
+<li><a href="#wymagania-biznesowe">Wymagania biznesowe</a></li>
+<li><a href="#widok-aplikacji-i-usług">Widok aplikacji i usług</a></li>
+<li><a href="#infrastruktura">Infrastruktura</a></li>
+<li><a href="#architektura-systemów-zarządzania">Architektura systemów
+zarządzania</a>
+<ul>
+<li><a href="#architektury-warstwowe">Architektury warstwowe</a></li>
+<li><a href="#architektury-oparte-o-chmury-obliczeniowe">Architektury
+oparte o chmury obliczeniowe</a></li>
+</ul></li>
+<li><a href="#odoo">Odoo</a></li>
+<li><a href="#sap">SAP</a></li>
+<li><a href="#architektury-mikroserwisowe">Architektury
+mikroserwisowe</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-23-wejscie-wyjscie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-22-wyjatki.html">Poprzedni: wyklad-22-wyjatki.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-24-budowa-komputera.html">Następny: wyklad-24-budowa-komputera.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wejściewyjście-2023-06-07">Wejście/wyjście (2023-06-07)</h1>
+<p>Porty wejściowe i wyjściowe są widoczne w przestrzeni adresowej</p>
+<h2 id="budowa-komórki-pamięci">Budowa komórki pamięci</h2>
+<ul>
+<li>dekoder adresu
+<ul>
+<li>0 jeśli adres na szynie adresowej odpowiada adresowi komórki</li>
+<li>1 jeśli odpowiada</li>
+</ul></li>
+<li>szyna danych</li>
+<li>bufor trójstanowy - łączenie wyjść wielu bramek
+<ul>
+<li>wejście danych</li>
+<li>wyjście danych</li>
+<li>wejście włączające</li>
+<li>trzeci stan - wysokiej impedancji - tak jakby układu nie było
+(rozwarcie)</li>
+</ul></li>
+</ul>
+<p>Port wyjściowy z zapisem zwrotnym - można odczytać to co się do niego
+zapisało</p>
+<h2 id="podział-interfejsów-historyczny">Podział interfejsów
+(historyczny)</h2>
+<ul>
+<li>interfejs równoległy
+<ul>
+<li>tyle drutów ile bitów ma dana</li>
+</ul></li>
+<li>interfejs szeregowy
+<ul>
+<li>bity przesyłane jeden po drugim po tym samym drucie</li>
+</ul></li>
+</ul>
+<h2 id="dualizm-programowo-sprzętowy">Dualizm programowo-sprzętowy</h2>
+<p>Decyzja jak dużo robić w sprzęcie a jak dużo w oprogramowaniu to
+decyzja ekonomiczna, zmienia się z czasem</p>
+<h2 id="współpraca-z-urządzeniem-io">Współpraca z urządzeniem IO</h2>
+<p>Odczytać z komórki pamięci można w każdej chwili ale tylko kiedy jest
+gotowe wolno zapisywać / odczytywać</p>
+<ul>
+<li>Aktywne oczekiwanie (polling)</li>
+<li>Przerwania</li>
+<li>Bezpośredni dostęp do pamięci (DMA)</li>
+</ul>
+<h2 id="aktywne-oczekiwanie">Aktywne oczekiwanie</h2>
+<ul>
+<li>Cały protokół zrealizowany w oprogramowaniu</li>
+<li>Procesor kręci się w pustej pętli tak długo jak drukarka nie jest
+gotowa</li>
+<li>Nie nadaje się do wielozadaniowych systemów</li>
+</ul>
+<h2 id="obsługa-z-użyciem-przerwań">Obsługa z użyciem przerwań</h2>
+<ul>
+<li>Kiedy urządzenie jest gotowe, urządzenie zgłasza przerwanie</li>
+<li>To nie jest takie proste, dane są buforowane przez system
+operacyjny</li>
+<li>Obsługa jednego przerwania wymaga wykonania kodu rzędu kilkuset
+linijek C</li>
+<li>Nie jest oczywiste czy obsługa skomplikowanego przerwania czy długie
+czekanie w prostej pętli jest lepsze</li>
+<li>Nie nadaje się do szybkich urządzeń, jest jakaś krytyczna
+częstotliwość przerwań</li>
+<li>Współczesny system może obsłużyć rzędu 10k przerwań na sekundę, na
+mikrokontrolerach rzędu 100k na sekundę</li>
+</ul>
+<h2 id="bezpośredni-dostęp-do-pamięci">Bezpośredni dostęp do
+pamięci</h2>
+<ul>
+<li>Obecnie moduł sprzętowy jest tani</li>
+<li>Sterownik sam transmituje dane między pamięcią i urządzeniem IO
+zgodnie z gotowością urządzenia IO</li>
+<li>Budowa
+<ul>
+<li>rejestr adresu pamięci - ładowany początkiem bloku danych do
+przesłania, inkrementowany po przesłaniu</li>
+<li>licznik transmitowanych danych - długość bloku do przesłania,
+dekrementowany po przesłaniu</li>
+<li>odcina procesorowi dostęp do szyny na czas transmmisji - układ
+arbitrażu</li>
+<li>na koniec przesłania bloku (wyzerowanie licznika) zgłasza jedno
+przerwanie (na samym końcu a nie co bajt!)</li>
+</ul></li>
+<li>Współczesne każde urządzenie ma wbudowany moduł DMA</li>
+</ul>
+<h2 id="pamięć-masowa">Pamięć masowa</h2>
+<p>Są 2 bardzo różne technologie</p>
+<ul>
+<li><p>dyski magnetyczne</p></li>
+<li><p>pamięci półprzewodnikowe</p></li>
+<li><p>Logicznie to wektor bloków stałego rozmiaru (512B, 4KiB)</p></li>
+<li><p>Za organizację danych na blokach odpowiada system plików systemu
+operacyjnego</p></li>
+<li><p>Najmniejsza jednostka jaką można pobrać/zapisać to blok</p></li>
+</ul>
+<h2 id="sterownik-pamięci-masowej">Sterownik pamięci masowej</h2>
+<ul>
+<li>numer bloku</li>
+<li>liczba bloków</li>
+<li>typ polecenia (odczyt / zapis)</li>
+<li>kod stanu / odpowiedzi</li>
+<li>zazwyczaj DMA</li>
+<li>współczesne sterowniki mogą kolejkować polecenia i optymalizować
+kolejność operacji dla najlepszego całkowitego czasu</li>
+</ul>
+<h2 id="dyski-stałe-magnetyczne">Dyski stałe magnetyczne</h2>
+<ul>
+<li>wirujące sztywne talerze pokryte warstwą magnetyczną z (obu
+stron)</li>
+<li>koncentryczne ścieżki - kilkadziesiąt tysięcy, podzielone na
+sektory</li>
+<li>przesunięcie głowicy nad ścieżkę zajmuje czas rzędu ms</li>
+<li>po ustawieniu głowicy trzeba poczekać aż sektor wkręci się pod
+głowicę</li>
+<li>w sumie czas dostępu rzędu 10ms na ~plik</li>
+<li>Zużywają się mechanicznie (napęd głowicy, łożyska itd)</li>
+<li>Nie zużywa się sam nośnik magnetyczny (20 lat), zużywa się
+mechanika</li>
+</ul>
+<h2 id="pamięć-półprzewodnikowa">Pamięć półprzewodnikowa</h2>
+<ul>
+<li>technologia NAND Flash EEPROM</li>
+<li>bardzo szybki odczyt</li>
+<li>wymaga dodatkowym bitów korekcyjnych (pamięć się myli)</li>
+<li>wymaga skasowania przed zapisem</li>
+<li>blok kasowalny jest duzo większy niż zapisywalny</li>
+<li>długie kasowanie i zapis</li>
+<li>Ograniczona liczba cykli kasowania (blok można skasować nie więcej
+niż n rzędu 10k, 100k razy)</li>
+<li>Flash Translation Layer
+<ul>
+<li>algorytmy minimalizują liczbę kasowań</li>
+<li>pamięcią steruje mikrokomputer</li>
+<li>balansuje zużycie nośnika</li>
+</ul></li>
+<li>Nie nadaje się do ciągłego zapisywania dużych plików - nie do
+obrabiania wideo</li>
+<li>Nie nadaje się do pamięci wirtualnej - jest ciągła wymiana danych,
+lepiej wyłączyć pamięć wirtualną w laptopie z małym RAMem</li>
+<li>Im bardziej zapełniony tym szybciej się zużywa - lepiej zrobić
+partycję mniejszą niż całkowita dysku</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wejściewyjście-2023-06-07">Wejście/wyjście
+(2023-06-07)</a>
+<ul>
+<li><a href="#budowa-komórki-pamięci">Budowa komórki pamięci</a></li>
+<li><a href="#podział-interfejsów-historyczny">Podział interfejsów
+(historyczny)</a></li>
+<li><a href="#dualizm-programowo-sprzętowy">Dualizm
+programowo-sprzętowy</a></li>
+<li><a href="#współpraca-z-urządzeniem-io">Współpraca z urządzeniem
+IO</a></li>
+<li><a href="#aktywne-oczekiwanie">Aktywne oczekiwanie</a></li>
+<li><a href="#obsługa-z-użyciem-przerwań">Obsługa z użyciem
+przerwań</a></li>
+<li><a href="#bezpośredni-dostęp-do-pamięci">Bezpośredni dostęp do
+pamięci</a></li>
+<li><a href="#pamięć-masowa">Pamięć masowa</a></li>
+<li><a href="#sterownik-pamięci-masowej">Sterownik pamięci
+masowej</a></li>
+<li><a href="#dyski-stałe-magnetyczne">Dyski stałe magnetyczne</a></li>
+<li><a href="#pamięć-półprzewodnikowa">Pamięć półprzewodnikowa</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

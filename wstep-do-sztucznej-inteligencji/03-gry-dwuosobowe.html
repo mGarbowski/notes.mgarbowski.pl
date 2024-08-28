@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-gry-dwuosobowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-algorytmy-ewolucyjne.html">Poprzedni: 02-algorytmy-ewolucyjne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-klasyfikacja-i-regresja.html">Następny: 04-klasyfikacja-i-regresja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="gry-dwuosobowe">Gry dwuosobowe</h1>
+<p>Zajmujemy się grami * w postaci ekstensywnej * o sumie stałej
+(zerowej) * sprawiedliwymi * dwuosobowymi * o skończonym czasie
+rozgrywki</p>
+<p>Poszukiwanie strategii w takiej grze to problem przeszukiwania
+przestrzeni</p>
+<h2 id="podział-gier">Podział gier</h2>
+<h3 id="ze-względu-na-kolejność-podejmowania-decyzji">Ze względu na
+kolejność podejmowania decyzji</h3>
+<ul>
+<li>gry w postaci strategicznej (normalnej) - gracze podejmują decyzje
+jednocześnie, bez wiedzy o decyzjach innych uczestników</li>
+<li>gry w postaci ekstensywnej (rozwiniętej) - graczej podejmują decyzje
+sekwencyjnie, mając określone informacje o decyzjach</li>
+</ul>
+<h3 id="gry-o-sumie-zerowej">Gry o sumie zerowej</h3>
+<p>Zysk gracza oznacza stratę jego oponenta, interesy graczy są
+dokładnie przeciwstawne * deterministyczne / hazardowe * informacja
+pełna (warcaby) / informacja niepełna (statki)</p>
+<h2 id="deterministyczna-gra-dwuosobowa">Deterministyczna gra
+dwuosobowa</h2>
+<ul>
+<li>dwaj przeciwnicy, Min i Max</li>
+<li>wykonują ruchy naprzemiennie</li>
+<li>nie ma czynników losowych</li>
+<li>stan gry jest znany obu przeciwnikom</li>
+<li>koniec gry ma przypisany wynik - liczba rzeczywista nazywana
+wypłatą</li>
+<li>cel gry
+<ul>
+<li>dla gracza rozpoczynającego Max - maksymalizacja wypłaty</li>
+<li>dla gracza Min - minimalizacja wypłaty</li>
+</ul></li>
+</ul>
+<h3 id="model">Model</h3>
+<p><span class="math display">\[\langle S, P, s_0, T, w \rangle\]</span>
+* <span class="math inline">\(s \in S\)</span> - stan i informacja kto
+wykonuje ruch (np. ustawienie figur na szachownicy) * <span
+class="math inline">\(p \in P\)</span> - funkcja następnika,
+reprezentuje ruchy (posunięcia w grze) <span class="math inline">\(p: S
+\rightarrow S\)</span> lista stanów spełniających reguły gry * <span
+class="math inline">\(s_0 \in S\)</span> - stan początkowy * <span
+class="math inline">\(T \subset S\)</span> - zbiór stanów terminalnych
+(np. mat w szachach) * <span class="math inline">\(w\)</span> - funkcja
+wypłaty zdefiniowana dla stanów terminalnych * np 1: wygrana Max, 0:
+remis, -1: wygrana Min</p>
+<p>Do wyznaczania następnego ruchu można użyć drzewa gry (właściwie to
+grafu acyklicznego) zbudowanego na podstawie modelu. Optymalne strategie
+można wyszukać w tym grafie</p>
+<p>Sprawiedliwa gra - każdy z graczy <em>może</em> wygrać</p>
+<h3 id="przegląd-wyczerpujący">Przegląd wyczerpujący</h3>
+<p>Przez rekurencyjne przeglądanie drzewa reprezentowanego w pamięci
+można oetykietować pozostałe węzły (początkowo znane są tylko etykiety
+stanów terminalnych) * dla gracza Max - maksymalna wypłata z następników
+* dla gracza Min - minimalna wypłata z następników</p>
+<ul>
+<li>Znajduje optymalną strategię, gdy przeciwnik gra optymalnie</li>
+<li>Złożoność czasowa <span class="math inline">\(O(b^N)\)</span>
+<ul>
+<li><span class="math inline">\(b\)</span> - maksymalne rozgałęzienie
+drzewa</li>
+<li><span class="math inline">\(N\)</span> - maksymalna wysokość
+drzewa</li>
+</ul></li>
+<li>Wysokość drzewa nie przekracza <span
+class="math inline">\(2N\)</span></li>
+<li>Dla gry w szachy nie da się znaleźć rozwiązania przez pełne
+przeszukiwanie bo <span class="math inline">\(b\simeq 35\)</span>, <span
+class="math inline">\(N \simeq100\)</span>
+<ul>
+<li>drzewo nie zmieści się w żadnej pamięci</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-minimax">Algorytm MiniMax</h2>
+<ul>
+<li>Nie reprezentuje pełnego drzewa gry, niezależnie analizuje stany
+potomne</li>
+<li>Przegląda poddrzewo w głąb do określonej głębokośći (np. tylko 10
+ruchów do przodu), pozwala analizować ścieżki o ograniczonej
+długości</li>
+<li>Oszczędza czas</li>
+<li>Wymaga funkcji oceny stanu <span class="math inline">\(h(s)\)</span>
+<ul>
+<li><span class="math inline">\(w(s)\)</span> dla stanów
+terminalnych</li>
+<li>heurystyka dla stanów nieterminalnych</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> minimax(state, depth, is_max_move):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> state.is_terminal() <span class="kw">or</span> depth <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> h(state)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        minimax(next_state, depth<span class="op">-</span><span class="dv">1</span>, <span class="kw">not</span> is_max_move)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> next_state <span class="kw">in</span> state.<span class="bu">next</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_max_move:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">max</span>(values)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">min</span>(values)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div>
+<h2 id="algorytm-minimax-z-przycinaniem-alpha---beta">Algorytm MiniMax z
+przycinaniem <span class="math inline">\(\alpha - \beta\)</span></h2>
+<ul>
+<li>Jeżeli analizowana ścieżka ma wybór gorszy niż obecnie najlepszy dla
+innej ścieżki, to nie ma sensu jej analizować (wiadomo że oponent na
+pewno nie wybierze tej ścieżki jeśli gra optymalnie)</li>
+<li>Taka strategia pozwala wyeliminować średnio połowę ścieżek przy
+przeszukiwaniu</li>
+<li><span class="math inline">\(\alpha\)</span> - najlepszy obecnie
+wybór dla Max</li>
+<li><span class="math inline">\(\beta\)</span> - najlepszy obecnie wybór
+dla Min</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> minimax_ab(state, depth, is_max_move, alfa<span class="op">=</span><span class="bu">float</span>(<span class="st">&#39;-inf&#39;</span>), beta<span class="op">=</span><span class="bu">float</span>(<span class="st">&#39;inf&#39;</span>)):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> state.is_terminal() <span class="kw">or</span> depth <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> h(state)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_move_max:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> state.<span class="bu">next</span>():</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            alfa <span class="op">=</span> <span class="bu">max</span>(alfa, minmax_ab(s, depth<span class="op">-</span><span class="dv">1</span>, <span class="kw">not</span> is_max_move, alfa, beta))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> alfa <span class="op">&gt;=</span> beta:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> alfa</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> alfa</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> state.<span class="bu">next</span>():</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            beta <span class="op">=</span> <span class="bu">min</span>(beta, minmax_ab(s, depth<span class="op">-</span><span class="dv">1</span>, <span class="kw">not</span> is_max_move, alfa, beta))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> alfa <span class="op">&gt;=</span> beta:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> beta</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> beta</span></code></pre></div>
+<h2 id="algorytmy-wspomagające">Algorytmy wspomagające</h2>
+<ul>
+<li>Iteracyjne pogłębianie (jeżeli mamy czas to można uruchomić algorytm
+jezcze raz z większym <span class="math inline">\(d\)</span>)</li>
+<li>Heurystyki określające kolejność analizy ruchu (przeglądać bardziej
+sensowne wcześniej)</li>
+<li>Heurystyki określające dokładność oszacowania wartości stanu</li>
+<li>Książka otwarć i zamknięć</li>
+</ul>
+<p>Struktury danych do reprezentacji gry często stosują wzorzec
+projektowy VirtualProxy - leniwe tworzenie</p>
+<h2 id="algorytm-uśredniony-minimax-expected-minimax">Algorytm
+uśredniony MiniMax (Expected MiniMax)</h2>
+<ul>
+<li>Do gier niedeterministycznych z pełną informacją</li>
+<li>Drzewo ma węzły losowe</li>
+<li>Wypłata dla węzłów losowych uwzględnia prawdopodobieństwo</li>
+</ul>
+<p>Do drzewa wprowadza się dodatkowe pośrednie poziomy reprezentujące
+wybory losowe <span class="math inline">\(w(n) = \sum P(s) \cdot
+w(s)\)</span> - ważone względem prawdopodobieństwa (wartość oczekiwana
+wypłaty)</p>
+<h2 id="gry-z-niepełną-informacją">Gry z niepełną informacją</h2>
+<p>Można zastosować expected minimax oddzielnie dla każdego rozdania -
+kiepsko się sprawdzają</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#gry-dwuosobowe">Gry dwuosobowe</a>
+<ul>
+<li><a href="#podział-gier">Podział gier</a>
+<ul>
+<li><a href="#ze-względu-na-kolejność-podejmowania-decyzji">Ze względu
+na kolejność podejmowania decyzji</a></li>
+<li><a href="#gry-o-sumie-zerowej">Gry o sumie zerowej</a></li>
+</ul></li>
+<li><a href="#deterministyczna-gra-dwuosobowa">Deterministyczna gra
+dwuosobowa</a>
+<ul>
+<li><a href="#model">Model</a></li>
+<li><a href="#przegląd-wyczerpujący">Przegląd wyczerpujący</a></li>
+</ul></li>
+<li><a href="#algorytm-minimax">Algorytm MiniMax</a></li>
+<li><a href="#algorytm-minimax-z-przycinaniem-alpha---beta">Algorytm
+MiniMax z przycinaniem <span class="math inline">\(\alpha -
+\beta\)</span></a></li>
+<li><a href="#algorytmy-wspomagające">Algorytmy wspomagające</a></li>
+<li><a href="#algorytm-uśredniony-minimax-expected-minimax">Algorytm
+uśredniony MiniMax (Expected MiniMax)</a></li>
+<li><a href="#gry-z-niepełną-informacją">Gry z niepełną
+informacją</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

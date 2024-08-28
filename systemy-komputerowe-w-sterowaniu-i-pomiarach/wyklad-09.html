@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08.html">Poprzedni: wyklad-08.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10.html">Następny: wyklad-10.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="szeregowanie-zadań-2024-05-06">Szeregowanie zadań
+(2024-05-06)</h1>
+<ul>
+<li>Zdarzenie
+<ul>
+<li>każda sytuacja wymagająca interwencji systemu sterującego</li>
+</ul></li>
+<li>Zadanie
+<ul>
+<li>moduł programu wykonywany niezaleznie od innych modułów</li>
+<li>czas odpowiedzi nie dłuższy niż ustalony</li>
+</ul></li>
+<li>Odpowiedź
+<ul>
+<li>zmiana stanu</li>
+<li>sygnał sterujący lub komunikat dla obsługi</li>
+</ul></li>
+</ul>
+<h2 id="strategie-szeregowania">Strategie szeregowania</h2>
+<ul>
+<li>Szeregowanie stałe (pre-run)
+<ul>
+<li>znany, powtarzalny rozkład zadań</li>
+<li>długie okresy powtarzania w stosunku do czasu wykonania zadań</li>
+<li>cykliczny program sekwencyjny</li>
+</ul></li>
+<li>Szeregowanie na bieżąco (run-time)
+<ul>
+<li>brak powtarzalnego schematu wykonania zadań</li>
+<li>czasy wykonania przekreaczają okresy powtarzania</li>
+<li>system operacyjny wielozadaniowy z wywłaszczaniem</li>
+</ul></li>
+</ul>
+<h2 id="opis-zadania">Opis zadania</h2>
+<ul>
+<li>Czas zgłoszenia (release time)</li>
+<li>Czas wykonania (execution time)
+<ul>
+<li>pomijając inne zadania w systemie</li>
+<li>nie jest przerywane, nie musi czekać</li>
+</ul></li>
+<li>Czas odpowiedzi (response time)
+<ul>
+<li>różnica między czasem zgłoszenia, a odpowiedzią</li>
+<li>raczej dłuższy niż czas wykonania</li>
+</ul></li>
+<li>Dozwolony termin zakończenia (deadline)
+<ul>
+<li>względny, czas od zgłoszenia</li>
+<li>bezwzględy, do danej godziny</li>
+<li>może być określony probabilistycznie, przez rozkład, średnią
+itd.</li>
+<li>de facto ograniczenie czasu rzeczywistego</li>
+</ul></li>
+<li>Okres powtarzania (cycle)
+<ul>
+<li>dla zadań cyklicznych</li>
+<li>w systemie mogą też występować zadania sporadzyczne, bez ustalonego
+okresu</li>
+</ul></li>
+</ul>
+<h2 id="zadania-cykliczne">Zadania cykliczne</h2>
+<p>Obciążenie procesora - czas wykonania / okres powtarzania Jeśli suma
+większa niż 1 to nie da się spełnić ograniczeń Trzeba dobrać odpowiednie
+priorytety zadań, żeby dało się spełnić ograniczenia Nie zawsze da się
+dobrać takie priorytety, nawet jeśli obciążenie procesora jest poniżej
+100% Dobrze jeśli cykle powtarzania są swoimi wielokrotnościami
+(harmoniczne), wtedy szeregowanie można powtarzać w jednakowych
+cyklach</p>
+<h2 id="algorytm-rms">Algorytm RMS</h2>
+<ul>
+<li>Rate Monotonic Scheduling</li>
+<li>Priorytety zadań proporcjonalne do częstotliwości</li>
+<li>Optymalny algorytm stało-priorytetowy</li>
+<li>Warunek dostateczny <span class="math inline">\(\sum_{i=1}^n t_i/c_i
+\le n(2^{1/n}-1)\)</span>
+<ul>
+<li><span class="math inline">\(t_i\)</span> - czas wykonania</li>
+<li><span class="math inline">\(c_i\)</span> - cykl</li>
+<li><span class="math inline">\(n\)</span> - liczba zadań</li>
+<li>spełnienie gwarantuje, że zadania da się uszeregować</li>
+<li>jeśli nie jest spełniony to może się da a może nie</li>
+<li>w granicy <span class="math inline">\(n \rightarrow \infty\)</span>
+próg ok <span class="math inline">\(70\%\)</span> obciążenia</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-edf">Algorytm EDF</h2>
+<ul>
+<li>Earliest Deadline First</li>
+<li>Priorytety zadań związane z terminem zakończenia</li>
+<li>Optymalny algorytm zmienno-priorytetowy</li>
+<li>Warunek dostateczny <span class="math inline">\(\sum_{i=1}^n t_i/c_i
+\le 1\)</span></li>
+<li>Nie stosuje się go w praktyce
+<ul>
+<li>jest mniej przewidywalny jeśli obciążenie przekracza 100%</li>
+<li>nie pozwala określić które zadania są ważniejsze (a RMS
+pozwala)</li>
+<li>RMS, kiedy nie może spełnić ograniczeń wybiera zadanie o najwyższym
+priorytecie</li>
+</ul></li>
+</ul>
+<h2 id="szeregowanie-i-synchronizacja">Szeregowanie i
+synchronizacja</h2>
+<ul>
+<li>Procesy blokuja sobie nawzajem wspólne zasoby</li>
+<li>Inwersja priorytetów - zadanie o wyższym priorytecie jest blokowane
+przez zadanie o niższym priorytecie</li>
+<li>Warunke dostateczny <span class="math inline">\(\sum_{i=1}^n +
+\max_{i=1..n} b_i/c_i \le n(2^{1/n} - 1)\)</span>
+<ul>
+<li><span class="math inline">\(b_i\)</span> - najdłuższy czas
+oczekiwania i-tego zadania na zadanie o niższym priorytecie</li>
+<li>trudne do obliczenia, szacowane</li>
+</ul></li>
+</ul>
+<h2 id="zadania-sporadyczne">Zadania sporadyczne</h2>
+<ul>
+<li>Nieznany z góry czas zgłoszenia</li>
+<li>Możliwe zgłoszenia <em>stadne</em>
+<ul>
+<li>zgłaszane wiele na raz</li>
+</ul></li>
+</ul>
+<h3 id="warianty-obsługi">Warianty obsługi</h3>
+<ul>
+<li>Wykonanie w tle
+<ul>
+<li>priorytet niższy od zadań cyklicznych</li>
+<li>nie narusza terminu zadań cyklicznych</li>
+<li>długi czas odpowiedzi dla zadań sporadycznych</li>
+</ul></li>
+<li>Wykonanie na najwyższym priorytecie
+<ul>
+<li>w obsłudze przerwań</li>
+<li>krótki czas odpowiedzi zadań sporadycznych</li>
+<li>możliwe opóźnienie zadań cyklicznych</li>
+</ul></li>
+</ul>
+<h2 id="serwer-sporadyczny">Serwer sporadyczny</h2>
+<ul>
+<li>Zadanie obsługujące zgłoszenia sporadyczne</li>
+<li>Alterantywny wariant obsługi zadań sporadycznych</li>
+<li>Algorytm serwera sporadycznego
+<ul>
+<li>serwer otrzymuje budżet czasu <span class="math inline">\(s\)</span>
+oraz okres odnowienia <span class="math inline">\(c\)</span></li>
+<li>przez czas <span class="math inline">\(s\)</span> pracuje na wysokim
+priorytecie <span class="math inline">\(p\)</span></li>
+<li>później priorytet spada do niskiego <span
+class="math inline">\(l\)</span></li>
+<li>odzyskuje wysoki priorytet po okresie odnowienia <span
+class="math inline">\(c\)</span></li>
+</ul></li>
+<li>W środowisku RMS
+<ul>
+<li>przy pełnym obciążeniu serwer wykonuje się z priorytetem <span
+class="math inline">\(p\)</span> przez czas <span
+class="math inline">\(s\)</span> co okres <span
+class="math inline">\(c\)</span></li>
+<li>jeżeli priorytet <span class="math inline">\(p\)</span> jest zgodny
+z regułą RMS, to warunek dający gwarancję uszeregowania wszystkich zadań
+…</li>
+</ul></li>
+</ul>
+<h3 id="serwer-sporadyczny-posix">Serwer sporadyczny POSIX</h3>
+<ul>
+<li>Parametry
+<ul>
+<li>budżet czasu</li>
+<li>okres odnawiania</li>
+<li>priorytet wysoki</li>
+<li>priorytet niski</li>
+<li>maksymalna liczba odnowień</li>
+</ul></li>
+<li>Algorytm
+<ul>
+<li>budżet czasu zmniejsza się na bieżąco podczas wykonania zadania</li>
+<li>Odnowienie jest planowane, gdy zadanie zaczyna być wykonywane z
+wysokim priorytetem po raz pierwszy od opuszczenia stanu gotowości i
+obejmuje całą część budżetu zużytą od aktywacji zadania</li>
+<li>Zadanie nie może korzystać z wysokiego priorytetu po zaplanowaniu
+maksymalnej liczby odnowień</li>
+<li>Maksymalna liczba odnowień wraca do wartości wyjściowej …</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#szeregowanie-zadań-2024-05-06">Szeregowanie zadań
+(2024-05-06)</a>
+<ul>
+<li><a href="#strategie-szeregowania">Strategie szeregowania</a></li>
+<li><a href="#opis-zadania">Opis zadania</a></li>
+<li><a href="#zadania-cykliczne">Zadania cykliczne</a></li>
+<li><a href="#algorytm-rms">Algorytm RMS</a></li>
+<li><a href="#algorytm-edf">Algorytm EDF</a></li>
+<li><a href="#szeregowanie-i-synchronizacja">Szeregowanie i
+synchronizacja</a></li>
+<li><a href="#zadania-sporadyczne">Zadania sporadyczne</a>
+<ul>
+<li><a href="#warianty-obsługi">Warianty obsługi</a></li>
+</ul></li>
+<li><a href="#serwer-sporadyczny">Serwer sporadyczny</a>
+<ul>
+<li><a href="#serwer-sporadyczny-posix">Serwer sporadyczny
+POSIX</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

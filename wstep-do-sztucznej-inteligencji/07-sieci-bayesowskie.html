@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-sieci-bayesowskie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-sztuczne-sieci-neuronowe.html">Poprzedni: 06-sztuczne-sieci-neuronowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-wnioskowanie.html">Następny: 08-wnioskowanie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <p># Sieci Bayesa</p>
+<ul>
+<li>Graficzny model probabilistyczny reprezentujący realcje między
+zmiennymi losowymi</li>
+<li>Zwięzła reprezentacja prawdopodobieństwa łącznego</li>
+<li>Dobre do reprezentacji wiedzy w systemach eksperckich</li>
+<li>Graf acykliczny
+<ul>
+<li>wierzchołki odpowiadają dyskretnym zmiennym losowym</li>
+<li>krawędzie reprezentują bezpośrednie zależności między zmiennymi</li>
+<li>każda zmienna ma rozkład prawdopodobieństwa (warunkowy jeśli są
+wchodzące krawędzie)</li>
+</ul></li>
+</ul>
+<h2 id="założenie-markowa">Założenie Markowa</h2>
+<p>Zakłada się, że wszystkie bezpośrednie zależności są przedstawione
+przez krawędzie w sieci</p>
+<h2 id="warunkowa-niezależność">Warunkowa niezależność</h2>
+<h3 id="łańcuch">Łańcuch</h3>
+<p>Dla sieci w postaci łańcucha A -&gt; B -&gt; C</p>
+<ul>
+<li>Są 2 zależności bezpośrednie</li>
+<li>Jeśli wartość B jest ustalona, to obserwacja A nie wnosi żadnych
+nowych informacji o C</li>
+<li>Przy ustalonym B, C jest warunkowo niezależne od A</li>
+</ul>
+<h3 id="wspólna-przyczyna">Wspólna przyczyna</h3>
+<p>Dla sieci z B-&gt;A, B-&gt;C</p>
+<ul>
+<li>Jak w łańcuchu, prz ustalonym B, A nie dostarcza nowych informacji o
+C</li>
+<li>C jest warunkowo niezależne od A przy ustalonym B</li>
+<li><span class="math inline">\(P(C|A\wedge B) = P(C|B)\)</span></li>
+</ul>
+<h3 id="wspólny-efekt">Wspólny efekt</h3>
+<p>Dla sieci z A-&gt;B, C-&gt;B</p>
+<ul>
+<li>Zdarzenie ma 2 przyczyny</li>
+<li>A i C są niezależne, ale stają sie zależne po aobserwowaniu B</li>
+</ul>
+<h2 id="d-separacja">d-separacja</h2>
+<ul>
+<li>Pozwala rozszerzyć pojęcie warunkowej niezależności na zbiory
+zmiennych (węzły w sieci)</li>
+<li><span class="math inline">\(A \perp C|B\)</span> - znajomość <span
+class="math inline">\(B\)</span> blokuje przepływ informacji między
+<span class="math inline">\(C\)</span> i <span
+class="math inline">\(A\)</span></li>
+<li>Przy wspólnym efekcie - znajomość <span
+class="math inline">\(B\)</span> odblokowuje przepływ informacji między
+<span class="math inline">\(C\)</span> i <span
+class="math inline">\(A\)</span></li>
+<li>Ścieżka pomiędzy zbiorami wierzchołków <span
+class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span> - dowolna ścieżka (ignorując kierunki)
+ścieżka w grafie sieci łącząca wierzchołek z <span
+class="math inline">\(X\)</span> z wierzchołkiem z <span
+class="math inline">\(Y\)</span></li>
+<li>Ścieżka między <span class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span> jest zablokowana przez zbiór <span
+class="math inline">\(E\)</span> jeśli istnieje taki wierzchołek <span
+class="math inline">\(Z\)</span>, że
+<ul>
+<li><span class="math inline">\(Z \in E\)</span> i <span
+class="math inline">\(Z\)</span> jest fragmentem łańcucha w ścieżce
+<span class="math inline">\((\ldots \rightarrow Z \rightarrow
+\ldots)\)</span></li>
+<li><span class="math inline">\(Z \in E\)</span> i jest wspólną
+przyczyną dla dwóch sąsiadujących w ścieżce węzłów <span
+class="math inline">\((\ldots \leftarrow Z \rightarrow
+\ldots)\)</span></li>
+<li><span class="math inline">\(Z\)</span> ani potomkowie nie należą do
+<span class="math inline">\(E\)</span>, <span
+class="math inline">\(Z\)</span> występuje jako wspólny efekt w ścieżce
+<span class="math inline">\((\ldots \rightarrow Z \leftarrow
+\ldots)\)</span></li>
+</ul></li>
+<li>Zbiór <span class="math inline">\(E\)</span> d-separuje zbiory <span
+class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span> jeśli każda ścieżka między tymi
+zbiorami jest blokowana przez <span class="math inline">\(E\)</span>
+<ul>
+<li><span class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span> są warunkowo niezależne po
+zaobserwowaniu <span class="math inline">\(E\)</span></li>
+</ul></li>
+</ul>
+<h2 id="warunkowa-niezależność-1">Warunkowa niezależność</h2>
+<ul>
+<li>Otoczka Markova (Markov blanket) węzła X to zestaw tych węzłów,
+których wartość trzeba ustalić, żeby X był warunkowo niezależny od
+reszty sieci</li>
+<li>Otoczka składa się z rodziców, dzieci i rodziców tych dzieci węzła
+X</li>
+</ul>
+<h2 id="próbkowanie-z-użyciem-otoczki-markowa">Próbkowanie z użyciem
+otoczki Markowa</h2>
+<p>Dla każdej możliwej wawrtości <span class="math inline">\(x\)</span>
+zmiennej losowej <span class="math inline">\(X\)</span> <span
+class="math display">\[
+P(X=x | OM(X)) = \alpha P(X=x | Rodzice(X)) \prod_{Z_i \in
+Dzieci(X)}P(Z_i=z_i | Rodzice(Z_i))
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> - współczynnik
+normalizujący (prawdopodobieństwa sumują się do <span
+class="math inline">\(1\)</span>), można zaimplementować algorytm bez
+tego skalowania</li>
+</ul>
+<h2 id="wnioskowanie-przy-pomocy-mcmc">Wnioskowanie przy pomocy
+MCMC</h2>
+<p>Mamy graf z węzłem R o rodzicach Q i S * Dowody: obserwuje my <span
+class="math inline">\(R=T\)</span> * Pytanie: jaki jest rozkład <span
+class="math inline">\(S\)</span></p>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Inicjowanie wartości w wierzchołkach grafu - tym co jets w zbiorze
+dowodów lub wartością losową jeśli nie ma</li>
+<li>Zlicza się wystąpienia stanów dla zmiennej z zapytania z losowych
+próbek
+<ul>
+<li>Losuje się węzył nie będący dowodem</li>
+<li>Wylosowanie wartości korzystając z otoczki Markowa</li>
+<li>Aktualizuje się licznik</li>
+</ul></li>
+<li>Otrzymuje się rozkład zmiennej na podstawie liczników
+<ul>
+<li>normalizacja, żeby prawdopodobieństwa sumowały się do <span
+class="math inline">\(1\)</span></li>
+</ul></li>
+</ul>
+<p>Stan początkowy może nie mieć logicznego sensu ale w miarę kolejnych
+iteracji przybliża się prawdziwy rozkład</p>
+<h2 id="dokładne-wnioskowanie">Dokładne wnioskowanie</h2>
+<p>Tylko dla prostych struktur(?)</p>
+<p>Przekonanie odnośnie stanu <span class="math inline">\(Y\)</span>
+<span class="math display">\[
+Bel(Y) = P(Y|X=x)
+\]</span></p>
+<p>Sieć dwuelementowa - proste użycie twierdzenie Bayesa</p>
+<p>Łańcuch - wnioskowanie bezpośrednio z tabel rozkładów albo z
+twierdzenia Bayesa dla wnioskowania w odwrotnej kolejności</p>
+<p>W ogólnym przypadku - problem NP-trydny</p>
+<p>Drzewa i lasy - algorytm propagacji przekonań</p>
+<p>W praktyce dla większych sieci stosuje się algorytmy przybliżone (np.
+MCMC)</p>
+<h2 id="estymacja-parametrów-sieci">Estymacja parametrów sieci</h2>
+<ul>
+<li>znamy strukturę grafu (sieci Bayesa)</li>
+<li>nie znamy prawdopodobieństw</li>
+<li>mamy zbiór danych z pomiarami wszystkich zmiennych</li>
+<li>chcemy oszacować prawdopodobieństwa na podstawie danynch
+<ul>
+<li>tak dopasowujemy parametry, żeby sieć mogła wygenerować to co
+zaobserwowaliśmy</li>
+</ul></li>
+</ul>
+<h2 id="metoda-największej-wiarygodności">Metoda Największej
+Wiarygodności</h2>
+<p>Szukamy takich parametrów rozkładu, dla których zbiór danych wydaje
+się najbardziej wiarygodny</p>
+<p>Zakładamy że zbiór składa się z niezależnych próbek - liczymy iloczyn
+Obliczanie iloczynu jest problematyczne (błędy numeryczne), można
+sumować logarytmy</p>
+<p>Można stosować MNW do każdego modelu którego wyjście można
+interpretować jako prawdopodobieństwa</p>
+<h2 id="szersza-perspektywa-na-wnioskowanie-bayesowskie">Szersza
+perspektywa na wnioskowanie Bayesowskie</h2>
+<p>Na podstawie zaobserwowanych danych aktualizujemy model
+rzeczywistości proporcjonalnie do * wstępnych założeń odnośnie postaci
+modelu <span class="math inline">\(P(\theta)\)</span> * dopasowania
+danych (obserwacji) do tego modelu <span
+class="math inline">\(P(X|\theta)\)</span></p>
+<h2 id="maximum-a-posteriori-map">Maximum a posteriori (MAP)</h2>
+<p>MNW + wiedza pierwotna <span class="math display">\[
+\hat{\theta} = argmax_\theta P(X|\theta)P(\theta)
+\]</span></p>
+<p>Rozkłady beta - do określania pewności w pierwotny model, bardzo
+elastyczny</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#założenie-markowa">Założenie Markowa</a></li>
+<li><a href="#warunkowa-niezależność">Warunkowa niezależność</a>
+<ul>
+<li><a href="#łańcuch">Łańcuch</a></li>
+<li><a href="#wspólna-przyczyna">Wspólna przyczyna</a></li>
+<li><a href="#wspólny-efekt">Wspólny efekt</a></li>
+</ul></li>
+<li><a href="#d-separacja">d-separacja</a></li>
+<li><a href="#warunkowa-niezależność-1">Warunkowa niezależność</a></li>
+<li><a href="#próbkowanie-z-użyciem-otoczki-markowa">Próbkowanie z
+użyciem otoczki Markowa</a></li>
+<li><a href="#wnioskowanie-przy-pomocy-mcmc">Wnioskowanie przy pomocy
+MCMC</a>
+<ul>
+<li><a href="#działanie">Działanie</a></li>
+</ul></li>
+<li><a href="#dokładne-wnioskowanie">Dokładne wnioskowanie</a></li>
+<li><a href="#estymacja-parametrów-sieci">Estymacja parametrów
+sieci</a></li>
+<li><a href="#metoda-największej-wiarygodności">Metoda Największej
+Wiarygodności</a></li>
+<li><a href="#szersza-perspektywa-na-wnioskowanie-bayesowskie">Szersza
+perspektywa na wnioskowanie Bayesowskie</a></li>
+<li><a href="#maximum-a-posteriori-map">Maximum a posteriori
+(MAP)</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

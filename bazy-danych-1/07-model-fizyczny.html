@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-model-fizyczny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-podstawy-rachunku-relacyjnego.html">Poprzedni: 06-podstawy-rachunku-relacyjnego.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-optymalizacja-zapytan.html">Następny: 08-optymalizacja-zapytan.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="składowanie-i-dostęp-do-danych">Składowanie i dostęp do
+danych</h1>
+<p>Model fizyczny</p>
+<p>Na poziomie fizycznym dokonuje się denormalizacji, żeby optymalizować
+czas (a nie poprawność).</p>
+<p>Można podzielić tabelę pionowo, żeby oddzielić te kolumny do których
+częściej odwołują się zapytania</p>
+<p>Można dodać kolumnę, która jest często dołączana</p>
+<p>Tego typu optymalizacje wykonuje administrator bazy (nie dzieje się
+automatycznie) na podstawie logów zapytań albo przewidywań na etapie
+projektowym</p>
+<ul>
+<li>Na poziomie logicznym dążymy do zachowania spójności</li>
+<li>Na poziomie fizycznym dążymy do zapewnienia najlepszej
+szybkości</li>
+</ul>
+<h3 id="model-fizyczny">Model fizyczny</h3>
+<p>Opiera się na pojęciach pliku i rekordu</p>
+<ul>
+<li>plik obiektu bazy danych składa się z rekordów w tym samym formacie
+(najczęściej)</li>
+<li>Rekordy są grupowane w bloki (bo z dysku do pamięci odczytuje się
+dane sektorami)</li>
+<li>Format rekordu jest listą nazw pól z określeniem typów danych</li>
+<li>Na poziomie fizycznym klucze identyfikujące rekordy mogą być
+niejednoznaczne</li>
+</ul>
+<p>Operacje set-at-a-time</p>
+<h3 id="organizacja-i-metody-dostępu">Organizacja i metody dostępu</h3>
+<ul>
+<li>zapis sekwencyjny</li>
+<li>użycie funkcji haszującej</li>
+<li>struktury drzewiaste</li>
+</ul>
+<h2 id="zwiększanie-wydajności-dostępu-do-danych-na-dysku">Zwiększanie
+wydajności dostępu do danych na dysku</h2>
+<ul>
+<li>Buforowanie danych</li>
+<li>Odpowiednia organizacja danych na dysku</li>
+<li>Wczytywanie danych przed zgłoszeniem żądania</li>
+<li>Odpowiednie szeregowanie żądań wejścia-wyjścia</li>
+</ul>
+<h2 id="metody-organizacji-plików">Metody organizacji plików</h2>
+<ul>
+<li>Plik stertowy - nieuporządkowany
+<ul>
+<li>kiedy często są czytane wszystkie rekordy</li>
+<li>stosowane razem z indeksami - w indeksie szuka się szybko po kluczu
+i dostaje wskaźnik na miejsce gdzie są powiązane dane</li>
+</ul></li>
+<li>Pliki sekwencyjne</li>
+<li>Pliki uporządkowane
+<ul>
+<li>porządkowane w trakcie zapisu</li>
+<li>wolniejszy zapis ale szybsze przeszukiwanie (logarytmiczne)</li>
+</ul></li>
+<li>Pliki mieszające - haszowane</li>
+<li>B-drzewa</li>
+</ul>
+<h2 id="klastrowanie">Klastrowanie</h2>
+<p>Fizyczna organizacja danych odzwierciedla niektóre aspekty
+organizacji logicznej</p>
+<p>Jeśli tabele są często złączane to można przechowywać je złączone na
+dysku. To zależy jakie operacje wykonuje się częściej, trzba policzyć
+czy trade-off się opłaca</p>
+<h2 id="indeksy">Indeksy</h2>
+<p>Pomocnicza struktura przyspieszająca dostęp do danych (drzewa,
+haszowanie, bitmapy)</p>
+<p>Zapytanie może skończyć się na indeksie</p>
+<h3 id="rodzaje">Rodzaje</h3>
+<ul>
+<li><p>indeks podstawowy (primary) - na atrybucie porządkującym plik
+(klucz główny)</p></li>
+<li><p>indeks zgrupowany (clustering)</p></li>
+<li><p>indeks pomocniczy (secondary) - na atrybucie, który nie musi być
+unikalny</p></li>
+<li><p>gęsty - dla każdego rekordu</p></li>
+<li><p>rzadki - tylko dla wybranych rekordów</p></li>
+</ul>
+<h2 id="b-drzewo">B+ drzewo</h2>
+<ul>
+<li>Zrównoważone drzewo</li>
+<li>Węzły wewnętrzne służą do wspomagania wyszukiwania</li>
+<li>Węzły liści zawierają rekordy indeksu ze wskaźnikami do
+rekordów</li>
+<li>Wiele kluczy i dzieci w jednym węźle</li>
+<li>Różni się od B-drzewa tym, że właściwe informacje znajdują się tylko
+w liściach</li>
+<li>Liście są też połączone poziomo (do wyszukiwania zakresów)</li>
+</ul>
+<h2 id="indeks-z-funkcją-haszującą">Indeks z funkcją haszującą</h2>
+<ul>
+<li>Funkcja haszująca oblicza bezpośrednią lokalizację rekordu danych w
+tablicy</li>
+<li>Występują konflikty</li>
+</ul>
+<h2 id="indeks-bitmapowy">Indeks bitmapowy</h2>
+<ul>
+<li>Funkcja charakterystyczna</li>
+<li>Dodaje się wektory dla złożonych warunków</li>
+<li>Zakresy, kubełki</li>
+</ul>
+<p>Sposób przechowywania danych i sposób dostępu to oddzielne rzeczy</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#składowanie-i-dostęp-do-danych">Składowanie i dostęp do
+danych</a>
+<ul>
+<li><a href="#model-fizyczny">Model fizyczny</a></li>
+<li><a href="#organizacja-i-metody-dostępu">Organizacja i metody
+dostępu</a></li>
+<li><a href="#zwiększanie-wydajności-dostępu-do-danych-na-dysku">Zwiększanie
+wydajności dostępu do danych na dysku</a></li>
+<li><a href="#metody-organizacji-plików">Metody organizacji
+plików</a></li>
+<li><a href="#klastrowanie">Klastrowanie</a></li>
+<li><a href="#indeksy">Indeksy</a>
+<ul>
+<li><a href="#rodzaje">Rodzaje</a></li>
+</ul></li>
+<li><a href="#b-drzewo">B+ drzewo</a></li>
+<li><a href="#indeks-z-funkcją-haszującą">Indeks z funkcją
+haszującą</a></li>
+<li><a href="#indeks-bitmapowy">Indeks bitmapowy</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

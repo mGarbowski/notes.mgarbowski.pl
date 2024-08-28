@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>powtorzenie-do-kolokwium-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-zlozonosc-obliczeniowa.html">Poprzedni: 10-zlozonosc-obliczeniowa.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="powtorzenie-do-kolokwium-01.html">Następny: powtorzenie-do-kolokwium-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="przykładowe-kolokwium-01">Przykładowe kolokwium 01</h1>
+<h2 id="system-binarny-endianness-kodowanie">System binarny, endianness,
+kodowanie</h2>
+<h3 id="bitów">8 bitów</h3>
+<ul>
+<li>oktet</li>
+<li>najczęściej bajt ale niekoniecznie</li>
+<li>bajt jeśli jest to najmniejsza adresowalna porcja informacji w danej
+architekturze</li>
+</ul>
+<h3 id="bity">4 bity</h3>
+<ul>
+<li>tetrada</li>
+<li>nibble</li>
+</ul>
+<h3
+id="jeśli-2745-jest-liczbą-w-pewnym-systemie-pozycyjno-wagowym-to-może-to-być-system">Jeśli
+2745 jest liczbą w pewnym systemie pozycyjno-wagowym, to może to być
+system</h3>
+<ul>
+<li>dziewiątkowy</li>
+<li>heksadecymalny</li>
+<li><del>siódemlowy</del></li>
+</ul>
+<p>Podstawa systemu musi być większa conajmniej o 1 od największej
+cyfry</p>
+<h3 id="bajtów-to">500 bajtów to</h3>
+<ul>
+<li>zazwyczaj 8*500 bitówa (nie zawsze!)</li>
+<li>0.5kB (k -&gt; 1000)</li>
+<li><del>0.5KiB</del> (Ki -&gt; 1024)</li>
+</ul>
+<h3
+id="zakładając-że-0x7d4abacc-to-32-bitowa-liczba-w-kodzie-u2-i-jest-ona-przechowywana-pod-adresem-0x100a">Zakładając,
+że 0x7D4ABACC to 32 bitowa liczba w kodzie U2 i jest ona przechowywana
+pod adresem 0x100A</h3>
+<p>Big endian - najbardziej znaczący bajt pod najmniejszym adresem</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>bajt</td>
+<td>7D</td>
+<td>4A</td>
+<td>BA</td>
+<td>CC</td>
+</tr>
+<tr class="even">
+<td>adres</td>
+<td>0x100A</td>
+<td>0x100B</td>
+<td>0x100C</td>
+<td>0x100D</td>
+</tr>
+</tbody>
+</table>
+<p>Little Endian - najmniej znaczący bajt pod najmniejszym adresem</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>bajt</td>
+<td>CC</td>
+<td>BA</td>
+<td>4A</td>
+<td>7D</td>
+</tr>
+<tr class="even">
+<td>adres</td>
+<td>0x100A</td>
+<td>0x100B</td>
+<td>0x100C</td>
+<td>0x100D</td>
+</tr>
+</tbody>
+</table>
+<h3 id="liczba--121-w-kodowaniu-u2">Liczba -121 w kodowaniu U2</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>121 w NKB</td>
+<td>0111 1001</td>
+</tr>
+<tr class="even">
+<td>Negacja bitów</td>
+<td>1000 0110</td>
+</tr>
+<tr class="odd">
+<td>-121 w U2 (dodanie 1)</td>
+<td>1000 0111</td>
+</tr>
+<tr class="even">
+<td>binanie</td>
+<td>0b10000111</td>
+</tr>
+<tr class="odd">
+<td>oktalnie</td>
+<td>0o207</td>
+</tr>
+<tr class="even">
+<td>heksadecymalnie</td>
+<td>0x87</td>
+</tr>
+</tbody>
+</table>
+<p>Przy zapisie oktalnym nie rozszerza się pierwszej jedynki (0o207 a
+nie 0o607) mimo że liczba jest ujemna, chodiz tylko o zakodowanie
+bitów</p>
+<h3 id="zamiana-oktetu-na-postać-heksadecymalną">Zamiana oktetu na
+postać heksadecymalną</h3>
+<ul>
+<li>Należy potraktować cyfry jak liczbę w kodzie NKB niezależnie od tego
+jaką informację i w jakim kodowaniu przedstawiają oktety.</li>
+<li>Niezależnie zamienić każdy nibble na cyfrę heksadecymalną.</li>
+<li>Wykorzystujemy niezależnie kodowanie górnej i dolnej tetrady
+oktetu</li>
+</ul>
+<h2 id="architektura-alu-klasyfikacja-flynna">Architektura, ALU,
+klasyfikacja Flynna</h2>
+<h3 id="flaga-przepełnienia-w-rejestrze-stanu">Flaga przepełnienia w
+rejestrze stanu</h3>
+<p>Sygnalizuje, że wynik ostatniej operacji wykonanej prez ALU nie
+mieści się w natywnym słowie procesora</p>
+<h3 id="instrukcja-mmx">Instrukcja MMX</h3>
+<p>Realizuje operacje arytmetyczne jednocześnie na całym wektorze
+liczb.</p>
+<p>Jest przykładem architektury SIMD</p>
+<h3 id="alu">ALU</h3>
+<ul>
+<li>wykonuje takie operacje jak
+<ul>
+<li>dodawanie</li>
+<li>negacje</li>
+<li>przesunięcie logiczne</li>
+<li>przesunięcie arytmetyczne</li>
+<li>rotacja (przesunięcie cykliczne?)</li>
+</ul></li>
+<li>Arithmetic Logic Unit</li>
+<li>Układ kombinacyjny asynchroniczny realizujący funkcje logiczne</li>
+</ul>
+<h2 id="pamięć-rejestry">Pamięć, rejestry</h2>
+<h3 id="pamięć-ulotna">Pamięć ulotna</h3>
+<p>Traci przechowywane informacji po utracie zasilania</p>
+<p>Na przykład * DRAM * SRAM</p>
+<h3 id="uporządkowane-malejąco-wg.-typowych-pojemności">Uporządkowane
+malejąco wg. typowych pojemności</h3>
+<ul>
+<li>pamięć stała - dysk HDD</li>
+<li>pamięć stała - dysk SSD</li>
+<li>pamięć operacyjna RAM</li>
+<li>pamięć cache L2</li>
+<li>pamięć cache L1</li>
+<li>rejestry procesora</li>
+</ul>
+<h3 id="uporządkowane-malejąco-wg-typowego-czasu-dostępu">Uporządkowane
+malejąco wg typowego czasu dostępu</h3>
+<ul>
+<li>pamięć stała - dysk HDD</li>
+<li>pamięć stała - dysk SSD</li>
+<li>pamięć operacyjna RAM</li>
+<li>pamięć cache L2</li>
+<li>pamięć cache L1</li>
+<li>rejestry procesora</li>
+</ul>
+<h3 id="połączenie-wyjścia-przerzutnika-z-wejściem-kolejnego">Połączenie
+wyjścia przerzutnika z wejściem kolejnego</h3>
+<ul>
+<li>Rejestr z dostępem szeregowym</li>
+<li>Działanie zgodnez koncepcją FIFO (first in - first out,
+kolejka)</li>
+<li>Dane można odczytać wysuwając po 1 bicie w kolejnych taktach
+zegara</li>
+<li>układ synchroniczny</li>
+</ul>
+<h3 id="rejestr-z-dostępem-równoległym">Rejestr z dostępem
+równoległym</h3>
+<ul>
+<li>Wymaga tylu linii do przesyłu danych ile bitów przechowuje</li>
+<li>Umożliwia jednoczesny dostęp do wszystkich bitów przechowywanych w
+rejestrze jednocześnie</li>
+<li>Umożliwia zapis nowej zawartości całego rejestru w pojedynczym
+takcie zegara</li>
+<li>jest układem synchronicznym</li>
+</ul>
+<h2 id="tranzystory-open-collector">Tranzystory, Open collector</h2>
+<h3 id="tranzystor">Tranzystor</h3>
+<ul>
+<li>Umożliwia budowanie układów realizujących dwuwartościową logikę
+boolowską. Jego działanie można zamodelować jako klucz
+włączone/wyłączone</li>
+<li>Tryb nasycenia pozwala na wymuszenie stanu niskiego na lniach
+sygnałowych</li>
+<li>Jest wykorzystywany we współczesnych komputerach</li>
+<li>Jest wykorzystywany w DRAM</li>
+</ul>
+<h3 id="ustalenie-praw-dostępu-do-wspólnej-magistrali">Ustalenie praw
+dostępu do wspólnej magistrali</h3>
+<ul>
+<li>Wykorzystuje koncepcję otwartego kolektora</li>
+<li>Wykorzystuje własność tranzystora do wymuszenia stanu niskiego na
+współdzielonej linii sygnałowej</li>
+<li>Wykorzystuje własności tranzystora w trybie nasycenia</li>
+</ul>
+<h3 id="układ-wspólnego-emitera">Układ wspólnego emitera</h3>
+<ul>
+<li>nasycenie tranzystora npn pozwala na wymuszenie stanu niskiego na
+współdzielonej linii sygnałowej</li>
+<li>zatkanie tranzystore npn pozwala na wymuszenie stanu niskiego na
+współdzielonej linii sygnałowej przez inne układy</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przykładowe-kolokwium-01">Przykładowe kolokwium 01</a>
+<ul>
+<li><a href="#system-binarny-endianness-kodowanie">System binarny,
+endianness, kodowanie</a>
+<ul>
+<li><a href="#bitów">8 bitów</a></li>
+<li><a href="#bity">4 bity</a></li>
+<li><a href="#jeśli-2745-jest-liczbą-w-pewnym-systemie-pozycyjno-wagowym-to-może-to-być-system">Jeśli
+2745 jest liczbą w pewnym systemie pozycyjno-wagowym, to może to być
+system</a></li>
+<li><a href="#bajtów-to">500 bajtów to</a></li>
+<li><a href="#zakładając-że-0x7d4abacc-to-32-bitowa-liczba-w-kodzie-u2-i-jest-ona-przechowywana-pod-adresem-0x100a">Zakładając,
+że 0x7D4ABACC to 32 bitowa liczba w kodzie U2 i jest ona przechowywana
+pod adresem 0x100A</a></li>
+<li><a href="#liczba--121-w-kodowaniu-u2">Liczba -121 w kodowaniu
+U2</a></li>
+<li><a href="#zamiana-oktetu-na-postać-heksadecymalną">Zamiana oktetu na
+postać heksadecymalną</a></li>
+</ul></li>
+<li><a href="#architektura-alu-klasyfikacja-flynna">Architektura, ALU,
+klasyfikacja Flynna</a>
+<ul>
+<li><a href="#flaga-przepełnienia-w-rejestrze-stanu">Flaga przepełnienia
+w rejestrze stanu</a></li>
+<li><a href="#instrukcja-mmx">Instrukcja MMX</a></li>
+<li><a href="#alu">ALU</a></li>
+</ul></li>
+<li><a href="#pamięć-rejestry">Pamięć, rejestry</a>
+<ul>
+<li><a href="#pamięć-ulotna">Pamięć ulotna</a></li>
+<li><a href="#uporządkowane-malejąco-wg.-typowych-pojemności">Uporządkowane
+malejąco wg. typowych pojemności</a></li>
+<li><a href="#uporządkowane-malejąco-wg-typowego-czasu-dostępu">Uporządkowane
+malejąco wg typowego czasu dostępu</a></li>
+<li><a href="#połączenie-wyjścia-przerzutnika-z-wejściem-kolejnego">Połączenie
+wyjścia przerzutnika z wejściem kolejnego</a></li>
+<li><a href="#rejestr-z-dostępem-równoległym">Rejestr z dostępem
+równoległym</a></li>
+</ul></li>
+<li><a href="#tranzystory-open-collector">Tranzystory, Open
+collector</a>
+<ul>
+<li><a href="#tranzystor">Tranzystor</a></li>
+<li><a href="#ustalenie-praw-dostępu-do-wspólnej-magistrali">Ustalenie
+praw dostępu do wspólnej magistrali</a></li>
+<li><a href="#układ-wspólnego-emitera">Układ wspólnego emitera</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

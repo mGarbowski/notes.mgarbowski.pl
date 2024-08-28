@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-02.html">Następny: kolokwium-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kolokwium-01">Kolokwium 01</h1>
+<h2 id="cykl-życia-wytwarzania-oprogramowania">Cykl życia wytwarzania
+oprogramowania</h2>
+<h3
+id="w-którym-momencie-procesu-wytwarzania-oprogramowania-uzyskujemy-gwarancję-poprawności-programu-kiedy-możemy-go-dostarczyć-klientowi">W
+którym momencie procesu wytwarzania oprogramowania uzyskujemy gwarancję
+poprawności programu? Kiedy możemy go dostarczyć klientowi?</h3>
+<ul>
+<li>Nigdy nie ma 100% gwarancji poprawności (może być przy metodach
+weryfikacji formalnej), bo testy wykrywają tylko znane błędy</li>
+<li>Rzetelne przetestowanie programu zwiększa pewność co do jego
+poprawności</li>
+<li>Program można dostarczyć klientowi jeśli przechodzi testy
+akceptacyjne
+<ul>
+<li>mogą być opisane w zawartej umowie</li>
+</ul></li>
+</ul>
+<h3
+id="dlaczego-warto-oczekiwać-by-wymaganie-było-między-innymi-weryfikowalne-i-jednoznaczne">Dlaczego
+warto oczekiwać, by wymaganie było, między innymi, weryfikowalne i
+jednoznaczne?</h3>
+<ul>
+<li>Weryfikowalne - możemy określić czy zostało spełnione</li>
+<li>Jednoznaczne - zrozumiałe dla każdego odbiorcy, nie daje pola do
+interpretacji</li>
+<li>Warto tego oczekiwać, ponieważ pozwala na jasne określenie czy
+wymagania są spełnione czy nie, np. na potrzeby zaakceptowania produkut
+przez klienta, zapłacenie za wykonany produkt</li>
+</ul>
+<h3
+id="kiedy-można-powiedzieć-o-wymaganiu-że-jest-jednoznaczne-podaj-przykład---własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+można powiedzieć o wymaganiu, że jest jednoznaczne? Podaj przykład -
+własny, wskazujący na zrozumienie tematu.</h3>
+<p>Wymaganie jest jednoznaczne, kiedy wszystkie używane w nim pojęcia są
+zrozumiałe dla każdego odbiorcy</p>
+<p>Np. “Program umożliwia zapisanie danych o procesie do bazy danych” -
+proces może odnosić się do procesu w systemie operacyjnym, procesu
+produkcyjnego w fabryce, procesu sądowego, należy doprecyzować o jaki
+dokładnie proces chodzi (np. w słowniku pojęć)</p>
+<h3
+id="dlaczego-przyjmuje-się-że-dobry-test-powinien-być-deterministyczny-podaj-przykład-problemu-i-jego-rozwiązania">Dlaczego
+przyjmuje się, że dobry test powinien być deterministyczny? Podaj
+przykład problemu i jego rozwiązania</h3>
+<p>Jeśli test jest deterministyczny, to mamy pewność że dla tych samych
+danych wejściowych, rezultat testu będzie zawsze taki sam.</p>
+<p>Funkcja wykorzystująca generator liczb pseudolosowych może być
+niemożliwa do przetestowania, kiedy za każdym razem wynik zależy od
+psudolosowej liczby.</p>
+<p>Można to rozwiązać przez przekazanie jako argument funkcji ziarna
+generatora / całego generatora, który da się zamockować.</p>
+<h3
+id="kiedy-można-powiedzieć-o-wymaganiu-że-jest-atomowe-podaj-przykład-własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+można powiedzieć o wymaganiu, że jest atomowe? Podaj przykład własny,
+wskazujący na zrozumienie tematu.</h3>
+<p>Atomowe wymaganie jest niepodzielne, nie składa się z wielu części,
+bez spójnika “i”</p>
+<p>Np. nie jest atomowe “Aplikacja wysyła powiadomienie przez email i
+SMS” Lepsze są 2 atomowe wymagania “Aplikacja wysyła powiadomienie
+email. Aplikacja wysyła powiadomienie SMS”</p>
+<h2 id="solid">SOLID</h2>
+<h3 id="przykład-1">Przykład 1</h3>
+<ul>
+<li><p>Łamie zasadę pojedynczej odpowiedzialności</p>
+<ul>
+<li>przechowywanie zawartości dokumentu</li>
+<li>łączenie dokumentów</li>
+<li>sprawdzanie pisowni</li>
+<li>renderowanie</li>
+</ul></li>
+<li><p>Łamie zasadę open-closed</p>
+<ul>
+<li><code>HiddenContent</code> musi nadpisać metodę <code>render</code>
+nawet gdy nie ma to sensu</li>
+</ul></li>
+<li><p>Łamie zasadę Liskov</p>
+<ul>
+<li><code>HiddenContent*</code> nie może być traktowany jak
+<code>Content*</code>, ponieważ wywołanie <code>render</code> zawsze
+rzuci błąd</li>
+</ul></li>
+<li><p>Łamie zasadę segregacji interfejsów</p>
+<ul>
+<li>ten sam interfejs do scalania, sprawdzania pisowni i
+renderowania</li>
+</ul></li>
+<li><p>Łamie zasadę inwersji zależności</p>
+<ul>
+<li><code>isSpellingCorrect</code> zależy od konkretnego
+<code>EnglishDictionary</code></li>
+<li>powinien zależeć od abstrakcyjnego słownika</li>
+<li>umożliwiłoby internacjonalizację</li>
+</ul></li>
+<li><p>Jak można poprawić</p>
+<ul>
+<li>oddzielna klasa do sprawdzania pisowni, przyjmuje dokument jako
+argument, słownik da się sparametryzować</li>
+<li>daje się lepiej rozszerzać, np. na inne języki</li>
+<li>oddzielny interfejs do renderowania ```cpp class Content { public:
+const std::vector<std::string>&amp; words() const; void mergeWith(const
+Content&amp; other) { words_.insert(std::end(words_),
+std::cbegin(other.words()), std::cend(other.words())); }</li>
+</ul>
+<p>bool isSpellingCorrect() const { EnglishDictionary dictionary; return
+std::ranges::all_of(words(), <a
+href="const%20auto&amp;%20w">&amp;dictionary</a> { return
+dictionary.hasElement(w); } ); }</p>
+<p>virtual void render(Screen&amp; screen) { // … } protected:
+std::vector<std::string> words_; };</p></li>
+</ul>
+<p>class HiddenContent : public Content { public: explicit
+HiddenContent() { words_.emplace_back(“Hide!”); }</p>
+<pre><code>void render(Screen&amp; screen) override
+{
+    throw std::runtime_error(&quot;Content hidden&quot;);
+}</code></pre>
+<p>};</p>
+<pre><code>
+### Przykład 2
+*  Łamie zasadę pojedynczej odpowiedzialności
+    * `Button` odpowiada i za obsługę kliknięcia guzika i za jego wyświetlanie
+* Łamie zasadę open-close
+    * `HiddenButton` musi nadpisać metodę `render` kiedy nie ma to sensu
+* Łamie zasadę Liskov
+    * klasa dziedzicząca `HiddenButton` nie może być traktowana jednakowo jak `Button` przy wywołaniu `render`
+* Łamie zasadę segregacji interfejsów
+    * `render` powinno być objęte w oddzielnym dla obiektów, które można wyświetlać
+* Łamie zasadę inwersji zależności
+    * `Button` zależy od konkretnej sesji `chrome::Session` zamiast od abstrakcyjnej sesji przeglądarki
+* Jak poprawić
+    * Oddzielna klasa, która przyjmuje `Button` i go wyświetla
+    * Sesja Chrome zastąpiona abstrakcyjną sesją przeglądarki
+```cpp
+class Button  
+{  
+public:  
+    Button(chrome::Session&amp; session_, std::string_view url_)  
+            : session(session_), url(url_)  
+    {}  
+    virtual ~Button() {}  
+    virtual void render(Screen&amp; screen)  
+    {  
+// ...  
+    }  
+    void onClick()  
+    {  
+        session.request(url + &quot;/pressed&quot;);  
+    }  
+private:  
+    chrome::Session&amp; session;  
+    std::string url;  
+};  
+class HiddenButton : public Button  
+{  
+public:  
+    HiddenButton(chrome::Session&amp; session, std::string_view url)  
+            : Button(session, url) {}  
+    void render(Screen&amp; screen) override  
+    {  
+        throw std::runtime_error(&quot;Button hidden&quot;);  
+    }  
+};</code></pre>
+<h3 id="przykład-3">Przykład 3</h3>
+<ul>
+<li>Złamana zasada SRP
+<ul>
+<li>klasa odpowiedzialna za trzymanie danych, sprawdzanie pisowni i
+zapisywanie do pliku</li>
+</ul></li>
+<li>Złamana zasada ISP
+<ul>
+<li>jeden interfejs zapisuje do pliku i sprawdza pisownię</li>
+</ul></li>
+<li>Złamana zasada DIP
+<ul>
+<li>zależy od konkretnego <code>EnglishDictionary</code></li>
+<li>zapis konkretnie do pliku, można do strumienia wyjściowego</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Page  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;&amp;</span> words<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isSpellingCorrect<span class="op">()</span> <span class="at">const</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        EnglishDictionary dictionary<span class="op">;</span>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges<span class="bu">::</span>all_of<span class="op">(</span>words<span class="op">(),</span> <span class="op">[&amp;</span>dictionary<span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">.</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> save<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> fileName<span class="op">)</span>  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ofstream<span class="op"> </span>out<span class="op">(</span>fileName<span class="op">);</span>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges<span class="bu">::</span>copy<span class="op">(</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>out<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<p>Poprawiony kod</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string&gt;</span><span class="pp">  </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span><span class="pp">  </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span><span class="pp">  </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Page <span class="op">{</span>  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;&amp;</span> words<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dictionary <span class="op">{</span>  </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">bool</span> hasElement<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op"> &amp;</span>w<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EnglishDictionary <span class="op">:</span> <span class="kw">public</span> Dictionary <span class="op">{</span>  </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...  </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SpellChecker <span class="op">{</span>  </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    SpellChecker<span class="op">(</span>Dictionary <span class="op">*</span>dict<span class="op">)</span> <span class="op">:</span> dictionary<span class="op">(</span>dict<span class="op">)</span> <span class="op">{}</span>  </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isSpellingCorrect<span class="op">(</span>Page <span class="op">&amp;</span>page<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges<span class="bu">::</span>all_of<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="op">[</span><span class="kw">this</span><span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">-&gt;</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span>  </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    Dictionary <span class="op">*</span>dictionary<span class="op">;</span>  </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PagePersister <span class="op">{</span>  </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> save<span class="op">(</span>Page <span class="op">&amp;</span>page<span class="op">,</span> <span class="bu">std::</span>ostream<span class="op"> &amp;</span>outputStream<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges<span class="bu">::</span>copy<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>outputStream<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<h3 id="przykład-4">Przykład 4</h3>
+<ul>
+<li>Złamana zasada SRP i ISP
+<ul>
+<li>ta sama klasa przechowuje dane, łączy dokumenty i zapisuje do
+pliku</li>
+</ul></li>
+<li>Złamana zasada DIP
+<ul>
+<li>zapis może być tylko do pliku (konkretne) zamiast bardziej ogólnie
+np do strumienia wyjściowego</li>
+</ul></li>
+<li>Jak naprawić
+<ul>
+<li>oddzielna klasa, która przyjmuje dokument, strumień wyjściowy i go
+zapisuje</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Document  </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> save<span class="op">(</span><span class="bu">std::</span>string_view<span class="op"> </span>fileName<span class="op">)</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>ofstream<span class="op"> </span>out<span class="op">(</span>fileName<span class="op">);</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> title<span class="op">();</span>  </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> data<span class="op">();</span> <span class="co">// typ Data poprawnie obsªu»y t¦ operacj¦  </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>string<span class="op"> </span>title<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  Data data<span class="op">()</span> <span class="at">const</span><span class="op">;</span> <span class="co">// implementacja typu Data jest nieistotna  </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> combine<span class="op">(</span><span class="at">const</span> Data<span class="op">&amp;</span> other<span class="op">)</span>  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">// szczegóªy implementacji nie maj¡ znaczenia  </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div></li>
+</ul>
+<h3 id="przykład-5">Przykład 5</h3>
+<p>Złamana zasada pojedynczej odpowiedzialności - obliczanie wyniku i
+wypisywanie na STDOUT.</p>
+<p>Należałoby ewentualne wypisywanie wyniku obsłużyć tam, gdzie jest
+wołane <code>execute</code></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Example  </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    int execute<span class="op">(</span><span class="dt">int</span> a<span class="op">)</span>  </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">int</span> result <span class="op">=</span> a <span class="op">*</span> a<span class="op">;</span>  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">&quot;result is:&quot;</span> <span class="op">&lt;&lt;</span> result<span class="op">;</span>  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result<span class="op">;</span>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<h3 id="przykład-6">Przykład 6</h3>
+<ul>
+<li>Kod łamie zasadę LSP</li>
+<li>Dla <code>DocumentFileWriter</code> write wykonuje pełną operację
+zapisu</li>
+<li>Dla <code>DocumentDatabaseWriter</code> write, żeby zapisać dokument
+wymaga wywołania później <code>commit</code></li>
+<li>Wskaźnik na <code>DocumentWriter</code> nie może być traktowany
+jednakowo dla każdej podklasy</li>
+<li>Zatwierdzenie transakcji powinno być wołane wewnątrz
+<code>DocumentDatabaseWriter::write</code></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DocumentWriter  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">virtual</span> <span class="dt">void</span> write<span class="op">(</span><span class="at">const</span> Document<span class="op">&amp;</span> doc<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DocumentFileWriter <span class="op">:</span> <span class="kw">public</span> DocumentWriter  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> write<span class="op">(</span><span class="at">const</span> Document<span class="op">&amp;</span> doc<span class="op">)</span> <span class="kw">override</span>  </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    out <span class="op">&lt;&lt;</span> doc<span class="op">.</span>header<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span> <span class="op">&lt;&lt;</span> doc<span class="op">.</span>data<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span>  </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    out<span class="op">.</span>flush<span class="op">();</span>  </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... szczegóły implementacji są nieistotne  </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DocumentDatabaseWriter <span class="op">:</span> <span class="kw">public</span> DocumentWriter  </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> write<span class="op">(</span><span class="at">const</span> Document<span class="op">&amp;</span> doc<span class="op">)</span> <span class="kw">override</span>  </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>insertRow<span class="op">(</span>doc<span class="op">.</span>header<span class="op">(),</span> doc<span class="op">.</span>data<span class="op">());</span>  </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> commit<span class="op">()</span>  </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>     db<span class="op">.</span>commit<span class="op">();</span>  </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ... szczegóły implementacji są nieistotne  </span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> userCode<span class="op">()</span>  </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  Document doc<span class="op">;</span>  </span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...  </span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  DocumentWriter<span class="op">*</span> writer <span class="op">=</span> factory<span class="op">.</span>createWriter<span class="op">();</span>  </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  writer<span class="op">-&gt;</span>write<span class="op">(</span>doc<span class="op">);</span>  </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="przykład-7">Przykład 7</h3>
+<ul>
+<li>Złamane zasady SRP i ISP
+<ul>
+<li>ta sama klasa trzyma dane, obsługuje zapis do pliku i scalanie
+dokumentów</li>
+<li>do zapisu i scalania powinny być oddzielne interfejsy</li>
+<li>zapis powinna obsługiwać oddzielna klasa przyjmująca dokument jako
+argument metody</li>
+</ul></li>
+<li>Złamana zasada DIP
+<ul>
+<li>zapis konkretnie do pliku zamiast ogólnie do strumienia
+wyjściowego</li>
+<li>lepiej byłoby przekazać otwarty strumień wyjściowy ```cpp class
+Document<br />
+{<br />
+public:<br />
+  void save(std::string_view fileName)<br />
+  {<br />
+    std::ofstream out(fileName);<br />
+    out &lt;&lt; title();<br />
+    out &lt;&lt; “”;<br />
+    out &lt;&lt; data(); // typ Data poprawnie zachowa swoje dane w tej
+operacji<br />
+    out &lt;&lt; “.”;<br />
+  }</li>
+</ul></li>
+</ul>
+<p>  std::string title() const;<br />
+  Data data() const; // typ Data nieistotny dla reszty problemu</p>
+<p>  void combine(const Data&amp; other)<br />
+  {<br />
+    // szczegóły implementacji nie mają znaczenia<br />
+}<br />
+};</p>
+<pre><code>
+### Przykład 8
+* Złamane zasady SRP i ISP
+    * ta sama klasa trzyma dane, drukuje i scala dokumenty
+    * drukowanie powinna obsługiwać oddzielna klasa, która przyjmuje dokument jako argument metody
+    * scalanie i drukowanie powinny być widoczne przez różne interfejsy
+* Złamana zasada DIP
+    * `Document` zależy od konkretnego `ColorPrinter`
+    * moduł odpowiedzialny za drukowanie dokumentu i obsługujący kolorową drukarkę powinien zależeć od wspólnego interfejsu 
+```cpp
+class Document  
+{  
+public:  
+  void print()  
+  {  
+    ColorPrinter p;  
+    //  szczegóły implementacji nie mają znaczenia  
+    p.print();  
+  }  
+  
+  std::string title() const;  
+  Data data() const; // typ Data umie się zapisywać  
+  
+  void combine(const Data&amp; other)  
+  {  
+    // szczegóły implementacji nie mają znaczenia  
+  }  
+};</code></pre>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kolokwium-01">Kolokwium 01</a>
+<ul>
+<li><a href="#cykl-życia-wytwarzania-oprogramowania">Cykl życia
+wytwarzania oprogramowania</a>
+<ul>
+<li><a href="#w-którym-momencie-procesu-wytwarzania-oprogramowania-uzyskujemy-gwarancję-poprawności-programu-kiedy-możemy-go-dostarczyć-klientowi">W
+którym momencie procesu wytwarzania oprogramowania uzyskujemy gwarancję
+poprawności programu? Kiedy możemy go dostarczyć klientowi?</a></li>
+<li><a href="#dlaczego-warto-oczekiwać-by-wymaganie-było-między-innymi-weryfikowalne-i-jednoznaczne">Dlaczego
+warto oczekiwać, by wymaganie było, między innymi, weryfikowalne i
+jednoznaczne?</a></li>
+<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-jednoznaczne-podaj-przykład---własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+można powiedzieć o wymaganiu, że jest jednoznaczne? Podaj przykład -
+własny, wskazujący na zrozumienie tematu.</a></li>
+<li><a href="#dlaczego-przyjmuje-się-że-dobry-test-powinien-być-deterministyczny-podaj-przykład-problemu-i-jego-rozwiązania">Dlaczego
+przyjmuje się, że dobry test powinien być deterministyczny? Podaj
+przykład problemu i jego rozwiązania</a></li>
+<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-atomowe-podaj-przykład-własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+można powiedzieć o wymaganiu, że jest atomowe? Podaj przykład własny,
+wskazujący na zrozumienie tematu.</a></li>
+</ul></li>
+<li><a href="#solid">SOLID</a>
+<ul>
+<li><a href="#przykład-1">Przykład 1</a></li>
+<li><a href="#przykład-3">Przykład 3</a></li>
+<li><a href="#przykład-4">Przykład 4</a></li>
+<li><a href="#przykład-5">Przykład 5</a></li>
+<li><a href="#przykład-6">Przykład 6</a></li>
+<li><a href="#przykład-7">Przykład 7</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

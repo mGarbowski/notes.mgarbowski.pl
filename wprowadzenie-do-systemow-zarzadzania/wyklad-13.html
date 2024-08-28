@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-13</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-12.html">Poprzedni: wyklad-12.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wprowadzenie do systemów zarządzania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="01-systemy-informacyjne-w-zarzadzaniu.html">01-systemy-informacyjne-w-zarzadzaniu.html</a></li>
+                
+                <li><a href="02-architektury-systemow-zarzadzania.html">02-architektury-systemow-zarzadzania.html</a></li>
+                
+                <li><a href="03-modelowanie-procesow-biznesowych.html">03-modelowanie-procesow-biznesowych.html</a></li>
+                
+                <li><a href="04-modele-analityczne.html">04-modele-analityczne.html</a></li>
+                
+                <li><a href="kolokwium-1.html">kolokwium-1.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="systemy-business-intelligence-big-data-2024-06-03">Systemy
+Business Intelligence, Big Data (2024-06-03)</h1>
+<p>Będzie jedno pytanie z ostatnich 2 wykładów na kolosie</p>
+<h2 id="business-intelligence">Business Intelligence</h2>
+<ul>
+<li>Zbiór technik i narzędzi przekształcających dane operacyjne w
+użyteczną wiedzę biznesową
+<ul>
+<li>wykorzystanie w procesach podejmowania decyzji</li>
+<li>wspieranie działalności operacyjnej</li>
+</ul></li>
+<li>Analiza danych historycznych i aktualnych</li>
+<li>Dostarcza informacje o charakterze prognostycznym</li>
+</ul>
+<h2 id="techniki-bi">Techniki BI</h2>
+<ul>
+<li>Raportowanie</li>
+<li>Online Analytical Processing (OLAP)</li>
+<li>Analytics</li>
+<li>Data mining, text mining
+<ul>
+<li>analiza komentarzy</li>
+</ul></li>
+<li>Complex Event Processing (CEP)
+<ul>
+<li>przetwarzanie i analityka w czasie rzeczywistym</li>
+</ul></li>
+</ul>
+<h2 id="przechowywanie-danych">Przechowywanie danych</h2>
+<ul>
+<li>Bazy danych</li>
+<li>Hurtownie danych
+<ul>
+<li>zbieranie danych z wielu źródeł</li>
+<li>inne silniki</li>
+<li>inny sposób modelowania</li>
+</ul></li>
+<li>Bazy wielowymiarowe</li>
+<li>Specjalizowane rozwiązania typu Big Data
+<ul>
+<li>Volume Velocity Variety (3V)</li>
+<li>duża ilość danych</li>
+<li>duża zmienność</li>
+<li>duża różnorodność</li>
+</ul></li>
+</ul>
+<h2 id="hadoop-distributed-file-system">Hadoop Distributed File
+System</h2>
+<ul>
+<li>HDFS</li>
+<li>Do przetwarzania danych strumieniowych</li>
+<li>Zrównoleglenie, bardzo dużo węzłów</li>
+<li>Węzeł nadrzędny i wiele datanodes</li>
+<li>Blok danych replikowany między węzłami</li>
+<li>Pozwala na rozproszenie geograficzne</li>
+<li>Redundancja danych, zabezpiecza przed awarią</li>
+<li>Dobrze skalowalne, można dodawać węzły</li>
+</ul>
+<h2 id="olap">OLAP</h2>
+<ul>
+<li>Narzędzie informatyczne przeznaczone do wielowymiarowych i
+hierarchicznych analiz danych
+<ul>
+<li>wymiary i miary</li>
+</ul></li>
+<li>Rzutowania, agregacja</li>
+<li>Hierarchia
+<ul>
+<li>np. wymiar czasu - rok, miesiąc, dzień</li>
+</ul></li>
+<li>Kokpit zarządzania
+<ul>
+<li>predefiniowane i własne widoki dla użytkownika</li>
+<li>możne definiować na bieżąco</li>
+</ul></li>
+</ul>
+<h2 id="architektura-systemu-analitycznego">Architektura systemu
+analitycznego</h2>
+<ul>
+<li>Wiele baz danych (operacyjnych)</li>
+<li>Hurtowania danych
+<ul>
+<li>operational data store - odseparowane</li>
+<li>zbiera dane z wielu baz danych</li>
+</ul></li>
+<li>OLAP server
+<ul>
+<li>struktury wielowymiarowe</li>
+</ul></li>
+<li>Aplikacje
+<ul>
+<li>graficzna prezentacja</li>
+</ul></li>
+</ul>
+<h2 id="przegląd-rozwiązań-bi">Przegląd rozwiązań BI</h2>
+<ul>
+<li>Dla małej ilości danych
+<ul>
+<li>Excel z tabelami przestawnymi</li>
+</ul></li>
+<li>Z łatwo konfigurowalnymi analizami
+<ul>
+<li>Power BI</li>
+<li>QlikView</li>
+<li>Tableau</li>
+</ul></li>
+<li>Analityka z wykorzystaniem chmury
+<ul>
+<li>Qubole</li>
+</ul></li>
+<li>Analityka z wykorzystaniem BigData
+<ul>
+<li>Apache Kylin</li>
+</ul></li>
+<li>Rozwiązania z zaawansowaną analityką
+<ul>
+<li>SAS</li>
+<li>IBM</li>
+<li>SAP</li>
+</ul></li>
+</ul>
+<h3 id="excel">Excel</h3>
+<ul>
+<li>Zalety
+<ul>
+<li>szybkie analizy</li>
+<li>znane narzędzie</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>słabo skalowalne</li>
+</ul></li>
+</ul>
+<h3 id="power-bi">Power BI</h3>
+<ul>
+<li>Microsoft - też inne narzędzia
+<ul>
+<li>Hadoop</li>
+<li>SQL Server</li>
+<li>SharePoint</li>
+<li>warstwa integracyjna</li>
+<li>warstwa dostępu do danych (Excel)</li>
+</ul></li>
+<li>Architektura (oparta na chmurze)
+<ul>
+<li>Power BI na samym końcu jako warstwa prezentacji danych</li>
+<li>ładowanie danych strumieniowych</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>duże możliwości</li>
+<li>zintegrowane rozwiązania</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>vendor lock-in, wszystko trzyma Microsoft</li>
+<li>wersja on-premise jest bardzo ograniczona</li>
+<li>koszty</li>
+</ul></li>
+<li>Wspiera skrypty Pythonowe</li>
+</ul>
+<h3 id="qlikview">QlikView</h3>
+<ul>
+<li>Wiele rozwiązań in-memory</li>
+<li>Architektura
+<ul>
+<li>wiele źródeł danych</li>
+<li>serwer przechowujący dane</li>
+<li>wiele aplikacji klienckich / wyjść</li>
+</ul></li>
+</ul>
+<h3 id="tableau">Tableau</h3>
+<ul>
+<li>Prosty interfejs użytkownika</li>
+</ul>
+<h2 id="rozwiązania-chmurowe">Rozwiązania chmurowe</h2>
+<ul>
+<li>Infrastructure as a Service
+<ul>
+<li>wynajmuje się tylko infrastrukturę (serwery)</li>
+</ul></li>
+<li>Platform as a Service
+<ul>
+<li>aplikacja na dostarczonej platformie analitycznej</li>
+</ul></li>
+<li>Software as a Service
+<ul>
+<li>całe oprogramowanie dostarczone jako usługa chmurowa</li>
+</ul></li>
+<li>Przykłady rozwiązań analitycznych
+<ul>
+<li>Sisense</li>
+<li>Microsoft Power BI Pro</li>
+<li>…</li>
+</ul></li>
+</ul>
+<h3 id="qubole">Qubole</h3>
+<ul>
+<li>Rozproszone</li>
+<li>Integruje dane z różnych chmur obliczeniowych</li>
+</ul>
+<h3 id="apache-kylin">Apache Kylin</h3>
+<ul>
+<li>Open Source</li>
+<li>Wejście
+<ul>
+<li>Apache Kafka - dane strumieniowe</li>
+</ul></li>
+<li>Widoki - Power BI, aplikacje webowe</li>
+<li>Silnik do bardzo szybkiego przetwarzania danych
+<ul>
+<li>struktury kostkowe</li>
+</ul></li>
+</ul>
+<h3 id="sas-intelligence-platform">SAS Intelligence Platform</h3>
+<ul>
+<li>Źródła danych
+<ul>
+<li>płatne usługi dla różnych źródeł</li>
+</ul></li>
+<li>Serwery SAS
+<ul>
+<li>metadane</li>
+<li>workspace - wykonywanie obliczeń</li>
+<li>OLAP - ze strukturami kostkowymi</li>
+<li>process server - przetwarzanie dla aplikacji typu Excel</li>
+</ul></li>
+<li>Warstwa pośrednia</li>
+<li>Aplikacje klienckie
+<ul>
+<li>Enterprise Guide</li>
+<li>Enterprise Miner - data mining</li>
+<li>Data Integration Studio - integracja danych na poziomie
+korporacji</li>
+</ul></li>
+</ul>
+<h3 id="ibm">IBM</h3>
+<ul>
+<li>Dedykowane rozwiązania dla
+<ul>
+<li>business intelligence</li>
+<li>analiza predykcyjna</li>
+<li>zarządzanie wydajnością</li>
+<li>analiza ryzyka</li>
+</ul></li>
+<li>Dedykowane dla dużych firm</li>
+</ul>
+<h3 id="sap-hana">SAP HANA</h3>
+<ul>
+<li>Wizualizacje</li>
+<li>Dane rozproszone</li>
+<li>Dla dużych firm</li>
+</ul>
+<h2 id="open-source-olap">Open Source OLAP</h2>
+<ul>
+<li>Pentaho from Hitachi Vantara
+<ul>
+<li>tylko część funkcjonalności</li>
+</ul></li>
+<li>JasperReports Library</li>
+<li>Mondrian</li>
+<li>Cubes</li>
+<li>Apache Kylin</li>
+</ul>
+<h2 id="analiza-dostępnych-narzędzi">Analiza dostępnych narzędzi</h2>
+<ul>
+<li>Microsoft ma największą bazę użytkowników</li>
+</ul>
+<h2 id="multidimensional-expressions">Multidimensional Expressions</h2>
+<ul>
+<li>MDX</li>
+<li>Odpowiednik SQL dla danych wielowymiarowych</li>
+<li>Do skonfigurowania środowiska przez informatyka</li>
+</ul>
+<h2 id="big-data-analytics">Big Data Analytics</h2>
+<ul>
+<li>Volume - duża ilość danych</li>
+<li>Variety - duża różnorodność danych<br />
+</li>
+<li>…</li>
+</ul>
+<h3 id="hadoop-i-sas">Hadoop i SAS</h3>
+<ul>
+<li>Rozproszone przetwarzanie pozwala drastycznie przyspiedszyć
+obliczenia (np. regresji)</li>
+</ul>
+<h2 id="data-mesh">Data mesh</h2>
+<ul>
+<li>Dzielenie danych i wyników między zespołami ## Event Stream
+Processing</li>
+<li>Praca bezpośrednio na strumeiniu danych</li>
+<li>Np. dane z czujników</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#systemy-business-intelligence-big-data-2024-06-03">Systemy
+Business Intelligence, Big Data (2024-06-03)</a>
+<ul>
+<li><a href="#business-intelligence">Business Intelligence</a></li>
+<li><a href="#techniki-bi">Techniki BI</a></li>
+<li><a href="#przechowywanie-danych">Przechowywanie danych</a></li>
+<li><a href="#hadoop-distributed-file-system">Hadoop Distributed File
+System</a></li>
+<li><a href="#olap">OLAP</a></li>
+<li><a href="#architektura-systemu-analitycznego">Architektura systemu
+analitycznego</a></li>
+<li><a href="#przegląd-rozwiązań-bi">Przegląd rozwiązań BI</a>
+<ul>
+<li><a href="#excel">Excel</a></li>
+<li><a href="#power-bi">Power BI</a></li>
+<li><a href="#qlikview">QlikView</a></li>
+<li><a href="#tableau">Tableau</a></li>
+</ul></li>
+<li><a href="#rozwiązania-chmurowe">Rozwiązania chmurowe</a>
+<ul>
+<li><a href="#qubole">Qubole</a></li>
+<li><a href="#apache-kylin">Apache Kylin</a></li>
+<li><a href="#sas-intelligence-platform">SAS Intelligence
+Platform</a></li>
+<li><a href="#ibm">IBM</a></li>
+<li><a href="#sap-hana">SAP HANA</a></li>
+</ul></li>
+<li><a href="#open-source-olap">Open Source OLAP</a></li>
+<li><a href="#analiza-dostępnych-narzędzi">Analiza dostępnych
+narzędzi</a></li>
+<li><a href="#multidimensional-expressions">Multidimensional
+Expressions</a></li>
+<li><a href="#big-data-analytics">Big Data Analytics</a>
+<ul>
+<li><a href="#hadoop-i-sas">Hadoop i SAS</a></li>
+</ul></li>
+<li><a href="#data-mesh">Data mesh</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

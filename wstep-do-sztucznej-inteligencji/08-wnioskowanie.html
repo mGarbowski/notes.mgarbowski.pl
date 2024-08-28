@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-wnioskowanie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-sieci-bayesowskie.html">Poprzedni: 07-sieci-bayesowskie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-logika-rozmyta.html">Następny: 09-logika-rozmyta.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="inżynieria-wiedzy-2024-01-11">Inżynieria wiedzy
+(2024-01-11)</h1>
+<h2 id="rachunek-zdań">Rachunek zdań</h2>
+<p>Wartościowanie - przypisywanie wartości zdaniom Klasyczny rachunek
+zdań - każdemu zdaniu można przypisać tylko wartości prawda lub fałsz
+Fromuły logiczne buduje się ze zdań prostych używając spójników
+logicznych (not, and, or, …) Za pomocą jednego spójnika nand można
+wyrazić wszystkie inne</p>
+<p>Tautologie - zdania zawsze prawdziwe niezależnie od wartościowania
+(prawa de Morgana, prawo wyłączonego środka itd.)</p>
+<h2 id="badanie-czy-formuła-jest-tautologią">Badanie czy formuła jest
+tautologią</h2>
+<p>Można sprawdzić wszystkie możliwe wartości składowych zdań prostych
+(złożoność wykładnicza)</p>
+<h2 id="problem-spełnialności-sat">Problem spełnialności (SAT)</h2>
+<p>Czy dla podanej formuły istnieje takie wartościowani, żeby była
+prawdziwa - jest rozstrzygalny ale ma złożoność <span
+class="math inline">\(O(2^n)\)</span></p>
+<h2 id="postać-normalna-formuły">Postać normalna formuły</h2>
+<ul>
+<li>Literał - zdanie <span class="math inline">\(p\)</span> lub <span
+class="math inline">\(\neg p\)</span> , gdzie <span
+class="math inline">\(p\)</span> to zdanie proste</li>
+<li>Klauzula - alternatywa literałów <span class="math inline">\(p_1
+\vee p_2 \vee \ldots \vee p_n\)</span></li>
+<li>Koniunkcyjna postać normalna (CNF) - koniunkcja klauzul</li>
+</ul>
+<h3
+id="sprowadzanie-formuły-do-koniunkcyjnej-postaci-normalnej">Sprowadzanie
+formuły do koniunkcyjnej postaci normalnej</h3>
+<ul>
+<li>Eliminacja równoważności</li>
+<li>Eliminacja implikacji</li>
+<li>Ograniczenie zakresu negacji do literału (prawa de Morgana)</li>
+<li>Przekształcenie alternatywy do koniunkcji</li>
+</ul>
+<h3 id="klauzula-horna">Klauzula Horna</h3>
+<p>Wygodna do wnioskowania</p>
+<p><span class="math display">\[
+L_0 \vee \neg L_1 \vee \neg L_2 \vee \ldots \vee \neg L_n
+\equiv L_1 \wedge L_2 \wedge \ldots \wedge L_n \implies L_0
+\]</span></p>
+<h2 id="formuły-ze-zmiennymi">Formuły ze zmiennymi</h2>
+<p>Rachunek predykatów 1. rzędu. Formuły są wartościowane, gdy podamy
+wartości zmiennych Kwantyfikatory <span
+class="math inline">\(\forall\)</span> i <span
+class="math inline">\(\exists\)</span></p>
+<p>Obiekty (termy) * stałe * zmienne * funkcje (obliczają termy na
+podstawie listy termów) * predykat - funkcja odwzorowująca argumenty na
+zbiór {prawda, fałsz}</p>
+<p>Notacje predykatów * prefiksowy * infiksowy * listowy * bez nazwy</p>
+<h2 id="formuła-poprawnie-zbudowana-fpz">Formuła poprawnie zbudowana
+(FPZ)</h2>
+<p>Atom to predykat oraz prawda i fałsz. * Atom jest FPZ * FPZ połączone
+spójnikami logicznymi to FPZ * FPZ z kwantyfikatorami to też FPZ</p>
+<h3 id="postać-normalna-formuły-1">Postać normalna formuły</h3>
+<ul>
+<li>Atom to <span class="math inline">\(P\)</span>, <span
+class="math inline">\(\neg P\)</span>, prawda, fałsz</li>
+</ul>
+<h3 id="metoda-skolemizacji">Metoda skolemizacji</h3>
+<p>Usuwanie kwantyfikatorów szczegółowych</p>
+<h3 id="przenoszenie-kwantyfikatorów-na-początek-formuły">Przenoszenie
+kwantyfikatorów na początek formuły</h3>
+<h3 id="podstawienie">Podstawienie</h3>
+<p>Podstawienie to przypisanie termu do zmiennej (termy to stałe,
+zmienne, funkcje). Unifikator pary formuł to taka para podstawień, które
+doprowadza obie formuły do wspólnej postaci</p>
+<p>Najbardziej ogólny unifikator - przekształca do postaci prawdziwej
+dla jak najszerszego zbioru obiektów</p>
+<h2 id="algorytm-wnioskowania">Algorytm wnioskowania</h2>
+<p>Modus ponens <span class="math inline">\(A \wedge (A \implies B)
+\equiv B\)</span></p>
+<ul>
+<li>Zaczynamy od znanych faktów</li>
+<li>Rozszerzamy fakty w oparciu o posiadane reguły</li>
+<li>Powtarzamy krok 2 do skutku</li>
+</ul>
+<h2 id="rachunek-predykatów-wyższego-rzędu">Rachunek predykatów wyższego
+rzędu</h2>
+<p>Zawiera kwantyfikatory, które dotyczą funkcji lub predykatów, a nie
+tylko pojedynczych zmiennych</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#inżynieria-wiedzy-2024-01-11">Inżynieria wiedzy
+(2024-01-11)</a>
+<ul>
+<li><a href="#rachunek-zdań">Rachunek zdań</a></li>
+<li><a href="#badanie-czy-formuła-jest-tautologią">Badanie czy formuła
+jest tautologią</a></li>
+<li><a href="#problem-spełnialności-sat">Problem spełnialności
+(SAT)</a></li>
+<li><a href="#postać-normalna-formuły">Postać normalna formuły</a>
+<ul>
+<li><a href="#sprowadzanie-formuły-do-koniunkcyjnej-postaci-normalnej">Sprowadzanie
+formuły do koniunkcyjnej postaci normalnej</a></li>
+<li><a href="#klauzula-horna">Klauzula Horna</a></li>
+</ul></li>
+<li><a href="#formuły-ze-zmiennymi">Formuły ze zmiennymi</a></li>
+<li><a href="#formuła-poprawnie-zbudowana-fpz">Formuła poprawnie
+zbudowana (FPZ)</a>
+<ul>
+<li><a href="#postać-normalna-formuły-1">Postać normalna
+formuły</a></li>
+<li><a href="#metoda-skolemizacji">Metoda skolemizacji</a></li>
+<li><a href="#przenoszenie-kwantyfikatorów-na-początek-formuły">Przenoszenie
+kwantyfikatorów na początek formuły</a></li>
+<li><a href="#podstawienie">Podstawienie</a></li>
+</ul></li>
+<li><a href="#algorytm-wnioskowania">Algorytm wnioskowania</a></li>
+<li><a href="#rachunek-predykatów-wyższego-rzędu">Rachunek predykatów
+wyższego rzędu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

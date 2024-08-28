@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-algorytmy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-liczby-rzeczywiste.html">Poprzedni: 04-liczby-rzeczywiste.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-algorytmy.html">Następny: 06-algorytmy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="algorytmy">Algorytmy</h1>
+<p>Dekompozycja problemu</p>
+<p>Dobra inżynieria oprogramownia - niskie sprzężenie między warstwami
+programu</p>
+<p>Mieszanie odpowiedzialności w kodzie utrudnia testowanie</p>
+<p>W Pythonie wszystko jest obiektem przekazanym przez referencję</p>
+<h2 id="dobry-algorytm">Dobry algorytm</h2>
+<ul>
+<li>Jednoznzaczny
+<ul>
+<li>kłóci się z niektórymi paradygmatami programowania
+(deklaratywnym)</li>
+</ul></li>
+<li>Dowolny sposób opisu
+<ul>
+<li>język naturalny</li>
+<li>postać graficzna</li>
+</ul></li>
+<li>Nie określa sposobu implementacji
+<ul>
+<li>nadaje się do implementacji np. w różnych językach</li>
+<li>Implementacja powinna maksymalnie wykorzystywać feature’y
+języka</li>
+</ul></li>
+<li>Daje się zastosować w wielu różnych problemach
+<ul>
+<li>musi być jednocześnie ogólny i precyzyjny</li>
+<li>po to jest dekompozycja problemów</li>
+<li>może na któryś z naszych podproblemów już ktoś wymyślił
+algorytm</li>
+</ul></li>
+</ul>
+<h2 id="schematy-blokowe">Schematy blokowe</h2>
+<ul>
+<li>Bloki przedstawiają rodzaj działań</li>
+<li>Linie łączące bloki przedstawiają kolejność</li>
+</ul>
+<h2 id="dwa-różne-minusy">Dwa różne minusy</h2>
+<ul>
+<li>binarny a - b</li>
+<li>unarny -a</li>
+</ul>
+<p>Rozróżnienie syntaktyki i gramatyki języka programowania - jaka jest
+struktura i co znaczy</p>
+<p>Każdy operator ma zdefiniowany priorytet i łączność</p>
+<h2 id="operatory-unarne">Operatory unarne</h2>
+<ul>
+<li>a++ postinkrementacja</li>
+<li>a– postdekrementacja</li>
+<li>++a preinkrementacja</li>
+<li>–a predekrementacja</li>
+</ul>
+<p>Preinkrementacja najpierw zwiększa wartość zmiennej</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> a <span class="op">=</span> <span class="op">++</span>x<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// a == 11 i x == 11</span></span></code></pre></div>
+<h3 id="statement">Statement</h3>
+<p>nie zwraca wartości (while, for, if)</p>
+<h3 id="expression">Expression</h3>
+<p>zwraca wartość (a = b + c)</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytmy">Algorytmy</a>
+<ul>
+<li><a href="#dobry-algorytm">Dobry algorytm</a></li>
+<li><a href="#schematy-blokowe">Schematy blokowe</a></li>
+<li><a href="#dwa-różne-minusy">Dwa różne minusy</a></li>
+<li><a href="#operatory-unarne">Operatory unarne</a>
+<ul>
+<li><a href="#statement">Statement</a></li>
+<li><a href="#expression">Expression</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

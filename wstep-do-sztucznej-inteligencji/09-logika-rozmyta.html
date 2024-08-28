@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-logika-rozmyta</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-wnioskowanie.html">Poprzedni: 08-wnioskowanie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-komputery-kwantowe.html">Następny: 10-komputery-kwantowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="logika-rozmyta-2024-01-18">Logika rozmyta (2024-01-18)</h1>
+<p>Logika rozmyta pozwala na rozszerzenie wnioskowania na pojęcia
+nieostre</p>
+<p>Zadeh</p>
+<p>Zastosowania w automatyce - zdrowo rozsądkowe reguły w sterowaniu
+maszynami Typowe zastosowanie - sterowniki ale też stosuje się do modeli
+regresyjnych</p>
+<p>Zbiór (uniwersum U) i funkcja charakterystyczna dla każdego podzbioru
+A - należy/nie należy to zdanie logiczne</p>
+<h2 id="zbiór-rozmyty-i-funkcja-przynależności">Zbiór rozmyty i funkcja
+przynależności</h2>
+<p>Funkcja charakterystyczna podzbioru przyjmuje wartości z przedziału
+<span class="math inline">\([0,1]\)</span> Funkcję definiuje się
+arbitralnie - tak żeby było wygodnie Najczęściej trapez, trójkąt,
+singleton, krzywa Gaussa</p>
+<p>Można wybrać taką funkcję przynależności które nie osiągają nigdy 1
+albo 0</p>
+<p>Wartość funkcji można traktować jako wartość logiczną w logice
+rozmytej</p>
+<p>Koniunkcja - T-Norma * jak wartości przynależności będą tylko 0 i 1
+to powinna zachowywać się jak w klasycznej logice * może być iloczyn *
+może być minimum</p>
+<p>Alternatywa - S-Norma * może być maksimum * może być suma - iloczyn
+(jak prawdopodobieństwo sumy, wzór włączeń-wyłączeń dla więcej niż
+2)</p>
+<p>T-Norma i S-Norma bierze się z pary (min i max, suma i iloczyn
+algebraiczne)</p>
+<h2 id="wnioskowanie">Wnioskowanie</h2>
+<p>Żeby wnioskować w logice rozmytej najpierw trzeba przetłumaczyć
+pojęcia ze świata rzeczywistego na logikę rozmytą, przeprowadzić
+wnioskowanie rozmyte i potem przetłumaczyć z powrotem</p>
+<p>Rozmywanie i wyostrzanie korzystają z definicji funkcji
+przynależności</p>
+<h3 id="rozmywanie">Rozmywanie</h3>
+<p>Definiuje się kształty funkcji przynależności dla podzbiorów z
+uniwersum Dla każdej wartości oblicza się wartości przynależności do
+wszystkich zbiorów rozmytych Najczęściej tak się określa funkcje
+przynależności żeby wartości sumowały się do 1</p>
+<h3 id="wnioskowanie-1">Wnioskowanie</h3>
+<ul>
+<li>Przynależności do pojęć na wejściu</li>
+<li>Wnioskowanie z użyciem reguł logiki formalnej</li>
+<li>Przynależności do pojęć na wyjściu</li>
+</ul>
+<h3 id="wyostrzanie">Wyostrzanie</h3>
+<p>Z wartości przynależności generuje wartość liczbową na wyjściu Przed
+wyostrzaniem mogą być niezerowe przynależności do sprzecznych pojęć
+(jednoczesnie lubię i nie lubię, w różnym stopniu)</p>
+<p>To jak zdefiniuje się wyostrzanie jest arbitralne</p>
+<p>Stosuje się operator S-Normy wejściowych przynależności z wykresami
+funkcji a potem np maksimum albo środek ciężkości</p>
+<p>Wygodnie przyjąć funkcje wyostrzające w postaci signletonów
+(Takagi-Sugeno)</p>
+<p>Przykład z samochodem dojeżdżającym do skrzyżowania na żółtym
+świetle</p>
+<p>Będzie do policzenia na egzaminie</p>
+<h2 id="budowanie-systemu-rozmytego">Budowanie systemu rozmytego</h2>
+<p>Budowa systemu rozmytego jest budową systemu regresji</p>
+<h3 id="projektowaniu-podlegają">Projektowaniu podlegają</h3>
+<ul>
+<li>klasy funkcji przynależności</li>
+<li>wybór s-normy i t-normy</li>
+<li>wybór sposobu wyostrzania</li>
+</ul>
+<p>To sprowadza się do wyboru gotowej klasy systemu</p>
+<h3 id="strojeniu-podlegają">Strojeniu podlegają</h3>
+<ul>
+<li>Liczba zbiorów rozmytych</li>
+<li>Parametry funkcji przynależności</li>
+<li>Reguły</li>
+</ul>
+<p>Testowanie modelu z zadanymi parametrami w symulacjach Można
+optymalizować parametry metodami przeszukiwania (gradient itd)</p>
+<p>Można przyjąć duży zbiór potencjalnych reguł (np. iloczyn
+kartezjański wszystkich dyskretnych wartości) przeszukiwać zbiór
+podzbiorów</p>
+<p>Trzeba mieć jakieś dane na których można by budować optymalizator,
+można użyć drzewa decyzyjnego do zbudowania zbioru reguł</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#logika-rozmyta-2024-01-18">Logika rozmyta (2024-01-18)</a>
+<ul>
+<li><a href="#zbiór-rozmyty-i-funkcja-przynależności">Zbiór rozmyty i
+funkcja przynależności</a></li>
+<li><a href="#wnioskowanie">Wnioskowanie</a>
+<ul>
+<li><a href="#rozmywanie">Rozmywanie</a></li>
+<li><a href="#wnioskowanie-1">Wnioskowanie</a></li>
+<li><a href="#wyostrzanie">Wyostrzanie</a></li>
+</ul></li>
+<li><a href="#budowanie-systemu-rozmytego">Budowanie systemu
+rozmytego</a>
+<ul>
+<li><a href="#projektowaniu-podlegają">Projektowaniu podlegają</a></li>
+<li><a href="#strojeniu-podlegają">Strojeniu podlegają</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

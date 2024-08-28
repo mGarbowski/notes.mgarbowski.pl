@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-kompresja-sekwencji-obrazow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-kompresja-obrazow.html">Poprzedni: 09-kompresja-obrazow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-strumieniowanie-multimediow.html">Następny: 11-strumieniowanie-multimediow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kompresja-sekwencji-obrazów">Kompresja sekwencji obrazów</h1>
+<h2 id="kodowanie-wideo">Kodowanie wideo</h2>
+<ul>
+<li>Podobna do kompresji obrazów</li>
+<li>Sekwencje obrazów charakteryzuje duża redundancja czasowa danych
+<ul>
+<li>kolejne klatki są do siebie bardzo podobne</li>
+</ul></li>
+<li>Żeby uzskać najlepszą kompresję nie można traktować każdej ramki
+oddzielnie</li>
+<li>Dodanie dodatkowego modelu ruchu przed koderem obrazów minimalizuje
+redundancję czasową
+<ul>
+<li>kodowane są różnice między przewidywaniem/predykcją a danymi
+oryginalnymi</li>
+</ul></li>
+</ul>
+<h2 id="koder-wideo">Koder wideo</h2>
+<ul>
+<li>Kompensacja ruchu</li>
+<li>Estymacja ruchu
+<ul>
+<li>wektory ruchu są używane przez moduł kompensacji i
+rekonstrukcji</li>
+</ul></li>
+<li>Rekonstrukcja</li>
+<li>Analogiczne kroki jak do kompresji obrazu
+<ul>
+<li>DCT / IDCT</li>
+<li>Kwantyzacja / odwrotna kwantyzacja</li>
+<li>Wybieranie zigzag</li>
+<li>RLE</li>
+<li>VLC</li>
+</ul></li>
+<li>Korki w hybrydowym koderze wideo
+<ul>
+<li>predykcja</li>
+<li>transformata</li>
+<li>kwantyzacja</li>
+<li>kodowanie entropijne</li>
+<li>rekonstrukcja</li>
+</ul></li>
+</ul>
+<h3 id="prosta-predykcja-międzyobrazowa">Prosta predykcja
+międzyobrazowa</h3>
+<ul>
+<li>Najłatwiej ograniczyć ilość danych do zakodowania przez odjęcie od
+kodowanej ramki poprzedniej ramki
+<ul>
+<li>jeśli nie ma ruchu kamery to tło raczej się nie zmienia</li>
+</ul></li>
+<li>To nie wykorzystuje informacji o ruchu w sekwencji</li>
+</ul>
+<h3 id="estymacja-ruchu">Estymacja ruchu</h3>
+<ul>
+<li>Przetwarzanie bloków obrazów (luminancji)
+<ul>
+<li>typowo makrobloki 16x16 px</li>
+<li>porównanie z sąsiadującymi obszarami w ramce referencyjnej</li>
+<li>znalezienie najbardziej podobnego</li>
+<li>predykcja pobrana z obszaru referencyjnego dla najlepszego
+podobieństwa</li>
+</ul></li>
+<li>Szuka się obszaru najbardziej podobnego
+<ul>
+<li>podobieństwo wg. kryterium SAD, MSE</li>
+<li>pełne kodowanie oznaczałoby wykonanie wszystkich kroków (DCT,
+kwantyzacja, …)</li>
+</ul></li>
+<li>Wektor ruchu - przesunięcie między aktualnie kodowanym makroblokiem
+a jego predykcją z obszaru referencyjnego
+<ul>
+<li>zakodowanie wektora też zajmuje bity w strumieniu</li>
+<li>nie zawsze opłaca się znajdować najlepsze dopasowanie, jeśli
+niedokładna wartość pozwala zaoszczędzić bity na kodowaniu wektora</li>
+</ul></li>
+</ul>
+<h3 id="wektory-ruchu">Wektory ruchu</h3>
+<ul>
+<li>Wynikiem estymacji ruchu jest zbiór wektorów ruchu</li>
+<li>Oddzielne wektory dla każdej partycji inter</li>
+<li>Predykcyjne kodowanie wektorów</li>
+<li>Zwykle odzwierciedlają ruch obiektów</li>
+<li>Gdy wektor ruchu jest taki sam jak jego predykcja (z sąsiednich
+bloków) można to sygnalizować flagą
+<ul>
+<li>częste dla zerowych wektorów</li>
+</ul></li>
+</ul>
+<h3 id="złożoność-estymacji-ruchu">Złożoność estymacji ruchu</h3>
+<ul>
+<li>Bardzo złożona obliczeniowo
+<ul>
+<li>cztery zagnieżdżone pętle przy pełnym przeszukiwaniu</li>
+</ul></li>
+<li>Miary dopasowania
+<ul>
+<li>SAD - Sum of Absolute Differences (najczęściej)</li>
+<li>SSD - Sum of Squared Differences</li>
+<li>SADT - Sum of Absolute Differences Transformed</li>
+<li>RD - Rate-Distortion (stosunek zniekształceń do stopnia
+kompresji)</li>
+</ul></li>
+</ul>
+<h3 id="szybkie-wyznaczanie-wektorów-ruchu">Szybkie wyznaczanie wektorów
+ruchu</h3>
+<ul>
+<li>Nie przeszukuje się wszystkich możliwych przesunięć superbloku</li>
+<li>Estymacja ruchu jest nabardziej złożonym modułem kodowania, potrzeba
+przyspieszenia</li>
+<li>Przeszukiwanie w przestrzeni wektorów zaczyna się od <span
+class="math inline">\((0,0)\)</span></li>
+<li>Porównuje się środek z 8 kandydatami różniącymi się we współrzędnych
+o -4, 0 lub 4</li>
+<li>Wybiera się najlepszy i zostaje nowym środkiem</li>
+<li>Porównuje się środek z 8 kandydatami różniącymi się we współrzędnych
+o -2, 0 lub 2</li>
+<li>itd.</li>
+<li>Wartości nie muszą być całkowite, można połowić zasięg
+przeszukiwania poniżej <span class="math inline">\(1\)</span></li>
+<li>Zakłada przesunięcie bloku o ułamkowe piksele
+<ul>
+<li>trzeba by wyznaczyć wartości pikseli ułamkowych (interpolacja)</li>
+</ul></li>
+</ul>
+<h3 id="podpikselowa-estymacja-ruchu">Podpikselowa estymacja ruchu</h3>
+<ul>
+<li>Wektory ruchu mogą mieć wartości niecałkowite
+<ul>
+<li>typowo 1/4, 1/2, 3/4 dla luminancji</li>
+<li>ułamki n/8 dla chrominancji 4:2:0 (o 1 rząd mniejsze niż luma, bo
+jest podpróbkowana)</li>
+</ul></li>
+<li>Interpolację wykonuje się przez dwuwymiarowe filtry o skończonej
+odpowiedzi impulsowej (SOI)
+<ul>
+<li>np. najpierw poziomy, potem pionowy</li>
+</ul></li>
+</ul>
+<h3 id="kompensacja-ruchu">Kompensacja ruchu</h3>
+<ul>
+<li>Odjęcie obszarów referencyjnych od kodowanych makrobloków
+<ul>
+<li>powstają makrobloki różnicowe</li>
+<li>z nich można złożyć obraz różnicowy z kompensacją ruchu</li>
+</ul></li>
+<li>Po kompensacji następuje zakodowanie obrazu różnicowego koderem
+obrazów</li>
+<li>Efektywna estymacja ruchu
+<ul>
+<li>mały poziom wartości w makroblokach różnicowych</li>
+<li>bardziej efektywna kompresja</li>
+<li>koszt wektora ma znaczenie (ważna nie tylko SAD)</li>
+</ul></li>
+<li>Wykorzystuje się bufor ramek referencyjnych</li>
+<li>Polega na odjęciu od ramki obrazu referencyjnego
+<ul>
+<li>obraz różnicowy mówi o ruchu między ramkami</li>
+<li>niesie mniej informacji - kompresja</li>
+</ul></li>
+</ul>
+<h2 id="grupa-obrazów">Grupa obrazów</h2>
+<ul>
+<li>GOP - group of pictures</li>
+<li>Ramki typu I (Intra)
+<ul>
+<li>nie ma estymacja ruchu</li>
+<li>kodowana jak obraz albo analogicznie do obrazu</li>
+</ul></li>
+<li>Ramki typu P
+<ul>
+<li>jednokierunkowa estymacja ruchu</li>
+<li>odwołują się do poprzedniej ramki P lub I</li>
+</ul></li>
+<li>Ramki typu B
+<ul>
+<li>dwukierunkowa estymacja ruchu</li>
+<li>wstawiane między ramki P, a ramki I</li>
+</ul></li>
+<li>Należy dobrać liczbę ramek typu B</li>
+<li>Grupa obrazów to wszystkie obrazy od ramki I do następnej ramki I
+(nie licząc jej)</li>
+<li>Grupa otwarta - referencje mogą wychodzić poza GOP (np. odwołać
+się do poprzedniej grupy)</li>
+<li>Grupa zamknięta - referencje tylko w obrębie GOP</li>
+<li>Można stosować hierarchiczne ramki B
+<ul>
+<li>albo odwołują się tylko do ramek I, P</li>
+<li>albo też do innych ramek B (hierarchia warstwowa)</li>
+</ul></li>
+<li>Predykcja wewnątrzobrazowa (Intra)
+<ul>
+<li>kompresja wideo</li>
+<li>na podstawie ramki I dokonuje się predykcji dla kolejnych ramek</li>
+<li>zamiast całych ramek koduje się korekcję błędu predykcji</li>
+</ul></li>
+</ul>
+<h2 id="plastry-slices">Plastry (slices)</h2>
+<ul>
+<li>Kodowanie w porządku rastrowym</li>
+<li>Ciąg pewnej liczby makrobloków</li>
+<li>Dla każdego plastra powstaje spójny strumień, który tworzy jednostkę
+dostępu</li>
+<li>Można określić np. według liczby bitów jaka ma przypadać na jeden
+plaster</li>
+<li>Błąd występujący w jednym plastrze nie przenosi się na inny</li>
+</ul>
+<h2 id="dekoder-wideo">Dekoder wideo</h2>
+<ul>
+<li>Odwrotne kroki do kodera
+<ul>
+<li>Bufor danych</li>
+<li>VLD</li>
+<li>RLD</li>
+<li>Odwrotny zigzag</li>
+<li>odwrotna kwantyzacja</li>
+<li>IDCT</li>
+<li>Rekonstrukcja</li>
+</ul></li>
+<li>Odwrotna kolejność przetwarzania</li>
+<li>Znacznie mniejsza złożoność obliczeniowa
+<ul>
+<li>nie ma potrzeby znalezienia najlepszego trybu</li>
+<li>informacji o trybach dekodowana ze strumienia</li>
+</ul></li>
+</ul>
+<h2 id="standardy-kompresji">Standardy kompresji</h2>
+<ul>
+<li>W ramach organizacji ISO/IEC - standardy MPEG</li>
+<li>W ramach organizacji ITU-T - standardy H.261, H.262, …</li>
+<li>Standardy są ze sobą połączone, powstają we współpracy</li>
+<li>Firmy tworzą własne standardy żeby uniezależnić się od patentów</li>
+<li>Kolejne standardy dają większą przepływność bitową, większe PSNR
+<ul>
+<li>kosztem większej złożoności obliczeniowej, zwłaszcza w koderach</li>
+</ul></li>
+</ul>
+<h3 id="mpeg-1">MPEG-1</h3>
+<ul>
+<li>Pierwszy standard</li>
+<li>Przepływnośc do 1.5Mbit/s</li>
+<li>Próbkowanie 4:2:0</li>
+<li>Kompresja wideo dla internetu i płyt CD</li>
+<li>Parametry
+<ul>
+<li>szerokość max 768px</li>
+<li>wysokość max 576</li>
+<li>max 396 makrobloków</li>
+<li>framerate max 30Hz</li>
+<li>zakres wartości wektorów ruchu [-64, 63.5] px</li>
+</ul></li>
+</ul>
+<h3 id="mpeg-2">MPEG-2</h3>
+<ul>
+<li>Rozszerzenie i modyfikacja MPEG-1</li>
+<li>Kompresja wideo dla telewizji cyfrowej standardowej i wysokiej
+rozdzielczości DVD</li>
+<li>Różne poziomy i profile określające parametry strumienia</li>
+<li>Możliwość kodowania z przeplotem albo bez przeplotu</li>
+<li>Próbkowanie 4:2:0, 4:2:2, 4:4:4</li>
+<li>Wektory ruchów z dokładnością do 1/2 piksela</li>
+<li>Różnicowe kodowanie wektorów ruchu</li>
+</ul>
+<h3 id="mpeg-4">MPEG-4</h3>
+<ul>
+<li>Kompresja wideo ogólnego przeznaczenia</li>
+<li>Reprezentacja sceny jako złożenia obiektów (media objects)
+<ul>
+<li>wizyjnych, dźwiękowych, ogólnego typu</li>
+<li>naturalnych lub sztucznych</li>
+</ul></li>
+<li>Możliwość łączenia obiektów w obiekty złożone</li>
+<li>W praktyce podejście obiektowe się nie sprawdziło</li>
+<li>Multipleksowanie i synchronizacja danych związanych z każdym
+obiektem</li>
+<li>Elastyczność i reużywanie tej samej treści</li>
+<li>Kodowanie kształtu i tekstury</li>
+<li>Transofmracja dopasowana do kształtów obiektów</li>
+<li>Interkatywność
+<ul>
+<li>zmiana położenia obserwatora na scenie</li>
+<li>nawigacja po scenie</li>
+<li>przesuwanie obiektów wewnątrz sceny</li>
+<li>wybór wersji językowej</li>
+</ul></li>
+<li>Różne kodery dla różnych typów danych</li>
+<li>Zabezpieczenie praw autorskich</li>
+<li>Profile simple / advanced - kodowanie prostokątnych ramek
+obrazu</li>
+</ul>
+<h3 id="h.261">H.261</h3>
+<ul>
+<li>Przepływność <span class="math inline">\(p * 64kbit/s\)</span>
+<ul>
+<li><span class="math inline">\(p=1..30\)</span></li>
+</ul></li>
+<li>Kompresja dla wideokonferencji</li>
+<li>Próbkowanie 4:2:0</li>
+<li>Tylko ramki I i P</li>
+<li>Wektory ruchu z dokładnością do piksela w zakresie 15px</li>
+<li>Różnicowe kodowanie wektorów ruchu</li>
+<li>Pomijanie ramek w celu dostosowania strumienia do pojemności
+kanału</li>
+</ul>
+<h3 id="h.263">H.263</h3>
+<ul>
+<li>Rozszerzenie H.261</li>
+<li>Rozdzielczości</li>
+<li>Kompensacja z dokładnością do 1/2 piksela</li>
+<li>Ulepszone predykcyjne kodowanie wektorów ruchu</li>
+</ul>
+<h3 id="h.263-1">H.263+</h3>
+<ul>
+<li>Możliwość wyboru ramki referencyjnej spośród wcześniej nadanych</li>
+<li>Dowolna rozdzielczość</li>
+<li>Ramki typu B</li>
+</ul>
+<h3 id="h.264-mpeg-4">H.264 / MPEG-4</h3>
+<ul>
+<li>Predykcja w trybie intra</li>
+<li>Różne kształty bloków do estymacji/kompensacji</li>
+<li>Wektory ruchu wyznaczane z dokładnością do 1/4 piksela
+<ul>
+<li>ekstrapolacja</li>
+<li>mogą wykraczać poza granice obszaru referencyjnego</li>
+</ul></li>
+<li>Możliwość stosowania wielu ramek referencyjnych
+<ul>
+<li>hierarchiczne ramki B</li>
+</ul></li>
+<li>Tryb kodowania ramkowy (bez przeplotu) lub polowy (z przeplotem)
+<ul>
+<li>wybór na poziomie obrazu lub makrobloku</li>
+</ul></li>
+<li>Transformata całkowitoliczbowa wymaga arytmetyki 16-bitowej</li>
+<li>Zmniejszenie bloku kodowego do 4x4 próbek</li>
+<li>Adaptacyjne kodowanie entropijne</li>
+<li>Próbkowanie 4:2:0, 4:2:2, 4:4:4</li>
+<li>Plastry typu I, P, B (hierarchiczne uogólnione ramki B), SI, SP</li>
+<li>Filtr zmniejszający efekt blokowy
+<ul>
+<li>adaptacyjny, nieliniowy, wygładzający</li>
+</ul></li>
+</ul>
+<h4 id="profile">Profile</h4>
+<ul>
+<li>Main</li>
+<li>Extended</li>
+<li>Baseline</li>
+<li>High</li>
+<li>High 10</li>
+<li>High 422</li>
+<li>High 444</li>
+</ul>
+<h2 id="predykcja-intra-16x16">Predykcja Intra 16x16</h2>
+<ul>
+<li>Ekstrapolacja zrekonstruowanych pikseli
+<ul>
+<li>powielenie pionowe</li>
+<li>powielenie poziomie</li>
+<li>powielenie średniej</li>
+<li>hiperpłaszczyzna</li>
+</ul></li>
+<li>Dla kolejnych standardów i innych rozmiarów bloków jest więcej
+trybów</li>
+</ul>
+<h2 id="predykcja-inter">Predykcja Inter</h2>
+<ul>
+<li>Podział bloku na mniejsze bloki
+<ul>
+<li>bok dzielony przez 2</li>
+<li>może nie być kwadratem</li>
+</ul></li>
+<li>Pozwala lepiej odzwierciedlić obiekt poruszający się na jakimś
+tle</li>
+</ul>
+<h2 id="transformacje">Transformacje</h2>
+<ul>
+<li>Operajce macierzowe przybliżające DCT</li>
+<li>W kolejnych standradach rozmiary macierzy są coraz większe</li>
+</ul>
+<h2 id="kwantyzacja">Kwantyzacja</h2>
+<ul>
+<li>Mnożenie i przesunięcie bitowe w dół zamiast dzielenia przez krok
+kwantyzacji</li>
+<li>Parametr kwantyzacji QP
+<ul>
+<li>liczby załkowite <span class="math inline">\(\in
+[0,52]\)</span></li>
+<li>określa krok kwantyzacji w skali logarytmicznej</li>
+<li>po sześć dyskretnych wartości QP na oktawę wartości kroku
+kwantyzacji</li>
+<li>oktawa to <span class="math inline">\(6dB\)</span></li>
+</ul></li>
+</ul>
+<h2 id="kodowanie-entropijne">Kodowanie entropijne</h2>
+<ul>
+<li>Elementy Składni
+<ul>
+<li>współczynniki</li>
+<li>wektory ruchu</li>
+<li>predykcje</li>
+</ul></li>
+<li>Binaryzacja - kodowanie tylko kodami przedrostkowymi</li>
+<li>CAVLC - kontekstowo adaptacyjny koder zmiennej długości
+<ul>
+<li>dostępny tylko w H.264</li>
+</ul></li>
+<li>CABAC - kontekstowy adaptacyjny binarny koder arytmetyczny</li>
+<li>Serializacja
+<ul>
+<li>np. zigzag</li>
+<li>uszeregowanie danych w strumieniu kodowym (wyjściowym)</li>
+</ul></li>
+</ul>
+<h3 id="modelowanie-kontekstu">Modelowanie kontekstu</h3>
+<ul>
+<li>Na początku mamy zbinaryzowany element składni</li>
+<li>wyznacza się dla niego offset - oddzielne zakresy dla poszczególnych
+typów
+<ul>
+<li>oddzielne modele prawdopodobieńśtw dla oddzielnych typów elementu
+składni</li>
+</ul></li>
+<li>Określenie przyrostu na podstawie sąsiednich elementów
+<ul>
+<li>i pozycji w zbinaryzowanym ciągu</li>
+</ul></li>
+<li>Połączenie offsetu i przyrostu daje etykietę kontekstu</li>
+<li>Etykieta kontekstu to adres wybierający model probabilistyczny lub
+tablicę kodową</li>
+</ul>
+<h3 id="strumień-kodowy">Strumień kodowy</h3>
+<ul>
+<li>Sequence Parameter Set</li>
+<li>Picture Parameter Set</li>
+<li>IDR - ramka intra
+<ul>
+<li>zaczyna kodowanie</li>
+</ul></li>
+<li>Slice’y (plastry)
+<ul>
+<li>nagłówek</li>
+<li>dane - sekwencja makrobloków</li>
+</ul></li>
+<li>Makroblok
+<ul>
+<li>typ</li>
+<li>typ predykcji (intra / inter)</li>
+<li>coded block pattern - flaga czy bloki lumy i chromy są zerowy czy
+nie</li>
+<li>parametr kwantyzacji</li>
+<li>dane (y, cb, cr)</li>
+</ul></li>
+</ul>
+<h2 id="regulacja-stopnia-kompresji">Regulacja stopnia kompresji</h2>
+<ul>
+<li>Pożądana jest kompresja uzyskująca zakładany budżet bitowy i
+stabilność długości strumieni kodowych dla kolejnych ramek</li>
+<li>Regulowanie przez zmianę parametru kwantyzacji
+<ul>
+<li>im większy tym silniejsza kwantyzacja, tym większy krok</li>
+</ul></li>
+<li>Efekt zależy od złożoności treści wizyjnej
+<ul>
+<li>ilość szczegółów</li>
+<li>aktywność ruchu</li>
+</ul></li>
+<li>Cel
+<ul>
+<li>maksymalizacja jakości (PSNR)</li>
+<li>wykorzystanie przypisanego budżetu bitów</li>
+<li>stabilność przepływności</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kompresja-sekwencji-obrazów">Kompresja sekwencji
+obrazów</a>
+<ul>
+<li><a href="#kodowanie-wideo">Kodowanie wideo</a></li>
+<li><a href="#koder-wideo">Koder wideo</a>
+<ul>
+<li><a href="#prosta-predykcja-międzyobrazowa">Prosta predykcja
+międzyobrazowa</a></li>
+<li><a href="#estymacja-ruchu">Estymacja ruchu</a></li>
+<li><a href="#wektory-ruchu">Wektory ruchu</a></li>
+<li><a href="#złożoność-estymacji-ruchu">Złożoność estymacji
+ruchu</a></li>
+<li><a href="#szybkie-wyznaczanie-wektorów-ruchu">Szybkie wyznaczanie
+wektorów ruchu</a></li>
+<li><a href="#podpikselowa-estymacja-ruchu">Podpikselowa estymacja
+ruchu</a></li>
+<li><a href="#kompensacja-ruchu">Kompensacja ruchu</a></li>
+</ul></li>
+<li><a href="#grupa-obrazów">Grupa obrazów</a></li>
+<li><a href="#plastry-slices">Plastry (slices)</a></li>
+<li><a href="#dekoder-wideo">Dekoder wideo</a></li>
+<li><a href="#standardy-kompresji">Standardy kompresji</a>
+<ul>
+<li><a href="#mpeg-1">MPEG-1</a></li>
+<li><a href="#mpeg-2">MPEG-2</a></li>
+<li><a href="#mpeg-4">MPEG-4</a></li>
+<li><a href="#h.261">H.261</a></li>
+<li><a href="#h.263">H.263</a></li>
+<li><a href="#h.263-1">H.263+</a></li>
+<li><a href="#h.264-mpeg-4">H.264 / MPEG-4</a></li>
+</ul></li>
+<li><a href="#predykcja-intra-16x16">Predykcja Intra 16x16</a></li>
+<li><a href="#predykcja-inter">Predykcja Inter</a></li>
+<li><a href="#transformacje">Transformacje</a></li>
+<li><a href="#kwantyzacja">Kwantyzacja</a></li>
+<li><a href="#kodowanie-entropijne">Kodowanie entropijne</a>
+<ul>
+<li><a href="#modelowanie-kontekstu">Modelowanie kontekstu</a></li>
+<li><a href="#strumień-kodowy">Strumień kodowy</a></li>
+</ul></li>
+<li><a href="#regulacja-stopnia-kompresji">Regulacja stopnia
+kompresji</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

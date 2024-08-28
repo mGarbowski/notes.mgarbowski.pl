@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-kompresja-obrazow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-przetwarzanie-obrazow-cyfrowych.html">Poprzedni: 08-przetwarzanie-obrazow-cyfrowych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-kompresja-sekwencji-obrazow.html">Następny: 10-kompresja-sekwencji-obrazow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="kompresja-obrazów">Kompresja obrazów</h1>
+<h2 id="system-kodowania-obrazów">System kodowania obrazów</h2>
+<ul>
+<li>Kodek = koder + dekoder</li>
+<li>Efektywność kompresji wynika z algorytmu</li>
+<li>Złożoność obliczeniowa rośnie wraz z efektywnością kompresji</li>
+<li>Najczęściej stosuje się kompresję stratną
+<ul>
+<li>o akceptowalnej utracie jakości</li>
+<li>pozwala na silniejszą kompresję (redukcję średniej bitowej)</li>
+</ul></li>
+<li>Liczba ramek na sekundę i rozdzielczość wpływają na czas
+kompresji</li>
+<li>Kodowanie obejmuje też kody korekcyjne/kanałowe i szyfrowanie</li>
+<li>Kody korekcyjne dodają dane kontrolne pozwalające wykrywać i
+poprawiać błędy transmisji</li>
+</ul>
+<h3 id="kodowanie-kanałowe">Kodowanie kanałowe</h3>
+<ul>
+<li>Ma na celu ukształtowanie charakterystyki widmowej sygnału cyfrowego
+<ul>
+<li>tak by był najdogodniejszy do transmisji</li>
+<li>umożliwiał jak największą gęstość zapisu</li>
+<li>odporność na szum i zakłócenia</li>
+<li>detekcja i korekcja błędów</li>
+<li>dla zadanego kanału komunikacyjnego</li>
+</ul></li>
+</ul>
+<h2 id="model-kodowania">Model kodowania</h2>
+<ul>
+<li>Model
+<ul>
+<li>Model obrazu</li>
+<li>Koder entropijny (np huffmana)</li>
+<li>Kanał</li>
+<li>Dekoder entropijny</li>
+<li>Wyjściowy model obrazu</li>
+</ul></li>
+<li>Przestawienie sygnału w postaci efektywnie kodowanej przez koder
+entropijny</li>
+<li>Dekorelacja danych
+<ul>
+<li>wykorzystanie redundancji danych do ich redukcji</li>
+</ul></li>
+<li>Separacja danych ważnych i mało istotnych</li>
+<li>Kwantyzacja
+<ul>
+<li>kompresja stratna - obraz zdekodowany różni się od oryginalnego</li>
+<li>wykonywana na zdekorelowanym/modelowanym sygnale</li>
+</ul></li>
+</ul>
+<h3 id="wykorzystywane-właściwości-obrazów">Wykorzystywane właściwości
+obrazów</h3>
+<ul>
+<li>Obszary o małej liczbie detali
+<ul>
+<li>płaskie obszary</li>
+<li>ściany</li>
+</ul></li>
+<li>Silna korelacja sąsiadujących pikseli</li>
+<li>Mniejsza wrażliwość ludzkiego oka na wysokie częstotliwości
+(szczegóły)</li>
+<li>Mniejsza rozdzielczość ludzkiego oka dla chrominancji niż dla
+luminancji
+<ul>
+<li>chrominancję można podpróbkować</li>
+</ul></li>
+</ul>
+<h2 id="kodek-jpeg">Kodek JPEG</h2>
+<ul>
+<li>Podział na bloki
+<ul>
+<li>bloki 8x8</li>
+</ul></li>
+<li>DCT
+<ul>
+<li>Discrete Cosine Transform</li>
+</ul></li>
+<li>Kwantyzacja
+<ul>
+<li>Kwantowanie współczynników transformaty</li>
+</ul></li>
+<li>Wybieranie zigzag
+<ul>
+<li>Uszeregowanie współczynnników transformaty do 1-wymiarowego
+wektora</li>
+</ul></li>
+<li>RLE
+<ul>
+<li>Kodowanie ciągów zer</li>
+</ul></li>
+<li>VLC
+<ul>
+<li>Kod huffmana</li>
+</ul></li>
+<li>Zapis / transmisja</li>
+<li>VLD</li>
+<li>RLD</li>
+<li>Odwrotny zigzag</li>
+<li>Odwrotna kwantyzacja</li>
+<li>IDCT</li>
+<li>Łączenie bloków</li>
+</ul>
+<h3 id="przetwarzanie-wstępne">Przetwarzanie wstępne</h3>
+<ul>
+<li>Konwersja z RGB do YCbCr</li>
+<li>Opcjonalnie podpróbkowanie chrominancji</li>
+<li>Podział obrazu na bloki 8x8
+<ul>
+<li>dostosowuje się do lokalnej charakterystyki obrazu</li>
+<li>piksele w obrębie bloku są bardziej skorelowane niż w obrębie całego
+obrazu</li>
+<li>pozwala na redukcję złożoności obliczeniowej (bo transformatę
+wykonuje się na pojedynczym bloku)</li>
+</ul></li>
+<li>Chrominancja ma mniejszą entropię niż luminancja (drugi efekt,
+niezlaeżny od działania ludzkiego oka)</li>
+</ul>
+<h3 id="kwantyzacja">Kwantyzacja</h3>
+<ul>
+<li>Podzielenie współczynników DCT przez określoną liczbę (krok
+kwantyzacji) i zaokrąglenie do liczby całkowitej (utrata
+informacji)</li>
+<li>W typowych przypadkach pozostaje tlyko kilka niezerowych
+współczynników</li>
+<li>Tabela kwantyzacji (kroki dla pikseli w bloku 8x8)
+<ul>
+<li>wyznacza się wartości wykorzystując właściwości ludzkiego oka</li>
+<li>oko jest mniej wrażliwe na składowe wysokoczęstotliwościowe - mogą
+być kwantowane z większym błędem</li>
+</ul></li>
+</ul>
+<h3 id="zigzag">Zigzag</h3>
+<ul>
+<li>Odczytanie wartości skwantowanych współczynników DCT w porządku
+<em>zygzak</em></li>
+<li>Przejście z postaci macierzowej na postać wektorową</li>
+<li>Grupowanie współczynników niezerowych
+<ul>
+<li>współczynniki niskoczęstotliwościowe są obok siebie</li>
+</ul></li>
+<li>Statystycznie wartości w wektorze zmniejszają się</li>
+</ul>
+<p><img src="./obrazy/zigzag.png" /></p>
+<h3 id="kodowanie-współczynników-dc">Kodowanie współczynników DC</h3>
+<ul>
+<li>Współczynniki DCT odpowiadające składowej stałej (DC) są kodowane
+osobno
+<ul>
+<li>DC jest z reguły znacznie większe niż pozostałe współczynniki</li>
+<li>sąsiednie bloki mają zbliżone wartości DC</li>
+</ul></li>
+<li>Kodowana jest różnica między DC bieżącego i poprzednie kodowanego
+bloku</li>
+<li>Stosowany kod o zmiennej długości słowa</li>
+</ul>
+<h3 id="kodowanie-współczynników-ac">Kodowanie współczynników AC</h3>
+<ul>
+<li>Zamienia się sekwencję uzyskaną przez zigzag na sekwencję par
+(seria, poziom)</li>
+<li>Run-Level Encoding</li>
+<li>Seria - liczba zer poprzedzających wartość</li>
+<li>Poziom - niezerowa wartość</li>
+<li>Typowo blok danych jest redukowany do krótkiej sekwencji par (seria,
+pozizom), kodowanych dalej koderem entropijnym</li>
+<li>Specjalny symbol EOB koduje koniec bloku współczynników</li>
+<li>Dopiero dla tych par oblicza się statystykę</li>
+</ul>
+<h3 id="kodowanie-vlc">Kodowanie VLC</h3>
+<ul>
+<li>Zakodowanie
+<ul>
+<li>kategorii różnicy dla współczynników DC</li>
+<li>par (seria, kategoria) dla współczynników AC</li>
+<li>z wykorzystaniem kodu zmiennej długości (Huffmana)
+<ul>
+<li>kod unarny dla kategorii DC</li>
+<li>tablice kodowe specyfikowane w standardzie w postaci tabel dla par
+AC</li>
+</ul></li>
+</ul></li>
+<li>Kody uzupełniane kodem wartości współczynnika w ramach danej
+kategorii
+<ul>
+<li>kod stałej długości</li>
+<li>liczba bitów - numer kategorii</li>
+<li>wartości dzieli się na 13 przedziałów</li>
+</ul></li>
+<li>Strumień bitowy będący skompresowaną reprezentacją kodowanego obrazu
+<ul>
+<li>konkatenacja kolejnych słów kodowych</li>
+</ul></li>
+</ul>
+<h3 id="dekoder-obrazów">Dekoder obrazów</h3>
+<ul>
+<li>Wykonanie operacji odwrotnych w kolejności odwrotnej niż w koderze
+<ul>
+<li>VLD</li>
+<li>RLD</li>
+<li>odwrotny zigzag</li>
+<li>odwrotna kwantyzacja</li>
+<li>IDCT</li>
+<li>łączenie bloków</li>
+</ul></li>
+<li>W procesie dekwantyzacji nie można odtworzyć oryginalnej wartości
+współczynników DCT
+<ul>
+<li>część informacji została odrzucona</li>
+<li>obraz zdekodowany nie będzie identyczny z oryginałem</li>
+</ul></li>
+<li>Im większa kompresja tym gorsza jakość obrazu zrekonstruowanego</li>
+<li>Efekty zbyt dużej kompresji (kwantyzacji)
+<ul>
+<li>efekt blokowy</li>
+<li>mosquito noise - kiedy ostra krawędź trafia na środek bloku</li>
+</ul></li>
+</ul>
+<h2 id="predykcja-w-trybie-bezstratnym">Predykcja w trybie
+bezstratnym</h2>
+<ul>
+<li>Nie ma operacji na blokach, tylko na pikselach</li>
+<li>Wartośc predykcji zależna od 3 sąsiadów
+<ul>
+<li>wybiera się ten, który daje najmniejsze wartości różnicowe</li>
+</ul></li>
+</ul>
+<p><img src="./obrazy/predykcja.png" /></p>
+<table>
+<thead>
+<tr class="header">
+<th>Tryb predykcji</th>
+<th>Predykcja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(x&#39;=a\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(x&#39;=b\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(x&#39;=c\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(x&#39;=a+b-c\)</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><span class="math inline">\(x&#39;=a-(b-c)/2\)</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><span class="math inline">\(x&#39;=b-(a-c)/2\)</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><span class="math inline">\(x&#39;=(a+b)/2\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="standard-jpeg-2000">Standard JPEG 2000</h2>
+<ul>
+<li>Większa efektywność kompresji</li>
+<li>Kompresja stratna i bezstratna z użyciem tego samego algorytmu</li>
+<li>Progresywna transmisja
+<ul>
+<li>rozdzielczość</li>
+<li>jakość</li>
+</ul></li>
+<li>Możliwe określenie regionów zainteresowania (ROI)</li>
+<li>Składnia strumienia
+<ul>
+<li>umożliwia swobodny dostęp do fragmentu obrazu bez dekodowania
+całości</li>
+<li>od stratnego do bezstratnego</li>
+</ul></li>
+<li>Większa odporność na błędy transmisji</li>
+<li>Wolny od patentów</li>
+</ul>
+<h3 id="koder">Koder</h3>
+<ul>
+<li>Przetwarzanie wstępne</li>
+<li>Dyskretna transformata falkowa</li>
+<li>Kwantyzacja</li>
+<li>Koder płaszczyzn bitowych</li>
+<li>Kontekstowy adaptacyjny binarny koder arytmetyczny</li>
+<li>Formowanie strumienia</li>
+</ul>
+<h3 id="przetwarzanie-wstępne-1">Przetwarzanie wstępne</h3>
+<ul>
+<li>Obraz wejściowy podzielony na prostokątne kafle (tiles)
+<ul>
+<li>o dowolnych ale ustalonych rozmiarach</li>
+<li>nie służą do adaptacji do lokalnej charakterystyki obrazu</li>
+</ul></li>
+<li>Odjęcie wartości średniej zakresu (128), tak żeby przedział
+zmienności był symetryczny względem 0</li>
+<li>Transformacja kolorów
+<ul>
+<li>odwracalne albo przybliżone nieodwracalne przekształcenie do
+YCbCr</li>
+</ul></li>
+</ul>
+<h3 id="dyskretna-transformata-falkowa">Dyskretna transformata
+falkowa</h3>
+<ul>
+<li>Discrete Wavelet Transform</li>
+<li>Wielorozdzielcza analiza sygnału</li>
+<li>Pozwala na zachowanie jednocześnie rozdzielczości czasowej i
+częstotliwościowej
+<ul>
+<li>dla niskich częstotliwości - długie okna czasowe</li>
+<li>dla wysokich częstotliwości - krótkie okna czasowe</li>
+<li>rozdzielczość rośnie z częstotliwością</li>
+</ul></li>
+<li>Pary filtrów biortogonalnych - górno i dolnoprzepustowego (LP i HP)
+<ul>
+<li>ułożone hierarchicznie</li>
+<li>transformacja prosta ma filtry analizujące</li>
+<li>transformacja odwrotna ma filtry syntezujące (komplementarne)</li>
+</ul></li>
+<li>Decymacja - pomijanie co drugiego elementu</li>
+<li>Dłuższe okna realizowane przez iteracyjne filtrowanie tym samym
+filtrem LP</li>
+<li>Są ustalone wartości współczynników dla filtrów stratnych i
+bezstratnych</li>
+<li>Jednoczesne przetwarzanie całego obrazu eliminuje efekt blokowy</li>
+<li>Transformata o współczynnikach całkowitych umożliwia bezstratną
+kompresję</li>
+<li>Podział obrazu na podpasma umożliwia niezależną optymalizację
+kwantyzacji współczynników dla każdego z podpasm
+<ul>
+<li>wyższe częstotliwości można silniej kwantować, bo oko jest na nie
+mniej wrażliwe</li>
+</ul></li>
+</ul>
+<h3 id="skanowanie-płaszczyzn-bitowych">Skanowanie płaszczyzn
+bitowych</h3>
+<ul>
+<li>Już podzielony na podpasma obraz dzieli się na bloki kodowe</li>
+<li>Każdy blok jest kodowany płaszczyznami (część bitów z odpowiedniego
+współczynnika)</li>
+<li>Kodowanie niezależne - embedded block coding</li>
+<li>To zwiększa odporność na zakłócenia bo każdy blok jest kodowany
+niezależnie - błąd w jednym nie propaguje dalej</li>
+</ul>
+<h3 id="kodowanie-współczynników-transformaty">Kodowanie współczynników
+transformaty</h3>
+<ul>
+<li>3 przejścia
+<ul>
+<li>significance propagation</li>
+<li>magnitude refinement</li>
+<li>cleanup</li>
+</ul></li>
+<li>Bit może należeć do jednego z 3 przejść</li>
+<li>Element adaptacyjny</li>
+<li>Współczynnik w bloku kodowym ma swój własny stan
+(znaczący/nieznaczący)</li>
+<li>Taka kolejność skanowania jak przy płaszczyznach</li>
+<li>8-sąsiedztwo pikselu określa kontekst
+<ul>
+<li>kontekst daje model prawdopodobieństwa, który jest kierowany dalej
+do kierowania arytmetycznego</li>
+</ul></li>
+</ul>
+<h3 id="kodowanie-arytmetyczne">Kodowanie arytmetyczne</h3>
+<ul>
+<li>Etykieta kontekstu wybiera model prawdopodobieństwa wykorzystywany
+do zakodawania symbolu</li>
+<li>Po zakodowaniu symbolu właściwy model prawdopodobieństwa jest
+aktualizowany</li>
+<li>Koder arytmetyczny wytwarza końcowy strumień binarny</li>
+</ul>
+<h3 id="formowanie-strumienia-danych">Formowanie strumienia danych</h3>
+<ul>
+<li>Strumienie danych dla bloków kodowych są multipleksowane ze sobą w
+odpowiedniej kolejności zapewniając
+<ul>
+<li>skalowalność</li>
+<li>progresywną transmisję
+<ul>
+<li>rozdzielczość</li>
+<li>jakość</li>
+<li>lokalizacja przestrzenna</li>
+<li>składowe obrazu</li>
+</ul></li>
+</ul></li>
+<li>Każdy strumień może być ucięty w miejscach odpowiadających
+zakończeniom przejść przez dowolną płaszczyznę bitową
+<ul>
+<li>kontrola stopnia kompresji</li>
+</ul></li>
+<li>Oddzielne kodowanie bloków zmniejsza wpływ błędów transmisji na
+jakość rekonstrukcji
+<ul>
+<li>error resilience</li>
+</ul></li>
+<li>Można dostosować siłę kompresji do przepustowości kanału</li>
+<li>Dokładając kolejne podpasma uzyskane w DWT możemy dostosować
+rozdzielczość (samo LL da najmniejszą)</li>
+</ul>
+<h3 id="kodowanie-regionów-zainteresowania">Kodowanie regionów
+zainteresowania</h3>
+<ul>
+<li>Znalezienie współczynnika tła o największej wartości
+<ul>
+<li>poza regionem zainteresowania</li>
+</ul></li>
+<li>Zwiększenie wartości współczynników ROI powyżej poziomu największego
+współczynnika tła</li>
+</ul>
+<h2 id="kompresja-bezstratna-obrazów">Kompresja bezstratna obrazów</h2>
+<ul>
+<li>GIF i PNG</li>
+<li>Kolory są ponumerowane</li>
+<li>Obraz jest macierzą indeksów do palety kolorów</li>
+<li>Zazwyczaj do 8 bitów na piksel</li>
+<li>Możliwa obsługa przezroczystości</li>
+<li>Kodowanie słownikowe LZW (GIF) i LZSS (PNG), rzadziej Huffmana</li>
+</ul>
+<h2 id="gif">GIF</h2>
+<ul>
+<li>Przegląd rastrowy
+<ul>
+<li>może być z przeplotem</li>
+<li>można skalować po rozdzielczości ale tylko pionowej bo skanowanie
+jest linia po linii</li>
+</ul></li>
+<li>Podział na bloki
+<ul>
+<li>blok może być nie tylko w obrębie obrazu ale sekwencji obrazów</li>
+<li>każdy blok z własną paletą</li>
+</ul></li>
+<li>Animacja - ramki obrazowe jako bloki</li>
+<li>Ograniczenia patentowe</li>
+</ul>
+<h2 id="png">PNG</h2>
+<ul>
+<li>Nie ma ograniczeń patentowych GIF</li>
+<li>Zachowuje i rozszerza wszystkie właściwości formatu GIF</li>
+<li>Możliwość dodania informacji o korekcji gamma</li>
+<li>Suma kontrolna do wykrywania błędów transmisji</li>
+<li>Ulepszony tryb progresywny
+<ul>
+<li>przegląd z przeplotem</li>
+</ul></li>
+<li>Brak animacji
+<ul>
+<li>są do tego rozszerzenia</li>
+</ul></li>
+<li>Obrazy w odcieniach szarości (do 16b na piksel) lub RGB (do 48b na
+piksel)</li>
+<li>Predykcja z sąsiedztwa 3 pikseli jak w JPEG LS</li>
+<li>Algorytm deflate do kompresji (LZSS)</li>
+<li>Kodowanie zmiennej długości poszczególnych pól indeksu</li>
+<li>Kanał alfa</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kompresja-obrazów">Kompresja obrazów</a>
+<ul>
+<li><a href="#system-kodowania-obrazów">System kodowania obrazów</a>
+<ul>
+<li><a href="#kodowanie-kanałowe">Kodowanie kanałowe</a></li>
+</ul></li>
+<li><a href="#model-kodowania">Model kodowania</a>
+<ul>
+<li><a href="#wykorzystywane-właściwości-obrazów">Wykorzystywane
+właściwości obrazów</a></li>
+</ul></li>
+<li><a href="#kodek-jpeg">Kodek JPEG</a>
+<ul>
+<li><a href="#przetwarzanie-wstępne">Przetwarzanie wstępne</a></li>
+<li><a href="#kwantyzacja">Kwantyzacja</a></li>
+<li><a href="#zigzag">Zigzag</a></li>
+<li><a href="#kodowanie-współczynników-dc">Kodowanie współczynników
+DC</a></li>
+<li><a href="#kodowanie-współczynników-ac">Kodowanie współczynników
+AC</a></li>
+<li><a href="#kodowanie-vlc">Kodowanie VLC</a></li>
+<li><a href="#dekoder-obrazów">Dekoder obrazów</a></li>
+</ul></li>
+<li><a href="#predykcja-w-trybie-bezstratnym">Predykcja w trybie
+bezstratnym</a></li>
+<li><a href="#standard-jpeg-2000">Standard JPEG 2000</a>
+<ul>
+<li><a href="#koder">Koder</a></li>
+<li><a href="#przetwarzanie-wstępne-1">Przetwarzanie wstępne</a></li>
+<li><a href="#dyskretna-transformata-falkowa">Dyskretna transformata
+falkowa</a></li>
+<li><a href="#skanowanie-płaszczyzn-bitowych">Skanowanie płaszczyzn
+bitowych</a></li>
+<li><a href="#kodowanie-współczynników-transformaty">Kodowanie
+współczynników transformaty</a></li>
+<li><a href="#kodowanie-arytmetyczne">Kodowanie arytmetyczne</a></li>
+<li><a href="#formowanie-strumienia-danych">Formowanie strumienia
+danych</a></li>
+<li><a href="#kodowanie-regionów-zainteresowania">Kodowanie regionów
+zainteresowania</a></li>
+</ul></li>
+<li><a href="#kompresja-bezstratna-obrazów">Kompresja bezstratna
+obrazów</a></li>
+<li><a href="#gif">GIF</a></li>
+<li><a href="#png">PNG</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

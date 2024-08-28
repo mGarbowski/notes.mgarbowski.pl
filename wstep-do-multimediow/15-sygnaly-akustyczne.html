@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>15-sygnaly-akustyczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="14-steganografia.html">Poprzedni: 14-steganografia.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="16-lokalizacja-zrodla-dzwieku.html">Następny: 16-lokalizacja-zrodla-dzwieku.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="sygnały-akustyczne">Sygnały akustyczne</h1>
+<h2 id="sygnał-akustyczny-a-foniczny">Sygnał akustyczny a foniczny</h2>
+<ul>
+<li>Źródło dźwięku generuje falę akustyczną (sygnał akustyczny, zmiana
+ciśnienia w czasie)</li>
+<li>Mikrofon (przetwornik) przetwarza sygnał akustyczny na sygnał
+foniczny (zmiana napięcia w czasie)</li>
+<li>Transmisja, przetwarzanie na sygnał cyfrowy, zapis</li>
+<li>Głośnik z sygnału fonicznego generuje sygnał akustyczny, który
+dociera do odbiorcy dźwięku</li>
+</ul>
+<h2 id="dźwięk">Dźwięk</h2>
+<p>Fala dźwiękowa to rozchodzące się zagęszczenia i rozrzedzenia ośrodka
+wiążące się z lokalną zmianą ciśnienia. Fala dźwiękowa jest falą
+podłużną. Wartość zmiany (od bazowego ciśnienia, atmosferycznego)
+nazywamy ciśnieniem akustycznym.</p>
+<h2 id="analiza-częstotliwościowa-dźwięku">Analiza częstotliwościowa
+dźwięku</h2>
+<ul>
+<li>Transformata fouriera</li>
+<li>Przejście z dziedziny czasu do dziedziny częstotliwości</li>
+<li>Większość sygnałów akustycznych jest złożona</li>
+<li>W widmie widocznych jest wiele częstotliwości składowych
+sygnału</li>
+</ul>
+<h2 id="przebieg-czasowy-sygnału-akustycznego">Przebieg czasowy sygnału
+akustycznego</h2>
+<ul>
+<li>Przebieg chwilowych zmian ciśnienia względem średniego ciśnienia
+atmosferycznego</li>
+<li>Sinusoidalny przebieg nazywamy tonem</li>
+</ul>
+<h2 id="poziom-ciśnienia-akustycznego">Poziom ciśnienia
+akustycznego</h2>
+<p><span class="math display">\[L_p = 20 \cdot \log \frac{p}{p_{ref}}dB
+\quad p_{ref} = 20 \mu Pa\]</span> * Wygodna skala do opisywania
+dźwięków postrzeganych przez człowieka * Dynamika słuchu do <span
+class="math inline">\(120dB\)</span></p>
+<h2 id="składowe-harmoniczne-dźwięku">Składowe harmoniczne dźwięku</h2>
+<ul>
+<li>Częstotliwość podstawowa - pół sinusoidy</li>
+<li>Częstotliwości harmoniczne - wielokrotności częstotliwości
+podstawowej</li>
+<li>Przy generowaniu rzeczywistych dźwięków (np. instrumenty muzyczne)
+częstotliwości podstawowej towarzyszą jej harmoniczne</li>
+</ul>
+<h2 id="zakres-słyszanych-częstotliwości">Zakres słyszanych
+częstotliwości</h2>
+<ul>
+<li>Zależy od poziomu ciśnienia akustycznego (SPL) i częstotliwości</li>
+<li>Zakres słyszalności mieści się w
+<ul>
+<li>od <span class="math inline">\(0dB\)</span> do <span
+class="math inline">\(120dB\)</span></li>
+<li>od <span class="math inline">\(20Hz\)</span> do <span
+class="math inline">\(20kHz\)</span></li>
+</ul></li>
+<li>Ucho jest mniej czułe na skrajne częstotliwości</li>
+</ul>
+<h2 id="percepcja-dźwięku-przez-człowieka">Percepcja dźwięku przez
+człowieka</h2>
+<ul>
+<li>Małżowina uszna
+<ul>
+<li>odpowieda za zdolność do lokalizacji dźwięku</li>
+<li>można sztucznie wywoływać ten efekt</li>
+</ul></li>
+<li>Ucho środkowe
+<ul>
+<li>błona bębenkowa drgając porusza młoteczek, kowadełko i
+strzemiączko</li>
+<li>trąbka słuchowa odpowiada za regulowanie ciśnienia</li>
+</ul></li>
+<li>Ucho wewnętrzne
+<ul>
+<li>strzemiączko wywołuje drgania płynu w ślimaku</li>
+<li>komórki słuchowe poruszane falą w płynie odbierają określone
+częstotliwości</li>
+<li>neuroprzekaźniki zamieniają ruch komórek słuchowych na sygnały
+elektryczne do mózgu</li>
+</ul></li>
+</ul>
+<h2 id="wrażeniowe-cechy-dźwięku">Wrażeniowe cechy dźwięku</h2>
+<ul>
+<li>Cechy, które odbiera aparat słuchowy obserwatora</li>
+<li>Z nich składa się obraz akustyczny w głowie obserwatora</li>
+<li>Wrażenia, a cechy fizyczne dźwięku
+<ul>
+<li>głośność - poziom ciśnienia akustycznego</li>
+<li>wysokość - częstotliwość</li>
+<li>barwa - widmo</li>
+<li>czas trwania - czas trwania</li>
+</ul></li>
+<li>Te pojęcia nie są równoważne</li>
+<li>Wrażenie głośności zależy nie tylko od poziomu ciśnienia
+akustycznego</li>
+<li>Dwa dźwięki o jednakowej częstotliwości mogą dawać wrażenie różnych
+wysokości</li>
+<li>Subiektywny czas trwania i obiektywny czas trwania nie są
+tożsame</li>
+<li>Wykorzystuje się te nieoczywiste zależności przy manipulowaniu
+wrażeniem</li>
+</ul>
+<h3 id="skale-wielkości-wrażeniowych">Skale wielkości wrażeniowych</h3>
+<ul>
+<li>Skale głośności dźwięku
+<ul>
+<li>skala fonów</li>
+<li>skala sonów</li>
+</ul></li>
+<li>Skale wysokości dźwięku
+<ul>
+<li>skala melowa</li>
+</ul></li>
+</ul>
+<h3 id="zależność-głośności-od-częstotliwości">Zależność głośności od
+częstotliwości</h3>
+<ul>
+<li>Zależność została zbadana eksperymentalnie</li>
+<li>Krzywe izofoniczne</li>
+<li>Głośność mierzona w fonach</li>
+<li>Izofona łączy punkty, które są równo głośne jak ton 1000Hz w
+40dB</li>
+<li>Ucho jest bardziej wrażliwe na częstotliwości odpowiadające ludzkiej
+mowie</li>
+<li>Niskie częstotliwości, na które ucho jest mniej wrażliwe można
+kodować z mniejszą dokładnością</li>
+</ul>
+<h2 id="percepcja-wysokości-dźwięku">Percepcja wysokości dźwięku</h2>
+<ul>
+<li>Błona podstawna w ślimaku drga w różnych miejscach dla różnych
+częstotliwości</li>
+<li>Jeszcze nie do końca wiadomo jak to dokładnie działa</li>
+<li>Teoria miejsca - komórki słuchowe o częstotliwości
+charakterystycznej odpowiadają za percepcję wysokości konkrentych
+częstotliwości</li>
+<li>Teoria czasowa - za percepcję wysokości dźwięku odpowiada czasowy
+przebieg impulsów neuronowych</li>
+<li>Toria filtrów słuchowych - ucho działa jak FFT zamieniając falę na
+widmo</li>
+</ul>
+<h2 id="maskowanie-dźwięku">Maskowanie dźwięku</h2>
+<ul>
+<li>Zjawisko związane z percepcją</li>
+<li>Jedne dźwięki maskują drugie</li>
+<li>Maskowanie częściowe
+<ul>
+<li>w obecności innego dźwięku (maskera) dźwięki maskowane stają się
+słyszalne słabiej</li>
+</ul></li>
+<li>Maskowanie całkowite
+<ul>
+<li>w obecności maskera dźwięki maskowane przestają być słyszalne</li>
+</ul></li>
+<li>Zastosowanie np. w open space do maskowania mowy
+<ul>
+<li>szum babble - wielokrotnie nałożona na siebie mowa</li>
+</ul></li>
+<li>Wykorzystywane w kompresji dźwięku
+<ul>
+<li>skoro dźwięk zostanie zamaskowany to nie trzeba marnować na niego
+bitów</li>
+</ul></li>
+<li>Eksperymentalnie wyznaczono krzywe maskowania
+<ul>
+<li>dla dźwięku o podanej częstotliwości i SPL całkowicie zamaskowane
+zostaną dźwięki pod krzywą</li>
+<li>można je odrzucić przy kompresji</li>
+</ul></li>
+</ul>
+<h2 id="dźwięki-szkodliwe-dla-słuchu">Dźwięki szkodliwe dla słuchu</h2>
+<ul>
+<li>Pogarsza się z wiekiem</li>
+<li>Długie nastawienie na dźwięk powyżej 85dB może powodować uszkodzenie
+układu słuchowego
+<ul>
+<li>przyjmuje się próg 85dB przez 8h</li>
+<li>przy skróceniu czasu o połowę próg zwiększa się o 3dB</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sygnały-akustyczne">Sygnały akustyczne</a>
+<ul>
+<li><a href="#sygnał-akustyczny-a-foniczny">Sygnał akustyczny a
+foniczny</a></li>
+<li><a href="#dźwięk">Dźwięk</a></li>
+<li><a href="#analiza-częstotliwościowa-dźwięku">Analiza
+częstotliwościowa dźwięku</a></li>
+<li><a href="#przebieg-czasowy-sygnału-akustycznego">Przebieg czasowy
+sygnału akustycznego</a></li>
+<li><a href="#poziom-ciśnienia-akustycznego">Poziom ciśnienia
+akustycznego</a></li>
+<li><a href="#składowe-harmoniczne-dźwięku">Składowe harmoniczne
+dźwięku</a></li>
+<li><a href="#zakres-słyszanych-częstotliwości">Zakres słyszanych
+częstotliwości</a></li>
+<li><a href="#percepcja-dźwięku-przez-człowieka">Percepcja dźwięku przez
+człowieka</a></li>
+<li><a href="#wrażeniowe-cechy-dźwięku">Wrażeniowe cechy dźwięku</a>
+<ul>
+<li><a href="#skale-wielkości-wrażeniowych">Skale wielkości
+wrażeniowych</a></li>
+<li><a href="#zależność-głośności-od-częstotliwości">Zależność głośności
+od częstotliwości</a></li>
+</ul></li>
+<li><a href="#percepcja-wysokości-dźwięku">Percepcja wysokości
+dźwięku</a></li>
+<li><a href="#maskowanie-dźwięku">Maskowanie dźwięku</a></li>
+<li><a href="#dźwięki-szkodliwe-dla-słuchu">Dźwięki szkodliwe dla
+słuchu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

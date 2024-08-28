@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-teoria-informacji</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-filtracja-cyfrowa.html">Poprzedni: 05-filtracja-cyfrowa.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-swiatlo-obraz-cyfrowy-percepcja.html">Następny: 07-swiatlo-obraz-cyfrowy-percepcja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="podstawy-teorii-informacji">Podstawy teorii informacji</h1>
+<h2 id="źródło-danych">Źródło danych</h2>
+<ul>
+<li>Źródło danych generuje zdarzenia (symbole) zgodnie z pewnym
+rozkładem prawdopodobieństwa
+<ul>
+<li>proces stochastyczny</li>
+</ul></li>
+<li>Zbiór wszystkich możliwych wartości symboli to alfabet</li>
+<li>Modele dyskretne zakładają, że źródło jest
+<ul>
+<li>stacjonarne - prawdopodobieństwo niezmienne w czasie</li>
+<li>egodyczne - każda generowana sekwencja ma te same właściwości
+statystyczne</li>
+</ul></li>
+</ul>
+<h2 id="informacja">Informacja</h2>
+<ul>
+<li>Każde zdarzenie niesie ze sobą pewną informację <span
+class="math inline">\(i(A)\)</span>
+<ul>
+<li>większe prawdopodobieństwo - mniej informacji</li>
+<li>mniejsze prawdopodobieństwo - więcej informacji</li>
+</ul></li>
+<li>Miara informacji - <span class="math inline">\(i(A) = \log_b
+\frac{1}{p(A)} = -\log_b(p(A))\)</span></li>
+<li>Ilość informacji dla dwóch niezależnych zdarzeń jest addytwna
+<ul>
+<li><span class="math inline">\(i(AB) = i(A) + i(B)\)</span></li>
+</ul></li>
+<li>Podstawy logarytmu - różne jednostki wartościowania
+<ul>
+<li>konwersja przez wymnożenie przez stałą</li>
+<li>2 - bit</li>
+<li>256 - bajt</li>
+<li>10 - hartley</li>
+<li>e - nat</li>
+</ul></li>
+</ul>
+<h2 id="entropia">Entropia</h2>
+<ul>
+<li>Średnia informacja symboli źródła ważona prawdopodobieństwami</li>
+<li><span class="math inline">\(H = \sum_n p(A_n)i(A_n) = -\sum_n p(A_n)
+\log_b(p(A_n))\)</span></li>
+<li>Wyznacza dolną granicę kompresji bezstratnej</li>
+<li>Większa entropia - większa średnia informacja
+<ul>
+<li>małe prawdopodobieństwo - duża entropia</li>
+</ul></li>
+<li>Źródło stanowią wszystkie elementy ścieżki przetwarzania
+uczestniczące w formowaniu symboli
+<ul>
+<li>każdy element może zmieniać rozkłady prawdopodobieństw</li>
+<li>obraz + predykcja pikseli ma inny rozkład niż sam obraz (i inną
+entropię)</li>
+</ul></li>
+</ul>
+<h2 id="system-kodowania">System kodowania</h2>
+<ul>
+<li>Kod - reguła (algorytm) tworzenia reprezentacji kodowej (efektywnego
+ciągu bitowego) danych źródłowych</li>
+<li>Kodek - (koder + dekoder) realizacja algorytmu kodowania
+(oprogramowanie, sprzęt)</li>
+<li>Kodowanie - proces tworzenia reprezentacji kodowej (koderem wg.
+ustalonego kodu)</li>
+<li>Dekodowanie - proces odtwarzania reprezentacji źródłowej z
+kodowej</li>
+<li>Źródło -&gt; koder -&gt; dekoder -&gt; rekonstrukcja</li>
+</ul>
+<h2 id="koder-binarny">Koder binarny</h2>
+<ul>
+<li>Przetwarza sekwenję symboli wejściowych na sekwencję bitów</li>
+<li>Może bazować na książce kodów
+<ul>
+<li>każdy symbol musi mieć przypisane inne słowo kodowe (sekwencję
+bitów)</li>
+<li>sekwencja symboli zamieniana na sekwencję słów kodowych
+przyrostowo</li>
+<li>istotne są tylko kodu jednoznacznie dekodowalne</li>
+</ul></li>
+<li>Algorytm kodowania przyrostowego
+<ul>
+<li>odczytaj z wejścia symbol do zakodowania</li>
+<li>jeśli wejście puste to zakończ i zamknij strumień</li>
+<li>emituj na wyjście słowo kodowe wczytanego symbolu</li>
+<li>powtórz</li>
+</ul></li>
+</ul>
+<h2 id="kody-przedrostkowe">Kody przedrostkowe</h2>
+<ul>
+<li>Szczególna grupa kodów jednoznacznie dekodowalnych</li>
+<li>Żadne słowo kodowe nie jest przedrostkiem innego słowa kodowego</li>
+<li>Każdy przedrostkowy jest jednoznacznie dekodowalny, nie każdy
+jednoznacznie dekodowalny jest przedrostkowy</li>
+</ul>
+<h3 id="warunek-sumy-dwójkowej">Warunek sumy dwójkowej</h3>
+<ul>
+<li>Jeśli kod jest jednoznacznie dekodowalny to długości słów kodowych
+<span class="math inline">\(l_1, \ldots, l_N\)</span> spełniają warunek
+sumy dwójkowej
+<ul>
+<li>nierówność Krafta-McMillana</li>
+<li><span class="math inline">\(\sum_{i=1}^N2^{-l_i} \le 1\)</span></li>
+</ul></li>
+<li>Jeśli ciąg liczb spełnia warunek sumy dwójkowej to istnieje kod
+przedrostkowy o N słowach i takich długościach</li>
+<li>Każdy kod jednoznacznie dekodowalny można przekształcić zachowując
+długość słów kodowych w kod przedrostkowy</li>
+<li>Kod można wtedy wyrazić drzewem
+<ul>
+<li>najlepiej jeśli drzewo jest lokalnie pełne</li>
+<li>każdy węzeł niebędący liściem ma 2 potomków</li>
+<li>w przeciwnym przypadku kod nadal jest dekodowalny ale jest mniej
+efektywny</li>
+<li>każdy bit długości przepoławia wagę sumowanego czynnika</li>
+<li>dwie połowy sumują się do wagi węzła</li>
+</ul></li>
+<li>Ze względu na proste dekodowanie, w praktyce stosuje się kody
+przedrostkowe</li>
+</ul>
+<p><img src="./obrazy/warunek-sumy-dwojkowej.png" /></p>
+<h3 id="dekoder-przedrostkowy">Dekoder przedrostkowy</h3>
+<ol type="1">
+<li>Zainicjuj bufor <span class="math inline">\(\alpha\)</span></li>
+<li>Jeśli wejście puste to zakończ</li>
+<li>Odczytaj bit z wejścia i dopisz do <span
+class="math inline">\(\alpha\)</span></li>
+<li>Jeśli <span class="math inline">\(\alpha\)</span> jest słowem
+kodowym dla pewnego symbolu <span class="math inline">\(\sigma\)</span>
+to emituj na wyjście <span class="math inline">\(\sigma\)</span> i
+powtarzaj od kroku 1.</li>
+<li>Powtarzaj od kroku 3.</li>
+</ol>
+<h2 id="kody-o-stałej-długości">Kody o stałej długości</h2>
+<ul>
+<li>Najprostszy kod binarny to kod stałej długości</li>
+<li>Słowo kodowe to pozycja w alfabecie w naturalnym kodzie
+binarnym</li>
+<li>Wszystkie słowa mają taką samą długość wynikająca z liczby symboli w
+alfabecie</li>
+<li>Przypisanie słów kodowych do symboli zależy od pozycji symbolu
+alfabecie</li>
+</ul>
+<h2 id="kody-o-zmiennej-długości">Kody o zmiennej długości</h2>
+<p>Zmienianie długości może bardzo mocno skrócić strumień kodowy</p>
+<h2 id="optymalny-kod-przedrostkowy">Optymalny kod przedrostkowy</h2>
+<ul>
+<li>Najlepszy jest ten kod, który zakoduje sekwencję symboli na
+najmniejszej liczbie bitów</li>
+<li>Zależy od rozkładu prawdopodobieństw symboli w alfabecie
+<ul>
+<li>krótsze słowa kodowe dla częściej występujących symboli</li>
+</ul></li>
+<li>Miara optymalności kodu to średnia długość słowa kodowego <span
+class="math inline">\(\sum_i p_i l_i\)</span></li>
+<li>Własności
+<ul>
+<li>dwa symbole o najmniejszym prawdopodobieństwie mają najdłuższe słowa
+kodowe <span class="math inline">\(c\)</span> i <span
+class="math inline">\(d\)</span> o takiej samej długości</li>
+<li>dla każdego słowa kodowego <span class="math inline">\(k\)</span>
+istnieje słowo kodowe <span class="math inline">\(k&#39;\)</span>
+różniące się ostatnim bitem</li>
+<li>połączenie 2 symboli o min. prawdopodobieńśtwie w supersymbol o
+słowie kodowym <span class="math inline">\(c\)</span> bez ostatniego
+bitu daje kod optymalne dla nowego alfabetu o mniejszej liczbie
+symboli</li>
+<li>suma dwójkowa równa 1</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-huffmana">Algorytm Huffmana</h3>
+<ul>
+<li>Znajdź 2 symbole o najmniejszych prawdopodobieństwach <span
+class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span>, zastąp je nowym symbolem <span
+class="math inline">\(Z\)</span>
+<ul>
+<li>słowa kodowe dla <span class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span> będą utworzone przez dodanie <span
+class="math inline">\(0\)</span> lub <span
+class="math inline">\(1\)</span> dla słowa kodowego <span
+class="math inline">\(Z\)</span></li>
+<li>prawdopodobieństwo wystąpienia <span
+class="math inline">\(Z\)</span> jest sumą prawdopodobieństw dla <span
+class="math inline">\(X\)</span> i <span
+class="math inline">\(Y\)</span></li>
+</ul></li>
+<li>Powtarzaj do uzyskania tylko jednego symbolu</li>
+<li>Powstaje drzewo binarne z symbolami w liściach</li>
+</ul>
+<h3 id="reprezentacja-znormalizowana-kodu">Reprezentacja znormalizowana
+kodu</h3>
+<ul>
+<li>Krótsze słowa kodowe po lewej stronie drzewa</li>
+<li>Liście na tym samym poziomie zachowują kolejność w alfabecie</li>
+<li>Nie wpływa na optymalność, nie zmieniają się długości słów kodowych
+(tylko wartości)</li>
+<li>Znając długości słów kodowych można dokonać normalizacji bez drzewa
+<ul>
+<li>posortuj symbole po długości słów i pozycji w alfabecie</li>
+<li>najkrótsze słowo to same <span class="math inline">\(0\)</span></li>
+<li>kolejne słowo to poprzedni <span class="math inline">\(+1\)</span>,
+dopełnione zerami do zadanej długości</li>
+</ul></li>
+</ul>
+<h3 id="kod-przedrostkowy-a-entropia">Kod przedrostkowy a entropia</h3>
+<ul>
+<li>Średnia długość kodu nie może być mniejsza niż entropia</li>
+<li>Dla kodu optymalnego <span class="math inline">\(H \le \bar{l} \lt
+H+1\)</span></li>
+<li>Optymalny kod przedrostkowy nie może być gorszy niż kod o
+arbitralnie wybranych długościach słów kodowych</li>
+</ul>
+<h2 id="grupowanie-symboli-alfabetu">Grupowanie symboli alfabetu</h2>
+<ul>
+<li>Kiedy pogrupuje się symbole w grupy po <span
+class="math inline">\(M\)</span> symboli</li>
+<li>Dla łącznego kodu dla takich supersymboli dalej obowiązuje
+ogranicznie <span class="math inline">\(H+1\)</span></li>
+<li>W przeliczeniu na pojedynczy symbol wychodzi górne ograniczeni <span
+class="math inline">\(H+1/M\)</span></li>
+<li>Grupowanie symboli zwiększa efektywność kodowania kosztem większej
+złożoności</li>
+</ul>
+<h2 id="specjalne-kody-przedrostkowe">Specjalne kody przedrostkowe</h2>
+<ul>
+<li>Definicja kodów dla określonych rozkładów prawdopodobieństwa
+<ul>
+<li>pozwala określić optymalny kod przedrostkowy dla pewnych modeli
+statystycznych bez stosowania uniwersalnych algorytmów</li>
+<li>pozwala uniknąć przekazywania książki kodów do dekodera przez
+zbudowanie książki kodów dla reprezentatywnego zbioru uczącego</li>
+</ul></li>
+<li>Definicja kodów dla nieskończonych alfabetów
+<ul>
+<li>symbole utożsamiane z liczbami naturalnymi</li>
+<li>alfabety określone przez przedziały liczb naturalnych</li>
+</ul></li>
+</ul>
+<h3 id="kod-unarny">Kod unarny</h3>
+<ul>
+<li><span class="math inline">\(U(N)\)</span> - <span
+class="math inline">\(n\)</span> jedynek i zero na końcu (albo na
+odwrót)</li>
+<li>Jest optymalnym kodem przedrostkowym (Huffmana) dla rozkładu
+prawdopodobieństwa określonego ciągiem geometrycznym <span
+class="math inline">\(p_n = (\frac{1}{2})^{n+1}\)</span></li>
+</ul>
+<h3 id="kod-prawie-stałej-długości">Kod prawie stałej długości</h3>
+<ul>
+<li><span class="math inline">\(B_b(n)\)</span>
+<ul>
+<li>długość <span class="math inline">\(k = \lfloor \log_2b
+\rfloor\)</span> dla <span class="math inline">\(0 \le n \lt
+2^{k+1}-b\)</span> od samych zer</li>
+<li>długość <span class="math inline">\(k+1\)</span> dla <span
+class="math inline">\(2^{k+1}-b \le n \lt b\)</span> od samych
+jedynek</li>
+<li>dla <span class="math inline">\(b=2^k\)</span> jest naturalnym kodem
+binarnym, stałej długości</li>
+</ul></li>
+<li>Przy kodowaniu NKB 5-elementowego alfabetu potrzeba 3 bitów ale nie
+wykorzysta się 3 z 8 kombinacji</li>
+<li>Dla częściej występujących symboli bierze się słowa kodowe o
+długości k, a dla reszty k+1</li>
+<li>Tyle będzie krótszych słów, ile kombinacji by się nie wykorzystało
+przy kodzie stałej długości</li>
+<li>Optymalny dla rozkładu zrównoważonego <span
+class="math inline">\(2\min &gt; \max\)</span>
+<ul>
+<li><span class="math inline">\(p_0 \ge p_1 \ge \ldots \ge p_{b-1}
+\implies p_{b-2} + p_{b-1} \ge p_0\)</span></li>
+<li>nie trzeba stosować algorytmu Huffmana bo wiadomo że ten będzie
+optymalny i identyczny</li>
+</ul></li>
+</ul>
+<h3 id="kod-golomba">Kod Golomba</h3>
+<ul>
+<li>Składa się z części kodu unarnego i części kodu prawie stałej
+długości (konkatenacja)</li>
+<li>Uporządkowany po prawdopodobieństwie ciąg symboli dzieli się na
+przedziały stałej długości</li>
+<li>Numer przedziału kodowany kodem unarnym, a pozycja symbolu w
+przedziale kodowana kodem o prawie stałej długości</li>
+<li><span class="math inline">\(G_b(n) = U(q)B_b(r)\)</span>
+<ul>
+<li><span class="math inline">\(q= \lfloor n/b \rfloor\)</span> - numer
+przedziału</li>
+<li><span class="math inline">\(r = n \mod b\)</span> - pozycja w
+przedziale</li>
+</ul></li>
+<li>Jest optymalny dla rozkładu geometrycznego <span
+class="math inline">\(p_n = p(1-p)^n\)</span>
+<ul>
+<li><span class="math inline">\(b = \lceil \log(2-p) / -\log(1-p)
+\rceil\)</span></li>
+</ul></li>
+</ul>
+<h3 id="wykładniczy-kod-golomba">Wykładniczy kod Golomba</h3>
+<ul>
+<li>Dobry dla rozkładów wykładniczych</li>
+<li>Długości kolejnych przedziałów rosną wykładniczo <span
+class="math inline">\(b_q = 2^q\)</span></li>
+<li>Kod unarny identyfikuje przedział</li>
+<li>Naturalny kod binarny na <span class="math inline">\(q\)</span>
+bitach określa pozycję w przedziale</li>
+<li>Początki przedziałów to liczby <span
+class="math inline">\(2^n-1\)</span> - trzeba odjąć <span
+class="math inline">\(1\)</span> przy dekodowaniu</li>
+</ul>
+<h2 id="kodowanie-słownikowe">Kodowanie słownikowe</h2>
+<ul>
+<li>Kombinacje symboli ze strumienia są mapowane na słowa kodowe</li>
+<li>Dopasowanie kolejnych symboli z wejścia polega na znalezieniu takiej
+porcji danych, która już znajduje się w słowniku</li>
+<li>Słownik jest dynamicznie modyfikowany w jednakowy sposób przez koder
+i dekoder</li>
+<li>Fraza mapowana na indeks
+<ul>
+<li>pozycja</li>
+<li>długość dopasowania</li>
+<li>ogranicznik <span class="math inline">\(\delta\)</span> - fraza
+wydłużona o ten symbol nie znajduje się w słowniku</li>
+</ul></li>
+<li>Poszczególne metody różnią się sposobem budowy słownika i
+traktowania ogranicznika
+<ul>
+<li>czy <span class="math inline">\(\delta\)</span> jest oddzielnie
+kodowane</li>
+<li>czy <span class="math inline">\(\delta\)</span> bierze udział w
+aktualizacji słownika</li>
+<li>czy <span class="math inline">\(\delta\)</span> jest zwracana do
+strumienia wejściowego (czy <span class="math inline">\(\delta\)</span>
+jest pierwszym symbolem kolejnej porcji)</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-lz77">Algorytm LZ77</h3>
+<ul>
+<li>Bufor o długości <span class="math inline">\(N\)</span></li>
+<li>Pierwsze <span class="math inline">\(N-F\)</span> pozycji to już
+zakodowane symbole
+<ul>
+<li><span class="math inline">\(prev[0\ldots(N-F-1)]\)</span></li>
+</ul></li>
+<li>Ostatnie <span class="math inline">\(F\)</span> pozycji bufora to
+symbole do zakodowania
+<ul>
+<li><span class="math inline">\(ahead[0\ldots(F-1)] =
+buf[(N-F\ldots(N-1)]\)</span></li>
+</ul></li>
+<li>Elementami słownika są wszystkie słowa zapisane w buforze
+zaczynające się w przedziale <span
+class="math inline">\([0,N-F-1]\)</span>
+<ul>
+<li>początkowa zawartość nieistotna, tak samo inicjowana przez koder i
+dekoder</li>
+</ul></li>
+<li>Szukamy takiego ciągu symboli w górnej części bufora, który znajduje
+się w buforze pod <span
+class="math inline">\([(N-F-j)\ldots(N-F-j+i-1]\)</span>
+<ul>
+<li>dla pewnego <span class="math inline">\(j: 0 \lt j \le
+N-F\)</span></li>
+<li><span class="math inline">\(ahead[i]\)</span> pełni rolę
+ogranicznika <span class="math inline">\(\delta\)</span></li>
+</ul></li>
+<li>Indeksem komórki słownika, pozwalającym na jednoznaczną
+identyfikację jest para <span class="math inline">\((A,L)\)</span>
+<ul>
+<li><span class="math inline">\(A\)</span> - przesunięcie komórki
+słownika względem początku bufora <span
+class="math inline">\(ahead\)</span></li>
+<li><span class="math inline">\(L\)</span> - długość słowa</li>
+</ul></li>
+<li>Indeks <span class="math inline">\((A,L, \delta)\)</span> wysyłany
+do strumienia wyjściowego
+<ul>
+<li>kodowane przy pomocy kodu binarnego stałej długości</li>
+</ul></li>
+<li>Aktualizacja słownika przez przesunięcie zawartości bufora o <span
+class="math inline">\(L+1\)</span> pozycji
+<ul>
+<li><span class="math inline">\(\delta\)</span> przechodzi do częsci
+<span class="math inline">\(prev\)</span></li>
+<li>na ostatnie <span class="math inline">\(L+1\)</span> pozycji bufora
+<span class="math inline">\(ahead\)</span> wpływają kolejne symbole z
+wejścia</li>
+</ul></li>
+<li>Brak dopasowania sygnalizowany przez <span
+class="math inline">\(L=0\)</span></li>
+</ul>
+<h3 id="algorytm-lzss">Algorytm LZSS</h3>
+<ul>
+<li>Zmodyfikowane LZ77</li>
+<li>Albo koduje parę (A,L) albo <span
+class="math inline">\(\delta\)</span> (ogranicznik)
+<ul>
+<li>dodatkowy wiodący bit rozróżnia 2 przypadki</li>
+<li>oszczędność bitów przy braku dopasowania</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-lz78">Algorytm LZ78</h3>
+<ul>
+<li>Słownik jest rozbudowywaną listą</li>
+<li>Początkowo słownik pusty</li>
+<li>W sekwencji wejściowej wyszukiwane jest najdłuższe słowo <span
+class="math inline">\(t\)</span> występujące już w słowniku</li>
+<li>Indeks słownika i ogranicznik <span
+class="math inline">\(\delta\)</span> wysyłane do strumienia wyjściowego
+<ul>
+<li>indeksy słownika kodowane kodem binarnym stałej długości</li>
+<li>symbole kodowane kodem binarnym o zmiennej długości</li>
+</ul></li>
+<li>Aktualizacja słownika przez dopisanie słowa <span
+class="math inline">\(t\delta\)</span></li>
+<li>Przy wyczerpaniu pamięci na słownik
+<ul>
+<li>kontynuacja kodowania z ustalonym słownikiem</li>
+<li>przebudowa słownika (wyrzucenie pewnych słów)</li>
+<li>wyzerowanie słownika</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-lzw">Algorytm LZW</h3>
+<ul>
+<li>Modyfikacja LZ78</li>
+<li>Początkowo słownik zawiera wszystkie frazy jednoznakowe</li>
+<li>W sekwencji wejściowej wyszukiwane jest najdłuższe słowo <span
+class="math inline">\(t\)</span> występujące już w słowniku</li>
+<li>Do strumienia wyjściowego wysyłany jest tylko indeks słownika
+<ul>
+<li><span class="math inline">\(\delta\)</span> jest pierwszą literą
+kolejnego słowa</li>
+</ul></li>
+<li>Aktualizacja przez dopisanie słowa <span
+class="math inline">\(t\delta\)</span></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#podstawy-teorii-informacji">Podstawy teorii informacji</a>
+<ul>
+<li><a href="#źródło-danych">Źródło danych</a></li>
+<li><a href="#informacja">Informacja</a></li>
+<li><a href="#entropia">Entropia</a></li>
+<li><a href="#system-kodowania">System kodowania</a></li>
+<li><a href="#koder-binarny">Koder binarny</a></li>
+<li><a href="#kody-przedrostkowe">Kody przedrostkowe</a>
+<ul>
+<li><a href="#warunek-sumy-dwójkowej">Warunek sumy dwójkowej</a></li>
+<li><a href="#dekoder-przedrostkowy">Dekoder przedrostkowy</a></li>
+</ul></li>
+<li><a href="#kody-o-stałej-długości">Kody o stałej długości</a></li>
+<li><a href="#kody-o-zmiennej-długości">Kody o zmiennej
+długości</a></li>
+<li><a href="#optymalny-kod-przedrostkowy">Optymalny kod
+przedrostkowy</a>
+<ul>
+<li><a href="#algorytm-huffmana">Algorytm Huffmana</a></li>
+<li><a href="#reprezentacja-znormalizowana-kodu">Reprezentacja
+znormalizowana kodu</a></li>
+<li><a href="#kod-przedrostkowy-a-entropia">Kod przedrostkowy a
+entropia</a></li>
+</ul></li>
+<li><a href="#grupowanie-symboli-alfabetu">Grupowanie symboli
+alfabetu</a></li>
+<li><a href="#specjalne-kody-przedrostkowe">Specjalne kody
+przedrostkowe</a>
+<ul>
+<li><a href="#kod-unarny">Kod unarny</a></li>
+<li><a href="#kod-prawie-stałej-długości">Kod prawie stałej
+długości</a></li>
+<li><a href="#kod-golomba">Kod Golomba</a></li>
+<li><a href="#wykładniczy-kod-golomba">Wykładniczy kod Golomba</a></li>
+</ul></li>
+<li><a href="#kodowanie-słownikowe">Kodowanie słownikowe</a>
+<ul>
+<li><a href="#algorytm-lz77">Algorytm LZ77</a></li>
+<li><a href="#algorytm-lzss">Algorytm LZSS</a></li>
+<li><a href="#algorytm-lz78">Algorytm LZ78</a></li>
+<li><a href="#algorytm-lzw">Algorytm LZW</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

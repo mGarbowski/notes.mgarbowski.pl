@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02-klasyfikacja-pamieci</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01-wstep.html">Poprzedni: wyklad-01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03-dane-alfanumeryczne.html">Następny: wyklad-03-dane-alfanumeryczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wyklad-02-2023-02-22">Wyklad 02 (2023-02-22)</h1>
+<h2 id="maszyna-von-neumanna">Maszyna von Neumanna</h2>
+<p>Program i dane są przechowywane w tej samej pamięci.</p>
+<p>Pamięć składa się z ponumerowanych komórek, do zawartości komórki
+można odwołać się przez jej numer - adres.</p>
+<p>Najwygodniej żeby instrukcje znajdowały się w kolejnych
+komórkach.</p>
+<p>Rejestr PC (program counter) przechowuje adres następnej instrukcji i
+jest inkrementowany po jej pobraniu</p>
+<p>Pojęcia są dosyć płynne i współczesne rozumienie odbiega od
+historycznych komputerów</p>
+<h3 id="harvard">Harvard</h3>
+<ul>
+<li>oddzielne hierarchie pamięci programu i danych</li>
+<li>szybkie działanie</li>
+<li>operacje na danych i instrukcjach można zrównoleglić dzięi
+oddzieleniu hierarchii pamięci</li>
+<li>nieprogramowalny, program jest wbity na stałe
+<ul>
+<li>nadaje się do rozwiązań embedded</li>
+<li>nie nadaje się do uniwersalnych komputerów</li>
+</ul></li>
+</ul>
+<h3 id="princeton">Princeton</h3>
+<ul>
+<li>wspólna hierarchia pamięci programu i danych</li>
+<li>układ arbitra dostępu do pamięci między procesor danych i procesor
+instrukcji</li>
+<li>wolniejszy, bo tylko jeden z procesorów ma w danej chwili dostęp do
+pamięci</li>
+<li>programowalny, program jako daną można umieścić w pamięci i odczytać
+jako instrukcje</li>
+<li>von Neumann bottleneck</li>
+<li>wąskie gardło w dostępie do pamięci - nie można jednocześnie
+pobierać danych i instrukcji</li>
+</ul>
+<h2 id="komputer-szybki-i-programowalny-harvard-princeton">Komputer
+szybki i programowalny (Harvard-Princeton)</h2>
+<p>Wspólna pamięć dla danych i instrukcji ale oddzielne cache’e (L1 / L1
+i L2).</p>
+<p>Odczyt z oddzielnych cache’ów może się odbywać równolegle.</p>
+<p>Styk między cache’em i pamięcią jest zarządzany przez sprzęt, a nie
+software</p>
+<p>Zachowanie programu piszącego samego siebie jest niedeterministyczna.
+Operacja dająca niedeterministyczny wynik powinna być zabroniona.</p>
+<p>System operacyjny ma pewną kontrolę (nie pełną) nad stykiem
+cache/pamięć. Może wymusić opróżnienie cache’y (wyczyścić), np. przed
+wykonaniem programu po załadowaniu go do pamięci.</p>
+<h2 id="klasyfikacja-pamięci">Klasyfikacja pamięci</h2>
+<p>Idealna pamięć jest nieulotna, tania, pojemna i szybka</p>
+<h3 id="ze-względu-na-trwałość">Ze względu na trwałość</h3>
+<ul>
+<li>ulotne
+<ul>
+<li>tracą informacje po odcięciu zasilania</li>
+<li>dynamiczne
+<ul>
+<li>wymagają odświeżania</li>
+</ul></li>
+<li>statyczne</li>
+</ul></li>
+<li>nieulotne
+<ul>
+<li>potrzebuje energii tylko do zmiany zawartości</li>
+<li>powolny zapis</li>
+</ul></li>
+</ul>
+<h3 id="ze-względu-na-mechanizm-dostępu">Ze względu na mechanizm
+dostępu</h3>
+<ul>
+<li>Bezpośredni (przez adres)</li>
+<li>Sekwencyjny (według kolejności) - pobierz następny, zapisz następny
+<ul>
+<li>kolejka</li>
+<li>stos</li>
+</ul></li>
+<li>Asocjacyjny (przez porównanie z wzorcem)</li>
+<li>Hybrydowy (np. bezpośrednio sekwencyjny - odczyt kolejnych bajtów z
+adresowanego bloku)</li>
+</ul>
+<h2 id="technologie-pamięci">Technologie pamięci</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Typ</th>
+<th>Nieulotna</th>
+<th>Pojemność</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DRAM (DDR5)</td>
+<td>nie</td>
+<td>8 Gib</td>
+</tr>
+<tr class="even">
+<td>SRAM</td>
+<td>nie</td>
+<td>64 Mib</td>
+</tr>
+<tr class="odd">
+<td>MRAM</td>
+<td>tak</td>
+<td>32 Mib</td>
+</tr>
+<tr class="even">
+<td>NOR Flash</td>
+<td>tak</td>
+<td>1 Gib</td>
+</tr>
+<tr class="odd">
+<td>NAND Flash</td>
+<td>tak</td>
+<td>512 Gib</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pamięć-flash">Pamięć Flash</h3>
+<ul>
+<li>tani</li>
+<li>wymaga kasowania przed zapisem</li>
+<li>ograniczona trwałość (liczba kasowań)</li>
+<li>kasuje się duże bloki na raz</li>
+<li>wymaga kodów korekcyjnych, nie jest wiarygodna bez nich</li>
+</ul>
+<p>Potocznie RAM jest rozumiany jako pamięć ulotna, bardziej poprawnie
+RWM (read-write memory) - pamięć o takiej samej szybkości zapisu i
+odczytu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wyklad-02-2023-02-22">Wyklad 02 (2023-02-22)</a>
+<ul>
+<li><a href="#maszyna-von-neumanna">Maszyna von Neumanna</a>
+<ul>
+<li><a href="#harvard">Harvard</a></li>
+<li><a href="#princeton">Princeton</a></li>
+</ul></li>
+<li><a href="#komputer-szybki-i-programowalny-harvard-princeton">Komputer
+szybki i programowalny (Harvard-Princeton)</a></li>
+<li><a href="#klasyfikacja-pamięci">Klasyfikacja pamięci</a>
+<ul>
+<li><a href="#ze-względu-na-trwałość">Ze względu na trwałość</a></li>
+<li><a href="#ze-względu-na-mechanizm-dostępu">Ze względu na mechanizm
+dostępu</a></li>
+</ul></li>
+<li><a href="#technologie-pamięci">Technologie pamięci</a>
+<ul>
+<li><a href="#pamięć-flash">Pamięć Flash</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

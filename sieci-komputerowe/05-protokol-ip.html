@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-protokol-ip</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-protokol-arp.html">Poprzedni: 04-protokol-arp.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-protokol-icmp.html">Następny: 06-protokol-icmp.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="internet-protocol-ip">Internet Protocol (IP)</h1>
+<h2 id="ipv4">IPv4</h2>
+<h3 id="nagłówek">Nagłówek</h3>
+<ul>
+<li>numer wersji (4)</li>
+<li>internal header length - potrzebny bo na końcu jest pole options o
+zmiennej długości</li>
+<li>type of service - dostosowanie algorytmów routingu stosownie do
+usługi
+<ul>
+<li>usługa może wymagać 100% poprawności danych - lepiej maksymalnie
+buforować pakiety</li>
+<li>usługa może wymagać małych i stałych opóźnień - lepiej zgubić
+pakiet</li>
+<li>informuje router jak najlepiej dopasować zachowanie do potrzeb
+usługi</li>
+</ul></li>
+<li>total length - długość danych + nagłówka</li>
+<li>TTL - time to live
+<ul>
+<li>przez ile routerów może jeszcze być przekazany</li>
+<li>unika zaśmiecania sieci pakietami, których nie da się dostarczyć
+(np. w cyklu)</li>
+<li>dekrementowany przy każdym przekazaniu</li>
+<li>pakiet jest odrzucany kiedy osiągnie 0</li>
+<li>typowo rzędu 32</li>
+</ul></li>
+<li>protocol - następny nagłówek (TCP / UDP)</li>
+<li>header checksum
+<ul>
+<li>pominięty w wersji 6</li>
+<li>nie zapewnia w znaczący sposób bezpieczeństwa</li>
+<li>dubluje niższe warstwy</li>
+<li>sieci są na tyle niezawodne, że nie jest potrzebny</li>
+<li>IPsec zapewnia bezpieczeństwo transmisji</li>
+</ul></li>
+<li>source address</li>
+<li>destination address</li>
+<li>options</li>
+</ul>
+<h3 id="klasy-adresów-ipv4">Klasy adresów IPv4</h3>
+<p>Przestarzały sposób podziału przestrzeni adresowej, wyparty przez
+routing bezklasowy i subnetting</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Klasa</th>
+<th>początkowe bity</th>
+<th>najmniejszy adres</th>
+<th>największy adres</th>
+<th>funkcja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>0</td>
+<td>0.0.0.0</td>
+<td>127.255.255.255</td>
+<td>adresowanie interfejsów</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>10</td>
+<td>128.0.0.0</td>
+<td>192.255.255.255</td>
+<td>adresowanie interfejsów</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>110</td>
+<td>192.0.0.0</td>
+<td>223.255.255.255</td>
+<td>adresowanie interfejsów</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>1110</td>
+<td>224.0.0.0</td>
+<td>239.255.255.255</td>
+<td>multicast, indentyfikuje grupy, a nie poszczególne interfejsy</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>1111</td>
+<td>240.0.0.0</td>
+<td>255.255.255.255</td>
+<td>eksperymentalna, nie powinny trafiać do sieci globalnej</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>klasa</th>
+<th>numer sieci</th>
+<th>numer hosta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>1 bajt</td>
+<td>3 bajty</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>2 bajty</td>
+<td>2 bajty</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>3 bajty</td>
+<td>1 bajt</td>
+</tr>
+</tbody>
+</table>
+<p>Jeśli numer sieci szukanego komputera jest taki sam to zapytanie ARP
+jest wysyłane do komputera, jeśli nie to do routera.</p>
+<p>Taki sposób adresowania sieci prowadzi do marnowania przestrzeni
+adresowej. Subnetting zapobiega wyczerpywaniu przestrzenia
+adresowej.</p>
+<h3 id="subnetting">Subnetting</h3>
+<p>Adres IP jest dzielony za pomocą maski sieci na adres sieci i adres
+hosta, każdy komputer poza adresem IP ma też przypisaną maskę sieci.</p>
+<h3 id="maska-podsieci">Maska podsieci</h3>
+<ul>
+<li><p>zaczyna się od samych jedynek.</p></li>
+<li><p>notacja kropkowo-dziesiętna - 255.255.255.0</p></li>
+<li><p>podawana w skrócie, razem z adrsem IP po znaku ‘/’ (liczba
+jedynek w masce) - 148.81.31.191/24</p></li>
+<li><p>Numer hosta - najmniej znaczące bity adresu IP (tyle ile jest zer
+w masce) - otrzymany przez bitwise AND adresu IP z zanegowaną
+maską</p></li>
+<li><p>Adres sieci - same 0 w miejsu numeru hosta - uzyskiwany przez
+operację bitwise AND adresu IP z maską</p></li>
+<li><p>Adres broadcastowy - same 1 w miejsu numeru hosta</p></li>
+</ul>
+<h3 id="podział-puli-adresowej">Podział puli adresowej</h3>
+<p>Pulę adresów można podzielić na podsieci w taki sposób, żeby zakresy
+odpowiadające maskom były rozłączne</p>
+<p>Najmniejsza użyteczna grupa adresów to 4 (dla maski 255.255.255.252),
+bo 2 są zarezerwowane na numer sieci i adres broadcastowy, Grupa 4
+nadaje się na połączenia punkt-punkt.</p>
+<p>Standard RFC 1122 zabrania użwania adresów podsieci 0 i -1.
+Proponowany standard RFC 1812 zezwala na te numery podsieci. Praktycznie
+można ich używać na współczesnym sprzęcie (po 1995).</p>
+<h3 id="adresy-zastrzeżone">Adresy zastrzeżone</h3>
+<ul>
+<li><code>0.0.0.0</code> - nie znam swojego adresu IP, używany przez
+urządzenia przy podłączaniu do sieci</li>
+<li><code>255.255.255.255</code> - broadcast, do wszystkich w sieci
+lokalnej</li>
+<li><code>127.0.0.1</code> - loopback, adres pseudo-interfejsu
+sieciowego, do zapytań w sieciowych w obrębie jednej maszyny</li>
+</ul>
+<h3 id="sieci-prywatne-rfc-1918">Sieci prywatne (RFC 1918)</h3>
+<p>Grupy adresów zarezerwowane przez IANA, nigdy nie będą przydzielone
+żadnej instytucji. Można je bezpiecznie przydzielać w sieci prywatnej,
+bo żaden serwer na świecie nie może ich używać.</p>
+<ul>
+<li><code>10.0.0.0</code> - <code>10.255.255.255</code></li>
+<li><code>172.16.0.0</code> - <code>172.31.255.255</code></li>
+<li><code>192.168.0.0</code> - <code>192.168.255.255</code></li>
+</ul>
+<h2 id="ipv6">IPv6</h2>
+<h3 id="nagłówek-1">Nagłówek</h3>
+<ul>
+<li>numer wersji (6)</li>
+<li>priorytet</li>
+<li>flow label
+<ul>
+<li>parametry jakościowe (spełnia funkcję ‘type of service’)</li>
+<li>parametry bezpieczeństwa</li>
+</ul></li>
+<li>payload length
+<ul>
+<li>maksymalnie 4GB</li>
+<li>długość danych</li>
+<li>całkowita długość pakietu może się zmieniać w trakcie
+transmisji</li>
+</ul></li>
+<li>next header - typ następnego nagłówka (TCP / UDP / opcjonalny
+IPv6)</li>
+<li>hop limit - odpowiednik TTL</li>
+<li>(128b) source address</li>
+<li>(128b) destination address</li>
+<li>opcjonalne nagłówki pomocnicze
+<ul>
+<li>określony przez pole next header wcześniej</li>
+<li>routing</li>
+<li>fragmentacja</li>
+<li>bezpieczeństwo (IPsec)</li>
+</ul></li>
+</ul>
+<p>Nie są fragmentowane przez routery - host musi dowiedzieć się jakie
+jest MTU (maximum transfer unit) i się dostosować</p>
+<h3 id="skrócony-zapis-adresu-ipv6">Skrócony zapis adresu IPv6</h3>
+<ul>
+<li>zapis heksadecymalny</li>
+<li>pomija się wiodące zera</li>
+<li>conajwyżej jedną grupę samych zer można zastąpić przez
+<code>::</code></li>
+</ul>
+<h3 id="adresy-specjalne">Adresy specjalne</h3>
+<ul>
+<li>Loopback <code>::1</code></li>
+<li>Nieokreślony <code>::</code></li>
+<li>IPv4 compatible - <code>::129.144.52.38</code></li>
+<li>IPv4 only
+<ul>
+<li><code>0:0:0:0:0:FFFF:129.144.52.38</code></li>
+<li>dla sieci w której komputery obsługują tylko IPv4</li>
+</ul></li>
+</ul>
+<h3 id="prefiks-sieciowy">Prefiks sieciowy</h3>
+<p>Odpowiednik maski w IPv4</p>
+<h3 id="rodzaje-adresów">Rodzaje adresów</h3>
+<ul>
+<li>większość przestrzeni pozostaje nieprzydzielona</li>
+<li>adresy kompatybilnościowe</li>
+<li>Aggregatable Global Unicast Addresses - przyznawane adresy
+publiczne</li>
+<li>Link-Local Unicast Addresses - prywatne w ramach segmentu sieci</li>
+<li>Site-Local Unicast Addresses - prywatne w ramach wewnętrznej sieci
+jednej instytucji, nadają się do routingu</li>
+<li>Multicast Addresses</li>
+</ul>
+<h3 id="budow-aadresów-unicastowych">Budow aadresów unicastowych</h3>
+<p>64 bity adresu sieci, 64 bity adresu hsota</p>
+<ul>
+<li>EUI-64
+<ul>
+<li>stałe <code>FFFE</code> wstawione w środek 64-bitowego ID
+interfejsu</li>
+<li>ID interfejsu zawiera adres MAC</li>
+<li>można zrobić inaczej przy innej stałej (np. nadane statycznie dla
+serwera a nie dla karty sieciowej)</li>
+</ul></li>
+<li>Link-Local - 64 bitowy stały prefiks</li>
+<li>Site-Local - 48 bitów stałych i 16 bitów numeru podsieci
+przyznawanych przez router</li>
+</ul>
+<p>Adresy publiczne (Aggregatable Global Unicast Addresses) * prefiks *
+TLA - top level aggregation * identyfikator operatora sieci (ISP) *
+wykorzystywany w routingu przez routery szkieletowe * pole zarezerwowane
+- na przyszłość, w zależności od tego które identyfikatory szybciej się
+wyczerpią (TLA/NLA) * NLA - next level aggregation * identyfikator sieci
+instytucji w sieci operator * routery operatora wykonują routing na
+podstawie NLA * SLA - site level aggregation - numer podsieci * nie
+potrzeba masek * jeśli prefiks zgadza się z adresem sieci routera to
+routing odbywa się wewnętrznie na podstawie numeru podsieci</p>
+<p>Ten format znacznie ułatwia routing</p>
+<h2 id="fragmentacja-pakietów-ip">Fragmentacja pakietów IP</h2>
+<p>W sieci obowiązuje maksymalna długość ramki (MTU - maximum transfer
+unit). Pakiety większe niż MTU są dzielone na mniejsze fragmenty i mogą
+dojść do odbiorcy w innej kolejności. Odbiorca musi mieć możliwość
+odtworzenia każdego pakietu w całości. Fragmentcaja może być wykonywana
+kilkukrotnie.</p>
+<ul>
+<li><p>umożliwia grupowanie</p></li>
+<li><p>umożliwia odtworzenie kolejności</p></li>
+<li><p>jest odporne na wielokrotną fragmentację</p></li>
+<li><p>identification - nadaje różne wartości różnym pakietom, służy do
+grupowania fragmentów</p></li>
+<li><p>fragment offset - 0 w pierwszym fragmencie (i oryginalnym
+pakiecie), określa pozycję w buforze w jakiej trzeba umieścić dane
+(odstęp od początku danych w pierwszym fragmencie)</p></li>
+<li><p>more fragments - 1 dla nieostatniego fragmentu i 0 dla
+ostatniego</p></li>
+</ul>
+<p>W ten sposób można ponownie zfragmentować pakiety przeliczając
+odpowiednio offsety. Odtwarzanie pakietu jest obowiązkiem końcowego
+odbiorcy (routery po drodze niczego nie odtwarzają, nie wszystkie
+pakiety musiały przejść tą samą trasą)</p>
+<p>W IPv6 informacje o fragmentacji są w opcjonalnym nagłówku</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#internet-protocol-ip">Internet Protocol (IP)</a>
+<ul>
+<li><a href="#ipv4">IPv4</a>
+<ul>
+<li><a href="#nagłówek">Nagłówek</a></li>
+<li><a href="#klasy-adresów-ipv4">Klasy adresów IPv4</a></li>
+<li><a href="#subnetting">Subnetting</a></li>
+<li><a href="#maska-podsieci">Maska podsieci</a></li>
+<li><a href="#podział-puli-adresowej">Podział puli adresowej</a></li>
+<li><a href="#adresy-zastrzeżone">Adresy zastrzeżone</a></li>
+<li><a href="#sieci-prywatne-rfc-1918">Sieci prywatne (RFC
+1918)</a></li>
+</ul></li>
+<li><a href="#ipv6">IPv6</a>
+<ul>
+<li><a href="#nagłówek-1">Nagłówek</a></li>
+<li><a href="#skrócony-zapis-adresu-ipv6">Skrócony zapis adresu
+IPv6</a></li>
+<li><a href="#adresy-specjalne">Adresy specjalne</a></li>
+<li><a href="#prefiks-sieciowy">Prefiks sieciowy</a></li>
+<li><a href="#rodzaje-adresów">Rodzaje adresów</a></li>
+<li><a href="#budow-aadresów-unicastowych">Budow aadresów
+unicastowych</a></li>
+</ul></li>
+<li><a href="#fragmentacja-pakietów-ip">Fragmentacja pakietów
+IP</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

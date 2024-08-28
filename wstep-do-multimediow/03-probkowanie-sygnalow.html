@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-probkowanie-sygnalow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-szereg-i-transformata-fouriera.html">Poprzedni: 02-szereg-i-transformata-fouriera.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-cyfrowe-przetwarzanie-sygnalow.html">Następny: 04-cyfrowe-przetwarzanie-sygnalow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="próbkowanie-sygnałów">Próbkowanie sygnałów</h1>
+<ul>
+<li>Próbkowanie polega na mnożeniu sygnału analogowego przez sygnał
+próbkujący <span class="math inline">\(p(t)\)</span></li>
+<li>Próbkowanie idealne <span class="math inline">\(p(t) =
+\delta_{T_S}(t)\)</span></li>
+<li>Próbkowanie rzeczywiste <span class="math inline">\(p(t)\)</span> -
+krótkie impulsy prostokątne</li>
+</ul>
+<h3 id="widmo-sygnału-spróbkowanego-idealnie">Widmo sygnału
+spróbkowanego idealnie</h3>
+<p><span class="math display">\[X_s(\omega) = \frac{1}{T_s}
+\sum_{n=-\infty}^\infty X(\omega - n\omega_s)\]</span> <span
+class="math display">\[X_s(f) = f_s \sum_{n=-\infty}^\infty X(f -
+nf_s)\]</span></p>
+<ul>
+<li>Widmo iloczynu dwóch sygnałów jest splotem odpowiednich widm</li>
+<li>Sygnał dyskretny ma widmo okresowe</li>
+<li>Widmo sygnału spróbkowanego składa się z kopii widma sygnału
+analogowego scentrowanych wokół wielokrotności częstotliwości
+próbkowania</li>
+<li>Najważniejszy parametr to częstotliwość próbkowania</li>
+</ul>
+<h2 id="twierdzenie-o-próbkowaniu">Twierdzenie o próbkowaniu</h2>
+<p>Jeżeli <span class="math inline">\(x(t)\)</span> jest sygnałem o
+ograniczonym paśmie (<span class="math inline">\(X(f)=0\)</span> dla
+<span class="math inline">\(|f| &gt; f_m\)</span>) , to zbiór próbek
+<span class="math inline">\(x(nT_s)\)</span> tego sygnału pobieranych z
+częstotliwością <span class="math inline">\(f_s &gt; 2f_m\)</span>
+jednoznacznie określa sygnał <span
+class="math inline">\(x(t)\)</span>.</p>
+<ul>
+<li>Częstotliwość Nyquista <span class="math inline">\(f_N =
+2f_m\)</span></li>
+<li>Warunek Nyquista spełniony <span class="math inline">\(f_s &gt;
+2f_m\)</span></li>
+<li>Dla <span class="math inline">\(f_s &lt; 2f_m\)</span> - fragmenty
+widma nakładają się na siebie
+<ul>
+<li>aliasing częstotliwościowy</li>
+</ul></li>
+</ul>
+<h2 id="eliminacja-zjawiska-aliasingu">Eliminacja zjawiska
+aliasingu</h2>
+<ul>
+<li>Dobranie odpowiednio dużej częstotliwości próbkowania</li>
+<li>Zastosowanie filtracji dolnoprzepustowej przed próbkowaniem
+<ul>
+<li>ogranicza pasmo sygnału analogowego</li>
+<li>filtracja antyaliasingowa</li>
+</ul></li>
+</ul>
+<h2 id="efekt-stroboskopowy">Efekt stroboskopowy</h2>
+<p>Efekt stroboskopowy w dziedzinie czasu można zaobserwować przy
+próbkowaniu sygnałów okresowych z odpowiednio dobraną częstotliwością
+<span class="math inline">\(f_s\)</span> dużo mniejszą niż częstotliwość
+Nyquista <span class="math inline">\(f_N\)</span> i bliską
+częstotliwości podstawowej <span class="math inline">\(f_0\)</span>.</p>
+<h2 id="próbkowanie-rzeczywiste-chwilowe">Próbkowanie rzeczywiste
+(chwilowe)</h2>
+<ul>
+<li>Próbkowanie impulsami prostokątnymi</li>
+</ul>
+<p><span class="math display">\[\hat{x}(t) =
+\sum_{n=-\infty}^{\infty}x(nT_s) \cdot z(t-nT_s)\]</span> <span
+class="math display">\[z(t) = \Pi(\frac{t-T_s/2}{T_s})\]</span> <span
+class="math display">\[
+\hat{X}(\omega)
+= Sa(\omega T_s/2) \exp(-j\omega T_s/2)
+\sum_{n=-\infty}^{\infty}X(\omega-n\omega_s)
+\]</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#próbkowanie-sygnałów">Próbkowanie sygnałów</a>
+<ul>
+<li><a href="#widmo-sygnału-spróbkowanego-idealnie">Widmo sygnału
+spróbkowanego idealnie</a></li>
+<li><a href="#twierdzenie-o-próbkowaniu">Twierdzenie o
+próbkowaniu</a></li>
+<li><a href="#eliminacja-zjawiska-aliasingu">Eliminacja zjawiska
+aliasingu</a></li>
+<li><a href="#efekt-stroboskopowy">Efekt stroboskopowy</a></li>
+<li><a href="#próbkowanie-rzeczywiste-chwilowe">Próbkowanie rzeczywiste
+(chwilowe)</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

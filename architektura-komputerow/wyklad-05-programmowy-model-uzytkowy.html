@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05-programmowy-model-uzytkowy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04-reprezentacja-danych-w-pamieci.html">Poprzedni: wyklad-04-reprezentacja-danych-w-pamieci.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06-wywolania-procedur.html">Następny: wyklad-06-wywolania-procedur.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-05-2023-03-06">Wykład 05 (2023-03-06)</h1>
+<h2 id="języki-wysokieg-opoziomu">Języki wysokieg opoziomu</h2>
+<p>Komputer który sprawnie wykonuje programy w C, spokojnie wykona
+program w każdym współczesnym językiu</p>
+<p>Języki obiektowe od strony implementacji są bardzo podobne do języków
+proceduralnych. Różni się sposobem myślenia programisty o programie a
+nie sposobem wykonania prograwmu przez komputer</p>
+<h2 id="wymagania-języka-wysokiego-poziomu">Wymagania języka wysokiego
+poziomu</h2>
+<ul>
+<li>Klasy pamięci (sekcje)</li>
+<li>Operacje na danych
+<ul>
+<li>arytmetyczne</li>
+<li>logiczne</li>
+</ul></li>
+<li>Dostęp do danych
+<ul>
+<li>indeksownie tablic</li>
+<li>wskaźniki</li>
+<li>referencje</li>
+</ul></li>
+<li>Przekazywanie sterowania
+<ul>
+<li>wywołanie procedury i powrót</li>
+<li>przekazywanie parametrów</li>
+<li>zmienne lokalne procedur</li>
+</ul></li>
+</ul>
+<h2 id="pojęcia">Pojęcia</h2>
+<ul>
+<li>Program - statyczny zapis algorytmu, coś co jest napisane np w pliku
+/ w pamięci</li>
+<li>Zadanie / proces - instancja programu w systemie wielozadaniowym
+<ul>
+<li>Proces ma własną, prywatną pamięć z kodem i danymi</li>
+<li>Wiele instancji tego samego programu będzie mieć oddzielną
+pamięć</li>
+<li>Zadania są od siebie odizolowane, inne zadania nie mają dostępu do
+nieswojej pamięci</li>
+</ul></li>
+<li>Wątek - dynamiczna instancja wykonania w obrębie procesu
+<ul>
+<li>wątki procesu mają wspólną pamięć</li>
+<li>w małych systemach czasu rzeczywistego są wątki ale nie ma
+oddzielnych procesów</li>
+</ul></li>
+</ul>
+<p>Współczesne systemy są wielozadaniowe i wielowątkowe. Działa na raz
+wiele procesów, a w ramach każdego z nich może działać wiele wątków.</p>
+<h2 id="klasy-pamięci">Klasy pamięci</h2>
+<ul>
+<li>Kod</li>
+<li>Dane statyczne
+<ul>
+<li>stałe</li>
+<li>zmienne zainicjowane</li>
+<li>zmienne niezainicjowane (BSS)</li>
+<li>są w pamięci przed rozpoczęciem wykonywania programu</li>
+</ul></li>
+<li>Dane dynamiczne automatyczne (oddzielne dla każdego wątku)
+<ul>
+<li>czas życia kontrolowany przez kompilator</li>
+</ul></li>
+<li>Dane dynamiczne kontrolowane
+<ul>
+<li>czas życia kontrolowany przez programistę</li>
+<li><code>malloc</code>, <code>free</code>, <code>new</code>,
+<code>delete</code></li>
+</ul></li>
+</ul>
+<p>Dodatkowo we współczesnych systemach * zmienne statyczne wątu * kod
+współdzielony - sekcje kodu wspólne dla wielu zadań (<code>.dll</code>)
+* dane współdzielone</p>
+<h3 id="kod-sekcja-text">Kod (sekcja TEXT)</h3>
+<ul>
+<li>Statyczny, obecny w pamięci przez cały czas życiaa programu</li>
+<li>Stały rozmiar</li>
+<li>Tylko do odczytu</li>
+<li>Zawiera
+<ul>
+<li>instrukcje programu</li>
+<li>stałe dane wygenerowane przez kompilator (tablice adresów
+<code>switch</code>, literały), logicznie należą do kodu</li>
+</ul></li>
+<li>Adresy w sekcji kodu są określane przed uruchomieneim programu
+<ul>
+<li>podczas konsolidacji albo najpóźniej podczs ładowania do
+pamięci</li>
+</ul></li>
+</ul>
+<p>Statyczna - nie zmienia się, nie znika przez cały czas życia
+programu</p>
+<h3 id="dane-statyczne">Dane statyczne</h3>
+<ul>
+<li>Czas życia równy czasowi życia programu</li>
+<li>Stały rozmiar</li>
+<li>Obszary
+<ul>
+<li>RODATA - stałe, tylko do odczytu, zdefiniowane jako
+<code>const</code></li>
+<li>DATA - Zmienne zainicjowane niezerową wartością
+(<code>int a = 5;</code>)
+<ul>
+<li>deklarowane na poziomie zewnętrznym (poza procedurą)</li>
+<li>wewnątrz procedur zdefiniowane ze słowem <code>static</code></li>
+</ul></li>
+<li>BSS - zmienne niezainicjowane (<code>int a;</code>)
+<ul>
+<li>block started by symbol</li>
+<li>pozwala oszczędzić pamięć</li>
+<li>współcześnie są zerowane przed rozpoczęciem programu</li>
+<li>niezainicjowane jawnie albo jawnie zainicjowane na wartość
+<code>0</code> (<code>int x;</code>, <code>int y = 0;</code>)</li>
+</ul></li>
+</ul></li>
+<li>Tworzone przy użyciu dyrektywy assemblera</li>
+<li>Adresy są określane przed uruchomieniem programu
+<ul>
+<li>Najpóźniej w trakcjie ładowania do pamięci, podczas
+konsolidacji</li>
+</ul></li>
+</ul>
+<h3 id="dane-dynamiczne-automatyczne">Dane dynamiczne automatyczne</h3>
+<ul>
+<li>Argumenty i zmienne lokalne procedur</li>
+<li>Pojawiają się i znikają wtedy kiedy powinny, automatycznie</li>
+<li>Usuwane w odwrotnej kolejności co tworzenie</li>
+<li>Zmienne i argumenty są niszczone po powrocie z procedury</li>
+<li>Tworzą stos</li>
+<li>Określone dynamicznie do konkretnego wywołania procedury (wspiera
+rekurencję)</li>
+<li>Alokowane i dealokowane przez instrukcje programu
+(<code>push</code>, <code>pop</code>), w czasie wykonywania
+programu</li>
+<li>Każdy wątek ma własny stos, oddzielnie woła procedury</li>
+<li>Położenie stosu może zostać określone bezpośrednio przed
+uruchomieniem wwątku</li>
+<li>Adresy stają się znane w momencie stworzenia</li>
+</ul>
+<h3 id="dane-dynamiczne-kontrolowane">Dane dynamiczne kontrolowane</h3>
+<ul>
+<li>Tworzone i usuwane jawnie przez programistę (<code>malloc</code>,
+<code>free</code>)</li>
+<li>Tworzą stertę (heap), nieuporządkowana struktura</li>
+<li>Czas życia nie jest związany z czasem życia i zagłębianiem
+procedur</li>
+<li>Adres poznaje się w momencie utworzenia danej</li>
+</ul>
+<h2 id="pamięć-w-wątku-w-procesie-wielowątkowym">Pamięć w wątku w
+procesie wielowątkowym</h2>
+<ul>
+<li>współdzielą kod, dane statyczne i stertę</li>
+<li>własny stos</li>
+<li>własne dane statyczne (opcjonalnie)
+<ul>
+<li>TDATA - zainicjowane</li>
+<li>TBSS - niezainicjowane</li>
+</ul></li>
+<li>sekcje są tworzone w chwili tworzenia wątku, podczas działania
+programu</li>
+<li>adresy są znane w momencie utworzenia wątku</li>
+</ul>
+<h2 id="struktura-przestrzenia-użytkowej-procesu">Struktura przestrzenia
+użytkowej procesu</h2>
+<p>Główne obszary - kod, dane statyczne, stos, sterta</p>
+<p>Sterta rośnie w górę (większe adresy), a stos w dół (mniejsze
+adresy)</p>
+<p>Adresy bliskie zera nie są używane.</p>
+<p>Pusta sekcji przestrzeni adresowej przy adresie 0 - odwołania po
+wskaźniku o wartości null rzuca błąd.</p>
+<p>Przestrzeń adresowa to nie to samo co pamięć fizyczna. Pozostawia się
+przedziały adresów jako puste (nielegalne, program nie może się do nich
+odwołać). Adresom nie odpowiadją fizyczne komórki pamięci</p>
+<h2 id="symboliczny-zapis-instrukcji-procesora">Symboliczny zapis
+instrukcji procesora</h2>
+<p>W pamięci komputera instrukcje procesora są zapisane w postaci słów
+binarnych</p>
+<p>Język symboliczny - assemblerowy odpowiada bezpośrednio insturkcjom
+procesora</p>
+<p>Assembler jest inny dla różnych procesorów.</p>
+<p><code>nazwa-instrukcji argument1, argument2,...</code></p>
+<h2
+id="instrukcje-potrzebne-do-implementacji-języka-wysokiego-poziomu">Instrukcje
+potrzebne do implementacji języka wysokiego poziomu</h2>
+<ul>
+<li>kopiowanie
+<ul>
+<li>rozszerzanie długości słów przy konwertowaniu typów</li>
+</ul></li>
+<li>operacje arytmetyczne i logiczne</li>
+<li>rozejścia warunkowe i pętle</li>
+<li>przekazywanie sterowania pomiędzy procedurami</li>
+</ul>
+<h2 id="licznik-instrukcji">Licznik instrukcji</h2>
+<p>PC - Program Counter</p>
+<ul>
+<li>Adres kolejnej instrukcji, która ma być pobrania</li>
+<li>Inkrementowana w trakcie pobrania instrukcji</li>
+<li>W trakcie wykonywania instrukcji wskazuje już na następną</li>
+<li>Przy wykonaniu skoku jest ładowanym adresem docelowym skoku</li>
+<li>Adres jeset zawsze w obrębie sekcji kodu</li>
+</ul>
+<h2 id="wywołanie-i-powrót-z-procedur">Wywołanie i powrót z
+procedur</h2>
+<p>Procedura - fragment wołany z więcej niż jednego miejsca programu</p>
+<p>Instrukcja skoku ze śladem <code>call x</code> - zapamiętuje aktualną
+wartość PC razem z argumentami i zmiennymi lokalnymi na stosie, ładuje
+podaną wartość do PC</p>
+<p>Instrukcja powrotu <code>ret</code> - ładuje do PC ostatnio
+zapamiętaną wartość</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-05-2023-03-06">Wykład 05 (2023-03-06)</a>
+<ul>
+<li><a href="#języki-wysokieg-opoziomu">Języki wysokieg
+opoziomu</a></li>
+<li><a href="#wymagania-języka-wysokiego-poziomu">Wymagania języka
+wysokiego poziomu</a></li>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#klasy-pamięci">Klasy pamięci</a>
+<ul>
+<li><a href="#kod-sekcja-text">Kod (sekcja TEXT)</a></li>
+<li><a href="#dane-statyczne">Dane statyczne</a></li>
+<li><a href="#dane-dynamiczne-automatyczne">Dane dynamiczne
+automatyczne</a></li>
+<li><a href="#dane-dynamiczne-kontrolowane">Dane dynamiczne
+kontrolowane</a></li>
+</ul></li>
+<li><a href="#pamięć-w-wątku-w-procesie-wielowątkowym">Pamięć w wątku w
+procesie wielowątkowym</a></li>
+<li><a href="#struktura-przestrzenia-użytkowej-procesu">Struktura
+przestrzenia użytkowej procesu</a></li>
+<li><a href="#symboliczny-zapis-instrukcji-procesora">Symboliczny zapis
+instrukcji procesora</a></li>
+<li><a href="#instrukcje-potrzebne-do-implementacji-języka-wysokiego-poziomu">Instrukcje
+potrzebne do implementacji języka wysokiego poziomu</a></li>
+<li><a href="#licznik-instrukcji">Licznik instrukcji</a></li>
+<li><a href="#wywołanie-i-powrót-z-procedur">Wywołanie i powrót z
+procedur</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

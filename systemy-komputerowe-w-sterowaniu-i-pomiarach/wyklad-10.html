@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-10</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-09.html">Poprzedni: wyklad-09.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-11.html">Następny: wyklad-11.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="systemy-związane-z-bezpieczeństwem-2024-05-13">Systemy związane
+z bezpieczeństwem (2024-05-13)</h1>
+<h2 id="bezpieczeństwo-safety">Bezpieczeństwo (safety)</h2>
+<p>Brak nieakceptowalnego ryzyka śmiarci lub uszczerbku na zdrowiu
+człowieka wynikającego z działania systemu lub pośrednio z uszkodzenia
+środowiska.</p>
+<h2 id="system-związany-z-bezpieczeństwem">System związany z
+bezpieczeństwem</h2>
+<p>System, którego prawidłowe działanie jest niezbędne do zapewnienia
+lub utrzymania bezpieczeństwa ludzi</p>
+<ul>
+<li>światła uliczne</li>
+<li>centrala pożarowa w inteligentnym budynku</li>
+<li>system zabezpieczenie robota przemysłowego</li>
+</ul>
+<h2 id="ryzyko">Ryzyko</h2>
+<h3 id="zdarzenie-zagrażające">Zdarzenie zagrażające</h3>
+<p>Zdarzenie, którego wynikiem jest fizyczny uraz lub pogorszenie stanu
+zdrowia ludzi, bezpośrednio i pośrednio na skutek szkód w środowisku</p>
+<h3 id="ocena-zagrożenia">Ocena zagrożenia</h3>
+<p>Ryzyko = Prawdopodobieństwo x Stopień szkodliwości</p>
+<p>Stopień szkodliwości w umownej jednostce, określony w ramach danego
+systemu</p>
+<h3 id="redukcja-ryzyka">Redukcja ryzyka</h3>
+<ul>
+<li>Ryzyko systemu - bez działań ograniczających</li>
+<li>Akceptowalny poziom ryzyka
+<ul>
+<li>przyjęty podczas projektowania systemu</li>
+</ul></li>
+<li>Redukcja ryzyka
+<ul>
+<li>poniżej maksymalnego akceptowalnego poziomu</li>
+<li>dąży się do jak największej redukcji</li>
+</ul></li>
+</ul>
+<h3 id="funkcja-bezpieczeństwa">Funkcja bezpieczeństwa</h3>
+<p>Funkcja przeznaczona do utrzymania bezpiecznego stanu instalacji w
+odniesieniu do kontrolnego zdarzenia zagrażającego. Może być integralną
+częścią sterownika lub odrębnym urządzeniem.</p>
+<p>Powinny raczej dublować czujniki i elementy wykonawcze (np. oddzielny
+termometr dla regulatora i funkcji bezpieczeństwa na wypadek awarii
+jednego z nich).</p>
+<h2 id="analiza-bezpieczeństwa">Analiza bezpieczeństwa</h2>
+<h3 id="drzewo-niezdatności">Drzewo niezdatności</h3>
+<ul>
+<li>Fault-tree analysis (FTA)</li>
+<li>Zdarzenia
+<ul>
+<li>proste (liście)</li>
+<li>pośrednie</li>
+<li>szczytowe (korzeń)</li>
+</ul></li>
+<li>Analiza systemu i celów jego działania
+<ul>
+<li>utworzenie drzewa wymaga znajomości działania układu</li>
+</ul></li>
+<li>Identyfikacja zdarzeń zagrażających</li>
+<li>Budowanie drzewa dla każdego zdarzenia</li>
+<li>Badanie drzewa w celu określenia
+<ul>
+<li>które zdarzenia proste powodują awarię</li>
+<li>tolerancji na uszkodzenia</li>
+<li>prawopodobieństwa uszkodzenia systemu</li>
+<li>lokalizacji elementów krytycznych (należy je zdublować)</li>
+</ul></li>
+<li>Podczas projektu
+<ul>
+<li>wprowadzenie zabezpieczeń (elementy, funkcje)</li>
+<li>określenie planu diagnostyki, spodziewanych napraw</li>
+</ul></li>
+</ul>
+<h3 id="opis-zdarzenia">Opis zdarzenia</h3>
+<ul>
+<li>Kod identyfikacyjny</li>
+<li>Nazwa zdarzenia</li>
+<li>Opis</li>
+<li>Prawdopodobieństwo</li>
+<li>Zależności czasowe</li>
+</ul>
+<h3 id="metody-analizy">Metody analizy</h3>
+<ul>
+<li>Przegląd drzewa</li>
+<li>Wyznaczenie funkcji boolowskich</li>
+<li>Wyznaczenie minimalnych przekrojów
+<ul>
+<li>zbiorów zdarzeń prostych powodujących wystąpienie zdarzenia
+szczytowego</li>
+</ul></li>
+</ul>
+<h2 id="iec-61508">IEC 61508</h2>
+<ul>
+<li>Bezpieczeństwo funkcjonalne programowalnych systemów związanych z
+bezpieczeństwem</li>
+<li>Dotyczy działania systemu i wpływu czynników zewnętrznych
+<ul>
+<li>np. poduszka powietrzna redukuje ryzyko przy wypadku (zdarzeniu
+zewnętrznym dla samochodu)</li>
+</ul></li>
+<li>Norma określa
+<ul>
+<li>standardy przy tworzeniu systemów</li>
+<li>metody probabilistyczne do szacowania ryzyka</li>
+<li>cykl utrzymania bezpieczeństwa</li>
+</ul></li>
+</ul>
+<h3 id="bezpieczeństwo-funkcjonalne">Bezpieczeństwo funkcjonalne</h3>
+<p>Część bezpieczeństwa, która zależy od prawidłowej pracy systemu, tzn.
+od prawidłowej odpowiedzi na sygnały wejściowe</p>
+<h3 id="cykl-utrzymania-bezpieczeństwa">Cykl utrzymania
+bezpieczeństwa</h3>
+<ul>
+<li>Identyfikacja i ocena zagrożeń</li>
+<li>Analiza bezpieczeństwa</li>
+<li>Określenie i alokacja wymagań bezpieczeństwa</li>
+<li>Planowanie i realizacja funkcji bezpieczeństwa</li>
+<li>Ocena i zatwierdzenie</li>
+<li>Eksploatacja, obsługa, naprawy</li>
+</ul>
+<h3 id="poziom-nienaruszalności-bezpieczeństwa">Poziom nienaruszalności
+bezpieczeństwa</h3>
+<p>(Safety Integrity Level)</p>
+<p>Prawdopodobieństwo, że system wykona wymagane funkcje bezpieczeństwa
+w zadanych warunkach i czasie. Dotyczy systemu jako całość.</p>
+<h3 id="tryby-pracy-systemu-bezpieczeństwa">Tryby pracy systemu
+bezpieczeństwa</h3>
+<ul>
+<li>Na rzadkie przywołanie - prawdopodobieństwo nie zadziałania w
+trakcie obsługi żądania</li>
+<li>Na częste lub ciągłe przywołanie - prawdopodobieństwo nie
+zadziałania na godzinę</li>
+<li>Poziomy od 1 do 4 określają zakresy prawdopodobieństwa dla obu
+trybów</li>
+</ul>
+<h3 id="szacowanie-wymaganego-poziomu-sil">Szacowanie wymaganego poziomu
+SIL</h3>
+<ul>
+<li>Skutki awarii</li>
+<li>Częstotliwość / czas / okres przebywania ludzi w warunkach
+zagrożenia</li>
+<li>Nieuchronność zagrożenia</li>
+<li>Prawdopodobieństwo zdarzenia</li>
+<li>Na podstawie tych kryteriów określa się poziom SIL 1-4</li>
+</ul>
+<h3 id="projektowanie-architektury-oprogramowania">Projektowanie
+architektury oprogramowania</h3>
+<ul>
+<li>Metody strukturalne
+<ul>
+<li>diagramy klas, sekwencji itd</li>
+</ul></li>
+<li>Meteody półformalne
+<ul>
+<li>np. języki graficzne do projektowania PLC</li>
+</ul></li>
+<li>Formalne
+<ul>
+<li>odpowiednia notacja matematyczna</li>
+<li>np. metoda specyfikacji agentów …</li>
+</ul></li>
+<li>Narzędzia CASE wspomagające specyfikację
+<ul>
+<li>narzędzia do generowania kodu źródłowego</li>
+<li>np. z języków graficznych</li>
+</ul></li>
+<li>Wykrywanie i diagnostyka efektów</li>
+<li>Kody detekcyjne i korekcyjne</li>
+<li>Korekcja defektów metodami sztucznej inteligencji</li>
+<li>Rekonfiguracja dynamiczna</li>
+<li>W zależności od poziomu SIL mogą być
+<ul>
+<li>neutralne</li>
+<li>nie zalecane</li>
+<li>zalecane</li>
+<li>mocno zalecane</li>
+</ul></li>
+</ul>
+<h3 id="projektowanie-szczegółowe-i-implementacja">Projektowanie
+szczegółowe i implementacja</h3>
+<ul>
+<li>Metody strukturalne, półformalne i formalne</li>
+<li>Narzędzia CASE</li>
+<li>Programowanie strukturalne</li>
+<li>Podejście modułowe</li>
+<li>Brak obiektów dynamicznych i skoków, ograniczone użycie przerwań,
+wskaźników, rekursji</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#systemy-związane-z-bezpieczeństwem-2024-05-13">Systemy
+związane z bezpieczeństwem (2024-05-13)</a>
+<ul>
+<li><a href="#bezpieczeństwo-safety">Bezpieczeństwo (safety)</a></li>
+<li><a href="#system-związany-z-bezpieczeństwem">System związany z
+bezpieczeństwem</a></li>
+<li><a href="#ryzyko">Ryzyko</a>
+<ul>
+<li><a href="#zdarzenie-zagrażające">Zdarzenie zagrażające</a></li>
+<li><a href="#ocena-zagrożenia">Ocena zagrożenia</a></li>
+<li><a href="#redukcja-ryzyka">Redukcja ryzyka</a></li>
+<li><a href="#funkcja-bezpieczeństwa">Funkcja bezpieczeństwa</a></li>
+</ul></li>
+<li><a href="#analiza-bezpieczeństwa">Analiza bezpieczeństwa</a>
+<ul>
+<li><a href="#drzewo-niezdatności">Drzewo niezdatności</a></li>
+<li><a href="#opis-zdarzenia">Opis zdarzenia</a></li>
+<li><a href="#metody-analizy">Metody analizy</a></li>
+</ul></li>
+<li><a href="#iec-61508">IEC 61508</a>
+<ul>
+<li><a href="#bezpieczeństwo-funkcjonalne">Bezpieczeństwo
+funkcjonalne</a></li>
+<li><a href="#cykl-utrzymania-bezpieczeństwa">Cykl utrzymania
+bezpieczeństwa</a></li>
+<li><a href="#poziom-nienaruszalności-bezpieczeństwa">Poziom
+nienaruszalności bezpieczeństwa</a></li>
+<li><a href="#tryby-pracy-systemu-bezpieczeństwa">Tryby pracy systemu
+bezpieczeństwa</a></li>
+<li><a href="#szacowanie-wymaganego-poziomu-sil">Szacowanie wymaganego
+poziomu SIL</a></li>
+<li><a href="#projektowanie-architektury-oprogramowania">Projektowanie
+architektury oprogramowania</a></li>
+<li><a href="#projektowanie-szczegółowe-i-implementacja">Projektowanie
+szczegółowe i implementacja</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>powtorzenie-do-kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-lingwistyka-matematyczna.html">Poprzedni: 11-lingwistyka-matematyczna.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="powtorzenie-do-kolokwium-02.html">Następny: powtorzenie-do-kolokwium-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="powtórzenie-do-kolokwium-2">Powtórzenie do kolokwium 2</h1>
+<h2 id="inżynieria-oprogramowania">Inżynieria oprogramowania</h2>
+<h3 id="stos-i-ramki-wywołania-funkcji">Stos i ramki wywołania
+funkcji</h3>
+<p>Stos realizuje koncepcję LIFO (Last In - First Out)</p>
+<p>Na stosie można odkładać tymczasowo dane w celu zwolnienia rejestrów
+na potrzeby obliczeń.</p>
+<p>Sposób przekazywania argumentów do funkcji jest określony na poziomie
+kompilacji.</p>
+<p>Wynik funkcji może być zwracany przez stos lub przez rejestry
+procesora.</p>
+<p>Przechowywanie w ramce stosu jednocześnie danych, adresu bazowego i
+adresu instrukcji powoduje, że program może zakłócić swoje działanie
+przez modyfikację danych na stosie.</p>
+<p>Attak buffer overflow polega na nadpisaniu danymi kopiowanymi do
+zmiennych lokalnych na ramce stosu adresu powrotnego wywołania funkcji
+na wartość podaną przez atakującego.</p>
+<p>Zmienne pozostają na stosie po powrocie z wywołania tak długo jak nie
+zostaną nadpisane (zmienia się tylko wartość wskaźnika stosu) - do
+wykorzystania przy buffer overflow.</p>
+<h3 id="skoki-warunkowe">Skoki warunkowe</h3>
+<p>Procesor wykorzystuje ALU do porównywania wartości przez odjęcie i
+określenie flag - wynik ujemny, wynik równy 0. Operacja skoku
+warunkowego wykorzystuje flagi ALU ustawione po poprzedniej
+operacji.</p>
+<p>Skoki są związane np. z instrukcjami warunkowymi - wtedy nie ma
+potrzeby zapisywania stanu przetwarzania na stosie.</p>
+<h3 id="przekazywanie-argumentów">Przekazywanie argumentów</h3>
+<p>Przekazanie mutowalnego obiektu przez referencję do funkcji/metody
+spowoduje, że modyfikacje pozostaną w tym obiekcie i będą dalej widoczne
+po powrocie do funkcji wywołującej.</p>
+<h3 id="niemutowalność-w-pythonie">Niemutowalność w Pythonie</h3>
+<p>Po przekazaniu przez referencję niemutowalnego obiektu jako argument
+funkcji/metody</p>
+<ul>
+<li>Dokonane na nim zmiany nie będą widoczne z poziomu funkcji
+wywołującej (po powrocie)</li>
+<li>Na zewnątrz będą widoczne zmiany na zagnieżdżonych obiektach
+mutowalnych</li>
+<li>Przy próbie modyfikacji automatycznie wykona się płytka kopia</li>
+</ul>
+<h3 id="obsługa-wyjątków">Obsługa wyjątków</h3>
+<p>Wyjątki służą do kontroli sterowania przepływem w sytuacjach
+wyjątkowych w trakcie wykonywania programu.</p>
+<p>Ułatwiają organizowanie obsługi w określonych punktach
+przetwarzania.</p>
+<p>Umożliwiają budowanie hierarchicznego systemu obsługi sytuacji
+wyjątkowych i obsługiwanie ich na odpowiednim (z punktu widzenia
+programisty) poziomie zagnieżdżenia.</p>
+<h3 id="debugger">Debugger</h3>
+<p>Debugger pozwala: * analizwoać zagnieżdżenia wywołań funkcji i metod
+na stosie * sprawdzać wartości zmiennych w kolejnych powtórzeniach
+pętli</p>
+<h3 id="statyczne-typowanie-zmiennych">Statyczne typowanie
+zmiennych</h3>
+<p>Umożliwia kontrolę poprawności semantycznej na poziomie
+kompilacji.</p>
+<p>Ogranicza możliwość pojawianie się błędów semantycznych w trakcie
+wykonywania programu.</p>
+<h3 id="kopia-płytka">Kopia płytka</h3>
+<p>Wykonanie kopii płytkiej na obiekcie z wewnętrzną kolekcją innych
+obiektów spowoduje, że obiekt wewnętrznej kolekcji zostanie sklonowany,
+ale jej elementy nie. Obiekty przechowywane w kolekcji kopii obiektu to
+te same co w kolekcji oryginalnego obiektu.</p>
+<h2 id="algorytmy-i-struktury-danych">Algorytmy i struktury danych</h2>
+<h3 id="struktury-danych">Struktury danych</h3>
+<p>Słownik, tablica hashująca są dobre do danych, do których odwołuje
+się po ich konkretnym atrybucie (np. ID, numer PESEL).</p>
+<h3 id="złożoność-obliczeniowa-o">Złożoność obliczeniowa O()</h3>
+<p>Od najlepszej</p>
+<ul>
+<li>O(1)</li>
+<li>O(log(n))</li>
+<li>O(n)</li>
+<li>O(nlog(n))</li>
+<li>O(n^2)</li>
+<li>O(2^n)</li>
+<li>O(n!)</li>
+</ul>
+<p>Do O(nlog(n)) uznaje się za efektywne.</p>
+<p>Złożoność co do zasobów i co do czasu to 2 oddzielne rzeczy.</p>
+<p>Złożoność O(n^2) nie oznacza, że zawsze dla zbioru bardziej licznego
+zajmie więcej czasu - może zależeć np. od szczególnych wartości
+danych.</p>
+<h3 id="algorytmy">Algorytmy</h3>
+<p>Kiedy ograniczenia zasobów (czasu, sprzętu) nie pozwalają na
+uzyskanie dokładnego/najlepszego wyniku można wykorzystać</p>
+<ul>
+<li>Algorytmy heurystyczne</li>
+<li>Algorytmy ewolucyjne</li>
+<li>Algorytmy probabilistyczne</li>
+<li>Algorytmy zachłanne</li>
+<li>Algorytmy rekurencyjne</li>
+</ul>
+<h2 id="automaty">Automaty</h2>
+<h3 id="automat-zupełny">Automat zupełny</h3>
+<p>Każdy ze stanów ma zdefiniowane przejścia dla każdego symbolu
+alfabetu.</p>
+<p>Dodanie stanów tak, żeby automat był zupełny, nawet jeśli nie są
+ściśle konieczne, żeby rozpoznać daną sekwencje, umożliwia rozbudowaną
+diagnostykę błędnych sekwencji (oceniając po końcowym stanie
+automatu).</p>
+<p>Stan może się zapętlać - przejście na ten sam stan.</p>
+<h3 id="automat-deterministyczny">Automat deterministyczny</h3>
+<p>W automacie deterministycznym nie mogą występować przejścia
+spontaniczne - dla danego stanu, każdemu symbolowi alfabetu może być
+przypisane conajwyżej 1 przejście.</p>
+<p>Do stanu może dochodzić wiele przejść o tym samym symbolu (z różnych
+stanów).</p>
+<p>Nie musi mieć określonych wszystkich przejść</p>
+<h3 id="automat-niedeterministyczny">Automat niedeterministyczny</h3>
+<p>Może mieć przejścia spontaniczne - z jednego stanu kilka dl atego
+smaego symbolu alfabetu.</p>
+<h2 id="lingwistyka">Lingwistyka</h2>
+<h3 id="maszyna-turinga">Maszyna Turinga</h3>
+<p><a href="https://turingmachine.io">Symulator</a></p>
+<p>Maszyna rozpoznaje słowo z języka <span
+class="math inline">\(L(\{a^nb^nc^n: n&gt;= 1\})\)</span> i wpisiuje 1
+za ostatnim ‘c’ w słowie. W trakcie sprawdzania podmienia ‘a’ na ‘A’
+itd.</p>
+<pre><code>input: &#39;aaabbbccc&#39;
+blank: &#39; &#39;
+start state: qA
+table:
+  qA:
+    &#39;a&#39;: {write: A, R: qB}
+    &#39;B&#39;: {R: scan}
+  qB:
+    [&#39;a&#39;, &#39;B&#39;]: R
+    &#39;b&#39;: {write: B, R: qC}
+  qC:
+    [&#39;b&#39;, &#39;C&#39;]: R
+    &#39;c&#39;: {write: &#39;C&#39;, L: back}
+  back:
+    [&#39;a&#39;, &#39;B&#39;, &#39;b&#39;, &#39;C&#39;]: L
+    &#39;A&#39;: {R: qA}
+  scan:
+    [&#39;B&#39;, &#39;C&#39;]: R
+    &#39; &#39;: {write: &#39;1&#39;, R: accept}
+  accept:</code></pre>
+<p>Maszyna sprawdzająca podzielność liczby dziesiętnej przez 3 (ze
+sprytnym wykorzystaniem przystawania modulo 3)</p>
+<pre><code>input: &#39;1524&#39;
+blank: &#39; &#39;
+start state: q0
+table:
+  q0:
+    [0,3,6,9]: R
+    [1,4,7]: {R: q1}
+    [2,5,8]: {R: q2}
+    &#39; &#39;: {R: accept}
+  q1:
+    [0,3,6,9]: R
+    [1,4,7]: {R: q2}
+    [2,5,8]: {R: q0}
+  q2:
+    [0,3,6,9]: R
+    [1,4,7]: {R: q0}
+    [2,5,8]: {R: q1}
+  accept:</code></pre>
+<h3 id="hierarchia-języków">Hierarchia języków</h3>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Chomsky-hierarchy.svg/1024px-Chomsky-hierarchy.svg.png"
+alt="Hierarchia Chomsky’ego" />
+<figcaption aria-hidden="true">Hierarchia Chomsky’ego</figcaption>
+</figure>
+<table>
+<thead>
+<tr class="header">
+<th>Typ języka</th>
+<th>Automat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rekurencyjnie przeliczalny</td>
+<td>Maszyna Turinga</td>
+</tr>
+<tr class="even">
+<td>Kontekstowy</td>
+<td>Automat liniowo ograniczony</td>
+</tr>
+<tr class="odd">
+<td>Bezkontekstowy</td>
+<td>Automat ze stosem</td>
+</tr>
+<tr class="even">
+<td>Regularny</td>
+<td>Automat skończony</td>
+</tr>
+</tbody>
+</table>
+<p>Języki regularne dają się wyrazić przez wyrażenia regularne -
+równoważnie z automatami skończonymi.</p>
+<p>Automat nie musi być zupełny, żeby rozpoznawać język regularny.</p>
+<p>Języki regularne są podzbiorem jezyków bezkontekstowych itd. to
+oznacza, że też dają się rozpoznać np. przez maszynę Turinga.</p>
+<h3 id="wyrażenia-regularne">Wyrażenia regularne</h3>
+<p>Sekwencje rozpoznane przez wyrażenie <code>[a-c]?.*d</code></p>
+<p>(0 lub 1 z liter {a,b,c}, dowolna liczba dowolnych znaków, d)</p>
+<ul>
+<li>cbbad</li>
+<li>adddad</li>
+<li>dbbd</li>
+</ul>
+<h3 id="określenie-łączności-i-priorytetów">Określenie łączności i
+priorytetów</h3>
+<pre class="ebnf"><code>hash_statement = (&quot;a&quot;, &quot;#&quot;, hash_statement) | &quot;a&quot;;
+at_statement = hash_statement, {&quot;@&quot;, hash_statement};</code></pre>
+<p>przykładowy ciąg <code>a@a@a#a#</code></p>
+<pre><code>     @                   @
+    / \                 / \
+   @   #               a   @
+  / \ / \                 / \
+ a  a a  #               a   #
+        / \                 / \
+       a   a               a   #
+                              / \
+                             a   a</code></pre>
+<ul>
+<li><code>#</code> ma wyższy priorytet od <code>@</code>
+<ul>
+<li>jest wyprowadzony z <code>at_statement</code></li>
+<li>na drzewie wyprowadzenia jest zagnieżdżony</li>
+<li>bardziej zagnieżdżona operacja musi zostać wykonana przed
+podstawieniem</li>
+</ul></li>
+<li>Łączność <code>#</code> jest prawostronna
+<ul>
+<li>na drzewie wyprowadzenia kolejne zagnieżdżenia są zawsze w prawej
+gałęzi</li>
+<li>odwołanie rekurencyjne po prawej stronie operatora w definicji</li>
+</ul></li>
+<li>Łączności <code>@</code> nie da się określić
+<ul>
+<li>iteracyjna definicja <code>at_statement</code> (z powtórzeniem w
+<code>{...}</code>)</li>
+<li>można zbudować różne drzewa wyprowadzeń dla tego ciągu</li>
+<li>przy konstrukcji drzewa dla przykładowego ciągu równie dobrze w
+korzeniu może być lewy co prawy <code>@</code></li>
+</ul></li>
+</ul>
+<h3 id="określanie-wyrażenia-regularnego-na-podstawie-grafu">Określanie
+wyrażenia regularnego na podstawie grafu</h3>
+<ul>
+<li>Rozgałęzienie - alternatywa <code>|</code>, otwarcie nawiasu</li>
+<li>Zapętlenie - dowolna liczba powtórzń <code>*</code></li>
+<li>Złączenie rozgałęzienie - koniec alternatywy, domknięcie
+nawiasu</li>
+<li>Trzeba określić priorytety za pomocą nawiasów, na podstawie
+hierarchii zagnieżdżeń</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#powtórzenie-do-kolokwium-2">Powtórzenie do kolokwium 2</a>
+<ul>
+<li><a href="#inżynieria-oprogramowania">Inżynieria oprogramowania</a>
+<ul>
+<li><a href="#stos-i-ramki-wywołania-funkcji">Stos i ramki wywołania
+funkcji</a></li>
+<li><a href="#skoki-warunkowe">Skoki warunkowe</a></li>
+<li><a href="#przekazywanie-argumentów">Przekazywanie
+argumentów</a></li>
+<li><a href="#niemutowalność-w-pythonie">Niemutowalność w
+Pythonie</a></li>
+<li><a href="#obsługa-wyjątków">Obsługa wyjątków</a></li>
+<li><a href="#debugger">Debugger</a></li>
+<li><a href="#statyczne-typowanie-zmiennych">Statyczne typowanie
+zmiennych</a></li>
+<li><a href="#kopia-płytka">Kopia płytka</a></li>
+</ul></li>
+<li><a href="#algorytmy-i-struktury-danych">Algorytmy i struktury
+danych</a>
+<ul>
+<li><a href="#struktury-danych">Struktury danych</a></li>
+<li><a href="#złożoność-obliczeniowa-o">Złożoność obliczeniowa
+O()</a></li>
+<li><a href="#algorytmy">Algorytmy</a></li>
+</ul></li>
+<li><a href="#automaty">Automaty</a>
+<ul>
+<li><a href="#automat-zupełny">Automat zupełny</a></li>
+<li><a href="#automat-deterministyczny">Automat
+deterministyczny</a></li>
+<li><a href="#automat-niedeterministyczny">Automat
+niedeterministyczny</a></li>
+</ul></li>
+<li><a href="#lingwistyka">Lingwistyka</a>
+<ul>
+<li><a href="#maszyna-turinga">Maszyna Turinga</a></li>
+<li><a href="#hierarchia-języków">Hierarchia języków</a></li>
+<li><a href="#wyrażenia-regularne">Wyrażenia regularne</a></li>
+<li><a href="#określenie-łączności-i-priorytetów">Określenie łączności i
+priorytetów</a></li>
+<li><a href="#określanie-wyrażenia-regularnego-na-podstawie-grafu">Określanie
+wyrażenia regularnego na podstawie grafu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="section">(2024-03-18)</h1>
+<p>Sprzęg procesowy - zmiana sygnałów logicznych na odpowiednie dla
+sterowanego układu</p>
+<p>Optoizolacja - zamiast przekaźników (dioda emitująca światło i
+fototranzystor) * fizycznie izoluje 2 układy</p>
+<p>Wejścia analogowe - konwertery analogowo cyfrowe * mierzą poziom
+napięcia na jednym z wejść * start/stop * może być sterowany przez
+zapis/odczyt do odpowiednich rejestrów</p>
+<p>Wyjście analogowe * Przetwornik cyfrowo-analogowy * Zamienia wartość
+bitową na odpowiednie napięcie * Rzadko stosowane, częściej PWM * Moc
+uzyskiwana przez uśrednienie zmiennego sygnału cyfrowego (poziom
+wypełnienia)</p>
+<p>Architektury * intel x86 * arm * …</p>
+<p>Watchdog - monitorowanie stanu programu * może wymusić reset
+systemu</p>
+<h2 id="szeregowanie-kooperatywne">Szeregowanie kooperatywne</h2>
+<h2 id="rozplanowanie-czasowe">Rozplanowanie czasowe</h2>
+<ul>
+<li>Czas procesora dzielony na takty</li>
+<li>W każdym takcie wykonuje się te zadania które trzeba ze względu na
+ich ograniczenia i te które jeszcze da się wcisnąć w ten takt</li>
+</ul>
+<h2 id="przerwania">Przerwania</h2>
+<ul>
+<li>Np komunikację z zewnętrznymi urządzeniami można obsłużyć od razu, w
+bardzo krótkim czasie</li>
+</ul>
+<h2 id="szeregowanie-stałe">Szeregowanie stałe</h2>
+<ul>
+<li>Dokładnie wiemy jakie są ograniczenia</li>
+<li>stałe (pre-run) - zahardkodowana kolejność</li>
+<li>Szeregowanie niewywłaszczające</li>
+<li>Ograniczone wywłaszczanie jeśli wykorzystywane przerwania</li>
+</ul>
+<p>Procedura obsługi przerwania na początku kasuje przerwanie, które je
+wywołało (wyzerowanie odpowiedniego rejestru)</p>
+<p>WEJŚCIÓWKA SKPS LAB2 1. Wymieć 3 cechy OpenWRT 1. wbudowany menedżer
+pakietów 2. nie ma konieczności rekompilacji przy każdej zmianie 3.
+można pobrać gotowy skompilowany 2. Co potrafi dd? Podaj przykład użycia
+1. manipulowanie plikami 2. nagrać iso na nośnik 3. podaj różnice między
+gpio a QEMU 4. Podaj różnice między openWRT a buildroot 1. buildroot
+trzeba rekompilować żeby dodać pakiet, na openwrt jest manager pakietów
+2. openwrt bardziej elastyczny ale mniej zoptymalizowany 3. openwrt
+pozwala instalować pakiety podczas działania systemu 5. Obsługa gpio
+przez sysfs 1. <code>echo 27 &gt; /sys/class/gpio/export</code> 2.
+<code>echo out &gt; /sys/class/gpio/gpio27/direction</code> 3.
+<code>echo 1 &gt; /sys/class/gpio/gpio27/value</code> 4.
+<code>cat /sys/class/gpio/gpio27/value</code></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section">(2024-03-18)</a>
+<ul>
+<li><a href="#szeregowanie-kooperatywne">Szeregowanie
+kooperatywne</a></li>
+<li><a href="#rozplanowanie-czasowe">Rozplanowanie czasowe</a></li>
+<li><a href="#przerwania">Przerwania</a></li>
+<li><a href="#szeregowanie-stałe">Szeregowanie stałe</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

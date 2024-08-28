@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11-intel-x86</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10-intel-x86.html">Poprzedni: wyklad-10-intel-x86.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12-intel-x86.html">Następny: wyklad-12-intel-x86.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-11-2023-03-29">Wykład 11 (2023-03-29)</h1>
+<h2 id="assemblery-x86">Assemblery x86</h2>
+<p>Są różne assemblery do x86</p>
+<p>Wersje składni</p>
+<ul>
+<li>AT&amp;T
+<ul>
+<li>system Unix</li>
+<li>domyślna dla gcc</li>
+<li>Odwrócona kolejność argumentów</li>
+</ul></li>
+<li>Intel/Microsoft
+<ul>
+<li>w dokumentacji Intel i assemblerze MASM</li>
+<li>niejednoznaczna</li>
+</ul></li>
+<li>NASM
+<ul>
+<li>najpopularniejsza</li>
+<li>podobna do Intel</li>
+<li>zwarta i jednoznaczna</li>
+<li>nawiasy kwadratowe oznaczają odwołanie do pamięci</li>
+</ul></li>
+</ul>
+<h2 id="formaty-danych">Formaty danych</h2>
+<ul>
+<li>Byte 8b</li>
+<li>Word 16b</li>
+<li>Dword 32b</li>
+<li>Fword 48b</li>
+<li>QWord 64b</li>
+<li>Tword 80b</li>
+<li>Dqword 128b</li>
+</ul>
+<h2 id="specyfikacja-rozmiaru-argumentu">Specyfikacja rozmiaru
+argumentu</h2>
+<p>Na ogół wynika po prostu z użytej nazwy rejestru</p>
+<p>Problem dla instrukcji bez argumentów rejestrowych, albo z
+argumentami o różnej długości</p>
+<p><code>inc [ebx]</code> -&gt; <code>inc word [ebx]</code></p>
+<p>Assembler musi wiedzieć gdzie kończy się dana w pamięci</p>
+<h2 id="zerowanie-rejestru">Zerowanie rejestru</h2>
+<p>Najlepiej przez <code>xor eax, eax</code> - krótki kod binarny ale
+ustawia znaczniki, zeruje rejestr 64-bitowy w trybie 64-bitowym</p>
+<h2 id="tesotwanie-rejestru">Tesotwanie rejestru</h2>
+<pre><code>test eax, eax
+js ujemne
+jz zero</code></pre>
+<p>będzie traktowane jako jedna instrukcja</p>
+<h2 id="zastosowanie-lea">Zastosowanie LEA</h2>
+<ul>
+<li>trójargumentowe mnożenie</li>
+<li>trójargumentowe przesunięcie w lewo</li>
+<li>przesunięcie w lewo z dodawaniem(?)</li>
+</ul>
+<h2 id="programowanie-hybrydowe">Programowanie hybrydowe</h2>
+<p>Tworzenie programu, którego moduły są pisane w różnych językach
+programowania</p>
+<ul>
+<li>używanie gotowych modułów</li>
+<li>realizacja w języku niższego poziomu operacji niemożliwych w
+preferowanym języku wyższego poziomu</li>
+<li>optymalizacja krytycznych fragmentów programu</li>
+</ul>
+<p>Kod wołający musi przestrzegać konwencji określonej przez ABI
+wołanego kodu</p>
+<h2 id="konwencja-wołania">Konwencja wołania</h2>
+<ul>
+<li>Sposób przekazywania argumentów</li>
+<li>Sposób wywoływania procedur</li>
+<li>Sposób odbierania wartości</li>
+<li>Sposób korzystania z zasobów systemowych</li>
+</ul>
+<h3 id="definiowana-przez">Definiowana przez</h3>
+<ul>
+<li>projektantów procesora</li>
+<li>projektantów systemu operacyjnego</li>
+<li>projektantów kompilatora</li>
+</ul>
+<h3 id="przypisanie-funkcji-rejestrom">Przypisanie funkcji
+rejestrom</h3>
+<ul>
+<li>wskaźnik stosu - położenie wierzchołka</li>
+<li>wskaźnik ramki</li>
+<li>rejestry argumentów
+<ul>
+<li>przekazywanie argumentów do wołanej procedury</li>
+<li>te które się nie zmieszczą w rejestrach są przekazywane przez
+stoa</li>
+</ul></li>
+<li>rejestry wartości
+<ul>
+<li>zwracanie wartości skalarnych funkcji</li>
+<li>te które się nie mieszczą są zwracane na stos</li>
+</ul></li>
+</ul>
+<h3 id="grupy-rejestrów">Grupy rejestrów</h3>
+<ul>
+<li>rejestry zachowywane (saved)
+<ul>
+<li>wartości zachowywane przez procedurę</li>
+<li>procedura wołana albo ich nie używa albo zachowuje ich wartości na
+stosie i odtwarza przed powrotem</li>
+<li>alokacja zmiennych lokalnych procedur nie-liści</li>
+<li>np. wskaźnik ramki</li>
+</ul></li>
+<li>rejestry tymczasowe (temporary, caller safe)
+<ul>
+<li>używane dowolnie</li>
+<li>nie można polegać na ich wartości po wywołaniu innej procedury</li>
+<li>tymczasowe wyniki</li>
+<li>trwałe wyniki, które trzeba zachować przed wywołaniem</li>
+<li>zmienne lokalne w procedurach liściach</li>
+<li>rejestry argumentów i wartości</li>
+</ul></li>
+</ul>
+<h3 id="prolog-procedury">Prolog procedury</h3>
+<ul>
+<li>wyrównanie stosu (zależy od konwencji)</li>
+<li>zachowanie wskaźnika ramki (jeśli trzeba)</li>
+<li>alokacja miejsca na rejestry argumentów</li>
+<li>składowanie na stosie rejestrów argumentów (jeśli trzeba)</li>
+<li>ustanowienie nowej wartości wskaźnika ramki</li>
+<li>alokacja miejsca na zmienne lokalne</li>
+<li>składowanie rejestrów zachowywanych (jeśli trzeba)</li>
+</ul>
+<h3 id="epilog">Epilog</h3>
+<p>Odwrotność tego co było w prologu, w odwrotnej kolejności</p>
+<ul>
+<li>odtworzenie rejestrów zachowanych</li>
+<li>dealokacja zmiennych lokalnych</li>
+<li>…</li>
+</ul>
+<h2 id="konwencja-wołania-unix-system-v-dla-x86">Konwencja wołania Unix
+System V dla x86</h2>
+<ul>
+<li>Używana w systemach rodziny Unix i Linux</li>
+<li>Zgodna w podstawowych aspektach z konwencją C dla Windowsa
+32-bitowego</li>
+<li>wyrównanie danych
+<ul>
+<li>naturalne dla danych 2B i 4B</li>
+<li>typy dłuższe niż 4B wyrównane tylko do 4B</li>
+</ul></li>
+</ul>
+<h3 id="ważne">Ważne!!!!</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Rejestr</th>
+<th>Zastosowanie</th>
+<th>Zachowywany</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EAX</td>
+<td>rejestr wartości</td>
+<td>nie</td>
+</tr>
+<tr class="even">
+<td>ECX</td>
+<td>rejestr roboczy</td>
+<td>nie</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>…</p>
+<h3 id="prolog-i-epilog---ważne">Prolog i epilog - ważne !!!</h3>
+<p>ściąga:</p>
+<pre class="x86"><code>myfunc:
+; prolog funkcji - część wspólna dla wszystkich procedur
+...
+; zapamiętanie rejestrów zachowywanych
+...
+; ciało procedury
+...
+; odtworzenie rejestrów, które były zapamiętane
+...
+; epilog - część wspólna dla wszystkich procedur
+...</code></pre>
+<p>W programie używa się tylko tego co jest potrzebne</p>
+<p>Trzeba zachować kolejność (najpierw zmienne lokalne, potem zachowanie
+rejestrów)</p>
+<p>Konwencja wołania z C obowiązuje te procedury, które mają być wołane
+z poziomu C, wewnątrz można dowolnie optymalizować.</p>
+<p>Jeśli się da to używać rejestrów tymczasowych, jeśli się nie da to
+trzeba zachować rejestr zachowywany na stosie</p>
+<p>Wywołanie procedury kosztuje, czytelność kodu i wydajność stoją w
+sprzeczności, nie należy tworzyć procedur które są wywoływane tylko
+raz</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-11-2023-03-29">Wykład 11 (2023-03-29)</a>
+<ul>
+<li><a href="#assemblery-x86">Assemblery x86</a></li>
+<li><a href="#formaty-danych">Formaty danych</a></li>
+<li><a href="#specyfikacja-rozmiaru-argumentu">Specyfikacja rozmiaru
+argumentu</a></li>
+<li><a href="#zerowanie-rejestru">Zerowanie rejestru</a></li>
+<li><a href="#tesotwanie-rejestru">Tesotwanie rejestru</a></li>
+<li><a href="#zastosowanie-lea">Zastosowanie LEA</a></li>
+<li><a href="#programowanie-hybrydowe">Programowanie hybrydowe</a></li>
+<li><a href="#konwencja-wołania">Konwencja wołania</a>
+<ul>
+<li><a href="#definiowana-przez">Definiowana przez</a></li>
+<li><a href="#przypisanie-funkcji-rejestrom">Przypisanie funkcji
+rejestrom</a></li>
+<li><a href="#grupy-rejestrów">Grupy rejestrów</a></li>
+<li><a href="#prolog-procedury">Prolog procedury</a></li>
+<li><a href="#epilog">Epilog</a></li>
+</ul></li>
+<li><a href="#konwencja-wołania-unix-system-v-dla-x86">Konwencja wołania
+Unix System V dla x86</a>
+<ul>
+<li><a href="#ważne">Ważne!!!!</a></li>
+<li><a href="#prolog-i-epilog---ważne">Prolog i epilog - ważne
+!!!</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

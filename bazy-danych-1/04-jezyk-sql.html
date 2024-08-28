@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-jezyk-sql</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-model-relacyjny.html">Poprzedni: 03-model-relacyjny.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-algorytmy-projektowania-baz-danych.html">Następny: 05-algorytmy-projektowania-baz-danych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="język-sql">Język SQL</h1>
+<p>Transformacja do postaci normalnej poza uniemożliwianiem anomalii
+pozbywa się też redundancji i zapewnia bardziej efektywne przechowywanie
+danych</p>
+<h2 id="język-sql-1">Język SQL</h2>
+<ul>
+<li>standard ANSI</li>
+<li>bazuje na rachunku relacyjnym</li>
+<li>deklaratywny - określa wyniik a nie sposób jego uzyskania</li>
+<li>operacje na zbiorach (relacjach)</li>
+<li>przetwarzanie wielu danych za pomocą pojedynczej instrukcji</li>
+</ul>
+<h2 id="kategorie-instrukcji">Kategorie instrukcji</h2>
+<ul>
+<li>DML - Data Manipulation Language - operacje CRUD
+<ul>
+<li>INSERT</li>
+<li>UPDATE</li>
+<li>DELETE</li>
+</ul></li>
+<li>DDL - Data Definition Language - zarządzanie schematem
+<ul>
+<li>CREATE</li>
+<li>ALTER</li>
+<li>DROP</li>
+<li>TRUNCATE</li>
+</ul></li>
+<li>DCL - Data Control Language - kontrola dostępu
+<ul>
+<li>GRANT</li>
+<li>REVOKE</li>
+</ul></li>
+<li>DQL - Data Query Language
+<ul>
+<li>SELECT</li>
+</ul></li>
+<li>TCL - Transaction Control Language
+<ul>
+<li>COMMIT</li>
+<li>ROLLBACK</li>
+</ul></li>
+</ul>
+<h2 id="budowa-języka">Budowa języka</h2>
+<ul>
+<li>Identyfikoatory - nazwy obiektów</li>
+<li>Literały - stałe</li>
+<li>Operatory - arytmetyczne, logiczne, znakowe</li>
+<li>Słowa kluczowe - instrukcje, klauzule, typy danych, funkcje</li>
+<li>Komentarze</li>
+</ul>
+<p>Instrukcja zaczyna się klauzulą czyli słowem kluczowym, które określa
+operację</p>
+<h2 id="instrukcja-select">Instrukcja <code>SELECT</code></h2>
+<ul>
+<li>pobiera informacje z wielu relacji</li>
+<li>rezultatem jest tymczasowa relacja</li>
+<li>rezultat nie musi być w 3 postaci normalnej</li>
+<li>rezultat może być wejściem innej instrukcji <code>SELECT</code></li>
+<li>sekcje mogą zawierać złożone konstrukcje - podzapytania, zapytania
+skorelowane itp.</li>
+</ul>
+<h3 id="budowa">Budowa</h3>
+<ul>
+<li><code>SELECT &lt;atrybuty&gt;</code> - atrybuty wybierane z relacji
+(wybór kolumn)</li>
+<li><code>FROM &lt;tabele&gt;</code> - wybór źródeł rekordów
+(tabel)</li>
+<li><code>WHERE &lt;warunki&gt;</code> - warunki dotyczące krotek (wybór
+wierszy)</li>
+<li><code>GROUP BY &lt;atrybuty&gt;</code> - grupowanie rekordów</li>
+<li><code>HAVING &lt;warunki&gt;</code> - warunki dotyczące wyboru
+grup</li>
+<li><code>ORDER BY [ASC|DESC]</code> - sortowanie</li>
+</ul>
+<h3 id="kolejność-przetwarzania-instrukcji">Kolejność przetwarzania
+instrukcji</h3>
+<ul>
+<li><code>FROM</code></li>
+<li><code>WHERE</code></li>
+<li><code>GROUP BY</code></li>
+<li><code>HAVING</code></li>
+<li><code>SELECT</code></li>
+<li><code>ORDER BY</code></li>
+</ul>
+<h3 id="klauzula-select">Klauzula <code>SELECT</code></h3>
+<ul>
+<li>nazwy kolumn</li>
+<li>wszstkie kolumny <code>*</code></li>
+<li>stałe</li>
+<li>funkcje skalarne</li>
+<li>wyrażenia arytmetyczne, tekstowe</li>
+<li>warunkowe <code>CASE ... WHEN</code></li>
+<li>podzapytania zwracające pojedynczy element skalarny - niezalecane,
+bo nie są optymalizowane</li>
+<li>zmienne</li>
+<li><code>DISTINCT</code> - tylko unikalne wartości</li>
+<li><code>TOP</code> - ograniczenie liczby rekordów, użyteczne w
+połączeniu z sortowaniem</li>
+<li>elementy można aliasować używając <code>AS</code></li>
+</ul>
+<h3 id="klauzula-from">Klauzula <code>FROM</code></h3>
+<ul>
+<li>Wybór źródeł rekordów
+<ul>
+<li>tabele</li>
+<li>podzapytania</li>
+</ul></li>
+<li>Źródła mogą być aliasowane z użyciem <code>AS</code></li>
+</ul>
+<h3 id="klauzula-where">Klauzula WHERE</h3>
+<ul>
+<li>Porównania <code>=</code>, <code>&lt;&gt;</code>, <code>&lt;</code>,
+<code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
+<li><code>BETWEEN ... AND ...</code></li>
+<li><code>IN</code>, <code>ANY</code>, <code>ALL</code></li>
+<li>Filtrowanie wartości znakowych <code>LIKE</code>,
+<code>%</code></li>
+<li>Podzapytania</li>
+<li>Funkcje skalarne <code>COUNT</code>, <code>MAX</code>,
+<code>MIN</code>, <code>SUM</code>, <code>AVG</code></li>
+</ul>
+<h2 id="podzapytania">Podzapytania</h2>
+<p>Instrukcja <code>SELECT</code> umieszczona wewnątrz innego zapytania
+<code>SELECT</code>, może występować w klauzulach <code>SELECT</code>,
+<code>FROM</code>, <code>WHERE</code>, <code>HAVING</code></p>
+<ul>
+<li>nieskorelowane - niezależne od kontekstu, mogą funkcjonować jako
+samodzielne zapytania</li>
+<li>skorelowane - odwołanie do atrybutu spoza podzapytania, można
+przekształcić w nieskorelowane używając złączenia</li>
+</ul>
+<p>Podzapytanie nieskorelowane</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> student.nazwisko</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> student</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> student.wiek <span class="op">&gt;</span> <span class="dv">30</span> <span class="kw">AND</span> student.id_grupy <span class="kw">IN</span> (</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> id_grupy</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> grupa</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> typ <span class="op">=</span> <span class="st">&#39;dzienne magisterskie&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Podzapytanie skorelowane - nazwy grup większych niż 10-osobowe na
+kierunku informatyka</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> s.grupa</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> studenci <span class="kw">AS</span> s</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> s.kierunek<span class="op">=</span><span class="st">&#39;informatyka&#39;</span> <span class="kw">AND</span> (</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="fu">COUNT</span>(id_stud)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               FORM studenci <span class="kw">AS</span> r</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> s.grupa <span class="op">=</span> r.grupa</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">&gt;</span> <span class="dv">10</span></span></code></pre></div>
+<h2 id="instrukcje-dml">Instrukcje DML</h2>
+<p>Służy do podstawowych operacji na danych</p>
+<ul>
+<li><code>INSERT</code> - wprowadzanie danych</li>
+<li><code>UPDATE</code> - zmiana danych</li>
+<li><code>DELETE</code> - usunięcie danych</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> studenci (num_ind, imie, nazwisko, kierunek, grupa) <span class="kw">VALUES</span> (<span class="dv">123456</span>, <span class="st">&#39;Jan&#39;</span>, <span class="st">&#39;Kowalski&#39;</span>, <span class="st">&#39;informatyka&#39;</span>, <span class="dv">107</span>);</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> studenci <span class="kw">SET</span> stypendium <span class="op">=</span> stypendium <span class="op">*</span> <span class="fl">1.1</span> <span class="kw">WHERE</span> rok_st <span class="op">&gt;</span> <span class="dv">2</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> pracownicy <span class="kw">WHERE</span> imie <span class="op">=</span> <span class="st">&#39;Jan&#39;</span> <span class="kw">AND</span> naziwsko <span class="op">=</span> <span class="st">&#39;Kowalski&#39;</span>;</span></code></pre></div>
+<h2 id="instrukcje-dcl">Instrukcje DCL</h2>
+<p>Nadawanie uprawnień do obiektów w bazie danych</p>
+<ul>
+<li><code>GRANT</code> - nadawanie uprawnień globalnie lub do
+pojedynczych obiektów konkretnemu użytkownikowi</li>
+<li><code>REVOKE</code> - odebranie użytkownikowi wskazanych
+uprawnień</li>
+<li><code>DENY</code> - blokowanie dostępu</li>
+</ul>
+<h2 id="logika-trójwartościowa-null">Logika trójwartościowa,
+<code>NULL</code></h2>
+<ul>
+<li><code>NULL</code> reprezentuje nieznane, brakujące lub nieistotne
+dane</li>
+<li>to co innego niż 0 i zbiór pusty</li>
+<li>porównanie wartości <code>NULL</code> z dowolną wartością zwraca
+wartość <code>UNKNOWN</code>
+<ul>
+<li><code>NULL</code> nie jest równy sam sobie</li>
+<li><code>NULL</code> nie jest prawdą i negacja <code>NULL</code> nie
+jest prawdą</li>
+</ul></li>
+<li>Stosuje się tylko porównania typu <code>x IS NULL</code> albo
+<code>x IS NOT NULL</code></li>
+<li>Wartości <code>NULL</code> są ignorowane przez większość funkcji
+agregujących, nie przez <code>COUNT(*)</code></li>
+</ul>
+<figure>
+<img
+src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FyRBgu.png&amp;f=1&amp;nofb=1&amp;ipt=2b19b6795de47cf26e1f21e0b850f4dc4e26a78812d53a0522f11946ac9e4ccc&amp;ipo=images"
+alt="Tabela prawdy w logice trójwartościowej" />
+<figcaption aria-hidden="true">Tabela prawdy w logice
+trójwartościowej</figcaption>
+</figure>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> id_stud, nazwisko, nazwa, status</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> studenci <span class="kw">AS</span> a, zapisy_na_przedmiot <span class="kw">AS</span> z, przedmiot <span class="kw">AS</span> p</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> s.id_stud <span class="op">=</span> z.id_stud</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> z.id_przed <span class="op">=</span> p.id_przed</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> status <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span></code></pre></div>
+<h2 id="instrukcje-ddl">Instrukcje DDL</h2>
+<p>Zarządzanie schematem bazy danych, instrukcje umożliwiają operowanie
+na strukturach, wktórych są przechowywane dane</p>
+<ul>
+<li><code>CREATE</code> - utworzenie struktury (tabeli, indeksu, …)</li>
+<li><code>DROP</code> - usunięcie struktury</li>
+<li><code>ALTER</code> - modyfikacja struktury</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> studenci (</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                          num_ind <span class="dt">INTEGER</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                          imie <span class="dt">VARCHAR</span>(<span class="dv">255</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                          nazwisko <span class="dt">VARCHAR</span>(<span class="dv">255</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                          kierunek <span class="dt">VARCHAR</span>(<span class="dv">255</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                          grupa <span class="dt">VARCHAR</span>(<span class="dv">255</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<h2 id="łączenie">Łączenie</h2>
+<figure>
+<img src="https://i.stack.imgur.com/UI25E.jpg" alt="Venn diagram" />
+<figcaption aria-hidden="true">Venn diagram</figcaption>
+</figure>
+<ul>
+<li>wewnętrzne
+<ul>
+<li>CROSS JOIN - iloczyn kartezjański, każdy z każdym, mało wydajne</li>
+<li>INNER JOIN - określone atrybuty w klauzuli <code>ON</code></li>
+<li>NATURAL JOIN - równozłączenie relacje po atrybutach o tych samych
+nazwach</li>
+</ul></li>
+<li>zewnętrzene
+<ul>
+<li>LEFT/RIGHT OUTER JOIN - wynik INNER JOIN + wiersze z lewej / prawej
+tabeli dla których warunek nie jest spełniony</li>
+<li>FULL OUTER JOIN - wynik INNER JOIN + wiersze z obu tabel dla których
+warunek nie jest spełniony</li>
+</ul></li>
+</ul>
+<h2 id="operacje-na-zbiorach">Operacje na zbiorach</h2>
+<ul>
+<li><p>Operacje na wynikach całych tabel wejściowych</p></li>
+<li><p>Tabele muszą mieć takie same atrybuty</p></li>
+<li><p>Operacje są wykonywane od góry do dołu</p></li>
+<li><p>UNION - suma zbiorów</p></li>
+<li><p>EXCEPT - odejmowanie zbiorów</p></li>
+<li><p>INTERSECT - iloczyn zbiorów</p></li>
+</ul>
+<h2 id="operatory-exists-all-any">Operatory <code>EXISTS</code>,
+<code>ALL</code>, <code>ANY</code></h2>
+<p>Przykład</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> nazwisko</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> studenci</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> stypendium <span class="op">&gt;=</span> <span class="kw">ALL</span> (</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> stypendium <span class="op">*</span> <span class="fl">1.3</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> studenci</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> grupa <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h2 id="integralność">Integralność</h2>
+<ul>
+<li>Sprawdzane przed wykonaniem zapytania</li>
+<li>na poziomie atrybutów (dziedzina, zakres wartości)</li>
+<li>na poziomie relacji - klucz podstawowy</li>
+<li>na poziomie związków - klucz obcy</li>
+<li>reguły integralności - ograniczenia na poziomie bazy danych,
+parametry statystyczne</li>
+<li><code>UNIQUE</code></li>
+<li><code>NOT NULL</code></li>
+<li><code>CHECK</code> - warunek logiczny, dowolnie złożony, może
+zawierać zagnieżdżone zapytanie `SELECT</li>
+<li><code>ASSERTION</code> - ogólne więzy integralności</li>
+</ul>
+<h3 id="operacje-kaskadowe">Operacje kaskadowe</h3>
+<p>Klucz obcy musi odpowiadać rekordowi w innej tabeli, modyfikacja lub
+usunięcie takiego rekordu wymaga podjęcia czynności w rekordzie który
+się do niego odwołuje przez klucz obcy</p>
+<ul>
+<li>Definiuje się w klauzulach
+<ul>
+<li><code>ON UPDATE</code></li>
+<li><code>ON DELETE</code></li>
+</ul></li>
+<li>Czynności
+<ul>
+<li><code>NO ACTION</code></li>
+<li><code>CASCADE</code></li>
+<li><code>SET NULL</code></li>
+<li><code>SET DEFAULT</code></li>
+</ul></li>
+</ul>
+<h2 id="wyzwalacze">Wyzwalacze</h2>
+<ul>
+<li><code>CREATE TRIGGER ...</code></li>
+<li>reakcja na zdarzenia</li>
+<li>tworzone na elemencie (tabeli, widoku, bazie danych)</li>
+<li>definiuje się punkt czasowy</li>
+</ul>
+<h2 id="widok-perspektywa">Widok (perspektywa)</h2>
+<p>Tabela dynamicznie wyliczona z innych tabel, nie przechowują danych
+trwale.</p>
+<ul>
+<li>ograniczenie widoczności</li>
+<li>przyspieszenie operacji / pojedynczych zapytań</li>
+<li>prezentowanie tych samych danych w różny sposób</li>
+<li>ułatwienie dostępu</li>
+</ul>
+<h3 id="mogą-być-aktualizowane">Mogą być aktualizowane</h3>
+<ul>
+<li>leniwie</li>
+<li>natychmiastowo</li>
+<li>okresowo</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> studenci_inf</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">AS</span> <span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> studenci</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> kierunek <span class="op">=</span> <span class="st">&#39;inf&#39;</span></span></code></pre></div>
+<p>Perspektywy zmaterializowane - trwale przechowujądane</p>
+<h2 id="tablica-tymczasowa">Tablica tymczasowa</h2>
+<ul>
+<li>Klauzula <code>WITH</code></li>
+<li>Upraszcza zapis zapytania</li>
+<li>Zagnieżdżone <code>SELECT</code> można zastąpić przez
+<code>JOIN</code></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#język-sql">Język SQL</a>
+<ul>
+<li><a href="#język-sql-1">Język SQL</a></li>
+<li><a href="#kategorie-instrukcji">Kategorie instrukcji</a></li>
+<li><a href="#budowa-języka">Budowa języka</a></li>
+<li><a href="#instrukcja-select">Instrukcja <code>SELECT</code></a>
+<ul>
+<li><a href="#budowa">Budowa</a></li>
+<li><a href="#kolejność-przetwarzania-instrukcji">Kolejność
+przetwarzania instrukcji</a></li>
+<li><a href="#klauzula-select">Klauzula <code>SELECT</code></a></li>
+<li><a href="#klauzula-from">Klauzula <code>FROM</code></a></li>
+<li><a href="#klauzula-where">Klauzula WHERE</a></li>
+</ul></li>
+<li><a href="#podzapytania">Podzapytania</a></li>
+<li><a href="#instrukcje-dml">Instrukcje DML</a></li>
+<li><a href="#instrukcje-dcl">Instrukcje DCL</a></li>
+<li><a href="#logika-trójwartościowa-null">Logika trójwartościowa,
+<code>NULL</code></a></li>
+<li><a href="#instrukcje-ddl">Instrukcje DDL</a></li>
+<li><a href="#łączenie">Łączenie</a></li>
+<li><a href="#operacje-na-zbiorach">Operacje na zbiorach</a></li>
+<li><a href="#operatory-exists-all-any">Operatory <code>EXISTS</code>,
+<code>ALL</code>, <code>ANY</code></a></li>
+<li><a href="#integralność">Integralność</a>
+<ul>
+<li><a href="#operacje-kaskadowe">Operacje kaskadowe</a></li>
+</ul></li>
+<li><a href="#wyzwalacze">Wyzwalacze</a></li>
+<li><a href="#widok-perspektywa">Widok (perspektywa)</a>
+<ul>
+<li><a href="#mogą-być-aktualizowane">Mogą być aktualizowane</a></li>
+</ul></li>
+<li><a href="#tablica-tymczasowa">Tablica tymczasowa</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-strumieniowanie-multimediow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-kompresja-sekwencji-obrazow.html">Poprzedni: 10-kompresja-sekwencji-obrazow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-analiza-wizyjna.html">Następny: 12-analiza-wizyjna.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="strumieniowanie-multimediów">Strumieniowanie multimediów</h1>
+<p>Problem przy oddzielnych sturmieniach (np. audio i video) jest taki,
+że potrzebujemy je równocześnie odczytywać i odtwarzać (pojawia się np.
+problem przy odczytywaniu z płyty CD, odpowiednio indeksować i buforować
+pakiety przesłane siecią)</p>
+<h2 id="kontenery-multimedialne">Kontenery multimedialne</h2>
+<ul>
+<li>Opakowanie danych multimedialnych w ten sposób, żeby móc je
+odtwarzać z mniejszą liczbą operacji</li>
+<li>Odpowiednio wymieszane dane i metadane w nagłówkach</li>
+<li>Metadane zawierają informacje kontrolne</li>
+<li>Dane audio i video dzieli się na mniejsze pakiety i przeplata</li>
+</ul>
+<h3 id="przykłady-kontenerów-multimedialnych">Przykłady kontenerów
+multimedialnych</h3>
+<ul>
+<li>Wideo
+<ul>
+<li>MPEG-2 PS</li>
+<li>MPEG-2 TS</li>
+<li>MP4</li>
+<li>Ogg</li>
+<li>WebM</li>
+<li>AVI</li>
+</ul></li>
+<li>Audio
+<ul>
+<li>WAV</li>
+<li>AIFF</li>
+<li>XMF</li>
+</ul></li>
+<li>Obrazy
+<ul>
+<li>TIFF</li>
+<li>JFIF</li>
+</ul></li>
+</ul>
+<h2 id="kontener-mp4">Kontener MP4</h2>
+<ul>
+<li>Format łącznego zapisu ścieżek audio i video
+<ul>
+<li>można też dodawać teksty, obrazy</li>
+</ul></li>
+<li>Hierarchiczne obiekty - boxy</li>
+<li>Box
+<ul>
+<li>nagłówek określający rozmiar</li>
+<li>nagłówek określający typ</li>
+</ul></li>
+<li>Różne warianty
+<ul>
+<li>podział na fragmenty o różnym czasie prezentacji</li>
+</ul></li>
+<li>Metadane nagłówkowe do prezentacji
+<ul>
+<li>moov - movie box - metadane do wszystkich mediów / ścieżek</li>
+<li>moof - movie fragment - metadane do fragmentów</li>
+<li>mfra - moovie random access - wskaźniki do wybranych punktów
+czasowych w ścieżkach</li>
+</ul></li>
+<li>Nagłówek mediów mdhd
+<ul>
+<li>daty/czasy wytworzenia i modyfikacji</li>
+<li>jednostka czasu (time scale) - ile w 1 sekundzie</li>
+<li>czas trwania (duration)</li>
+<li>szybkość odtwarzania</li>
+<li>macierz 3x3 transformacji kolorów wideo</li>
+</ul></li>
+<li>Nagłówek ścieżki tkhd
+<ul>
+<li>daty/czasy wytworzenia i modyfikacji</li>
+<li>identyfikator (track_ID)</li>
+<li>czas trwania (duration)</li>
+</ul></li>
+<li>Metadane zawierają
+<ul>
+<li>deklaracje ścieżek audio lub video (track)</li>
+<li>znaczniki czasu</li>
+<li>przyporządkowanie jednostek audio/video (sample) do kawałków
+(chunk)</li>
+<li>deklaracje rozmiaru tablicy jednostek</li>
+<li>wskaźniki do danych dla kolejnych jednostek w boksie mdat</li>
+</ul></li>
+<li>Kawałki
+<ul>
+<li>zasadnicze dane</li>
+<li>tworzą ciągły zbiór jednostek w pliku</li>
+<li>mogą zawierać jedną lub wiele jednostek</li>
+<li>przypisane do różnych ścieżek przeplatają się</li>
+<li>tablica w nagłówku określa początki/końce</li>
+</ul></li>
+<li>Format MP4 bazuje na QuickTime
+<ul>
+<li>w nagłówku pliku jest określony typ, podtyp</li>
+</ul></li>
+</ul>
+<h2 id="multipleksowanie-strumieni-elementarnych">Multipleksowanie
+strumieni elementarnych</h2>
+<ul>
+<li>MPEG-2 określa 2 metody multipleksowania sturmieni
+elementarnych</li>
+<li>Strumień programowy (PS)
+<ul>
+<li>DVD</li>
+</ul></li>
+<li>Strumień transportowy (TS)
+<ul>
+<li>DVB</li>
+<li>ATSC</li>
+<li>IPTV</li>
+<li>Blu-ray</li>
+</ul></li>
+</ul>
+<h3 id="pakietowy-strumień-elementarny">Pakietowy strumień
+elementarny</h3>
+<ul>
+<li>Strumień elementarny (ES) dzielony jest na pakiety PES</li>
+<li>Konwersja ES-PES wymagana do tworzenia strumienia programowego (PS)
+i transportowego (TS)</li>
+<li>Konwersja między TS i PS poprzez PES</li>
+<li>Nie musi być zgodności z jednostkami dostępu ES (np. ramkami) ale w
+praktyce się zachowuje</li>
+<li>Jednostka dostępu ES - np. klatka filmu - może być dzielony na
+pakiety PES</li>
+<li>PES mają własne nagłówki, nie muszą pokrywać się w czasie ani
+miejscu z nagłówkami ES</li>
+<li>PTS / DTS - umożliwiają inny porządek przy prezentacji i dekodowaniu
+<ul>
+<li>np. ramki B w video</li>
+<li>Presentation / Decoding Time Stamp</li>
+</ul></li>
+</ul>
+<h3 id="multipleksacja-mpeg-2-ps">Multipleksacja MPEG-2 PS</h3>
+<ul>
+<li>Strumień programowy (PS) zawiera przeplecione pakiety PES audio i
+wideo</li>
+<li>Demultipleksacja na podstawie numerów identyfikujących ES z
+nagłówków PES</li>
+<li>Nagłówek pakietu PS
+<ul>
+<li>zegar jako licznik o ustalonej podstawie czasu</li>
+<li>sygnalizacja przepływności</li>
+<li>bity o stałej wartości (marker bit)</li>
+<li>nagłówek systemowy</li>
+</ul></li>
+<li>Strumień PS zapisuje się w plikach z rozszerzeniem
+<ul>
+<li>mpg, mpeg (audio-video)</li>
+<li>mpa, mp2, mp3 (audio)</li>
+<li>pliki vob opracowane na bazie PS</li>
+</ul></li>
+<li>Multipleksacja
+<ul>
+<li>strumienie audio i wideo enkodowane i pakietyzowane oddzielnie</li>
+<li>wspólny sygnał zegarowy</li>
+<li>oba strumienie trafiają do multipleksera PS</li>
+<li>na wyjściu strumień programowy</li>
+</ul></li>
+<li>Demultipleksacja
+<ul>
+<li>z cyfrowego nośnika danych</li>
+<li>strumień programowy trafia do dekodera programowego</li>
+<li>rozdziela strumienie audio i video</li>
+<li>oddzielnie dekodowane strumienie audio i wideo trafiają na
+wyjście</li>
+<li>dekodery sterowane wspólnym zegarem</li>
+</ul></li>
+</ul>
+<h3 id="emisja-programów-tv">Emisja programów TV</h3>
+<ul>
+<li>Zaszłości historyczne dotyczące pasm</li>
+<li>Transmisja każdego programu w oddzielnym pasmie jest nieefektywna
+<ul>
+<li>odstępy międzypasmowe</li>
+</ul></li>
+<li>Lepiej na danym pasmie multipleksować wiele programów</li>
+</ul>
+<h3 id="multipleksacja-mpeg-ts">Multipleksacja MPEG-TS</h3>
+<ul>
+<li>Strumień transportowy TS
+<ul>
+<li>wiele programów</li>
+<li>każdy program ma swoje strumienie elementarne i zegar</li>
+<li>pliki mają rozszerzenie ts lub m2t</li>
+</ul></li>
+<li>Multipleksacja
+<ul>
+<li>powielone to co dla strumienia programowego</li>
+<li>wszystkie trafiają do multipleksera TS</li>
+<li>każdy z własnym zegarem</li>
+</ul></li>
+<li>Nagłówek pakietu TS
+<ul>
+<li>sygnalizacja początku PS (payload_unit_start)</li>
+<li>identyfikator PID</li>
+<li>licznik (continuity_counter)</li>
+<li>sekcja adaptacyjna (adapt_field_ctrl=1)
+<ul>
+<li>sygnalizacja mniejszej liczby bajtów w pakiecie
+(adaptation_field_length)</li>
+<li>PCR - zegar/licznik</li>
+</ul></li>
+</ul></li>
+<li>Pakiety TS tworzone z PES
+<ul>
+<li>pakiet TS trafia w całości tylko do jednego PES</li>
+<li>na granicy pakietu PES, TS jest padowane zerami</li>
+</ul></li>
+<li>Pakiety TS mają 188 bajtów
+<ul>
+<li>nagłówek wydłużany przez opcję adaptacji</li>
+<li>np. do sygnalizacji ważnych bajtów</li>
+<li>to że pakiety są małe zapewnia odporność na błędy - błąd w jednym
+pakiecie nie propaguje się na inne</li>
+</ul></li>
+</ul>
+<h3 id="demultipleksacja-mpeg-ts">Demultipleksacja MPEG-TS</h3>
+<ul>
+<li>Strumień transportowy trafia do demultipleksera</li>
+<li>Hierarchiczna identyfikacja ES za pomocą tablic PAT i PMT</li>
+<li>Zegar (licznik) w nagłówkach pakietów o wybranym PID
+<ul>
+<li>w polu adaptacyjnym</li>
+<li>nie rzadziej niż co 100ms</li>
+</ul></li>
+<li>Tablica PAT mapuje programy na identyfikatory PID</li>
+<li>Tablica PMT mapuje strumienie (zegar, video, ściezki audio) na
+identyfikatory PID</li>
+</ul>
+<h3 id="multipleksowanie">Multipleksowanie</h3>
+<ul>
+<li>Statyczne
+<ul>
+<li>proste</li>
+<li>nieefektywne wykorzystanie pasma</li>
+<li>każdy program dostaje określone pasmo, w którym ma się zmieścić</li>
+</ul></li>
+<li>Statystyczne
+<ul>
+<li>pozwala efektywnie wykorzystać pasmo</li>
+<li>zwiększa jakość</li>
+<li>wymaga łącznej regulacji przepływności strumieni elementarnych
+audio-video</li>
+<li>tam gdzie jest większa złożoność przeznacza się większą część
+strumienia</li>
+</ul></li>
+<li>Silne wahania przepływności wpływają na opóźnienie transmisji w
+kanale
+<ul>
+<li>niestabilność czasowa</li>
+<li>konieczne bufory</li>
+</ul></li>
+<li>Regulacja
+<ul>
+<li>czas występowania ramek Intra</li>
+<li>lepiej żeby nie w każdym programie występowały na raz ramki I bo
+mają większy budżet bitowy</li>
+<li>siła kwantyzacji - parametr QP</li>
+</ul></li>
+</ul>
+<h2 id="dvb">DVB</h2>
+<ul>
+<li>DVB - standard dla transmisji satelitarnej, naziemnej, kablowej</li>
+<li>Moduły DVB przyjmują i odtwarzają strumień transportowy MPEG-2
+TS</li>
+<li>Warianty DVB (T/C/S) różnią się sposobem modulacji fali nośnej</li>
+<li>Transmisja odbywa się w ograniczonym pasmie</li>
+<li>Kodowanie kanałowe
+<ul>
+<li>wspólne dla wariantów T/S/C</li>
+<li>jest nadmiarowe i ma na celu detekcję i korekcję błędów
+transmisji</li>
+<li>kody Reed-Solomon’a (RS)</li>
+<li>kody splotowe</li>
+</ul></li>
+<li>Modulator OFDM - charakterystyczny dla DVB-T</li>
+<li>Modulacja fazowa (np. QPSK)
+<ul>
+<li>pozwala na zwiększenie przepływności bitowej</li>
+<li>przesyłanie wielu bitów w tym samym momencie</li>
+<li>dla modulacji fazowej przez odpowiednie przesunięcia fazy</li>
+</ul></li>
+</ul>
+<h3 id="modulator-ofdm">Modulator OFDM</h3>
+<ul>
+<li>Orthogonal Frequency Division Multiplexing</li>
+<li>Wykorzystuje nośne ortogonalne</li>
+<li>Okres ochronny - wydłuża czas trwania</li>
+<li>Dane dzieli się między wiele częstotliwości nośnych w paśmie
+<ul>
+<li>częstotliwości są ortogonalne i nie wpływają na siebie nawzajem</li>
+<li>wiele strumieni danych można transmitować jendocześnie</li>
+</ul></li>
+<li>Wykorzystywana m. in. w standardzie LTE</li>
+</ul>
+<h3 id="dvb-t2">DVB-T2</h3>
+<ul>
+<li>Większa elastyczność w doborze parametrów</li>
+<li>Większa przepływność</li>
+<li>Lepsza odporność na błędy</li>
+<li>Większe zasięgi przy tej samej mocy</li>
+<li>Większa przepływność kosztem
+<ul>
+<li>mniejszej ochrony przed błędami</li>
+<li>większej mocy sygnału</li>
+<li>mniejszych odległości</li>
+</ul></li>
+</ul>
+<h2 id="transmisja-multimediów-w-sieci">Transmisja multimediów w
+sieci</h2>
+<ul>
+<li>IPTV - po UDP, rzadziej stosowane</li>
+<li>WebTV - telewizja internetowa po HTTP (YouTube, Netflix)</li>
+<li>Usługi
+<ul>
+<li>telewizja liniowa</li>
+<li>telewizja nieliniowa (VOD, personal video recorder)</li>
+</ul></li>
+<li>Problem przepustowość vs jakość, dobór parametrów
+<ul>
+<li>pasmo</li>
+<li>stabilność</li>
+<li>rozdzielczość</li>
+<li>adaptacja</li>
+</ul></li>
+</ul>
+<h3 id="pobieranie-multimediów">Pobieranie multimediów</h3>
+<ul>
+<li>Dwie fazy</li>
+<li>Najpierw pobrać, potem odpalić</li>
+<li>Duże opóźnienie</li>
+<li>Nieefektywne</li>
+<li>Dużo danych do buforowania</li>
+<li>Reszta danych może nie być potrzebna</li>
+</ul>
+<h3 id="transmisja-progresywna">Transmisja progresywna</h3>
+<ul>
+<li>Rozpoczęcie odtwarzania pliku multimedialnego po pobraniu fragmentu
+pliku</li>
+<li>Efektywna
+<ul>
+<li>małe opóźnienie - rozpoczęcie odtwarzania pliku mmultimedialnego po
+pobraniu fragmentu pliku</li>
+<li>buforowanie małej ilości danych</li>
+<li>nieodtwarzane treści nie są transmitowane</li>
+</ul></li>
+<li>O użyciu progresywnej transmisji decyduje odtwarzacz</li>
+<li>Implementacje HTTP z progresją
+<ul>
+<li>Macromedia - Adobe Flash Player</li>
+<li>Windows Media Player</li>
+<li>Quick Time</li>
+<li>Real Player</li>
+</ul></li>
+</ul>
+<h3 id="strumieniowanie-przez-udp">Strumieniowanie przez UDP</h3>
+<ul>
+<li>Może gubić pakiety</li>
+<li>Pakiety mogą przyjść w złej kolejności</li>
+<li>Unicast / multicast
+<ul>
+<li>unicast wysyła wielokrotnie te same dane</li>
+</ul></li>
+<li>Ok. 7 pakietów sturmienia transportowego pakuje się do jednej ramki
+UDP
+<ul>
+<li>im większy tym większe prawdopodobieństwo utraty pakietu</li>
+</ul></li>
+<li>Transmisja UDP bywa blokowana na routerach, HTTP jest zawsze
+przepuszczane</li>
+</ul>
+<h3 id="odporność-na-błędy">Odporność na błędy</h3>
+<ul>
+<li>Dzielenie ramek wideo na plastry (slices)
+<ul>
+<li>tworzy oddzielne strumienie</li>
+<li>zmniejsza efektywność kompresji</li>
+<li>ogranicza zasięg błędów</li>
+</ul></li>
+</ul>
+<h3 id="transmisja-rtprtcp">Transmisja RTP/RTCP</h3>
+<ul>
+<li>Real Time Protocol (RTP)
+<ul>
+<li>przesyłanie danych mutlimedialnych od nadawcy do odbiorcy</li>
+<li>może opakowywać
+<ul>
+<li>strumień transportowy (TS)</li>
+<li>strumień elementarny wideo (ES)</li>
+<li>strumień elementarny audio (ES)</li>
+</ul></li>
+<li>jeden pakiet RTP zwykle zawiera kilka pakietów TS</li>
+</ul></li>
+<li>Real Time Control Protocol (RTCP)
+<ul>
+<li>nadawca i odbiorca wymieniają się warunkami transmisji</li>
+<li>identyfikacja nadawcy</li>
+<li>zakończenie sesji</li>
+<li>raport nadawcy i odbiorcy
+<ul>
+<li>sparowane</li>
+<li>czasy</li>
+<li>opóźnienia</li>
+<li>liczba pakietów nadanych/utraconych</li>
+<li>liczba bajtów od początku transmisji</li>
+</ul></li>
+</ul></li>
+<li>Oba w UDP</li>
+</ul>
+<h3 id="rtsp">RTSP</h3>
+<ul>
+<li>Real Time Streaming Protocol</li>
+<li>Wykorzystuje TCP</li>
+<li>Podstawowy protokół dla systemów VoD w IPTV</li>
+<li>Steruje dostarczaniem danych multimedialnych rozsyłanych przy pomocy
+odrębnego protokołu (np. RTP/RTCP)
+<ul>
+<li>inicjalizacja sesji</li>
+<li>setup</li>
+<li>start</li>
+<li>pauza</li>
+<li>nagrywanie</li>
+</ul></li>
+</ul>
+<h2 id="adaptacyjne-strumieniowanie">Adaptacyjne strumieniowanie</h2>
+<ul>
+<li>Serwer dysponuje wieloma wariantami tego samego wideo o różnych
+parametrach (jakości)</li>
+<li>W zależności od przepływności bitowej kanału wybierany jest
+odpowiedni wariant</li>
+<li>Implementacje
+<ul>
+<li>HTTP Live Streaming</li>
+<li>HTTP Smooth Streaming</li>
+<li>HTTP Dynamic Streaming</li>
+<li>Dynamic Adaptive Streaming over HTTP - MPEG-DASH</li>
+</ul></li>
+</ul>
+<h3 id="mpeg-dash">MPEG DASH</h3>
+<ul>
+<li>Dostarczanie treścji multimedialnej ze zwykłych serwerów HTTP</li>
+<li>Obsługa różnych rodzajów mediów i różnych kodeków</li>
+<li>Dzielenie treści multimedialnej na segmenty o krótkim czasie trwania
+i kilku wariantach jakość-przepływność</li>
+<li>Algorytm adaptacji pzrepływności po stronie klienta (inaczej niż w
+RTP/RTCP)</li>
+<li>Dostępna gotowa biblioteka dla klienta</li>
+<li>Fragmenty multimedialne w pojedynczych plikach lub wielu
+plikach</li>
+<li>Serwer przesyła klientowi plik MPD
+<ul>
+<li>opisuje warianty przepływności, kodeki, URL</li>
+<li>hierarchiczna budowa zapisywana w XML</li>
+<li>mpd -&gt; period -&gt; adaptation set -&gt; presentation -&gt;
+segment</li>
+<li>strumienie multimedialne jako fragmenty w pojedynczych lub w wielu
+plikach</li>
+</ul></li>
+</ul>
+<h3 id="deskryptor-mpd">Deskryptor MPD</h3>
+<ul>
+<li>Media Presentation Descriptor</li>
+<li>Opisuje dostępne ścieżki z podziałem na krótkie segmenty czasowe
+<ul>
+<li>czasy trwania</li>
+<li>URL</li>
+<li>warianty przepływności</li>
+<li>kodeki</li>
+<li>charakterystyki</li>
+</ul></li>
+<li>Struktura hierarchiczna/obiektowa zapisywana w XML</li>
+<li>Segmenty
+<ul>
+<li>adresowane pozycją bajtową w pliku</li>
+<li>wylistowane jako oddzielne pliki</li>
+<li>z generycznymi nazwami do oddzielnych plików</li>
+</ul></li>
+</ul>
+<h3 id="wyświetlanie-wideo-w-dokumentach-html">Wyświetlanie wideo w
+dokumentach HTML</h3>
+<ul>
+<li>Znacznik <code>&lt;video&gt;&lt;/video&gt;</code></li>
+<li>Pobieranie filmu przez HTTP GET</li>
+<li>Formaty MP3, MP4, WAV</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#strumieniowanie-multimediów">Strumieniowanie
+multimediów</a>
+<ul>
+<li><a href="#kontenery-multimedialne">Kontenery multimedialne</a>
+<ul>
+<li><a href="#przykłady-kontenerów-multimedialnych">Przykłady kontenerów
+multimedialnych</a></li>
+</ul></li>
+<li><a href="#kontener-mp4">Kontener MP4</a></li>
+<li><a href="#multipleksowanie-strumieni-elementarnych">Multipleksowanie
+strumieni elementarnych</a>
+<ul>
+<li><a href="#pakietowy-strumień-elementarny">Pakietowy strumień
+elementarny</a></li>
+<li><a href="#multipleksacja-mpeg-2-ps">Multipleksacja MPEG-2
+PS</a></li>
+<li><a href="#emisja-programów-tv">Emisja programów TV</a></li>
+<li><a href="#multipleksacja-mpeg-ts">Multipleksacja MPEG-TS</a></li>
+<li><a href="#demultipleksacja-mpeg-ts">Demultipleksacja
+MPEG-TS</a></li>
+<li><a href="#multipleksowanie">Multipleksowanie</a></li>
+</ul></li>
+<li><a href="#dvb">DVB</a>
+<ul>
+<li><a href="#modulator-ofdm">Modulator OFDM</a></li>
+<li><a href="#dvb-t2">DVB-T2</a></li>
+</ul></li>
+<li><a href="#transmisja-multimediów-w-sieci">Transmisja multimediów w
+sieci</a>
+<ul>
+<li><a href="#pobieranie-multimediów">Pobieranie multimediów</a></li>
+<li><a href="#transmisja-progresywna">Transmisja progresywna</a></li>
+<li><a href="#strumieniowanie-przez-udp">Strumieniowanie przez
+UDP</a></li>
+<li><a href="#odporność-na-błędy">Odporność na błędy</a></li>
+<li><a href="#transmisja-rtprtcp">Transmisja RTP/RTCP</a></li>
+<li><a href="#rtsp">RTSP</a></li>
+</ul></li>
+<li><a href="#adaptacyjne-strumieniowanie">Adaptacyjne
+strumieniowanie</a>
+<ul>
+<li><a href="#mpeg-dash">MPEG DASH</a></li>
+<li><a href="#deskryptor-mpd">Deskryptor MPD</a></li>
+<li><a href="#wyświetlanie-wideo-w-dokumentach-html">Wyświetlanie wideo
+w dokumentach HTML</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

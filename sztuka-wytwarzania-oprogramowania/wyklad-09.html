@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08.html">Poprzedni: wyklad-08.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10.html">Następny: wyklad-10.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="analiza-oprogramowania-2024-05-06">Analiza oprogramowania
+(2024-05-06)</h1>
+<ul>
+<li>Testowanie (badanie + weryfikacja oczekiwań)</li>
+<li>Metryki (pomiar)</li>
+<li>Ogólnie to szersze pojęcie</li>
+<li>Podstawowy podział
+<ul>
+<li>statyczna (bez uruchomienia programu)</li>
+<li>dynamiczna</li>
+</ul></li>
+</ul>
+<h2 id="analiza-statyczna">Analiza statyczna</h2>
+<ul>
+<li>Najczęściej używana w rozumieniu statycznej analizy kodu w
+poszukiwaniu błędów</li>
+<li>Co potrafi statyczna analiza kodu
+<ul>
+<li>wykryć błędy czasu wykonania (przypadki, które mogą nie być pokryte
+przez testy)</li>
+<li>wskazać potencjalne błędy (weryfikacja wejścia, undefined
+behaviour)</li>
+<li>pilnować zgodności ze standardem kodowania (linter)</li>
+</ul></li>
+<li>Bywa szybka
+<ul>
+<li>w porównaniu z uruchamianiem wielu testów</li>
+<li>potrafi przeanalizować cały projekt</li>
+<li>uruchomienie dla całego projektu może być wolne</li>
+</ul></li>
+<li>Potrafi wskazywać nieczytelności</li>
+<li>Żadna analiza nie daje gwarancji że błędu nie ma</li>
+<li>Miewa wyniki fałszywie pozytywne
+<ul>
+<li>opiera się na heurystykach</li>
+<li>celem jest wskazanie fragmentów którym warto się przyjrzeć</li>
+<li>lepiej mieć więcej false positives niż false negatives</li>
+</ul></li>
+<li>Powinna być elementem pracy nad projektem</li>
+<li>Im szybciej odpalana tym lepiej
+<ul>
+<li>wygodnie mieć wbudowaną w IDE</li>
+<li>warto żeby była częścią potoku CI</li>
+</ul></li>
+<li>Dobrze mieć kilka różnych narzędzi
+<ul>
+<li>mają różne cechy i możliwości</li>
+</ul></li>
+<li>Tani sposób na usuwanie potencjalnie brzydkich (niebezpiecznych)
+kawałków kodu</li>
+<li>Musi być odpalana non-stop i zero tolerancji dla błędów</li>
+<li>Lepiej świadomie oznaczyć linijkę jako ignorowaną przez linter niż
+mieć masę warningów do na które nikt nie patrzy</li>
+<li>Warningi kompilatora to też analiza statyczna
+<ul>
+<li>warto traktować wszystkie warningi jako błędy (ale analiza statyczna
+nie jest nieomylna)</li>
+</ul></li>
+</ul>
+<h2 id="analiza-dynamiczna">Analiza dynamiczna</h2>
+<ul>
+<li>Analizować można wszystko co dzieje się z programem i jego
+otoczeniem podczas wykonania
+<ul>
+<li>zawartość dysku, komunikaty sieciowe</li>
+</ul></li>
+<li>Nazwa najczęściej używana w stosunku do analizy programu o nieznanym
+kodzie źródłowym
+<ul>
+<li>testowanie to też dynamiczna analiza</li>
+</ul></li>
+<li>Daje rzeczywiste wyniki
+<ul>
+<li>trudno dostać false positive</li>
+</ul></li>
+<li>Bywa czasochłonna</li>
+<li>Jest zależna od reprezentatywności scenariusza</li>
+<li>Aplikacja może być uruchamiana w środowisku “realnym” i
+zwirtualizowanym
+<ul>
+<li>testy systemowe powinny być przeprowadzane na takim docelowym
+środowisku</li>
+<li>wirtualizacja nie musi dotyczyć używania maszyn wirtualnych /
+kontenerów</li>
+<li>Valgrind podmienia bibliotekę standardową C</li>
+</ul></li>
+<li>Monitorowane aspekty
+<ul>
+<li>użycie pamięci (wycieki)</li>
+<li>użycie cache procesora</li>
+<li>użycie procesora</li>
+<li>wykorzystanie sieci</li>
+<li>wykorzystanie dysku</li>
+</ul></li>
+<li>Wykorzystanie zebranych danych do poprawy wydajności -
+profilowanie</li>
+</ul>
+<h3 id="problemy-profilowania">Problemy profilowania</h3>
+<ul>
+<li>Trzeba badać aplikację taką jaką dostaje klient
+<ul>
+<li>skompilowana z optymalizacjami</li>
+<li>przy optymalizacji związek między kodem asemblerowym a źróðłowym
+jest niejasne</li>
+</ul></li>
+<li>Profilowanie może samo zaburzać pomiar
+<ul>
+<li>instrumentacja / symulacja</li>
+<li>próbkowanie</li>
+</ul></li>
+<li>Wszystkie pomiary czasu są obarczone błędem
+<ul>
+<li>poza systemami czasu rzeczywistego</li>
+</ul></li>
+<li>Kluczowy jest wybór scenariusza</li>
+<li>Współczesne problemy
+<ul>
+<li>procesor niekoniecznie jest wąskim gardłem</li>
+<li>teoretyczne złożoności warto weryfikować w praktyce</li>
+<li>przeszukiwanie liniowe tablicy mieszczącej się w cache będzie
+szybsze niż przeszukiwanie binarne</li>
+<li>wąskim gardłem często są zewnętrzene zasoby (trudno to
+sprofilować)</li>
+<li>współczesne architektur procesorów premiują optymalizację na
+poziomie ułożenia danych w pamięci bardziej niż redukcję
+instrukcji/skoków</li>
+</ul></li>
+</ul>
+<h2 id="analiza-aplikacji-bez-aplikacji">Analiza aplikacji bez
+aplikacji</h2>
+<ul>
+<li>Klient musi przekazać odpowiednie informacje</li>
+<li>Dobrze jest mieć dostępny stack-trace</li>
+<li>Można przygotować program tak, by generował raport stanu (core dump,
+death report)</li>
+</ul>
+<h2 id="logowanie">Logowanie</h2>
+<ul>
+<li>Logowanie polega na umieszczeniu w określonych miejscach kodu
+instrukcji dodających do rejestru (log) informację że dana linijka się
+wykonała
+<ul>
+<li>np. z datą, wiadomością, parametrami</li>
+</ul></li>
+<li>Dobry system rozróżnia
+<ul>
+<li>poziomy logowania (fatal, critical, error, warning, info, debug,
+trace)</li>
+<li>źródło logowania (moduł systemu)</li>
+<li>Punkt docelowy (sink, plik, rejestr systemu operacyjnego)</li>
+</ul></li>
+<li>Potężnie narzędzie ale musi być odpowiednio używane
+<ul>
+<li>określona szczegółowość</li>
+<li>treść musi być przemyślana</li>
+<li>język musi być odpowiedni dla odbiorcy</li>
+<li>użytkownik musi być w stanie przekazać logi</li>
+</ul></li>
+</ul>
+<h3 id="problemy-logowania">Problemy logowania</h3>
+<ul>
+<li>Można logować za dużo i log staje się nieczytelne
+<ul>
+<li>megabajty tekstu</li>
+</ul></li>
+<li>Można logować za mało i log nie będzie miał dość informacji</li>
+<li>Logowanie wpływa na wydajność
+<ul>
+<li>używa IO</li>
+<li>może być warto wywołać logger (formatować komunikat itp) tylko jeśli
+jest ustawiony odpowiedni poziom</li>
+</ul></li>
+<li>Może naruszać bezpieczeństwo</li>
+<li>Trzeba mieć na uwadze kto będzie czytał logi
+<ul>
+<li>tylko programista</li>
+<li>użytkownik który ma sam sobie naprawić</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#analiza-oprogramowania-2024-05-06">Analiza oprogramowania
+(2024-05-06)</a>
+<ul>
+<li><a href="#analiza-statyczna">Analiza statyczna</a></li>
+<li><a href="#analiza-dynamiczna">Analiza dynamiczna</a>
+<ul>
+<li><a href="#problemy-profilowania">Problemy profilowania</a></li>
+</ul></li>
+<li><a href="#analiza-aplikacji-bez-aplikacji">Analiza aplikacji bez
+aplikacji</a></li>
+<li><a href="#logowanie">Logowanie</a>
+<ul>
+<li><a href="#problemy-logowania">Problemy logowania</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

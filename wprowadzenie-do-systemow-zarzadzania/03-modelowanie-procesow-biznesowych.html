@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-modelowanie-procesow-biznesowych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-architektury-systemow-zarzadzania.html">Poprzedni: 02-architektury-systemow-zarzadzania.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-modele-analityczne.html">Następny: 04-modele-analityczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wprowadzenie do systemów zarządzania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="01-systemy-informacyjne-w-zarzadzaniu.html">01-systemy-informacyjne-w-zarzadzaniu.html</a></li>
+                
+                <li><a href="02-architektury-systemow-zarzadzania.html">02-architektury-systemow-zarzadzania.html</a></li>
+                
+                <li><a href="03-modelowanie-procesow-biznesowych.html">03-modelowanie-procesow-biznesowych.html</a></li>
+                
+                <li><a href="04-modele-analityczne.html">04-modele-analityczne.html</a></li>
+                
+                <li><a href="kolokwium-1.html">kolokwium-1.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="modelowanie-procesów-biznesowych">Modelowanie procesów
+biznesowych</h1>
+<p>Proces - zbiór działań przetwarzających surowce lub informacje w
+wyjściowe produkty lub informacje</p>
+<p>Fundamentals of Business Process Management</p>
+<h2 id="apqc">APQC</h2>
+<p>Framework klasyfikacji procesów</p>
+<h3 id="procesy-operacyjne">Procesy operacyjne</h3>
+<ul>
+<li>opracowanie wizji strategii
+<ul>
+<li>mało skomputeryzowane</li>
+<li>systemy do monitorowania realizacji strategii</li>
+</ul></li>
+<li>rozwój, zarządzanie produktami i usługami
+<ul>
+<li>systemy MRP, MRPII</li>
+</ul></li>
+<li>marketing i sprzedaż</li>
+<li>zaopatrzenie, produkcja, dostawy</li>
+<li>obsługa klientów</li>
+</ul>
+<h3 id="procesy-zarządzania-i-wspomagania">Procesy zarządzania i
+wspomagania</h3>
+<ul>
+<li>zarządzanie zasobami ludzkimi</li>
+<li>zarządzanie systemami informacyjnymi</li>
+<li>zarządzanie zasobami finansowymi</li>
+<li>nabywanie, budowa i zarządzanie mieniem</li>
+<li>zarządzanie ryzykiem, zgodność z regulacjami</li>
+<li>zarządzanie relacjami zewnętrznymi</li>
+<li>zarządzanie wiedzą, doskonaleniem i zmianami</li>
+</ul>
+<h2 id="składowe-procesu-biznesowego">Składowe procesu biznesowego</h2>
+<ul>
+<li>Aktorzy
+<ul>
+<li>Klient</li>
+</ul></li>
+<li>Obiekty</li>
+<li>Zdarzenia</li>
+<li>Aktywności</li>
+<li>Punkty decyzyjne</li>
+<li>Wyniki</li>
+</ul>
+<h2 id="cykl-życia-procesu">Cykl życia procesu</h2>
+<ul>
+<li>Identyfikacja procesu
+<ul>
+<li>widzimy potrzebę budowy jakiegoś procesu</li>
+<li>reorganizacja firmy, wzorowane na gotowcach</li>
+</ul></li>
+<li>Odkrywanie procesu
+<ul>
+<li>tworzenie iteracyjne</li>
+<li>na podstawie informacji zwrotnej od klientów</li>
+</ul></li>
+<li>Analiza</li>
+<li>Przeprojektowanie</li>
+<li>Implementacja</li>
+<li>Monitorowanie
+<ul>
+<li>ważne</li>
+<li>średni czas obsługi, liczba zleceń itd.</li>
+<li>można je zasymulować</li>
+</ul></li>
+</ul>
+<h2 id="bpmn">BPMN</h2>
+<ul>
+<li>Business Process Model and Notation</li>
+<li>Graficzna notacji opisująca procesy biznesowe</li>
+<li>Ustandaryzowana, aktualnie w wersji 2.0</li>
+</ul>
+<h3 id="typy-modeli">Typy modeli</h3>
+<ul>
+<li>Procesy</li>
+<li>Choreografie</li>
+<li>Współpraca</li>
+</ul>
+<h3 id="typy-obiektów">Typy obiektów</h3>
+<ul>
+<li>Węzły przepływu (flow nodes)
+<ul>
+<li>czynności</li>
+<li>zdarzenia</li>
+<li>bramki - elementy decyzyjne</li>
+</ul></li>
+<li>Połączenia (connecting objects)</li>
+<li>Miejsca realizacji procesu
+<ul>
+<li>baseny i tory (pools, swimlanes)</li>
+</ul></li>
+<li>Obiekty danych (data objects)</li>
+<li>Artefakty (artifacts)
+<ul>
+<li>elementy graficzne niebędące elementami przepływu</li>
+<li>informacje uzupełniające</li>
+<li>można definiować własne</li>
+<li>adnotacje, grupy, powiązania</li>
+</ul></li>
+<li>Dekoratory (decorators)
+<ul>
+<li>odwzorowanie wzorców zachowań</li>
+<li>komunikat (message)</li>
+</ul></li>
+</ul>
+<h3 id="analiza-przepływów---token">Analiza przepływów - token</h3>
+<p>Standard BPMN rozważa analizę przepływów z wykorzystaniem tokenów
+(żetonów).</p>
+<p>Zdarzenie w systemie generuje żeton, analizujemy co dzieje się z
+żetonem, czy dojdzie do przewidzianego punktu końcowego. Pojęcie z
+symulatorów zdarzeń dyskretnych. Token powstaje w zdarzeniu początkowym
+i dochodzi jakąś ścieżką do zdarzenia końcowego, w którym jest
+konsumowany.</p>
+<h3 id="podstawowe-typy-obiektów-aktywnych">Podstawowe typy obiektów
+aktywnych</h3>
+<ul>
+<li>Zdarzenie - kółko
+<ul>
+<li>początkowe / pośrednie / końcowe</li>
+<li>może być wyzwalane czasowo</li>
+<li>może być wyzwalane przez wiadomość</li>
+<li>ogólne</li>
+<li>wysłanie / odebranie wiadomości</li>
+<li>reguły</li>
+<li>czas</li>
+<li>anulowanie / zerwanie</li>
+<li>wyjątek / usterka</li>
+<li>kompensaja</li>
+<li>przerywające / nieprzerywające wątki procesów</li>
+<li>przyczyny działań (catching)</li>
+<li>skutki działań (thrownig)</li>
+</ul></li>
+<li>Zadanie (task) - zaokrąglony prostokąt</li>
+<li>Bramka logiczna (gateway) - romb</li>
+</ul>
+<h3 id="bizagi-modeler">Bizagi modeler</h3>
+<ul>
+<li>Komercyjny program</li>
+<li>Darmowa wersja</li>
+</ul>
+<h2 id="zdarzenia">Zdarzenia</h2>
+<h3 id="wiadomość">Wiadomość</h3>
+<ul>
+<li>Może być zdarzeniem rozpoczynającym proces
+<ul>
+<li>złożono zamówienie</li>
+</ul></li>
+<li>Może być na końcu procesu
+<ul>
+<li>poinformowanie klienta o zrealizowanym zamówieniu</li>
+</ul></li>
+</ul>
+<h3 id="kompensacja">Kompensacja</h3>
+<ul>
+<li>Cofnięcie aktywności (rollback)</li>
+<li>Np. cofnięcie rezerwacji hotelu po nieudanym zakupie biletów</li>
+</ul>
+<h3 id="link">Link</h3>
+<ul>
+<li>Do uproszczenia diagramu</li>
+<li>Kontynuacja diagramu w innym miejscu</li>
+</ul>
+<h3 id="sygnał">Sygnał</h3>
+<ul>
+<li>Wiadomość musi mieć odbiorce i nadawcę</li>
+<li>Sygnał ma listę odbiorców</li>
+</ul>
+<h3 id="warunek">Warunek</h3>
+<ul>
+<li>Jako zdarzenie</li>
+<li>Związane z taskiem</li>
+<li>Przerywające / nieprzerywające</li>
+</ul>
+<h3 id="eskalacja">Eskalacja</h3>
+<ul>
+<li>Podjęcie określonych czynności żeby przywrócić system do stanu
+normalnego</li>
+<li>Np. powiadomienie administratora</li>
+</ul>
+<h2 id="zadania">Zadania</h2>
+<ul>
+<li>Symbolizowane przez prostokąt</li>
+<li>Dodatkowe tryby
+<ul>
+<li>zapętlone</li>
+<li>ad hoc</li>
+<li>wiele instancji</li>
+<li>kompensacja</li>
+</ul></li>
+<li>Typy zadań
+<ul>
+<li>service - usługa sieciowa lub zautomatyzowana aplikacja</li>
+<li>receive - oczekiwanie na komunikat</li>
+<li>send - wysłanie komunikatu</li>
+<li>user - zadanie wykonywane przez człowieka wspieranego przez
+aplikację</li>
+<li>manual - zadanie wykonywane przez człowieka bez pomocy
+komputera</li>
+<li>script - zadania wykonywane przez system</li>
+<li>reference - odwołanie do już zdefiniowanych zadań</li>
+</ul></li>
+</ul>
+<h2 id="bramki">Bramki</h2>
+<ul>
+<li>Symbolizowana przez romb</li>
+<li>XOR
+<ul>
+<li>wykluczająca, sterowana danymi</li>
+<li>token może pójść tylko jedną ścieżką</li>
+<li>wykluczająca, sterowana zdarzeniami - zdarzenie określa którą
+ścieżką pójdzie proces</li>
+</ul></li>
+<li>OR
+<ul>
+<li>żeton może pójść jedną lub wieloma ścieżkami</li>
+</ul></li>
+<li>AND
+<ul>
+<li>żeton może przejść dalej przy spełnieniu wszystkich warunków</li>
+</ul></li>
+</ul>
+<h2 id="połączenia">Połączenia</h2>
+<ul>
+<li>Przepływ (normal sequence flow)</li>
+<li>Przepływ warunkowy</li>
+<li>Przepływ (default sequence flow)</li>
+<li>Błąd (message flow)</li>
+<li>Asocjacja</li>
+</ul>
+<h3 id="prezentacja-graficzna">Prezentacja graficzna</h3>
+<ul>
+<li>Linia ciągła - przebieg procesu
+<ul>
+<li>token podąża po liniach ciągłych</li>
+</ul></li>
+<li>Linia przerywana - przebieg komunikatu</li>
+<li>Linia kropkowana - powiązanie, asocjacja</li>
+</ul>
+<h2 id="partycje-i-tory">Partycje i tory</h2>
+<ul>
+<li>Baseny i tory</li>
+<li>Między basenami strzałki przerywane</li>
+<li>Zazwyczaj basen oznacza czynność (proces), a tory aktorów w tym
+procesie</li>
+</ul>
+<h2 id="artefakty">Artefakty</h2>
+<ul>
+<li>Pomocnicze informacje dotyczące procesów</li>
+<li>Opisy tekstowe</li>
+<li>Grupowanie zadań</li>
+<li>Obiekty danych
+<ul>
+<li>Informacja że coś jest w bazie danych</li>
+<li>Dane wejściowe</li>
+<li>Dane wyjściowe</li>
+</ul></li>
+<li>Asocjacje
+<ul>
+<li>Połączenie między artefaktami a obiektami BPMN</li>
+</ul></li>
+</ul>
+<h2 id="typy-diagramów">Typy diagramów</h2>
+<ul>
+<li>Diagramy procesów</li>
+<li>Diagramy współpracy (baseny, przepływy wiadomości)</li>
+<li>Diagramy konwersacji (baseny, konwersacje i linki konwersacji)</li>
+</ul>
+<h3 id="proces-biznesowy-prywatny">Proces biznesowy prywatny</h3>
+<ul>
+<li>Wewnętrzny dla organizacji</li>
+<li>Nie jest dostępny dla aktorów zewnętrznych</li>
+<li>Modelowany w ramach jednego basenu</li>
+<li>W organizacji modeluje się wiele procesów wewnętrznych</li>
+</ul>
+<h3 id="proces-biznesowy-publiczny">Proces biznesowy publiczny</h3>
+<ul>
+<li>Pokazuje interakcję między procesem wewnętrznym a innym procesem lub
+aktorem</li>
+<li>Pokazuje, że jest interakcja ale nie interesuje nas jakie dokładnie
+czynności są wykonywane
+<ul>
+<li>np. nie wiemy jak wygląda struktura procesu po drugiej stronie</li>
+<li>po drugiej stronie modelujemy tylko przepływ komunikatów</li>
+</ul></li>
+</ul>
+<h3 id="proces-współpracy">Proces współpracy</h3>
+<ul>
+<li>Pokazuje współpracę między procesami, pokazuje interakcje i
+wewnętrzne zadania w obu basenach
+<ul>
+<li>zadania, przebieg procesu po obu stronach (basenach)</li>
+<li>komunikaty między basenami</li>
+</ul></li>
+<li>Choreografia</li>
+</ul>
+<h3 id="diagram-choreografii">Diagram choreografii</h3>
+<ul>
+<li>Aktywności to interakcje, wymiany wiadomości</li>
+<li>Modeluje współpracę bez torów, basenów itp</li>
+<li>Pozwala modelować współpracę, której zakres wychodzi poza granice
+organizacji</li>
+</ul>
+<h3 id="konwersacja">Konwersacja</h3>
+<p>Diagram wysokopoziomowego modelu wymiany informacji między
+systemami</p>
+<h2 id="symulacje">Symulacje</h2>
+<ul>
+<li>Pomagają określić np. ile osób należy przydzielić do odpowiednich
+zadań
+<ul>
+<li>Parametryzuje pensje, liczby pracowników, czasy wykonywania
+zadań</li>
+</ul></li>
+<li>Analizują przepływ tokenów w modelu</li>
+<li>Np. narzędzie BIMP</li>
+</ul>
+<h2 id="process-mining">Process Mining</h2>
+<ul>
+<li>Zbiera się dane o istniejących procesach</li>
+<li>Analiza średnich czasów obsługi itp</li>
+<li>Element optymalizacji (właściwie poprawy wydajności)</li>
+</ul>
+<h2 id="narzędzia-do-modelowania">Narzędzia do modelowania</h2>
+<ul>
+<li>BizAgi</li>
+<li>Aris</li>
+<li>Enterprise architect</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#modelowanie-procesów-biznesowych">Modelowanie procesów
+biznesowych</a>
+<ul>
+<li><a href="#apqc">APQC</a>
+<ul>
+<li><a href="#procesy-operacyjne">Procesy operacyjne</a></li>
+<li><a href="#procesy-zarządzania-i-wspomagania">Procesy zarządzania i
+wspomagania</a></li>
+</ul></li>
+<li><a href="#składowe-procesu-biznesowego">Składowe procesu
+biznesowego</a></li>
+<li><a href="#cykl-życia-procesu">Cykl życia procesu</a></li>
+<li><a href="#bpmn">BPMN</a>
+<ul>
+<li><a href="#typy-modeli">Typy modeli</a></li>
+<li><a href="#typy-obiektów">Typy obiektów</a></li>
+<li><a href="#analiza-przepływów---token">Analiza przepływów -
+token</a></li>
+<li><a href="#podstawowe-typy-obiektów-aktywnych">Podstawowe typy
+obiektów aktywnych</a></li>
+<li><a href="#bizagi-modeler">Bizagi modeler</a></li>
+</ul></li>
+<li><a href="#zdarzenia">Zdarzenia</a>
+<ul>
+<li><a href="#wiadomość">Wiadomość</a></li>
+<li><a href="#kompensacja">Kompensacja</a></li>
+<li><a href="#link">Link</a></li>
+<li><a href="#sygnał">Sygnał</a></li>
+<li><a href="#warunek">Warunek</a></li>
+<li><a href="#eskalacja">Eskalacja</a></li>
+</ul></li>
+<li><a href="#zadania">Zadania</a></li>
+<li><a href="#bramki">Bramki</a></li>
+<li><a href="#połączenia">Połączenia</a>
+<ul>
+<li><a href="#prezentacja-graficzna">Prezentacja graficzna</a></li>
+</ul></li>
+<li><a href="#partycje-i-tory">Partycje i tory</a></li>
+<li><a href="#artefakty">Artefakty</a></li>
+<li><a href="#typy-diagramów">Typy diagramów</a>
+<ul>
+<li><a href="#proces-biznesowy-prywatny">Proces biznesowy
+prywatny</a></li>
+<li><a href="#proces-biznesowy-publiczny">Proces biznesowy
+publiczny</a></li>
+<li><a href="#proces-współpracy">Proces współpracy</a></li>
+<li><a href="#diagram-choreografii">Diagram choreografii</a></li>
+<li><a href="#konwersacja">Konwersacja</a></li>
+</ul></li>
+<li><a href="#symulacje">Symulacje</a></li>
+<li><a href="#process-mining">Process Mining</a></li>
+<li><a href="#narzędzia-do-modelowania">Narzędzia do
+modelowania</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

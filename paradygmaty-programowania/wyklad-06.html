@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-06</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-05.html">Poprzedni: wyklad-05.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-07.html">Następny: wyklad-07.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Paradygmaty programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-06-2023-11-07">Wykład 06 (2023-11-07)</h1>
+<p>Oddajemy zadania na LeOnie, tylko jedna osoba z zespołu odsyła,
+najlepiej zipa (źródła)</p>
+<h2 id="deklarowanie-przynależności-typu-do-klasy-typów">Deklarowanie
+przynależności typu do klasy typów</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Move</span> <span class="ot">=</span> <span class="dt">North</span> <span class="op">|</span> <span class="dt">South</span> <span class="op">|</span> <span class="dt">West</span> <span class="op">|</span> <span class="dt">East</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Eq</span> <span class="dt">Move</span> <span class="kw">where</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">North</span> <span class="op">==</span> <span class="dt">North</span> <span class="ot">=</span> <span class="dt">True</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">==</span> _         <span class="ot">=</span> <span class="dt">False</span></span></code></pre></div>
+<h2 id="klauzula-deriving">Klauzula <code>deriving</code></h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Move</span> <span class="ot">=</span> <span class="dt">North</span> <span class="op">|</span> <span class="dt">South</span> <span class="op">|</span> <span class="dt">West</span> <span class="op">|</span> <span class="dt">East</span> <span class="kw">deriving</span> <span class="dt">Eq</span></span></code></pre></div>
+<p>Komilator wygeneruje domyślną implementację dla operacji z podanej
+klasy Może być użyta dla klas Eq, Ord, Show, Read, Enum</p>
+<h2 id="programy-interaktywne-moduły-leniwe-wartościowanie">Programy
+interaktywne, moduły, leniwe wartościowanie</h2>
+<h2 id="funkcja-czysta">Funkcja czysta</h2>
+<p>Przyjmuje wszystkie dane wejściowe explicite jako argumenty i zwraca
+wszystkie dane wyjściowe explicite jako wynik.</p>
+<p>Pozyskanie / zwrócenie przez funkcję innych danych wejściowych /
+wyjściowych jest jej efektem ubocznym (side effect) (Wyświetlenie
+wiadomości na ekranie, zapis do pliku, wysłanie zapytania po sieci)</p>
+<ul>
+<li>Łatwo ją analizować, to samo wejście zawsze da to samo wyjście</li>
+<li>Nie ma znaczenia w jakiej kolejności będą wykonywane czyste funkcje
+(dopóki wynik jednej nie jest wejściem drugiej)
+<ul>
+<li>Mogą być obliczane równolegle</li>
+<li>Obliczanie może być odroczone w czasie</li>
+</ul></li>
+</ul>
+<h2 id="jak-myśleć-o-programie-interaktywnym-jako-o-funkcji-czystej">Jak
+myśleć o programie interaktywnym jako o funkcji czystej</h2>
+<p>Program jest funkcją, który przyjmuje stan świata (pliki, czas, itd)
+i zwraca kolejny, zmieniony stan świata</p>
+<p>Akcja to wyrażenie typu <code>IO</code></p>
+<p>Złożoną akcję można utworzyć przy użyciu notacji <code>do</code></p>
+<p><code>IO</code> jest typem monadycznym</p>
+<h2 id="strategie-wartościowania">Strategie wartościowania</h2>
+<p>Każdy ciąg rozwinięć wyrażenia funkcji da ostatecznie taki sam wynik
+(o ile się skończą)</p>
+<ul>
+<li>innermost reduction - od najbardziej wewnętrznego wyrażenia</li>
+<li>outermost reduction</li>
+</ul>
+<p>Jeśli dla danego wyrażenia istnieje kończąca się sekwenja redukcji to
+outermost redction również się kończy z tym samym wynikiem Chociaż
+outermost reduciton może prowadzić do większej liczby operacji</p>
+<h3 id="leniwe-wartościowanie">Leniwe wartościowanie</h3>
+<ul>
+<li>outermost reduction + współdzielenie wyników wartościowania
+argumentów</li>
+<li>Nigdy nie wymaga więcej kroków niż innermost reduction</li>
+<li>Domyślnie stosowane przez Haskella</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-06-2023-11-07">Wykład 06 (2023-11-07)</a>
+<ul>
+<li><a href="#deklarowanie-przynależności-typu-do-klasy-typów">Deklarowanie
+przynależności typu do klasy typów</a></li>
+<li><a href="#klauzula-deriving">Klauzula <code>deriving</code></a></li>
+<li><a href="#programy-interaktywne-moduły-leniwe-wartościowanie">Programy
+interaktywne, moduły, leniwe wartościowanie</a></li>
+<li><a href="#funkcja-czysta">Funkcja czysta</a></li>
+<li><a href="#jak-myśleć-o-programie-interaktywnym-jako-o-funkcji-czystej">Jak
+myśleć o programie interaktywnym jako o funkcji czystej</a></li>
+<li><a href="#strategie-wartościowania">Strategie wartościowania</a>
+<ul>
+<li><a href="#leniwe-wartościowanie">Leniwe wartościowanie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

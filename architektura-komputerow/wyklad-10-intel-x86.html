@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-10-intel-x86</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-09-konsolidacja.html">Poprzedni: wyklad-09-konsolidacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-11-intel-x86.html">Następny: wyklad-11-intel-x86.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="x86-2023-03-27">x86 (2023-03-27)</h1>
+<h2 id="jednostka-zmiennopozycyjna-x87">Jednostka zmiennopozycyjna
+x87</h2>
+<ul>
+<li>8 rejestrów 80-bitowych tworzących stos</li>
+<li>st0 - aktualny wierzchołek stosu</li>
+<li>ładowanie i składowanie przesuwa wierzchołek stosu</li>
+<li>st0 jest zawsze akumulatorem</li>
+</ul>
+<h2 id="wspieranie-formaty">Wspieranie formaty</h2>
+<ul>
+<li>IEEE754 binary32 (float)</li>
+<li>IEEE754 binary64 (double)</li>
+<li>Binary80 (specyficzny dla x87)</li>
+<li>Całkowitoliczbowy BCD</li>
+<li>Wszystkie dane są wewnętrznie przetwarzane jako Binary80, formaty
+służą do wymiany z pamięcią</li>
+</ul>
+<h2 id="jednostka-wektorowa-mmx3dnow">Jednostka wektorowa MMX/3DNow</h2>
+<p>(stara)</p>
+<ul>
+<li>na wektorowych danych stałopozycyjnych</li>
+<li>8 64-bitowych rejestrów MM0, MM1, … MM7</li>
+<li>nałożone w modelu programowym na rejestry x87 - nie można używać obu
+na raz</li>
+<li>są specjalne instrukcje do zainicjowania logiki stosu</li>
+</ul>
+<h2 id="architektura-x86-64">Architektura x86-64</h2>
+<ul>
+<li>zgodna z x86</li>
+<li>Rejestry stałopozycyjne rozszerzone do 64 bitów</li>
+<li>8 dodatkowych rejestrów R8..15 - jakościowa zmiana względem x86,
+lepsze wykorzystanie przez kompilatory</li>
+<li>Każdego rejestru można używać w trybie 64, 32, 16 i 8 bitowym</li>
+<li>operacje na danych 32-bitowych powodują zerowanie górnej połowy
+rejestru</li>
+<li>rozbudowana jednostka wektorowa SSE/AVX
+<ul>
+<li>XMM0..15 / YMM0..15</li>
+</ul></li>
+<li>W trybie 64-bitowym usunięto niektóre nieużywane instrukcje</li>
+</ul>
+<h3 id="tryby-adresowania">Tryby adresowania</h3>
+<ul>
+<li>8 lub 32-bitowe przemieszczenie</li>
+<li>zastąpienie trybu absolutnego trybem z bazą w PC - wymusza
+umieszczenie sekcji danych statycznych blisko sekcji kodu</li>
+</ul>
+<h3 id="jednostka-wektorowa-sse">Jednostka wektorowa SSE</h3>
+<p>128-bitowe rejestry danych wektorowych</p>
+<h4 id="obsługiwane-formaty">Obsługiwane formaty</h4>
+<ul>
+<li>Zmiennopozycyjne
+<ul>
+<li>2 * double</li>
+<li>4 * float</li>
+<li>8 * 16b</li>
+</ul></li>
+</ul>
+<h3 id="jednostka-wektorowa-avx">Jednostka wektorowa AVX</h3>
+<ul>
+<li>256-bitowe rejestry</li>
+<li>wspiera wszystkie instrukcje SSE</li>
+<li>nowe, 3-argumentowe instrukcje</li>
+</ul>
+<h3 id="jednostka-wektorowa-avx-512">Jednostka wektorowa AVX-512</h3>
+<ul>
+<li>512-bitowe rejestry</li>
+<li>wycofana</li>
+<li>rejestr predykatów</li>
+<li>rejestry ZMM0..31</li>
+</ul>
+<h2 id="format-instrukcji">Format instrukcji</h2>
+<p>Od 1 do 15 bajtów</p>
+<ul>
+<li>prefiksy (opcjonalnie) 0B..4B</li>
+<li>kod operacji 1B..3B</li>
+<li>ModRM - bajt specyfikacji argumentów 0B..1B</li>
+<li>SIB - rejestr bazowy, docelowy i skala 0B..1B</li>
+<li>przemieszczenie 0B..4B</li>
+<li>stała natychmiastowa 0B..4B</li>
+</ul>
+<p>Procesor nie interpretuje instrukcji dłuższych niż 15 bajtów</p>
+<h2 id="długość-argumentów-stałopozycyjnych">Długość argumentów
+stałopozycyjnych</h2>
+<ul>
+<li>Asembler x86 określa długość argumentów na podstawie użytej nazwy
+rejestru
+<ul>
+<li>trzeba podać jawnie w instrukcjach pamięć-stała</li>
+</ul></li>
+<li>Jeden bit kodu operacyjnego określa długość (np. 32 albo 8 bitów,
+zależnie od trybu), dodatkowo są wykorzystywane prefiksy do innych
+ustawień</li>
+</ul>
+<h2 id="podstawowe-instrukcje">Podstawowe instrukcje</h2>
+<h3 id="przesyłanie">Przesyłanie</h3>
+<ul>
+<li>mov - kopiowanie</li>
+<li>xchg - zamiana miejscami</li>
+<li>movsx - kopiowanie z rozszerzeniem bitu znaku</li>
+<li>movzx - kopwiowanie z rozszerzeniem zerami</li>
+<li>push, pop - operacje na stosie</li>
+<li>bswap - zamiana klejności bajtów w rejestrze (np konwersja z
+big-endian)</li>
+</ul>
+<h3 id="arytmetyka">Arytmetyka</h3>
+<ul>
+<li>inc, dec - modyfikują znaczniki zera i znaku</li>
+<li>not - negacja bitów, bez ustawiania znaczników</li>
+<li>neg - zmiana znaku</li>
+<li>add, adc - zwykłe i z przeniesieniem wchodzącym (ze znacnzika)</li>
+<li>sub, sbb - zwykłe i z pożyczką wchodzącą (znacznik
+przeniesienia)</li>
+<li>cmp - porównanie (ustawienie znacznika)</li>
+<li>and, or, xor</li>
+<li>test - test logiczny z ustawieniem znaczników</li>
+</ul>
+<h3 id="przesunięcia-i-rotacje">Przesunięcia i rotacje</h3>
+<p>O stałą albo zmienną w rejestrze CL</p>
+<ul>
+<li>shl, shr - przesunięcie z dopełnieniem zerami</li>
+<li>sar - arytmetyczne w prawo</li>
+<li>rol, ror - rotacja</li>
+<li>rcl, rcr - rotacja przez znacznik przeniesienia</li>
+<li>shld, shrd - ?</li>
+</ul>
+<h3 id="instrukcja-lea">Instrukcja LEA</h3>
+<ul>
+<li>Load Effective Address</li>
+<li>ładuje adres do rejestru, mie przesyła danych</li>
+<li>służy do obliczenia adresu bazowego struktury (albo tablicy
+struktur) i następnie prosto adresować atrybuty</li>
+<li>może być użyta do 2, 3 lub 4-argumentowego dodawania / mnożenia /
+przesuwania</li>
+<li>ładuje jakąś liczbę, która może być wyrażeniem adresowym</li>
+<li>np. <code>a  *= 3</code> - <code>LEA EAX, [EAX + EAX*2]</code></li>
+<li>nie ustawia znaczników</li>
+</ul>
+<h3 id="operacje-bitowe">Operacje bitowe</h3>
+<ul>
+<li>bt, btc, btr, bts - test wartości bitu (z zerowaniem, negacją,
+ustawieniem)</li>
+<li>bsf/bsr - szukanie bitu o wartości 1</li>
+<li>popcnt - zliczanie jedynek w słowie</li>
+<li>lzcnt - zliczanie zer wiodących</li>
+</ul>
+<h3 id="mnożenie-i-dzielenie">Mnożenie i dzielenie</h3>
+<p>Dziwne</p>
+<p>3 sposoby zapisu mnożenia * jednoargumentowe * komplementarne do
+dzielenia * wynik 2* dłuższy od argumentów * dwuargumentowe * normalne,
+wynik w argumencie docelowym, nie może być stałej * wynik o długości
+argumentów * trójargumentowe * rejestr docelowy, zmienna w rejestrze /
+pamięci, stała natychmiastowa * potrzebne do indeksowania tablic * wynik
+o długości argumentów</p>
+<p>2 instrukcje * MUL - bez znaku, tylko jednoargumentowe * IMUL - ze
+znakiem (1, 2 i 3-argumentowe)</p>
+<p>Dzielenie i mnożenie jednoargumentowe * jawny argument - mnożnik /
+dzielnik * domyślne argumenty - mnożna, dzielna - różne rejestry
+(tabelka) * trzeba uważać na zamazywanie rejestrów * sensowne tylko
+wtedy kiedy potrzeba wyniku o pełnej długości * dzielenie generuje
+jednocześnie iloraz i resztę * dzielna jest zawsze 2 razy dłuższa od
+dzielnika * dzielna w parze rejestrów, iloraz w jeddnym, reszta w drugim
+* żeby podzielić 32-bity przez 32-bity, zawsze trzeba rozszerzyć dzielną
+(wyzerowanie albo przekopiowanie znaku dla liczb ze znakiem) *
+instrukcje cbw, cwd, cdq, cqdq - kopiowanie znaku przed dzieleniem *
+jeśli nie ustawi się górnej połówki to najczęściej wyleci błąd - (w
+Unixach błąd zmiennopozycyjny?!?!)</p>
+<h3 id="operacje-na-znacznikach">Operacje na znacznikach</h3>
+<ul>
+<li>clc, stc, cmc - zerowanie, ustawienie, negacja znacznika
+przeniesienia</li>
+<li>lahf, sahf - kopiowanie między najmniej znaczącym bajtem EFLAGS i
+rejestrem AH
+<ul>
+<li>dla zachowania kompatybilności z 8-bitowym 8080</li>
+<li>dla instrukcji warunkowych zależnych od danych
+zmiennopozycyjnych</li>
+</ul></li>
+</ul>
+<h3 id="skoki">Skoki</h3>
+<p>Ze stałym adresem docelowym - jmp, call, jcc, jecxz, loop -
+dekrementacja ecx i skok jeśli nie 0</p>
+<p>Powroty z procedur * ret - zwykł powrót * ret n - ze zdjęciem
+argumentów (wymagane przez konwencję wołania Pascala)</p>
+<p>Ze zmiennym adresem docelowym * jmp eax * jmp [code_pointer] * jmp
+[table+ecx*4]</p>
+<h3 id="inne-instrukcje-warunkowe">Inne instrukcje warunkowe</h3>
+<ul>
+<li>CMOVcc - przesłanie warunkowe</li>
+<li>SETcc - zamiana warunku na wartość boolowską</li>
+</ul>
+<h3
+id="instrukcje-wspierające-implementacje-języków-wysokiego-poziomu">Instrukcje
+wspierające implementacje języków wysokiego poziomu</h3>
+<ul>
+<li>ret n - powrót z przesunięciem wskaźnika stosu o n bajtów po zdjęciu
+śladu</li>
+<li>enter n, 0 - prolog procedury</li>
+<li>leave - epilog procedury (bez powrotu)</li>
+<li>bound - sprawdzenie zakresu zmiennej (weryfikacja zakresu
+tablicy)</li>
+</ul>
+<h3 id="dziwne-ale-przydatne">Dziwne ale przydatne</h3>
+<ul>
+<li>Skoki warunkowe korzystające z rejestru licznika iteracji
+<ul>
+<li>cx, ecx, rcx</li>
+</ul></li>
+<li>nie ustawiają znaczników</li>
+<li>dekrementacja i skok jeśli != 0, albo ustawiony/nieustawiony
+znacznik
+<ul>
+<li>loop, loopz, loope, loopnz, loopne</li>
+</ul></li>
+<li>skocz jeśli licznik pętli == 0
+<ul>
+<li>jcxz, jecxz, jrcxz</li>
+</ul></li>
+</ul>
+<h3 id="instrukcje-iteracyjne">Instrukcje iteracyjne</h3>
+<ul>
+<li>korzystają z predefiniowanych rejestrów
+<ul>
+<li>rejestr danej (eax)</li>
+<li>licznik iteracji (ecx)</li>
+<li>wskaźnik źródła (esi)</li>
+<li>wskaźnik przeznaczenia (edi)</li>
+</ul></li>
+<li>dwa warianty
+<ul>
+<li>pojedynczy - operacja na danej i modyfikacja wskaźnika</li>
+<li>iterowany - instrukcja powtarzana określoną liczbę iteracji</li>
+<li>lods, stos, mods - instrukcja pamięć-pamięć, scas, cmps</li>
+<li>trzeba dopisać literę odpowiadają wielkości danych</li>
+<li>dekrementuje albo inkrementuje na podstawie bitu DF rejestru
+stanu</li>
+<li>konwencja wołania wymaga, żeby między przekazaniem sterowania, DF
+był ustawiony na 0</li>
+</ul></li>
+<li>tylko niektóre instrukcje jest sens zapętlać (jak pętla while może
+się nie wykonać i po wykonaniu wskaźnik jest przesunięty)
+<ul>
+<li>rep stos - wypełnianie wektora wzorcem</li>
+<li>rep movs - kopiowanie wektora</li>
+<li>repe scas - szukanie elementu różnego</li>
+<li>repne scas - szukanie wzorca</li>
+<li>repe cmps - szukanie różnicy</li>
+<li>repne cmps - szukanie elementów zgodnych</li>
+</ul></li>
+<li>do ecx ładuje się maksymalną długość wektora</li>
+</ul>
+<h3 id="instrukcja-cpuid">Instrukcja CPUID</h3>
+<ul>
+<li>informacje o własnościach procesora</li>
+<li>parametry fizyczne</li>
+<li>dostępne jednostki</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#x86-2023-03-27">x86 (2023-03-27)</a>
+<ul>
+<li><a href="#jednostka-zmiennopozycyjna-x87">Jednostka zmiennopozycyjna
+x87</a></li>
+<li><a href="#wspieranie-formaty">Wspieranie formaty</a></li>
+<li><a href="#jednostka-wektorowa-mmx3dnow">Jednostka wektorowa
+MMX/3DNow</a></li>
+<li><a href="#architektura-x86-64">Architektura x86-64</a>
+<ul>
+<li><a href="#tryby-adresowania">Tryby adresowania</a></li>
+<li><a href="#jednostka-wektorowa-sse">Jednostka wektorowa SSE</a></li>
+<li><a href="#jednostka-wektorowa-avx">Jednostka wektorowa AVX</a></li>
+<li><a href="#jednostka-wektorowa-avx-512">Jednostka wektorowa
+AVX-512</a></li>
+</ul></li>
+<li><a href="#format-instrukcji">Format instrukcji</a></li>
+<li><a href="#długość-argumentów-stałopozycyjnych">Długość argumentów
+stałopozycyjnych</a></li>
+<li><a href="#podstawowe-instrukcje">Podstawowe instrukcje</a>
+<ul>
+<li><a href="#przesyłanie">Przesyłanie</a></li>
+<li><a href="#arytmetyka">Arytmetyka</a></li>
+<li><a href="#przesunięcia-i-rotacje">Przesunięcia i rotacje</a></li>
+<li><a href="#instrukcja-lea">Instrukcja LEA</a></li>
+<li><a href="#operacje-bitowe">Operacje bitowe</a></li>
+<li><a href="#mnożenie-i-dzielenie">Mnożenie i dzielenie</a></li>
+<li><a href="#operacje-na-znacznikach">Operacje na znacznikach</a></li>
+<li><a href="#skoki">Skoki</a></li>
+<li><a href="#inne-instrukcje-warunkowe">Inne instrukcje
+warunkowe</a></li>
+<li><a href="#instrukcje-wspierające-implementacje-języków-wysokiego-poziomu">Instrukcje
+wspierające implementacje języków wysokiego poziomu</a></li>
+<li><a href="#dziwne-ale-przydatne">Dziwne ale przydatne</a></li>
+<li><a href="#instrukcje-iteracyjne">Instrukcje iteracyjne</a></li>
+<li><a href="#instrukcja-cpuid">Instrukcja CPUID</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

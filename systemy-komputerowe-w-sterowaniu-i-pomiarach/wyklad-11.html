@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10.html">Poprzedni: wyklad-10.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="sieci-przemysłowe-2024-05-20">Sieci przemysłowe
+(2024-05-20)</h1>
+<h2 id="sieć-urządzeń">Sieć urządzeń</h2>
+<h3 id="węzły">Węzły</h3>
+<ul>
+<li>Rozproszone IO</li>
+<li>Inteligentne czujniki</li>
+<li>…</li>
+</ul>
+<p>…</p>
+<h2 id="sieć-sterująca">Sieć sterująca</h2>
+<h3 id="węzły-1">Węzły</h3>
+<ul>
+<li>Sterowniki lokalne i PLC</li>
+<li>Sterownik nadrzędny</li>
+</ul>
+<h3 id="warunki-pracy">Warunki pracy</h3>
+<ul>
+<li>Krótkie komunikaty (rzędu 10B)</li>
+<li>…</li>
+</ul>
+<h2 id="protokoły-dostępu-do-kabla">Protokoły dostępu do kabla</h2>
+<h3 id="ethernet">Ethernet</h3>
+<ul>
+<li>Algorytm CSMA/CD</li>
+<li>Obserwacja stanu -&gt; nadawanie gdy wolny</li>
+<li>Przerwanie nadawania jeśli kolizja</li>
+<li>Ponowne nadanie po odczekaniu losowego czasu</li>
+<li>Nie nadaje się do systemu czasu rzeczywistego</li>
+<li>Niedeterministyczny czas przekazu</li>
+<li>Długosć komunikatu ograniczona od dołu</li>
+<li>Bardzo duża szybkość transmisji</li>
+</ul>
+<h3 id="odpytywanie">Odpytywanie</h3>
+<ul>
+<li>Węzeł master odpytuje węzły slave</li>
+<li>Węzły slave odpowiadają na zapytania</li>
+<li>Węzły slave sa identyfikowane unikalnym numerem</li>
+<li>Tylko węzeł master może inicjować komunikację</li>
+<li>Istotny jest czas odpowiedzi węzła slave
+<ul>
+<li>wolny węzeł spowolni całą sieć</li>
+<li>slave ma bufory odczytu i zapisu</li>
+<li>odpowiada danymi z bufora</li>
+</ul></li>
+<li>Czas przekazu określa master</li>
+<li>Awaria węzła master zatrzymuje całą sieć</li>
+<li>Brak kolizji - możliwe krótkie komunikaty</li>
+<li>Stosowany np. w I2C</li>
+</ul>
+<h3 id="przekazywanie-znacznika">Przekazywanie znacznika</h3>
+<ul>
+<li>Równoważne węzły</li>
+<li>Tylko węzeł posiadający znacznik może nadawać</li>
+<li>Znacznik może być przesyłany innym kanałem niż główna
+magistrala</li>
+<li>Deterministyczny czas przekazu</li>
+<li>Problem w sytuacjach nietypowych
+<ul>
+<li>dołączenie nowego węzła</li>
+<li>rozmnożenie znacznika</li>
+<li>utrata znacznika</li>
+</ul></li>
+</ul>
+<h2 id="i2c">I2C</h2>
+<ul>
+<li>Do łączenia niezbyt szybkich urządzeń</li>
+<li>Linia zegarowa SCL</li>
+<li>Linia danych SDA</li>
+<li>Maksymalnie kilka metrów</li>
+<li>Podłączenie do linii przez otwarty kolektor</li>
+<li>Start i stop - SDA zmienia stan przy wysokim stanie zegara
+<ul>
+<li>pozostałe zmiany przy stanie niskim zegara</li>
+</ul></li>
+<li>ACK od urządzenia slave</li>
+<li>Prez otwarty kolektor
+<ul>
+<li>jeśli w jednym momencie nadaje wielu masterów</li>
+<li>priorytet ma zawsze stan niski</li>
+<li>master porównuje stan magistrali z nadawanymi danymi</li>
+</ul></li>
+<li>Będzie na lab 5 i 6</li>
+<li>Priorytet ma slave o niższym adresie (wspólny kolektor)</li>
+</ul>
+<h3 id="obsługa-w-linuxie">Obsługa w Linuxie</h3>
+<ul>
+<li>Wysokopoziomowy driver</li>
+<li><code>int i2c_master_send(...)</code></li>
+<li><code>int i2c_master_recv(...)</code></li>
+<li><code>int i2c_transfer(...)</code></li>
+</ul>
+<h2 id="can-bus">CAN bus</h2>
+<ul>
+<li>Rozgłaszanie</li>
+<li>Bez adresowania węzłów</li>
+<li>Odpytywanie danych po id danej</li>
+<li>Arbitraż kolizji
+<ul>
+<li>otwarty kolektor - dominuje stan niski</li>
+</ul></li>
+<li>Suma kontrolna</li>
+</ul>
+<h2 id="profibus">Profibus</h2>
+<ul>
+<li>Definiuje warstwę fizyczną i aplikacyjną</li>
+<li>Klient - master</li>
+<li>Serwer - master lub slave</li>
+<li>Słownik obiektów</li>
+</ul>
+<h2 id="ethernet-przemysłowy">Ethernet przemysłowy</h2>
+<ol type="1">
+<li>Warstwa fizyczna - standard Ethernet</li>
+<li>Warstwa liniowa
+<ol type="1">
+<li>MAC - zmodyfikowana</li>
+<li>LLC - standard Ethernet</li>
+</ol></li>
+<li>Warstwa sieciowa - IP lub brak</li>
+<li>Warstwa transportowa - UDP lub TCP lub własny lub brak</li>
+<li>Warstwa sesji - brak</li>
+<li>Warstwa prezentacji - brak</li>
+<li>Warstwa aplikacyjna - jedna z tradycyjnych</li>
+</ol>
+<ul>
+<li>Standardowe narzędzia</li>
+<li>Łatwość integracji</li>
+<li>Szybkość</li>
+</ul>
+<h3 id="protokoły">Protokoły</h3>
+<ul>
+<li>EtherCAT - popularny w przemyśle</li>
+<li>Powerlink</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sieci-przemysłowe-2024-05-20">Sieci przemysłowe
+(2024-05-20)</a>
+<ul>
+<li><a href="#sieć-urządzeń">Sieć urządzeń</a>
+<ul>
+<li><a href="#węzły">Węzły</a></li>
+</ul></li>
+<li><a href="#sieć-sterująca">Sieć sterująca</a>
+<ul>
+<li><a href="#węzły-1">Węzły</a></li>
+<li><a href="#warunki-pracy">Warunki pracy</a></li>
+</ul></li>
+<li><a href="#protokoły-dostępu-do-kabla">Protokoły dostępu do kabla</a>
+<ul>
+<li><a href="#ethernet">Ethernet</a></li>
+<li><a href="#odpytywanie">Odpytywanie</a></li>
+<li><a href="#przekazywanie-znacznika">Przekazywanie znacznika</a></li>
+</ul></li>
+<li><a href="#i2c">I2C</a>
+<ul>
+<li><a href="#obsługa-w-linuxie">Obsługa w Linuxie</a></li>
+</ul></li>
+<li><a href="#can-bus">CAN bus</a></li>
+<li><a href="#profibus">Profibus</a></li>
+<li><a href="#ethernet-przemysłowy">Ethernet przemysłowy</a>
+<ul>
+<li><a href="#protokoły">Protokoły</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

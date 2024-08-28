@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-architektura-komputera</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-podstawy.html">Poprzedni: 01-podstawy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-arytmetyka-u2.pdf">Następny: 03-arytmetyka-u2.pdf</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy informatyki i programowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-podstawy.html">01-podstawy.html</a></li>
+                
+                <li><a href="02-architektura-komputera.html">02-architektura-komputera.html</a></li>
+                
+                <li><a href="03-arytmetyka-u2.pdf">03-arytmetyka-u2.pdf</a></li>
+                
+                <li><a href="03-liczby-calkowite.html">03-liczby-calkowite.html</a></li>
+                
+                <li><a href="04-liczby-rzeczywiste.html">04-liczby-rzeczywiste.html</a></li>
+                
+                <li><a href="05-znaki-i-napisy.html">05-znaki-i-napisy.html</a></li>
+                
+                <li><a href="06-algorytmy.html">06-algorytmy.html</a></li>
+                
+                <li><a href="07-przeplyw-sterowania.html">07-przeplyw-sterowania.html</a></li>
+                
+                <li><a href="08-funkcje-stos-pamiec-w-procesie.html">08-funkcje-stos-pamiec-w-procesie.html</a></li>
+                
+                <li><a href="09-wstep-do-inzynierii-oprogramowania.html">09-wstep-do-inzynierii-oprogramowania.html</a></li>
+                
+                <li><a href="10-zlozonosc-obliczeniowa.html">10-zlozonosc-obliczeniowa.html</a></li>
+                
+                <li><a href="11-lingwistyka-matematyczna.html">11-lingwistyka-matematyczna.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="architektura-komputera">Architektura komputera</h1>
+<h2 id="tranzystor">Tranzystor</h2>
+<p>możliwe 4 stany * aktywny - wzmocnienie prądu bazy * nasycenia -
+logiczne 1 * zatkania - logiczne 0 * inwersyjny</p>
+<p>Dla układów logicznych interesujące są stany nasycenia i zatkania (1
+i 0)</p>
+<p>Otwarty kolektor - przy wielu urządzeniach podpiętych do jednej linii
+umożliwia przerwanie i zapewnia ekskluzywny dostęp oparty o priorytet,
+szyna I2C.</p>
+<p>Kiedy wiele urządzeń jest podłączonych kolektorem tranzystora do
+szyny to jeśli dowolny z nich przejdzie w stan nasycenia (1), wtedy na
+szynie wymusza stan niski, nawet jeśli pozostałe urządzenia są w stanie
+zatkania (0).</p>
+<p>Tryb nasycenia pozwala na wymuszenie stanu niskiego na liniach
+sygnałowych</p>
+<h2 id="claude-shanon">Claude Shanon</h2>
+<p>Powiązał algebrę Boole’a z układami elektrycznymi. Minimalizację
+wyrażenia logicznego można wykorzystać do optymalizacji układu, układy
+mogą rozwiązywać problemy logiczne itd. Algebra Boole’a i system binarny
+rządzą się tymi samymi zasadami.</p>
+<h2 id="system-binarny-i-arytmetyka">System binarny i arytmetyka</h2>
+<p>Dodawanie dwóch liczb binarnych można wyrazić tabelą prawdy (a, b,
+suma, przeniesienie)</p>
+<h2 id="przerzutniki">Przerzutniki</h2>
+<p>Przerzutniki umożliwiają zapamiętywanie sygnału - asynchronicznie.
+Można dodać sygnał zegara - flip-flop typu D, zapamiętany jest sygnał z
+chwili zatrzaśnięcia.</p>
+<p>Zegar nie musi być sygnałem o stałym okresie ale np. reagować na
+zdarzenia.</p>
+<h2 id="słowo">Słowo</h2>
+<p>Dwa znaczenia w kontekście architektury komputerów * natywna wielkość
+jednostki danych używanej przez CPU (liczba bitów) * ze względów
+historycznych, przyjmuje się określenia * word - 16b * dword - 32b *
+qword - 64b</p>
+<h2 id="rejestr">Rejestr</h2>
+<ul>
+<li>Adresowalny zestaw bitów - bajt (najczęściej 8 bitów ale
+niekoniecznie!)</li>
+<li>Zapamiętuje zestaw wartości binarnych</li>
+<li>Ma ograniczoną pojemność - może nastąpić przepełnienie</li>
+<li>Wspiera natywnie słowa o określonej długości</li>
+<li>Są naturalne ograniczenia na maksymalną wartość</li>
+</ul>
+<h3 id="z-dostępem-równoległym">Z dostępem równoległym</h3>
+<ul>
+<li>Umożliwia jednoczesny dostęp do wszystkich bitów przechowywanych w
+rejestrze jednocześnie</li>
+<li>Wymaga tylu linii do przesyłu danych ile bitów przechowuje</li>
+<li>Umożliwia zapis nowej wartości całego rejestru w jednym takcie
+zegara</li>
+<li>synchroniczny</li>
+</ul>
+<h3 id="rejestr-przesuwny-dostęp-szeregowy">Rejestr przesuwny (dostęp
+szeregowy)</h3>
+<ul>
+<li>Odczyt/zapis pojedynczego bitu w jednym takcie zegara</li>
+<li>potrzebuje tylko jednej linii do przesyłu danych</li>
+<li>Synchroniczny</li>
+</ul>
+<p>Mając wiele rejestrów, linie wyjściowe łączą się w szynę danych
+(magistralę), którą można odczytywać po adresie.</p>
+<p>Na szynie mogą powstać konflikty jeśli dwa rejestry wystawiają na
+danej linii różne wartości. (open collector)</p>
+<p>Szyna sterująca służy do wysyłania rejestrom poleceń
+wystawienia/zapamiętania zawartości</p>
+<h3 id="polecenia">Polecenia</h3>
+<ul>
+<li>READ - rejestr podaje swoją wartość na szynę danych</li>
+<li>WRITE - rejestr zatrzaskuje z szyny danych nową wartość</li>
+<li>CLEAR - wyzerowanie zawartości rejestru</li>
+</ul>
+<h2 id="alu-arithmetic-logic-unit">ALU Arithmetic Logic Unit</h2>
+<p><img
+src="https://upload.wikimedia.org/wikipedia/commons/0/0f/ALU_block.gif"
+alt="ALU" /> Wymyślony przez von Neumanna w 1945</p>
+<p>Układ kombinacyjny wykonujący podstawowe operacje logiczne i
+arytmetyczne, złożony z rejestrów, szyn itd.</p>
+<p>Na wejściu: A, B, kod operacji</p>
+<p>Na wyjściu: wynik operacji, sygnał stanu (np. przepełnienie)</p>
+<h3 id="flagi">Flagi</h3>
+<ul>
+<li>N - negative</li>
+<li>O - overflow</li>
+<li>Z - zero</li>
+<li>C - carry</li>
+</ul>
+<h2 id="prymitywny-procesor">Prymitywny procesor</h2>
+<ul>
+<li>Rejestry</li>
+<li>ALU</li>
+<li>Szyna danych</li>
+<li>Jednostka sterująca</li>
+</ul>
+<h2 id="paradygmaty-programowania">Paradygmaty programowania</h2>
+<ul>
+<li>strukturalne</li>
+<li>obiektowe</li>
+</ul>
+<p>oddalamy się od niskiego poziomu assemblera</p>
+<h2 id="assembler">Assembler</h2>
+<p>dodawanie dwóch liczb</p>
+<pre><code>mov R0, A
+add R1
+mov A, R2</code></pre>
+<p>Operacje i adresy rejestrów są odpowiednio kodowane i dekodowane
+przez jednostke sterującą.</p>
+<p>Nie wszystkie operacje wymagają 2 argumentów.</p>
+<table>
+<thead>
+<tr class="header">
+<th>instrukcja</th>
+<th>kod operacji</th>
+<th>kod źródła</th>
+<th>kod celu</th>
+<th>kod instrukcji</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mov R0, A</td>
+<td>00</td>
+<td>00</td>
+<td>11</td>
+<td>000011</td>
+</tr>
+<tr class="even">
+<td>add R1</td>
+<td>01</td>
+<td>01</td>
+<td></td>
+<td>0101</td>
+</tr>
+<tr class="odd">
+<td>mov A, R2</td>
+<td>00</td>
+<td>11</td>
+<td>10</td>
+<td>001110</td>
+</tr>
+</tbody>
+</table>
+<p>Instrukcje nie muszą być jednakowej długości, zależy od
+architektury</p>
+<h2 id="tryby-adresowania">Tryby adresowania</h2>
+<p>Dana przechowywana w pamięci może być adresem jakeiejś innej
+danej.</p>
+<ul>
+<li>adresowanie bezwględne -&gt; czytaj/zapisz pod adresem
+0xXXXXXXXX</li>
+<li>adresowanie względne -&gt; czytaj/zapisz pod adresem 0xXXXXXXXX +
+offset
+<ul>
+<li>adres bazowy i przesunięcie</li>
+</ul></li>
+</ul>
+<h2 id="program-dodający-dwie-liczby">Program dodający dwie liczby</h2>
+<pre><code>move [0x20], R0
+move R0, A
+move [0x22], R1
+add R1
+move A, R2
+move R2, [0x24]</code></pre>
+<ol type="1">
+<li>Wczytaj liczbę pod adresem 0x20 do rejestru R0</li>
+<li>Przenieś zawartość rejestru R0 do akumulatora</li>
+<li>Wczytaj liczbę pod adresem 0x22 do rejestru R1</li>
+<li>Dodaj do akumulatora zawartość rejestru R1</li>
+<li>Przenieś zawartość akumulatora do rejeestru R2</li>
+<li>Zapisz zawartość rejestru R2 pod adresem 0x24 w pamięci</li>
+</ol>
+<h2 id="kodowanie-instrukcji-maszynowych">Kodowanie instrukcji
+maszynowych</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Cel / Źródło</th>
+<th>Kod</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R0</td>
+<td>0000</td>
+</tr>
+<tr class="even">
+<td>R1</td>
+<td>0001</td>
+</tr>
+<tr class="odd">
+<td>R2</td>
+<td>0010</td>
+</tr>
+<tr class="even">
+<td>Akumulator (A)</td>
+<td>0011</td>
+</tr>
+<tr class="odd">
+<td>Ram</td>
+<td>0100</td>
+</tr>
+<tr class="even">
+<td>immediate</td>
+<td>1111</td>
+</tr>
+</tbody>
+</table>
+<p>Immediate - sięgnięcie do zawartości komórki pamięci o podanym
+adresie. Druga połowa bajtu kodu źródła</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Instrukcja</th>
+<th>Kod operacji</th>
+<th>Kod źródła</th>
+<th>Adres</th>
+<th>Kod celu</th>
+<th>Adres</th>
+<th>Kod instrukcji</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mov [0x20], R0</td>
+<td>0x00</td>
+<td>0x4F</td>
+<td>0x20</td>
+<td>0x00</td>
+<td></td>
+<td>0x 00 4F 20 00</td>
+</tr>
+<tr class="even">
+<td>mov R0, A</td>
+<td>0x00</td>
+<td>0x00</td>
+<td></td>
+<td>0x30</td>
+<td></td>
+<td>0x 00 00 30</td>
+</tr>
+<tr class="odd">
+<td>mov [0x22], R1</td>
+<td>0x00</td>
+<td>0x4F</td>
+<td>0x22</td>
+<td>0x10</td>
+<td></td>
+<td>0x 00 4F 22 10</td>
+</tr>
+<tr class="even">
+<td>add R1</td>
+<td>0x01</td>
+<td>0x10</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0x 01 10</td>
+</tr>
+<tr class="odd">
+<td>mov A, R2</td>
+<td>0x00</td>
+<td>0x30</td>
+<td></td>
+<td>0x20</td>
+<td></td>
+<td>0x 00 30 20</td>
+</tr>
+<tr class="even">
+<td>mov R2, [0x24]</td>
+<td>0x00</td>
+<td>0x20</td>
+<td></td>
+<td>0x4F</td>
+<td>0x24</td>
+<td>0x 00 20 4F 24</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pamięc-operacyjna">Pamięc operacyjna</h2>
+<p>Zbiór rejestrów, każdy z unikalnym numerem (adresem), połączonych
+szynami * szyna adresowa - który rejestr wybrać * szyna sterująca - jaką
+operację wykonać (READ/WRITE/CLEAR) * szyna danych - przesyłanie
+zawartości z/do rejestru</p>
+<p>Pamięć nie musi składać się z rejestrów - może być cokolwiek
+ułożonego w tabelę, zdolne do zapamiętywania bitów.</p>
+<h2 id="dram">DRAM</h2>
+<p>Dynamic Random Access Memory</p>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/8/80/Square_array_of_mosfet_cells_write.png"
+alt="DRAM" />
+<figcaption aria-hidden="true">DRAM</figcaption>
+</figure>
+<ul>
+<li><p>Jedna komórka składa się z tranzystora i kondensatora, który
+przechowuje bit (może być naładowany lub nie).</p></li>
+<li><p>Kondensatory rozładowują się z czasem więc konieczne jest
+odświeżanie</p></li>
+<li><p>Obecnie używany - DDR SDRAM - Double Data Rate Synchronous
+Dynamic Random-Access Memory</p></li>
+<li><p>Pamięć ulotna - wymaga stałego zasilania</p></li>
+</ul>
+<h2 id="sram">SRAM</h2>
+<p>Static Random Access Memory <img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/SRAM_Cell_%286_Transistors%29.svg/1280px-SRAM_Cell_%286_Transistors%29.svg.png"
+alt="SRAM" /></p>
+<ul>
+<li>nie wymaga odświeżania</li>
+<li>mniej kompaktowa - 6 tranzystorów na 1 bit</li>
+<li>szybsza niż DRAM</li>
+<li>używana w cache’ach</li>
+<li>pamięć ulotna - wymaga stałego zasilania</li>
+</ul>
+<h2 id="prawo-moorea">Prawo Moore’a</h2>
+<p>Liczba tranzystorów będzie się podwajać w danym okresie (rosnąć
+wykładniczo)</p>
+<h2 id="budowa-komputera">Budowa komputera</h2>
+<figure>
+<img
+src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frh6stzxdcl1wf9gj1fkj14uc-wpengine.netdna-ssl.com%2Fwp-content%2Fuploads%2F2016%2F12%2F640px-Computer_system_bus.svg_.png&amp;f=1&amp;nofb=1&amp;ipt=4b228cb9566bab5f9b217535a4024d5bb6595aca303eaea7da45c323558ab4da&amp;ipo=images"
+alt="Schemat" />
+<figcaption aria-hidden="true">Schemat</figcaption>
+</figure>
+<h3 id="procesor">Procesor</h3>
+<ul>
+<li>PC - program counter
+<ul>
+<li>adres obecnie wykonywanej instrukcji</li>
+<li>wystawiany na szynę adresową do pobrania instrukcji</li>
+</ul></li>
+<li>Rejestry</li>
+<li>Jednostka sterująca</li>
+<li>ALU z rejestrem akumulatora</li>
+</ul>
+<h3 id="pamięć">Pamięć</h3>
+<ul>
+<li>poza procesorem</li>
+<li>przechowuje instrukcje</li>
+</ul>
+<h3 id="szyny">Szyny</h3>
+<ul>
+<li>Szyna danych
+<ul>
+<li>przesyłanie informacji między pamięcią i rejestrami</li>
+</ul></li>
+<li>Szyna adresowa
+<ul>
+<li>podawanie pamięci adresu do odczytu/zapisu</li>
+</ul></li>
+<li>Linie sterujące
+<ul>
+<li>wybór operacji oddczytu/zapisu</li>
+</ul></li>
+<li>Wewnętrzna szyna danych procesora</li>
+</ul>
+<h2 id="co-robi-komputer">Co robi komputer</h2>
+<h3 id="operacje">Operacje</h3>
+<ul>
+<li>Odczyt i zapis z pamięci</li>
+<li>Arytmetyczne</li>
+<li>Logiczne</li>
+<li>Porównania</li>
+<li>Rotacje i przesunięcia bitów</li>
+<li>Skoki warunkowe i bezwarunkowe do kolejnych instrukcji</li>
+</ul>
+<h3 id="wykonuje-instrukcje">Wykonuje instrukcje</h3>
+<ul>
+<li>Sekwencyjnie (inkrementacja PC)</li>
+<li>Skokowo (zmiana PC inna niż zwykła inkrementacja, względna lub
+bezwzględna)</li>
+</ul>
+<h2 id="cykl-pracy-procesora">Cykl pracy procesora</h2>
+<ul>
+<li>Fetch
+<ul>
+<li>Pobranie instrukcji odpowiadającej wartości PC z pamięci do
+rejestru</li>
+<li>Inkrementacja PC</li>
+</ul></li>
+<li>Decode
+<ul>
+<li>Zdekodowanie instrukcji przez jednostkę sterującą procesora</li>
+</ul></li>
+<li>Execute
+<ul>
+<li>Wykonanie zdekodowanej instrukcji przez wysyłanie sygnałów
+sterujących do odpowiednich komponentów (np. ALU)</li>
+<li>Wtedy procesor wykonuja właściwą pracę z perspektywy
+użytkownika</li>
+</ul></li>
+</ul>
+<h2 id="zestaw-instrukcji-procesora">Zestaw instrukcji procesora</h2>
+<ul>
+<li>CISC
+<ul>
+<li>Compound Instruction Set Computer</li>
+<li>Zestaw “bogatych” instrukcji</li>
+<li>Jedna instrukcja - skomplikowana operacja</li>
+<li>Skomplikowane tryby adresowania</li>
+</ul></li>
+<li>RISC
+<ul>
+<li>Reduced Instruction Set Computer</li>
+<li>Zestaw “prostych” instrukcji</li>
+<li>Proste i ograniczone tryby adresowania</li>
+</ul></li>
+</ul>
+<p>Złożone instrukcje są znacznie trudniejsze do zaprojektowania.
+Przejście do mniej skomplikowanych instrukcji (RISC) sprawiło, że
+procesory stały się wydajniejsze.</p>
+<h2 id="zmienna">Zmienna</h2>
+<p>Zmienna to pojęcie ze świata wysokopoziomowego - coś co przechowuje
+wartość, do której można się odwołać przez nazwę.</p>
+<p>Zmienna jest adresem początkowej komórki, gdzie jest przechowywana
+jej wartość. Trzeba wiedzieć jak zinterpretować zawartość binarną
+pamięci * może to być liczba w U2 * może być ciąg
+znaków/obiektów/struktur * może być adresem pod którym jest wartość
+innej zmiennej * może być adresem kodu instrukcji</p>
+<h2 id="architektura-von-neumanna-princeton">Architektura von Neumanna
+(Princeton)</h2>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Von_Neumann_Architecture.svg/1920px-Von_Neumann_Architecture.svg.png"
+alt="Schemat" />
+<figcaption aria-hidden="true">Schemat</figcaption>
+</figure>
+<ul>
+<li>Program i dane są przechowywane w tej samej pamięci</li>
+<li>Nie można jednocześnie pobierać danych i instrukcji - von Neumann
+bottleneck</li>
+<li>Model obliczeń zgodny z maszyną Turinga</li>
+<li>Pamięć składa się z ponumerowanych komórek</li>
+<li>Dostęp do komórki pamięci przez podanie jej adresu</li>
+<li>Adres komórki z instrukcją programu jest przechowywany i
+inkrementowany w rejestrze PC (Program Counter)</li>
+<li>Możliwość modyfikacji programu (operowanie na komórkach pamięci z
+instrukcjami)</li>
+<li>Obiekt zapisany jako dana może być pobrany jako instrukcja</li>
+<li>Komputery uniwersalne</li>
+</ul>
+<h2 id="architektura-typu-harvard">Architektura typu Harvard</h2>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Harvard_architecture.svg/1920px-Harvard_architecture.svg.png"
+alt="Schemat" />
+<figcaption aria-hidden="true">Schemat</figcaption>
+</figure>
+<ul>
+<li>Oddzielna pamięć dla programu i oddzielna dla danych
+<ul>
+<li>osobne przestrzenie adresowe</li>
+<li>niezgodna z koncpecją von Neumanna</li>
+</ul></li>
+<li>Szybsza od architektury von Neumanna
+<ul>
+<li>można jednocześnie pobierać dane i instrukcje</li>
+</ul></li>
+<li>Program wbity na stałe, bez możliwości zmiany
+<ul>
+<li>nie ma możliwości zapisu do pamięci instrukcji</li>
+</ul></li>
+<li>Procesory sygnałowe, mikrokomputery jednoukładowe</li>
+</ul>
+<h2 id="arhitektura-harvard-princeton">Arhitektura
+Harvard-Princeton</h2>
+<figure>
+<img
+src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrasil.cel.agh.edu.pl%2F~08pdiakow%2Fgrafika%2Fhp.png&amp;f=1&amp;nofb=1&amp;ipt=367c933fbb6e37aaf4aefa665c37f42f28629eab6269780a43dbf4d85d0a8909&amp;ipo=images"
+alt="Schemat" />
+<figcaption aria-hidden="true">Schemat</figcaption>
+</figure>
+<ul>
+<li>Oddzielne górne warstwy pamięci (cache) - jak w architekturze
+Harvard</li>
+<li>Wspólna dolna warstwa pamięci - jak w architekturze von
+Neumanna</li>
+<li>Szybkie działanie dzięki równoległemu dostępowi do instrukcji i
+danych w górnej pamięci (jeśli są w cache’u, a nie trzeba ich pobierać z
+głównej pamięci)</li>
+<li>Programowalny - przez zapis do wspólnej pamięci</li>
+<li>Typowe dla współczesnych PC</li>
+</ul>
+<p>Pamięć cache jest mniejsza ale szybsza. Nie ma pewności czy zapis
+wartości do pamięci cache spowoduje też zapis do pamięci głównej.</p>
+<p>Pojawia się problem kiedy jest więcej niż 1 procesor, który chce
+odczytać wspólne dane.</p>
+<h2 id="klasyfikacja-flynna">Klasyfikacja Flynna</h2>
+<p>Podział architektur komputerowych ze względu na liczbę jednoczesnych
+strumieni instrukcji i danych</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Single Instruction</th>
+<th>Multiple Instruction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SISD.svg/1024px-SISD.svg.png"
+alt="SISD" /></td>
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/MISD.svg/800px-MISD.svg.png"
+alt="MISD" /></td>
+</tr>
+<tr class="even">
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/SIMD.svg/800px-SIMD.svg.png"
+alt="SIMD" /></td>
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/MIMD.svg/800px-MIMD.svg.png"
+alt="MIMD" /></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sisd-vs-simd">SISD vs SIMD</h2>
+<p>Przemnożenie 4 różnych ośmiobitowych liczb przez 3.</p>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SISD</th>
+<th>SIMD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Non-SIMD_cpu_diagram1.svg/800px-Non-SIMD_cpu_diagram1.svg.png"
+alt="SISD" /></td>
+<td><img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/SIMD_cpu_diagram1.svg/800px-SIMD_cpu_diagram1.svg.png"
+alt="SIMD" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="sisd">SISD</h3>
+<ul>
+<li>Wczytuje liczbę z pamięci do rejestru R1</li>
+<li>Mnoży zawartość R1 przez zawartość R2</li>
+<li>Zapisuje wynik mnożenia do R3</li>
+<li>Zapisuje wynik z R3 do pamięci</li>
+<li>Powtarza po kolei dla każdej z 4 liczb</li>
+<li>4 wczytania z pamięci, 4 mnożenia, 4 zapisy do pamięci</li>
+</ul>
+<h3 id="simd">SIMD</h3>
+<ul>
+<li>Wykorzystuje 32-bitowy rejestr jako 4 rejestry 8-bitowe</li>
+<li>Jednocześnie wczytuje 4 liczby do R1</li>
+<li>Wykonuje 1 mnożenie SIMD</li>
+<li>Jednocześnie zapisuje 4 wyniki do pamięci</li>
+<li>1 wczytanie z pamięci, 1 mnożenie, 1 zapis do pamięci</li>
+<li>4-krotne przyspieszenie przy takim podziale rejestru</li>
+</ul>
+<h2 id="przetwarzanie-potokowe-i-superskalarne">Przetwarzanie potokowe i
+superskalarne</h2>
+<p>Instrukcje wykonywane są etapami</p>
+<ul>
+<li>IF - instruction fetch</li>
+<li>ID - instruction decode</li>
+<li>EX - execute</li>
+<li>MEM - memory access</li>
+<li>WB - write back</li>
+</ul>
+<p>Classic RISC Pipeline</p>
+<figure>
+<img
+src="./obrazy/https://upload.wikimedia.org/wikipedia/commons/2/21/Fivestagespipeline.png"
+alt="Pipeline" />
+<figcaption aria-hidden="true">Pipeline</figcaption>
+</figure>
+<p>Może wystąpić hazard jeśli późniejszy program w swojej fazie Execute,
+będzie korzystać z tych samych danych co wcześniejszy program ale zanim
+wcześniejszy zdąży je zapisać z powrotem do rejestru w fazie Write
+Back.</p>
+<p>Zrównoleglenie przyspiesza wykonywanie ale trzeba zabezpieczyć
+wspólne dane.</p>
+<p>Atomowa instrukcja - nie da się rozdzielić (zarezerwować dostęp do
+zasobu na czas wykonywania instrukcji, inny program nie może
+zmodyfikować jego danych)</p>
+<h2 id="jednostki-pamięci">Jednostki pamięci</h2>
+<p>b - bit</p>
+<p>o - oktet (8 bitów)</p>
+<p>B - bajt (byte) - najmneijsza jednostka informacji adresowana przez
+procesor zazwyczaj 8b</p>
+<table>
+<thead>
+<tr class="header">
+<th>jednostka</th>
+<th>zapis</th>
+<th>wartość</th>
+<th>jednostka</th>
+<th>zapis</th>
+<th>wartość</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>kilobyte</td>
+<td>kB</td>
+<td><span class="math inline">\(1000\)</span>b</td>
+<td>kibibyte</td>
+<td>KiB</td>
+<td><span class="math inline">\(1024\)</span>b</td>
+</tr>
+<tr class="even">
+<td>megabyte</td>
+<td>MB</td>
+<td><span class="math inline">\(1000^2\)</span>b</td>
+<td>mebibyte</td>
+<td>MiB</td>
+<td><span class="math inline">\(1024^2\)</span>b</td>
+</tr>
+<tr class="odd">
+<td>kilobyte</td>
+<td>GB</td>
+<td><span class="math inline">\(1000^3\)</span>b</td>
+<td>gibibyte</td>
+<td>GiB</td>
+<td><span class="math inline">\(1024^3\)</span>b</td>
+</tr>
+</tbody>
+</table>
+<h2 id="opóźnienie">Opóźnienie</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Medium</th>
+<th>Wielkość</th>
+<th>Czas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ALU / flip-flops</td>
+<td>KB</td>
+<td>&lt;1ns</td>
+</tr>
+<tr class="even">
+<td>Rejestry</td>
+<td>KB</td>
+<td>&lt;1ns</td>
+</tr>
+<tr class="odd">
+<td>Cache L1</td>
+<td>KB</td>
+<td>&lt;1ns</td>
+</tr>
+<tr class="even">
+<td>Cache L2, L3</td>
+<td>MB</td>
+<td>3-10ns</td>
+</tr>
+<tr class="odd">
+<td>RAM</td>
+<td>GB</td>
+<td>10-30ns</td>
+</tr>
+<tr class="even">
+<td>Dyski lokalne, pamięć masowa</td>
+<td>TB</td>
+<td>1-30ms</td>
+</tr>
+<tr class="odd">
+<td>Zasoby zdalne, chmura</td>
+<td>PB</td>
+<td>100ms</td>
+</tr>
+</tbody>
+</table>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#architektura-komputera">Architektura komputera</a>
+<ul>
+<li><a href="#tranzystor">Tranzystor</a></li>
+<li><a href="#claude-shanon">Claude Shanon</a></li>
+<li><a href="#system-binarny-i-arytmetyka">System binarny i
+arytmetyka</a></li>
+<li><a href="#przerzutniki">Przerzutniki</a></li>
+<li><a href="#słowo">Słowo</a></li>
+<li><a href="#rejestr">Rejestr</a>
+<ul>
+<li><a href="#z-dostępem-równoległym">Z dostępem równoległym</a></li>
+<li><a href="#rejestr-przesuwny-dostęp-szeregowy">Rejestr przesuwny
+(dostęp szeregowy)</a></li>
+<li><a href="#polecenia">Polecenia</a></li>
+</ul></li>
+<li><a href="#alu-arithmetic-logic-unit">ALU Arithmetic Logic Unit</a>
+<ul>
+<li><a href="#flagi">Flagi</a></li>
+</ul></li>
+<li><a href="#prymitywny-procesor">Prymitywny procesor</a></li>
+<li><a href="#paradygmaty-programowania">Paradygmaty
+programowania</a></li>
+<li><a href="#assembler">Assembler</a></li>
+<li><a href="#tryby-adresowania">Tryby adresowania</a></li>
+<li><a href="#program-dodający-dwie-liczby">Program dodający dwie
+liczby</a></li>
+<li><a href="#kodowanie-instrukcji-maszynowych">Kodowanie instrukcji
+maszynowych</a></li>
+<li><a href="#pamięc-operacyjna">Pamięc operacyjna</a></li>
+<li><a href="#dram">DRAM</a></li>
+<li><a href="#sram">SRAM</a></li>
+<li><a href="#prawo-moorea">Prawo Moore’a</a></li>
+<li><a href="#budowa-komputera">Budowa komputera</a>
+<ul>
+<li><a href="#procesor">Procesor</a></li>
+<li><a href="#pamięć">Pamięć</a></li>
+<li><a href="#szyny">Szyny</a></li>
+</ul></li>
+<li><a href="#co-robi-komputer">Co robi komputer</a>
+<ul>
+<li><a href="#operacje">Operacje</a></li>
+<li><a href="#wykonuje-instrukcje">Wykonuje instrukcje</a></li>
+</ul></li>
+<li><a href="#cykl-pracy-procesora">Cykl pracy procesora</a></li>
+<li><a href="#zestaw-instrukcji-procesora">Zestaw instrukcji
+procesora</a></li>
+<li><a href="#zmienna">Zmienna</a></li>
+<li><a href="#architektura-von-neumanna-princeton">Architektura von
+Neumanna (Princeton)</a></li>
+<li><a href="#architektura-typu-harvard">Architektura typu
+Harvard</a></li>
+<li><a href="#arhitektura-harvard-princeton">Arhitektura
+Harvard-Princeton</a></li>
+<li><a href="#klasyfikacja-flynna">Klasyfikacja Flynna</a></li>
+<li><a href="#sisd-vs-simd">SISD vs SIMD</a>
+<ul>
+<li><a href="#sisd">SISD</a></li>
+<li><a href="#simd">SIMD</a></li>
+</ul></li>
+<li><a href="#przetwarzanie-potokowe-i-superskalarne">Przetwarzanie
+potokowe i superskalarne</a></li>
+<li><a href="#jednostki-pamięci">Jednostki pamięci</a></li>
+<li><a href="#opóźnienie">Opóźnienie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

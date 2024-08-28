@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-protokol-dhcp</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-protokol-icmp.html">Poprzedni: 06-protokol-icmp.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-routing.html">Następny: 08-routing.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="dynamic-host-configuration-protocol-dhcp">Dynamic Host
+Configuration Protocol (DHCP)</h1>
+<p>Służy do automatycznego przydzielania hostom w sieci adresów IP na
+określony czas i dodatkowych parametrów (maska, brama domyślna, serwery
+DNS, nazwa domeny)</p>
+<h2 id="automatyczne-konfigurowanie-interfejsów">Automatyczne
+konfigurowanie interfejsów</h2>
+<p>Przyznawanie adresów IP dla hostów w sieci</p>
+<ul>
+<li>RARP - Reverse Address Resolution Protocol
+<ul>
+<li>podobnie do ARP - jest znany adres sprzętowy i nieznany adres
+IP</li>
+<li>adres przyznawany na zawsze (statyczne powiązanie z adresem
+sprzętowym)</li>
+</ul></li>
+<li>BOOTP - Bootstrap Protocol
+<ul>
+<li>przydział adresu IP, i dodatkowe niezbędne informacje (adres
+routera, DNS, maska)</li>
+<li>adres przyznawany na zawsze (statyczne powiązanie z adresem
+sprzętowym)</li>
+</ul></li>
+<li>DHCP - Dynamic Host Configuration Protocol
+<ul>
+<li>mechanizm dzierżawienia adresu IP</li>
+<li>adres przyznawany na określony przedział czasu</li>
+<li>rozszerzony protokół BOOTP</li>
+</ul></li>
+</ul>
+<h2 id="działanie-dhcp">Działanie DHCP</h2>
+<p>DHCP do odkrywania używa broadcast w wersji 4 i multicast w wersji
+6.</p>
+<h3 id="podłączenie-do-sieci">Podłączenie do sieci</h3>
+<ol type="1">
+<li>Host wysyła przez broadcast zapytanie DHCPDISCOVER</li>
+<li>Serwery DHCP odpowiadają DHCPOFFER zawierające adres IP jaki może
+zostać przydzielony</li>
+<li>Host wysyła przez broadcast DHCPREQUEST z adresem z oferty, którą
+wybiera (informuje pozostałe serwery o odrzuceniu ich oferty)</li>
+<li>Serwer wybrany przez klienta odpowiada DHCPACK</li>
+</ol>
+<h3 id="przedłużenie-dzierżawy">Przedłużenie dzierżawy</h3>
+<p>Po upływie czasu dzierżawy (lease time), host prosi o przedłużenie
+czasu.</p>
+<ol type="1">
+<li>Host wysyła przez broadcast DHCPREQUEST</li>
+<li>Serwer, oferujący ten adres odpowiada DHCPACK</li>
+</ol>
+<p>Host może zwolnić adres wysyłając do serwera DHCPRELESE, serwery nie
+mogą na tym polegać z przyczyn praktycznych</p>
+<p>Po upływie czasu dzierżawy, serwer może przedłużyć czas po otrzymaniu
+odpowiedzi na echo request</p>
+<h2 id="pakiet-dhcp">Pakiet DHCP</h2>
+<p>Pytający umieszcza w polu options kody porządanych informacji,
+odpowiadający zamieszcza odpowiedzi.</p>
+<p>Typy pakietów * DHCPDISCOVER - wysyłany przez klienta broadcastem,
+prośba o przydział adresu IP * DHCPOFFER - wysyłany przez serwer, oferta
+dzierżawy adresu IP w odpowiedzi na DHCPDISCOVER * DHCPREQUEST -
+wysyłany przez klienta broadcastem, prośba o przydzielenie zaoferowanego
+adresu IP * DHCPDECLINE - wysyłany przez klienta, kiedy wykryje innego
+hosta posługującego się tym adresem (przez ARP) * DHCPACK - przyjęty
+request * DHCPNAK - odrzucony request (?) * DHCPRELEASE - zwolnienie
+przydzielonego wcześniej adresu</p>
+<h2 id="pliki-konfiguracyjne">Pliki konfiguracyjne</h2>
+<ul>
+<li><code>/etc/networks/interfaces</code></li>
+<li><code>/etc/netplan/01-netcfg.yaml</code> - w nowszych Linuxach</li>
+</ul>
+<h2 id="network-manager">Network manager</h2>
+<p>Program zarządzający interfejsami sieciowymi</p>
+<p>Dobre dla PC, nie nadaje się do serwerów.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dynamic-host-configuration-protocol-dhcp">Dynamic Host
+Configuration Protocol (DHCP)</a>
+<ul>
+<li><a href="#automatyczne-konfigurowanie-interfejsów">Automatyczne
+konfigurowanie interfejsów</a></li>
+<li><a href="#działanie-dhcp">Działanie DHCP</a>
+<ul>
+<li><a href="#podłączenie-do-sieci">Podłączenie do sieci</a></li>
+<li><a href="#przedłużenie-dzierżawy">Przedłużenie dzierżawy</a></li>
+</ul></li>
+<li><a href="#pakiet-dhcp">Pakiet DHCP</a></li>
+<li><a href="#pliki-konfiguracyjne">Pliki konfiguracyjne</a></li>
+<li><a href="#network-manager">Network manager</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

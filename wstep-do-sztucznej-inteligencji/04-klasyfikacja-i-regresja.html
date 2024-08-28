@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-klasyfikacja-i-regresja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-gry-dwuosobowe.html">Poprzedni: 03-gry-dwuosobowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-uczenie-ze-wzmocnieniem.html">Następny: 05-uczenie-ze-wzmocnieniem.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do sztucznej inteligencji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-wstep.html">00-wstep.html</a></li>
+                
+                <li><a href="01-przeszukiwanie-i-optymalizacja.html">01-przeszukiwanie-i-optymalizacja.html</a></li>
+                
+                <li><a href="02-algorytmy-ewolucyjne.html">02-algorytmy-ewolucyjne.html</a></li>
+                
+                <li><a href="03-gry-dwuosobowe.html">03-gry-dwuosobowe.html</a></li>
+                
+                <li><a href="04-klasyfikacja-i-regresja.html">04-klasyfikacja-i-regresja.html</a></li>
+                
+                <li><a href="05-uczenie-ze-wzmocnieniem.html">05-uczenie-ze-wzmocnieniem.html</a></li>
+                
+                <li><a href="06-sztuczne-sieci-neuronowe.html">06-sztuczne-sieci-neuronowe.html</a></li>
+                
+                <li><a href="07-sieci-bayesowskie.html">07-sieci-bayesowskie.html</a></li>
+                
+                <li><a href="08-wnioskowanie.html">08-wnioskowanie.html</a></li>
+                
+                <li><a href="09-logika-rozmyta.html">09-logika-rozmyta.html</a></li>
+                
+                <li><a href="10-komputery-kwantowe.html">10-komputery-kwantowe.html</a></li>
+                
+                <li><a href="11-bezpieczenstwo.html">11-bezpieczenstwo.html</a></li>
+                
+                <li><a href="img-drzewo-przeszukiwan.png">img-drzewo-przeszukiwan.png</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="klasyfikacja-i-regresja">Klasyfikacja i regresja</h1>
+<p>Dwa najczęstsze zadania w uczeniu maszynowym</p>
+<h2 id="wysokopoziomowy-obraz">Wysokopoziomowy obraz</h2>
+<ul>
+<li>Istnieje jakaś zależność w świecie rzeczywistym</li>
+<li>Mamy dane o tym zjawisku - pomiary</li>
+<li>Trenujemy model na zbiorze uczącym - proces optymalizacji</li>
+<li>Model jest funkcją, przybliżeniem zależności ze świata
+rzeczywistego</li>
+</ul>
+<h3 id="zastosowania">Zastosowania</h3>
+<ul>
+<li>Sterowniki dla systemów o nieznanej dynamice</li>
+<li>Budowa modeli na podstawie napływających danych</li>
+</ul>
+<h3 id="techniki">Techniki</h3>
+<ul>
+<li>Aproksymacja funkcji (regresja)</li>
+<li>Klasyfikacja</li>
+<li>Grupowanie</li>
+<li>Uczenie się ze wzmocnieniem</li>
+</ul>
+<h3 id="narzędzia">Narzędzia</h3>
+<ul>
+<li>Sieci neuronowe</li>
+<li>Drzewa decyzyjne</li>
+<li>Modele Bayesowskie</li>
+<li>…</li>
+</ul>
+<h2 id="aproksymacja-funkcji">Aproksymacja funkcji</h2>
+<p>Szukamy przybliżenia <span class="math inline">\(\hat{f}\)</span>
+funkcji <span class="math inline">\(f: X \rightarrow Y\)</span> mając
+dany zbiór próbek uczących w postaci <span class="math inline">\((x_i,
+f(x_i) + \xi_i)\)</span> , gdzie: * <span
+class="math inline">\(X\)</span> - przestrzeń wejściowa * <span
+class="math inline">\(Y\)</span> - przestrzeń wyjściowa (np. <span
+class="math inline">\(\mathbb{R}^n\)</span>) * <span
+class="math inline">\(x_i \in X\)</span> * <span
+class="math inline">\(\xi_i\)</span> to losowe błędy (szumy,
+niedokładności) pomiaru wartości funkcji <span
+class="math inline">\(f\)</span></p>
+<p>Określenia regresja i aproksymacja stosuje się wymiennie (względy
+historyczne) <span class="math inline">\(\hat{f}(x) = E(y|x)\)</span> -
+oczekiwana (średnia, odszumiona) wartość <span
+class="math inline">\(y\)</span> pod warunkiem <span
+class="math inline">\(x\)</span></p>
+<h2 id="klasyfikacja">Klasyfikacja</h2>
+<p>Przyporządkowanie argumentowi jednej z etykiet</p>
+<ul>
+<li><span class="math inline">\(X\)</span> - przestrzeń wejść</li>
+<li><span class="math inline">\(Y\)</span> - przestrzeń
+<strong>dyskretnych</strong> wyjść</li>
+<li>mamy dany zbiór uczący <span class="math inline">\((x_i,
+y_i)\)</span></li>
+<li><span class="math inline">\(x_i, y_i\)</span> to zmienne losowe
+opisane rozkładem łącznym <span
+class="math inline">\(P_{XY}\)</span></li>
+<li>poszukujemy przybliżonej postaci klasyfikatora <span
+class="math inline">\(\hat{f}(x)\)</span>, który dla danego <span
+class="math inline">\(x\)</span> wskaże najbardziej prawdopodobną
+wawrtość <span class="math inline">\(y\)</span> (zgodnie z <span
+class="math inline">\(P_{XY}\)</span>)</li>
+<li>inaczej: poszukujemy klasyfikatora <span
+class="math inline">\(\hat{f}(x) = P_{X,Y}=(y|x)\)</span></li>
+</ul>
+<p>Mówimy o najbardziej prawdopodobnej wartości <span
+class="math inline">\(y\)</span>, ponieważ w świecie rzeczywistym te
+same dane wejściowe mogą oznaczać różne wyniki (zdarzenie są z natury
+losowe na pewnym poziomie).</p>
+<p>Klasyfikator można przedstawić jako granicę decyzyjną (linia
+rozdzielająca punkty)</p>
+<h2 id="uogólnienie---problem-decyzji-statystycznych">Uogólnienie -
+problem decyzji statystycznych</h2>
+<ul>
+<li><span class="math inline">\(X\)</span> - przestrzeń wejść</li>
+<li><span class="math inline">\(Y\)</span> - przestrzeń wyjść</li>
+<li>mamy dany zbiór uczący <span class="math inline">\((x_i,
+y_i)\)</span></li>
+<li><span class="math inline">\(x_i, y_i\)</span> to zmienne losowe
+opisane rozkładem łącznym <span
+class="math inline">\(P_{XY}\)</span></li>
+<li><span class="math inline">\(q\)</span> określa stratę poniesioną na
+skutek podjęcia danej decyzji</li>
+<li>poszukujemy funkcji decyzyjnej <span class="math inline">\(f: X
+\rightarrow Y\)</span>, która dla danego <span
+class="math inline">\(x\)</span> wskazuje decyzję minimalizującą <span
+class="math inline">\(q(f(x))\)</span></li>
+</ul>
+<h3 id="wskaźniki-jakości">Wskaźniki jakości</h3>
+<h4 id="globalny-wskaźnik-jakości">Globalny wskaźnik jakości</h4>
+<p>Dla funkcji decyzyjnej <span class="math display">\[J(f) =
+E[q(f(x))]\]</span> #### Problem klasyfikacji <span
+class="math inline">\(q(f(x)) =\)</span> <span
+class="math inline">\(0\)</span> gdy <span class="math inline">\(f(x) =
+y\)</span> (poprawna klasyfikacja), <span
+class="math inline">\(1\)</span> w przeciwnym przypadku</p>
+<h4 id="problem-regresji">Problem regresji</h4>
+<p>Np. błąd średniokwadratowy szacowany na zbiorze <span
+class="math inline">\(\{(x_i, y_i)\}\)</span> <span
+class="math display">\[q(f) = MSE(f) = \frac{1}{N} \sum_{i=1}^N ||f(x_i)
+- y_i||^2\]</span> ## Aproksymacja parametryczna * <span
+class="math inline">\(\Theta = \mathbb{R}^m\)</span> - przestrzeń
+parametrów modelu * Model (aproksymator) ma postać <span
+class="math inline">\(\hat{f}: X \times \Theta \rightarrow
+Y\)</span></p>
+<p>Przykłady * model liniowy * jednowymiarowy - <span
+class="math inline">\(\hat{f}(x, \theta) = \theta_0 + \theta_1 \cdot
+x\)</span> * wielowymiarowy - <span class="math inline">\(\hat{f}(x, w)
+= w_{[0]} + \sum_{i=1}^n w_{[i]}x_{[i]} = [1, x^T] \cdot w\)</span> *
+model wielomianowy * <span class="math inline">\(\hat{f}(x, \theta) =
+\theta_0 + \sum_{i=1}^m \theta_i \cdot x^i\)</span> * uogólniony model
+liniowy * model liniowy w innej przestrzeni niż ta wejściowa * stosujemy
+przekształcenie * jeśli w przestrzeni wejściowej dane nie dają się
+przybliżyć linią to można je przekształcić do takiej przestrzeni, w
+której się da * <span class="math inline">\(\hat{f}(x, \theta) =
+\theta_0 + \sum_{i=1}^m \theta_i g_i(x)\)</span> * złożenie funkcji
+stałych * <span class="math inline">\(\hat{f}(x, \theta) = \sum_{i=1}^m
+\theta_i \phi_i(x)\)</span> * <span
+class="math inline">\(\phi_i\)</span> to indykator (<span
+class="math inline">\(1\)</span> jeśli <span
+class="math inline">\(x\)</span> należy do podzbioru, <span
+class="math inline">\(0\)</span> jeśli nie należy)</p>
+<h2 id="uczenie-off-line">Uczenie off-line</h2>
+<p>Założenia * Mamy dany w całości skończony zbiór uczący <span
+class="math inline">\(U\)</span> * Parametry <span
+class="math inline">\(\theta\)</span> aproksymatora określamy
+optymalizując funkcję straty</p>
+<p><span class="math display">\[
+J(\theta) = \frac{1}{N} \sum ||y_i - \hat{f}(x_i, \theta) ||^2
+\]</span></p>
+<p>Uczenie modelu sprowadza się do rozwiązania zadania optymalizacji
+<span class="math display">\[
+\hat{\theta} = arg min_{\theta\in\mathbb{R}^m} J(\theta)
+\]</span> Jeżeli da się policzyć gradient <span
+class="math inline">\(\nabla J(\theta)\)</span> (np. dla modelu
+liniowego) to dla znalezienia najlepszych parametrów można wykorzystać
+dowolną metodę gradientową (gradient descent)</p>
+<h2 id="uczenie-on-line">Uczenie on-line</h2>
+<ul>
+<li>Potencjalnie nieskończony zbiór danych</li>
+<li>Dany jest generator próbek uczących <span
+class="math inline">\(\{x_i, y_i\} \sim P_{X,Y}\)</span></li>
+<li>Uczenie przebiega sukcesywnie - po przetworzeniu <span
+class="math inline">\(i\)</span>-tej próbki parametry aproksymatora
+aktualizowane są do wartości <span
+class="math inline">\(\theta_i\)</span></li>
+<li>Ciąg wartości <span class="math inline">\(\theta_i\)</span> powinien
+zbiegać do minimum funkcji straty</li>
+</ul>
+<p><span class="math display">\[
+J(\theta) = E || y - \hat{f}(x, \theta) ||^2
+= \int \int ||y - \hat{f}(x, \theta) ||^2 P_{XY}(x,y) dydx
+\]</span></p>
+<p><span class="math inline">\(X\)</span>, <span
+class="math inline">\(Y\)</span> traktujemy jak zmienne losowe</p>
+<p>Nie da się policzyć gradientu funkcji celu ale gradient szacowany na
+jednej próbce jest nieobciążonym estymatorem gradientu <span
+class="math inline">\(\nabla J(\theta)\)</span></p>
+<p>Wstawiając estymator gradientu <span
+class="math inline">\(g_i\)</span> do metody gradientu prostego
+otrzymujemy metodę stochastycznego najszybszego spadku (sformułowany tak
+samo ale liczony nie względem całego zbioru danych tylko aktualizowany
+dla każdej kolejnej próbki)</p>
+<p><span class="math display">\[
+\theta_{i+1}
+= \theta_i - \beta_i \frac{d}{d \theta^T_i} ||y_i - \hat{f}(x_i,
+\theta_i)||^2
+\]</span></p>
+<h3 id="ogólny-algorytm">Ogólny algorytm</h3>
+<ul>
+<li><span class="math inline">\(\theta_1\)</span> - początkowe
+oszacowanie parametrów</li>
+<li>Wylosuj parę <span class="math inline">\(\{x_i, y_i\} \sim
+P_{X,Y}\)</span></li>
+<li>Oblicz kolejne przybliżenie <span
+class="math inline">\(\theta_{i+1}\)</span></li>
+<li>Jeśli spełnione są kryteria stopu - zakończ i zwróć <span
+class="math inline">\(\theta_{i+1}\)</span>, w przeciwnym przypadku
+powtarzaj</li>
+</ul>
+<h2 id="maszyny-wektorów-nośnych">Maszyny wektorów nośnych</h2>
+<p>Support Vector Machines (SVM)</p>
+<ul>
+<li>Model ma przewidywać wartości dyskretne - klasy (jest algorytmem
+klasyfikacji)</li>
+<li>Przypadek binarny <span class="math inline">\(Y = \{-1,
+1\}\)</span></li>
+<li>Poszukujemy funkcji decyzyjnej rozgraniczającej kiedy <span
+class="math inline">\(f &gt; 0\)</span>, a kiedy <span
+class="math inline">\(f \le 0\)</span></li>
+<li>Obszar gdzie <span class="math inline">\(f(x_i) = 0\)</span> jest
+granicą decyzyjną między klasami</li>
+</ul>
+<p>Liniowa separowalność - klasy w przestrzeni można rozdzielić linią
+(hiperpłaszczyzną) Brak liniowej separowalności - nie ma takiej linii
+(hiperpłaszczyzny), która oddziela klasy</p>
+<p>Może być potencjalnie nieskończenie wiele płaszczyzn które
+rozdzielają klasy ale SVM szuka takiej, która maksymalizuje szerokość
+obszaru separującego (korytarza) między klasami</p>
+<h3 id="przypadek-liniowo-separowalny">Przypadek liniowo
+separowalny</h3>
+<ul>
+<li>Model <span class="math inline">\(\hat{f}(x) = w^Tx - b\)</span>
+opisuje linię (hiperpłaszczyznę)
+<ul>
+<li>oddziela od siebie obie klasy w przestrzeni</li>
+<li><span class="math inline">\(w^Tx-b = 0\)</span> to środek obszaru
+separującego</li>
+<li>z jednej strony granicą jest prosta <span
+class="math inline">\(w^Tx-b =1\)</span> a z drugiej strony <span
+class="math inline">\(-1\)</span></li>
+<li>obszar separujący jest jak najszerszy</li>
+<li><span class="math inline">\(w\)</span> i <span
+class="math inline">\(b\)</span> to parametry hiperpłaszczyzny</li>
+</ul></li>
+<li>Szerokość regionu separującego <span
+class="math inline">\(\frac{2}{||w||}\)</span></li>
+<li>Odległość wektora <span class="math inline">\(x_0\)</span> od
+prostej <span class="math inline">\(w^Tx + b = 0\)</span> to <span
+class="math inline">\(d = \frac{|w^T x_0 + b|}{||w||}\)</span></li>
+</ul>
+<p>Maksymalizujemy szerokość regioniu separującego Pojedyncze punkty po
+obu stronach dotykają granicy - wektory nośne Minimalizujemy <span
+class="math inline">\(||w||\)</span> przy założeniu że hiperpłaszczyzna
+musi oddzielać od siebie klasy zwięźle: <span
+class="math inline">\(y_i(w^T x_i - b) \ge 1\)</span> <span
+class="math inline">\(y = -1\)</span> dla <span
+class="math inline">\(f(x) \le 0\)</span>, <span
+class="math inline">\(y=1\)</span> dla <span class="math inline">\(f(x)
+&gt; 0\)</span> <span class="math inline">\((w,b) = argmin_{w,b}
+||w||^2\)</span></p>
+<p>W praktyce wygodniej minimalizować <span
+class="math inline">\(||w||^2\)</span></p>
+<h3 id="brak-liniowej-separacji">Brak liniowej separacji</h3>
+<p>Jeśli elelmentów psujących liniową separację jest niewiele to można
+określić funkcję kary za te naruszenia i minimalizować funkcję kary</p>
+<p><span class="math display">\[(w,b) = argmin_{w,b} \sum_i \xi_i +
+\lambda ||w||^2, \lambda &gt; 0\]</span> <span
+class="math inline">\(\lambda\)</span> to parametr sterujący, określa na
+jak duże naruszenia możemy pozwolić im mniejsza <span
+class="math inline">\(\lambda\)</span> tym większy wpływ naruszeń</p>
+<p>Przy ograniczeniach <span class="math display">\[\xi_i \ge 0\]</span>
+<span class="math display">\[y_i(w^Tx_i - b) \ge 1 - \xi_i\]</span>
+(dopuszczamy przekroczenia)</p>
+<p>Więc <span class="math display">\[\xi_i = max(1-f(x_i)y_i,
+0)\]</span></p>
+<h3 id="twierdzenie-o-reprezentacji">Twierdzenie o reprezentacji</h3>
+<p>Wektor <span class="math inline">\(w\)</span> określający separującą
+hiperpłaszczyznę daje się wyrazić jako kombinacja elementów dotykających
+granic</p>
+<p><span class="math display">\[w = \sum_{i=1}^N \alpha_ix_iy_i\]</span>
+<span class="math inline">\(\alpha_i = 0\)</span> dla elementów, które
+nie dotykają granicy, żeby optymalizować <span
+class="math inline">\(w\)</span> wystarczy zoptymalizować <span
+class="math inline">\(\alpha_i\)</span></p>
+<p>Dla punktów dotykających obszaru <span
+class="math display">\[y_i(w^Tx_i - b) = 1 - \xi_i\]</span></p>
+<h3 id="postać-nieliniowa">Postać nieliniowa</h3>
+<p>Każdy zbiór danych jest liniowo separowalny, jeśli odpowiednio
+zrzutuje się wcześniej przestrzeń. Trzeba znaleźć przekształcenie do
+przestrzeni, w której zadanie będzie prostsze - liniowo separowalne albo
+prawie liniowo separowalne</p>
+<p><span class="math display">\[\phi: X \rightarrow
+\mathcal{X}\]</span></p>
+<p><span class="math display">\[w = \sum_{i=1}^N \alpha_i \phi(x_i)
+y_i\]</span> <span class="math display">\[f(x) = w^T \phi(x) -
+b\]</span> <span class="math display">\[(\alpha_1, \ldots, \alpha_N, b)
+= argmin_{(\alpha_1, \ldots, \alpha_N, b)} \sum_i max(1-f(x_i)y_i,0) +
+\lambda ||w||^2\]</span></p>
+<h3 id="przekształcenia-jądrowe">Przekształcenia jądrowe</h3>
+<p>Przekształcając poprzednie wzory</p>
+<p><span class="math display">\[
+f(x) = \sum_{i=1}^N \alpha_i y_i \phi(x_i)^T \phi(x) - b
+= \sum_{i=1}^N \alpha_i y_i k(x, x_i) - b
+\]</span></p>
+<p>Wyliczanie <span class="math inline">\(\phi(x)\)</span> może być
+kosztowne, więc używa się funkcji jądrowej <span
+class="math display">\[k(u,v) = \phi(u)^T \phi(v)\]</span></p>
+<p>Katalog funkcji jądrowych * liniowe * wielomianowe * gaussowskie /
+radialne / RBF * wzory….</p>
+<p>Za pomocą tych wzorów można taniej liczyć iloczyn skalarny bez
+faktycznego rzutowania do nowej przestrzeni Praktyka wygląda tak, że
+trzeba dostroić parametry wybranej funkcji jądrowej</p>
+<h2 id="drzewa-decyzyjne">Drzewa decyzyjne</h2>
+<ul>
+<li>Reprezentują mechanizm decyzyjny</li>
+<li>Węzły odpowiadają atrybutom</li>
+<li>Krawędzie odpowiadają wyborom podejmowanym na podstawie
+atrybutów</li>
+<li>Liście reprezentują finalne decyzje</li>
+<li>W uczeniu maszynowym - konstruujemy drzewa na podstawie danych
+trenujących</li>
+</ul>
+<h3 id="algorytm-id3">Algorytm ID3</h3>
+<p>Indukcja drzew decyzyjnych (klasyfikacyjnych)</p>
+<ul>
+<li>Drzewa budowane rekurencyjnie</li>
+<li>Liście zawierają klasy</li>
+<li>Predykcja to znalezienie liścia przechodząc po ścieżce wyznaczonej
+przez wartość atrybutów i zwrócenie jego klasy</li>
+<li>Wady algorytmu
+<ul>
+<li>budowanie zbyt rozbudowanych drzew</li>
+<li>nadmierne dopasowanie do zbioru uczącego</li>
+</ul></li>
+</ul>
+<h4 id="selekcja-atrybutów-do-testu">Selekcja atrybutów do testu</h4>
+<p>Chcemy wybrać taki atrybut który najbardziej uporządkuje zbiór</p>
+<ul>
+<li>Entropia zbioru <span class="math inline">\(U\)</span>
+<ul>
+<li><span class="math inline">\(I(U) = - \sum_i f_i
+ln(f_i)\)</span></li>
+<li><span class="math inline">\(f_i\)</span> - częstość i-tej klasy</li>
+</ul></li>
+<li>Entropia zbioru podzielonego na podzbiory przez atrybut <span
+class="math inline">\(d\)</span>
+<ul>
+<li><span class="math inline">\(Inf(d,U) = \sum_j
+\frac{|U_j|}{|U|}I(U_j)\)</span></li>
+</ul></li>
+<li>Zdobycz informacyjna
+<ul>
+<li><span class="math inline">\(InfGain(d, U) = I(U) -
+Inf(d,U)\)</span></li>
+</ul></li>
+</ul>
+<h3 id="algorytm-c4.5">Algorytm C4.5</h3>
+<p>Algorytm ID3 może konstruować zbyt rozbudowane drzewa i nadmiernie
+dopasowane do zbioru uczącego. C4.5 to algorytm ID3 uzupełniony o
+przycinanie drzewa, ma rozwiązywać te problemy.</p>
+<ul>
+<li>Przycinanie można robić na oddzielnym zbiorze danych (innym niż
+uczący i testowy)</li>
+<li>Wadą jest zachłanne wybieranie atrybutów do węzłów drzewa</li>
+</ul>
+<h4 id="działanie">Działanie</h4>
+<ul>
+<li>Zbudowanie drzewa algorytmem ID3</li>
+<li>Dla każdego liścia sprawdzane są wszystkie węzły na ścieżce
+liść-korzeń</li>
+<li>Szacuje się błąd w poddrzewie węzła</li>
+<li>Szacuje się błąd gdyby zamienić poddrzewo na liść z najczęstszą
+klasą w poddrzewie</li>
+<li>Jeśli oszacowanie błędu po przycięciu jest mniejsze to zamienia się
+poddrzewo na liść</li>
+</ul>
+<h3 id="las-losowy">Las losowy</h3>
+<ul>
+<li>Solidny klasyfikator w praktyce</li>
+<li>Buduje się wiele drzew, wynikiem predykcji jest najczęściej zwracana
+klasa spośród wszystkich drzew</li>
+<li>Zapobiega przeuczaniu modelu</li>
+<li>Zagregowanie predykcji z wielu zaszumionych predyktorów wyeliminuje
+szumy</li>
+</ul>
+<h4 id="działanie-1">Działanie</h4>
+<ul>
+<li>Wylosować <span class="math inline">\(n\)</span> elementów ze zbioru
+uczącego ze zwracaniem</li>
+<li>Wylosować <span class="math inline">\(\sqrt{|D|}\)</span> atrybutów
+ze zbioru wszystkich atrybutów <span class="math inline">\(D\)</span>
+bez zwracania</li>
+<li>Zbudować drzewo na podstawie tych zbiorów</li>
+</ul>
+<h2 id="gradient-boosting">Gradient boosting</h2>
+<p>Model jest budowany iteracyjnie, dodanie kolejnego elementu powinno
+poprawiać predykcję poprzedniego modelu. Dodaje się kolejne drzewa
+kompensujące błędy poprzedniego drzewa</p>
+<ul>
+<li>Funkcja straty dla <span class="math inline">\(i\)</span>-tego
+elementu zbioru uczącego np. <span class="math inline">\(q_i(y) =
+||y-y_i||^2\)</span></li>
+<li>Model o postaci <span class="math inline">\(\hat{f_k}(x) =
+\hat{f_0}(x) + \sum_{i=1}^k \gamma_i \widetilde{f_i}(x)\)</span>
+<ul>
+<li><span class="math inline">\(\widetilde{f_i}\)</span> może być np.
+modelem drzewiastym</li>
+</ul></li>
+<li>Psudo residua <span class="math inline">\(r_{ij}\)</span>
+<ul>
+<li>błąd w <span class="math inline">\(j\)</span>-tej iteracji modelu
+dla zadanego <span class="math inline">\(i\)</span>-tego argumentu</li>
+<li>podobne rozumienie jak gradient</li>
+</ul></li>
+</ul>
+<h4 id="działanie-2">Działanie</h4>
+<ul>
+<li>Początkowy model stały <span class="math inline">\(\hat{f_0} =
+argmin_y \sum_i q_i(y)\)</span></li>
+<li>Powtarzaj <span class="math inline">\(k\)</span> razy
+<ul>
+<li>oblicz pseudo residua dla obecnej iteracji np. <span
+class="math inline">\(r_{ij} = 2(y_i - \hat{f}_{j-1}(x_i))\)</span></li>
+<li>wytrenuj nowy model <span
+class="math inline">\(\widetilde{f_j}\)</span> na zbiorze <span
+class="math inline">\(U_j = \{ \langle x_i, r_{ij} \rangle
+\}\)</span></li>
+<li>znajdź wagę <span class="math inline">\(\gamma_j\)</span> która
+zminimalizuje funkcję starty modelu po rozszerzeniu o <span
+class="math inline">\(\widetilde{f_j}\)</span></li>
+<li>rozszerz model <span class="math inline">\(\hat{f_j}(x) =
+\hat{f}_{j-1}(x) + \gamma_j \widetilde{f_j}(x)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="naiwny-klasyfikator-bayesowski">Naiwny klasyfikator
+bayesowski</h2>
+<ul>
+<li><span class="math inline">\(y\)</span> to przewidywana klasa, <span
+class="math inline">\(x_i\)</span> to atrybuty</li>
+<li>Z twierdzenia Bayesa <span class="math inline">\(P(y|x_1, \ldots,
+x_n) = \frac{P(x_1, \ldots, x_n | y)P(y)}{P(x_1, \ldots,
+x_n)}\)</span></li>
+<li>Przyjmuje się naiwne założenie, że atrybuty są niezależne
+<ul>
+<li>wtedy <span class="math inline">\(P(x_1, \ldots, x_n | y) =
+\Pi_{i=1}^n P(x_i|y)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(P(y)\)</span> i <span
+class="math inline">\(P(x_i|y)\)</span> estymuje się na podstawie
+zliczania w zbiorze uczącym</li>
+<li>Predykcja to wybór klasy o największym prawdopodobieństwie <span
+class="math inline">\(P(y)\Pi_{i=1}^n P(x_i|y)\)</span></li>
+</ul>
+<h2 id="ocena-modeli-ml">Ocena modeli ML</h2>
+<ul>
+<li>Generalizacja - jakość modelu dla danych spoza zbioru uczącego</li>
+<li>Przeuczenie (overfitting) - nadmierne dopasowanie modelu do zbioru
+uczącego</li>
+<li>Niedotrenowanie (underfitting) - niezdolność modelu do dopasowania
+do zbioru uczącego ### Przeuczenie</li>
+<li>Nadmierne dopasowanie modelu do zbioru uczącego, brak zdolności
+generalizacji</li>
+<li>Przyczyny
+<ul>
+<li>zbyt skomplikowana postać</li>
+<li>zbyt długa optymalizacja parametrów modelu</li>
+<li>za mały zbiór danych uczących</li>
+<li>niereprezentatywny zbiór danych uczących</li>
+</ul></li>
+<li>Przeciwdziałanie
+<ul>
+<li>kontrolowanie struktury modelu - uproszczenie struktury może dać
+lepsze efekty</li>
+<li>stosowanie agregacji - jak w lasach losowych</li>
+<li>stosowanie regularyzacji podczas trenowania</li>
+<li>dropout w modelach neuronowych</li>
+</ul></li>
+</ul>
+<h3 id="regularyzacja">Regularyzacja</h3>
+<ul>
+<li>Rozszerzenie funkcji straty o dodatkową składową karzącą za zbyt
+rozbudowany model</li>
+<li>Regularyzacja <span class="math inline">\(L_1\)</span>: <span
+class="math inline">\(J(\theta) = \frac{1}{N} \sum_{i=1}^N ||y_i -
+\hat{f}(x_i, \theta)||^2 + \lambda ||\theta||\)</span></li>
+<li>Regularyzacja <span class="math inline">\(L_2\)</span>: <span
+class="math inline">\(J(\theta) = \frac{1}{N} \sum_{i=1}^N ||y_i -
+\hat{f}(x_i, \theta)||^2 + \lambda ||\theta||^2\)</span></li>
+</ul>
+<h3 id="ocena-jakości-modelu">Ocena jakości modelu</h3>
+<p>Żeby uniknąć przeuczenia, działanie modelu należy oceniać na danych,
+które nie były używane do uczenia. Podstawowa strategia to podział
+zbioru danych na uczący i testowy (typowo w proporcjach <span
+class="math inline">\(80:20\)</span>, <span
+class="math inline">\(75:25\)</span>)</p>
+<h4 id="k-krotna-walidacja-krzyżowa">k-krotna walidacja krzyżowa</h4>
+<ul>
+<li>Zbiór danych <span class="math inline">\(U\)</span> tasuje się i
+dzieli na <span class="math inline">\(k\)</span> równych części</li>
+<li>Dla każdego podzbioru <span class="math inline">\(U_i\)</span>
+<ul>
+<li>uczy się model na zbiorze <span
+class="math inline">\(U-U_i\)</span></li>
+<li>oblicza się średnią stratę na zbiorze <span
+class="math inline">\(U_i\)</span></li>
+</ul></li>
+<li>Wylicza się finalną stratę jako średnią stratę ze wszystkich
+modeli</li>
+<li>Trenuje się finalny model na całym zbiorze <span
+class="math inline">\(U\)</span></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#klasyfikacja-i-regresja">Klasyfikacja i regresja</a>
+<ul>
+<li><a href="#wysokopoziomowy-obraz">Wysokopoziomowy obraz</a>
+<ul>
+<li><a href="#zastosowania">Zastosowania</a></li>
+<li><a href="#techniki">Techniki</a></li>
+<li><a href="#narzędzia">Narzędzia</a></li>
+</ul></li>
+<li><a href="#aproksymacja-funkcji">Aproksymacja funkcji</a></li>
+<li><a href="#klasyfikacja">Klasyfikacja</a></li>
+<li><a href="#uogólnienie---problem-decyzji-statystycznych">Uogólnienie
+- problem decyzji statystycznych</a>
+<ul>
+<li><a href="#wskaźniki-jakości">Wskaźniki jakości</a></li>
+</ul></li>
+<li><a href="#uczenie-off-line">Uczenie off-line</a></li>
+<li><a href="#uczenie-on-line">Uczenie on-line</a>
+<ul>
+<li><a href="#ogólny-algorytm">Ogólny algorytm</a></li>
+</ul></li>
+<li><a href="#maszyny-wektorów-nośnych">Maszyny wektorów nośnych</a>
+<ul>
+<li><a href="#przypadek-liniowo-separowalny">Przypadek liniowo
+separowalny</a></li>
+<li><a href="#brak-liniowej-separacji">Brak liniowej separacji</a></li>
+<li><a href="#twierdzenie-o-reprezentacji">Twierdzenie o
+reprezentacji</a></li>
+<li><a href="#postać-nieliniowa">Postać nieliniowa</a></li>
+<li><a href="#przekształcenia-jądrowe">Przekształcenia jądrowe</a></li>
+</ul></li>
+<li><a href="#drzewa-decyzyjne">Drzewa decyzyjne</a>
+<ul>
+<li><a href="#algorytm-id3">Algorytm ID3</a></li>
+<li><a href="#algorytm-c4.5">Algorytm C4.5</a></li>
+<li><a href="#las-losowy">Las losowy</a></li>
+</ul></li>
+<li><a href="#gradient-boosting">Gradient boosting</a></li>
+<li><a href="#naiwny-klasyfikator-bayesowski">Naiwny klasyfikator
+bayesowski</a></li>
+<li><a href="#ocena-modeli-ml">Ocena modeli ML</a>
+<ul>
+<li><a href="#regularyzacja">Regularyzacja</a></li>
+<li><a href="#ocena-jakości-modelu">Ocena jakości modelu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

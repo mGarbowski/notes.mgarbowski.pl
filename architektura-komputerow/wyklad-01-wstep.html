@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-01-wstep</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-02-klasyfikacja-pamieci.html">Następny: wyklad-02-klasyfikacja-pamieci.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-01-2023-02-20">Wykład 01 (2023-02-20)</h1>
+<h2 id="literatura">Literatura</h2>
+<ul>
+<li>Patterson, Hennessy - Computer Organization and Design - do
+ściągnięcia legalnie</li>
+<li>The RISC-V Instruction Set Manual, <a
+href="https://riscv.org">riscv.org</a> - dokumentacja</li>
+<li><a href="https://developer.intel.com">Dokumentacja Intel 64</a></li>
+<li><a href="https://amd.com">Dokumentacja AMD</a></li>
+<li>Dodatek A do 5 edycji Patterson-Hennessy</li>
+<li>System V Application Binary Interface Intel386, rozdziały 2.1-2.3,
+na gitlabie</li>
+<li>System V Application Binary Interface AMD64</li>
+</ul>
+<h2 id="oprogramowanie">Oprogramowanie</h2>
+<ul>
+<li>RARS</li>
+<li>NASM</li>
+<li>GCC</li>
+</ul>
+<h2 id="zakazane-książki">Zakazane książki</h2>
+<ul>
+<li>W Stallings</li>
+<li>Cheatsheets list instrukcji x86</li>
+</ul>
+<h2 id="treść-wykładów">Treść wykładów</h2>
+<ul>
+<li>Moodle</li>
+<li><a href="https://github.com/gbm-ii">github.com/gbm-ii</a></li>
+</ul>
+<h2 id="laboratoria">Laboratoria</h2>
+<ul>
+<li>Za 3 albo 2 tygodnie</li>
+<li>Ważne zajęcia wprowadzające, nie trzeba się przygotować</li>
+<li>Ćwiczenia do pełnego wykonania w ciągu 2h labów, warto się
+przygotować</li>
+<li>Projekty do domu i z konsultacjami na laboratoriach</li>
+<li>Przykładowe ćwiczenia na Moodle</li>
+<li>Harmonogram będzie na Moodle</li>
+<li>Prośby o zmiane grupy kiedy pojawi się harmonogram</li>
+</ul>
+<h2 id="regulamin">Regulamin</h2>
+<ul>
+<li>2 kolokwia po 20pkt</li>
+<li>laboratoria 3, 3, 6, 6, 2</li>
+<li>min 11pkt z laboratorium, min 16pkt z kolokwiów</li>
+</ul>
+<h2 id="kolokwia">Kolokwia</h2>
+<ul>
+<li>Kolokwia online w terminach laboratoriów</li>
+<li>Można poprawić jedno kolokwium, końcowa ocena jest uśredniona</li>
+<li>Zgłosić się do prowadzącego w przypadkach losowych</li>
+</ul>
+<h2 id="wstęp-do-architektury-komputerów">Wstęp do architektury
+komputerów</h2>
+<h3 id="logiczna-budowa-komputera">Logiczna budowa komputera</h3>
+<ul>
+<li>Procesor</li>
+<li>Pamięć</li>
+<li>Wejście / wyjście</li>
+</ul>
+<h3 id="jednostki-miary">Jednostki miary</h3>
+<ul>
+<li>normy IEEE 1541 i IEC 80000-13</li>
+<li>bit (b)</li>
+<li>oktet (o) - 8 bitów</li>
+<li>bajt (B) - najmneijsza jednostka adresowalna, zazwyczaj 8 bitów</li>
+</ul>
+<h3 id="krotności-binarne">Krotności binarne</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>2^10</td>
+<td>Ki</td>
+<td>kibi</td>
+</tr>
+<tr class="even">
+<td>2^20</td>
+<td>Mi</td>
+<td>mibi</td>
+</tr>
+<tr class="odd">
+<td>2^30</td>
+<td>Gi</td>
+<td>gibi</td>
+</tr>
+<tr class="even">
+<td>2^40</td>
+<td>Ti</td>
+<td>tebi</td>
+</tr>
+<tr class="odd">
+<td>2^50</td>
+<td>Pi</td>
+<td>pebi</td>
+</tr>
+<tr class="even">
+<td>2^60</td>
+<td>Ei</td>
+<td>exbi</td>
+</tr>
+</tbody>
+</table>
+<h3 id="taksonomie">Taksonomie</h3>
+<p>Podział architektur na kategorie</p>
+<h3 id="taksonomia-flynna">Taksonomia Flynna</h3>
+<ul>
+<li>nie ma zastosowania praktycznego</li>
+<li>przetwarzanie strumieni danych na podstawie strumieni
+instrukcji</li>
+<li>klasyfikuje komputery na podstawie liczby strumieni instrukcji i
+danych (jeden lub wiele)</li>
+</ul>
+<p>SISD SIMD MISD MIMD</p>
+<ul>
+<li>SISD
+<ul>
+<li>najprostszy komputer</li>
+<li>najbardziej rozprzestrzeniony typ</li>
+<li>uniprocesor von Neumanna</li>
+</ul></li>
+<li>SIMD
+<ul>
+<li>operacje wektorowe</li>
+<li>jeden strumień instrukcji pracujący na wielu kompletach danych</li>
+<li>procesor wektorowy / macierzowy</li>
+</ul></li>
+<li>MISD
+<ul>
+<li>nie istnieje</li>
+</ul></li>
+<li>MIMD
+<ul>
+<li>zestawione wiele SIMD</li>
+</ul></li>
+</ul>
+<h4 id="architektura-data-flow">Architektura data flow</h4>
+<ul>
+<li>NISD</li>
+<li>NIMD</li>
+</ul>
+<p>Koncepcja data-flow stanowiła podstawę do projektowania sprzętu,
+dzisiaaj wykorzystuje się do projektowania systemów</p>
+<p>urządzenia bez strumieni instrukcji mogą przetwarzać dane coś co nie
+ma strumienia danych nie jest komputerem wg naszej definicji</p>
+<p>Przetwarza porcje danych (tokeny). Token składa się z opisu - metki i
+danych przetwarzanych - payload. W Wyniku przetwarzania uzyskuje się
+nowy token z opisem i payload’em.</p>
+<h3 id="taksonomia-skillicorna">Taksonomia Skillicorna</h3>
+<p>Schemat blokowy (koncepcyjny) komputera opisujący jego ideę
+działania, model koncepcyjny. Nie odpowiada temu jak faktycznie
+zbudowany jest komputer.</p>
+<p>Struktura złożona z mniejszych składników połączonych w określony
+sposób.</p>
+<h4 id="składniki-architektury">Składniki architektury</h4>
+<ul>
+<li>procesory instrukcji (IP)</li>
+<li>procesory danych (DP)</li>
+<li><em>hierarchie</em> pamięci instrukcji (IM)</li>
+<li><em>hierarchie</em> pamięci danych (DM)</li>
+</ul>
+<p>Procesor nie zawiera elementów pamiętających (w teoretycznym
+modelu).</p>
+<p>Każdy procesor ma odpowiadającą hierarchię pamięci</p>
+<h4 id="połączenia">Połączenia</h4>
+<ul>
+<li>procesor z hierarchią pamięci</li>
+<li>procesor instrukcji z procesorami danych</li>
+<li>procesory jednego rodzaju między sobą</li>
+</ul>
+<h4 id="rodzaje-połączeń">Rodzaje połączeń</h4>
+<ul>
+<li>1-1</li>
+<li>1-N</li>
+<li>N-N (każdy z jednym odpowiadającym)</li>
+<li>N x N (każdy z każdym)</li>
+</ul>
+<p>Dwukierunkowy przepływ danych między proesorem danych a hierarchią
+pamięci danych - jedyne miejsce w którym przepływ jest
+dwukierunkowy.</p>
+<h3 id="modele-w-taksonomii-z-sensownym-zastosowaniem">Modele w
+taksonomii z sensownym zastosowaniem</h3>
+<ul>
+<li>uniprocesor dataflow</li>
+<li>…</li>
+</ul>
+<p>Jeśli jest więcej niż jeden procesor to połączenia z innymi
+procesorami mogą być * ma sens tylko dla procesorów danych * słbe -
+przez kanał komiunikacji między procesorami danych * silnie - przez
+uwspólnienie hierarchii pamięci między procesorami</p>
+<h3 id="hierarchia-pamięci">Hierarchia pamięci</h3>
+<p>Nie da się zbudować pamięci o jednocześnie dowolnie dużej pojemności
+i dowolnie krótkim czasie dostępu - tradeoff.</p>
+<p>Czas dostępu rośnie z pojemnością, pojemność wpływa na fizyczny
+wymiar a wymiar na drogę dostępu, wydłużająca czas dostępu.</p>
+<p>Struktura hierarchiczna-wartwowa * umożliwia zróżnicowanie parametrów
+(pojemności i czasu dostępu) * kolejne warstwy mają coraz większe
+pojemności i czasy dostępu</p>
+<p>Warstwy * Rejestry procesora * Kieszenie (cache), 3 poziomy * Pamięć
+operacyjna * Pamięć wirtualna (pamięć masowa, rozszerzenie pamięci
+operacyjnej) * Lokalny system plików (pamięć masowa) * Zasoby zdalne</p>
+<p>Wydajność procesora jest ograniczona przez wydajność pamięci (z
+przyczyn technologicznych, pamięć jest wolniejsza). Współczesny procesor
+mógłby wykonać 100 instrukcji w czasie który pamięć potrzebuje na odczyt
+1 instrukcji. Cache kompensuje różnicę w wydajności między procesorem a
+pamięcią.</p>
+<p>Pamięć wirtualna rozwiązuje ograniczenie w rozmiarze pamięci
+operacyjnej.</p>
+<p>Lokalny system plików przechowuje dane w sposób trwały.</p>
+<h3 id="sterowanie-hierarchią-pamięci">Sterowanie hierarchią
+pamięci</h3>
+<p>Żeby zachować względną szybkość i pojemność, trzeba przemieszczać
+dane po hierarchii.</p>
+<p>Obiekty potrzebne procesorowi w danym momencie powinny znaleźć się w
+warstwie jak najbliższej do procesora. Obiekty chwilowo niepotrzebne
+powinny być spychane do dalszych warstw, żeby zwalniać miejsce w
+bliższych warstwach.</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>styk</th>
+<th>zarządzany przez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>rejestry-reszta</td>
+<td>kompilator lub programista w assemblerze</td>
+</tr>
+<tr class="even">
+<td>cache-pamięć operacyjna</td>
+<td>sprzęt</td>
+</tr>
+<tr class="odd">
+<td>pamięć operacyjna-pamięć wirtualna</td>
+<td>system operacyjny</td>
+</tr>
+<tr class="even">
+<td>pamięć wirtualna-system plików</td>
+<td>użytkownik lub program użytkowy</td>
+</tr>
+<tr class="odd">
+<td>lokalny-zdalny</td>
+<td>użytkownik lub program użytkowy</td>
+</tr>
+</tbody>
+</table>
+<p>Styki mają różną charakterystykę czasową i granularność</p>
+<p>Pamięć wirtualna i lokalny system plików fizycznie znajdują się na
+dysku (HDD/SSD)</p>
+<h3 id="maszyna-von-neumanna">Maszyna von Neumanna</h3>
+<p>Ogólny pomysł na budowę komputera, uniwersytet Princeton, lata
+40’.</p>
+<p>Instrukcje tworzące program są przechowywane w tej samej pamięci co
+dane, na których operuje program. Paamięć składa się z ponumerowanych
+komórek. Procesor odwołuje się do komórki pamięci przez jej numer
+nazywany <strong>adresem</strong>.</p>
+<p>Kolejne instrukcje zazwyczaj znajdują się w kolejnych komórkach.
+Adres obecnie wykonywanej instrukcji jest przechowywany w specjalnym
+rejestrze (Program Counter).</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-01-2023-02-20">Wykład 01 (2023-02-20)</a>
+<ul>
+<li><a href="#literatura">Literatura</a></li>
+<li><a href="#oprogramowanie">Oprogramowanie</a></li>
+<li><a href="#zakazane-książki">Zakazane książki</a></li>
+<li><a href="#treść-wykładów">Treść wykładów</a></li>
+<li><a href="#laboratoria">Laboratoria</a></li>
+<li><a href="#regulamin">Regulamin</a></li>
+<li><a href="#kolokwia">Kolokwia</a></li>
+<li><a href="#wstęp-do-architektury-komputerów">Wstęp do architektury
+komputerów</a>
+<ul>
+<li><a href="#logiczna-budowa-komputera">Logiczna budowa
+komputera</a></li>
+<li><a href="#jednostki-miary">Jednostki miary</a></li>
+<li><a href="#krotności-binarne">Krotności binarne</a></li>
+<li><a href="#taksonomie">Taksonomie</a></li>
+<li><a href="#taksonomia-flynna">Taksonomia Flynna</a></li>
+<li><a href="#taksonomia-skillicorna">Taksonomia Skillicorna</a></li>
+<li><a href="#modele-w-taksonomii-z-sensownym-zastosowaniem">Modele w
+taksonomii z sensownym zastosowaniem</a></li>
+<li><a href="#hierarchia-pamięci">Hierarchia pamięci</a></li>
+<li><a href="#sterowanie-hierarchią-pamięci">Sterowanie hierarchią
+pamięci</a></li>
+<li><a href="#maszyna-von-neumanna">Maszyna von Neumanna</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

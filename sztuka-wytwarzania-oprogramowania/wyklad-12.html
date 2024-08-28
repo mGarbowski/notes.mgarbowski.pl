@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-12</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-11.html">Poprzedni: wyklad-11.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-13.html">Następny: wyklad-13.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="współbieżne-wzorce-projektowe-2-2024-05-27">Współbieżne wzorce
+projektowe 2 (2024-05-27)</h1>
+<ul>
+<li>Procesor działa znacznie szybciej niż inne urządzenia</li>
+<li>Współczesne komputery są wieloprocesorowe</li>
+<li>Wątek realizuje niezależne ciągi instrukcji w ramach jednego
+procesu</li>
+<li>Niewłaściwe stosowanie blokad może prowadzić do zakleszczeń</li>
+</ul>
+<h2 id="obsługa-urządzeń-io">Obsługa urządzeń IO</h2>
+<ul>
+<li>System operacyjny zapewnia 3 metody obsługi urządzeń IO</li>
+<li>Synchroniczne blokujące
+<ul>
+<li>sterowanie wraca, gdy operacja jest zakończona</li>
+</ul></li>
+<li>Synchroniczne nieblokujące
+<ul>
+<li>sterowanie wraca natychmiast z informacją, czy udało się zrealizować
+operację</li>
+<li>może zwracań np. liczbę odczytanych bajtów</li>
+<li>operację można ponowić</li>
+</ul></li>
+<li>Asynchroniczne
+<ul>
+<li>sterowanie wraca natychmiast</li>
+<li>użytkownik dostarcza uchwyt (callback), który będzie wołany gdy
+operacja się zakończy</li>
+</ul></li>
+</ul>
+<h2 id="obsługa-io-bazująca-na-wątkach">Obsługa IO bazująca na
+wątkach</h2>
+<ul>
+<li>Wykorzystuje synchroniczne metody obsługi IO</li>
+<li>Sekwencyjna (prosta) struktura sterowania</li>
+<li>Każde urządzenie obsługuje się w oddzielnym wątku
+<ul>
+<li>podczas oczekiwania inne wątki mogą pracować</li>
+<li>słabo się skaluje np. dla 1000 gniazd TCP (i tak nie ma 1000 kart
+sieciowych)</li>
+</ul></li>
+<li>Przesyłanie danych z takim wątkiem wymaga mechanizmów
+synchronizacji</li>
+<li>Narzuty
+<ul>
+<li>synchronizacja</li>
+<li>blokady</li>
+<li>mechanizm przełączania wątków</li>
+</ul></li>
+</ul>
+<h2 id="obsługa-io-bazująca-na-zdarzeniach">Obsługa IO bazująca na
+zdarzeniach</h2>
+<ul>
+<li>Wykorzystuje synchroniczne lub asynchroniczne metody obsługi IO</li>
+<li>Kolejka zdarzeń i pętla obsługi zdarzeń</li>
+<li>Odwrócenie sterowania - rejestrujemy uchwyty, które będą
+wykonywane</li>
+<li>Brak kontroli nad kolejnością obsługi</li>
+<li>Brak narzutów na synchronizację, blokady, wątki</li>
+</ul>
+<h2 id="boost.asio">Boost.Asio</h2>
+<ul>
+<li>Synchroniczna / asynchroniczna obsługa IO w C++</li>
+<li>Przenośna obsługa
+<ul>
+<li>zegarów (timer)</li>
+<li>gniazd UDP i TCP</li>
+<li>portów szeregowych</li>
+<li>sygnałów</li>
+<li>uchwytów do plików</li>
+</ul></li>
+<li>Wsparcie dla Windows, Linux, Mac</li>
+</ul>
+<h2 id="wzorzec-projektowy-reaktora">Wzorzec projektowy reaktora</h2>
+<ul>
+<li>Obsługa urządzeń oparta o zdarzenia</li>
+<li>Odwrócenie sterowania</li>
+<li>Wykorzystuje nieblokujące, synchroniczne operacje IO</li>
+<li>Klient rejestruje w reaktorze uchwyty do obsługi</li>
+<li>…</li>
+</ul>
+<h2 id="wzorzec-projektowy-proaktora">Wzorzec projektowy proaktora</h2>
+<ul>
+<li>Obsługa zdarzeń oparta o zdarzenia</li>
+<li>Odwrócenie sterowania</li>
+<li>Wykorzystuje asynchroniczne operacje IO</li>
+<li>…</li>
+</ul>
+<p>Z punktu widzenia programisty aplikacji różnica jest nieistotna,
+korzysta się z nich tak samo</p>
+<h2 id="instrukcje-atomowe">Instrukcje atomowe</h2>
+<ul>
+<li>Niektóre operacje są transakcjami - wykonują się w całości albo
+wcale</li>
+<li>Za pomocą takich operacji możemy tworzyć algorytmy współbieżne bez
+blokad (lock-free)</li>
+<li>Takie algorytmy mogą działać szybciej niż tworzenie sekcji
+krytycznych</li>
+<li>Operacje atomowe może gwarantować sprzęt (procesor)</li>
+<li><code>++x</code> nie jest atomowa
+<ul>
+<li>odczyt z pamięci do rejestru</li>
+<li>inkrementacja</li>
+<li>zapis do pamięci</li>
+</ul></li>
+<li>Szablon <code>std::atomic</code>
+<ul>
+<li>typy danych, które mogą być atomowe</li>
+<li>narzuty przy operacjach na typach atomowych</li>
+<li>pozwala tworzyć algorytmy bez blokad</li>
+</ul></li>
+<li><code>std::atomic&lt;bool&gt;</code> są zawsze atomowe, bez blokad
+<ul>
+<li>inne typy będą działać poprawnie, ale nie zawsze bez blokad</li>
+<li>może wewnętrznie używać mutexa</li>
+<li>jest sens ich używać kiedy nie mają wewnętrzenej blokady</li>
+<li>zawsze dostarcza poprawną implementację <code>load</code> i
+<code>store</code></li>
+<li><code>compare_exchange_weak</code>,
+<code>compare_exchange_strong</code>
+<ul>
+<li>warunkowa, atomowa zamiana</li>
+<li>podstawowa operacja dla algorytmów lock-free</li>
+</ul></li>
+</ul></li>
+<li>Podsumowanie
+<ul>
+<li>są wolniejsze niż nieatomowe ale gwarantują poprawność</li>
+<li>warto je stosować do tworzenia współbieżnych struktur danych</li>
+<li>algorytmy lock-free są trudne do implementacji i zrozumienia</li>
+<li>operacje atomowe mogą być szybsze lub wolniejsze od blokad, zależy
+jak często występują wyścigi</li>
+</ul></li>
+</ul>
+<h2 id="specjalne-typy-atomowe">Specjalne typy atomowe</h2>
+<ul>
+<li>Liczby całkowite</li>
+<li>Liczby rzeczywiste</li>
+<li>Wskaźniki
+<ul>
+<li>też sprytne wskaźniki</li>
+</ul></li>
+<li>Działają dużo szybciej niż blokady (np. użycie mutexa)</li>
+</ul>
+<h2 id="algorytmy-bez-blokad">Algorytmy bez blokad</h2>
+<ul>
+<li>Wyścigi są dopuszczone</li>
+<li>W przypadku wyścigu operacja jest powielana</li>
+<li>Założenie że wyścigi wystąpią rzadko i powiela się do skutku</li>
+<li>Niedeterministyczny czas działania</li>
+</ul>
+<h2 id="współbieżna-blokada">Współbieżna blokada</h2>
+<ul>
+<li>Problem czytelników i pisarzy
+<ul>
+<li>w sekcji krytycznej może być wielu czytelników na raz</li>
+<li>pisarz wyklucza wszystkie inne wątki z sekcji krytycznej</li>
+</ul></li>
+<li><code>std::shared_mutex</code> i <code>boost::shared_mutex</code>
+<ul>
+<li>np. dla wątku czytelnika</li>
+</ul></li>
+<li>Metody
+<ul>
+<li>lock</li>
+<li>try_lock</li>
+<li>timed_lock</li>
+<li>lock_shared</li>
+<li>try_lock_shared</li>
+<li>timed_lock_shared</li>
+</ul></li>
+</ul>
+<h2 id="zagłodzenie-starvation">Zagłodzenie (starvation)</h2>
+<ul>
+<li>Wątek nie może się wykonywać, ponieważ cały czas jest blokowany</li>
+<li>Co innego niż zakleszczenie</li>
+<li>Np. w problemie czytelników i pisarzy</li>
+<li>Wymaga innych mechanizmów zapobiegawczych
+<ul>
+<li><code>std::shared_mutex</code> rozwiązuje to poprawnie</li>
+</ul></li>
+</ul>
+<h2 id="kolos">Kolos</h2>
+<ul>
+<li>Metryki
+<ul>
+<li>kodu</li>
+<li>procesu</li>
+</ul></li>
+<li>Pokrycie kodu</li>
+<li>Jakość testów</li>
+<li>Analiza oprogramowania
+<ul>
+<li>analiza dynamiczna</li>
+<li>analiza statyczna</li>
+</ul></li>
+<li>Refaktoring
+<ul>
+<li>zapachy kodu</li>
+<li>jak poprawiać kod</li>
+</ul></li>
+<li>Współbieżność
+<ul>
+<li>wątki, wyścigi, skalowalność</li>
+<li>blokady, zakleszczenia</li>
+<li>operacje atomowe (<code>std::atomic</code>)</li>
+<li>obsługa IO</li>
+</ul></li>
+<li>Wzorce projektowe
+<ul>
+<li>RAII</li>
+<li>blokada z podwójnym sprawdzaniem</li>
+<li>pasywny obiekt</li>
+<li>reaktor, proaktor</li>
+</ul></li>
+<li>Z własnymi notatkami</li>
+<li>W kodzie może być kilka problemów, nawet jeśli w treści jest
+wymienione jedno</li>
+<li>Zadania na stronie przedmiotu</li>
+</ul>
+<p>Będzie sprawdzian dodatkowy dla chętnych, do zdobycia punkty w
+zakresie [-6, 6], ustny, cały materiał, bez notatek, trzeba się
+zapisać</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#współbieżne-wzorce-projektowe-2-2024-05-27">Współbieżne
+wzorce projektowe 2 (2024-05-27)</a>
+<ul>
+<li><a href="#obsługa-urządzeń-io">Obsługa urządzeń IO</a></li>
+<li><a href="#obsługa-io-bazująca-na-wątkach">Obsługa IO bazująca na
+wątkach</a></li>
+<li><a href="#obsługa-io-bazująca-na-zdarzeniach">Obsługa IO bazująca na
+zdarzeniach</a></li>
+<li><a href="#boost.asio">Boost.Asio</a></li>
+<li><a href="#wzorzec-projektowy-reaktora">Wzorzec projektowy
+reaktora</a></li>
+<li><a href="#wzorzec-projektowy-proaktora">Wzorzec projektowy
+proaktora</a></li>
+<li><a href="#instrukcje-atomowe">Instrukcje atomowe</a></li>
+<li><a href="#specjalne-typy-atomowe">Specjalne typy atomowe</a></li>
+<li><a href="#algorytmy-bez-blokad">Algorytmy bez blokad</a></li>
+<li><a href="#współbieżna-blokada">Współbieżna blokada</a></li>
+<li><a href="#zagłodzenie-starvation">Zagłodzenie (starvation)</a></li>
+<li><a href="#kolos">Kolos</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

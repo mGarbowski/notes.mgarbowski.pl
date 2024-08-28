@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-08.html">Następny: wyklad-08.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy operacyjne</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="powtorzenie-do-kolokwium.html">powtorzenie-do-kolokwium.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+                <li><a href="wyklad-14.html">wyklad-14.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="procesy-i-wątki-2023-11-14">Procesy i wątki (2023-11-14)</h1>
+<p>Program nie ma stanu, jest reprezentacją algorytmu Proces to
+wykonujący się program wraz z jego śrdoowiskiem obliczeniowym. Proces
+stanowi podstawowy obiekt dynamiczny w systemie operacyjnym</p>
+<p>Kontekst to np. zmienne środowiskowe, zawartość rejestrów,
+pamięci</p>
+<h2 id="wymagania-systemu-zarządzania-procesami">Wymagania systemu
+zarządzania procesami</h2>
+<ul>
+<li>Umożliwienie przeplatania się wykonywania procesów</li>
+<li>Akceptowalnie krótki czas odpowiedzi systemu</li>
+<li>Zarządzanie przydziałem zasobów poszczególnym procesom</li>
+<li>Udostępnienie mechanizmów do komunikacji międzyprocesowej</li>
+<li>Udostępnienie mechanizmów do tworzenia procesów</li>
+</ul>
+<p>Procesor wykonuje na przemian kod procesów i planisty (scheduler),
+nigdy proces od razu po procesie Każdy proces ma atrybut stanu (tylko
+jeden z procesów w stanie READY będzie wybrany do wykonania przez
+scheduler)</p>
+<p>System operacyjny to ogólnie jądro systemu i grupa procesów (petentów
+oczekujących na usługę)</p>
+<p>Na maszynie wieloprocesorowej dalej jest tylko jedno jądro systemu,
+tylko inaczej zarządza procesami</p>
+<p>Wzbudzenie schedulera kosztuje czas procesora</p>
+<p>W oryginalnym Unixie było 18 przerwań na sekundę, dzisiaj sa rzędu
+&gt;10000 ze względu na wymagania czasowe z przetwarzaniem multimediów
+Unix nie nadaje się jako system do przetwarzania multimediów</p>
+<p>Jeśli może być wiele procesów, to jądro musi zapewniać mechanizmy do
+komunikacji międzyprocesowej</p>
+<h2 id="wieloprogramowanie">Wieloprogramowanie</h2>
+<ul>
+<li>procsy współbieżne - nie ma wymogu, żeby kolejny proces startował po
+zakończeniu poprzedniego (nie muszą być szeregowe)</li>
+<li>procesy równoległe - może istnieć chwila czasu, kiedy wykonują się
+dokładnie w tej samej chwili czasu (nie muszą ale nie można tego
+wykluczyć)
+<ul>
+<li>musi być więcej niż jedno ALU (w praktyce wiele rdzeni, wiele
+procesorów)</li>
+<li>przereklamowana? (zysk zależy od poziomu ziarnistości dekompozycji
+problemu, są obliczenia które świetnie się nadają do zrównoleglania
+(grafika))</li>
+</ul></li>
+<li>procesy rozproszone - wykonują się na sprzęcie rozproszonym
+<ul>
+<li>Nie mają współdzielonej pamięci</li>
+<li>Scentralizowany sprzęt nie wymaga komunikacji sieciowej</li>
+<li>Są z założenia równoległe</li>
+</ul></li>
+</ul>
+<h2 id="tworzenie-i-kończenie-procesów">Tworzenie i kończenie
+procesów</h2>
+<p>Utworzenie procesu może być rezultatem * inicjalizacji systemu *
+wywołanie funkcji systemowej przez działający proces * zlecenia
+użytkownika utworzenia nowego procesu * uruchomienia zadania wsadowego *
+w UNIXie * wszystko poza inicjalizacją obsługuje funkcja
+<code>fork</code> * <code>/etc/inittab</code> opisuje działanie procesu
+init</p>
+<p>Zakończenie działania procesu * zakończenie działania algorytmu
+(<code>return 0;</code>) * celowe zakończenie w wyniku wystąpienia błędu
+* wykonanie niedozwolonej operacji (wymuszone zakończenie, np SegFault)
+* otrzymanie sygnału od innego procesu (zakończenie wymuszone) *
+informacją jest numer sygnału * proces może przygotować się na obsługę
+sygnału * jeśli nie ma funkcji obsługi to proces od razu zostanie zabity
+* 15 Terminate - proces powinien zamknąć pliki, wypłukać bufory itp
+(graceful) * 9 Kill - zabija natychmiast * można obsługiwać w językach
+programowania i w skryptach shellowych * Kill nie zabije procesu zombie
+(nie żyje, ma zwolnione zasoby ale jest na liście procesów)</p>
+<h2 id="graf-przejść-stanów-procesów">Graf przejść stanów procesów</h2>
+<ul>
+<li>Running</li>
+<li>Ready</li>
+<li>Blocked</li>
+</ul>
+<p>Nie można przejść ze stanu blocked to stanu running</p>
+<ul>
+<li>Running -&gt; Blocked - blokowanie oczekiwania na IO</li>
+<li>Running -&gt; Ready - scheduler wybrał inny proces</li>
+<li>Ready -&gt; Running - scheduler wybrał ten proces</li>
+<li>Blocked -&gt; Ready - koniec operacji IO, po przyjściu przerwania
+informującego o gotowości wyniku operacji IO</li>
+</ul>
+<p>Funkcja obsługi przerwania powinna być możliwie krótka</p>
+<p>W prawdziwych systemach graf jest bardziej skomplikowany</p>
+<p>wywłaszczenie procesu - gorsza wydajność algorytmu szeregowania ale
+lepsza reaktywność systemu obsługującego multimedia</p>
+<p>procesy zombie - na następnym wykładzie</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#procesy-i-wątki-2023-11-14">Procesy i wątki
+(2023-11-14)</a>
+<ul>
+<li><a href="#wymagania-systemu-zarządzania-procesami">Wymagania systemu
+zarządzania procesami</a></li>
+<li><a href="#wieloprogramowanie">Wieloprogramowanie</a></li>
+<li><a href="#tworzenie-i-kończenie-procesów">Tworzenie i kończenie
+procesów</a></li>
+<li><a href="#graf-przejść-stanów-procesów">Graf przejść stanów
+procesów</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

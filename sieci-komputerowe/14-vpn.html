@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>14-vpn</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="13-protokol-dns.html">Poprzedni: 13-protokol-dns.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="15-laczenie-sieci.html">Następny: 15-laczenie-sieci.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wirtualne-sieci-prywatne">Wirtualne sieci prywatne</h1>
+<p>Nie mylić z vlan!</p>
+<ul>
+<li>Dostęp danych poufnych poprzez sieć (niezaufaną)</li>
+</ul>
+<h2 id="szyfr-asymetryczny">Szyfr asymetryczny</h2>
+<ul>
+<li>zapewnienie tajności - klucz deszyfrujący jest tajny, klucz
+szyfrujący jest publiczny
+<ul>
+<li>każdy może zaszyfrować tekst, tylko ja mogę go rozszyfrować</li>
+</ul></li>
+<li>zapewnienie autentyczności - klucz szyfrujący jest tajny, klucz
+deszyfrujący jest publiczny
+<ul>
+<li>jeśli coś da się odszyfrować moim kluczem publicznym to znaczy że ja
+to zaszyfrowałem (podpisałem)</li>
+</ul></li>
+<li>zapewnienie tajności i autentyczności
+<ul>
+<li>dwie pary kluczy</li>
+<li>podatność man in the middle</li>
+<li>zabezpieczenie przed atakiem polega na wymianie certyfikatu
+wystawionego przez zaufaną trzecią stronę (urząd certyfikacji)
+<ul>
+<li>dane identyfikacyjne osoby</li>
+<li>klucz publiczny osoby</li>
+<li>podpisany kluczem tajnym urzędu certyfikacji</li>
+<li>obie strony nie wymieniają się kluczami, tylko certyfikatami (które
+zawierają klucze)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="rodzaje-połączeń">Rodzaje połączeń</h2>
+<ul>
+<li>Komputer-komputer
+<ul>
+<li>jedna sesja TCP do zabezpieczenia</li>
+</ul></li>
+<li>Komputer-sieć</li>
+<li>sieć-sieć</li>
+</ul>
+<h2 id="secure-socket-layer">Secure Socket Layer</h2>
+<h2 id="tunelowanie-portów-ssh">Tunelowanie portów SSH</h2>
+<ul>
+<li><code>ssh -L 5555:localhost:25 user@host</code></li>
+<li>Zapytanie wysyłane przez klienta na jego lokalny port 5555</li>
+<li>ssh szyfruje te pakiety i przesyła je na port 25 serwera
+zdalnego</li>
+<li>sshd serwera deszyfruje pakiet</li>
+</ul>
+<h2 id="tcp-over-tcp">TCP over TCP</h2>
+<p>Jest jawny nagłówek TCP i drugi zaszyfrowany. Z punktu widzenia
+zaszyfrowanego nagłówka, wszystkie pakiety przechodzą i może ustawiać
+zbyt duże okno</p>
+<p>To może być problem</p>
+<h2 id="point-to-point-tunneling-protocol">Point to Point Tunneling
+Protocol</h2>
+<p>Nie jest uznawany za bezpieczny</p>
+<ul>
+<li>protokół PPP</li>
+<li>uwierzytelnianie CHAP</li>
+<li>szyfrwoanie RC4 (złamane)</li>
+<li>tunel GRE (nie pomylić protokołu)</li>
+</ul>
+<p>Wtedy stos protokołów wygląda tak</p>
+<ul>
+<li>TCP</li>
+<li>IP</li>
+<li>PPP</li>
+<li>GRE</li>
+<li>IP</li>
+</ul>
+<h2 id="layer-2-tuneling-protocol">Layer 2 Tuneling Protocol</h2>
+<p>RFC 2661</p>
+<ul>
+<li>TCP</li>
+<li>IP</li>
+<li>PPP</li>
+<li>L2TP</li>
+<li>UDP/TCP</li>
+<li>IP</li>
+<li>…</li>
+</ul>
+<h2 id="ipsec">IPSec</h2>
+<p>Najlepszy protokół do tworzenia wirtualnych sieci prywatnych</p>
+<ul>
+<li>AH - authentication header - w niektórych państwach nielegalne jest
+szyfrowanie danych w sieciach publicznych</li>
+<li>ESP - encapsulatiing security payload</li>
+<li>IPcomp - ip payload compression</li>
+<li>IKE - internet key exchange</li>
+<li>ISAKMP - internet security association and key management
+<ul>
+<li>połączenia sieć-sieć mogą trwać bardzo długo, lepiej co jakiś czas
+wymienić klucz symetryczny</li>
+</ul></li>
+</ul>
+<h3 id="transport-mode">transport mode</h3>
+<p>Szyfrowanie wszystkiego powyżej nagłówka IP</p>
+<h3 id="tunnel-mode">tunnel mode</h3>
+<ul>
+<li>Szyfrowanie całego pakietu IP łącznie z nagłówkiem i dodanie
+nowego</li>
+<li>Dobre do połączeń sieć-sieć, można stosować adresy prywatne w
+enkapsulowanych nagłówkach IP</li>
+</ul>
+<p>schneier</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wirtualne-sieci-prywatne">Wirtualne sieci prywatne</a>
+<ul>
+<li><a href="#szyfr-asymetryczny">Szyfr asymetryczny</a></li>
+<li><a href="#rodzaje-połączeń">Rodzaje połączeń</a></li>
+<li><a href="#secure-socket-layer">Secure Socket Layer</a></li>
+<li><a href="#tunelowanie-portów-ssh">Tunelowanie portów SSH</a></li>
+<li><a href="#tcp-over-tcp">TCP over TCP</a></li>
+<li><a href="#point-to-point-tunneling-protocol">Point to Point
+Tunneling Protocol</a></li>
+<li><a href="#layer-2-tuneling-protocol">Layer 2 Tuneling
+Protocol</a></li>
+<li><a href="#ipsec">IPSec</a>
+<ul>
+<li><a href="#transport-mode">transport mode</a></li>
+<li><a href="#tunnel-mode">tunnel mode</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

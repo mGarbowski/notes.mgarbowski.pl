@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-vpn</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-bezpieczenstwo-systemow-operacyjnych.html">Poprzedni: 10-bezpieczenstwo-systemow-operacyjnych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">Następny: 12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="vpn">VPN</h1>
+<p>Virtual Private Network</p>
+<h2 id="protokoły">Protokoły</h2>
+<ul>
+<li>Generic Routing Encapsulation
+<ul>
+<li>konfigurowany ręczne na obu końcach</li>
+</ul></li>
+<li>Point-to-point Tunneling Protocol
+<ul>
+<li>złamany algorytm generowania kluczy</li>
+</ul></li>
+<li>IPSec</li>
+</ul>
+<h2 id="ipsec">IPSec</h2>
+<ul>
+<li>Framework umożliwiający wybór dostępnych mechanizmów aby
+zabezpieczyć komunikację użytkowników</li>
+<li>Protokoły
+<ul>
+<li>Authentication Header (AH)</li>
+<li>Encapsulated Security Payload (ESP)</li>
+<li>IKE/ISAKMP - zestawienie połączenia</li>
+</ul></li>
+</ul>
+<h3 id="protokół-ah">Protokół AH</h3>
+<ul>
+<li>Protokół IP numer 51
+<ul>
+<li>warstwy transportowej (jak TCP, UDP)</li>
+</ul></li>
+<li>Zapenia integralność pakietów i autentyczność źródła</li>
+<li>Zabezpiecza dane i nagłówek</li>
+<li>Problemy jeśli na trasie jest stosowany NAT lub są modyfikowane
+nagłówki</li>
+</ul>
+<h3 id="protokół-esp">Protokół ESP</h3>
+<ul>
+<li>Protokół IP numer 50</li>
+<li>Zapewnia poufność
+<ul>
+<li>chroni jedynie zawartość pakietu, bez nagłówków</li>
+</ul></li>
+</ul>
+<h3 id="asocjacja-bezpieczeństwa">Asocjacja bezpieczeństwa</h3>
+<ul>
+<li>Security Association (SA)</li>
+<li>Struktura w pamięci</li>
+<li>Przechowuje istotne informacje dotyczące zabezpieczonego połączenia
+<ul>
+<li>wynegocjowane algorytmy</li>
+<li>wektory inicjalizacyjne</li>
+<li>klucze sesyjne</li>
+<li>numery sekwencyjne</li>
+<li>identyfikację ruchu do zabezpieczenia</li>
+</ul></li>
+<li>SA przechowywane w SADB i identyfikowane przez numer SPI (Security
+Parameter Index)
+<ul>
+<li>SPI umieszczany w nagłówkach AH i ESP</li>
+</ul></li>
+<li>Jedno SA dotyczy jednego protokołu (AH / ESP) i jednego kierunku
+połączenia
+<ul>
+<li>dla komunikacji dwustronnej z oboma protokołami będą 4 asocjacje
+bezpieczeństwa (2 kierunki, 2 protokoły)</li>
+</ul></li>
+</ul>
+<h3 id="protokół-ikeisakmp">Protokół IKE/ISAKMP</h3>
+<ul>
+<li>Internet Key Exchange wykorzystuje Internet Security Association and
+Key Management Protocol</li>
+<li>Port 500 UDP</li>
+<li>Służy do zestawienia tunelu IPSec, wynegocjowania parametrów i
+wypełnienia danymi struktur SA</li>
+<li>Negocjuje najmocniejsze mechanizmy wspierane przez obie storny</li>
+</ul>
+<h3 id="topologie">Topologie</h3>
+<ul>
+<li>Site-to-site
+<ul>
+<li>do łączenia wielu użytkowników</li>
+<li>komunikacja między dwoma urzędzeniami dostępowymi</li>
+<li>tunelowy tryb pracy - cały pakiet IP i nagłówek IPSec jest
+umieszczony w nowym pakiecie IP</li>
+</ul></li>
+<li>Remote access
+<ul>
+<li>podłączenie pojedynczego użytkownika</li>
+<li>najczęściej realizowane w dodatkowym oprogramowaniu</li>
+<li>tryb pracy transportowy</li>
+<li>nagłówek IPSec między nagłówkiem IP a danymi</li>
+</ul></li>
+</ul>
+<h3 id="uwierzytelnienie">Uwierzytelnienie</h3>
+<ul>
+<li>Wspołdzielony sekret</li>
+<li>Certyfikaty
+<ul>
+<li>zazwyczaj do remote access</li>
+<li>wykorzystuje PKI</li>
+</ul></li>
+</ul>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Ruch interesujący - pakiety, które mają być zabezpieczone</li>
+<li>Sprawdzenie czy jest aktywny tunel IPSec</li>
+<li>Jeśli tunel IPSec nie jest aktywny rozpoczyna się proces negocjacji
+protokołem IKE
+<ul>
+<li>tworzy własny zabezpieczony tunel zarządzania (w tym SA)</li>
+<li>w tunelu następuje negocjacja parametrów włąsciwego tunelu
+IPSec</li>
+</ul></li>
+<li>Po zestawieniu tunelu IPSec jest wykorzystywany do przesyłania ruchu
+użytkownika</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#vpn">VPN</a>
+<ul>
+<li><a href="#protokoły">Protokoły</a></li>
+<li><a href="#ipsec">IPSec</a>
+<ul>
+<li><a href="#protokół-ah">Protokół AH</a></li>
+<li><a href="#protokół-esp">Protokół ESP</a></li>
+<li><a href="#asocjacja-bezpieczeństwa">Asocjacja
+bezpieczeństwa</a></li>
+<li><a href="#protokół-ikeisakmp">Protokół IKE/ISAKMP</a></li>
+<li><a href="#topologie">Topologie</a></li>
+<li><a href="#uwierzytelnienie">Uwierzytelnienie</a></li>
+<li><a href="#działanie">Działanie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

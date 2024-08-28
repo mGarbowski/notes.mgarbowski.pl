@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-systemy-zapewniajace-bezpieczenstwo</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-zagrozenia-sieciowe.html">Poprzedni: 05-zagrozenia-sieciowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-bezpieczenstwo-aplikacji-c.html">Następny: 07-bezpieczenstwo-aplikacji-c.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1
+id="systemy-zapewniające-bezpieczeństwo-w-sieciach-komputerowych">Systemy
+zapewniające bezpieczeństwo w sieciach komputerowych</h1>
+<h2 id="zapora-ogniowa">Zapora ogniowa</h2>
+<ul>
+<li>Służy do odseparowania podsieci o różnych wymaganiach co do poziomu
+bezpieczeństwa (Internet, LAN)</li>
+<li>Zapora ogniowa umożliwia filtrowanie ruchu
+<ul>
+<li>przesyłanie/blokowanie ruchu na podstawie jego wybranych cech</li>
+</ul></li>
+<li>Powinien odcinać ataki ze złego internetu na dobrą sieć lokalną</li>
+<li>Ataki wychodzące też należy odcinać</li>
+<li>Ogólnie firewall to pudło stojące pomiędzy siecią zewnętrzną i
+wewnętrzną</li>
+<li>W sieci lokalnej może być wiele poziomów firewalla
+<ul>
+<li>na każdym styku sieci o różnych wymaganiach bezpieczeństwa ###
+Rozwój zapór ogniowych</li>
+</ul></li>
+<li>Filtr pakietów
+<ul>
+<li>patrzy na nagłówki w stosie protokołów</li>
+<li>sprawdza tylko protokoły</li>
+<li>nieodporne na spoofing nagłówków</li>
+</ul></li>
+<li>Proxy
+<ul>
+<li>maszyna pośrednicząca</li>
+<li>wolniejsze</li>
+<li>niedozwolone połączenie nie jest nawiązywane z odbiorcą</li>
+</ul></li>
+<li>Filtry stanowe
+<ul>
+<li>śledzi stan - nie można zmanipulować pakietu tak, żeby przeszedł
+przez filtr</li>
+<li>dla każdego połączenia kontroluje w pamięci stan</li>
+<li>dominujące rozwiązanie dzisiaj</li>
+</ul></li>
+<li>Zapory działające w warstwie 7 (aplikacji)
+<ul>
+<li>czasami nie wystarczy po prostu zezwolić na ruch HTTP</li>
+<li>analiza ruchu VoIP - żeby to zaimplementować, trzeba analizować ruch
+wartswy aplikacji</li>
+</ul></li>
+<li>Web application firewall
+<ul>
+<li>dedykowany do HTTP</li>
+</ul></li>
+<li>Osobista zapora ogniowa
+<ul>
+<li>oprogramowanie instalowane na komputerze</li>
+</ul></li>
+</ul>
+<h3 id="demilitarized-zone-dmz">Demilitarized zone (DMZ)</h3>
+<ul>
+<li>Dla niektórych usług, zwykły podział na sieć zewnętrzną i wewnętrzną
+nie wystarcza</li>
+<li>Wprowadza się dodatkowe strefy o pośrednim poziomie
+bezpieczeństwa</li>
+<li>Przykładowo serwery webowe umieszcza się w DMZ
+<ul>
+<li>z routera oddzielne połączenie do LAN i do serwerów WWW, poczty,
+FTP</li>
+<li>wystarczy router z 3 portami</li>
+</ul></li>
+<li>Architektura
+<ul>
+<li>zgrubny filtr zewnętrzny</li>
+<li>router</li>
+<li>DMZ bez filtra</li>
+<li>LAN z precyzyjnym filtrem</li>
+</ul></li>
+</ul>
+<h3 id="konfiguracja">Konfiguracja</h3>
+<ul>
+<li>Lista warunków Deny/Drop/Reject i Accept/Forward ułożonych w
+kolejności</li>
+<li>Testowany pakiet/połączenie jest porównywany z warunkami i przy
+pierwszym dopasowaniu jest podjemowana decyzja</li>
+<li>Odpowiednie listy przypisywane do interfejsów</li>
+<li>Dobrze jest przemyśleć reguły
+<ul>
+<li>jeśli jedna reguła odsiewa 90% ruchu to lepiej żeby była na
+początku</li>
+</ul></li>
+<li>Lepsze jest whitelistowanie niż blacklistowanie
+<ul>
+<li>to co wiemy że jest dobre puszczamy, resztę blokujemy</li>
+<li>jak coś jest zablokowane a nie powinno to użytkownik szybko to
+zgłosi</li>
+</ul></li>
+</ul>
+<h3 id="ingress-i-egress-filtering">Ingress i egress filtering</h3>
+<ul>
+<li>Ingress - filtrowanie ruchu wchodzącego</li>
+<li>Egress - filtrowanie ruchu, który nie powinien wyjść z sieci
+<ul>
+<li>do internetu nie powinny wychodzić pakiety zaadresowane na prywatny
+adres albo na loopback</li>
+<li>nie powinien wychodzić pakiet z innym niż własny adresem
+źródłowym</li>
+<li>broni przed DoS</li>
+</ul></li>
+<li>Dokumenty BCP 38 / RFC 2827</li>
+</ul>
+<h2 id="systemy-antywirusowe">Systemy antywirusowe</h2>
+<p>Systemy wyszukujące w chronionych zasobach (dyski, maszyny, poczta,
+ruch sieciowy) znanych zagrożeń związanych z wirusami i szeroko
+rozumianym złośliwym oprogramowaniem</p>
+<h3 id="sposoby-wykrywania-wirusów">Sposoby wykrywania wirusów</h3>
+<ul>
+<li>Sygnatury
+<ul>
+<li>wyszukiwanie znanych ciągów bajtów powiązanych z danym
+zagrożeniem</li>
+<li>wykrywa tylko znane, przeanalizowane oprogramowanie</li>
+<li>drobne modyfikacje mogą uniemożliwić wykrycie</li>
+</ul></li>
+<li>Heurystyki
+<ul>
+<li>próba oceny czy dany program wykonuje niebezpieczne operacje</li>
+<li>możliwe wykrycie wcześniej nieznanych zagrożeń</li>
+<li>dużo liczba false positives</li>
+<li>np. niepodpisany, skompilowany mniej niż miesiąc temu</li>
+</ul></li>
+</ul>
+<h3 id="przykładowe-rodzaje-sygnatur-clamav">Przykładowe rodzaje
+sygnatur ClamAV</h3>
+<ul>
+<li>Budowa plików PE - portable executable
+<ul>
+<li>nagłówek pliku opisujący sekcje (kod, dane, zasoby, itd.)</li>
+</ul></li>
+<li>Wartość MD5 dla całego pliku
+<ul>
+<li>nie sprawdza się jeśli wirus jest okresowo modyfikowany</li>
+</ul></li>
+<li>Wartość MD5 dla wybranej sekcji pliku PE</li>
+<li>Ciągi bajtów z możliwością stosowania wild-card masks</li>
+<li>W tworzeniu malware’u dąży się do tego żeby jeden exe był używany
+tylko raz
+<ul>
+<li>zmienany za każdym atakiem</li>
+</ul></li>
+</ul>
+<h3 id="chronione-zasoby-przez-współczesne-systemy-av">Chronione zasoby
+przez współczesne systemy AV</h3>
+<ul>
+<li>Pliki znajdujące się na dysku
+<ul>
+<li>cykliczne skanowanie całego dysku</li>
+<li>skanowanie każdego nowego i uruchamianego pliku</li>
+</ul></li>
+<li>Skanowanie ruchu sieciowego</li>
+<li>Skanowanie poczty
+<ul>
+<li>lokalnie i na serwerze pocztowym</li>
+</ul></li>
+</ul>
+<h2 id="systemy-idsips">Systemy IDS/IPS</h2>
+<ul>
+<li>IDS - System wykrywania włamań (Intrusion Detecion System)
+<ul>
+<li>oprogramowanie monitorujące działanie systemu w celu wykrywania
+zdarzeń sugerujących wystąpienie ataków</li>
+</ul></li>
+<li>IPS - System przeciwdziałania włamaniom (Intrusion Prevention
+System)
+<ul>
+<li>IDS z modułem reagującym na włamanie</li>
+<li>cały ruch przechodzi przez urządzenie IPS</li>
+<li>ruch może przepuścić, usunąć, zmodyfikować</li>
+</ul></li>
+</ul>
+<h3 id="rodzaje-analizowanych-danych">Rodzaje analizowanych danych</h3>
+<ul>
+<li>Systemy Hostowe (Host IDS)
+<ul>
+<li>pobierają dane z systemu operacyjnego</li>
+<li>częsta analiza różnego typu logów i liczników wydajności</li>
+<li>wykrywa ataki związane z ruchem szyfrowanym</li>
+<li>musi być instalowany na każdym chronionym hoście</li>
+</ul></li>
+<li>Systemy Sieciowe (Network IDS)
+<ul>
+<li>analizuje ruch sieciowy pod kątem śladów ataku</li>
+<li>jeden sensor chroni wiele maszyn</li>
+<li>nie wykryje ataków na szyfrowanych kanałach</li>
+<li>problem przy dużym wolumenie ruchu</li>
+</ul></li>
+<li>Systemy Hybrydowe - łączą dane z obu źródeł</li>
+</ul>
+<h3 id="sposób-wykrywania-ataków">Sposób wykrywania ataków</h3>
+<ul>
+<li>Wykrywanie znanych naruszeń - sygnatury
+<ul>
+<li>każdy atak musi być opisany przez analityka</li>
+</ul></li>
+<li>Wykrywanie anomalii
+<ul>
+<li>buduje się model normalnego stanu systemu</li>
+<li>wykrywa odstępstwa od normalnego stanu</li>
+<li>statystyki, sieci nauronowe, uczenie maszynowe</li>
+<li>problem z false positives</li>
+</ul></li>
+</ul>
+<h3 id="snort">Snort</h3>
+<ul>
+<li>Popularny system typu NIDS</li>
+<li>Open source</li>
+<li>Wykrywa zagrożenia na podstawie sygnatur</li>
+<li>Przykładowa sygnatura
+<ul>
+<li><code>alert ip any any -&gt; 10.0.1.23 any (msg:"Zainfekowana maszyna";)</code></li>
+<li><code>alert</code> - wygeneruj alarm</li>
+<li><code>ip any any -&gt; 10.0.1.23 any</code> - opis protokołu, adresy
+i porty</li>
+</ul></li>
+</ul>
+<h3 id="systemy-sandbox">Systemy Sandbox</h3>
+<ul>
+<li>System zintegrowany z systemem AV, zaporą, systemem IDS/IPS</li>
+<li>Umożliwia analizę podejrzanego kodu w kontrolowanym środowisku</li>
+<li>Przeniesienie technologii AV do klienta</li>
+<li>Możliwość wykrycia nowych zagrożeń i przygotowanie IoC (Indicator of
+Compromise)</li>
+<li>IoC mogą być od razu wykorzystywane przez system IDS/IPS</li>
+</ul>
+<h2 id="mechanizmy-obrony-warstwy-2">Mechanizmy obrony warstwy 2</h2>
+<h3 id="port-security">Port Security</h3>
+<ul>
+<li>Możliwość skonfigurowania liczby lub dokładnych adresów mogących być
+odbieranych na danym porcie</li>
+<li>We współczesnych sieciach jest mikrosegmentacja - jedno gniazdko w
+switchu do jednego komputera
+<ul>
+<li>można przypisać konkrenty adres MAC do portu</li>
+</ul></li>
+<li>W razie wykrycia większej liczby adresów MAC lub niezgodnego adresu,
+można podjąć akcję
+<ul>
+<li>zablokowanie portu</li>
+<li>usunięcie pakietu</li>
+<li>zalogowanie zdarzenia</li>
+</ul></li>
+<li>Zapobiega większości ataków na wastwę 2
+<ul>
+<li>trzeba wygenerować dużo pakietów z fałszywymi adresami MAC na
+pojedynczym porcie atakującego</li>
+</ul></li>
+</ul>
+<h3 id="dhcp-snooping">DHCP snooping</h3>
+<ul>
+<li>Mechanizm filtrujący i analizujący ruch DHCP na przełączniku</li>
+<li>Switch analizuje ruch DHCP (nieszyfrowany, nieuwierzytelniany)</li>
+<li>Można skonfigurować limit na liczbę wysyłanych komunikatów DHCP na
+port</li>
+<li>Można oznaczyć porty jako zaufane</li>
+<li>Przeciwdziała próbom ataków man-in-the-middle wykorzystujących
+DHCP</li>
+</ul>
+<h3 id="dynamic-arp-inspection">Dynamic ARP Inspection</h3>
+<ul>
+<li>Inspekcja poprawności informacji zawartych w komunikacji protokołu
+ARP</li>
+<li>Wymaga włączenie DHCP snooping
+<ul>
+<li>budowana jest baza mapowania IP-MAC</li>
+</ul></li>
+<li>Komunikaty niezgodne z mapowaniem są usuwane i logowane</li>
+</ul>
+<h2 id="systemy-honeypot">Systemy HoneyPot</h2>
+<ul>
+<li>System, który ma być zaatakowany
+<ul>
+<li>jego wartość leży w jego niautoryzowanym wykorzystaniu</li>
+</ul></li>
+<li>Pozwala zdobywać informacje o atakujących
+<ul>
+<li>sposób działania</li>
+<li>motywacja</li>
+<li>stosowane techniki</li>
+</ul></li>
+<li>Sposoby wykorzystania
+<ul>
+<li>odstraszanie</li>
+<li>marnowanie czasu atakującego</li>
+<li>informacyjne - zdobycie informacji, że organizacja jest celem
+spersonalizowanego ataku</li>
+</ul></li>
+<li>Systemem HoneyPot może być
+<ul>
+<li>program symulujący jakąś usługę</li>
+<li>działający system komputerowy z celowymi podatnościami</li>
+<li>sieć działających systemów komputerowych</li>
+<li>rekord w bazie danych</li>
+</ul></li>
+</ul>
+<h2 id="budowanie-bezpiecznych-sieci">Budowanie bezpiecznych sieci</h2>
+<h3 id="low-hanging-fruit">Low hanging fruit</h3>
+<ul>
+<li>Atakujący szuka najsłabiej zabezpieczonych maszyn</li>
+<li>Nawet najprostsze zabezpieczenie może być nie do przejścia (script
+kiddies)</li>
+</ul>
+<h3 id="defense-in-depth">Defense in depth</h3>
+<ul>
+<li>Podejście z wojskowości</li>
+<li>Wiele linii obrony</li>
+<li>Każda linia obrony może zostać przełamana</li>
+<li>Buduje się kolejne linie obrony
+<ul>
+<li>zapory ogniowe</li>
+<li>systemy AV</li>
+<li>systemy IDS/IPS</li>
+<li>systemy HoneyPot</li>
+<li>mechanizmy logowania</li>
+<li>mechanizmy monitorowania</li>
+</ul></li>
+<li>Logi dostarczają bardzo użytecznych informacji
+<ul>
+<li>warto je przeglądać i monitorować</li>
+</ul></li>
+</ul>
+<h2 id="systemy-sem-sim-siem">Systemy SEM, SIM, SIEM</h2>
+<ul>
+<li>Security Information and Event Management</li>
+<li>Dedykowane systemy służące do zbierania danych z wielu źródeł i
+ułatwienia ich analizy</li>
+<li>Agregacja danych z wielu systemów, w wielu formatach (np. logi)</li>
+<li>Korelacja - próba łączenia powiązanych danych
+<ul>
+<li>np. logi dotyczące jednej maszyny</li>
+</ul></li>
+<li>Alarmowanie - wysyłanie dodatkowych informacji do
+administratorów</li>
+<li>Wygodne dashboardy</li>
+<li>Zapewniają retencję i archiwizację danych do przyszłego wykrywania
+trendów
+<ul>
+<li>jak długo - zależy od budżetu</li>
+<li>atak wykrywa się raczej po dłuższym czasie</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Open Source Security Information Management</li>
+<li>AlienVault Unified Security Management - komercyjny</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#systemy-zapewniające-bezpieczeństwo-w-sieciach-komputerowych">Systemy
+zapewniające bezpieczeństwo w sieciach komputerowych</a>
+<ul>
+<li><a href="#zapora-ogniowa">Zapora ogniowa</a>
+<ul>
+<li><a href="#demilitarized-zone-dmz">Demilitarized zone (DMZ)</a></li>
+<li><a href="#konfiguracja">Konfiguracja</a></li>
+<li><a href="#ingress-i-egress-filtering">Ingress i egress
+filtering</a></li>
+</ul></li>
+<li><a href="#systemy-antywirusowe">Systemy antywirusowe</a>
+<ul>
+<li><a href="#sposoby-wykrywania-wirusów">Sposoby wykrywania
+wirusów</a></li>
+<li><a href="#przykładowe-rodzaje-sygnatur-clamav">Przykładowe rodzaje
+sygnatur ClamAV</a></li>
+<li><a href="#chronione-zasoby-przez-współczesne-systemy-av">Chronione
+zasoby przez współczesne systemy AV</a></li>
+</ul></li>
+<li><a href="#systemy-idsips">Systemy IDS/IPS</a>
+<ul>
+<li><a href="#rodzaje-analizowanych-danych">Rodzaje analizowanych
+danych</a></li>
+<li><a href="#sposób-wykrywania-ataków">Sposób wykrywania
+ataków</a></li>
+<li><a href="#snort">Snort</a></li>
+<li><a href="#systemy-sandbox">Systemy Sandbox</a></li>
+</ul></li>
+<li><a href="#mechanizmy-obrony-warstwy-2">Mechanizmy obrony warstwy
+2</a>
+<ul>
+<li><a href="#port-security">Port Security</a></li>
+<li><a href="#dhcp-snooping">DHCP snooping</a></li>
+<li><a href="#dynamic-arp-inspection">Dynamic ARP Inspection</a></li>
+</ul></li>
+<li><a href="#systemy-honeypot">Systemy HoneyPot</a></li>
+<li><a href="#budowanie-bezpiecznych-sieci">Budowanie bezpiecznych
+sieci</a>
+<ul>
+<li><a href="#low-hanging-fruit">Low hanging fruit</a></li>
+<li><a href="#defense-in-depth">Defense in depth</a></li>
+</ul></li>
+<li><a href="#systemy-sem-sim-siem">Systemy SEM, SIM, SIEM</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-systemy-honeypot</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">Poprzedni: 12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="14-polityka-bezpieczenstwa.html">Następny: 14-polityka-bezpieczenstwa.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="systemy-honeypot">Systemy HoneyPot</h1>
+<ul>
+<li>Systemy HoneyPot są technologią pozwalającą zdobywać informacje
+dotyczące sposobu działania, stosowanych techniki i motywacji
+atakujących
+<ul>
+<li>to nie jest określone rozwiązanie, tylko sposób działania</li>
+</ul></li>
+<li>“A honeypot is an information system resource whose value lies in
+unauthorized or illicit use of that resource”</li>
+<li>Systemem HoneyPot może być
+<ul>
+<li>program symulujący jakąś usługę</li>
+<li>działający system komputerowy z lukami</li>
+<li>sieć działających systemów komputerowych</li>
+<li>rekord w bazie danych</li>
+</ul></li>
+</ul>
+<h2 id="zalety">Zalety</h2>
+<ul>
+<li>Zbierają relatywnie mało danych o dużej wartości
+<ul>
+<li>w porównaniu do logów systemów IDS/IPS</li>
+</ul></li>
+<li>Redukują liczbę false positives</li>
+<li>Pozwalają analizować ataki wykorzystujące szyfrowane protokoły
+sieciowe</li>
+<li>Są bardzo elastyczne</li>
+<li>Wymagają minimalnych zasobów</li>
+<li>Atakujący może marnować czas na atakowanie honeypot zamiast systemów
+produkcyjnych</li>
+</ul>
+<h2 id="wady">Wady</h2>
+<ul>
+<li>Mają ograniczone pole widzenia</li>
+<li>Mogą wprowadzać dodatkowe ryzyko do sieci w której są uruchomione
+<ul>
+<li>administrator jest odpowiedzialny za maszynę którą podłącza do
+sieci</li>
+</ul></li>
+</ul>
+<h2 id="podział-systemów-honeypot">Podział systemów HoneyPot</h2>
+<ul>
+<li>Low interaction
+<ul>
+<li>tylko symulują pewne usługi</li>
+</ul></li>
+<li>High interaction
+<ul>
+<li>pełne działające systemy z działającym oprogramowaniem</li>
+<li>poddane odpowiedniej kontroli</li>
+</ul></li>
+</ul>
+<h2 id="systemy-low-interaction">Systemy low interaction</h2>
+<ul>
+<li>Spectre</li>
+<li>HoneyD
+<ul>
+<li>symuluje określony system operacyjnych, tak żeby oszukać
+fingerprinting programem <code>nmap</code></li>
+<li>możliwość tworzenia routerów, tuneli i konfigurowania routingu</li>
+<li>symuluje całą podsieć</li>
+</ul></li>
+<li>Nepenthes
+<ul>
+<li>modułowa budowa</li>
+<li>łatwa rozbudowa o nowe moduły</li>
+<li>dedykowany zbieraniu informacji o automatycznym kodzie (robaki,
+wirusy)</li>
+<li>do łapania robaków</li>
+<li>symuluje podatne robaki wykorzystywane przez inne robaki</li>
+</ul></li>
+<li>Dionaea
+<ul>
+<li>w pythonie</li>
+<li>analizuje też ataki na telefonię internetową</li>
+</ul></li>
+</ul>
+<h2 id="systemy-high-interaction">Systemy high interaction</h2>
+<h3 id="systemy-honeynets">Systemy HoneyNets</h3>
+<ul>
+<li>Odpowiedź na wady systemów HoneyPot
+<ul>
+<li>ograniczone pole widzenia - uruchamia się wiele systemów
+HoneyPot</li>
+<li>wprowadzają dodatkowe ryzyko - dokładna kontrola ruchu</li>
+</ul></li>
+<li>Architektura
+<ul>
+<li>honeywall gateway - obsługuje cały ruch między honeypot i
+internetem</li>
+<li>systemy honeypot w oddzielnej podsieci</li>
+<li>systemy produkcyjne w oddzielnej podsieci</li>
+</ul></li>
+<li>Zadania
+<ul>
+<li>zbieranie danych (logi)</li>
+<li>blokowanie ataków</li>
+</ul></li>
+<li>System nie powinien blokować całego ruchu atakującego
+<ul>
+<li>zorientuje się że to podpucha</li>
+<li>nie można pozwolić na np. spamowanie mailami</li>
+</ul></li>
+<li>Pierwsza generacja
+<ul>
+<li>urządzenie działające w warstwie 3 (router)</li>
+<li>niezależne systemy służące podsłuchiwaniu ruchu i systemu IDS</li>
+</ul></li>
+<li>Druga generacja
+<ul>
+<li>urządzenia warstwy 2 (switch)</li>
+<li>zbiera wszystkie logi na jednej maszynie</li>
+<li>zamiana systemu IDS na inline IPS</li>
+</ul></li>
+<li>Zalety drugiej generacji
+<ul>
+<li>trudniejszy do wykrycia i zaatakowania</li>
+<li>może wybiórczo usuwać / przepuszczać ruch (działanie IPS)</li>
+<li>możliwość zmiany zawartości pakietu zamiast kasowania</li>
+</ul></li>
+<li>Oprogramowanie wspierające budowę systemów HoneyNet
+<ul>
+<li>Sebek</li>
+<li>HoneyWall</li>
+</ul></li>
+</ul>
+<h3 id="sebek">Sebek</h3>
+<ul>
+<li>Działa w jądrze systemu operacyjnego</li>
+<li>Przychwytuje wywołania systemowe <code>read</code>,
+<code>write</code> i ruch sieciowy</li>
+<li>Pozwala logować dowolną aktywność na systemie HoneyPot
+<ul>
+<li>ściągane pliki</li>
+<li>naciskane klawisze</li>
+</ul></li>
+</ul>
+<h3 id="honeywall-cd-rom">HoneyWall CD-Rom</h3>
+<ul>
+<li>Bootowalna płyta systemu Linux zawierająca wszystkie potrzebne
+programy do budowy systmeu HoneyPot gateway z GUI</li>
+<li>Zaliczany do 3. generacji</li>
+</ul>
+<h2 id="klienckie-systemy-honeypot">Klienckie systemy HoneyPot</h2>
+<ul>
+<li>Zamiast pasywnego oczekiwania na atak, system kliencki sam szuka
+zagrożeń</li>
+<li>Na monitorowanej maszynie uruchamia się aplikacje klienckie
+<ul>
+<li>przeglądarka</li>
+<li>klient pocztowy</li>
+<li>komunikatory</li>
+</ul></li>
+<li>Przeglądarki otweirają potencjalnie niebezpieczne linki</li>
+<li>Klienty otweirają potencjalnie niebezpieczną pocztę</li>
+<li>Problemy
+<ul>
+<li>znalezienie niebezpiecznych zasobów (strony, pliki)</li>
+<li>wiarygodne sprawdzenie czy maszyna została zainfekowana</li>
+</ul></li>
+</ul>
+<h3 id="honeyc">HoneyC</h3>
+<ul>
+<li>Low interaction</li>
+<li>Skrypty Ruby</li>
+<li>Pobierają strony, analizują, skanują ruch</li>
+<li>Modułowa budowa</li>
+<li>Działa tylko dla stron statycznych, nie dla wspołczesnych SPA
+<ul>
+<li>nie uruchamiały skryptów JS</li>
+</ul></li>
+</ul>
+<h3 id="capture-hpc">Capture-HPC</h3>
+<ul>
+<li>High interaction</li>
+<li>Klient-serwer
+<ul>
+<li>jeden zarządca</li>
+<li>wiele klientów czekających na infekcję</li>
+</ul></li>
+<li>Możliwość integracji wielu różnych programów</li>
+<li>Wirtualizacja VmWare</li>
+<li>Wykrywanie czy maszyna uległa infekcji
+<ul>
+<li>zmiany w rejestrze</li>
+<li>nowe pliki wykonywalne</li>
+<li>stworzenie nowego procesu</li>
+</ul></li>
+</ul>
+<h2 id="zastosowanie-systemów-honeypot">Zastosowanie systemów
+HoneyPot</h2>
+<ul>
+<li>Badawcze
+<ul>
+<li>analiza nowych ataków</li>
+</ul></li>
+<li>Wykrywanie ataków
+<ul>
+<li>łapie to co przeszło przez firewall i IDS/IPS</li>
+</ul></li>
+<li>Zapobieganie ataków
+<ul>
+<li>przestraszenie atakującego</li>
+<li>wyświetlenie wiadomości</li>
+<li>marnowanie czasu atakującego</li>
+</ul></li>
+<li>Odpowiedź na ataki
+<ul>
+<li>problemy etyczne - ataki przychodzą z przejętych maszyn innych
+ofiar</li>
+<li>kontratak też jest nielegalny</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#systemy-honeypot">Systemy HoneyPot</a>
+<ul>
+<li><a href="#zalety">Zalety</a></li>
+<li><a href="#wady">Wady</a></li>
+<li><a href="#podział-systemów-honeypot">Podział systemów
+HoneyPot</a></li>
+<li><a href="#systemy-low-interaction">Systemy low interaction</a></li>
+<li><a href="#systemy-high-interaction">Systemy high interaction</a>
+<ul>
+<li><a href="#systemy-honeynets">Systemy HoneyNets</a></li>
+<li><a href="#sebek">Sebek</a></li>
+<li><a href="#honeywall-cd-rom">HoneyWall CD-Rom</a></li>
+</ul></li>
+<li><a href="#klienckie-systemy-honeypot">Klienckie systemy HoneyPot</a>
+<ul>
+<li><a href="#honeyc">HoneyC</a></li>
+<li><a href="#capture-hpc">Capture-HPC</a></li>
+</ul></li>
+<li><a href="#zastosowanie-systemów-honeypot">Zastosowanie systemów
+HoneyPot</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

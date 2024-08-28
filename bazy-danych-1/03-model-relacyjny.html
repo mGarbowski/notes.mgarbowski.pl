@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-model-relacyjny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-model-koncepcyjny.html">Poprzedni: 02-model-koncepcyjny.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-jezyk-sql.html">Następny: 04-jezyk-sql.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 1</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-koncepcyjny.html">02-model-koncepcyjny.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-jezyk-sql.html">04-jezyk-sql.html</a></li>
+                
+                <li><a href="05-algorytmy-projektowania-baz-danych.html">05-algorytmy-projektowania-baz-danych.html</a></li>
+                
+                <li><a href="06-podstawy-rachunku-relacyjnego.html">06-podstawy-rachunku-relacyjnego.html</a></li>
+                
+                <li><a href="07-model-fizyczny.html">07-model-fizyczny.html</a></li>
+                
+                <li><a href="08-optymalizacja-zapytan.html">08-optymalizacja-zapytan.html</a></li>
+                
+                <li><a href="09-projektowanie-baz-danych.html">09-projektowanie-baz-danych.html</a></li>
+                
+                <li><a href="10-metody-dostepu-do-bazy-danych.html">10-metody-dostepu-do-bazy-danych.html</a></li>
+                
+                <li><a href="11-no-sql.html">11-no-sql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="relacyjny-model-danych">Relacyjny model danych</h1>
+<h2 id="model-relacyjny">Model relacyjny</h2>
+<ul>
+<li>model poziomu logicznego</li>
+<li>Codd, przełom lat 60/70’</li>
+<li>Prosty model teoretyczny i realizacja struktur - podstawowa
+struktura: realcja/tabela</li>
+<li>Deklaratywne języki zapytań</li>
+<li>Wydajne implementacje</li>
+<li>Normalizacja pozwala uniknąć anomalii</li>
+</ul>
+<h2 id="postulaty-codda">Postulaty Codda</h2>
+<h3 id="dotyczące-struktury-danych">Dotyczące struktury danych</h3>
+<ul>
+<li>informacyjny - dane są reprezentowane jedynie przez wartości
+atrybutów w wierszach tabel - nie ma danych domniemanych</li>
+<li>dostępu - każda wartość w bazie jest dostępna przez podanie nazwy
+tabeli, atrybutu i wartości klucza podstawowego</li>
+<li>fizycznej niezależności danych - niezależne od innych warstw</li>
+<li>logicznej niezależności danych - niezależne od innych warstw</li>
+<li>niezależności lokalizacyjnej (dystrybucyjnej)</li>
+<li>zabezpieczenia przed modyfikacjami przez języki proceduralne - więzy
+integralnośći utzrymuje SZBD</li>
+</ul>
+<h3 id="dotyczące-przetwarzania-danych">Dotyczące przetwarzania
+danych</h3>
+<ul>
+<li>postulat języka danych - ten sam język do definiowania,
+manipulowania itd.</li>
+<li>modyfikowanie bazy danych przez widoki</li>
+<li>modyfikowanie danych na wysokim poziomie abstrakcji</li>
+</ul>
+<h3 id="dotyczące-integralności-danych">Dotyczące integralności
+danych</h3>
+<ul>
+<li>wartości <code>Null</code></li>
+<li>słownika danych</li>
+<li>niezależności ograniczeń
+<ul>
+<li>klucz podstawowy</li>
+<li>klucz obcy</li>
+</ul></li>
+</ul>
+<p>Codd matematycznie wykazywał poprawność tego modelu</p>
+<h2 id="podstawowe-elementy">Podstawowe elementy</h2>
+<ul>
+<li>podstawową strukturą danych jest relacja (tabela)</li>
+<li>operacje to operatory algebry relacyjnej (coś więcej niż operacje na
+zbiorach)</li>
+<li>więzy integralności są wyrażane przez zależności funkcyjne
+atrybutów</li>
+</ul>
+<h3 id="pojęcia">Pojęcia</h3>
+<ul>
+<li>Dziedziny</li>
+<li>Atrybuty</li>
+<li>Iloczyn kartezjański</li>
+<li>Relacja</li>
+<li>Krotka</li>
+<li>Zależność funkcyjna</li>
+</ul>
+<h3 id="struktury-danych">Struktury danych</h3>
+<ul>
+<li>Schemat bazy to zbiór schematów relacji</li>
+<li>Schemat relacji to nazwa i zbiór atrybutów (kolumn tabeli)</li>
+<li>Relacja nie ma duplikatów</li>
+<li>Każdy atrybut ma określoną dziedzinę</li>
+<li>Dziedzina jest zbiorem wartości atomowych (bez zbiorów,
+kolekcji)</li>
+<li>Krotka ma wartość dla każdego atrybutu (może być <code>Null</code>,
+nigdy pusto)</li>
+<li>Klucz - atrybut lub zbiór atrybutów, którego wartość jest unikalna w
+każdej krotce</li>
+<li>Dla danego schematu relacyjnej bazy danych istnieje zbiór zależności
+funkcyjnych między atrybutami (wewnątrz relacji i między relacjami)</li>
+</ul>
+<h2 id="zależności-funkcyjne">Zależności funkcyjne</h2>
+<p>Atrybut B zależy funkcyjnie od atrybutu A jeżeli wartość A
+determinuje jednoznacznie wartość atrybutu B, zapisuje się A-&gt;B</p>
+<h3 id="przykłady">Przykłady</h3>
+<ul>
+<li>PESEL -&gt; Nazwisko</li>
+<li>PESEL -&gt; Data urodzenia</li>
+<li>IdStudenta, NrPrzedmiotu, Data -&gt; Ocena</li>
+<li>IdStudenta -&gt; Kierunek, Dziekan, Wydział
+<ul>
+<li>Można to rozbić na 3 różne zależności</li>
+</ul></li>
+</ul>
+<h2 id="klucz">Klucz</h2>
+<ul>
+<li>Zestaw atrybutów relacji jednoznacznie identyfikujący każdą krotkę
+tej relacji</li>
+<li>Każdy atrybut zależy funkcyjnie od klucza</li>
+<li>Relacja może mieć wiele różnych kluczy</li>
+</ul>
+<h3 id="klucz-główny-podstawowy">Klucz główny (podstawowy)</h3>
+<ul>
+<li>Jednoznacznie identyfikuje rekord</li>
+<li>Wybrany minimalny zestaw atrybutów (nie istnieje inny, który ma
+mniej atrybutów)</li>
+<li>Relacja może mieć maksymalnie 1 klucz główny</li>
+<li>Unikalny, nie <code>Null</code></li>
+</ul>
+<h3 id="klucz-obcy">Klucz obcy</h3>
+<ul>
+<li>Zbiór atrybutów w danej relacji, który jest jednocześnie kluczem
+głównym w innej relacji</li>
+<li>Kaskadowe usuwanie</li>
+<li>Określa zależność funkcyjną</li>
+<li>Oznaczenie atrybutu jako klucza obcego jest ważne w praktyce do
+zachowana apoprawności</li>
+<li>Może być częścią klucza głównego</li>
+</ul>
+<h3 id="klucz-kandydujący">Klucz kandydujący</h3>
+<ul>
+<li>Jeden z kluczy minimalnych dla danej relacji.</li>
+<li>Jeden z nich to klucz główny</li>
+<li>Potencjalny klucz główny, zależnie od decyzji projektanta</li>
+<li>Może być kilka możliwości np. PESEL i numer indeksu w tabeli
+studentów</li>
+</ul>
+<h3 id="klucz-pomocniczy">Klucz pomocniczy</h3>
+<p>Dowolny klucz wybrany do dalszego wykorzystania w modelu logicznym i
+fizycznym (przyspieszenia wyszukiwania). Nie musi być unikalny.</p>
+<h3 id="superklucz">Superklucz</h3>
+<p>Zbiór atrybutów, których zestaw jest unikalny w całej relacji. Może
+być redundantny, np. wszystkie atrybuty. Klucz jest minimalnym
+superkluczem - bez redundantnych atrybutów, żadnego nie można usunąć
+żeby dalej móc jednoznacznie identyfikować krotki.</p>
+<h3 id="klucz-prosty">Klucz prosty</h3>
+<p>Jeden atrybut</p>
+<h3 id="klucz-złożony">Klucz złożony</h3>
+<p>Wiele atrybutów</p>
+<h2 id="normalizacja">Normalizacja</h2>
+<ul>
+<li>Proces tworzenia schematu, który nie będzie podlegać anomaliom
+usunięcia, modyfikacji i wstawiania.</li>
+<li>Wyraża zależności funkcyjne przez strukturę bazy.</li>
+<li>Wszystkie zależności powinny być pokryte przez dobór kluczy
+podstawowych i obcych - nie ma zależności przechodnich</li>
+</ul>
+<h3 id="postaci-normalne">Postaci normalne</h3>
+<ol type="1">
+<li>Każdy atrybut jest wartością atomową (nie jest kolekcją)
+<ul>
+<li>w najgorszym wypadku kluczem są wszystkie atrybuty</li>
+</ul></li>
+<li>Każdy atrybut niekluczowy jest funkcyjnie zależny od
+<strong>całego</strong> klucza głównego</li>
+<li>Każdy atrybut niekluczowy jest <strong>bezpośrednio</strong> zależny
+funkcyjnie od klucza głównego - nie ma zależności pośrednich</li>
+</ol>
+<p>Każda kolejna zakłada spełnienie poprzednich (żeby być w 2NF, relacja
+musi być w 1NF itd.). Zawsze dąży się do conajmniej 3. postaci
+normalnej.</p>
+<h2 id="operowanie-danymi">Operowanie danymi</h2>
+<ul>
+<li>języki proceduralne (algorytmiczne) - algebra relacji</li>
+<li>języki deklaratywne - rahunek relacyjny 1. rzędu (SQL, QBE)</li>
+</ul>
+<h3 id="operatory-algebry-relacji">Operatory algebry relacji</h3>
+<ul>
+<li>Selekcja - wybrór krotek (wierszy)</li>
+<li>Projekcja - wybór atrybutów (kolumn)</li>
+<li>Złączenie
+<ul>
+<li>iloczyn kartezjański</li>
+<li>równo-złączenie</li>
+<li>złączenie naturalne</li>
+<li>złączenie wewnętrzne</li>
+<li>złączenie zewnętrzne</li>
+</ul></li>
+<li>Operatory teorii zbiorów
+<ul>
+<li>suma</li>
+<li>przecięcie</li>
+<li>różnica</li>
+</ul></li>
+</ul>
+<p>Baza relacyjna to operacje na zbiorach</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#relacyjny-model-danych">Relacyjny model danych</a>
+<ul>
+<li><a href="#model-relacyjny">Model relacyjny</a></li>
+<li><a href="#postulaty-codda">Postulaty Codda</a>
+<ul>
+<li><a href="#dotyczące-struktury-danych">Dotyczące struktury
+danych</a></li>
+<li><a href="#dotyczące-przetwarzania-danych">Dotyczące przetwarzania
+danych</a></li>
+<li><a href="#dotyczące-integralności-danych">Dotyczące integralności
+danych</a></li>
+</ul></li>
+<li><a href="#podstawowe-elementy">Podstawowe elementy</a>
+<ul>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#struktury-danych">Struktury danych</a></li>
+</ul></li>
+<li><a href="#zależności-funkcyjne">Zależności funkcyjne</a>
+<ul>
+<li><a href="#przykłady">Przykłady</a></li>
+</ul></li>
+<li><a href="#klucz">Klucz</a>
+<ul>
+<li><a href="#klucz-główny-podstawowy">Klucz główny
+(podstawowy)</a></li>
+<li><a href="#klucz-obcy">Klucz obcy</a></li>
+<li><a href="#klucz-kandydujący">Klucz kandydujący</a></li>
+<li><a href="#klucz-pomocniczy">Klucz pomocniczy</a></li>
+<li><a href="#superklucz">Superklucz</a></li>
+<li><a href="#klucz-prosty">Klucz prosty</a></li>
+<li><a href="#klucz-złożony">Klucz złożony</a></li>
+</ul></li>
+<li><a href="#normalizacja">Normalizacja</a>
+<ul>
+<li><a href="#postaci-normalne">Postaci normalne</a></li>
+</ul></li>
+<li><a href="#operowanie-danymi">Operowanie danymi</a>
+<ul>
+<li><a href="#operatory-algebry-relacji">Operatory algebry
+relacji</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

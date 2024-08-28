@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-vlan</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-ethernet.html">Poprzedni: 10-ethernet.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-protokoly-udp-tcp.html">Następny: 12-protokoly-udp-tcp.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h2 id="vlan">VLAN</h2>
+<p>Wirtualna sieć lokalna (nie mylić z VPN)</p>
+<p>Używane w dużych budynkach. Budynki są okablowane na etapie
+konstrukcji (okablowanie strukturalne) - okablowanie poziomie (od punktu
+zbiorczego do pomieszczeń na piętrze) i okablowanie pionowe (łączy
+punkty koncentracji)</p>
+<p>Chodzi o to żeby dostosować istniejącą infrastrukturę (okablowanie
+strukturalne) do potrzeb użytkowników (wiele instytucji w jednym
+budynku)</p>
+<p>Na poziomie przełącznika definiuje się partycje (VLANy) i przypisuje
+do nich konkretne porty, tak żeby odseparować od siebie ruch między
+partycjami. Przełącznik zachowuje się jak więcej mniejszych
+przełączników. Łączenie pionowe - oddzielny kabel dla każdej sieci</p>
+<h3 id="q">802.1q</h3>
+<p>Znakowanie - do ramki wstawia się dodatkową informację - numer VLAN,
+wtedy można użyć jednego kabla dla wielu VLANów</p>
+<p>W ramce Ethernet za adresem nadawcy - 4 bajty - stare urządzenia
+zignorują takie ramki</p>
+<ul>
+<li>Stałe 0x8100</li>
+<li>Tag Control Information
+<ul>
+<li>priorytet</li>
+<li>bit zarezerwowany</li>
+<li>vlan id (12 bitów)</li>
+</ul></li>
+</ul>
+<p>Przełączniki mogą stosować znakowane i nieznakowane ramki zależnie od
+potrzeb</p>
+<p>Na poziomie systemu operacyjnego, znakowane ramki odpowiadające
+VLANom są widziane jako oddzielne interfejsy (nawet jeśli wszystko idzie
+przez jeden kabel)</p>
+<h3 id="ad">802.1ad</h3>
+<p>Dodatkowa wstawka do ramki o stałym prefixie 0x88ab i TCI. Dodatkowa
+enkapsulacja do routingu między budynkami, używania niezależnego
+schematu numerowania VLANów w sieci szkielecie</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#vlan">VLAN</a>
+<ul>
+<li><a href="#q">802.1q</a></li>
+<li><a href="#ad">802.1ad</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

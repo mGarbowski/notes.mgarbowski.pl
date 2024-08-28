@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-szyfrowanie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wstep.html">Poprzedni: 01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-funkcje-skrotu.html">Następny: 03-funkcje-skrotu.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="szyfry-symetryczne-i-asymetryczne">Szyfry symetryczne i
+asymetryczne</h1>
+<h2 id="pojęcia">Pojęcia</h2>
+<ul>
+<li>Kryptografia - nauka i sztuka o projektowaniu szyfrów</li>
+<li>Kryptoanaliza - sztuka i nauka łamania szyfrów</li>
+<li>Kryptologia - kryptografia + kryptoanaliza</li>
+<li>Steganografia - sztuka ukrywania informacji</li>
+<li>Tekst jawny - dane przed zaszyfrowaniem (ciąg bitów, niekoniecznie
+tekst)</li>
+<li>Szyfrogram - zaszyfrowane dane</li>
+<li>Klucz - modyfikuje działania algorytmu
+<ul>
+<li>algorytm jest jawny a bezpieczeństwo zapewnia tajny klucz</li>
+</ul></li>
+<li>Celem szyfrowania jest zapewnienie poufności</li>
+<li>Kodowanie to sposób reprezentacji danych w dobrez zdefiniowany
+sposób
+<ul>
+<li>kod ASCII</li>
+<li>kod Morse’a</li>
+</ul></li>
+</ul>
+<h2 id="historia">Historia</h2>
+<ul>
+<li>Szyfry wykorzystujące przestawienie
+<ul>
+<li>Scytale</li>
+</ul></li>
+<li>Szyfry wykorzystujące podstawienie
+<ul>
+<li>szyfr Cezara</li>
+<li>ogólnie alfabet jest mapowany na dowolną permutację</li>
+<li>łamanie przez analizę częstotliwości występowania liter</li>
+</ul></li>
+<li>Szyfr polialfabetyczny
+<ul>
+<li>szyfr Vigenere’a</li>
+<li>kilka alfabetów szyfrowych, kolejne znaki szyfrowane kolejnymi
+alfabetami</li>
+<li>ustalona liczba i permutacje alfabetów szyfrujących</li>
+<li>też daje się złamać przez analizę częstotliwościową ale
+trudniej</li>
+</ul></li>
+<li>Szyfr Vernama
+<ul>
+<li>nie da się go złamać (przy zapewnieniu warunku niepowtarzalności
+klucza)</li>
+<li>jednorazowy klucz o jednakowej długości jak wiadomość</li>
+<li>niepraktyczne</li>
+</ul></li>
+<li>Maszyny rotorowe
+<ul>
+<li>Enigma</li>
+<li>Klawiatura do wprowadzania tekstu jawnego</li>
+<li>Po wciśnięciu zapala się lampka z zakodowanym znakiem</li>
+<li>Rotory (bębenki) realizujące sprzętowo permutacje</li>
+<li>Ustawienie rotorów określa szyfr</li>
+<li>Po wciśnięciu przycisku bębenki się obracają (1. co 1, 2. co 26, 3.
+co 26^2)</li>
+<li>Też jest szyfrem podstawieniowym z 26^3 alfabetów</li>
+</ul></li>
+</ul>
+<h2 id="podział-szyfrów">Podział szyfrów</h2>
+<ul>
+<li>Blokowe i strumieniowe</li>
+<li>Symetryczne i asymetryczne</li>
+</ul>
+<h2 id="szyfry-blokowe-i-strumieniowe">Szyfry blokowe i
+strumieniowe</h2>
+<h3 id="szyfr-strumieniowy">Szyfr strumieniowy</h3>
+<ul>
+<li>Szyfruje nadchodzący znak (bajt) niezależnie</li>
+<li>XOR klucza z wiadomością do zaszyfrowania
+<ul>
+<li>funkcja generująca ciąg pseudolosowy na podstawie klucza</li>
+</ul></li>
+<li>Deszyfrowanie to XOR klucza z szyfrogramem</li>
+<li>RC4 stosowane w starych standardach WiFi</li>
+<li>Wymaga dobrego algorytmu pseudolosowego generowania klucza</li>
+</ul>
+<h3 id="szyfr-blokowy">Szyfr blokowy</h3>
+<ul>
+<li>Szyfruje za jednym razem większą porcję danych niż znak</li>
+<li>Bloki o wielkości rzędu 64, 128 bitów</li>
+<li>Obrona przed atakami częstotliwościowymi</li>
+<li>Wielokrotne zastosowanie prostych operacji (zmieszanie i
+rozproszenie)</li>
+<li>DES - dalej stosowany ale złamany, nie wykorzystywać w nowych
+systemach!!!
+<ul>
+<li>S-box</li>
+<li>rundy</li>
+</ul></li>
+<li>3DES
+<ul>
+<li>Szyfrator, deszyfrator, szyfrator</li>
+<li>Reużywanie sprzętu do DES</li>
+</ul></li>
+<li>AES/Rijandael - preferowany</li>
+</ul>
+<h2 id="szyfry-symetryczne-i-asymetryczne-1">Szyfry symetryczne i
+asymetryczne</h2>
+<h3 id="szyfr-symetryczne">Szyfr symetryczne</h3>
+<ul>
+<li>Tego samego klucza używa nadawca i odbiorca</li>
+<li>Jeden klucz do szyfrowania i deszyfrowania</li>
+<li>Odtajnienie klucza po jednej stronie odtajnia całą wymianę</li>
+<li>Klucz tajny / wsymetryczny / wspólny</li>
+</ul>
+<h3 id="szyfr-asymetryczny">Szyfr asymetryczny</h3>
+<ul>
+<li>Dwa klucze</li>
+<li>Publiczny klucz dla każdego, kto chce zaszyfrować wiadomość</li>
+<li>Prywatny klucz deszyfrujący znany tylko odbiorcy</li>
+</ul>
+<h4 id="wymiana-wiadomości">Wymiana wiadomości</h4>
+<ul>
+<li>Alicja chce wysłać wiadomość do Bolka</li>
+<li>Bolek generuje parę kluczy</li>
+<li>Bolek udostępnia swój klucz publiczny</li>
+<li>Alicja odszukuje klucz publiczny Bolka</li>
+<li>Alicja szyfruje wiadomość kluczem publicznym Bolka i ją wysyła
+<ul>
+<li>nie jest w stanie jej już sama odszyfrować</li>
+</ul></li>
+<li>Tylko Bolek posiadający swój klucz prywatny może odszyfrować
+wiadomość od Alicji</li>
+</ul>
+<h3 id="algorytm-diffiego-hellmana">Algorytm Diffiego-Hellmana</h3>
+<ul>
+<li>Do uzgadniania klucza na niezaufanym (podsłuchiwanym) kanale</li>
+<li>Pierwiastek pierwotny modulo p (logarytm dyskretny)
+<ul>
+<li>do złamania tylko przez brute-force, bezpieczne dla dużych
+liczb</li>
+<li>liczba której potęgi generują wszystkie niezerowe liczby <span
+class="math inline">\(mod \quad p\)</span></li>
+</ul></li>
+<li>Idea działania
+<ul>
+<li>Alicja wysyła list do Bolka w zamkniętej szkatułce z własną
+kłódką</li>
+<li>Bolek dokłada swoją kłódkę i odsyła szkatułkę</li>
+<li>Alicja zdejmuje swoją kłódkę i odsyła szkatułkę</li>
+<li>Bolek zdejmuje swoją kłódkę i odczytuje list</li>
+</ul></li>
+<li>Algorytm
+<ul>
+<li><span class="math inline">\(g\)</span> i <span
+class="math inline">\(p\)</span> są znane, <span
+class="math inline">\(g\)</span> jest pierwiastkiem pierwotnym</li>
+<li>Alicja losuje wartość <span class="math inline">\(X_A\)</span>,
+która jest jej kluczem prywatnym</li>
+<li><span class="math inline">\(Y_A = g^{X_A}\)</span> jest jej kluczem
+publicznym</li>
+<li>Bolek postępuje analogicznie analogicznie</li>
+<li>Alicja chce wysłać wiadomość do Bolka</li>
+<li>Alicja odszukuje jego klucz publiczny i oblicza <span
+class="math inline">\(K=(Y_B)^{X_A}\)</span></li>
+<li>Alicja szyfruje wiadomość za pomocą klucza <span
+class="math inline">\(K\)</span></li>
+<li>Bolek odbiera wiadomość i odszukuje klucz publiczny Alicji</li>
+<li>Bolek oblicza <span
+class="math inline">\((Y_A)^{X_B}=(g^{X_A})^{X_B}=(g^{X_B})^{X_A}=(Y_B)^{X_A}=K\)</span></li>
+<li>Bolek odszyfrowuje wiadomość kluczem K</li>
+</ul></li>
+</ul>
+<h3 id="szyfrowanie-rsa">Szyfrowanie RSA</h3>
+<ul>
+<li>Klucz publiczny
+<ul>
+<li><span class="math inline">\(N = p \cdot q\)</span>, gdzie <span
+class="math inline">\(p\)</span> i <span
+class="math inline">\(q\)</span> to duże liczby pierwsze</li>
+<li>liczba <span class="math inline">\(e\)</span> bez wspólnych
+dzielników z <span class="math inline">\((p-1)\)</span> i <span
+class="math inline">\((q-1)\)</span></li>
+</ul></li>
+<li>Klucz prywatny
+<ul>
+<li>liczby <span class="math inline">\(p\)</span> i <span
+class="math inline">\(q\)</span></li>
+<li>liczba <span class="math inline">\(d\)</span>, taka że <span
+class="math inline">\(d \cdot e = 1 \mod \phi(N)\)</span></li>
+<li><span class="math inline">\(\phi(N) = (p-1) \cdot (q-1)\)</span> -
+funkcja Eulera</li>
+</ul></li>
+<li>Szyfrowanie <span class="math inline">\(C = M^e \mod N\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> - tekst jawny</li>
+<li><span class="math inline">\(C\)</span> - szyfrogram</li>
+</ul></li>
+<li>Odszyfrowanie <span class="math inline">\(M = C^d \mod
+N\)</span></li>
+</ul>
+<h3 id="bezpieczeństwo-szyfrów-asymetrycznych">Bezpieczeństwo szyfrów
+asymetrycznych</h3>
+<ul>
+<li>RSA - problem faktoryzacji</li>
+<li>Diffie-Hellman - problem logarytmu dyskretnego</li>
+<li>Bezpieczeństwo szyfru zależy od trudności rozwiązania problemów
+matematycznych</li>
+</ul>
+<h3 id="porównanie">Porównanie</h3>
+<ul>
+<li>Wada szyfrów symetrycznych to problem dystrybucji i tajności klucza
+<ul>
+<li>jeśli wykorzystujemy jeden tajny klucz to jego ujawnienie osłabia
+cały system</li>
+<li>jeśli każda para posiada własny klucz to musi ich być <span
+class="math inline">\(N(N-1)/2\)</span></li>
+</ul></li>
+<li>Wadą szyfrów asymetrycznych jest prędkość działania
+<ul>
+<li>potęgowanie modulo liczb o długości rzędu 4K</li>
+<li>szyfry symetryczne dają się implementować w sprzęcie i mogą być do
+1000 razy szybsze</li>
+</ul></li>
+</ul>
+<h3 id="szyfr-hybrydowy">Szyfr hybrydowy</h3>
+<ul>
+<li>Szybkość działania szyfrów symetrycznych</li>
+<li>Działanie
+<ul>
+<li>generowanie losowego klucza symetrycznego</li>
+<li>zaszyfrowanie danych kluczem symetrycznym (AES) - szybkie</li>
+<li>pobranie klucza publicznego odbiorcy</li>
+<li>zaszyfrowanie kluczem publicznym odbiorcy klucza symetrycznego i
+wysłanie razem z danymi</li>
+<li>odbiorca odszyfrowuje klucz symetryczny swoim kluczem prywatnym</li>
+<li>odbiorca odszyfrowuje dane kluczem symetrycznym</li>
+</ul></li>
+<li>Można zaszyfrować dane raz przez AES i wysłac wielu odbiorcom
+szyfrując asymetrycznie już tylko klucz</li>
+</ul>
+<h2 id="tryby-pracy-algorytmów-blokowych">Tryby pracy algorytmów
+blokowych</h2>
+<ul>
+<li>Bloki o długości rzędu 16 bajtów</li>
+<li>ECB - elektroniczna książka kodowa
+<ul>
+<li>każdy blok danych szyfrowany niezależnie od innych</li>
+<li>identyczne dane dadzą powtarzalny wzorzec w szyfrogramie</li>
+</ul></li>
+<li>CBC - wiązanie bloków zaszyfrowanych
+<ul>
+<li>wiązanie następnego bloku z poprzednim</li>
+<li>XOR bloku tekstu jawnego z poprzednim blokiem szyfrogramu</li>
+<li>na początku wektor inicjujący</li>
+</ul></li>
+<li>OFB - wyjściowe sprzężenie zwrotne
+<ul>
+<li>szyfr strumieniowy zbudowany w oparciu o wielokrotne szyfrowanie
+klucza i wiązanie wyniku funkcją XOR z danymi do zaszyfrowania</li>
+</ul></li>
+<li>CTR - tryb licznikowy
+<ul>
+<li>daje się zrównoleglać</li>
+<li>identyczne bloki danych będą różne po zaszyfrowaniu</li>
+</ul></li>
+<li>CFB - sprzężenie zwrotne szyfrogramu
+<ul>
+<li>połączenie szyfru blokowego ze strumieniowym</li>
+<li>szyfr strumieniowy oparty o szyfrowanie rejestru przesuwnego
+zależnego od wyniku poprzedniego szyfrowania</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#szyfry-symetryczne-i-asymetryczne">Szyfry symetryczne i
+asymetryczne</a>
+<ul>
+<li><a href="#pojęcia">Pojęcia</a></li>
+<li><a href="#historia">Historia</a></li>
+<li><a href="#podział-szyfrów">Podział szyfrów</a></li>
+<li><a href="#szyfry-blokowe-i-strumieniowe">Szyfry blokowe i
+strumieniowe</a>
+<ul>
+<li><a href="#szyfr-strumieniowy">Szyfr strumieniowy</a></li>
+<li><a href="#szyfr-blokowy">Szyfr blokowy</a></li>
+</ul></li>
+<li><a href="#szyfry-symetryczne-i-asymetryczne-1">Szyfry symetryczne i
+asymetryczne</a>
+<ul>
+<li><a href="#szyfr-symetryczne">Szyfr symetryczne</a></li>
+<li><a href="#szyfr-asymetryczny">Szyfr asymetryczny</a></li>
+<li><a href="#algorytm-diffiego-hellmana">Algorytm
+Diffiego-Hellmana</a></li>
+<li><a href="#szyfrowanie-rsa">Szyfrowanie RSA</a></li>
+<li><a href="#bezpieczeństwo-szyfrów-asymetrycznych">Bezpieczeństwo
+szyfrów asymetrycznych</a></li>
+<li><a href="#porównanie">Porównanie</a></li>
+<li><a href="#szyfr-hybrydowy">Szyfr hybrydowy</a></li>
+</ul></li>
+<li><a href="#tryby-pracy-algorytmów-blokowych">Tryby pracy algorytmów
+blokowych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

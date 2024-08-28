@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-3-2024-03-04">Wykład 3 (2024-03-04)</h1>
+<p>…</p>
+<h2 id="przykłady">Przykłady …</h2>
+<h3 id="cyfrowe-przesyłanie-głosu-voip">Cyfrowe przesyłanie głosu
+(VoIP)</h3>
+<ul>
+<li>Zdigitalizowane pakiety głosu wysyłane w stały tempie co
+10-30ms</li>
+<li>Maksymalne opóźnienie 150ms</li>
+<li>Nie zachowanie wymagań czasowych nie jest katastrofalne ale obniża
+jakość</li>
+<li>Dopuszczalna jest strata małej części pakietów (trzaski)</li>
+</ul>
+<h2 id="system-reaktywny">System reaktywny</h2>
+<ul>
+<li>Elementy
+<ul>
+<li>Zdarzenie</li>
+<li>Zadanie - moduł programu wykonywany niezależnie od pozostałych
+modułów</li>
+<li>Reakcja</li>
+</ul></li>
+<li>Czas odpowiedzi (wykonania zadania) nie przekracza ograniczeń</li>
+</ul>
+<h2 id="ograniczenia-czasowe">Ograniczenia czasowe</h2>
+<ul>
+<li>Ostre (hard real-time)
+<ul>
+<li>każde przekroczenie ograniczeń może prowadzić do katastrofalnego
+błędu systemu</li>
+<li>projektowanie na najgorszy przypadek</li>
+<li>bardzo istotna jest prawidłowa metodyka</li>
+<li>nie można przetestować na produkcji systemu sterowania reaktorem
+atomowym</li>
+<li>konieczny jest udział człowieka w weryfikacji działania (bez
+czarnych skrzynek i AI)</li>
+</ul></li>
+<li>Łagodne (soft real-time)
+<ul>
+<li>przekroczenie ograniczeń stopniowo degraduje jakość systemu ale nie
+niszczy zupełnie</li>
+<li>projektowanie na wartości przeciętne</li>
+<li>np. sterowanie grzejnikiem w pomieszczeniu</li>
+</ul></li>
+<li>Sztywne (firm real-time)
+<ul>
+<li>pojedyncze przekroczenia ograniczeń mogą być tolerowane</li>
+<li>liczne przekroczenia pogarszają jakość systemu</li>
+<li>np. przesyłanie dźwięku, obrazu</li>
+</ul></li>
+</ul>
+<h2 id="problemy-implementacji">Problemy implementacji</h2>
+<ul>
+<li>Brak środowisk uruchomieniowych w środowisku pracy
+<ul>
+<li>Nie wszystko można przetestować na fizycznym modelu</li>
+<li>Nie wszystko da się skutecznie zasymulować programowo</li>
+</ul></li>
+<li>Ograniczone zasoby sprzętowe</li>
+<li>Trudna weryfikacja projektu
+<ul>
+<li>poprawność</li>
+<li>terminowość</li>
+</ul></li>
+<li>Konieczność wiarygodnej weryfikacji i walidacji</li>
+<li>Dominuje C, rzadziej asembler</li>
+</ul>
+<h2 id="środowisko-skrośne">Środowisko skrośne</h2>
+<ul>
+<li>Na innej maszynie tworzy się system i na innej uruchamia</li>
+<li>Kompilacja skrośna - na inny target</li>
+<li>Emulator układowy
+<ul>
+<li>pośredni pomiędzy komputerem programisty a docelowym systemem</li>
+</ul></li>
+</ul>
+<h2 id="systemy-sterowania-i-zarządzania">Systemy sterowania i
+zarządzania</h2>
+<ul>
+<li>Zazwyczaj struktura hierarchiczna</li>
+<li>Proste sterowniki blisko sprzętu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-3-2024-03-04">Wykład 3 (2024-03-04)</a>
+<ul>
+<li><a href="#przykłady">Przykłady …</a>
+<ul>
+<li><a href="#cyfrowe-przesyłanie-głosu-voip">Cyfrowe przesyłanie głosu
+(VoIP)</a></li>
+</ul></li>
+<li><a href="#system-reaktywny">System reaktywny</a></li>
+<li><a href="#ograniczenia-czasowe">Ograniczenia czasowe</a></li>
+<li><a href="#problemy-implementacji">Problemy implementacji</a></li>
+<li><a href="#środowisko-skrośne">Środowisko skrośne</a></li>
+<li><a href="#systemy-sterowania-i-zarządzania">Systemy sterowania i
+zarządzania</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

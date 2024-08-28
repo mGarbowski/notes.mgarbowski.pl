@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07.html">Poprzedni: wyklad-07.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09.html">Następny: wyklad-09.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="ipc-cd-2024-04-22">IPC cd (2024-04-22)</h1>
+<h2 id="timery">Timery</h2>
+<ul>
+<li>Czas rzeczywisty
+<ul>
+<li>mogą być zmiany na czas zimowy, sekundy przestępne itd</li>
+</ul></li>
+<li>Monotoniczny</li>
+<li>Czas astronomiczny
+<ul>
+<li>ignoruje sekundy przestępne</li>
+</ul></li>
+<li>Działa asynchronicznie, po upływie czasu wysyła sygnał</li>
+<li>W przypadku obsługi sygnału, funkcja musi mieć <em>async-signal
+safety</em>
+<ul>
+<li>wielobieżność (reentrance) i thread safety nie wystarczy</li>
+<li>jest lista funkcji wg specyfikacji POSIX, które powinny być
+bezpieczne do wywołania w tym kontekście</li>
+</ul></li>
+</ul>
+<h3 id="timerfd">timerfd</h3>
+<ul>
+<li>Timer powiązany z deskryptorem pliku</li>
+<li>Można korzystać przy <code>select</code>, <code>poll</code>,
+<code>epoll</code>
+<ul>
+<li>odczyt z pliku timera usypia proces do upłynięcia czasu</li>
+<li>można tak realizować programowanie zdarzeniowe</li>
+</ul></li>
+</ul>
+<h2 id="ustalanie-priorytetu-zadań-przetwarzających-dane">Ustalanie
+priorytetu zadań przetwarzających dane</h2>
+<ul>
+<li><code>sched_setscheduler</code>
+<ul>
+<li>określenie polityki szeregowania</li>
+<li>parametry (np. priorytet)</li>
+</ul></li>
+<li>Typy przydziału
+<ul>
+<li><code>SCHED_OTHER</code> - zadania dostają po kolei kwanty czasu
+procesora (typowy)</li>
+<li><code>SCHED_BATCH</code> - zoptymalizowane pod kątem zadań wsadowych
+(nieinteraktywnych)</li>
+<li><code>SCHED_IDLE</code> - dla zadań realizowanych w tle</li>
+</ul></li>
+<li>Typy przydziału dla zadań czasu rzeczywistego
+<ul>
+<li><code>SCHED_FIFO</code> - pierwszy zgłoszony proces będzie
+wykonywany jako pierwszy, może się zawiesić na IO lub zostać
+wywłaszczony przez proces o wyższym priorytecie</li>
+<li><code>SCHED_RR</code> - jak FIFO, trafia na koniec kolejki po
+wykorzystaniu kwantu czasu</li>
+<li><code>SCHED_DEADLINE</code> - dla rzadko wykonywanych zadań
+terminowych</li>
+</ul></li>
+<li><code>setpriority</code>, <code>nice</code>
+<ul>
+<li>najwyższy priorytet - <code>-20</code></li>
+<li>najmniejszy - <code>19</code></li>
+<li>najwyższy priorytet może doprowadzić do zakleszczenia (jeśli wymaga
+odpowiedzi od daemonów systemowych)</li>
+</ul></li>
+<li>Kazde przełączenie procesu to niezerowy nakład pracy dla CPU</li>
+<li>Linux zwykle rezerwuje część czasu procesora (typowo 5%) dla zadań
+niebędących zadaniami czasu rzeczywistego
+<ul>
+<li>określane w plikach w <code>/proc/sys/kernel</code></li>
+</ul></li>
+</ul>
+<h2 id="użycie-linuxa-w-zastosowaniach-czasu-rzeczywistego">Użycie
+Linuxa w zastosowaniach czasu rzeczywistego</h2>
+<ul>
+<li>Opóźnienia związane z pracą planisty</li>
+<li>Opóźnienia związane z reakcją na zdarzenia sprzętowe</li>
+<li>Najwazniejsze jest terminowe wykonywanie zadań i obsługa zdarzeń, a
+nie najlepsza wydajność</li>
+</ul>
+<h3 id="tryb-sched_deadline">Tryb <code>SCHED_DEADLINE</code></h3>
+<ul>
+<li>Programiście trudniej doprowadzić do zagłodzenia</li>
+<li>Dla każdego procesu definiowane są
+<ul>
+<li>czas wykonania (runtime)</li>
+<li>termin wykonania (deadline)</li>
+<li>okres wykonania (period)</li>
+<li>runtime &lt;= deadline &lt;= period</li>
+</ul></li>
+<li>Proces po zakończeniu pracy powinien wywołać
+<code>sched_yield</code></li>
+<li>Można wykorzystać ten mechanizm do dzielenia czasu procesora
+<ul>
+<li>jeśli proces nie wyrobi się w runtime, to zostanie zawieszony przez
+planistę do następnego okresu</li>
+</ul></li>
+<li>Próba ustawienia parametrów niemożliwych do spełnienia zwróci
+błąd</li>
+</ul>
+<h2 id="oczekiwanie-aktywne">Oczekiwanie aktywne</h2>
+<ul>
+<li>Zazwyczaj usypiamy proces w oczekiwaniu na zdarzenie sprzętowe
+(<code>poll</code>, <code>select</code>)
+<ul>
+<li>zostanie wzbudzony przerwaniem</li>
+</ul></li>
+<li>W pewnych warunkach aktywne oczekiwanie daje krótszy czas
+<ul>
+<li>krótszy czas oczekiwania na obsługę zdarzenia</li>
+<li>nie ma straty czasu na przełączenie kontekstu procesora</li>
+<li>trzeba pamiętać że to zajmuje magistralę</li>
+</ul></li>
+<li>Dla większej liczby procesów może być długi czas oczekiwania na
+przydział kwantu czasu procesora
+<ul>
+<li>można zabezpieczyć zadania przed wywłaszczeniem</li>
+</ul></li>
+<li>Dla procesora wielordzeniowego jest możliwość zarezerwowania
+konkretnego rdzenia dla konkretnego procesu (lub grupy procesów)
+<ul>
+<li><code>sched_setaffinity</code></li>
+<li><code>sched_getaffinity</code></li>
+</ul></li>
+<li>Można wyłączyć rdzeń z kontroli planisty</li>
+<li>Przerwania
+<ul>
+<li><code>/proc/irq</code></li>
+<li>jest określone które rdzenie mogą obsługiwać dane przerwanie</li>
+<li>można zabronić przerwaniom korzystać z określonych rdzeni</li>
+<li>obsługa przerwania i programu obsługującego urządzenie przez ten sam
+rdzeń może być korzystne ze względu na cache</li>
+</ul></li>
+</ul>
+<p>program <code>chrt</code></p>
+<h2 id="optymalizacja-obsługi-przerwań">Optymalizacja obsługi
+przerwań</h2>
+<ul>
+<li>Opóźnienie może wzrosnąć względem aktywnego oczekiwania</li>
+<li>Może ograniczyć maksymalne opóźnienie</li>
+<li>Można podizelić obsługę przerwania
+<ul>
+<li>górna połówka - zasadnicza procedura obsługi przerwania, może
+ograniczyć możliwość obsługi innych przerwań, wykonywana natychmiast,
+zleca wykonanie dolnej połówki</li>
+<li>dolna połówka - odroczona procedura obsługi przerwania, wykonywana
+najszybciej jak to możliwe ale po uporządkowaniu stanu systemu</li>
+</ul></li>
+<li>Sposoby obsługi dolnej połówki
+<ul>
+<li>tasklets</li>
+<li>workqueues</li>
+<li>threaded interrupts</li>
+</ul></li>
+</ul>
+<p>Książka Linux Device Drivers</p>
+<h2 id="co-można-poprawić-w-sprzęcie-i-sterowniku">Co można poprawić w
+sprzęcie i sterowniku</h2>
+<ul>
+<li>Unikać niepotrzebnego kopiowania danych</li>
+<li>Urządzenie powinno dostarczać dane przez bezpośredni dostęp do
+pamięci (DMA)
+<ul>
+<li>IOMMU - pozwala urządzneiom korzystać z DMA dla konkretnych
+adresów</li>
+</ul></li>
+<li>Wymaga dobrej obsługi w sterowniku urządzenia</li>
+</ul>
+<h3 id="korzystanie-z-dma">Korzystanie z DMA</h3>
+<ul>
+<li>Wpisanie do rejestrów urządzenia adresu bufora w pamięci, w którym
+ma umieścić dane</li>
+<li>Procesor wpisuje do rejestrów urządzenia długość przesyłanego bloku
+danych</li>
+<li>Procesor uruchamia transfer i przechodzi do innych zadań</li>
+<li>…</li>
+</ul>
+<h3 id="problemy-przy-korzystaniu-z-dma">Problemy przy korzystaniu z
+DMA</h3>
+<ul>
+<li>Urządzenie obsługujące DMA może używać specyficznej przestrzeni
+adresowej</li>
+<li>Są różne magistrale i każda korzysta ze specyficznych adresów
+<ul>
+<li>to jest obsługiwane przez jądro</li>
+<li>procedura mapowania buforów DMA</li>
+</ul></li>
+<li>Trudności z alokacją dużych ciągłych buforów dla DMA
+<ul>
+<li>proste urządzenia mogą wymagać bufora zajmującego ciągły obszar w
+przestrzeni adresowej</li>
+<li>rozwiązanie - CMA - Contiguous Memory Allocator</li>
+<li>bufory rozproszone - bufor podzielony na segmenty, każdy segment
+odpowiada ciągłemu kawałkowi pamięci, lista deskryptorów segmentów (SG -
+scatter-gather DMA)</li>
+</ul></li>
+</ul>
+<h2 id="dma-i-pamięć-podręczna">DMA i pamięć podręczna</h2>
+<ul>
+<li>Procesor odwołuje się do pamięci przez pamięć cache</li>
+<li>Bufory DMA są w pamięci RAM</li>
+<li>Urządzenie piszą bezpośrednio do pamięci, a procesor tego nie
+widzi</li>
+<li>Rozwiązania
+<ul>
+<li>wyłączenie korzystania z pamięci cache dla konkretnego bufora -
+ogromne spowolnienie</li>
+<li>procedury synchronizacji</li>
+</ul></li>
+</ul>
+<p>Nie będzie na kolokwium sekcji o adaptacji linuxa</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ipc-cd-2024-04-22">IPC cd (2024-04-22)</a>
+<ul>
+<li><a href="#timery">Timery</a>
+<ul>
+<li><a href="#timerfd">timerfd</a></li>
+</ul></li>
+<li><a href="#ustalanie-priorytetu-zadań-przetwarzających-dane">Ustalanie
+priorytetu zadań przetwarzających dane</a></li>
+<li><a href="#użycie-linuxa-w-zastosowaniach-czasu-rzeczywistego">Użycie
+Linuxa w zastosowaniach czasu rzeczywistego</a>
+<ul>
+<li><a href="#tryb-sched_deadline">Tryb
+<code>SCHED_DEADLINE</code></a></li>
+</ul></li>
+<li><a href="#oczekiwanie-aktywne">Oczekiwanie aktywne</a></li>
+<li><a href="#optymalizacja-obsługi-przerwań">Optymalizacja obsługi
+przerwań</a></li>
+<li><a href="#co-można-poprawić-w-sprzęcie-i-sterowniku">Co można
+poprawić w sprzęcie i sterowniku</a>
+<ul>
+<li><a href="#korzystanie-z-dma">Korzystanie z DMA</a></li>
+<li><a href="#problemy-przy-korzystaniu-z-dma">Problemy przy korzystaniu
+z DMA</a></li>
+</ul></li>
+<li><a href="#dma-i-pamięć-podręczna">DMA i pamięć podręczna</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

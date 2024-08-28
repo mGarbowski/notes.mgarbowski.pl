@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>16-lokalizacja-zrodla-dzwieku</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="15-sygnaly-akustyczne.html">Poprzedni: 15-sygnaly-akustyczne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="17-ocena-jakosci-dzwieku.html">Następny: 17-ocena-jakosci-dzwieku.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="lokalizacja-źródła-dźwięku">Lokalizacja źródła dźwięku</h1>
+<h2 id="lokalizacja-dźwięków">Lokalizacja dźwięków</h2>
+<ul>
+<li>Istotne dla dźwięku w wirtualnej rzeczywistości</li>
+<li>Chcemy przez słuchawki dać wrażenie przestrzenne</li>
+<li>Zdolność oceny odległości od źródła dźwięku i kierunku z jakiego
+dociera</li>
+</ul>
+<h3 id="lokalizacja-w-płaszczyźnie-poziomej">Lokalizacja w płaszczyźnie
+poziomej</h3>
+<ul>
+<li>Fala dochodząca z prawej wcześniej dochodzi do prawego ucha</li>
+<li>Przed dojściem do lewego ucha mija czas i fala się ugina</li>
+<li>ITD - interaural time difference
+<ul>
+<li>ścieżki na lewy/prawy kanał są względem siebie przesunięte</li>
+<li>dominuje dla niskich częstotliwości</li>
+</ul></li>
+<li>Dla wysokich częstotliwości nie ma ugięcia
+<ul>
+<li>głowa tworzy cień akustyczny</li>
+<li>jedno ucho odbiera niższy poziom (amplitudę)</li>
+</ul></li>
+<li>ILD - Interaural Level Difference
+<ul>
+<li>dominuje dla wysokich częstotliwości</li>
+</ul></li>
+</ul>
+<h3 id="lokalizacja-w-płaszczyźnie-pionowej">Lokalizacja w płaszczyźnie
+pionowej</h3>
+<ul>
+<li>Człowiek określa położenie góra/dół na podstawie częstotliwościowych
+cech dźwięku związanych z odbiciami od małżowiny usznej
+<ul>
+<li>dźwięki z różnych kierunków odbijają się inaczej</li>
+<li>rozdzielczość jest gorsza niż dla płaszczyzny poziomej</li>
+</ul></li>
+<li>Problematyczne do syntezy
+<ul>
+<li>różnice w widmie są bardzo subtelne</li>
+<li>słuchawki zawsze mają swoje błędy</li>
+</ul></li>
+</ul>
+<h3 id="czynniki-lokalizacyjne">Czynniki lokalizacyjne</h3>
+<ul>
+<li>ITD</li>
+<li>ILD (IID)</li>
+<li>Efekt precedensu
+<ul>
+<li>różnice czasowe dominują</li>
+<li>mózg zwróci większą uwagę na różnicę w czasie nawet jeśli poziomy
+się nie zgadzają</li>
+</ul></li>
+<li>Efekt cocktail-party
+<ul>
+<li>przy niesprzyjającym stosunku sygnału do szumu (rozmowa na
+imprezie)</li>
+<li>zdolność do oddzielenia istotnej informacji od szumu</li>
+<li>tym lepsze jeśli znamy barwę istotnego sygnału</li>
+</ul></li>
+<li>MAA (minimum audible angle) / MAMA</li>
+<li>Lokalizacja odległości
+<ul>
+<li>człowiek jest słaby w bezwzględnym wskazywaniu odległości</li>
+<li>człowiek jest dobry w porównywaniu względnym (co bliżej, co
+dalej)</li>
+<li>powietrze szybciej tłumi wysokie częstotliwości</li>
+<li>przy sztucznym dźwięku trzeba odpowiednio obcinać wysokie
+częstotliwości (poza zmniejszaniem poziomu)</li>
+</ul></li>
+<li>Rola ruchów głową
+<ul>
+<li>istotne przy testach śledzenia czy osoba może ruszać głową</li>
+</ul></li>
+<li>HRTF - head related transfer function</li>
+<li>Doświadczenie słuchowe i wiązanie zjawisk akustycznych z
+obserwacjami wzrokowymi
+<ul>
+<li>człowiek bardziej zwraca uwagę na obraz (czy widzi skąd dobiega
+dźwięk)</li>
+</ul></li>
+</ul>
+<p>Człowiek naturalnie skleja “strumienie danych” z lewego i prawego
+ucha w pojedyncze zdarzenia na poziomie milisekund.</p>
+<h2 id="dźwięk-przestrzenny">Dźwięk przestrzenny</h2>
+<ul>
+<li>Mono
+<ul>
+<li>już praktycznie nigdzie nieużywany</li>
+</ul></li>
+<li>Stereo
+<ul>
+<li>standard mimo rozwoju dźwięku przestrzennego</li>
+<li>2 źródła</li>
+<li>określony przedni kierunek</li>
+</ul></li>
+<li>5.1
+<ul>
+<li>transmisja musi być zakodowana w 5.1</li>
+<li>wyróżniony kierunek przedni</li>
+<li>3 przednie i 2 tylne</li>
+<li>tylne głośniki niczego nie odtwarzają jeśli transmisja nie jest
+zakodowana w 5.1</li>
+<li>trzeba dostarczyć oddzielny mix do stereo i 5.1</li>
+</ul></li>
+<li>Ambisonia
+<ul>
+<li>rejestracja dźwięku w wielu płaszczyznach</li>
+<li>nie rejestruje się dźwięku dla określonego ustawienia głośnika</li>
+<li>rejestruje się dźwięk dla sfery wokół punktu i dekoduje dla
+określonego zestawu głośników</li>
+<li>bez wyróżnionego kierunku przedniego</li>
+</ul></li>
+<li>Auralizacja
+<ul>
+<li>“wizualizacja” dla dźwięku</li>
+<li>sztuczne tworzenie wrażeń akustycznych</li>
+<li>dźwięk w zwirtualizowanej przestrzeni</li>
+</ul></li>
+</ul>
+<h3 id="lateralizacja">Lateralizacja</h3>
+<ul>
+<li>Przy odsłuchu słuchawkowym stereo</li>
+<li>Wrażenie jest, że źródła są w środku głowy</li>
+<li>Nie ma wrażenia dźwięku poza głową</li>
+<li>Można łatwo uzyskać przez wprowadzenie przesunięcia czasowego (ITD i
+ILD)</li>
+</ul>
+<h3 id="eksternalizacja">Eksternalizacja</h3>
+<ul>
+<li>Wrażenie dźwięku przestrzennego, źródło poza głową</li>
+<li>Mamy słuchawki na uszach</li>
+<li>Jest wrażenie, że dźwięk dobiega z zewnątrz</li>
+<li>Korzystając ze słuchawek małżowina nie pracuje</li>
+<li>Nagrania binauralne - manekin ze sztucznymi małżowinami i 2
+mikrofonami w środku</li>
+<li>Kształt małżowiny jest indywidualne więc nagrania nie działają
+idealnie</li>
+</ul>
+<h3 id="head-related-transfer-function">Head related transfer
+function</h3>
+<ul>
+<li>Funkcja przenoszenia głowy</li>
+<li>Określa wpływ głowy i ciała na dźwięk o danej częstotliwości
+docierające do ucha z poszczególnych kierunków</li>
+<li>Dla każdego kąta bada się zależność poziomu od częstotliwości</li>
+<li>Wymaga komory bezechowej do wyznaczenia</li>
+<li>Popularny temat badań
+<ul>
+<li>gracz dla dobrego doświadczenia VR powinien mieć spersonalizowaną
+funkcję żeby wyeliminować błędy z lokalizacją</li>
+<li>problem z wyznaczeniem bez komory bezechowej</li>
+<li>można dobrać funkcję dla najbardziej zbliżonego ucha z bazy na
+podstawie zdjęcia ucha (hrtf fitting)</li>
+</ul></li>
+</ul>
+<h2 id="beamforming">Beamforming</h2>
+<ul>
+<li>Kształtowanie wiązki</li>
+<li>Wykorzystanie matrycy mikrofonowej</li>
+<li>Przetwarzanie sygnałów z poszczególnych mikrofonów</li>
+<li>Kształtowanie charakterystyki kierunkowej matrycy</li>
+<li>Możliwość uzyskania silnie kierunkowej charakterystyki</li>
+<li>Zastosowania
+<ul>
+<li>usuwanie wpływów zakłóceń na sygnał użyteczny</li>
+<li>filtracja adaptacyjna w celu usunięcia niepożądanych sygnałów</li>
+<li>neurobeamforming - wykorzystanie sieci neuronowych i uczenia
+maszynowego do znalezienia wag</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#lokalizacja-źródła-dźwięku">Lokalizacja źródła dźwięku</a>
+<ul>
+<li><a href="#lokalizacja-dźwięków">Lokalizacja dźwięków</a>
+<ul>
+<li><a href="#lokalizacja-w-płaszczyźnie-poziomej">Lokalizacja w
+płaszczyźnie poziomej</a></li>
+<li><a href="#lokalizacja-w-płaszczyźnie-pionowej">Lokalizacja w
+płaszczyźnie pionowej</a></li>
+<li><a href="#czynniki-lokalizacyjne">Czynniki lokalizacyjne</a></li>
+</ul></li>
+<li><a href="#dźwięk-przestrzenny">Dźwięk przestrzenny</a>
+<ul>
+<li><a href="#lateralizacja">Lateralizacja</a></li>
+<li><a href="#eksternalizacja">Eksternalizacja</a></li>
+<li><a href="#head-related-transfer-function">Head related transfer
+function</a></li>
+</ul></li>
+<li><a href="#beamforming">Beamforming</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

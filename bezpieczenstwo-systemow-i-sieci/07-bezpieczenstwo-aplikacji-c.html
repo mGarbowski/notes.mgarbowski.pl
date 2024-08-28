@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-bezpieczenstwo-aplikacji-c</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-systemy-zapewniajace-bezpieczenstwo.html">Poprzedni: 06-systemy-zapewniajace-bezpieczenstwo.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-malware.html">Następny: 08-malware.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="bezpieczeństwo-aplikacji-cc">Bezpieczeństwo aplikacji C/C++</h1>
+<h2 id="organizacja-pamięci-programu">Organizacja pamięci programu</h2>
+<ul>
+<li>W pliku na dysku
+<ul>
+<li>instrukcje programu</li>
+<li>dane o wymaganych bibliotekach</li>
+<li>dane wstępnie zianicjowane</li>
+</ul></li>
+<li>W pamięci dodatkowo rezerwowana przestrzeń na
+<ul>
+<li>stos</li>
+<li>stertę</li>
+</ul></li>
+</ul>
+<h3 id="stos">Stos</h3>
+<ul>
+<li>Struktura danych typu LIFO</li>
+<li>Operacje push i pop</li>
+<li>W procesorze x86
+<ul>
+<li>realizacja skoków do funkcji i powrotu z funkcji do miejsca
+wywołania</li>
+<li>przekazywanie parametrów wywołania funkcji</li>
+<li>alokacja zmiennych lokalnych</li>
+<li>rejestr ESP - wierzchołek stosu</li>
+<li>stos rośnie w kierunku mniejszych adresów</li>
+<li>wrzucanie argumentów wywołania funkcji na stos w odwrotnej
+kolejności - zaleta jest taka, że można obsłużyć zmienną liczbę
+argumentów (np. <code>printf</code>)</li>
+</ul></li>
+</ul>
+<h2 id="przepełnienie-bufora">Przepełnienie bufora</h2>
+<ul>
+<li>Nadal bardzo powszechny typ ataku</li>
+<li>Bufor jako zmienna lokalna funkcji na stosie - tablica o zadanej
+wielkości</li>
+<li>Na stosie znajduje się też adres powrotu z funkcji</li>
+<li>Kopiowanie danych do bufora bez sprawdzenia ich długości może
+prowadzić do nadpisania adresu powrotnego</li>
+<li>Jako adres powrotny można podać początek bufora
+<ul>
+<li>w buforze umieszcza się dane do zinterpretowania jako kod
+wykonywalny (shellcode)</li>
+<li>bajt <code>0x90</code> - instrukcja nop (nic nie robi)</li>
+</ul></li>
+</ul>
+<h3 id="atak-na-podatną-funkcję">Atak na podatną funkcję</h3>
+<ul>
+<li>Analiza podanych przez użytkownika parametrów
+<ul>
+<li>szczególnie interesujące jeśli program działa z suid - daje
+uprawnienia root’a</li>
+</ul></li>
+<li>Analiza zawartości pliku
+<ul>
+<li>odpowiednio spreparowany plik</li>
+<li>można np. wysłać pocztą</li>
+</ul></li>
+<li>Parsowanie komunikatów sieciowych
+<ul>
+<li>analiza danych przychodzących z sieci</li>
+<li>odpowiednio spreparowany komunikat sieciowy</li>
+</ul></li>
+</ul>
+<h2 id="zabezpieczenia-przed-buffer-overflow">Zabezpieczenia przed
+buffer overflow</h2>
+<ul>
+<li>Edukacja programistów
+<ul>
+<li>nie pisanie podatnych funkcji</li>
+</ul></li>
+<li>Audyt kodu
+<ul>
+<li>zastosowanie automatycznych narzędzi do wykrywania niebezpiecznych
+fragmentów kodu</li>
+</ul></li>
+<li>Mechanizmy ochronne kompilatora
+<ul>
+<li>kanarki</li>
+</ul></li>
+<li>Mechanizmy ochronne systemu
+<ul>
+<li>bit NX</li>
+<li>ASLR</li>
+</ul></li>
+</ul>
+<h3 id="kanarki">Kanarki</h3>
+<ul>
+<li>Stack Canaries</li>
+<li>Nazwa od kanarków używanych w kopalniach</li>
+<li>Umieszczenie losowo generowanej zmiennej na stosie przed adresem
+powrotu</li>
+<li>Zweryfikowanie przed wywołaniem <code>ret</code> że wartość nie
+została zmieniona</li>
+<li>Opcja GS w kompilatorze Visual Studio</li>
+</ul>
+<h3 id="bit-nx-mechanizm-dep">Bit NX, mechanizm DEP</h3>
+<ul>
+<li>W systemie wykorzystującym pamięć wirtualną można oznaczyć strony
+stosu jako niemożliwe do wykonania
+<ul>
+<li>próba wykonania instrukcji z takiej strony zgłasza przerwanie
+sprzętowe</li>
+</ul></li>
+<li>Różne nazwy na różnych systemach operacyjnych i procesorach
+<ul>
+<li>NX - no execute (ogólna nazwa)</li>
+<li>XD - execute disabled (Intel)</li>
+<li>Enhanced Virus Protection (AMD)</li>
+<li>DEP - Data Execution Prevention (Windows)</li>
+</ul></li>
+<li>Bit NX to mechanizm sprzętowy, nie każdy mikrokontroler to
+wspiera</li>
+</ul>
+<h3 id="aslr">ASLR</h3>
+<ul>
+<li>Address Space Layout Randomization</li>
+<li>Jeśli adresy pewnych sekcji programu są losowane to utrudnia pisanie
+exploitów</li>
+<li>Wymusza losowanie istotnych adresów
+<ul>
+<li>adres bazowy programu</li>
+<li>adresy bazowe bibliotek</li>
+<li>adres bazowy stosu</li>
+<li>adres bazowy sterty</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>nie każdy system operacyjny to wspiera</li>
+<li>stare biblioteki tego nie wspierają</li>
+<li>dla bibliotek dzielonych, wartości są losowane przy restarcie
+systemu</li>
+<li>wartości były losowane z małej puli</li>
+</ul></li>
+</ul>
+<h2 id="ataki-na-mechanizmy-obrony">Ataki na mechanizmy obrony</h2>
+<ul>
+<li>DEP
+<ul>
+<li>ataki nie wykonują kodu na stosie</li>
+<li>return to libc</li>
+<li>return oriented programming</li>
+</ul></li>
+<li>ASLR
+<ul>
+<li>odgadnięcie lub poznanie wylosowanych adresów</li>
+<li>format string</li>
+</ul></li>
+</ul>
+<h3 id="return-to-libc">Return to libc</h3>
+<ul>
+<li>Nie nadpisuje adresu powrotnego adresem bufora
+<ul>
+<li>wykrywane przez mechanizm DEP</li>
+</ul></li>
+<li>Przygotowanie na stosie wartości odpowiadających prawidłowemu
+wywołaniu funkcji z libc
+<ul>
+<li>można tak manipulować wartościami, żeby połączyć kilka wywołań
+funkcji</li>
+</ul></li>
+<li>Nadpisanie adresu powrotu adresem funkcji z libc
+<ul>
+<li>legalne wywołanie, nie zostanie zablokowane</li>
+</ul></li>
+</ul>
+<h3 id="return-oriented-programming">Return oriented programming</h3>
+<ul>
+<li>Ataki return to libc pozwalają tylko na wykonanie ograniczonych
+funkcji</li>
+<li>Dobiera się odpowiednie fragmenty funkcji w kodzie programu i nie
+skacze się na ich początek tylko na kilka ostatnich instrukcji</li>
+<li>Gadżet fragment kodu wykonujący pożądane instrukcje</li>
+<li>Przy odpowiednio dużym programie można w ten sposób zrealizować
+dowolną funkcjonalność</li>
+<li>Atak polega na dobraniu odpowiedniego zestawu gadżetów i odpowiednim
+spreparowaniu stosu
+<ul>
+<li>końcówki funkcji będą na ogół wykonywać instrukcje <code>pop</code>
+do rejestrów</li>
+<li>umieszcza się na stosie wartości, które mają się znaleźć w
+rejestrach</li>
+<li>umieszcza się adresy gadżetów nadpisujące adresy powrotu</li>
+<li>dla wywołania wielu gadżetów jeden po drugim</li>
+</ul></li>
+<li>Można zaatakować nawet architekturę Harvard z oddzielną pamięcią dla
+programu</li>
+<li>Są narzędzia które znajdują komplety gadżetów w binarnym
+programie</li>
+<li>Kanarki mogą przed tym obronić</li>
+</ul>
+<h2 id="sterta">Sterta</h2>
+<ul>
+<li>Obszar pamięci przydzielanej procesowi na którym można dokonywać
+dynamicznej alokacji (<code>malloc</code>)
+<ul>
+<li>zaalokowaną pamięć należy zwrócić kiedy nie jest już używana
+(<code>free</code>)</li>
+</ul></li>
+<li>Bloki pamięci przydzielone procesowi są zarządzane za pomocą
+dynamicznych struktur danych
+<ul>
+<li>listy dwukierunkowe</li>
+</ul></li>
+<li>Ataki przepełnienia sterty są mniej oczywiste i wymagają dokładnej
+analizy kodu
+<ul>
+<li>nadpisanie wewnętrznych struktur sterty</li>
+<li>nadpiasnie pamięci zaalokowanej dla obiektu</li>
+<li>nadpisanie wskaźnika funkcji wirtualnej obiektu</li>
+</ul></li>
+<li>Obrona
+<ul>
+<li>edukacja programistów</li>
+<li>dodanie warunków sprawdzających integralność struktur danych
+sterty</li>
+<li>NX i ASLR</li>
+<li>wykrywanie Heap Spraying przez oprogramowanie HIDS</li>
+</ul></li>
+</ul>
+<h3 id="heap-spraying">Heap Spraying</h3>
+<ul>
+<li>Największym problemem ataków na stertę jest nieprzewidywalność
+alokacji</li>
+<li>Bardzo duże obszary pamięci alokowane dynamicznie muszą być
+umieszczone pod łatwo przewidywalnymi adresami</li>
+</ul>
+<h2 id="błędy-z-łańcuchami-sterującymi">Błędy z łańcuchami
+sterującymi</h2>
+<ul>
+<li>Ataki przy wywołaniu <code>printf(buffer)</code> zamiast
+prawidłowego <code>printf("%s", buffer)</code></li>
+<li>Odpowiednio sformatowane dane mogą zostać potraktowane jako łańcuch
+sterujący</li>
+<li>Znacznik <code>%n</code> pozwala na nadpisanie spreparowaną
+wartością adresu znajdującego się na stosie</li>
+<li>Umożliwia odczytanie pewnych adresów i poznanie ich przez
+atakującego
+<ul>
+<li>obejście dla ASLR</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bezpieczeństwo-aplikacji-cc">Bezpieczeństwo aplikacji
+C/C++</a>
+<ul>
+<li><a href="#organizacja-pamięci-programu">Organizacja pamięci
+programu</a>
+<ul>
+<li><a href="#stos">Stos</a></li>
+</ul></li>
+<li><a href="#przepełnienie-bufora">Przepełnienie bufora</a>
+<ul>
+<li><a href="#atak-na-podatną-funkcję">Atak na podatną funkcję</a></li>
+</ul></li>
+<li><a href="#zabezpieczenia-przed-buffer-overflow">Zabezpieczenia przed
+buffer overflow</a>
+<ul>
+<li><a href="#kanarki">Kanarki</a></li>
+<li><a href="#bit-nx-mechanizm-dep">Bit NX, mechanizm DEP</a></li>
+<li><a href="#aslr">ASLR</a></li>
+</ul></li>
+<li><a href="#ataki-na-mechanizmy-obrony">Ataki na mechanizmy obrony</a>
+<ul>
+<li><a href="#return-to-libc">Return to libc</a></li>
+<li><a href="#return-oriented-programming">Return oriented
+programming</a></li>
+</ul></li>
+<li><a href="#sterta">Sterta</a>
+<ul>
+<li><a href="#heap-spraying">Heap Spraying</a></li>
+</ul></li>
+<li><a href="#błędy-z-łańcuchami-sterującymi">Błędy z łańcuchami
+sterującymi</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

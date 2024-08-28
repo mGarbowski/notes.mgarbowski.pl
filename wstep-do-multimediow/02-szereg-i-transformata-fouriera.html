@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-szereg-i-transformata-fouriera</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wprowadzenie-do-teorii-sygnalow.html">Poprzedni: 01-wprowadzenie-do-teorii-sygnalow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-probkowanie-sygnalow.html">Następny: 03-probkowanie-sygnalow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="szereg-i-transformata-fouriera">Szereg i transformata
+Fouriera</h1>
+<h2 id="trygonometryczny-szereg-fouriera">Trygonometryczny szereg
+Fouriera</h2>
+<p>Syngał okresowy o częstotliwości podstawowej <span
+class="math inline">\(f_0\)</span> w postaci</p>
+<p><span class="math display">\[x(t) = A_0 + \sum_{n=1}^\infty A_n
+cos(2\pi n f_0t + \phi_n)\]</span></p>
+<ul>
+<li><span class="math inline">\(\{ A_0, A_1, A_2, \ldots \}\)</span> -
+widmo amplitudowe (jednostronne)</li>
+<li><span class="math inline">\(\{ \phi_1, \phi_2, \ldots\}\)</span> -
+widmo fazowe (jednostronne)</li>
+<li>Sygnał o symetrii parzystej - wyraża się jako suma cosinusów</li>
+<li>Sygnał o symetrii nieparzystej - wyraża się jako suma sinusów</li>
+</ul>
+<h2 id="widmo-mocy-i-twierdzenie-parsevala">Widmo mocy i twierdzenie
+Parsevala</h2>
+<ul>
+<li><span class="math inline">\(\{ A_0^2, A_1^2/2, A_2^2/2 \}\)</span> -
+widmo mocy (jednostronne)</li>
+<li>Moc średnia za okres <span class="math inline">\(P_x = A_0^2 +
+\sum_{n=1}^\infty \frac{A_n^2}{2}\)</span></li>
+</ul>
+<h2 id="synteza-fourierowska">Synteza fourierowska</h2>
+<p>Przybliżamy sygnał <span class="math inline">\(x(t)\)</span> sumą
+składowej stałej i skończonej liczby <span
+class="math inline">\(M\)</span> składowych harmonicznych</p>
+<p><span class="math display">\[x_M(t) = A_0 + \sum_{n=1}^M A_n
+\cos(n\omega_0t + \phi_n)\]</span> Błąd średniokwadratowy aproksymacji
+równa się sumie mocy pominiętej w syntezie składowych harmonicznych</p>
+<p><span class="math display">\[
+\sigma_M^2 = \sum_{n=M+1}^\infty A_n^2 / 2
+\]</span></p>
+<h3 id="efekt-gibbsa">Efekt Gibbsa</h3>
+<p>Synteza fourierowska fali prostokątnej - oscylacje o wyższej
+amplitudzie w otoczeniu punktów nieciągłości</p>
+<h2
+id="równoważna-postać-trygonometrycznego-szeregu-fouriera">Równoważna
+postać trygonometrycznego szeregu Fouriera</h2>
+<p><span class="math display">\[x(t) = A_0 + \sum_{n=1}^\infty A_n
+cos(2\pi n f_0t + \phi_n)\]</span> <span class="math display">\[
+x(t) = A_0
++ \sum_{n=1}^\infty A_ncos(\phi_n) cos(2\pi n f_0t)
++ \sum_{n=1}^\infty -A_n sin(\phi_n) sin(2\pi n f_0t)
+\]</span></p>
+<p><span class="math display">\[
+x(t) = A_0
++ \sum_{n=1}^\infty a_n cos(2\pi n f_0t)
++ \sum_{n=1}^\infty b_n sin(2\pi n f_0t)
+\]</span> <span class="math display">\[
+a_n = A_n cos(\phi_n)
+\wedge b_n = -A_n sin(\phi_n)
+\iff A_n = \sqrt{a_n^2 + b_n^2}
+\]</span></p>
+<ul>
+<li>Sygnał o symetrii parzystej <span class="math inline">\(b_n =
+0\)</span></li>
+<li>Sygnał o symetrii nieparzystej <span class="math inline">\(a_n =
+0\)</span></li>
+<li>Sygnał antysymetryczny
+<ul>
+<li><span class="math inline">\(x(t) = -x(t +
+\frac{T_0}{2})\)</span></li>
+<li><span class="math inline">\(A_0=0\)</span></li>
+<li>szereg zawiera tylko składowe harmoniczne nieparzyste</li>
+</ul></li>
+</ul>
+<h2 id="wzory-eulera">Wzory Eulera</h2>
+<p>Przekształcając sin i cos ze wzorów Eulera <span
+class="math display">\[\cos(n\omega_0t) = \frac{1}{2}(e^{jn\omega_0t} +
+e^{-jn\omega_0t})\]</span> <span class="math display">\[\sin(n\omega_0t)
+= \frac{1}{2j}(e^{jn\omega_0t} - e^{-jn\omega_0t})\]</span></p>
+<p><span class="math display">\[x(t)
+= \sum_{n=-\infty}^\infty c_n e^{jn\omega_0t}
+= A_0 + \sum_{n=1}^\infty a_n \cos(n\omega_0t)
++ \sum_{n=1}^\infty b_n \sin(n\omega_0t)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(c_0 = A_0\)</span></li>
+<li><span class="math inline">\(c_{-n} = c_n^*\)</span></li>
+<li><span class="math inline">\(a_n = 2 \cdot \Re(c_n) = c_n +
+c_{-n}\)</span></li>
+<li><span class="math inline">\(b_n = -2 \cdot \Im(c_n) = j(c_n -
+c_{-n})\)</span></li>
+</ul>
+<h3 id="widma-dwustronne">Widma dwustronne</h3>
+<ul>
+<li>Widmo amplitudowe <span class="math inline">\(\{|c_n|: n \in
+\mathbb{Z}\}\)</span>
+<ul>
+<li>parzyste</li>
+</ul></li>
+<li>Widmo fazowe <span class="math inline">\(\{\arg c_n: n \in
+\mathbb{Z}\}\)</span>
+<ul>
+<li>nieparzyste</li>
+</ul></li>
+<li>Widmo mocy <span class="math inline">\(\{|c_n|^2: n \in
+\mathbb{Z}\}\)</span>
+<ul>
+<li>parzyste</li>
+</ul></li>
+<li><span class="math inline">\(|c_n| = A_n/2\)</span> dla <span
+class="math inline">\(n \ge 1 \quad A_n \ge 0\)</span></li>
+<li><span class="math inline">\(|c_n| = |c_{-n}|\)</span></li>
+<li>Twierdzenie Parsevala <span class="math inline">\(P_x = \sum_{n \in
+\mathbb{Z}} |c_n|^2\)</span></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Każdą funkcję okresową można przedstawić jako szereg Fouriera
+funkcji trygonometrycznych lub wykładniczych</li>
+<li>Nie może być bezpośrednio stosowany w praktyce do analizy
+częstotliwościowej wszystkich sygnałów
+<ul>
+<li>założenie o nieskończonym czasie trwania</li>
+<li>założenie o okresowości sygnału</li>
+</ul></li>
+</ul>
+<h2 id="przekształcenie-fouriera">Przekształcenie Fouriera</h2>
+<ul>
+<li>Sygnał okresowy ma widmo dyskretne (prążkowe)</li>
+<li>Prążki na wielokrotnościach częstotliwości podstawowej</li>
+<li>W nieskończoności <span class="math inline">\(T \rightarrow
+\infty\)</span> następuje uciąglenie widma
+<ul>
+<li><span class="math inline">\(T \rightarrow \infty\)</span> - sygnał
+impulsowy</li>
+</ul></li>
+<li>Przekształcenie fouriera definiuje transformatę Fouriera (widmo)
+sygnału <span class="math inline">\(x(t)\)</span></li>
+</ul>
+<p><span class="math display">\[
+X(\omega)
+= \mathcal{F}\{x(t)\}
+= \int_{-\infty}^\infty x(t)e^{-j\omega t}dt\]</span></p>
+<p><span class="math display">\[
+x(t)
+= \mathcal{F}^{-1}\{X(\omega)\}
+= \frac{1}{2\pi} \int_{-\infty}^\infty X(\omega)e^{j\omega t} d\omega
+\]</span></p>
+<h2 id="widmo---pojęcia-podstawowe">Widmo - pojęcia podstawowe</h2>
+<p><span class="math display">\[
+X(\omega)
+= |X(\omega)|e^{j\arg X(\omega)}
+= \Re(X(\omega)) + j \Im(X(\omega))
+\]</span></p>
+<ul>
+<li>Widmo amplitudowe - <span
+class="math inline">\(|X(\omega)|\)</span></li>
+<li>Widmo fazowe - <span class="math inline">\(\arg
+X(\omega)\)</span></li>
+<li>Widmo gęstości energii - <span
+class="math inline">\(|X(\omega)|^2\)</span></li>
+<li>Widmo rzeczywiste - <span
+class="math inline">\(\Re(X(\omega))\)</span></li>
+<li>Widmo urojone - <span
+class="math inline">\(\Im(X(\omega))\)</span></li>
+</ul>
+<h2 id="twierdzenie-parsevala">Twierdzenie Parsevala</h2>
+<p>Jeżeli <span class="math inline">\(x(t)\)</span> jest sygnałem o
+ograniczonej energii, to jego energia jest równa polu pod wykresem widma
+gęstości energii</p>
+<p><span class="math display">\[
+E_x
+= \int_{-\infty}^\infty |x(t)|^2 dt
+= \frac{1}{2\pi} \int_{-\infty}^\infty |X(\omega)|^2 d\omega
+= \int_{-\infty}^\infty |X(f)|^2 df
+\]</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#szereg-i-transformata-fouriera">Szereg i transformata
+Fouriera</a>
+<ul>
+<li><a href="#trygonometryczny-szereg-fouriera">Trygonometryczny szereg
+Fouriera</a></li>
+<li><a href="#widmo-mocy-i-twierdzenie-parsevala">Widmo mocy i
+twierdzenie Parsevala</a></li>
+<li><a href="#synteza-fourierowska">Synteza fourierowska</a>
+<ul>
+<li><a href="#efekt-gibbsa">Efekt Gibbsa</a></li>
+</ul></li>
+<li><a href="#równoważna-postać-trygonometrycznego-szeregu-fouriera">Równoważna
+postać trygonometrycznego szeregu Fouriera</a></li>
+<li><a href="#wzory-eulera">Wzory Eulera</a>
+<ul>
+<li><a href="#widma-dwustronne">Widma dwustronne</a></li>
+</ul></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+<li><a href="#przekształcenie-fouriera">Przekształcenie
+Fouriera</a></li>
+<li><a href="#widmo---pojęcia-podstawowe">Widmo - pojęcia
+podstawowe</a></li>
+<li><a href="#twierdzenie-parsevala">Twierdzenie Parsevala</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

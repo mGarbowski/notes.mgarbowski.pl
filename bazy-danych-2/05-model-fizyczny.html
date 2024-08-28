@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-model-fizyczny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-hurtownie-danych.html">Poprzedni: 04-hurtownie-danych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-nosql.html">Następny: 06-nosql.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bazy danych 2</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-model-pojeciowy.html">02-model-pojeciowy.html</a></li>
+                
+                <li><a href="03-model-relacyjny.html">03-model-relacyjny.html</a></li>
+                
+                <li><a href="04-hurtownie-danych.html">04-hurtownie-danych.html</a></li>
+                
+                <li><a href="05-model-fizyczny.html">05-model-fizyczny.html</a></li>
+                
+                <li><a href="06-nosql.html">06-nosql.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="model-fizyczny">Model fizyczny</h1>
+<ul>
+<li>Na przykładzie bazy Oracle</li>
+<li>Wiele zagadnień dotyczy sytuacji, w której projektant bazy danych ma
+kontrolę / dostęp do fizycznego sprzętu na którym system będzie działał
+<ul>
+<li>nie ma zastosowania do chmury, czy złożonych macierzy dyskowych
+itp.</li>
+</ul></li>
+<li>Fizyczna niezależność danych
+<ul>
+<li>model fizyczny można modyfikować bez wpływu na model logiczny</li>
+</ul></li>
+</ul>
+<h2 id="struktura-plików">Struktura plików</h2>
+<ul>
+<li>Pliki danych (data files)
+<ul>
+<li>rzeczywiste trwałe dane</li>
+</ul></li>
+<li>Pliki tymczasowe (temporary files)
+<ul>
+<li>sam system może potrzebować tymczasowych struktur do wykonywania
+niektórych poleceń</li>
+<li>tabele tymczasowe - kończące życie na koniec transakcji</li>
+<li>niekoniecznie zapisane na dysku (np. pliki w pamięci)</li>
+</ul></li>
+<li>Pliki dzienników (redo log files)
+<ul>
+<li>ochrona przed awarią</li>
+<li>umożliwia odtwarzanie stanu bazy po awarii (włącznie z utratą plików
+danych)</li>
+</ul></li>
+<li>Pliki sterujące (control files)
+<ul>
+<li>gdzie szukać pozostałych plików na dysku</li>
+</ul></li>
+</ul>
+<h3 id="pliki-dzienników">Pliki dzienników</h3>
+<ul>
+<li>Najważniejsze obiekty w całej bazie</li>
+<li>Stan można odtworzyć na podstawie dzienników
+<ul>
+<li>z dowolnego momentu w przeszłości</li>
+</ul></li>
+<li>Tworzą pętlę
+<ul>
+<li>muszą być co najmniej 2 online</li>
+<li>po wypełnieniu pliku można go zarchiwizować (i trzymać całą historię
+bazy)</li>
+<li>w Oracle tryb pracy Archive log</li>
+</ul></li>
+<li>Zapisuje informacje o tym co się stało w bazie danych
+<ul>
+<li>jakie operacje modyfikacji zostały wykonane</li>
+</ul></li>
+<li>System sekwencyjnie zapisuje wszystkie operacje</li>
+<li>Są stałej wielkości
+<ul>
+<li>po zapełnieniu system zamyka plik i przełącza się na kolejny</li>
+<li>plik zostaje dostępny np. do zarchiwizowania</li>
+</ul></li>
+<li>Odtwarzanie
+<ul>
+<li>pliki danych podlegają backupowi</li>
+<li>od backupu można odtworzyć na podstawie logu operacje</li>
+</ul></li>
+<li>Potrzebny jest dziennik pokrywający cały okres od ostatniego
+backupu</li>
+<li>W praktyce tworzy się i backup danych i backup dzienników</li>
+<li>Pliki online i offline</li>
+<li>Pliki online są zapisywane cyklicznie</li>
+<li>W trybie zapewniającym pełną ochronę przed awarią plik może być
+ponownie zapisany tylko wtedy, gdy został zarchiwizowany
+<ul>
+<li>system staje dopóki log nie zostanie zarchiwizowany</li>
+<li>można wykonywać tylko odczyty</li>
+</ul></li>
+<li>Powstaje zbiór plików dziennika
+<ul>
+<li>pliki online z najnowszą historią zmian bazy</li>
+<li>pliki offline, zarchiwizowane z dawniejszą historią</li>
+</ul></li>
+<li>W mniej bezpiecznym trybie pracy dostępne są tylko dzienniki online
+<ul>
+<li>najstarsze zostają nadpisane bez archiwizacji</li>
+</ul></li>
+<li>Jeśli backupy są robione częściej niż zapełnienie wszystkich plików
+logów online to nie są potrzebne logi offline</li>
+<li>Pliki dzienników przed awarią chroni replikacja
+<ul>
+<li>najlepiej na osobnych dyskach</li>
+<li>zapis równoległy</li>
+<li>bez pojedynczego punktu awarii</li>
+</ul></li>
+<li>Grupy plików
+<ul>
+<li>muszą być co najmniej 2 grupy</li>
+<li>jedna jest aktywna, pozostałe dostępne do archiwizacji</li>
+<li>system nie może funkcjonować, gdy wszystkie pliki grupy są
+niedostępne do zapisu</li>
+<li>pliki jednej grupy powinny być umieszczone na różnych dyskach</li>
+<li>fizyczna ochrona przed awarią</li>
+</ul></li>
+</ul>
+<h3 id="logiczna-struktura-danych">Logiczna struktura danych</h3>
+<ul>
+<li>Przestrzenie tabel (tablespaces)</li>
+<li>Segmenty (segments)
+<ul>
+<li>w ramach przestrzeni tabel</li>
+<li>z grubsza odpowiadają tabelom</li>
+</ul></li>
+<li>Porcje (extents)
+<ul>
+<li>kawałek przestrzeni w ramach segmentu</li>
+<li>składają się z bloków (odpowiedniość między blokiem systemu bazy
+danych a blokiem systemu operacyjnego)</li>
+</ul></li>
+<li>Nazwy z Oracle</li>
+</ul>
+<h3 id="cel-projektu-na-poziomie-plików">Cel projektu na poziomie
+plików</h3>
+<ul>
+<li>Równomierne obciążenie dysków</li>
+<li>Równomierne rozłożenie obciążenia w czasie</li>
+</ul>
+<h3 id="przestrzenie-tabel">Przestrzenie tabel</h3>
+<ul>
+<li>Przestrzenie danych
+<ul>
+<li>systemowe</li>
+<li>pozostałe - normalne dane</li>
+</ul></li>
+<li>Przestrzenie przywracania (undo tablespaces)</li>
+<li>Przestrzenie tymczasowe (temporary tablespaces)
+<ul>
+<li>w plikach danych lub plikach tymczasowych</li>
+</ul></li>
+<li>Mogą być rozłożone dowolnie między dyskami
+<ul>
+<li>ręczna konfiguracja</li>
+</ul></li>
+<li>Strategia przydziału porcji do segmentu
+<ul>
+<li>liniowy przydział porcji równej wielkości</li>
+<li>kolejne porcje 2 razy większe, logarytmiczny przyrost liczby
+porcji</li>
+</ul></li>
+</ul>
+<h3 id="segmenty-użytkownika">Segmenty użytkownika</h3>
+<ul>
+<li>Tabela, partycja tabeli lub grono tabel (cluster)
+<ul>
+<li>jedna, część jednej, wiele</li>
+</ul></li>
+<li>Indeks lub partycja indeksu</li>
+<li>LOB lub partycja LOB
+<ul>
+<li>Large OBject</li>
+<li>np. multimedia</li>
+<li>lepiej przechowywać je w innym miejscu niż standardowe dane
+alfanumeryczne</li>
+</ul></li>
+</ul>
+<h3 id="segmenty-systemowe">Segmenty systemowe</h3>
+<ul>
+<li>Tymczasowe
+<ul>
+<li>tymczasowa przestrzeń dla zapytań</li>
+<li>tabele i indeksy tymczasowe</li>
+</ul></li>
+<li>Przywracania (undo)
+<ul>
+<li>dla wykonywania operacji <code>ROLLBACK</code> - potrzebna są dane
+pierwotne sprzed transakcji</li>
+<li>zapewnianie spójności odczytu
+<ul>
+<li><code>SET TRANSACTION READ ONLY</code></li>
+<li>wszystkie operacje transakcji operują na stanie bazy danych z
+początku transakcji</li>
+<li>inne transakcje modyfikujące dane w międzyczasie nie doprowadzą do
+niespójności odczytu</li>
+<li>wykorzystuje ten sam mechanizm co do <code>ROLLBACK</code></li>
+<li>dane z zatwierdzonej transakcji nie są od razu kasowane tylko
+trzymane tak długo jak są potrzebne</li>
+</ul></li>
+<li>wykonywanie zapytań historycznych (flashback)</li>
+</ul></li>
+</ul>
+<h3 id="zasady-rozłożenia-tabel-i-indeksów">Zasady rozłożenia tabel i
+indeksów</h3>
+<ul>
+<li>Indeksy powinny być umieszczone na innych dyskach niż indeksowana
+tabela</li>
+<li>Na ile to możliwe, należy każdy indeks tabeli umieszczać na
+oddzielnym dysku</li>
+<li>Duże tabele powinny być partycjonowane
+<ul>
+<li>równolegle należy partycjonować indeksy</li>
+</ul></li>
+<li>Jeżeli to możliwe, najczęściej używane tabele i indeksy powinny być
+umieszczone na najszybszych dyskach</li>
+<li>Małe tabele mają pomijalny wpływ na wydajność systemu
+<ul>
+<li>koszt bazodanowy liczy się w dostępach do dysku</li>
+<li>system bazodanowy używa cache w pamięci operacyjnej</li>
+<li>mała tabela może w całości mieścić się w cache - koszt bliski 0</li>
+</ul></li>
+</ul>
+<h2 id="partycjonowanie">Partycjonowanie</h2>
+<h3 id="cele">Cele</h3>
+<ul>
+<li>Wzrost wydajności dzięki zmniejszemiu współzawodnictwa w dostępie do
+danych</li>
+<li>Wzrost wydajności dzięki zmniejszeniu wielkości przetwarzanych
+obiektów</li>
+<li>Ułatwienie administracji danymi dzięki separacji i zmniejszeniu
+wielkości obiektów
+<ul>
+<li>składowanie</li>
+<li>odtwarzanie</li>
+<li>przebudowa</li>
+<li>łatwiej zrobić wiele małych backupów niż jeden duży</li>
+</ul></li>
+<li>Zwiększona dostępność dzięki możliwości wykonywania operacji na
+części danych</li>
+</ul>
+<h3 id="mechanizmy">Mechanizmy</h3>
+<ul>
+<li>Partycjonowanie zakresowe (range partitioning)
+<ul>
+<li>przynależnośc do partycji jest określana na podstawie przynależności
+wartości klucza partycji do zakresu</li>
+<li>klucz partycji to wybrana kolumna lub zbiór kolumn</li>
+<li>ma sens kiedy dziedzina klucza partycji jest duża</li>
+</ul></li>
+<li>Partycjonowanie listowe (list partitioning)
+<ul>
+<li>przynależność do partycji jest określana na podstawie przynależności
+wartości klucza partycji do listy wartości</li>
+<li>ma sens kiedy dziedzina klucza partycji jest mała</li>
+</ul></li>
+<li>Partycjonowanie losowe, mieszające (hash partitioning)
+<ul>
+<li>przynależność do partycji jest określana na podstawie wyniku funkcji
+mieszającej</li>
+</ul></li>
+</ul>
+<h3 id="partycjonowanie-indeksów">Partycjonowanie indeksów</h3>
+<ul>
+<li>Każdy indeks można zdefiniować jako niepartycjonowany lub
+partycjonowany</li>
+<li>Partycjonowany indeks globalny (global partitioned)
+<ul>
+<li>partycjonowanie niezależnie od tabeli</li>
+</ul></li>
+<li>Partycjonowany indeks lokalny (local partitioned)
+<ul>
+<li>partycjonowanie indeksu identycznie jak tabeli</li>
+<li>lokalny indeks prefiksowany (local prefixed) - klucz partycji jest
+kluczem indeksu (lub jego prefiksem)
+<ul>
+<li>dobre do partycjonowania po czasie</li>
+<li>aktualne dane są w oddzielnej partycji</li>
+<li>rzadko używane dane historyczne nie muszą być nawet przechowywane
+online (tylko backup)</li>
+</ul></li>
+<li>lokalny indeks nieprefiksowany (local nonprefixed) - klucz partycji
+nie ma nic wspólnego z indeksem
+<ul>
+<li>punktowe wyszukiwanie danych wykonuje się dłużej</li>
+<li>zrównoleglanie nie opłaca się do punktowego wyszukiwania małej
+liczby wierszy</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="partycjonowany-indeks-lokalny">Partycjonowany indeks
+lokalny</h4>
+<ul>
+<li>Prosta i szybka przebudowa partycji indeksu przy zmianie partycji
+tabeli</li>
+<li>Niezależność partycji, wzrost dostępności</li>
+<li>Wygodny do obsługi danych w czasie, do tabel historycznych</li>
+<li>Możliwość redukcji partycji w zapytaniach</li>
+<li>Łatwa możliwość odtwarzania bazy do określonego punktu w czasie</li>
+</ul>
+<h4 id="partycjonowany-indeks-globalny">Partycjonowany indeks
+globalny</h4>
+<ul>
+<li>Kłopotliwa przebudowa partycji indeksu przy zmianie partycji tabeli
+<ul>
+<li>konieczna przebudowa wszystkich</li>
+</ul></li>
+<li>Brak niezależności partycji</li>
+<li>Możliwość redukcji partycji indeksu w zapytaniach</li>
+<li>Trudne odtwarzanie bazy do określonego punktów w czasie
+<ul>
+<li>koniecznośc odtworzenia wszystkich partycji</li>
+</ul></li>
+</ul>
+<h2 id="struktura-fizyczna">Struktura fizyczna</h2>
+<ul>
+<li>Pliki (files)</li>
+<li>Bloki (blocks)</li>
+</ul>
+<h3 id="blokowa-struktura-pliku">Blokowa struktura pliku</h3>
+<ul>
+<li>Tabela o organizacji standardowej</li>
+<li>Wielkość bloku bazy danych jest skorelowana z wielkością bloku w
+systemie operacyjnym</li>
+<li>Wiersze są zapisywane w blokach</li>
+<li>Optymalna sytuacja to odpowiedniość 1 do 1 między blokiem bazy
+danych a blokeim systemu operacyjnego</li>
+<li>Organizacja oparta na rekordach byłaby niepraktyczna
+<ul>
+<li>przy rekordach stałej długości marnuje się miejsce na dysku na puste
+wartości (<code>NULL</code>, napisy mniejszej długości niż
+maksymalna)</li>
+<li>przy rekordach zmiennej długości byłby problem przy wstawianiu
+danych</li>
+</ul></li>
+<li>Organizacja blokowa, bloki o organizacji rekordowej</li>
+<li>Blok bazodanowy może być wielokrotnością bloku dyskowego
+<ul>
+<li>do odczytu pojedynczego wiersza jest niewydajnie</li>
+<li>do odczytu sekwencyjnego jest bardziej efektywne - tyle samo
+operacji dyskowych i mniej operacji systemu bazodanowego</li>
+</ul></li>
+</ul>
+<h3 id="struktura-bloku">Struktura bloku</h3>
+<ul>
+<li>Nagłówek bloku
+<ul>
+<li>dane bloku</li>
+<li>katalog tabel</li>
+<li>katalog wierszy</li>
+</ul></li>
+<li>Wiersze
+<ul>
+<li>nagłówek wiersza</li>
+<li>liczba kolumn</li>
+<li>ID klucza grona</li>
+<li>ROWID następnika dla wiersza łańcuchowanego</li>
+<li>kolumny
+<ul>
+<li>wielkość kolumny</li>
+<li>dane kolumny</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="zarządzanie-przestrzenią-w-blokach">Zarządzanie przestrzenią w
+blokach</h3>
+<h4 id="parametr-ptcfree">Parametr <code>PTCFREE</code></h4>
+<ul>
+<li>Określa ile wolnego miejsca jest pozostawiane w bloku w celu
+zapewnienia miejsca na operacje <code>UPDATE</code></li>
+<li>Jeżeli zajętość bloku spadłaby poniżej <code>PCTFREE</code>, blok
+usuwany z listy bloków wolnych</li>
+<li>Niskie
+<ul>
+<li>mało miejsca na operacje <code>UPDATE</code> - ryzyko migracji
+wierszy i spadku wydajności</li>
+<li>wysokie wypełnienie bloków - efektywne wykorzystanie przestrzeni,
+efektywny przegląd</li>
+</ul></li>
+<li>Wysokie
+<ul>
+<li>dużo miejsca na operacje <code>UPDATE</code> - małe ryzyko migracji
+wierszy, stabilna wydajność</li>
+<li>niższe wypełnienie bloków - niższa średnia wydajność</li>
+</ul></li>
+</ul>
+<h4 id="parametr-pctused">Parametr <code>PCTUSED</code></h4>
+<ul>
+<li>Określa taki poziom przestrzeni w bloku, że jeżeli zajętość spadnie
+poniżej niego, to blok powraca na początek listy bloków wolnych</li>
+<li>Niskie
+<ul>
+<li>szeroka histereza - rzadsza reorganizacja listy bloków wolnych</li>
+<li>wyższa wydajność operacji modyfikacji</li>
+<li>niskie średnie wypełnienie bloków - mało efektywne wykorzystanie
+przestrzeni</li>
+<li>mało efektywny przegląd</li>
+</ul></li>
+<li>Wysokie
+<ul>
+<li>wąska histereza - częsta reorganizacja listy bloków wolnych</li>
+<li>niższa wydajność operacji modyfikacji</li>
+<li>wysokie średnie wypełnienie bloków</li>
+<li>efektywne wykorzystanie przestrzeni</li>
+<li>efektywny przegląd</li>
+</ul></li>
+</ul>
+<h3 id="high-water-mark">High Water Mark</h3>
+<ul>
+<li>Gdzie był najdalszy <code>INSERT</code></li>
+<li><code>INSERT</code>y są wykonywane po kolei, więc wiadomo, że tu się
+kończy tabela</li>
+<li>Następny blok jest pusty, tu się kończy przegląd sekwencyjny</li>
+<li>Nigdy się nie cofa po operacjach <code>DELETE</code>
+<ul>
+<li>tylko po operacji `TRUNCATE</li>
+</ul></li>
+<li>W nowych wersjach Oracle jest lista bloków wolnych albo mapy
+bitowe`</li>
+</ul>
+<h3 id="położenie-wierszy">Położenie wierszy</h3>
+<ul>
+<li>Standardowo wiersz mieści się w 1 bloku</li>
+<li>Łańcuchowanie wiersza (row chaining)
+<ul>
+<li>przechowanie wiersza w wielu blokach</li>
+<li>kiedy wiersz jest większy niż blok</li>
+<li>niekorzystne dla wydajności, lepiej podzielić tabelę pionowo tak,
+żeby wiersze mieściły się w jednym bloku</li>
+</ul></li>
+<li>Migracja wiersza (row migration)
+<ul>
+<li>przeniesienie całego wiersza do innego bloku, tak aby zmieścił się w
+bloku w całości</li>
+<li>następuje po aktualizacji rośnie rozmiar wiersza i brakuje wolnego
+miejsca w bloku</li>
+<li>bardzo niekorzystne dla wydajności</li>
+<li>może wystąpić kiedy wiersz ma wiele kolumn, ale początkowo
+uzupełniana jest tylko ich mała część, w takiej sytuacji lepiej
+podzielić tabelę pionowo</li>
+</ul></li>
+<li>Podział wiersza
+<ul>
+<li>utworzenie kilku części wiersza, tak aby każda zawierała nie więcej
+niż 255 kolumn</li>
+</ul></li>
+</ul>
+<h2 id="metody-dostępu-do-danych">Metody dostępu do danych</h2>
+<h3 id="indeks-drzewiasty">Indeks drzewiasty</h3>
+<ul>
+<li>Struktura danych B+ dzrewa
+<ul>
+<li>zrównoważone, posortowane</li>
+</ul></li>
+<li>Wszystkie liście na tym samym poziomie</li>
+<li>Liście tworzą listę dwukierunkową
+<ul>
+<li>do wyszukiwania wielu kolejnych wartości (zakresowego)</li>
+</ul></li>
+<li>Liście zawierają <code>rowid</code> - adresy wierszy</li>
+<li>Węzły drzewa są blokami
+<ul>
+<li>takie same bloki jak w plikach bazy danych</li>
+<li>bloki są spore (rzędu kilku kB)</li>
+<li>dzrewa są niskie</li>
+<li>wysokość zależy logarytmicznie od liczby wierszy (przy bardzo dużej
+podstawie)</li>
+<li>wiele bloków mieści się w cache’u w pamięci operacyjnej</li>
+</ul></li>
+<li>Dostęp do danych wymaga wysokość drzewa + 1 dostępów dyskowych
+<ul>
+<li>z dokładnością do cache’owania węzłów</li>
+</ul></li>
+<li>Reorganizacja obciąża każdą z operacji <code>INSERT</code>
+<code>DELETE</code> i <code>UPDATE</code> na kolumnie klucza</li>
+<li>Może być używany do sortowania</li>
+<li>Może być używany do wyszukiwania zakresowego według porządku
+klucza</li>
+<li>Najbardziej uniwersalny typ indeksu</li>
+<li>Najlepiej funkcjonuje przy losowym wstawianiu klucza
+<ul>
+<li>przy monotonicznym wstawianiu będzie wypełniony w połowie</li>
+<li>oracle pozwala odwrócić kolejność bitów i wstawianie monotonicznych
+wartości działa jak losowe</li>
+</ul></li>
+<li>Może wyszukiwać po całym kluczu lub po jego części</li>
+</ul>
+<h3 id="indeks-mieszający-bezpośredni">Indeks mieszający
+(bezpośredni)</h3>
+<ul>
+<li>Oparty na funkcji mieszającej</li>
+<li>Do segmentu tabeli jest przypisana określona liczba bloków</li>
+<li>Funkcja mieszająca jest modulo liczba bloków</li>
+<li>Wartość funkcji mieszającej od klucza wyznacza numer bloku do
+którego wiersz będzie wstawiony</li>
+<li>Nie wymaga żadnej struktury, żadnego dodatkowego miejsca na
+dysku</li>
+<li>Nie zostaje zaburzone przez wstawienia, modyfikacje, usunięcia</li>
+<li>Zapytanie wymaga 1 dostępu dyskowego w idealnym przypadku</li>
+<li>Nie może być używany do sortowania</li>
+<li>Zawsze wymaga całego klucza do wyszukiwania</li>
+<li>Nie ma możliwości wyszukiwania zakresowego</li>
+<li>Po zapełnieniu bloków silna degeneracja wydajności
+<ul>
+<li>są różne sposoby obsługi zapełnienia</li>
+<li>w każdym wypadku występuje migracja wierszy</li>
+</ul></li>
+<li>Wymaga alokowania od razu całej przewidywanej wielkości segmentu
+tabeli</li>
+<li>Zmiana wielkości tabeli wymaga ponownego indeksowania (przepisania)
+całej tabeli</li>
+<li>Nie ma wskaźnika wysokiej wody, przegląd sekwencyjny wymaga
+przejrzenia wszystkich bloków
+<ul>
+<li>z bitmapami działa znacznie lepiej</li>
+</ul></li>
+<li>Można założyć tylko 1 indeks tego typu dla tabeli
+<ul>
+<li>organizuje położenie wierszy w tabeli</li>
+</ul></li>
+</ul>
+<h3 id="indeks-mieszający-pośredni">Indeks mieszający pośredni</h3>
+<ul>
+<li>Pośrednia struktura
+<ul>
+<li>hashmapa</li>
+<li>hash bucket</li>
+</ul></li>
+<li>Funkcja mieszająca wyznacza pozycję w pośredniej strukturze</li>
+<li>Pośrednia struktura zawiera wskaźniki do wierzy w standardowo
+zorganizowanej tabeli
+<ul>
+<li>tabela zachowuje normalne cechy (poprawnie działający HWM)</li>
+</ul></li>
+<li>Dostęp do danych wymaga 2 odczytów z dysku (koszyka i samego
+wiersza)</li>
+<li>Wstępna alokacja dotyczy tylko koszyka, a nie tabeli</li>
+<li>Małe prawdopodobieństwo przepełnienia koszyka</li>
+<li>Może istnieć wiele indeksów tego typu na tabeli</li>
+<li>Wspierane w PostgreSQL i MySQL</li>
+</ul>
+<h3 id="grono-tabel-cluster">Grono tabel (cluster)</h3>
+<ul>
+<li>Dla obu tabel stosuje się ten sam indeks mieszający
+<ul>
+<li>np. faktury i pozycja na fakturze</li>
+<li>do funkcji mieszającej klucz główny faktury i klucz obcy pozycji (ta
+sama wartość)</li>
+<li>wskazana kolumna w obu tabelach jest kluczem klastra</li>
+<li>wszystkie dane dotyczące jednej faktury znajdują się w jednym
+bloku</li>
+</ul></li>
+<li>Przy standardowej organizacji z indeksem drzewiastym
+<ul>
+<li>odczyt rowid faktury z indeksu</li>
+<li>odczyt wiersza faktury</li>
+<li>odczyt rowid pozycji faktury</li>
+<li>odczyt wiersza pozycji faktury</li>
+</ul></li>
+<li>Też pojawiają się wszystkie problemy indeksu mieszającego
+<ul>
+<li>przepełnienie bloków</li>
+<li>będzie działać dobrze jeśli powiązane wiersze zmieszczą się w jednym
+bloku</li>
+</ul></li>
+<li>Wiele powiązanych tabel jest umieszczonych w 1 segmencie</li>
+<li>Wymaga zaindeksowania klucza grona indeksem mieszającym prostym</li>
+<li>Dostęp do wszystkich powiązanych wierszy obiektu - 1 odczyt</li>
+<li>Konieczność wstępnej alokacji segmentu dla wszystkich przewidywanych
+obiektów
+<ul>
+<li>musi zmieścić wszystkie wiersze wszystkich tabel</li>
+</ul></li>
+</ul>
+<h3 id="indeks-bitmapowy">Indeks bitmapowy</h3>
+<ul>
+<li>Dobry kiedy można ograniczyć liczbę przegladanych bloków przy
+przeglądzie sekwencyjnym
+<ul>
+<li>operacje typu slice &amp; dice w hurtowniach danych</li>
+<li>mocno selektywne zapytanie (np. ogranicza liczbę wierszy do
+10%)</li>
+</ul></li>
+<li>Tyle kolumn indeksu ile różnych wartości w kolumnie tabeli</li>
+<li>Bitmapa
+<ul>
+<li>1 jeśli wartość występuje w danym wierszu</li>
+<li>0 jeśli wartość nie występuje w danym wierszu</li>
+</ul></li>
+<li>Wiersze uporządkowane zgodnie z fizycznym porządkiem w tabeli</li>
+<li>Złożone wyrażenie logiczne
+<ul>
+<li>proste operacje (and, or) na kolumnach bitmapy</li>
+<li>powstaje bitmapa (wektor bitowy) dla wyrażenia</li>
+</ul></li>
+<li>Operowanie na pojedynczych indeksach rzadko będą miały sens</li>
+<li>Zawiera mapę bitową dla każdej wartości klucza określającą położenie
+zawierających ją wierszy</li>
+<li>Musi być tworzony na kolumnach <strong>mało selektywnych</strong> o
+stałej dziedzinie
+<ul>
+<li>najlepiej jak kolumny klucza nie są modyfikowane</li>
+</ul></li>
+<li>Pozwala efektywnie obliczać masowo wyrażenia logiczne na
+indeksowanych wartościach
+<ul>
+<li>inaczej trzeba by obliczać wyrażenie oddzielnie przy przeglądzie
+każdego wiersza po kolei</li>
+</ul></li>
+<li>Najefektywniejsze gdy jest wiele indeksów bitmapowych na tabeli</li>
+<li>Fizycznie - B-drzewo dla każdej wartości klucza z mapami bitowymi w
+liściach drzewa</li>
+<li>Bardziej użyteczny w zastosowaniach OLAP
+<ul>
+<li>rzadko kiedy będzie przydatny w OLTP</li>
+</ul></li>
+<li>Dobre do bardzo szybkiego wyliczania <code>COUNT</code>
+<ul>
+<li>użyteczne nawet na pojedynczej kolumnie</li>
+</ul></li>
+</ul>
+<h3 id="indeks-bitmapowy-złączeniowy">Indeks bitmapowy złączeniowy</h3>
+<ul>
+<li>Indeks na wartości z tabeli połączonej
+<ul>
+<li>praktycznie indeksowany jest klucz obcy</li>
+<li>wartość klucza indeksu pochodzi z tabeli nadrzędnej</li>
+</ul></li>
+<li>Musi być tworzony na mało selektywnym kluczu obcym o stałej
+dziedzinie
+<ul>
+<li>np. odwołanie do stabilnej tabeli słownikowej</li>
+<li>pozwala korzystać w zapytaniach z wartości opisowaych bez sięgania
+do tabeli słownikowej</li>
+</ul></li>
+<li>System nie musi wykonywać złączenia</li>
+<li>Dobra do zastosowań OLAP
+<ul>
+<li>indeks dla tabeli faktów ale na wartości która jest w tabeli
+wymiarów</li>
+</ul></li>
+</ul>
+<h3 id="tabela-o-organizacji-indeksowej">Tabela o organizacji
+indeksowej</h3>
+<ul>
+<li>Wiersze tabeli IOT są przechowywane w liściach B+ drzewa indeksu na
+kluczu głównym
+<ul>
+<li>wymaga o 1 dostępu mniej, wiersz jest w samym drzewie</li>
+<li>same wiersze są umieszczone w kolejności klucza</li>
+</ul></li>
+<li>Wiersze mogą zmieniać położenie
+<ul>
+<li>przy zmianie wartości klucza</li>
+<li>w odróżnieniu od standardowo zorganizowanej tabeli</li>
+</ul></li>
+<li>Można zakładać na takiej tabeli dodatkowe indeksy</li>
+</ul>
+<h3 id="indeks-funkcyjny">Indeks funkcyjny</h3>
+<ul>
+<li>Indeks utworzony na wyrażeniu, a nie kolumnie
+<ul>
+<li>np. <code>ilość * cena</code>, bez przechowywania tej wartości w
+kolumnie</li>
+</ul></li>
+<li>Pozwala efektywnie wykonywać zapytania zawierające we frazie
+<code>WHERE</code> wyrażenia obliczane dla każdego wiersza
+<ul>
+<li>bez dodawania kolumny</li>
+</ul></li>
+</ul>
+<h3 id="indeks-dziedziny-aplikacji">Indeks dziedziny aplikacji</h3>
+<ul>
+<li>Application Domain Index (ADI)</li>
+<li>Pozwala na indeksowanie niestandardowych typów danych specyficznych
+dla aplikacji</li>
+<li>Wymaga specjalnego, dedykowanego oprogramowania
+<ul>
+<li>m.in. realizacje operatorów porządkujących</li>
+</ul></li>
+</ul>
+<h2 id="optymalizacja">Optymalizacja</h2>
+<h3 id="etapy-realizacji-zapytania">Etapy realizacji zapytania</h3>
+<ul>
+<li>Analiza zapytania (parsing)</li>
+<li>Opracowanie planu wykonania
+<ul>
+<li>optymalizator zapytań</li>
+<li>opracowuje model dostępu</li>
+<li>oblicza koszt</li>
+</ul></li>
+<li>Wykonanie
+<ul>
+<li>dostęp do indeksów</li>
+<li>dostęp do tabel</li>
+<li>stworzenie zbioru odpowiedzi</li>
+</ul></li>
+<li>Przekazanie rezultatu do aplikacji
+<ul>
+<li>przesłanie przez sieć</li>
+</ul></li>
+<li>Każdy z etapów może być przyspieszony
+<ul>
+<li>można np. zrezygnować z opracowywania planu wykonania jeśli zajmuje
+dłużej niż samo wykonanie</li>
+</ul></li>
+</ul>
+<h3 id="analiza-zapytania">Analiza zapytania</h3>
+<ul>
+<li>Kroki analizy
+<ul>
+<li>analiza składniowa - zgodność ze składnią SQL</li>
+<li>analiza semantyczna - dostęp do słownika danych (czy istnieją takie
+tabele, kolumny, itd)</li>
+</ul></li>
+<li>Przyspieszenie (uniknięcie) analizy
+<ul>
+<li>wykorzystanie wcześniej przeanalizowanych zapytań</li>
+<li>pod warunkiem, że zapytania są identyczne co do treści (w tym białe
+znaki itd.)</li>
+<li>system przechowuje wykonane zapytania w pamięci i reużywa ich, jeśli
+nowe zapytanie pasuje do sygnatury (cache)</li>
+<li>używać np. <code>PreparedStatement</code> w JDBC</li>
+</ul></li>
+</ul>
+<h3 id="opracowanie-planu-wykonania">Opracowanie planu wykonania</h3>
+<ul>
+<li>Zasadniczy krok optymalizacji - celem jest znalezienie
+najefektywniejszego planu dla następnego kroku</li>
+<li>Opiera się na wiedzy optymalizatora o
+<ul>
+<li>wyniku analizy zapytania</li>
+<li>mechanizmach dostępu do danych</li>
+<li>zebranych statystykach dotyczących danych</li>
+<li>wybranym trybie pracy i podpowiedziach programisty aplikacji
+<ul>
+<li>minimalizowany czas zwrócenia pierwszego wiersza (aplikacje
+interaktywne)</li>
+<li>pierwszych n wierszy</li>
+<li>wszystkich wierszy (programy wsadowe)</li>
+</ul></li>
+</ul></li>
+<li>W praktyce dąży się do minimalizacji operacji IO na dysku</li>
+<li>Przyspieszenie / uniknięcie optymalizacji
+<ul>
+<li>podpowiedzi ograniczają liczbę analizowanych możliwości</li>
+<li>zapamiętywanie planów wykonania pozwala uniknąć kroku
+optymalizacji</li>
+<li>optymalizacja zapytania może zajmować rzędy wielkości dłużej niż
+optymalizacja</li>
+</ul></li>
+</ul>
+<h4 id="zarządzanie-planami-wykonania">Zarządzanie planami
+wykonania</h4>
+<ul>
+<li>Mechanizm polega na zapisywaniu opracowanych planów wykonania w
+bazie danych do ponownego wykorzystania</li>
+<li>Kolejne wykonanie tego samego zapytania może się odbyć bez kroku
+opracowania planu</li>
+<li>Kolejne wykonania zapytania są realizowane w taki sam sposób pomimo
+zmian w bazie danych</li>
+<li>Możliwe jest zapamiętanie kilku planów, zarządzanie nimi i
+wybieranie najodpowiedniejszego do danej sytuajci
+<ul>
+<li>w zależności od stanu bazy danych, parametrów, stanu systemu</li>
+</ul></li>
+<li>Dąży się do tego, żeby zapytanie wykonywało się stabilnie
+<ul>
+<li>plan który wiadomo, że jest wystarczająco dobry</li>
+</ul></li>
+</ul>
+<h4 id="możliwość-użycia-indeksów">Możliwość użycia indeksów</h4>
+<ul>
+<li>Treść zapytania może uniemożliwiać użycie indeksów</li>
+<li>Aby użycie indeksu na kolumnie było możliwe, predykaty w
+<code>WHERE</code> muszą mieć postać
+<ul>
+<li><code>kolumna = wyrażenie</code></li>
+<li><code>wyrażenie indeksowane = wyrażenie</code> - jeśli jest indeks
+funkcyjny</li>
+</ul></li>
+<li>Predykat np. <code>kolumna - wyrażenie = wyrażenie</code>
+uniemożliwi użycie indeksu</li>
+<li>Wyrażenie indeksowane po jednej stronie znaku równości</li>
+</ul>
+<h4 id="metody-dostępu-do-danych-1">Metody dostępu do danych</h4>
+<ul>
+<li>Sekwencyjny
+<ul>
+<li>przegląd wszystkich bloków należących do segmentu tabeli</li>
+<li>optymalny dla zapytania zwracającego wiele wierszy (zazwyczaj
+powyżej ok. 10%)</li>
+<li>optymalny dla małych tabel (mieszczących się w całości w
+pamięci)</li>
+<li>nie ma narzutu z dostępu do indeksu</li>
+</ul></li>
+<li>Wykorzystanie indeksu drzewiastego
+<ul>
+<li>dostęp indeksowy lub indeksowo-sekwencyjny</li>
+<li>optymalny dla zapytań zwracających mało wierszy z dużych tabel</li>
+<li>możliwe wykorzystanie jednego lub wielu indeksów na tabeli</li>
+</ul></li>
+<li>Wiele indeksów
+<ul>
+<li>oddzielny indeks na imie, oddzielny na nazwisko
+<ul>
+<li>imie jest mniej selektywne</li>
+<li>system wybierze bardziej selektywny i przefiltruje wynik</li>
+<li>system użyje obu indeksów i znajdzie część wspólną</li>
+</ul></li>
+<li>indeks złożony (nazisko, imie)
+<ul>
+<li>bardziej selektywny</li>
+<li>od razu daje odpowiedź na pytanie</li>
+</ul></li>
+<li>indeksy powinny być jak najbardziej selektywne i jak najlepiej
+odpowiadać zapotrzebowaniu aplikacji</li>
+</ul></li>
+<li>Wykorzystanie indeksu mieszającego
+<ul>
+<li>dostęp indeksowy</li>
+<li>optymalny dla zapytań zwracających 1 lub kilka wierszy o tej samej
+wartości klucza</li>
+</ul></li>
+<li>Tabele o organizacji indeksowej
+<ul>
+<li>optymalny dla dostępu indeksowo-sekwencyjnego</li>
+</ul></li>
+<li>Wykorzystanie indeksów bitmapowych
+<ul>
+<li>optymalny dla dostępu do niewielkiej liczby wierszy z bardzo dużych
+tabel w oparciu o złożone wyrażenia logiczne</li>
+</ul></li>
+</ul>
+<h4 id="metody-wykonywania-złączeń">Metody wykonywania złączeń</h4>
+<ul>
+<li>Skorzystanie ze struktury grona - bezkosztowe</li>
+<li>Metoda pętli zagnieżdżonych (Nested Loop Join)</li>
+<li>Metoda mieszająca (Hash Join)</li>
+<li>Metoda sortowania i łączenia (Sort-Merge Join)</li>
+</ul>
+<h5 id="metoda-pętli-zagnieżdżonych">Metoda pętli zagnieżdżonych</h5>
+<ul>
+<li>Działanie
+<ul>
+<li>wybrane wiersze z tabeli zewnętrznej, mniejszej (sterującej) są
+przeglądane (najlepiej przez przegląd indeksu)</li>
+<li>dla każdego wybranego wiersza tabeli sterującej wykonywana jest
+pętla wewnętrzna na drugiej tabeli złączenia (najlepiej przez przegląd
+indeksu)</li>
+<li>tabela sterująca przeglądana 1 raz</li>
+<li>druga tabela przeglądana tyle razy ile wierszy jest wybranych z
+tabeli sterującej</li>
+</ul></li>
+<li>Wybór optymalizatora
+<ul>
+<li>jeżeli zapytanie zwraca mało wierszy</li>
+<li>jeżeli w jednej z tabel (sterującej) jest wybranych mało
+wierszy</li>
+<li>jeżeli wybrana jest strategia <code>FIRST ROW</code></li>
+</ul></li>
+<li>Lepiej wykonać mniej większych zapytań niż więcej małych</li>
+</ul>
+<h5 id="metoda-mieszająca">Metoda mieszająca</h5>
+<ul>
+<li>Działanie
+<ul>
+<li>mniejsza tabela służy do wygenerowania tabeli wartości funkcji (hash
+table)</li>
+<li>druga tabela jest przeglądana sekwencyjnie lub
+indeksowo-sekwencyjnie</li>
+<li>dla każdego wiersza sprawdzane jest czy wartość wyliczonej funkcji
+mieszającej znajduje się w tabeli wartości funkcji</li>
+<li>każda tabela przeglądana 1 raz</li>
+</ul></li>
+<li>Wybór optymalizatora
+<ul>
+<li>jeżeli złączenie jest równozłączeniem</li>
+<li>łączone są duże zbiory danych</li>
+<li>łączeniu podlega duża część danych małej tabeli</li>
+<li>tabele są małe</li>
+</ul></li>
+</ul>
+<h5 id="metoda-sortowania-i-łączenia">Metoda sortowania i łączenia</h5>
+<ul>
+<li>Działanie
+<ul>
+<li>zbiór wierszy z każdej z tabel jest sortowany według klucza
+złączenia i wyniki są umieszczane w strukturze tymczasowej</li>
+<li>posortowane listy są łączone (algorytm zig-zag)</li>
+<li>każda z tabel jest przeglądana 1 raz</li>
+<li>wymaga przestrzeni na strukturę tymczasową</li>
+</ul></li>
+<li>Wybór optymalizatora
+<ul>
+<li>jeżeli metoda Hash Join nie może być użyta lub byłaby mniej
+efektywna</li>
+<li>złączenie nie jest równozłączeniem</li>
+<li>zbiory są posortowane
+<ul>
+<li>tabela o organizacji indeksowej</li>
+<li>posortowana tabela tymczasowa - pośredni wynik zapytania z
+<code>ORDER BY</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="wybór-metody-dostępu">Wybór metody dostępu</h4>
+<ul>
+<li>1 wiersz
+<ul>
+<li>użycie indeksu unikatowego</li>
+<li>na kluczu głównym lub unikatowym</li>
+</ul></li>
+<li>Niewiele wierszy, prosty warunek
+<ul>
+<li>użycie indeksu nieunikatowego</li>
+</ul></li>
+<li>Niewiele wierszy, złożony warunek
+<ul>
+<li>użycie najbardziej selektywnego indeksu i sprawdzenie pozostałych
+warunków w każdym wierszu wskazanym przez indeks</li>
+<li>użycie kilku indeksów i połączenie wyników (jak w Sort-Merge)</li>
+</ul></li>
+<li>Wiele wierszy
+<ul>
+<li>przegląd sekwencyjny</li>
+<li>użycie indeksu bitmapowego</li>
+</ul></li>
+</ul>
+<h4 id="statystyki-tabel-indeksów-i-systemu">Statystyki tabel indeksów i
+systemu</h4>
+<ul>
+<li>Tabele
+<ul>
+<li>liczba wierszy</li>
+<li>liczba bloków</li>
+<li>średnia wielkość wiersza</li>
+</ul></li>
+<li>Kolumny
+<ul>
+<li>liczba różnych wartości</li>
+<li>liczba wartości <code>NULL</code></li>
+<li>histogram dystrybucji wartości - pomaga dobrać sposób wykonania</li>
+</ul></li>
+<li>Indeksy
+<ul>
+<li>liczba bloków węzłów liści</li>
+<li>liczba poziomów</li>
+</ul></li>
+<li>System
+<ul>
+<li>statystyki IO</li>
+<li>statystyki CPU</li>
+</ul></li>
+<li>Obliczanie
+<ul>
+<li>mechanizm zbierania dokładnych statystyk na podstawie analizy
+wszystkich weirszy</li>
+</ul></li>
+<li>Estymacja
+<ul>
+<li>mechanizm szacowania statystyk danych na podstawie analizy próbki
+wierszy</li>
+</ul></li>
+</ul>
+<h4 id="strategia-optymalizacji">Strategia optymalizacji</h4>
+<ul>
+<li><code>FIRST_ROWS(n)</code>
+<ul>
+<li>zorientowana na optymalizację czasu odpowiedzi</li>
+<li>minimalizacja czasu odczytu pierwszych n wierszy</li>
+</ul></li>
+<li><code>ALL_ROWS</code>
+<ul>
+<li>minimalny czas wykonania całego zapytania</li>
+<li>zorientowana na ogólną wydajność systemu</li>
+</ul></li>
+</ul>
+<h4 id="podpowiedzi-dla-optymalizatora">Podpowiedzi dla
+optymalizatora</h4>
+<ul>
+<li>Strategie optymalizacji</li>
+<li>Włączenie mechanizmów optymalizacji danej wersji bazy danych</li>
+<li>Metoda dostepu do danych</li>
+<li>Kolejność złączeń</li>
+<li>Metoda złączenia</li>
+<li>Wykonanie równoległe</li>
+<li>Transformacja zapytania</li>
+</ul>
+<h3 id="przekazanie-rezultatu-do-aplikacji">Przekazanie rezultatu do
+aplikacji</h3>
+<ul>
+<li>Wymaga zastosowania odpowiedniego protokołu komunikacji dającego
+dodatkowy narzut</li>
+<li>Możliwe jest przekazywanie odpowiedzi nie pojedynczymi rekordami, a
+większymi paczkami
+<ul>
+<li>zmniejsza narzut na komunikację</li>
+<li>im większa paczka tym większy czas oczekiwania, ale mniejszy
+narzut</li>
+<li>dla dużej liczby wierszy lepsze duże paczki</li>
+</ul></li>
+</ul>
+<h2 id="tworzenie-indeksów">Tworzenie indeksów</h2>
+<ul>
+<li>Dotyczy indeksów na kolumnach będących kryteriami wyszukiwania</li>
+<li>Każdy indeks może potencjalnie przyspieszyć jakieś zapytanie</li>
+<li>Nie należy tworzyć indeksów na małych tabelach
+<ul>
+<li>małe to takie, które są efektywniejsze bez indeksów</li>
+</ul></li>
+<li>Każdy indeks <strong>zawsze</strong> dodaje narzut na operacje
+modyfikacji
+<ul>
+<li>tylko czasem wspomaga niektóre zapytania</li>
+</ul></li>
+<li>Przy wielu kolumnach kryteriów najefektywniej jest
+<ul>
+<li>utworzyć indeks prosty na każdej z kolumn</li>
+<li>rozszerzyć indeksy proste do złożonych dla najczęściej używanych
+kombinacji kryteriów</li>
+</ul></li>
+<li>Uzyskujemy możliwość obsługi przez indeks wszystkich zapytań przy
+liczbie indeksów równej liczbie kolumn kryteriów</li>
+</ul>
+<h3 id="opłacalne-indeksy">Opłacalne indeksy</h3>
+<ul>
+<li>Na kluczach głównych</li>
+<li>Na kluczach unikatowych</li>
+<li>Na kluczach obcych</li>
+<li>Na selektywnych kolumnach będących kryteriami wyszukiwania (proste i
+złożone)</li>
+<li>Na wszystkich kolumnach występujących w zapytaniu (Index-Only Query)
+<ul>
+<li>dla bardzo szerokiej tabeli ale zapytanie odczytuje tylko kilka
+kolumn</li>
+<li>opłaca się stworzyć indeks na wszystkich kolumnych używanych w
+zapytaniu</li>
+<li><code>SELECT</code> i <code>WHERE</code></li>
+<li>cała potrzebna informacja będzie w indeksie</li>
+<li>w ogóle nie trzeba sięgać do tabeli</li>
+</ul></li>
+<li><strong>Na dużych tabelach</strong></li>
+</ul>
+<h3 id="nieopłacalne-indeksy">Nieopłacalne indeksy</h3>
+<ul>
+<li><strong>Na małych tabelach</strong>
+<ul>
+<li>sam narzut</li>
+<li>brak korzyści - cała mieści się w pamięci</li>
+</ul></li>
+<li>Na kolumnach nie będących ani kluczami, ani kryteriami
+wyszukiwania</li>
+<li>Na kolumnach nieselektywnych</li>
+<li>Nie dotyczy indeksów bitmapowych</li>
+</ul>
+<h3 id="tworzenie-indeksów-bitmapowych">Tworzenie indeksów
+bitmapowych</h3>
+<ul>
+<li>Opłacalne
+<ul>
+<li>na kolumnach mało selektywnych o stałych dziedzinach</li>
+<li>jeżeli w tabeli jest wiele kolumn z indeksami bitmapowymi</li>
+<li>jeżeli zapytania zawierają złożone wyrażenia logiczne na
+indeksowanych kolumnach</li>
+<li>jeżeli zapytania zawierają funkcję <code>COUNT</code></li>
+<li><strong>na bardzo dużych tabelach</strong></li>
+</ul></li>
+</ul>
+<h3 id="heurystyka">Heurystyka</h3>
+<ul>
+<li>Wyobraźmy sobie że jest n kolumn które mogą służyć jako kryteria
+wyszukiwania</li>
+<li>Minimalna liczba indeksów to n - każde zapytanie można obsłużyć
+indeksowo</li>
+<li>Dodatkowo można przyspieszyć przez indeks na większej liczbie
+kolumn</li>
+<li>Np. (nazwisko) i (imie, nazwisko) - najszybsze</li>
+<li>Dla większej liczby kolumn trzeba się zastanowić jakie zapytania
+będą najczęściej wykonywane</li>
+<li>Znając najczęstsze kombinacje można dołożyć kolumny do wybranych
+indeksów</li>
+<li>Każde zapytanie na 100% będzie obsłużone przez indeks</li>
+<li>Najczęstsze zapytania będą obsłużone przez dedykowane zapytania
+złożone</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#model-fizyczny">Model fizyczny</a>
+<ul>
+<li><a href="#struktura-plików">Struktura plików</a>
+<ul>
+<li><a href="#pliki-dzienników">Pliki dzienników</a></li>
+<li><a href="#logiczna-struktura-danych">Logiczna struktura
+danych</a></li>
+<li><a href="#cel-projektu-na-poziomie-plików">Cel projektu na poziomie
+plików</a></li>
+<li><a href="#przestrzenie-tabel">Przestrzenie tabel</a></li>
+<li><a href="#segmenty-użytkownika">Segmenty użytkownika</a></li>
+<li><a href="#segmenty-systemowe">Segmenty systemowe</a></li>
+<li><a href="#zasady-rozłożenia-tabel-i-indeksów">Zasady rozłożenia
+tabel i indeksów</a></li>
+</ul></li>
+<li><a href="#partycjonowanie">Partycjonowanie</a>
+<ul>
+<li><a href="#cele">Cele</a></li>
+<li><a href="#mechanizmy">Mechanizmy</a></li>
+<li><a href="#partycjonowanie-indeksów">Partycjonowanie
+indeksów</a></li>
+</ul></li>
+<li><a href="#struktura-fizyczna">Struktura fizyczna</a>
+<ul>
+<li><a href="#blokowa-struktura-pliku">Blokowa struktura pliku</a></li>
+<li><a href="#struktura-bloku">Struktura bloku</a></li>
+<li><a href="#zarządzanie-przestrzenią-w-blokach">Zarządzanie
+przestrzenią w blokach</a></li>
+<li><a href="#high-water-mark">High Water Mark</a></li>
+<li><a href="#położenie-wierszy">Położenie wierszy</a></li>
+</ul></li>
+<li><a href="#metody-dostępu-do-danych">Metody dostępu do danych</a>
+<ul>
+<li><a href="#indeks-drzewiasty">Indeks drzewiasty</a></li>
+<li><a href="#indeks-mieszający-bezpośredni">Indeks mieszający
+(bezpośredni)</a></li>
+<li><a href="#indeks-mieszający-pośredni">Indeks mieszający
+pośredni</a></li>
+<li><a href="#grono-tabel-cluster">Grono tabel (cluster)</a></li>
+<li><a href="#indeks-bitmapowy">Indeks bitmapowy</a></li>
+<li><a href="#indeks-bitmapowy-złączeniowy">Indeks bitmapowy
+złączeniowy</a></li>
+<li><a href="#tabela-o-organizacji-indeksowej">Tabela o organizacji
+indeksowej</a></li>
+<li><a href="#indeks-funkcyjny">Indeks funkcyjny</a></li>
+<li><a href="#indeks-dziedziny-aplikacji">Indeks dziedziny
+aplikacji</a></li>
+</ul></li>
+<li><a href="#optymalizacja">Optymalizacja</a>
+<ul>
+<li><a href="#etapy-realizacji-zapytania">Etapy realizacji
+zapytania</a></li>
+<li><a href="#analiza-zapytania">Analiza zapytania</a></li>
+<li><a href="#opracowanie-planu-wykonania">Opracowanie planu
+wykonania</a></li>
+<li><a href="#przekazanie-rezultatu-do-aplikacji">Przekazanie rezultatu
+do aplikacji</a></li>
+</ul></li>
+<li><a href="#tworzenie-indeksów">Tworzenie indeksów</a>
+<ul>
+<li><a href="#opłacalne-indeksy">Opłacalne indeksy</a></li>
+<li><a href="#nieopłacalne-indeksy">Nieopłacalne indeksy</a></li>
+<li><a href="#tworzenie-indeksów-bitmapowych">Tworzenie indeksów
+bitmapowych</a></li>
+<li><a href="#heurystyka">Heurystyka</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

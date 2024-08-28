@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20-filtracja-efekty-dzwiekowe-synteza</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="19-cyfrowe-przetwarzanie-dzwieku.html">Poprzedni: 19-cyfrowe-przetwarzanie-dzwieku.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="21-realizacja-dzwieku.html">Następny: 21-realizacja-dzwieku.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="filtracja-efekty-dźwiękowe-synteza">Filtracja, efekty dźwiękowe,
+synteza</h1>
+<h2 id="filtracja-sygnału">Filtracja sygnału</h2>
+<ul>
+<li>Filtry analogowe i cyfrowe</li>
+<li>Filtr określa charakterystyka amplitudowa</li>
+<li>Każdy filtr wprowadza jakieś zniekształcenia</li>
+</ul>
+<h3 id="rodzaje-filtrów">Rodzaje filtrów</h3>
+<ul>
+<li>Przepustowy
+<ul>
+<li>górnoprzepustowy lub dolnoprzepustowy</li>
+<li>nie istnieje idealny filtr (o całkiem stromej granicy odcięcia)</li>
+<li>częstotliwość graniczna (cut-off frequency)</li>
+<li>nachylenie charakterystyki</li>
+</ul></li>
+<li>Parametryczny
+<ul>
+<li>podbicie/osłabienie określonej częstotliwości</li>
+<li>częstotliwość środkowa</li>
+<li>częstotliwość odcięcia lewo/prawo</li>
+<li>dobroć filtru</li>
+<li>szerokość pasma</li>
+</ul></li>
+<li>Półkowy
+<ul>
+<li>podbicie/obniżenie powyżej/poniżej określonej częstotliwości</li>
+<li>częstotliwość</li>
+<li>przyrost</li>
+</ul></li>
+</ul>
+<h2 id="dynamika-sygnału">Dynamika sygnału</h2>
+<ul>
+<li>W sensie makro - zmiany poziomu sygnału dla czasu trwania dłuższego
+niż wybrzmienie pojedynczej nuty</li>
+<li>W sensie mikro - zmiany poziomu sygnału dla czasu trwania
+wybrzmienia pojedynczej nuty</li>
+</ul>
+<h3 id="kompresja-dynamiki">Kompresja dynamiki</h3>
+<p><img src="./obrazy/kompresja-dynamiki.png" /></p>
+<p><img src="./obrazy/zmiany-dynamiki.png" /></p>
+<h2 id="synteza-dźwięku">Synteza dźwięku</h2>
+<ul>
+<li>Naśladowanie istniejących dźwięków</li>
+<li>Poszukiwanie nowych interesujących brzmień</li>
+<li>Generacja</li>
+<li>Modulacja</li>
+<li>Filtracja</li>
+<li>Modyfikacja obwiedni
+<ul>
+<li>zmiany czasowe</li>
+<li><em>kształt</em> sygnału musi się zgadzać, żeby dawać odpowiednie
+wrażenie</li>
+<li>attack - czas narastania amplitudy od zera do poziomu
+maksymalnego</li>
+<li>decay - czas opadania maksymalnego poziomu do poziomu
+podtrzymania</li>
+<li>sustain - amplituda, poziom podtrzymania</li>
+<li>release - czas opadania amplitudy od poziomu podtrzymania do
+zera</li>
+</ul></li>
+</ul>
+<h3 id="synteza-mowy">Synteza mowy</h3>
+<ul>
+<li>TTS - Text-To-Speech</li>
+<li>Metoda formantowa - odwzorowanie widma mowy</li>
+<li>Metoda artykulacyjna - fizyczne odwzorowanie mechanizmów wytwarzania
+mowy
+<ul>
+<li>modelowanie traktu głosowego</li>
+</ul></li>
+<li>Metoda konkatenacyjna - wkorzystanie nagranych próbek mowy</li>
+</ul>
+<h3 id="cechy-mowy-widoczne-na-spektrogramie">Cechy mowy widoczne na
+spektrogramie</h3>
+<ul>
+<li>Częstotliwość podstawowa</li>
+<li>Czas trwania</li>
+<li>Poziom szumu</li>
+<li>Kształt widma</li>
+<li>Czas trwania poszczególnych głosek</li>
+<li>Tony głosu</li>
+<li>Spółgłoski/samogłoski</li>
+<li>Rozłożenie energii po częstotliwościach (męski/żeński)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#filtracja-efekty-dźwiękowe-synteza">Filtracja, efekty
+dźwiękowe, synteza</a>
+<ul>
+<li><a href="#filtracja-sygnału">Filtracja sygnału</a>
+<ul>
+<li><a href="#rodzaje-filtrów">Rodzaje filtrów</a></li>
+</ul></li>
+<li><a href="#dynamika-sygnału">Dynamika sygnału</a>
+<ul>
+<li><a href="#kompresja-dynamiki">Kompresja dynamiki</a></li>
+</ul></li>
+<li><a href="#synteza-dźwięku">Synteza dźwięku</a>
+<ul>
+<li><a href="#synteza-mowy">Synteza mowy</a></li>
+<li><a href="#cechy-mowy-widoczne-na-spektrogramie">Cechy mowy widoczne
+na spektrogramie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

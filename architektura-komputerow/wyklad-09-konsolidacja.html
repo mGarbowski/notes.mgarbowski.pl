@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09-konsolidacja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08-risc-v.html">Poprzedni: wyklad-08-risc-v.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10-intel-x86.html">Następny: wyklad-10-intel-x86.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Architektura komputerów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01-wstep.html">wyklad-01-wstep.html</a></li>
+                
+                <li><a href="wyklad-02-klasyfikacja-pamieci.html">wyklad-02-klasyfikacja-pamieci.html</a></li>
+                
+                <li><a href="wyklad-03-dane-alfanumeryczne.html">wyklad-03-dane-alfanumeryczne.html</a></li>
+                
+                <li><a href="wyklad-04-reprezentacja-danych-w-pamieci.html">wyklad-04-reprezentacja-danych-w-pamieci.html</a></li>
+                
+                <li><a href="wyklad-05-programmowy-model-uzytkowy.html">wyklad-05-programmowy-model-uzytkowy.html</a></li>
+                
+                <li><a href="wyklad-06-wywolania-procedur.html">wyklad-06-wywolania-procedur.html</a></li>
+                
+                <li><a href="wyklad-07-budowa-modelu-programowego.html">wyklad-07-budowa-modelu-programowego.html</a></li>
+                
+                <li><a href="wyklad-08-risc-v.html">wyklad-08-risc-v.html</a></li>
+                
+                <li><a href="wyklad-09-konsolidacja.html">wyklad-09-konsolidacja.html</a></li>
+                
+                <li><a href="wyklad-10-intel-x86.html">wyklad-10-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-11-intel-x86.html">wyklad-11-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-12-intel-x86.html">wyklad-12-intel-x86.html</a></li>
+                
+                <li><a href="wyklad-13-komputer-jednocyklowy.html">wyklad-13-komputer-jednocyklowy.html</a></li>
+                
+                <li><a href="wyklad-14-komputer-wielocyklowy.html">wyklad-14-komputer-wielocyklowy.html</a></li>
+                
+                <li><a href="wyklad-16-potokowe-jednostki-wykonawcze.html">wyklad-16-potokowe-jednostki-wykonawcze.html</a></li>
+                
+                <li><a href="wyklad-18-kieszenie.html">wyklad-18-kieszenie.html</a></li>
+                
+                <li><a href="wyklad-19-wydajnosc.html">wyklad-19-wydajnosc.html</a></li>
+                
+                <li><a href="wyklad-20-zarzadzanie-zasobami.html">wyklad-20-zarzadzanie-zasobami.html</a></li>
+                
+                <li><a href="wyklad-22-wyjatki.html">wyklad-22-wyjatki.html</a></li>
+                
+                <li><a href="wyklad-23-wejscie-wyjscie.html">wyklad-23-wejscie-wyjscie.html</a></li>
+                
+                <li><a href="wyklad-24-budowa-komputera.html">wyklad-24-budowa-komputera.html</a></li>
+                
+                <li><a href="zadania.html">zadania.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wykład-09-2023-03-22">Wykład 09 (2023-03-22)</h1>
+<p>Plik wykonywalna nie musi być kompletnym programem - dynamiczne
+linkowanie</p>
+<p>Plik pośredni jest wynikiem kompilacji jednego pliku, trzeba w nim
+wypełnić odwołania do innych modułów przez linker</p>
+<p>Odwołania są wiązane z deklaracjami na podstawie nazw (podczas
+linkowania)</p>
+<ul>
+<li>Symbol zewnętrzny - używany ale zdefiniowany gdzie indziej</li>
+<li>Symbol publiczny / globalny - zdefiniowany, przeznaczony do użycia
+przez inne moduły</li>
+</ul>
+<p>Konsolidator znajduje symbole publiczne z innych plików powiązane z
+używanymi symbolami zewnętrznymi.</p>
+<h2 id="porażka-linkowania">Porażka linkowania</h2>
+<ul>
+<li>nie ma definicji dla którgokolwiek symbolu</li>
+<li>więcej niż jedna publiczna definicja o tej samej nazwie</li>
+</ul>
+<h2 id="symbole-zewnętrzne-i-publiczne">Symbole zewnętrzne i
+publiczne</h2>
+<h3 id="w-języku-c">W języku C</h3>
+<ul>
+<li>dana zadeklarowana jako <code>extern</code></li>
+<li>funkcja niezdefiniowana w danym pliku (albo prototyp funkcji bez
+ciała)</li>
+<li>każda deklaracja poza procedurą jest domyślnie publiczna</li>
+<li>słowo kluczowe <code>static</code> oznacza zmienną lub procedurę
+prywatną dla modułu, zasięg widzialności powinno się maksymalnie
+ograniczać</li>
+</ul>
+<h3 id="assembler">Assembler</h3>
+<ul>
+<li>wymaga jawnej deklaracji symbolu jako zewnętrznego
+<code>extern</code></li>
+<li>nazwa publiczna musi być jawnie zadeklarowana jako publiczna
+<code>global</code> / <code>public</code></li>
+</ul>
+<h2 id="biblioteka">Biblioteka</h2>
+<p>Kolekcja modułów pośrednich zebranych w jeden plik</p>
+<p>Konsolidator włącza tylko te moduły z biblioteki, któe są
+zadeklarowane jako zewnętrzne (razem z ich zależnościami), biblioteka
+jest przeszukiwania do skutku</p>
+<h2 id="program-w-systemie-operacyjnym">Program w systemie
+operacyjnym</h2>
+<ul>
+<li>System operacyjny nie wymusza konwencji wołania</li>
+<li>Ogranicza adresy w pamięci jakie są dostępne dla programu
+(sekcje)</li>
+<li>Musi zakończyć się wywołanie funkcji systemowej
+<code>exit</code></li>
+</ul>
+<h2 id="ładowanie">Ładowanie</h2>
+<p>Adresy są określane podczas ładowania</p>
+<h2 id="podstawowe-funkcje-systemu-operacyjnego">Podstawowe funkcje
+systemu operacyjnego</h2>
+<ul>
+<li>open, read ,write, close, seek
+<ul>
+<li>dostęp do plików</li>
+<li>to samo przy odpowiednich uprawnieniach do interakcji z IO
+(terminal, drukarka)</li>
+<li>terminal jest widziany jako dwa pliki nie wymagające otwierania</li>
+</ul></li>
+<li>sbrk
+<ul>
+<li>dynamiczna alokacja pamięci</li>
+<li>zwraca wskaźnik na obszar pamięci o podanym rozmiarze</li>
+</ul></li>
+<li>exit
+<ul>
+<li>zakończenie wykonania programu</li>
+<li>argument jest kodem zakończenia (0 dla poprawnego, nie 0 dla
+błędu)</li>
+</ul></li>
+</ul>
+<h2 id="architektura-x86">Architektura x86</h2>
+<ul>
+<li>Nietypowa architektura CISC</li>
+<li>Firma Intel</li>
+<li>x86 oznacza architekturę 32-bitową</li>
+<li>omawiany model programowy - płaski tryb 32-bitowy</li>
+<li>x64 / x86-64 / AMD64 / Intel 64 - rozszerzenie do 64 bitów</li>
+</ul>
+<h2 id="charakterystyka">Charakterystyka</h2>
+<ul>
+<li>mały zestaw rejestrów uniwersalnych
+<ul>
+<li>8 rejestrów, niektóre z przypisanymi funkcjami</li>
+<li>wskaźnik ramki</li>
+<li>wskaźnik stosu</li>
+<li>akumulator</li>
+<li>akumulator pomocniczny</li>
+<li>4 trochę uniwersalne</li>
+</ul></li>
+<li>Głównie instrukcje dwuargumentowe
+<ul>
+<li>rejestr-rejestr, rejestr-pamięć, rejestr-stała</li>
+<li>pamięć-rejestr, pamięć-stała</li>
+<li>nie ma operacji pamięć-pamięć</li>
+<li>jednostka stałopozycyjna - operacje na danych 8, 16,
+32-bitowych</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wykład-09-2023-03-22">Wykład 09 (2023-03-22)</a>
+<ul>
+<li><a href="#porażka-linkowania">Porażka linkowania</a></li>
+<li><a href="#symbole-zewnętrzne-i-publiczne">Symbole zewnętrzne i
+publiczne</a>
+<ul>
+<li><a href="#w-języku-c">W języku C</a></li>
+<li><a href="#assembler">Assembler</a></li>
+</ul></li>
+<li><a href="#biblioteka">Biblioteka</a></li>
+<li><a href="#program-w-systemie-operacyjnym">Program w systemie
+operacyjnym</a></li>
+<li><a href="#ładowanie">Ładowanie</a></li>
+<li><a href="#podstawowe-funkcje-systemu-operacyjnego">Podstawowe
+funkcje systemu operacyjnego</a></li>
+<li><a href="#architektura-x86">Architektura x86</a></li>
+<li><a href="#charakterystyka">Charakterystyka</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

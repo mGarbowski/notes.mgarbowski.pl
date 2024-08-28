@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>18-cyfrowe-sygnaly-foniczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="17-ocena-jakosci-dzwieku.html">Poprzedni: 17-ocena-jakosci-dzwieku.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="19-cyfrowe-przetwarzanie-dzwieku.html">Następny: 19-cyfrowe-przetwarzanie-dzwieku.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="cyfrowe-sygnały-foniczne">Cyfrowe sygnały foniczne</h1>
+<p>Sygnał foniczny - sygnał elektryczny, niesie informację o dźwięku</p>
+<h2 id="ogólny-schemat-przetwarzania">Ogólny schemat przetwarzania</h2>
+<ul>
+<li>Mikrofon odbiera sygnał analogowy</li>
+<li>Przetwornik ADC przetwarza sygnał na cyfrowy</li>
+<li>Sygnał cyfrowy jest przetwarzany</li>
+<li>Przetwornik DAC przetwarza na sygnał analogowy</li>
+<li>Głośnik odbiera sygnał analogowy</li>
+<li>Etapy
+<ul>
+<li>filtracja</li>
+<li>próbkowanie</li>
+<li>kwantyzacja</li>
+<li>kodowanie</li>
+</ul></li>
+</ul>
+<h2 id="filtracja">Filtracja</h2>
+<ul>
+<li>Powinniśmy zadbać o to, żeby w sygnale wejściowym nie było
+częstotliwości wyższych niż połowa częstotliwości próbkowania
+<ul>
+<li>nie będzie aliasingu</li>
+</ul></li>
+</ul>
+<h2 id="próbkowanie">Próbkowanie</h2>
+<ul>
+<li>Zamienia sygnał analogowy (ciągły) na sygnał dyskretny w czasie</li>
+<li>Najważniejszy parametr - częstotliwość próbkowania
+<ul>
+<li>jak często pobierane są próbki z sygnału wejściowego</li>
+<li>im częściej tym dokładniejsze próbkowanie</li>
+</ul></li>
+</ul>
+<h3 id="twierdzenie-o-próbkowaniu">Twierdzenie o próbkowaniu</h3>
+<p>Aby możliwe było jednoznaczne odtworzenie sygnału na podstawie
+próbek, próbki muszą być pobierane z częstotliwością co najmniej dwa
+razy większą od maksymalnej częstotliwości widma sygnału</p>
+<h3 id="aliasing">Aliasing</h3>
+<ul>
+<li>Próbkowanie daje sygnał o innej (niższej) częstotliwości, nie
+zawartej w sygnale źródłowym</li>
+<li>Antyaliasingowy filtr dolnoprzepustowy</li>
+</ul>
+<h3 id="pasmo-sygnałów-fonicznych">Pasmo sygnałów fonicznych</h3>
+<ul>
+<li>Audio
+<ul>
+<li>20Hz-20kHz</li>
+<li>częstotliwość próbkowania co najmniej 40kHz</li>
+</ul></li>
+<li>VoIP
+<ul>
+<li>20Hz-4kHz</li>
+<li>częstotliwość próbkowania co najmniej 8kHz</li>
+</ul></li>
+</ul>
+<p>Żaden filtr nie da idealnie stromej granicy filtracji, nie da się w
+pełni odfiltrować niepożądanych częstotliwości</p>
+<h3 id="typowe-częstotliwości-próbkowania-dźwięku">Typowe częstotliwości
+próbkowania dźwięku</h3>
+<ul>
+<li>8-22kHz - VoIP, transmisja internetowa</li>
+<li>44.1kHz - audio CD</li>
+<li>48kHz - dźwięk w filmie i aduio wysokiej jakości</li>
+<li>do 192kHz - profesjonalna, studyjna rejestracja dźwięku</li>
+</ul>
+<h3 id="błędy-próbkowania">Błędy próbkowania</h3>
+<ul>
+<li>Jitter - błąd wynikający z niedokładności czasu zbierania próbek
+<ul>
+<li>zbieranie próbek nie wypada idealnie co 1 okres, tylko z małym
+przesunięciem</li>
+</ul></li>
+</ul>
+<h2 id="kwantyzacja">Kwantyzacja</h2>
+<p>Dyskretyzacja wartości amplitudy</p>
+<h3 id="rozdzielczość-bitowa-przetwornika">Rozdzielczość bitowa
+przetwornika</h3>
+<ul>
+<li>Od niej zależy liczba poziomów kwantyzacji</li>
+</ul>
+<h3 id="dynamika">Dynamika</h3>
+<ul>
+<li>Dynamika przetwornika - 6dB * liczba bitów</li>
+<li>Dynamika ludzkiego słuchu wynosi ok. 120dB</li>
+<li>Standardowe wartości
+<ul>
+<li>16-bitowy - 96dB</li>
+<li>18-bitowy - 108dB</li>
+<li>24-bitowy - 144dB</li>
+</ul></li>
+</ul>
+<h3 id="błąd-kwantyzacji">Błąd kwantyzacji</h3>
+<ul>
+<li>Mniejszy im większa rozdzielczość bitowa</li>
+<li>Różnica między wartością oryginalną a wartością po kwantyzacji</li>
+</ul>
+<h3 id="dither">Dither</h3>
+<ul>
+<li>Metoda zmniejszenia błędu kwantyzacji</li>
+<li>Do sygnału wejściowego dodaje się losowy szum o małej
+amplitudzie</li>
+<li>Po kwantyzacji, sygnał nie będzie się “zatrzaskiwać” kiedy zmienia
+się o mniej niż 0.5 LSB</li>
+<li>Szum jest mniej uciążliwy niż płaski sygnał</li>
+</ul>
+<h3 id="błędy-przetwarzania">Błędy przetwarzania</h3>
+<ul>
+<li>Odstępstwo od charakterystyki przetwornika</li>
+<li>Błąd różnicowy (przesunięte schodki)</li>
+<li>Niemonotoniczność</li>
+<li>Brakujące słowa kodowe (schodki)</li>
+</ul>
+<h2 id="kodowanie">Kodowanie</h2>
+<ul>
+<li>Liniowe
+<ul>
+<li>Zniekształcenie sygnałów o małej amplitudzie</li>
+<li>Dobrze oddaje sygnały o dużej amplitudzie</li>
+</ul></li>
+<li>Nieliniowe
+<ul>
+<li>Bardziej gęsto rozłożone wartości przy niższych amplitudach</li>
+<li>Trochę gorsza precyzja dla sygnałów o dużej amplitudzie</li>
+<li>Lepsza precyzja dla małych amplitud</li>
+</ul></li>
+</ul>
+<h2 id="przetworniki-ac">Przetworniki AC</h2>
+<h3 id="z-równoległym-porównaniem-bezpośrednim-flash">Z równoległym
+porównaniem bezpośrednim (FLASH)</h3>
+<ul>
+<li>Całe słowo kodowe na wyjściu na raz</li>
+<li>Dla każdego bitu równoległe porównywanie z napięciem
+referencyjnym</li>
+<li>Mała precyzja</li>
+<li>Szybkie</li>
+</ul>
+<h3 id="z-kompensacją-wagową-sar">Z kompensacją wagową (SAR)</h3>
+<ul>
+<li>Successive approximation register</li>
+<li>Napięcie porównane z połową napięcia referencyjnego</li>
+<li>Zmiana najbardziej znaczącego bitu i porównanie z kolejnym
+napięciem</li>
+<li>Tyle porównań ile bitów rozdzielczości</li>
+</ul>
+<h2 id="przetwarzanie-sigmadelta">Przetwarzanie <span
+class="math inline">\(\Sigma\Delta\)</span></h2>
+<ul>
+<li>Etapy
+<ul>
+<li>Filtracja</li>
+<li>Nadpróbkowanie</li>
+<li>Kwantyzacja</li>
+<li>Kształtowanie szumu</li>
+<li>Decymacja</li>
+</ul></li>
+<li>Powszechnie stosowane</li>
+<li>Koncept działania
+<ul>
+<li>Sygnał jest próbkowany tak często (nadpróbkowanie), żeby wartość
+wolno się zmieniała</li>
+<li>Przez uśrednienie wielu próbek uzyskuje się wartość sygnału na
+wejściu</li>
+<li>Zgrubna kwantyzacja</li>
+<li>Przykład z inżynierem kupującym kawę</li>
+<li>Sygnał wartości 0.5 ma tyle samo impulsów 0 i 1, mniejszy niż 0.5
+będzie miał więcej 0</li>
+</ul></li>
+<li>Rozdzielczość bitowa w Sigma-Delta określa stopień nadpróbkowania,
+sygnał ma tylko wartości 0 i 1 (kwantyzacja na 1 bit)</li>
+<li>Zalety
+<ul>
+<li>dostępność, niski koszt</li>
+<li>nie wymagają precyzyjnego dobierania elementów układu</li>
+<li>liniowość</li>
+<li>monotoniczność</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>uważa się, że brzmią gorzej niż konwencjonalne (ale to nie jest
+oczywiste do porównania)</li>
+<li>konieczność wysokiego nadpróbkowania dla uzyskania
+rozdzielczości</li>
+<li>niewielka liczba bitów, utrata rozdzielczości, kształtowanie
+szumu</li>
+<li>konieczność wypychania szumu poza słyszalne pasmo</li>
+</ul></li>
+</ul>
+<h2 id="przetwarzanie-cyfrowo-analogowe">Przetwarzanie
+cyfrowo-analogowe</h2>
+<ul>
+<li>Konwencjonalne albo <span
+class="math inline">\(\Sigma\Delta\)</span></li>
+<li>Bit słowa kodowego dokłada odpowiednią częstotliwość przez dzielnik
+napięcia</li>
+<li>Przykładowe implementacje
+<ul>
+<li>drabinka rezystorowa R-2R</li>
+</ul></li>
+</ul>
+<h3 id="błędy-przetwarzania-ca">Błędy przetwarzania C/A</h3>
+<ul>
+<li>Odstępstwo od charakterystyki</li>
+<li>Błąd czasowy układu sample-and-hold (zatrzaskującego)</li>
+</ul>
+<h3 id="specyfika-przetworników-fonicznych">Specyfika przetworników
+fonicznych</h3>
+<ul>
+<li>Szerokie pasmo i duża dynamika
+<ul>
+<li>musi być duża rozdzielczość bitowa i wysoka częstotliwość
+próbkowania</li>
+</ul></li>
+<li>Duże pole do minimalizacji błędów przetwarzania</li>
+<li>Nie każde zniekształcenie przeszkadza w jednakowym stopniu
+<ul>
+<li>szum losowy przeszkadza mniej niż degradacja samego sygnału</li>
+<li>przetwornik nie musi maksymalizować obiektywnych parametrów</li>
+<li>ważna jest przejrzystość</li>
+</ul></li>
+</ul>
+<h2 id="słuchowa-ocena-jakości">Słuchowa ocena jakości</h2>
+<ul>
+<li>Odtwarzanie sceny dźwiękowej
+<ul>
+<li>utrata przestrzenności</li>
+</ul></li>
+<li>Przejrzystość brzemienia
+<ul>
+<li>czy wszystko jest łatwe do usłyszenia</li>
+<li>subtelne zmiany w jednym instrumencie</li>
+</ul></li>
+<li>Powietrzność, przestrzeń
+<ul>
+<li>poczucie przestrzeni i atmosfera</li>
+</ul></li>
+<li>Odpowiedź i waga basu</li>
+<li>Atak, transjenty
+<ul>
+<li>szybka zmiana</li>
+<li>krawędź postrzeganego dźwięku</li>
+</ul></li>
+<li>Słodki dźwięk
+<ul>
+<li>brak kłujących wybrzmień i sibilantów</li>
+</ul></li>
+<li>Emocje - ogólne odczucie</li>
+<li>Wrażenie analogowości</li>
+<li>Ciało - czy wokale brzmią ludzko</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cyfrowe-sygnały-foniczne">Cyfrowe sygnały foniczne</a>
+<ul>
+<li><a href="#ogólny-schemat-przetwarzania">Ogólny schemat
+przetwarzania</a></li>
+<li><a href="#filtracja">Filtracja</a></li>
+<li><a href="#próbkowanie">Próbkowanie</a>
+<ul>
+<li><a href="#twierdzenie-o-próbkowaniu">Twierdzenie o
+próbkowaniu</a></li>
+<li><a href="#aliasing">Aliasing</a></li>
+<li><a href="#pasmo-sygnałów-fonicznych">Pasmo sygnałów
+fonicznych</a></li>
+<li><a href="#typowe-częstotliwości-próbkowania-dźwięku">Typowe
+częstotliwości próbkowania dźwięku</a></li>
+<li><a href="#błędy-próbkowania">Błędy próbkowania</a></li>
+</ul></li>
+<li><a href="#kwantyzacja">Kwantyzacja</a>
+<ul>
+<li><a href="#rozdzielczość-bitowa-przetwornika">Rozdzielczość bitowa
+przetwornika</a></li>
+<li><a href="#dynamika">Dynamika</a></li>
+<li><a href="#błąd-kwantyzacji">Błąd kwantyzacji</a></li>
+<li><a href="#dither">Dither</a></li>
+<li><a href="#błędy-przetwarzania">Błędy przetwarzania</a></li>
+</ul></li>
+<li><a href="#kodowanie">Kodowanie</a></li>
+<li><a href="#przetworniki-ac">Przetworniki AC</a>
+<ul>
+<li><a href="#z-równoległym-porównaniem-bezpośrednim-flash">Z
+równoległym porównaniem bezpośrednim (FLASH)</a></li>
+<li><a href="#z-kompensacją-wagową-sar">Z kompensacją wagową
+(SAR)</a></li>
+</ul></li>
+<li><a href="#przetwarzanie-sigmadelta">Przetwarzanie <span class="math inline">\(\Sigma\Delta\)</span></a></li>
+<li><a href="#przetwarzanie-cyfrowo-analogowe">Przetwarzanie
+cyfrowo-analogowe</a>
+<ul>
+<li><a href="#błędy-przetwarzania-ca">Błędy przetwarzania C/A</a></li>
+<li><a href="#specyfika-przetworników-fonicznych">Specyfika
+przetworników fonicznych</a></li>
+</ul></li>
+<li><a href="#słuchowa-ocena-jakości">Słuchowa ocena jakości</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

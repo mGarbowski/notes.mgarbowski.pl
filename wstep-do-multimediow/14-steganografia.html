@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>14-steganografia</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="13-indeksowanie.html">Poprzedni: 13-indeksowanie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="15-sygnaly-akustyczne.html">Następny: 15-sygnaly-akustyczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="steganografia-i-znaki-wodne">Steganografia i znaki wodne</h1>
+<p>Steganografia to sztuka i nauka osadzania tajnych wiadomości w
+wiadomości jawnej w taki sposób, aby nikt poza nadawcą i zamierzonym
+odbiorcą nie podejrzewał istnienia wiadomości tajnej</p>
+<ul>
+<li>Nadawca ma plik maskujący i tajną wiadomość</li>
+<li>Koder z pliku, tajnej wiadomości i klucza (opcjonalne szyfrowanie)
+tworzy obiekt Stego</li>
+<li>Odbiorca odbiera obiekt Stego</li>
+<li>Dekoder dekoduje obiekt Stego używając klucza (opcjonalne
+szyfrowanie)</li>
+</ul>
+<h2 id="charakterystyka-steganografii">Charakterystyka
+steganografii</h2>
+<ul>
+<li>Pojemność
+<ul>
+<li>całkowita liczba ukrytych bitów i odtworzonych przez system</li>
+<li>chcemy ich upchnąć jak najwięcej ale żeby nikt się nie
+zorientował</li>
+</ul></li>
+<li>Odporność na przekształcenia
+<ul>
+<li>wiadomość nie powinna być widoczna po przekształceniach</li>
+<li>skalowaniem obroty, transalcja</li>
+<li>transofrmacje, filtrowanie, zmiana nasycenia</li>
+<li>kompresja, kwantyzacja</li>
+</ul></li>
+<li>Niewykrywalność
+<ul>
+<li>medium maskujące ma podobną charakterystykę bez i razem z tajną
+wiadomością</li>
+</ul></li>
+<li>Niedostrzegalność
+<ul>
+<li>niewidoczne dla człowieka</li>
+</ul></li>
+<li>Bezpieczeństwo
+<ul>
+<li>ukryta informacja niepodatna na usunięcie po odkryciu</li>
+<li>chodzi o to, żeby trudno było zniszczyć wiadomość po wykryciu i
+przechwyceniu komunikacji</li>
+<li>zależy od znajomości algorytmu</li>
+</ul></li>
+</ul>
+<h2 id="steganografia-a-kryptografia">Steganografia a kryptografia</h2>
+<ul>
+<li>Steganografia ma na celu ukrycie istnienia kanału komunikacji</li>
+<li>Steganografia zapewnia bezpieczeństwo komunikacji, a nie samą
+ochronę danych</li>
+<li>Dane nigdy nie powinny być widoczne</li>
+<li>Struktura danych nie jest zmieniona</li>
+<li>Klucz i szyfrowanie są opcjonalne</li>
+<li>Po wykryciu obecności tajnej wiadomości każdy może użyć tajnych
+danych (jeśli nie są zaszyfrowane)</li>
+</ul>
+<h2 id="techniki">Techniki</h2>
+<ul>
+<li>Sieciowa
+<ul>
+<li>ukrywanie w nagłówkach pakietów</li>
+<li>np. pola opcjonalne</li>
+</ul></li>
+<li>Tekstowa
+<ul>
+<li>zmiana formatu istniejącego tekstu (np. odstępy)</li>
+<li>losowa i statystyczna generacja przy użyciu gramatyk
+bezkontekstowych</li>
+<li>metody lingwistyczne - zmiana słów</li>
+</ul></li>
+<li>Audio
+<ul>
+<li>kodowanie na najmniej znaczących bitach (LSB)</li>
+<li>kodowanie parzystości</li>
+<li>kodowanie fazy</li>
+<li>rozpraszanie widma</li>
+<li>do formatów bez i z kompresją</li>
+</ul></li>
+<li>Obrazowa
+<ul>
+<li>kodowanie na LSB</li>
+<li>kodowanie LSB na transformacie</li>
+<li>maskowanie i filtrowanie</li>
+<li>kodowanie powtarzalnego wzorca</li>
+<li>szyfrowanie i rozpraszanie</li>
+</ul></li>
+<li>Steganografia wideo
+<ul>
+<li>połączenie technik audio i obrazowych</li>
+<li>duża ilość danych maskujących</li>
+<li>wbudowanie wiadomości w surowe dane lub po kompresji</li>
+<li>wbudowanie wiadomości bezpośrednio w strumieniu (w nagłówkach)</li>
+</ul></li>
+</ul>
+<h3 id="steganografia-lsb">Steganografia LSB</h3>
+<ul>
+<li>Najprostsza do realizacji i wykrycia</li>
+<li>Zmiana najmniej znaczących bitów</li>
+<li>Niezauważalne dla odbiorcy</li>
+<li>Nieodporna na zmiany wartości przy przekształceniach</li>
+</ul>
+<h3 id="steganografia-lsb-dla-transformat">Steganografia LSB dla
+transformat</h3>
+<ul>
+<li>Zmiana najmniej znaczących bitów w dziedzinie częstotliwości</li>
+<li>Po transformacji kosinusowej, falkowej, itd</li>
+<li>Trudniejsze do zauważenia i usunięcia</li>
+<li>Informacja po odwrotnej transformacji jest rozproszona po całym
+obrazie</li>
+<li>Może być problem przy przekroczeniu zakresów</li>
+<li>Selekcja współczynników
+<ul>
+<li>tylko o dużej wartości</li>
+<li>tylko o małej wartości</li>
+</ul></li>
+</ul>
+<h3 id="rozpraszanie-widmowe">Rozpraszanie widmowe</h3>
+<ul>
+<li>XOR ukrywanych bitów z sekwencją pseudolosową</li>
+<li>Możliwe do odzyskania przy użyciu tej samej sekwencji</li>
+<li>Sekwencja generowana przez rejestr przesuwny LFSR
+<ul>
+<li>linear feedback shift register</li>
+</ul></li>
+</ul>
+<h3 id="dołączanie-bitów-do-strumienia">Dołączanie bitów do
+strumienia</h3>
+<ul>
+<li>Po każdym plastrze / każdej ramce</li>
+<li>W nagłówkach</li>
+<li>Ramki są poprzedzone kodami synchronizacyjnymi</li>
+<li>Bity spoza ramki są pomijane przez dekoder strumienia</li>
+</ul>
+<h2 id="znakowanie-wodne">Znakowanie wodne</h2>
+<p>Proces, któr osadza dane zwane znakiem wodnym (znacznik lub etykieta)
+w obiekcie / pliku multimedialnym, tak że taki znak można później wykryć
+lub wyodrębnić w celu uzyskania potwierdzenia o obiekcie.</p>
+<ul>
+<li>Na wejściu obiekt do oznakowania i znak wodny</li>
+<li>Koder zanurza znak wodny w obiekcie</li>
+<li>Po transmisji, zdekodowaniu odzyskuje się podpis</li>
+<li>Ocenia się czy podpis jest skorelowany ze znakiem wodnym
+<ul>
+<li>mogła być próba usunięcia znaku wodnego</li>
+</ul></li>
+</ul>
+<h3 id="znak-wodny">Znak wodny</h3>
+<ul>
+<li>Jest atrybutem pliku multimedialnego</li>
+<li>Widoczny lub niewidoczny
+<ul>
+<li>można ukryć metodami steganografii</li>
+</ul></li>
+<li>Może zawierać informacje o licencji itd</li>
+<li>Powinien być odporny na usunięcie</li>
+<li>Co innego niż odcisk palca i podpis</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#steganografia-i-znaki-wodne">Steganografia i znaki
+wodne</a>
+<ul>
+<li><a href="#charakterystyka-steganografii">Charakterystyka
+steganografii</a></li>
+<li><a href="#steganografia-a-kryptografia">Steganografia a
+kryptografia</a></li>
+<li><a href="#techniki">Techniki</a>
+<ul>
+<li><a href="#steganografia-lsb">Steganografia LSB</a></li>
+<li><a href="#steganografia-lsb-dla-transformat">Steganografia LSB dla
+transformat</a></li>
+<li><a href="#rozpraszanie-widmowe">Rozpraszanie widmowe</a></li>
+<li><a href="#dołączanie-bitów-do-strumienia">Dołączanie bitów do
+strumienia</a></li>
+</ul></li>
+<li><a href="#znakowanie-wodne">Znakowanie wodne</a>
+<ul>
+<li><a href="#znak-wodny">Znak wodny</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

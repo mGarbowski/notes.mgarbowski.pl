@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-protokoly-udp-tcp</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-vlan.html">Poprzedni: 11-vlan.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="13-protokol-dns.html">Następny: 13-protokol-dns.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="tcp-udp">TCP, UDP</h1>
+<h2 id="well-known-services">Well known services</h2>
+<p>Lista usług publikowana przez IANA, przypisująca numery portów do
+najczęściej używanych usług</p>
+<h2 id="porty-uprzywilejowane">Porty uprzywilejowane</h2>
+<p>Numery poniżej 1024</p>
+<p>Dla zwykłych portów (powyżej 1024), system przydzieli port jeśli nie
+ma konfliktu</p>
+<p>Dla portów uprzywilejowanych (poniżej 1024), system operacyjny
+przydziela porty uprzywilejowana tylko procesom pracującym z
+uprawnieniami administracyjnymi (proces musi je mieć tylko w momencie
+przydziału, potem może pracować z normalnymi uprawnieniami)</p>
+<h2 id="udp">UDP</h2>
+<p>User Datagram Protocol</p>
+<p>Umożliwia korzystanie z sieci przez wiele procesów, numer portu
+odpowiada procesowi w systemie operacyjnym, przyznawane dynamicznie</p>
+<p>Nie zapewnia kontroli duplikatów, kontroli kolejności w jakiej
+docierają pakiety itp, za to działa szybko, z minimalnym narzutem</p>
+<h3 id="nagłówek">Nagłówek</h3>
+<ul>
+<li>(2B) source port</li>
+<li>(2B) destination port</li>
+<li>(2B) length</li>
+<li>(2B) checksum</li>
+</ul>
+<h2 id="tcp">TCP</h2>
+<p>Transmission Control Protocol</p>
+<p>Zapewnia niezawodność transmisji, ponowne przesyłanie utraconych
+pakietów, odczytanie w odpowiedniej kolejności. Z poziomu programu to
+dwa strumienie bajtów, wejściowy i wyjściowy (program pisze / czyta)</p>
+<p>Nadawca czeka na potwierdzenie, że pakiet dotarł (przez pole
+acknowledgement). Nadawca może usunąć z bufora dane, których odbiór
+został potwierdzony.</p>
+<p>Round-trip time wyznacza tempo w jakim będą przesyłane pakiety. Jeśli
+potwierdzenie nie przychodzi dłużej niż 2* średni round-trip time, to
+pakiety są przesyłane ponownie.</p>
+<p>Absolutny limit - 20ms - dane mogą przebywać w buforze bez próby
+wysłania - unika się zakleszczenia</p>
+<p>Acknowledgement i sequence number odnoszą się do 2 różnych
+strumieni</p>
+<h3 id="nagłówek-1">Nagłówek</h3>
+<ul>
+<li>(2B) source port</li>
+<li>(2B) destination port</li>
+<li>(4B) sequence - numer pierwszego bajtu danych w pakiecie</li>
+<li>(4B) acknowledgement - numer pierwszego bajtu danych, którego nie ma
+u odbiorcy, wszystkie bity aż do n-1 dotarły, czeka na bajt numer n</li>
+<li>(2B) flags
+<ul>
+<li>data offset - gdzie zaczynają się dane (bo nagłówek jest zmiennej
+długości)</li>
+<li>URG</li>
+<li>ACK - jest coś sensownego w polu acknowledgement</li>
+<li>PSH - informacja o najwyższym priorytecie pomijając bufor (np do
+przerwania transmisji)</li>
+<li>RST - konieczność synchronizacji numerów sekwencji</li>
+<li>FIN - żądanie zakończenia transmisji</li>
+<li>SYN - nowa (początkowa) wartość w sequence number, bo początkowa
+wartość nie jest ustalona z góry, tylko pseudolosowa</li>
+</ul></li>
+<li>(2B) window - wielkość bufora, ile bajtów można wysłać bez czekania
+na potwierdzenie odbioru</li>
+<li>(2B) checksum</li>
+<li>(2B) urgent</li>
+<li>(?B) options
+<ul>
+<li>zmiennej długości</li>
+</ul></li>
+</ul>
+<p>Numer początkowy sekwencji jest pseudolosowy</p>
+<h3 id="nawiązywanie-połączenia">Nawiązywanie połączenia</h3>
+<ol type="1">
+<li>Klient w stanie closed wysyła pakiet SYN z pseudolosowym numerem
+sekwencji A, przechodzi do stanu syn-sent</li>
+<li>Serwer w stanie listen wysyła pakiet SYN ACK z numerem potwierdzenia
+A+1 i pseudolosowym numerem sekwencji B, przechodzi do stanu
+syn-received</li>
+<li>Klient wysyła pakiet ACK o numerze potwierdzenia B+1 i numerze
+sekwencyjnym A+1 (nie ma flagi SYN, bo numer sekwencji wynika z
+poprzedniego pakietu), przechodzi do stanu established</li>
+<li>Następny pakiet może wysłać klient lub serwer</li>
+</ol>
+<h3 id="okno">Okno</h3>
+<p>Nie trzeba każdorazowo czekać na potwierdzenie pakietu, bo traci się
+dużo czasu na czekanie.</p>
+<p>Wysyła się tyle pakietów ile określa odbiorca w rozmiarze okna i
+potem czeka się na potwierdzenie, dla odpowiednio dużego okna transmisja
+jest płynna i efektywnie wykorzystuje przepustowość łącza</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#tcp-udp">TCP, UDP</a>
+<ul>
+<li><a href="#well-known-services">Well known services</a></li>
+<li><a href="#porty-uprzywilejowane">Porty uprzywilejowane</a></li>
+<li><a href="#udp">UDP</a>
+<ul>
+<li><a href="#nagłówek">Nagłówek</a></li>
+</ul></li>
+<li><a href="#tcp">TCP</a>
+<ul>
+<li><a href="#nagłówek-1">Nagłówek</a></li>
+<li><a href="#nawiązywanie-połączenia">Nawiązywanie połączenia</a></li>
+<li><a href="#okno">Okno</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

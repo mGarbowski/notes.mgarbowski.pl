@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-funkcje-skrotu</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-szyfrowanie.html">Poprzedni: 02-szyfrowanie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-infrastruktura-klucza-publicznego.html">Następny: 04-infrastruktura-klucza-publicznego.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="funkcje-skrótu">Funkcje skrótu</h1>
+<h2 id="usługi-ochrony-informacji">Usługi ochrony informacji</h2>
+<ul>
+<li>Uwierzytelnienie - daje pewność, że ten kto nawiązuje komunikację,
+jest tym za kogo się podaje</li>
+<li>Poufność - zapewnienie aby informację poznały tylko uprawnione
+osoby</li>
+<li>Niezaprzeczalność - punkt, który wygenerował informację nie może się
+wyprzeć tego faktu</li>
+<li>Integralność - zapewnienie możliwości wykrycia modyfikacji
+danych</li>
+<li>Kontorla dostępu</li>
+<li>Dostępność</li>
+</ul>
+<h2 id="poufność-a-integralność">Poufność a integralność</h2>
+<ul>
+<li>Poufność zapewnia szyfrowanie</li>
+<li>Szyfr nie zapewnia integralności
+<ul>
+<li>dane przelewu są zaszyfrowane w trybie ECB</li>
+<li>manipulując odpowiednimi blokami można zmanipulować konkretnym
+fragmentem (np. kwotą)</li>
+<li>słowo zaszyfrowane tym samym kluczem będzie miało tą samą
+postać</li>
+<li>mozna to poprawić dodając sól</li>
+<li>szyfry strumieniowe albo CBC przed tym chronią</li>
+</ul></li>
+<li>Bit flipping attack (na szyfr strumieniowy)
+<ul>
+<li>trzeba znać pozycję np. kwoty w szyfrogramie</li>
+<li><code>C[pozycja] xor kwota = klucz[pozycja]</code></li>
+<li><code>C'[pozycja] = nowa_kwota xor klucz[pozycja]</code></li>
+</ul></li>
+<li>Poufność nie gwarantuje integralności</li>
+<li>Do ochrony integralności służą Message Authentication Codes
+(MAC)</li>
+<li>Kody uwierzytelniające wykorzystują funkcję skrótu
+<ul>
+<li>wejściem jest tekst dowolnej długości</li>
+<li>wyjściem jest losowo wyglądający tekst o stałej długości</li>
+<li>skrót jest zupełnie inny nawet dla zbliżonych wejść</li>
+</ul></li>
+</ul>
+<h2 id="właściwości-funkcji-skrótu">Właściwości funkcji skrótu</h2>
+<ul>
+<li>Wejściem są dane dowolnej długości</li>
+<li>Wyjściem są dane stałej długości, wyglądające na losowe</li>
+<li>Jednokierunkowość
+<ul>
+<li>łatwo policzyć <code>h(M)</code></li>
+<li>nie ma prostego sposobu na wyliczenie <code>M</code> na podstawie
+<code>h(M)</code></li>
+</ul></li>
+<li>Bezkolizyjność
+<ul>
+<li>trudno znaleźć dwie dowolne wartości <code>M</code> i
+<code>M'</code> dla których <code>h(m) = h(M')</code></li>
+</ul></li>
+<li>Nie używać MD4, MD5, SHA-1</li>
+<li>Używać SHA-2, SHA-3, Keccak</li>
+</ul>
+<h2 id="message-authentication-code">Message Authentication Code</h2>
+<ul>
+<li>Trywialne podejście
+<ul>
+<li>ustalony wspólny klucz <span class="math inline">\(k\)</span></li>
+<li><code>MAC = h(k || M)</code></li>
+<li>MAC jest dołączany do wiadomości</li>
+<li>Odbiorca też oblicza skrót i porównuje z tym który dostał</li>
+</ul></li>
+<li>Trywialne podejście umożliwia dodanie dalszej części wiadomości</li>
+<li>HMAC (keyed-hash MAC) - bezpieczne rozwiązanie
+<ul>
+<li><code>HMAC = h(k xor A || h(k xor B || M))</code></li>
+<li><code>A</code> - stała <code>0x5C</code></li>
+<li><code>B</code> - stała <code>0x36</code></li>
+</ul></li>
+<li>CMAC (cipher based MAC) - bezpieczne rozwiązanie
+<ul>
+<li>wykorzystanie specjalnie zaprojektowanych trybów szyfrów
+blokowych</li>
+<li>do generowania MAC lub jednoczesnego szyfrowania i generowania
+MAC</li>
+</ul></li>
+</ul>
+<h2 id="zastosowania-funkcji-skrótu">Zastosowania funkcji skrótu</h2>
+<ul>
+<li>Uwierzytelnianie użytkownika hasłem (lokalne)</li>
+<li>Uwierzytelnianie przez sieć</li>
+<li>Podpis cyfrowy</li>
+</ul>
+<h3 id="uwierzytelnianie-użytkownika-hasłem">Uwierzytelnianie
+użytkownika hasłem</h3>
+<ul>
+<li><strong>Hasła nie są zapisywane tekstem jawnym</strong></li>
+<li>Przechowywane i przesyłane są skróty haseł</li>
+<li>Przy uwierzytelnianiu wyliczany jest skrót hasła podanego przez
+użytkownika i porównuje się z zapisanym</li>
+<li>Funkcja skrótu gwarantuje, że nie będzie można łatwo odgadnąć hasła
+użytkownika</li>
+<li>Problemy
+<ul>
+<li>słabe, przewidywalne hasła użytkowników</li>
+<li>podatność na ataki słownikowe słabych haseł</li>
+<li>hasła łamane po wykradnięciu <code>/etc/passwd</code></li>
+</ul></li>
+<li>Hasła przeniesione z <code>/etc/passwd</code> do
+<code>/etc/shadow</code>
+<ul>
+<li>wiele programów potrzebuje dostępu do <code>/etc/passwd</code></li>
+<li><code>/etc/shadow</code> ma bardziej restrykcyjne prawa dostępu</li>
+<li>w <code>/etc/shadow</code> przechowywane są id funkcji skrótu, sól i
+hash</li>
+</ul></li>
+<li>Przed wyliczenie skrótu, do hasła dodaje się losowy ciąg znaków -
+sól
+<ul>
+<li>sól przechowywana tekstem jawnym</li>
+<li>identyczne hasła po dodaniu soli dają różne hasze</li>
+</ul></li>
+<li>Łamanie haseł
+<ul>
+<li>przeszukiwanie wszystkich możliwych haseł - brute force</li>
+<li>ataki słownikowe</li>
+<li>wykorzystanie informacji z wycieków haseł</li>
+<li>tablice tęczowe</li>
+</ul></li>
+</ul>
+<h3 id="uwierzytelnianie-zdalne---protokół-chap">Uwierzytelnianie zdalne
+- protokół CHAP</h3>
+<ul>
+<li>Challenge Handshake Authentication Protocol</li>
+<li>Działanie
+<ul>
+<li>A i B mają wspólny sekret</li>
+<li>A chce uwierzytelnić się przed B</li>
+<li>B wysyła losowy ciąg danych</li>
+<li>A dokleja do ciągu sekret i odsyła skrót tego ciągu</li>
+<li>B robi to samo i porównuje wynik</li>
+</ul></li>
+<li>Hasło nie jest przesyłane w postaci jawnej</li>
+<li>Odpowiednie dobranie wyzwania zapobiega atakom typu powtórzenie</li>
+<li>Możliwość wzajemnego uwierzytelnienia
+<ul>
+<li>sprawdzenie, czy serwer do którego się łączymy zna nasze hasło</li>
+</ul></li>
+</ul>
+<h2 id="architektura-aaa">Architektura AAA</h2>
+<ul>
+<li>Authentication (uwierzytelnienie)</li>
+<li>Authorization (autoryzacja)</li>
+<li>Accounting - ile zasobów wykorzystuje</li>
+<li>Można wynieść funkcjonalność na dedykowany serwer
+<ul>
+<li>czy zezwolić na podłączenie klienta</li>
+<li>czy umożliwić logowanie administratora do urządzenia</li>
+<li>czy zezwolić administratorowi na wykonanie określonego
+polecenia</li>
+</ul></li>
+<li>Protokoły komunikacji z serwerem uwierzytelniającym
+<ul>
+<li>Radius</li>
+<li>Tacacs+</li>
+<li>Diameter</li>
+</ul></li>
+</ul>
+<h2 id="protokół-802.1x">Protokół 802.1x</h2>
+<ul>
+<li>Umożliwia podjęcie deyzji co do dalszej transmisji danych klienta
+przez urządzenie dostępowe (AP, switch) dopiero po uprzednim
+uweirzytelnieniu</li>
+<li>Najczęściej przy podłączaniu do WiFi</li>
+<li>Bazuje na Extensible Authentication Protocol (EAP)</li>
+<li>Przy każdym podłączeniu do WiFi</li>
+</ul>
+<h2 id="liczby-losowe-na-potrzeby-kryptografii">Liczby losowe na
+potrzeby kryptografii</h2>
+<ul>
+<li>W kryptografii często potrzebne są liczby losowe
+<ul>
+<li>generowanie kluczy asymetrycznych</li>
+<li>generowanie kluczy sesji</li>
+<li>generowanie loswego wyzwania</li>
+<li>wektory inicjalizujące</li>
+</ul></li>
+<li>Funkcje typu <code>rand()</code> (odwołujących się do czasu itp)
+<strong>nie nadają się do celów kryptograficznych</strong></li>
+<li>Należy używać kryptograficznie bezpiecznych generatorów liczb
+psudolosowych (CSPRNG)
+<ul>
+<li>generowane w oparciu o wiele trudnych do przewidzenia czynników</li>
+<li>pid, liczba taktów procesora od starty, czas, liczba operacji IO,
+itd.</li>
+</ul></li>
+<li>Najbezpieczniej jest używać sprzętowych generatorów liczb losowych
+(TRNG)
+<ul>
+<li>wykorzystują prawdziwie losowe zjawiska fizyczne</li>
+<li>szum termiczny, rozpad promieniotwórczy, efekt fotoelektryczny</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#funkcje-skrótu">Funkcje skrótu</a>
+<ul>
+<li><a href="#usługi-ochrony-informacji">Usługi ochrony
+informacji</a></li>
+<li><a href="#poufność-a-integralność">Poufność a integralność</a></li>
+<li><a href="#właściwości-funkcji-skrótu">Właściwości funkcji
+skrótu</a></li>
+<li><a href="#message-authentication-code">Message Authentication
+Code</a></li>
+<li><a href="#zastosowania-funkcji-skrótu">Zastosowania funkcji
+skrótu</a>
+<ul>
+<li><a href="#uwierzytelnianie-użytkownika-hasłem">Uwierzytelnianie
+użytkownika hasłem</a></li>
+<li><a href="#uwierzytelnianie-zdalne---protokół-chap">Uwierzytelnianie
+zdalne - protokół CHAP</a></li>
+</ul></li>
+<li><a href="#architektura-aaa">Architektura AAA</a></li>
+<li><a href="#protokół-802.1x">Protokół 802.1x</a></li>
+<li><a href="#liczby-losowe-na-potrzeby-kryptografii">Liczby losowe na
+potrzeby kryptografii</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

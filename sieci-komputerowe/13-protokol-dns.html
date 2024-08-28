@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-protokol-dns</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-protokoly-udp-tcp.html">Poprzedni: 12-protokoly-udp-tcp.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="14-vpn.html">Następny: 14-vpn.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sieci komputerowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-stosy-protokolow.html">01-stosy-protokolow.html</a></li>
+                
+                <li><a href="02-organizacje-standaryzacyjne.html">02-organizacje-standaryzacyjne.html</a></li>
+                
+                <li><a href="03-adresowanie-w-sieci.html">03-adresowanie-w-sieci.html</a></li>
+                
+                <li><a href="04-protokol-arp.html">04-protokol-arp.html</a></li>
+                
+                <li><a href="05-protokol-ip.html">05-protokol-ip.html</a></li>
+                
+                <li><a href="06-protokol-icmp.html">06-protokol-icmp.html</a></li>
+                
+                <li><a href="07-protokol-dhcp.html">07-protokol-dhcp.html</a></li>
+                
+                <li><a href="08-routing.html">08-routing.html</a></li>
+                
+                <li><a href="09-protokol-rip.html">09-protokol-rip.html</a></li>
+                
+                <li><a href="10-ethernet.html">10-ethernet.html</a></li>
+                
+                <li><a href="11-vlan.html">11-vlan.html</a></li>
+                
+                <li><a href="12-protokoly-udp-tcp.html">12-protokoly-udp-tcp.html</a></li>
+                
+                <li><a href="13-protokol-dns.html">13-protokol-dns.html</a></li>
+                
+                <li><a href="14-vpn.html">14-vpn.html</a></li>
+                
+                <li><a href="15-laczenie-sieci.html">15-laczenie-sieci.html</a></li>
+                
+                <li><a href="16-multicast.html">16-multicast.html</a></li>
+                
+                <li><a href="17-sieci-bezprzewodowe.html">17-sieci-bezprzewodowe.html</a></li>
+                
+                <li><a href="18-polaczenia-modemowe.html">18-polaczenia-modemowe.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-01.html">powtorzenie-do-kolokwium-01.html</a></li>
+                
+                <li><a href="powtorzenie-do-kolokwium-02.html">powtorzenie-do-kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="dns">DNS</h1>
+<p>Hierarchiczna, rozproszona baza danych. Ma drzewiastą strukturę,
+poddrzewa są obsługiwane przez oddzielne serwery</p>
+<p>Serwer Bind - oficjalna referencyjna implementacja serwera DNS</p>
+<h2 id="tld">TLD</h2>
+<p>Top level domain - domeny najwyższego szczebla</p>
+<p>gTLD - ogólne gov, com, edu</p>
+<p>ccTLD - country code, państwowe pl, fr, de, uk</p>
+<p>Konkretne kraje w różne sposoby przypisują niższe szczeble (często na
+wzór gTLD edu.pl, com.pl)</p>
+<h2 id="odwrócony-dns">Odwrócony DNS</h2>
+<p>Odpowiedź na pytanie “Jaką domeną posługuje się ten adres IP?”
+wymagało przeszukania całego drzewa DNS (ze względu na hierarchiczną
+budowę)</p>
+<p>Do tego został stworzony reverse DNS w poddomenie in-addr.arpa</p>
+<h2 id="rekursywny-serwer">Rekursywny serwer</h2>
+<p>Po stronie klienta resolver to dynamicznie linkowana biblioteka</p>
+<p>Tak naprawdę to nie ma tam rekurencji tylko iteracyjne odpytywanie
+kolejnych serwerów</p>
+<p>Master files</p>
+<p>Odpowiedzi są cache’owane - to odciąża serwery wyższych szczebli</p>
+<ul>
+<li>Jeśli żadnej domeny nie ma w cache’u to pierwsze zapytanie jest
+wysyłane do jednego z serwerów root (podany w master file)</li>
+<li>Serwer root przekierowuje do serwera DNS niższego szczebla np
+<code>pl</code></li>
+<li>Serwer rekursywny cache’uje odpowiedź i odpytuje kolejny serwer</li>
+<li>Serwer <code>pl</code> przeszukuje swój cache i przekierowuje do
+serwera niższego szczebla</li>
+<li>Serwer rekursywny cache’uje odpowiedź i odpytuje kolejny serwer</li>
+<li>…</li>
+<li>Ostatni serwer zwraca odpowiedź autorytatywną</li>
+</ul>
+<h2 id="odpowiedź-autorytatywna">Odpowiedź autorytatywna</h2>
+<ul>
+<li>Kończy poszukiwanie w DNS</li>
+<li>Może być pozytywna lub negatywna</li>
+</ul>
+<h2 id="zapobieganie-atakom-dos">Zapobieganie atakom DoS</h2>
+<p>Można postawić firewall - zostawić dostęp tylko dla użytkowników w
+sieci lokalnej</p>
+<p>Przy ataku z wnętrza sieci można odciąć zainfekowanego hosta (odpiąć
+kabel)</p>
+<p>Te metody są nieskuteczne dla publicznych serwerów DNS gdzie nie ma
+jak rozróżnić dobrych i złych zapytań. Wtedy wyłącza się obsługę
+rekursywnych zapytań, serwer odpowiada tylko na podstawie własnego
+cache’a.</p>
+<h2 id="budowa-rekordu">Budowa rekordu</h2>
+<ul>
+<li>nazwa
+<ul>
+<li>litery Unicode, cyfry, ‘.’, ‘-’</li>
+<li>może być wiele rekordów o tej samej nazwie (np. jeśli komputer ma
+wiele interfejsów)</li>
+<li>jeśli danej nazwie odpowiada wiele rekordów to są zwracane wszystkie
+adresy (przetasowywane przy kolejnych zapytaniach)</li>
+</ul></li>
+<li>czas życia (TTL)
+<ul>
+<li>w sekundach</li>
+<li>maksymalny czas przechowywania w serwerach buforujących
+(rekursywnych)</li>
+<li>określany przez autora rekordu</li>
+<li>po jego przekroczeniu serwery powinny usunąć ten rekord z cache i
+ponownie odpytać serwer autorytatywny</li>
+<li>rzędu tygodnia</li>
+</ul></li>
+<li>klasa
+<ul>
+<li>IN - Internet (jedyna faktycznie używana)</li>
+</ul></li>
+<li>typ
+<ul>
+<li>jak należy interpretować zawartość</li>
+<li>SOA - początek opisu domeny, jeden egzemplarz w każdej domenie</li>
+<li>NS - serwer obsługujący domenę, conajmniej 2 w każdej domenie
+(master/primary, slave/secondary)</li>
+<li>A - adres IPv4</li>
+<li>AAAA - adres IPv6</li>
+<li>PTR - odsyła do innego rekordu (w pełni kwalifikowana nazwa)</li>
+<li>CNAME - nazwa alternatywna (aliasy), wartość to nazwa kanoniczna,
+najczęściej wskazuje usługi</li>
+<li>MX - serwer pocztowy, priorytet i nazwa serwera</li>
+<li>TXT - dowolny tekst</li>
+<li>SRV - serwer usługi, związany z service discovery</li>
+<li>DNSKEY - klucz serwera</li>
+<li>RRSIG - podpis rekordu</li>
+</ul></li>
+<li>wartość
+<ul>
+<li>wartość zależna od typu</li>
+</ul></li>
+</ul>
+<h3 id="soa">SOA</h3>
+<p>Informacje dla serwerów typu slave. Slave porównuje numer sekwencyjny
+i aktualizuje swoje dane jeśli numery się nie zgadzają</p>
+<p>Master może wymusić aktualizację serwera slave szybciej niż to wynika
+z parametru refresh (pakiet UDP)</p>
+<ul>
+<li>Serial - numer sekwencyjny, musi rosnąć po aktualizacji, zalecany
+YYYYMMDDnn</li>
+<li>Refresh - Co ile sekund należy sprawdzać aktualność danych</li>
+<li>Retry - Co ile sekund ponawiać nieudaną próbę</li>
+<li>Expire - Po ilu sekundach uznać za nieaktualne</li>
+<li>Minimuim - minimalny czas przechowywania (domyślny TTL)</li>
+</ul>
+<h2 id="widoki">Widoki</h2>
+<ul>
+<li>Ograniczenie dostępu dla użytkowników z zewnątrz sieci</li>
+<li>W zależności od adresu pytającego, serwer zwraca różne
+odpowiedzi</li>
+<li>Dyrektywa <code>match-clients {...}</code></li>
+<li>Najczęściej definiuje się oddzielny widok publiczny i prywatny</li>
+</ul>
+<h2 id="dynamic-dns-ddns">Dynamic DNS (DDNS)</h2>
+<ul>
+<li><p>Potrzeba odzwierciedlenia w DNSie dynamicznego przydziału adresów
+IP</p></li>
+<li><p>Czas życia rekordu DNS musi być krótki - ogranicza możliwość
+cache’owania</p></li>
+<li><p>Powinno się stosować oddzielne serwery do dynamicznego
+DNS</p></li>
+<li><p>Serwer DHCP przydzielający adres zgłasza to do serwera
+DNS</p></li>
+<li><p>Serwer DHCP przydziela adres, host zgłasza to do serwera DNS</p>
+<ul>
+<li>częściej stosowane</li>
+<li>mniej bezpieczne, konflikty nazw, możliwość podszywania się</li>
+</ul></li>
+</ul>
+<h2 id="service-discovery">Service discovery</h2>
+<ul>
+<li>Rekordy typu SRV</li>
+<li><code>_service._protocol.domain.name ttl class SRV priority weight port target</code></li>
+<li><code>_service._protocol.domain.name ttl class TEXT parameters</code></li>
+</ul>
+<h2 id="dnssec">DNSsec</h2>
+<ul>
+<li>Uniemożliwienie podrabiania zawartości DNS</li>
+<li>Zabezpieczenie przed podszywaniem się pod serwer DNS</li>
+<li>Dla każdej grupy rekordów identyfikokwanej przez nazwę i typ rekordu
+jest generowany podpis na podstawie klucza prywatnego</li>
+<li>Rekordy DNSKEY też trafiają do cache’a, weryfikowanie podpisu nie
+jest kosztowne</li>
+<li>12% użytkowników weryfikuje podpisy</li>
+</ul>
+<h3 id="łańcuch-zaufania">Łańcuch zaufania</h3>
+<ul>
+<li>Najwyżej w łańcuchu jest IIANA, publikuje swoje klucze
+publiczne</li>
+<li>Każdy kolejny poziom jest podpisany kluczem poziomu wyżej(???)</li>
+</ul>
+<h2 id="konfiguracja-resolvera-na-komputerze">Konfiguracja resolvera na
+komputerze</h2>
+<ul>
+<li>plik /etc/resolv.conf</li>
+<li><code>search</code> - końcówki doklejany do nazwy krótkiej</li>
+<li><code>nameserver</code> - adresy serwerów, odpytywane w kolejności
+takiej jak w pliku</li>
+<li><code>nameserver 127.0.0.1</code> - na localhoscie, powienien być
+pierwszy jeśli faktycznie działa taki serwer ale spowalnia system jeśli
+go nie ma</li>
+</ul>
+<h2 id="konfiguracja-serwera-bind">Konfiguracja serwera bind</h2>
+<p><code>named-checkzone</code></p>
+<h3 id="etcboot.conf">/etc/boot.conf</h3>
+<ul>
+<li>directory - ścieżka do katalogu z resztą plików</li>
+<li>cache - nazwa pliku ładowanego do cache’a przy starcie, przynajmniej
+serwery domeny głównej</li>
+<li>primary - serwer master, domena i domena odwrotna nie muszą być
+obsługiwane przez ten sam serwer</li>
+<li>secondary - serwer slave</li>
+</ul>
+<h3 id="etcnamed.conf">/etc/named.conf</h3>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dns">DNS</a>
+<ul>
+<li><a href="#tld">TLD</a></li>
+<li><a href="#odwrócony-dns">Odwrócony DNS</a></li>
+<li><a href="#rekursywny-serwer">Rekursywny serwer</a></li>
+<li><a href="#odpowiedź-autorytatywna">Odpowiedź autorytatywna</a></li>
+<li><a href="#zapobieganie-atakom-dos">Zapobieganie atakom DoS</a></li>
+<li><a href="#budowa-rekordu">Budowa rekordu</a>
+<ul>
+<li><a href="#soa">SOA</a></li>
+</ul></li>
+<li><a href="#widoki">Widoki</a></li>
+<li><a href="#dynamic-dns-ddns">Dynamic DNS (DDNS)</a></li>
+<li><a href="#service-discovery">Service discovery</a></li>
+<li><a href="#dnssec">DNSsec</a>
+<ul>
+<li><a href="#łańcuch-zaufania">Łańcuch zaufania</a></li>
+</ul></li>
+<li><a href="#konfiguracja-resolvera-na-komputerze">Konfiguracja
+resolvera na komputerze</a></li>
+<li><a href="#konfiguracja-serwera-bind">Konfiguracja serwera bind</a>
+<ul>
+<li><a href="#etcboot.conf">/etc/boot.conf</a></li>
+<li><a href="#etcnamed.conf">/etc/named.conf</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

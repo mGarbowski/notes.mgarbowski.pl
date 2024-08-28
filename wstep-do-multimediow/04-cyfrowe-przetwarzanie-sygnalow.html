@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-cyfrowe-przetwarzanie-sygnalow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-probkowanie-sygnalow.html">Poprzedni: 03-probkowanie-sygnalow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-filtracja-cyfrowa.html">Następny: 05-filtracja-cyfrowa.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wstęp do multimediów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie-do-teorii-sygnalow.html">01-wprowadzenie-do-teorii-sygnalow.html</a></li>
+                
+                <li><a href="02-szereg-i-transformata-fouriera.html">02-szereg-i-transformata-fouriera.html</a></li>
+                
+                <li><a href="03-probkowanie-sygnalow.html">03-probkowanie-sygnalow.html</a></li>
+                
+                <li><a href="04-cyfrowe-przetwarzanie-sygnalow.html">04-cyfrowe-przetwarzanie-sygnalow.html</a></li>
+                
+                <li><a href="05-filtracja-cyfrowa.html">05-filtracja-cyfrowa.html</a></li>
+                
+                <li><a href="06-teoria-informacji.html">06-teoria-informacji.html</a></li>
+                
+                <li><a href="07-swiatlo-obraz-cyfrowy-percepcja.html">07-swiatlo-obraz-cyfrowy-percepcja.html</a></li>
+                
+                <li><a href="08-przetwarzanie-obrazow-cyfrowych.html">08-przetwarzanie-obrazow-cyfrowych.html</a></li>
+                
+                <li><a href="09-kompresja-obrazow.html">09-kompresja-obrazow.html</a></li>
+                
+                <li><a href="10-kompresja-sekwencji-obrazow.html">10-kompresja-sekwencji-obrazow.html</a></li>
+                
+                <li><a href="11-strumieniowanie-multimediow.html">11-strumieniowanie-multimediow.html</a></li>
+                
+                <li><a href="12-analiza-wizyjna.html">12-analiza-wizyjna.html</a></li>
+                
+                <li><a href="13-indeksowanie.html">13-indeksowanie.html</a></li>
+                
+                <li><a href="14-steganografia.html">14-steganografia.html</a></li>
+                
+                <li><a href="15-sygnaly-akustyczne.html">15-sygnaly-akustyczne.html</a></li>
+                
+                <li><a href="16-lokalizacja-zrodla-dzwieku.html">16-lokalizacja-zrodla-dzwieku.html</a></li>
+                
+                <li><a href="17-ocena-jakosci-dzwieku.html">17-ocena-jakosci-dzwieku.html</a></li>
+                
+                <li><a href="18-cyfrowe-sygnaly-foniczne.html">18-cyfrowe-sygnaly-foniczne.html</a></li>
+                
+                <li><a href="19-cyfrowe-przetwarzanie-dzwieku.html">19-cyfrowe-przetwarzanie-dzwieku.html</a></li>
+                
+                <li><a href="20-filtracja-efekty-dzwiekowe-synteza.html">20-filtracja-efekty-dzwiekowe-synteza.html</a></li>
+                
+                <li><a href="21-realizacja-dzwieku.html">21-realizacja-dzwieku.html</a></li>
+                
+                <li><a href="22-grafika-komputerowa.html">22-grafika-komputerowa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="elementy-cyfrowego-przetwarzania-sygnałów">Elementy cyfrowego
+przetwarzania sygnałów</h1>
+<h2 id="przekształcenie-dtft">Przekształcenie DTFT</h2>
+<ul>
+<li>Widmo też można wyrazić jako zespolony szereg fouriera
+<ul>
+<li>jak wszystko co jest okresowe</li>
+</ul></li>
+<li>Współczynniki szeregu to próbki <span
+class="math inline">\(x(nT_S)\)</span></li>
+<li>Podstawienie <span class="math inline">\(\Omega = \omega
+T_S\)</span> - pulsacja unormowana
+<ul>
+<li>po znormalizowaniu widmo jest okresowe o okresie <span
+class="math inline">\(2\pi\)</span></li>
+</ul></li>
+<li>Częstotliwość unormowana <span class="math inline">\(F\)</span>
+<ul>
+<li><span class="math inline">\(\Omega = 2\pi F\)</span></li>
+</ul></li>
+<li>Widmo rozważa się w ograniczonym przedziale bo jest okresowe</li>
+</ul>
+<h2 id="n-punktowe-dyskretne-przekształcenie-fouriera">N-punktowe
+dyskretne przekształcenie Fouriera</h2>
+<ul>
+<li>Dyskretyzacja dziedziny częstotliwości
+<ul>
+<li>N próbek w jednym okresie</li>
+</ul></li>
+<li>Krok dyskretyzacji <span class="math inline">\(\Delta f =
+\frac{f_S}{N}\)</span> - rozdzielczość częstotliwościowa DFT</li>
+<li>Zastąpienie zmiennej <span class="math inline">\(f\)</span> przez
+<span class="math inline">\(k \Delta f\)</span></li>
+</ul>
+<p><span class="math display">\[
+X_N(k) = \sum_{n=0}^{N-1} x(n) \exp(-j2\pi kn/N) = \sum_{n=0}^{N-1}
+x(n)W_N^{kn}
+\]</span></p>
+<p><span class="math display">\[
+x(n) = \frac{1}{N} \sum_{k=0}^{N-1} X_N(k) \exp(j2\pi kn/N)
+= \frac{1}{N} \sum_{k=0}^{N-1} X_N(k)W_N^{-kn}
+\]</span> <span class="math display">\[x(n) \leftrightarrow
+X_N(k)\]</span></p>
+<ul>
+<li>To samo <span class="math inline">\(N\)</span> - liczba próbek w
+dziedzinie czasu i częstotliwości</li>
+<li>N-punktowa DFT to funkcja o okresie N, widmo sygnału <span
+class="math inline">\(x(n)\)</span></li>
+</ul>
+<h3 id="przesunięcie-cykliczne-w-czasie">Przesunięcie cykliczne w
+czasie</h3>
+<ul>
+<li>Jak dodawanie modulo N</li>
+<li>Jest różnica między splotem zwykłym a cyklicznym</li>
+</ul>
+<h2 id="przeciek-widma">Przeciek widma</h2>
+<ul>
+<li>Kiedy w widmie sygnału zdyskretyzowanego pojawiają się składowe nie
+występujące w widmie sygnału analogowego</li>
+<li>Mozna je redukować przez okienkowanie sygnału w dziedzinie
+czasu</li>
+<li>Np. widmo sinusa może miec więcej niż 2 prążki
+<ul>
+<li>ale o takiej samej sumarycznej mocy</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+X_w(k) = \sum_{n=0}^{N-1} w(n) x(n) \exp(-j 2\pi kn / N)
+\]</span></p>
+<h2 id="fast-fourier-transform">Fast Fourier Transform</h2>
+<ul>
+<li>Algorytm numerycznie obliczający N-punktową DFT</li>
+<li>Wymaga żeby N było potęgą 2</li>
+<li>Złożoność <span class="math inline">\(O(N \log N)\)</span></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#elementy-cyfrowego-przetwarzania-sygnałów">Elementy
+cyfrowego przetwarzania sygnałów</a>
+<ul>
+<li><a href="#przekształcenie-dtft">Przekształcenie DTFT</a></li>
+<li><a href="#n-punktowe-dyskretne-przekształcenie-fouriera">N-punktowe
+dyskretne przekształcenie Fouriera</a>
+<ul>
+<li><a href="#przesunięcie-cykliczne-w-czasie">Przesunięcie cykliczne w
+czasie</a></li>
+</ul></li>
+<li><a href="#przeciek-widma">Przeciek widma</a></li>
+<li><a href="#fast-fourier-transform">Fast Fourier Transform</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

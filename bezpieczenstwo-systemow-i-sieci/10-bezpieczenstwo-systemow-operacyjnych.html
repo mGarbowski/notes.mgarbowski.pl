@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-bezpieczenstwo-systemow-operacyjnych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-bezpieczenstwo-aplikacji-webowych.html">Poprzedni: 09-bezpieczenstwo-aplikacji-webowych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-vpn.html">Następny: 11-vpn.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Bezpieczeństwo systemów i sieci</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-szyfrowanie.html">02-szyfrowanie.html</a></li>
+                
+                <li><a href="03-funkcje-skrotu.html">03-funkcje-skrotu.html</a></li>
+                
+                <li><a href="04-infrastruktura-klucza-publicznego.html">04-infrastruktura-klucza-publicznego.html</a></li>
+                
+                <li><a href="05-zagrozenia-sieciowe.html">05-zagrozenia-sieciowe.html</a></li>
+                
+                <li><a href="06-systemy-zapewniajace-bezpieczenstwo.html">06-systemy-zapewniajace-bezpieczenstwo.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-aplikacji-c.html">07-bezpieczenstwo-aplikacji-c.html</a></li>
+                
+                <li><a href="08-malware.html">08-malware.html</a></li>
+                
+                <li><a href="09-bezpieczenstwo-aplikacji-webowych.html">09-bezpieczenstwo-aplikacji-webowych.html</a></li>
+                
+                <li><a href="10-bezpieczenstwo-systemow-operacyjnych.html">10-bezpieczenstwo-systemow-operacyjnych.html</a></li>
+                
+                <li><a href="11-vpn.html">11-vpn.html</a></li>
+                
+                <li><a href="12-bezpieczenstwo-systemow-automatyki-przemyslowej.html">12-bezpieczenstwo-systemow-automatyki-przemyslowej.html</a></li>
+                
+                <li><a href="13-systemy-honeypot.html">13-systemy-honeypot.html</a></li>
+                
+                <li><a href="14-polityka-bezpieczenstwa.html">14-polityka-bezpieczenstwa.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="bezpieczeństwo-systemów-operacyjnych">Bezpieczeństwo systemów
+operacyjnych</h1>
+<h2 id="dos">DOS</h2>
+<ul>
+<li>System jedno-zadaniowy, jedno-użytkownikowy</li>
+<li>Brak zabezpieczeń</li>
+<li>Możliwość wykonania jednego programu, który ma pełen dostęp do
+wszystkich zasobów
+<ul>
+<li>można było pisać programy TSR - podczepiane pod przerwania</li>
+</ul></li>
+</ul>
+<h2 id="nowoczesne-systemy-operacyjne">Nowoczesne systemy
+operacyjne</h2>
+<ul>
+<li>Wielozadaniowe, wielodostępne</li>
+<li>Od lat 90
+<ul>
+<li>Windows NT, Unix, Linux</li>
+</ul></li>
+<li>Wymaga mechanizmów ochrony
+<ul>
+<li>procesu od innych procesów</li>
+<li>użytkowników i ich zasobów między sobą</li>
+<li>struktury systemu operacyjnego przed użytkownikami</li>
+</ul></li>
+<li>Podstawowe mechanizmy ochrony
+<ul>
+<li>pierścienie ochrony procesora</li>
+<li>pamięć wirtualna (MMU)</li>
+</ul></li>
+</ul>
+<h2 id="pierścienie-ochrony">Pierścienie ochrony</h2>
+<ul>
+<li>Wprowadza się oddzielne domeny bezpieczeństwa o różnych prawach</li>
+<li>Tworzą hierarchię od najwyższego poziomu uprzywilejowania do
+najniższego</li>
+<li><em>Groźne</em> instrukcje wymagają odpowiedniego poziomu
+uprzywilejowania</li>
+<li>Wykonanie akcji o wyższym poziomie wymaga kontaktu między domenami i
+zapewnia ochronę</li>
+<li>Najczęściej oparty na mechanizmach sprzętowych</li>
+<li>W x86 4 poziomy</li>
+<li>Jądro systemu operacyjnego działa na najbardziej uprzywilejowanym
+pierścieniu</li>
+<li>Wszystkie operacje wymagające komunikacji z IO są wykonywane za
+pośrednictwem systemu operacyjnego</li>
+</ul>
+<h2 id="pamięć-wirtualna">Pamięć wirtualna</h2>
+<ul>
+<li>MMU dokonuje translacji adresów wirtualnych na fizyczne</li>
+<li>Przy niemożności dokonania translacji zgłasza wyjątek sprzętowy
+<ul>
+<li>zapewnia ochronę</li>
+<li>umożliwia realizację pamięci wirtualnej na dysku</li>
+</ul></li>
+<li>Każdy proces użytkownika widzi ciągły obszar pamięci do własnej
+dyspozycji</li>
+<li>Proces nie może zmieniać danych innego procesu
+<ul>
+<li>poza specjlanymi mechanizmami systemu operacyjnego (pamięć
+dzielona)</li>
+</ul></li>
+<li>Możliwość oznaczenia strony jako niemożliwa do wykonania
+<ul>
+<li>zabezpiecza przed buffer overflow</li>
+</ul></li>
+<li>Manipulacje strukturami MMU wykonuje tylko jądro w uprzywilejowanym
+pierścieniu bezpieczeństwa</li>
+<li>Mapowanie adresów za pomocą tablicy stron</li>
+</ul>
+<h2 id="kontrola-dostępu">Kontrola dostępu</h2>
+<ul>
+<li>Użytkownik uwierzytelnia się w procesie logowania</li>
+<li>Każdy proces uruchomiony przez użytkownika będzie potomkiem procesu
+shella
+<ul>
+<li>dziedziczą prawa dostępu użytkownika</li>
+</ul></li>
+<li>Dla usługi (np. serwer HTTP) powinien być utworzony dedykowany
+użytkownik o minimalnych potrzebnych prawach dostępu
+<ul>
+<li>w razie naruszenia bezpieczeństwa nie ma pełnych uprawnień (np.
+roota)</li>
+</ul></li>
+<li>Kontrola dostępu do obiektu (pliku) związana jest z prawami,
+rodzajami operacji jakie może wykonać użytkownik
+<ul>
+<li>odczyt</li>
+<li>zapis</li>
+<li>wykonanie</li>
+</ul></li>
+<li>Możliwe realizacje
+<ul>
+<li>macierz dostępu</li>
+<li>lista kontroli dostępu</li>
+<li>lista możliwości</li>
+</ul></li>
+</ul>
+<h3 id="macierz-dostępu">Macierz dostępu</h3>
+<ul>
+<li>W kolumnach zasoby</li>
+<li>W wierszach odpowiadający użytkownicy</li>
+<li>W komórkach prawa użytkownika do zasobu</li>
+<li>Teoretyczna metoda, nie stosowana w praktyce
+<ul>
+<li>słaba skalowalność</li>
+</ul></li>
+</ul>
+<h3 id="lista-kontroli-dostępu-linux">Lista kontroli dostępu
+(Linux)</h3>
+<ul>
+<li>Access Control List (ACL)</li>
+<li>Obiekt (plik) posiada listę określającą prawa dostępu dla
+określonych podmiotów</li>
+<li>W Linuxie są 3 podmioty
+<ul>
+<li>właściciel (user)</li>
+<li>grupa (group)</li>
+<li>pozostali (other)</li>
+</ul></li>
+<li>Możliwe prawa
+<ul>
+<li>odczyt (r, 4)</li>
+<li>zapis (w, 2)</li>
+<li>wykonanie (x, 1)</li>
+</ul></li>
+<li>Jest skomplikowane przy bardziej złożonych prawach dostępu</li>
+<li>Wyświetlenie praw przez <code>ls -l</code></li>
+<li>Zmiana praw przez <code>chmod</code></li>
+</ul>
+<h3 id="lista-kontroli-dostępu-windows">Lista kontroli dostępu
+(Windows)</h3>
+<ul>
+<li>13 rodzajów praw</li>
+<li>2 listy powiązane z obiektem
+<ul>
+<li>Directory ACL - prawa użytkowników lub grup</li>
+<li>System ACL - akcje podlegające audytowi (logowane)</li>
+</ul></li>
+<li>Właściwości -&gt; Zabezpieczenia -&gt; Zaawansowane</li>
+</ul>
+<h3 id="rodzaje-list-kontroli-dostępu">Rodzaje list kontroli
+dostępu</h3>
+<ul>
+<li>Discretionary ACL
+<ul>
+<li>nieobowiązkowa, uznaniowa</li>
+<li>użytkownik decyduje jakie prawa, komu daje</li>
+<li>moża udostępnić informacje osobom niepowołanym</li>
+<li>mechanizmy w Linux, Windows</li>
+</ul></li>
+<li>Mandatory ACL
+<ul>
+<li>prawa dostępu są ustalone przez dedykowany podmiot</li>
+<li>użytkownik nie może ich zmienić</li>
+<li>implementacja SELinux lub SMACK</li>
+<li>Windows Update jest de facto administratorem każdego windowsa, bo
+tylko on ma dostęp do wszystkiego</li>
+<li>Mandatory Integrity Control w Windowsie</li>
+</ul></li>
+<li>Role Based Access Control
+<ul>
+<li>większość użytkowników w większości instytucji można zaklasyfikować
+do kilkunastu grup</li>
+<li>prawa przypisuje się do grup/ról</li>
+<li>grupy/role przypisuje się użytkownikom</li>
+</ul></li>
+</ul>
+<h2 id="zaawansowane-mechanizmy-bezpieczeństwa">Zaawansowane mechanizmy
+bezpieczeństwa</h2>
+<h3 id="set-uid-bit">Set uid bit</h3>
+<ul>
+<li>Pozwala na uruchomineie programu z uprawnieniami właściciela pliku
+<ul>
+<li>np. program <code>passwd</code> do zmiany hasła wymaga modyfikacji
+plików systemowych</li>
+</ul></li>
+<li>Trzeba uważać na prawo <code>w</code> - można by podmienić
+program</li>
+</ul>
+<h3 id="sudo">Sudo</h3>
+<ul>
+<li>Aministratorem Linuxa jest użytkownik o uid 0 (root)</li>
+<li>Można stworzyć wielu użytkowników o tym samym uid</li>
+<li>Lepiej wykorzystać mechanizm <code>sudo</code>
+<ul>
+<li>uprawniony użytkownik może wykonać program z uprawnieniami
+administratora</li>
+</ul></li>
+<li>Lista użytkowników w pliku <code>/etc/sudoers</code></li>
+</ul>
+<h3 id="chroot">Chroot</h3>
+<ul>
+<li>Zmiana korzenia drzewa systemu plików</li>
+<li>Po uruchomieniu systemu przełącza się system plików to innego
+katalogu <em>sandbox</em> z odpowiednią zawartością</li>
+<li>Współcześnie zastąpiony przez wirtualizację</li>
+</ul>
+<h3 id="ochrona-plików-systemu-windows">Ochrona plików systemu
+Windows</h3>
+<ul>
+<li>Windows File Protection, później Windows Resource Protection</li>
+<li>Mechanizm nasługuje na zdarzenie związane ze zmianami plików w
+chronionych katalogach</li>
+<li>W momencie wykrycia zmiany, plik zostaje zastąpiony dobrą kopią z
+katalogu <code>%systemroot%\system32\dllcache</code></li>
+<li>Uniemożliwia ubicie Windowsa przez usunięcie odpowiednich
+plików</li>
+</ul>
+<h2 id="zasada-najmniejszych-uprawnień">Zasada najmniejszych
+uprawnień</h2>
+<ul>
+<li>Każdy podmiot posiada minimalny zestaw uprawnień pozwalający wykonać
+jego zadania</li>
+<li>Principle of least privilege</li>
+<li>Principle of minimal authority</li>
+</ul>
+<h2 id="zasada-rozdzielenia-obowiązków">Zasada rozdzielenia
+obowiązków</h2>
+<ul>
+<li>Ważne operacje wymagają współpracy co najmniej 2 osób
+<ul>
+<li>np. wykonanie przelewu na dużą kwotę w banku</li>
+</ul></li>
+</ul>
+<h2 id="rzeczywistość">Rzeczywistość</h2>
+<ul>
+<li>Wiele aplikacji pracuje z większymi uprawnieniami niż
+potrzebują</li>
+<li>Tradeoff między bezpieczeństwem a używalnością</li>
+<li>Security by design
+<ul>
+<li>nie można dokleić bezpieczeństwa na końcu</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bezpieczeństwo-systemów-operacyjnych">Bezpieczeństwo
+systemów operacyjnych</a>
+<ul>
+<li><a href="#dos">DOS</a></li>
+<li><a href="#nowoczesne-systemy-operacyjne">Nowoczesne systemy
+operacyjne</a></li>
+<li><a href="#pierścienie-ochrony">Pierścienie ochrony</a></li>
+<li><a href="#pamięć-wirtualna">Pamięć wirtualna</a></li>
+<li><a href="#kontrola-dostępu">Kontrola dostępu</a>
+<ul>
+<li><a href="#macierz-dostępu">Macierz dostępu</a></li>
+<li><a href="#lista-kontroli-dostępu-linux">Lista kontroli dostępu
+(Linux)</a></li>
+<li><a href="#lista-kontroli-dostępu-windows">Lista kontroli dostępu
+(Windows)</a></li>
+<li><a href="#rodzaje-list-kontroli-dostępu">Rodzaje list kontroli
+dostępu</a></li>
+</ul></li>
+<li><a href="#zaawansowane-mechanizmy-bezpieczeństwa">Zaawansowane
+mechanizmy bezpieczeństwa</a>
+<ul>
+<li><a href="#set-uid-bit">Set uid bit</a></li>
+<li><a href="#sudo">Sudo</a></li>
+<li><a href="#chroot">Chroot</a></li>
+<li><a href="#ochrona-plików-systemu-windows">Ochrona plików systemu
+Windows</a></li>
+</ul></li>
+<li><a href="#zasada-najmniejszych-uprawnień">Zasada najmniejszych
+uprawnień</a></li>
+<li><a href="#zasada-rozdzielenia-obowiązków">Zasada rozdzielenia
+obowiązków</a></li>
+<li><a href="#rzeczywistość">Rzeczywistość</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

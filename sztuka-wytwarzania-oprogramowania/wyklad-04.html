@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="obiektowe-wzorce-projektowe-2024-03-11">Obiektowe wzorce
+projektowe (2024-03-11)</h1>
+<h2 id="fasada">Fasada</h2>
+<ul>
+<li>Pojedyncza klasa ukrywa cały złożony podsystem</li>
+<li>Upraszcza korzystanie z podsystemu</li>
+<li>Umożliwia wymienność podsystemu</li>
+</ul>
+<h2 id="fabryka">Fabryka</h2>
+<ul>
+<li>Nie można stworzyć nowej klasy w trakcie działania programu</li>
+<li>Inicjacja wymaga podania konkretnego typu</li>
+<li>Typ musi być znany w momencie kompilacji</li>
+</ul>
+<h3 id="prosta-fabryka-obiektów-niepoprawne">Prosta fabryka obiektów
+(niepoprawne)</h3>
+<ul>
+<li>Duże switch..case w klasie bazowej gdzie wołane są konstruktory klas
+pochodnych
+<ul>
+<li>Zależy od wszystkich klas pochodnych</li>
+<li>Niewydajne</li>
+<li>Nie ma kontorli kompilatora</li>
+</ul></li>
+</ul>
+<h3 id="fabryka-skalowalna">Fabryka skalowalna</h3>
+<ul>
+<li>Odwraca zależność
+<ul>
+<li>Nie jest zależna od wszystkich klas konkrentych</li>
+<li>Wszystkie klasy konkretne są zależne od fabryki</li>
+</ul></li>
+<li>Zapewnia kontrolę</li>
+<li>Każda klasa konkretna implementuje funkcję fabryczna (tworzącą
+obiekt)</li>
+<li>Fabryka utrzymuje kolekcję funkcji fabrycznych (np. mapę)</li>
+<li>Fabryka może rejestrować nowe funkcje fabryczne</li>
+<li>Wymaga poprawnego posługiwania się identyfikatorem</li>
+<li>Rejestracja w czasie działania (np. na początku działania
+aplikacji)</li>
+<li>Problem z identyfikatorem
+<ul>
+<li>można użyć RTTI (struktura <code>type_id</code>)</li>
+<li>generowanie identyfikatorów</li>
+<li>może być enum ale to też rodzi problemy (zależny od wszystkich klas
+konkretnych)</li>
+</ul></li>
+</ul>
+<h3 id="fabryka-prototypów">Fabryka prototypów</h3>
+<ul>
+<li>Trochę jak fabryka skalowalna</li>
+<li>Ale nie trzyma kolekcji funkcji tworzących, tylko obiekty
+(prototypy), na wywołuje <code>clone()</code></li>
+<li>Zajmuje więcej zasobów - przechowuje cały obiekt</li>
+</ul>
+<h3 id="fabryka-abstrakcyjna">Fabryka abstrakcyjna</h3>
+<ul>
+<li>Do tworzenia obiektów w wielopoziomowej hierarchii klas</li>
+<li>Fabryka abstrakcyjna zwraca uchwyt na klasę wyżej w hierarchii</li>
+<li>Fabryka konkretna zwraca uchwyt na konkretne klasy</li>
+</ul>
+<h2 id="singleton">Singleton</h2>
+<ul>
+<li>Tylko jeden obiekt danego typu</li>
+<li>Zastępuje obiekty globalne</li>
+<li>Obiekty globalne są błędem, singleton też może być błędem</li>
+<li>Jedna metoda <code>getInstance</code>
+<ul>
+<li>Jeśli już jest stworzony to zwraca zapamietaną instancję</li>
+<li>Jeśli nie to tworzy i zapamiętuje</li>
+</ul></li>
+<li>Prywatny konstruktor, usunięte standardowy konstruktor kopiujący
+itd</li>
+<li>Możliwy do utworzenia tylko przez <code>getInstance</code></li>
+<li>Kolejność inicjacji obiektów globalnych jest losowa - nie mogą się
+wołać nawzajem
+<ul>
+<li>niezdefiniowane zahchowanie</li>
+<li>singleton nie ma tego problemu - to zapewnia dostęp do obiektu przez
+<code>getInstance</code></li>
+</ul></li>
+<li>Wolniejsze odwołanie, bo przy każdym dostępie do instancji jest
+sprawdzany warunek</li>
+</ul>
+<h2 id="wizytator">Wizytator</h2>
+<ul>
+<li>Dodanie nowej klasy do hierarchii jest proste</li>
+<li>Dodanie nowej funkcjonalności - złożone
+<ul>
+<li>wymaga zmieniania wielu plików w projekcie</li>
+<li>częściej dodaje się funkcjonalność niż typy</li>
+</ul></li>
+<li>Kiedy jest ustalona hierarchia klas i wiele metod, które mogą się
+zmieniać</li>
+<li>Gorsze / niepoprawne rozwiązanie
+<ul>
+<li>Klasy konkretne muszą mieć nadpisane metody, które wołają metody na
+oddzielnym obiekcie</li>
+<li>Cała funkcjonalność w nowej klasie, sprawdzanie typów (dynamic
+cast)</li>
+</ul></li>
+<li>Tworzy się dodatkową hierarchię klas wizytatorów</li>
+<li>Hierarchia wizytatorów jest zależna od hierarchii klas elementów
+wizytowanych</li>
+<li>Każda kolejna funkcjonalność dziedziczy po bazowym wizytorze i
+logika zawiera się w 1 klasie</li>
+<li>Bazowy Element (wizytowany) ma metodę accept przyjmującą bazowy
+wizytator
+<ul>
+<li>nie trzeba w żaden inny sposób jej zmieniać żeby dodać
+funkcjonalności</li>
+<li>accept woła metodę wizytatora na <code>this</code></li>
+<li>typ rozstrzyga się bez żadnego dynamic cast</li>
+<li>zamiast tego są 2 wywołania metod wirtualnych</li>
+</ul></li>
+<li>Zależności są tylko lokalne</li>
+<li>accept musi być czysto wirtualny w bazowym elemencie</li>
+</ul>
+<h2 id="wielometoda">Wielometoda</h2>
+<ul>
+<li>Kiedy jest zależność od dwóch typów</li>
+<li>Korzystamy z wizytatora</li>
+<li>Złe rozwiązania
+<ul>
+<li>if, else i dynamic cast na wszystkie kombinacje</li>
+<li>dwywymiarowa tablica wskaźników na odpowiednie metody</li>
+</ul></li>
+<li>Jeden wizytator rozsztrzyga o jednym elemencie, a drugi o
+drugim</li>
+</ul>
+<h2 id="most">Most</h2>
+<ul>
+<li>Separuje abstrakcję od implementacji</li>
+</ul>
+<h3 id="pimpl">pimpl</h3>
+<ul>
+<li>Zdegenerowany most</li>
+<li>Mniej zależności w headerze</li>
+<li>Prywatna klasa implementowana w pliku cpp, jest łatwo
+wymienialna</li>
+<li>Zawsze pośredni dostęp przez uchwyt</li>
+<li>Pointer do implementacji</li>
+</ul>
+<h3 id="wstrzykiwanie-zależności">Wstrzykiwanie zależności</h3>
+<ul>
+<li>Obiekt, który będzie składową dostarczany przez konstruktor</li>
+<li>Można np. na potrzeby testów dostarczyć inny obiekt (wymienić
+implementację)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#obiektowe-wzorce-projektowe-2024-03-11">Obiektowe wzorce
+projektowe (2024-03-11)</a>
+<ul>
+<li><a href="#fasada">Fasada</a></li>
+<li><a href="#fabryka">Fabryka</a>
+<ul>
+<li><a href="#prosta-fabryka-obiektów-niepoprawne">Prosta fabryka
+obiektów (niepoprawne)</a></li>
+<li><a href="#fabryka-skalowalna">Fabryka skalowalna</a></li>
+<li><a href="#fabryka-prototypów">Fabryka prototypów</a></li>
+<li><a href="#fabryka-abstrakcyjna">Fabryka abstrakcyjna</a></li>
+</ul></li>
+<li><a href="#singleton">Singleton</a></li>
+<li><a href="#wizytator">Wizytator</a></li>
+<li><a href="#wielometoda">Wielometoda</a></li>
+<li><a href="#most">Most</a>
+<ul>
+<li><a href="#pimpl">pimpl</a></li>
+<li><a href="#wstrzykiwanie-zależności">Wstrzykiwanie
+zależności</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

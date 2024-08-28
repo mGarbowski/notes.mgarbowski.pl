@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01.html">Poprzedni: wyklad-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wprowadzenie-cd-2024-02-26">Wprowadzenie cd (2024-02-26)</h1>
+<h2 id="możliwości-qemu">Możliwości QEMU</h2>
+<ul>
+<li>Dobre narzędzie to testowania</li>
+<li>Open source</li>
+<li>Emuluje systemy wbudowane</li>
+<li>Mozna badać zachowania systemu przy różnych ograniczeniach (pamięć,
+dysk)</li>
+<li>Można testować z rzeczywistymi urządzeniami (forwarding)</li>
+<li>Można testować z wirtualnymi urządzeniami (tworzone przez
+użytkownika)</li>
+<li>Można emolować kartę sieciową</li>
+<li>Można emulować kartę dźwiękową</li>
+</ul>
+<p>Zawartość ramdysku startowego resetuje się po uruchomieniu bo jest
+wkompilowana w kernel więc po załadowaniu systemu znajduje się tylko w
+pamięci.</p>
+<p>Wyłączenie QEMU przez CTRL+A X może mieć niespodziewane rezultaty
+(emuluje odcięcie zasilania). Zawartości cache mogą nie zostać
+utrwalone</p>
+<p>Normalne wyłączenie komendą <code>poweroff</code></p>
+<p>tmux i screen pozwalają uruchomić wiele programów w jednej konsoli
+nie tracąc dostępu do ich standardowych wejść i wyjść</p>
+<p>w buildroot menuconfig jest wyszukiwarka pod <code>/</code> (wybiera
+się po wyświetlonym obok numerze)</p>
+<p>Po zmianach w buildroot trzeba rekompilować Jak zmienia się
+zależności bibliotek to może nie wystarczyć kompilowanie przez
+<code>make</code></p>
+<p>Można ręcznie zrekompilować daną bibliotekę
+<code>make ncurses-dirclean all</code></p>
+<p><code>make clean all</code> robi pełną kompilację na czysto
+(dłuuuugie)</p>
+<p>Można skonfigurować QEMU tak, żeby VM miała dostęp do katalogu z
+systemu plików gospodarza przez system plików 9P</p>
+<p>Konfiguracja kernela jest czyszczona przez <code>make clean</code>,
+<code>make linux-update-defconfig</code> zmienia domyślną konfigurację
+kernela i to rozwiązuje</p>
+<p>konfigurację można skopiować poza buildroota i wybrać ścieżkę pliku z
+konfiguracją z menu</p>
+<p>Żeby odtworzyć buildroota trzeba zachować konfigurację kernela i
+.config</p>
+<p><code>make linux-dirclean all</code> - rekompilacja samego
+kernela</p>
+<h2 id="dodanie-pliku-na-system-tworzony-przez-br">Dodanie pliku na
+system tworzony przez BR</h2>
+<p>nieelegancko można dodać coś do output/target i jeszcze raz wywołać
+<code>make</code> ale wtedy zostanie wyczyszczony przez
+<code>make clean</code></p>
+<p>do tego służą zewnętrzne katalogi z nakładkami system configuration
+&gt; root file system overlay directories zawartość katalogu jest
+nakładana na system plików nakładka nadpisuje oryginalną zawartość
+(można nadpisać konfiguracje)</p>
+<p>dobra dla skryptu w pythonie (ale nie dla programu w C)</p>
+<h2 id="zachowanie-stanu-br">Zachowanie stanu BR</h2>
+<p>bezpieczniej kopiować archiwa bo zachowają linki symboliczne i
+metadane plików</p>
+<h1 id="raspberry-pi">Raspberry PI</h1>
+<ul>
+<li>ma moc solidnego komputera ale używany go jako systemu
+wbudowanego</li>
+<li>będziemy wgrywać linuxa zbudowanego przez buildroot</li>
+<li>komunikacja prez UART albo przez sieć</li>
+</ul>
+<h2 id="bhp-na-laboratorium">BHP na laboratorium</h2>
+<ul>
+<li>można usmażyć płytkę źle podłączonymi kablami</li>
+<li>podłączanie kabli przy odłączonym zasilaczu</li>
+</ul>
+<p>Połączenie RX i TX na krzyż (odbiornik do nadajnika, nadajnik do
+odbiornika)</p>
+<h2 id="budowanie-linuxa-przez-buildroot">budowanie Linuxa przez
+buildroot</h2>
+<ul>
+<li>Predefiniowana konfiguracja dla raspberry pi</li>
+<li>Wynik w output/images
+<ul>
+<li>Image - jądro systemu</li>
+<li>.dtb - drzewo urządzeń - opis zasobów sprzętowych komputera</li>
+<li>rootfs - obraz głównego systemu plików</li>
+<li>sdcard.img - obraz binarny zawartości karty SD</li>
+</ul></li>
+</ul>
+<p>Obraz karty sd można wgrać na raspberry przez <code>dd</code>
+<code>dd</code> należy używać <strong>ostrożnie</strong></p>
+<p>Build jest zoptymalizzowany, można powiększyć partycję i rozszerzyć
+system plików <code>resize2fs</code></p>
+<p>Na labach nie wyjmujemy karty SD żeby oszczędzać gniazda</p>
+<p>W systemach przemysłowych ładuje się bootloader przed właściwym
+systemem i jest jakaś możliwość wybrania co będzie ładowane</p>
+<h2 id="obsługa-gpio">Obsługa GPIO</h2>
+<ul>
+<li>sysfs
+<ul>
+<li>pisanie wartości do plików</li>
+<li>korzystając z nich w programie, przed odczytem trzeba przewijać plik
+do początku</li>
+<li>przez poll można uśpić proces do pojawienia się przerwania</li>
+<li>jest uważany za przestarzały ale dalej szeroko wykorzystywany</li>
+</ul></li>
+<li>nowa metoda
+<ul>
+<li>biblioteka periphery</li>
+</ul></li>
+</ul>
+<h2 id="obsługa-spi">Obsługa SPI</h2>
+<ul>
+<li>jest link na prezentacji</li>
+<li>nie można przez read ani wrtie bo odpowiedź od urządzenia slave
+przychodzi od razu po odebraniu danych</li>
+</ul>
+<p>PWM też można obsłużyć przez sysfs albo bibliotekę periphery</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie-cd-2024-02-26">Wprowadzenie cd
+(2024-02-26)</a>
+<ul>
+<li><a href="#możliwości-qemu">Możliwości QEMU</a></li>
+<li><a href="#dodanie-pliku-na-system-tworzony-przez-br">Dodanie pliku
+na system tworzony przez BR</a></li>
+<li><a href="#zachowanie-stanu-br">Zachowanie stanu BR</a></li>
+</ul></li>
+<li><a href="#raspberry-pi">Raspberry PI</a>
+<ul>
+<li><a href="#bhp-na-laboratorium">BHP na laboratorium</a></li>
+<li><a href="#budowanie-linuxa-przez-buildroot">budowanie Linuxa przez
+buildroot</a></li>
+<li><a href="#obsługa-gpio">Obsługa GPIO</a></li>
+<li><a href="#obsługa-spi">Obsługa SPI</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-06</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-05.html">Poprzedni: wyklad-05.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-07.html">Następny: wyklad-07.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="uml-2024-03-25">UML (2024-03-25)</h1>
+<p>UML jest językiem specyfikacji, projektowania i dokumentowania
+systemów IT. UML nie jest metodyką, narzędziem modelowania, językiem
+programowania. Nie trzeba znać całości UMLa, wystarczy mały podzbiór.
+Nie należy modelować wszystkiego, a tylko istotne fragmenty systemu Im
+bardziej szczegółowy diagram tym krócej powinien żyć</p>
+<p>Narzędzia takie jak draw.io robią tylko rysunki, nie ma żadnej
+weryfikacji semantyki</p>
+<p>Enterprise Architect Papyrus - open source</p>
+<h2 id="diagramy-uml">Diagramy UML</h2>
+<ul>
+<li>Opis struktury
+<ul>
+<li>klas</li>
+<li>pakietów</li>
+<li>struktury złożonej</li>
+<li>komponentów</li>
+<li>wdrożenia</li>
+</ul></li>
+<li>Opis zachowania
+<ul>
+<li>przypadki użycia</li>
+<li>maszyna stanowa</li>
+<li>czynności</li>
+<li>sekwencji</li>
+<li>komunikacji</li>
+<li>przeglądu interakcji</li>
+<li>czasowy</li>
+</ul></li>
+</ul>
+<h1 id="cykl-wytwarzania-oprogramowania">Cykl wytwarzania
+oprogramowania</h1>
+<ul>
+<li>Zebranie wymagań</li>
+<li>Analiza i projektowanie
+<ul>
+<li>wybór technologii</li>
+</ul></li>
+<li>Implementacja
+<ul>
+<li>może się okazać, że projekt trzeba zmienić</li>
+</ul></li>
+<li>Wdrożenie
+<ul>
+<li>w trakcie można odkryć bugi, trzeba wrócić do implementacji</li>
+</ul></li>
+<li>Utrzymanie
+<ul>
+<li>zajmuje najwięcej czasu</li>
+<li>w trakcie mogą pojawić się nowe wymagania</li>
+</ul></li>
+<li>Koniec życia / wycofanie
+<ul>
+<li>może się zdarzyć</li>
+<li>raczej żyją dłużej niż pierwotnie się zakładało</li>
+</ul></li>
+</ul>
+<h2 id="wymagania">Wymagania</h2>
+<ul>
+<li>Sformułowana potrzeba cechy produktu / usługi (lub sposobu
+działania)</li>
+<li>Skąd
+<ul>
+<li>wewnętrzne - analiza arynku, poprzednich wersji, strategia</li>
+<li>zewnętrzne - dostarczone w całości przez klienta (przetargi)</li>
+<li>mieszane - ogólna potrzeba klienta jest uszczegóławiana w ramach
+usługi</li>
+</ul></li>
+<li>Klasyczny podział
+<ul>
+<li>wymagania funkcjonalne - co ma robić</li>
+<li>wymagania niefunkcjonalne - jak ma robić (wszystko inne - wydajność,
+niezawodność, jakość)</li>
+</ul></li>
+</ul>
+<h3 id="wymagania-do-wymagań">Wymagania do wymagań</h3>
+<ul>
+<li>Bez dobrych wymagań nie da się zrealizować projektu</li>
+<li>Problem - programiści często nie znają dziedziny, dla której system
+tworzą</li>
+<li>Poświęcenie czasu na dokładne zebranie wymagań może być kosztowne
+<ul>
+<li>wg. metodyki agile należy prototypować i zbierać szybki
+feedback</li>
+</ul></li>
+<li>Inżynier musi umieć ocenić i wymagać dobrych wymagań</li>
+</ul>
+<h3 id="dobre-wymaganie">Dobre wymaganie</h3>
+<ul>
+<li>Jasne - bez lania wody
+<ul>
+<li>sformalizowany / uproszczony język</li>
+<li>ustandaryzowane konstrukcje gramatyczne</li>
+</ul></li>
+<li>Kompletne - wszystkie infromacje potrzebne do zrozumienia i
+sprawdzenia wymagania są w nim zawarte
+<ul>
+<li>złe - system ma być szybki</li>
+<li>lepsze - system ma obsłużyć do 1000 zapytań HTTP na sekundę</li>
+</ul></li>
+<li>Zgodne - nie może być sprzeczne z innymi
+<ul>
+<li>zawsze trzeba to wyjaśnić, rozwiązać</li>
+<li>nie może być sprzeczności z dokumentami zewnętrznymi
+(przepisami)</li>
+</ul></li>
+<li>Spójne - w opisie systemu nie powinno być braków
+<ul>
+<li>nie powinno być też nachodzących na siebie wymagań</li>
+<li>nie ma pola do interpretacji</li>
+<li>jedno wymaganie odnosi się do jednej i tylko jednej sprawy</li>
+</ul></li>
+<li>Atomowe - niepodzielne
+<ul>
+<li>ciężko zweryfikować coś co ma w sobie “i” / “lub”</li>
+<li>złe - system będzie wspierał formatty JSON, XML</li>
+<li>lepiej - system pozwoli na zapis danych w formacie JSON, system
+pozwoli na zapis danych w formacie XML</li>
+<li>może prowadzić do eksplozji wykładniczej</li>
+</ul></li>
+<li>Jednoznaczne - wszsystkie pojęcia powinny być zrozumiałe dla każdego
+odbiorcy
+<ul>
+<li>skróty i żargon ograniczone, najlepiej do ustalonego słownika
+pojęć</li>
+</ul></li>
+<li>Weryfikowalne - zrealizowanie wymagania powinno dać
+się jednoznacznie i możliwie obiektywnie ocenić
+<ul>
+<li>najlepiej jeśli wymaganie jest testowalne</li>
+<li>testy akceptacyjne - uzgodnione z klientem - idealna sytuacja</li>
+<li>metoda weryfikacji powinna być zdefiniowana razem z wymaganiem
+(test, analiza dokumentacji, niezależna inspekcja)</li>
+</ul></li>
+<li>Może mieć priorytet - w jakiej kolejności / czy musi być
+zrealizowane
+<ul>
+<li>must / should / could</li>
+<li>dla klienta to jest zawsze must</li>
+</ul></li>
+<li>Może mieć uzasadnienie - przydatne jeśli my je tworzymy</li>
+<li>Może mieć możliwość śledzenia - posiada powiązanie z wymaganiami
+wyższego rzędu / standardami
+<ul>
+<li>np. wymagania o obsługiwanej liczbie zapytań na sekundę bieże się ze
+spodziewanej liczby użytkowników</li>
+</ul></li>
+</ul>
+<h3 id="zbieranie-wymagań-analiza-wymagań">Zbieranie wymagań / analiza
+wymagań</h3>
+<ul>
+<li>Nie należy traktować pobieżnie</li>
+<li>Kluczowa faza dla ustalenia celu projektu i zdefiniowania co
+zadowoli klienta</li>
+<li>Dobra analiza może wymagać zestawienia sprawnego kanału komunikacji
+od klienta do technicznych</li>
+<li>Zebranie wymagań to pierwszy krok</li>
+</ul>
+<h2 id="model-wodospadowy-waterfall">Model wodospadowy (waterfall)</h2>
+<ul>
+<li>Etapy następują po kolei</li>
+<li>Mogą na siebie nachodzić</li>
+<li>Etapy
+<ul>
+<li>analiza wymagań -&gt; specyfikacja</li>
+<li>projektowanie -&gt; dokumentacja</li>
+<li>implementacja -&gt; oprogramowanie</li>
+<li>weryfikacja</li>
+<li>utrzymanie</li>
+</ul></li>
+<li>Dzieli proces na łatwe do zrozumienia i rozdzielenia etapy</li>
+<li>Nie działa - otwarta pętla sterowania, nie ma sprzężenia
+zwrotnego</li>
+<li>Jest domyślnym sposobem postępowania przy kontraktach o ustalonej
+cenie
+<ul>
+<li>wszystkie zamówienia publiczne tak działają</li>
+<li>może działać przy dużym doświadczeniu wytwórcy</li>
+</ul></li>
+<li>Często występuje w formach zmodyfikowanych</li>
+</ul>
+<h2 id="metodyki-zwinne-agile">Metodyki zwinne (Agile)</h2>
+<ul>
+<li>Krótkie cykle od wymagań do wdrożenia
+<ul>
+<li>cykle liczone w dniach</li>
+</ul></li>
+<li>Interakcja z klientem na każdym etapie</li>
+<li>Oprogramowanie jest non-stop gotowe do wdrożenia
+<ul>
+<li>powiązane z CI/CD</li>
+</ul></li>
+<li>Hipotetycznie - zwinna reakcja na zmiany / elastyczność</li>
+<li>Wymaga elastyczności od klienta, też w kosztach</li>
+</ul>
+<h2 id="scrum">SCRUM</h2>
+<ul>
+<li>Krótkie cykle - sprint (2-4 tygodnie)</li>
+<li>Klient / reprezentant interesów klienta - Product Owner</li>
+<li>Opiekun i kapitan zespołu - Scrum Master
+<ul>
+<li>dba żeby zespół nie był przeciążony</li>
+</ul></li>
+<li>Codzienna obserwacja procesu</li>
+<li>Przebieg
+<ul>
+<li>sprint planning - zaangażowany product owner</li>
+<li>daily scrum - spotkanie, co się robiło wczoraj, co się będzie robiło
+dzisiaj, jakie są problemy</li>
+<li>work</li>
+<li>sprint retrospective</li>
+<li>sprint review - zaangażowany product owner</li>
+</ul></li>
+<li>Wycenianie zadań na abstrakcyjne jednostki zamiast za godziny
+<ul>
+<li>dyskusyjne</li>
+<li>może się sprawdzić jeśli jest jeden projekt i stabilne
+zatrudnienie</li>
+</ul></li>
+</ul>
+<p>Należy dostosowywać proces do potrzeb, a nie potrzeby do procesu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uml-2024-03-25">UML (2024-03-25)</a>
+<ul>
+<li><a href="#diagramy-uml">Diagramy UML</a></li>
+</ul></li>
+<li><a href="#cykl-wytwarzania-oprogramowania">Cykl wytwarzania
+oprogramowania</a>
+<ul>
+<li><a href="#wymagania">Wymagania</a>
+<ul>
+<li><a href="#wymagania-do-wymagań">Wymagania do wymagań</a></li>
+<li><a href="#dobre-wymaganie">Dobre wymaganie</a></li>
+<li><a href="#zbieranie-wymagań-analiza-wymagań">Zbieranie wymagań /
+analiza wymagań</a></li>
+</ul></li>
+<li><a href="#model-wodospadowy-waterfall">Model wodospadowy
+(waterfall)</a></li>
+<li><a href="#metodyki-zwinne-agile">Metodyki zwinne (Agile)</a></li>
+<li><a href="#scrum">SCRUM</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

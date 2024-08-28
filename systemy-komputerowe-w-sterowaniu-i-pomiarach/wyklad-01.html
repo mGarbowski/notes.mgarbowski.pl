@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-02.html">Poprzedni: kolokwium-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-02.html">Następny: wyklad-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Systemy komputerowe w sterowaniu i pomiarach</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="wstęp">Wstęp</h1>
+<h2 id="systemy-wbudowane">Systemy wbudowane</h2>
+<h3 id="możliwe-realizacje-systemów">Możliwe realizacje systemów</h3>
+<ul>
+<li><p>Mikrokontrolery lub mikrokomputery</p></li>
+<li><p>Rozwiązania bez systemu operacyjnego (bare metal), z prostym
+systemem, z pełnym systemem operacyjnym</p></li>
+<li><p>UART - Universal Asynchronous Receiver Transmitter (port
+szeregowy)</p></li>
+<li><p>GPIO - General Purpose Input/Output</p></li>
+</ul>
+<h3 id="systemy-wbudowane-bez-os">Systemy wbudowane bez OS</h3>
+<ul>
+<li>Zalety
+<ul>
+<li>pełna kontrola nad zasobami sprzętowymi</li>
+<li>możliwość mocnej optymalizacji</li>
+<li>minimalizacja poboru mocy (np. sterowanie częstotliwością
+zegarów)</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>konieczność dogłębnej znajomości platformy</li>
+<li>uzależnienie od konkretnych podzespołów</li>
+<li>potrzeba implementowania podstawowych funkcji, które normalnie
+realizuje OS (odkrywanie koła na nowo)</li>
+</ul></li>
+</ul>
+<h3 id="systemy-wbudowane-pracujące-pod-kontrolą-os">Systemy Wbudowane
+pracujące pod kontrolą OS</h3>
+<ul>
+<li>System operacyjny oferuje warstwę abstrakcji sprzętu (HAL),
+pozwalającą znacznie uniezależnić się od konkretnej platformy
+sprzetowej</li>
+<li>System operacyjny oferuje zarządzanie zasobami systemu wbudowanego
+<ul>
+<li>pamięć</li>
+<li>czas procesora (wielozadaniowość)</li>
+<li>obsługa przerwań</li>
+<li>system plików</li>
+<li>synchronizacja dostępu do urządzeń IO</li>
+<li>komunikacja między procesami</li>
+<li>mechanizmy ochrony - nie zawsze</li>
+<li>obsługa standardów komunikacyjnych (Internet, Bluetooth, itp.)</li>
+</ul></li>
+</ul>
+<h2 id="platformy">Platformy</h2>
+<h3 id="dobre-platformy-do-eksperymentów">Dobre platformy do
+eksperymentów</h3>
+<ul>
+<li>Platformy dobrze współpracujące z otwartym oprogramowaniem
+<ul>
+<li>STM32</li>
+<li>ESP32</li>
+</ul></li>
+<li>Możliwość korzystania z systemów operacyjnych</li>
+<li>Język MicroPython - dobry do szybkiego prototypowania ale
+ograniczona możliwość pracy w czasie rzeczywistym</li>
+<li>Na bardziej złożonych systemach pójdzie Linux</li>
+</ul>
+<h3 id="linux">Linux</h3>
+<ul>
+<li>Używany na serwerach, PC i systemach wbudowanych</li>
+<li>Otwarty kod źródłowy</li>
+<li>Dużo otwartego oprogramowania</li>
+<li>elixir.bootlin.com - źródła wygodne do przeglądania</li>
+<li>zgodny ze standardem POSIX (w miarę)</li>
+</ul>
+<p>Dalej produkuje się i dobrze się sprzedają platformy o “słabych”
+parametrach ze względu na oszczędność energii (szybki procesor i duża
+pamięć kosztują)</p>
+<h3 id="ograniczenia-typowych-dystrybucji">Ograniczenia typowych
+dystrybucji</h3>
+<ul>
+<li>Duże wymagania co do pamięci i dysku (pamięci nieulotnej)</li>
+<li>Wykorzystanie pliku wymiany do wirtualnego powiększenia pamięci
+(zabójcze dla pamięci FLASH)</li>
+<li>Uzależnienie od GUI</li>
+<li>Ograniczona możliwość pracy w czasie rzeczywistym
+<ul>
+<li>w systemie wielozadaniowym procesy konkurują o czas procesroa</li>
+<li>w systemie czasu rzeczywistego należałoby ograniczyć liczbę zadań do
+minimum</li>
+<li>może być konieczne ograniczenie korzystania z urządzeń generujących
+przerwania o długim czasie obsługi</li>
+<li>rozwiązaniem jest ograniczenie Linuxa do minimalistycznej
+wersji</li>
+</ul></li>
+</ul>
+<h3
+id="środowiska-do-kompilacji-linuxa-dla-systemów-wbudowanych">Środowiska
+do kompilacji Linuxa dla systemów wbudowanych</h3>
+<p>Środowiska automatycznie dbają o zapewnienie właściwego kompilatora
+skrośnego, bibliotek i spójny dobór opcji</p>
+<ul>
+<li>OpenEmbedded</li>
+<li>Yocto</li>
+<li>Buildroot</li>
+<li>OpenWRT</li>
+</ul>
+<h2 id="buildroot">Buildroot</h2>
+<ul>
+<li>do małych i średnich systemów wbudowanych</li>
+<li>raz kompiluje się obraz i oddaje klientowi, który nie będzie
+wprowadzał zmian</li>
+<li>wygodna instrukcja w jednej stronie html</li>
+<li>dobre szkolenie od bootlin</li>
+</ul>
+<h3 id="zwykły-system-plików-vs-ramdysk-startowy">Zwykły system plików
+vs ramdysk startowy</h3>
+<ul>
+<li>ramdysk
+<ul>
+<li>karta pamięci potrzebna tylko przy starcie systemu</li>
+<li>z karty będzie załadowane jądro i system plików</li>
+<li>kartę można potem sformatować itp.</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wstęp">Wstęp</a>
+<ul>
+<li><a href="#systemy-wbudowane">Systemy wbudowane</a>
+<ul>
+<li><a href="#możliwe-realizacje-systemów">Możliwe realizacje
+systemów</a></li>
+<li><a href="#systemy-wbudowane-bez-os">Systemy wbudowane bez
+OS</a></li>
+<li><a href="#systemy-wbudowane-pracujące-pod-kontrolą-os">Systemy
+Wbudowane pracujące pod kontrolą OS</a></li>
+</ul></li>
+<li><a href="#platformy">Platformy</a>
+<ul>
+<li><a href="#dobre-platformy-do-eksperymentów">Dobre platformy do
+eksperymentów</a></li>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#ograniczenia-typowych-dystrybucji">Ograniczenia typowych
+dystrybucji</a></li>
+<li><a href="#środowiska-do-kompilacji-linuxa-dla-systemów-wbudowanych">Środowiska
+do kompilacji Linuxa dla systemów wbudowanych</a></li>
+</ul></li>
+<li><a href="#buildroot">Buildroot</a>
+<ul>
+<li><a href="#zwykły-system-plików-vs-ramdysk-startowy">Zwykły system
+plików vs ramdysk startowy</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

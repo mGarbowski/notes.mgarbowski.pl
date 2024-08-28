@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01.html">Poprzedni: wyklad-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuka wytwarzania oprogramowania</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
+            <h1 id="warsztat-inżyniera-oprogramowania-2024-02-26">Warsztat inżyniera
+oprogramowania (2024-02-26)</h1>
+<ul>
+<li>Będzie swobodne przerzucanie między grupami z labów</li>
+<li>Zapisy na teams</li>
+<li>Wykłady są nagrywane</li>
+</ul>
+<h2 id="standardy-kodowania">Standardy kodowania</h2>
+<ul>
+<li>Standard kodowania to też narzędzie</li>
+<li>Cel: usystematyzowanie procesu wytwarzania kodu i samego kodu</li>
+<li>Ujednolicenie przekłada się na lepszą utrzymywalność kodu i
+łatwiejszą pracę w zespole
+<ul>
+<li>Utrzymywalność - dobre oprogramowanie dzisiaj będzie też łatwo
+dostarczyć jutro (na inny system, z innymi wymaganiami itd.)</li>
+</ul></li>
+<li>Zbiór reguł ma pomagać osiągnąć zakładaną jakość</li>
+<li>Conventions / standards / style - stosowane zamiennie</li>
+<li>Standard to coś więcej niż głębokość wcięć</li>
+<li>Dojrzałość to stosowanie obowiązującego standardu, ważny jest
+konsensus</li>
+</ul>
+<h3 id="styl">Styl</h3>
+<ul>
+<li>Wcięcia, białe znaki, klamerki, białe linie itd.</li>
+<li>Czasami są standardy opracowane przez twórców języków (PEP8),
+rozsądnie jest je stosować</li>
+<li>Styl nie musi być składnikiem standardu</li>
+</ul>
+<h3 id="nazewnictwo">Nazewnictwo</h3>
+<ul>
+<li>Notacja i semantyka</li>
+<li>Kod ma być czytelny i zrozumiały dla programisty</li>
+<li>Dobre nazywanie nie jest łatwe</li>
+<li>Zmienna to rzeczownik</li>
+<li>Funkcja to czasownik</li>
+<li><strong>zawsze</strong> po angielsku</li>
+</ul>
+<h3 id="inne">Inne</h3>
+<ul>
+<li>Komentowanie
+<ul>
+<li>Jak chcę napisać komentarz to może jednak da się ten kod napisać
+lepiej</li>
+<li>Publiczne API, biblioteki należy komentować (kiedy wytwarzana
+biblioteka jest produktem)</li>
+</ul></li>
+<li>Długość funkcji, liczba parametrów</li>
+<li>Wykorzystywane paradygmaty
+<ul>
+<li>bardziej funkcyjnie czy obiektowo</li>
+</ul></li>
+<li>Reguły bezpieczeństwa
+<ul>
+<li>np. bez gołych pointerów</li>
+<li>np. wszystkie parametry funkcji mają być <code>const</code></li>
+</ul></li>
+<li>Reguły wynikające ze specyfiki przemysłu
+<ul>
+<li>np. bez dynamicznej alokacji</li>
+</ul></li>
+</ul>
+<h3 id="podsumowanie">Podsumowanie</h3>
+<ul>
+<li>Nie ma jedynego poprawnego standardu</li>
+<li>Powinien być osiągany przez konsensus w zespole</li>
+<li>Przestarzałe standardy lepiej zmieniać ewolucyjnie</li>
+<li>Istnieją formalne standardy przemysłowe (np. MISRA C dla branży
+automotive)</li>
+<li>Istnieją de-facto standardy (DRY, SOLID, itd.)</li>
+</ul>
+<h2 id="solid">SOLID</h2>
+<ul>
+<li>Reguły dobrego projektowania kodu obiektowego</li>
+<li>To nie są sztywne reguły, trzeba wyczuć jak daleko je stosować</li>
+</ul>
+<h3 id="single-responsibility-principle">Single Responsibility
+Principle</h3>
+<ul>
+<li>Klasa / funkcja powinna robić tylko jedną rzecz</li>
+<li>Stosuje się nie tylko do OO</li>
+<li>Klasę powinno się zmieniać tylko z jednego powodu
+(funkcjonalności)</li>
+<li>Jeśli opisuję klasę i używam “i” to coś może być nie tak</li>
+</ul>
+<h3 id="open-closed-principle">Open-Closed principle</h3>
+<ul>
+<li>Moduły powinny być otwarte na rozszerzenie, ale zamknięte na
+modyfikację</li>
+<li>Jeśli chcę dodać nowe rzeczy to klasa powinna to umożliwiać bez
+modyfikowania jej kodu</li>
+<li>Nie trzeba modyfikować kodu modułu żeby użyć go w inny sposób</li>
+<li>Zmiana innego modułu nie powinna wpływać na mój</li>
+<li>np. zapis do strumienia (bardziej ogólne) zamiast zapisu do
+pliku</li>
+</ul>
+<h3 id="liskov-substitution-principle">Liskov Substitution
+Principle</h3>
+<p>Funkcje, które używają referencji do klas bazowych, muszą być w
+stanie używać również obiektów klas dziedziczących po klasach bazowych,
+bez dokładnej znajomości tych obiektów.</p>
+<ul>
+<li>Każdy obiekt pochodny powinien być dobrym zamiennikiem obiektu
+bazowego</li>
+<li>Każda klasa stanowi pewien kontrakt, LSP jest tu kluczowe</li>
+<li>Czy <code>Square</code> może dziedziczyć po <code>Rectangle</code>
+<ul>
+<li>nadpisanie <code>setWidth</code> i <code>setHeight</code> może
+złamać kontrakt tam, gdzie jest używana klasa bazowa</li>
+</ul></li>
+<li>Być może lepiej nie robić w ogóle <code>set</code> i zrobić
+wszystkie obiekty niemutowalnymi</li>
+</ul>
+<h3 id="interface-segregation-principle">Interface Segregation
+Principle</h3>
+<ul>
+<li>Wiele dedykowanych interfejsów jest lepsze niż jeden ogólny</li>
+<li>Klient nie powinien być zmuszany by zależał od interfejsu, którego
+nie potrzebuje</li>
+<li>Niepotrzebne zależności wydłużają czasy budowania/kompilacji</li>
+<li>Jeśli klasa wykonuje zapis to może też wykonywać odczyt
+<ul>
+<li>Może łamać SRP, ale te operacje i tak są ze sobą mocno
+powiązane</li>
+<li>Można implementować interfejsy <code>Serializer</code> i
+<code>Deserializer</code></li>
+<li>Kod wykorzystujący tą klasę może wybrać jeden z nich</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">auto</span> area<span class="op">(</span><span class="bu">std::</span>shared_ptr<span class="op">&lt;</span>Rectangle<span class="op">&gt;</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r<span class="op">-&gt;</span>width<span class="op">()</span> <span class="op">*</span> r<span class="op">-&gt;</span>height<span class="op">();</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Zależy i od <code>Rectangle</code> i <code>shared_ptr</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">auto</span> area<span class="op">(</span><span class="at">const</span> Rectangle <span class="op">&amp;</span>r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r<span class="op">.</span>width<span class="op">()</span> <span class="op">*</span> r<span class="op">.</span>height<span class="op">();</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Jest lepsze bo zadziała dla każdego prostokąta (zależy tylko od 1
+interfejsu)</p>
+<p>Przykłady na kolosa zazwyczaj łamią wszystkie reguły</p>
+<h3 id="dependency-inversion">Dependency inversion</h3>
+<ul>
+<li>Abstrakcje nie powinny zależeć od konkretów tylko na odwrót</li>
+<li>Obiekty wysokiego poziomu i niskiego poziomu nie powinny zależeć od
+siebie nawzajem tylko od wspólnej abstrakcji</li>
+<li>Klasa, która reprezentuje koło nie powinna być rekompilowana po
+zaktualizowaniu sterowników GPU</li>
+<li>Jak jest problem to pewnie można wstawić warstwę abstrakcji</li>
+</ul>
+<h2 id="clean-code">Clean Code</h2>
+<p>Książka z 2009, z niej pochodzą zasady SOLID. Clean Coder też
+dobre.</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#warsztat-inżyniera-oprogramowania-2024-02-26">Warsztat
+inżyniera oprogramowania (2024-02-26)</a>
+<ul>
+<li><a href="#standardy-kodowania">Standardy kodowania</a>
+<ul>
+<li><a href="#styl">Styl</a></li>
+<li><a href="#nazewnictwo">Nazewnictwo</a></li>
+<li><a href="#inne">Inne</a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul></li>
+<li><a href="#solid">SOLID</a>
+<ul>
+<li><a href="#single-responsibility-principle">Single Responsibility
+Principle</a></li>
+<li><a href="#open-closed-principle">Open-Closed principle</a></li>
+<li><a href="#liskov-substitution-principle">Liskov Substitution
+Principle</a></li>
+<li><a href="#interface-segregation-principle">Interface Segregation
+Principle</a></li>
+<li><a href="#dependency-inversion">Dependency inversion</a></li>
+</ul></li>
+<li><a href="#clean-code">Clean Code</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>
