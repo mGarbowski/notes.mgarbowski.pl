@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-logika-biznesowa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-cassandra.html">Poprzedni: 06-cassandra.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-spring.html">Następny: 08-spring.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="logika-biznesowa">Logika biznesowa</h1>
+<h2 id="definicje">Definicje</h2>
+<ul>
+<li>Reguły biznesowe definiują pojęcia i polityki niezbędne dla
+działania biznesu</li>
+<li>Proces biznesowy to seria powtarzalnych kroków wykonywanych prezz
+organizację w celu uzyskania pożądanego efektu (celu biznesowego)</li>
+<li>Logika biznesowa to część aplikacji odpowiedzialna za realizację
+przyjętych reguł biznesowych</li>
+</ul>
+<h3 id="poprawna-implementacja-logiki-biznesowej">Poprawna implementacja
+logiki biznesowej</h3>
+<ul>
+<li>Czysty kod i czysta architektura</li>
+<li>Niskie sprzężenie (low coupling)
+<ul>
+<li>minimalne zależności między modułami</li>
+</ul></li>
+<li>Wysoka spójność (high cohesion)
+<ul>
+<li>zasada pojedynczej odpowiedzialności</li>
+</ul></li>
+</ul>
+<h3 id="interfejs-api">Interfejs / API</h3>
+<ul>
+<li>Abstrakcja definiująca kontrakt między współpracującymi elementami
+<ul>
+<li>obiekty, komponenty, moduły, usługi, mikroserwisy</li>
+</ul></li>
+<li>Określa możliwe sposoby interakcji</li>
+<li>Ukrywa szczegóły implementacyjne</li>
+</ul>
+<h3 id="wzorzec-projektowy">Wzorzec projektowy</h3>
+<ul>
+<li>Szablon najlepszego rozwiązania
+<ul>
+<li>odkrywany na drodze doświadczenia</li>
+</ul></li>
+</ul>
+<h3 id="inwersja-kontroli-ioc">Inwersja kontroli (IoC)</h3>
+<ul>
+<li>Odwrócenie sterowania wykonania programu</li>
+<li>Przeniesienie na zewnątrz odpowiedzialności za kontrolę
+wykonania</li>
+<li>Programista dostarcza kod, który będzie wykonany przez
+framework</li>
+</ul>
+<h3 id="wstrzykiwanie-zależności">Wstrzykiwanie zależności</h3>
+<ul>
+<li>Tworzenie, konfigurowanie i podawanie zależności <em>z
+zewnątrz</em></li>
+<li>Zmniejsza sprzężenie między elementami aplikacji
+<ul>
+<li>swoboda wymiany implementacji</li>
+<li>łatwiejsze testowanie</li>
+</ul></li>
+<li>Przykładowa realizacja
+<ul>
+<li>ręczne podawanie zależności przez argumenty konstruktora</li>
+<li>wzorce projektowe, np. factory method</li>
+<li>kontener zarządzający cyklem życia komponentów (Spring)</li>
+</ul></li>
+</ul>
+<h3 id="programowanie-aspektowe">Programowanie aspektowe</h3>
+<ul>
+<li>Uzupełnia paradygmat programowania obiektowego</li>
+<li>Umożliwia oddzielenie logiki biznesowej od dodatkowych zadań
+pobocznych
+<ul>
+<li>transakcje, logowanie, bezpieczeństwo</li>
+</ul></li>
+<li>Często wykorzystuje się wzorzec Proxy</li>
+</ul>
+<h3 id="programowanie-przez-zdarzenia">Programowanie przez
+zdarzenia</h3>
+<ul>
+<li>Umożliwia rozluźnienie powiązań
+<ul>
+<li>komponenty komunikują się, chociaż niewiele o sobie wiedzą</li>
+</ul></li>
+<li>Oparte o wzorzec Observer</li>
+</ul>
+<h2 id="architektura">Architektura</h2>
+<ul>
+<li>Definiuje najważniejsze komponenty, zakres odpowiedzialności,
+wzajemne relacje</li>
+<li>Stanowi szablon rozwiązania</li>
+<li>Może być definiowana na różnym poziomie
+<ul>
+<li>aplikacja</li>
+<li>system</li>
+</ul></li>
+</ul>
+<h3 id="monolit">Monolit</h3>
+<ul>
+<li>Aplikacja rozwijana, testowana i wdrażana jako całość
+<ul>
+<li>jeden artefakt</li>
+</ul></li>
+<li>Zalety (do pewnego rozmiaru projektu)
+<ul>
+<li>łatwa nowych funkcjonalności biznesowych i pobocznych</li>
+<li>mała złożoność infrastruktury</li>
+</ul></li>
+<li>Wyzwania (od pewnego rozmiaru projektu)
+<ul>
+<li>trudność utrzymania i rozwoju ze względu na rosnącą złożoność,
+zakres funkcjonalności i rozmiar aplikacji</li>
+<li>ograniczona skalowalność</li>
+<li>przywiązanie do określonych rozwiązań i technologii</li>
+</ul></li>
+</ul>
+<h3 id="modularny-monolit">Modularny monolit</h3>
+<ul>
+<li>Aplikacja rozwijana, testowana i wdrażana jako zbiór modułów
+<ul>
+<li>niezależne od siebei</li>
+<li>dobrze zdefiniowane odpowiedzialności</li>
+<li>publiczny interfejs (kontrakt)</li>
+<li>mogą być reużywane w innych aplikacjach</li>
+</ul></li>
+</ul>
+<h3 id="architektura-zorientowana-na-usługi-soa">Architektura
+zorientowana na usługi (SOA)</h3>
+<ul>
+<li>Rozwiązanie w postaci rozproszonych usług / komponentów
+<ul>
+<li>dobrze zdefiniowana odpowiedzialność</li>
+<li>publiczny interfejs (kontrakt)</li>
+<li>mogą współdzielić dane</li>
+<li>integrowane z wykorzystaniem szyny (ESB) i standardowych
+protokołów</li>
+</ul></li>
+</ul>
+<h3 id="mikroserwisy">Mikroserwisy</h3>
+<ul>
+<li>Rozwiązanie w postaci rozproszonych mikro usług (mini aplikacji)
+<ul>
+<li>niezależne od siebie</li>
+<li>dobrze zdefiniowana odpowiedzialność</li>
+<li>publiczny interfejs (kontrakt)</li>
+<li>nie współdzielą danych</li>
+<li>komunikują się wyłącznie przez publiczne API</li>
+</ul></li>
+</ul>
+<h3 id="czysta-architektura">Czysta architektura</h3>
+<ul>
+<li>Centralnym elementem aplikacji jest logika biznesowa
+zaimplementowana w sposób niezależny od bibliotek, frameworków i użytej
+infrastruktury</li>
+<li>Wokół logiki biznesowej tworzone są kolejne, bardziej
+wysokopoziomowe warstwy
+<ul>
+<li>adaptery umożliwiające komunikację ze światem zewnętrznym</li>
+</ul></li>
+</ul>
+<h3 id="command-query-separation">Command Query Separation</h3>
+<ul>
+<li>Każda metoda powinna być zaklasyfikowana do jednej z grup
+<ul>
+<li>command - zmienia stan aplikacji, nic nie zwraca</li>
+<li>query - coś zwraca, nie zmienia stanu aplikacji</li>
+</ul></li>
+</ul>
+<h3 id="command-query-responsibility-segregation">Command Query
+Responsibility Segregation</h3>
+<ul>
+<li>Idea CQS przeniesiona na poziom klas / komponentów / całego
+systemu</li>
+<li>Command
+<ul>
+<li>obiekt reprezentujący intencję użytkownika systemu</li>
+<li><code>UpdateItemQuantityCommand</code></li>
+</ul></li>
+<li>Command Bus
+<ul>
+<li>kolejka dla przychodzących komend</li>
+<li>router przekazująca zadania do odpowiedniego handlera</li>
+</ul></li>
+<li>Command Handler
+<ul>
+<li>waliduje otrzymane komendy</li>
+<li>tworzy lub zmienia stan obiektu domenowego</li>
+<li>utrwala zmiany za pomocą repozytorium (write database)</li>
+<li>opcjonalnie przekazuje zdarzenia na Event Bus</li>
+</ul></li>
+<li>Domain objects, Aggregates
+<ul>
+<li>model domenowy i logika biznesowa</li>
+<li>zmiany na obiektach tego typu generują zdarzenia</li>
+</ul></li>
+<li>Event
+<ul>
+<li>obiekt reprezentujący zmiany, które zaszły w domenie</li>
+<li><code>ItemQuantityUpdatedEvent</code></li>
+</ul></li>
+<li>Event Bus
+<ul>
+<li>kolejka dla generowanych zdarzeń</li>
+<li>router przekazujący zdarzenia do odpowiedniego handlera</li>
+</ul></li>
+<li>Event Handler
+<ul>
+<li>utrwala zmiany stanu w bazie danych do odczytu (read database)</li>
+</ul></li>
+<li>Read Database Abstraction
+<ul>
+<li>abstrakcja umożliwiająca odczyt danych (stanu domeny)</li>
+</ul></li>
+</ul>
+<h3 id="event-sourcing">Event Sourcing</h3>
+<ul>
+<li>W CQRS zdarzenia są używane jako mechanizm synchronizacji dwóch baz
+danych
+<ul>
+<li>odczytu i zapisu</li>
+</ul></li>
+<li>Event Sourcing pozwala na odtworzenie aktualnego stanu aplikacji
+(obiektów domenowych) na podstawie zdarzeń składowanych w magazynie
+danych (Event Store)</li>
+</ul>
+<h3 id="wzorzec-saga-i-orkiestracja-logiki">Wzorzec Saga i orkiestracja
+logiki</h3>
+<ul>
+<li>Orkiestruje wykonanie transakcji przez jedne serwis, który wchodzi w
+interakcję z innymi serwisami</li>
+<li>Orkiestrator jako maszyna stanów</li>
+<li>Odpowiedzialny za rollback</li>
+<li>Komunikuje się z innymi serwisami za pośrednictwem kanałów brokera
+komunikatów</li>
+</ul>
+<h2 id="logika-zdalna">Logika zdalna</h2>
+<ul>
+<li>Logika dostępna przez sieć, realizowana w formie rozproszonego
+systmu</li>
+<li>Komunikacja może odbywać się n aróżne sposoby i z użyciem różnych
+protokołów
+<ul>
+<li>tekstowe i binarne</li>
+<li>synchroniczne i asynchroniczne</li>
+<li>oparta o zdarzenia, rpc, transferowanie stanu</li>
+</ul></li>
+</ul>
+<h3 id="usługi-sieciowe-web-services">Usługi sieciowe (web
+services)</h3>
+<ul>
+<li>Funkcjonalność dostępna przez sieć</li>
+<li>Zbiór standardów umożliwiających wyszukiwanie i wykorzystanie usług
+zdalnych</li>
+<li>Założenia
+<ul>
+<li>komunikacja w niejednorodnym środowisku</li>
+<li>niezależność od platformy sprzętowej, programowej,
+transportowej</li>
+<li>duża modularność i reużywalność</li>
+</ul></li>
+<li>Warstwa transportowa
+<ul>
+<li>HTTP/HTTPS</li>
+<li>FTP</li>
+<li>JMS</li>
+<li>email</li>
+<li>…</li>
+</ul></li>
+<li>Warstwa komunikacji
+<ul>
+<li>protokół SOAP</li>
+<li>dialekt XML</li>
+<li>definiuje sposób wymiany informacji między konsumentem i producentem
+usługi</li>
+</ul></li>
+<li>Kontrakt / dokumentacja
+<ul>
+<li>dokument WSDL</li>
+<li>dialekt XML</li>
+<li>opisuje usługę, dostępne operacje i sposób ich użycia</li>
+<li>nie ujawnia szczegółów implementacji</li>
+</ul></li>
+<li>Scenariusz użycia
+<ul>
+<li>dostawca publikuje dokument WSDL w ustalonym katalogu</li>
+<li>konsument pobiera WSDL</li>
+<li>konsument wysyła żądanie do serwera protokołem SOAP</li>
+<li>producent przetwarza żądanie i odsyła odpowiedź protokołem SOAP</li>
+</ul></li>
+<li>Dokument WSDL
+<ul>
+<li>kontrakt</li>
+<li>opis usług i informacje niezbędne do ich użycia</li>
+<li>parametry wejściowe, zwracane wyniki, wyjątki, sposób dostępu</li>
+<li>dokument XML</li>
+</ul></li>
+<li>Obsługa danych binarnych
+<ul>
+<li>obrazy, audio, video</li>
+<li>zakodowanie do postaci tekstowej (base64) w ciele wiadomości</li>
+<li>załącznik do wiadomości SOAP</li>
+</ul></li>
+</ul>
+<h4 id="kodowanie-base64">Kodowanie base64</h4>
+<ul>
+<li>Narzut na objętość danych</li>
+<li>Narzut na kodowanie i dekodowanie</li>
+<li>Rozsądne tylko dla stosunkowo małych załączników</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#logika-biznesowa" id="toc-logika-biznesowa">Logika
+biznesowa</a>
+<ul>
+<li><a href="#definicje" id="toc-definicje">Definicje</a>
+<ul>
+<li><a href="#poprawna-implementacja-logiki-biznesowej" id="toc-poprawna-implementacja-logiki-biznesowej">Poprawna implementacja
+logiki biznesowej</a></li>
+<li><a href="#interfejs-api" id="toc-interfejs-api">Interfejs /
+API</a></li>
+<li><a href="#wzorzec-projektowy" id="toc-wzorzec-projektowy">Wzorzec
+projektowy</a></li>
+<li><a href="#inwersja-kontroli-ioc" id="toc-inwersja-kontroli-ioc">Inwersja kontroli (IoC)</a></li>
+<li><a href="#wstrzykiwanie-zależności" id="toc-wstrzykiwanie-zależności">Wstrzykiwanie zależności</a></li>
+<li><a href="#programowanie-aspektowe" id="toc-programowanie-aspektowe">Programowanie aspektowe</a></li>
+<li><a href="#programowanie-przez-zdarzenia" id="toc-programowanie-przez-zdarzenia">Programowanie przez
+zdarzenia</a></li>
+</ul></li>
+<li><a href="#architektura" id="toc-architektura">Architektura</a>
+<ul>
+<li><a href="#monolit" id="toc-monolit">Monolit</a></li>
+<li><a href="#modularny-monolit" id="toc-modularny-monolit">Modularny
+monolit</a></li>
+<li><a href="#architektura-zorientowana-na-usługi-soa" id="toc-architektura-zorientowana-na-usługi-soa">Architektura
+zorientowana na usługi (SOA)</a></li>
+<li><a href="#mikroserwisy" id="toc-mikroserwisy">Mikroserwisy</a></li>
+<li><a href="#czysta-architektura" id="toc-czysta-architektura">Czysta
+architektura</a></li>
+<li><a href="#command-query-separation" id="toc-command-query-separation">Command Query Separation</a></li>
+<li><a href="#command-query-responsibility-segregation" id="toc-command-query-responsibility-segregation">Command Query
+Responsibility Segregation</a></li>
+<li><a href="#event-sourcing" id="toc-event-sourcing">Event
+Sourcing</a></li>
+<li><a href="#wzorzec-saga-i-orkiestracja-logiki" id="toc-wzorzec-saga-i-orkiestracja-logiki">Wzorzec Saga i orkiestracja
+logiki</a></li>
+</ul></li>
+<li><a href="#logika-zdalna" id="toc-logika-zdalna">Logika zdalna</a>
+<ul>
+<li><a href="#usługi-sieciowe-web-services" id="toc-usługi-sieciowe-web-services">Usługi sieciowe (web
+services)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-narzedzia-iac</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wstep.html">Poprzedni: 01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-architektura-oprogramowania.html">Następny: 03-architektura-oprogramowania.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="narzędzia-infrastructure-as-code">Narzędzia, Infrastructure as
+code</h1>
+<h2 id="zarządzanie-zadaniami">Zarządzanie zadaniami</h2>
+<ul>
+<li>Najważniejsze żeby były w jednym miejscu</li>
+<li>Narzędzie do kontrolowania pracowników
+<ul>
+<li>monitorowanie poświęconego czasu</li>
+<li>przydatne do planowania, szacowania czasu na przyszłość itp</li>
+</ul></li>
+</ul>
+<h3 id="narzędzia">Narzędzia</h3>
+<ul>
+<li>JIRA
+<ul>
+<li>de facto standard na rynku</li>
+<li>darmowa licencja do 10 użytkowników</li>
+<li>duży koszt komercyjnych licencji</li>
+</ul></li>
+<li>Asana</li>
+<li>Redmine</li>
+<li>Trello</li>
+</ul>
+<h2 id="zarządzanie-dokumentacją">Zarządzanie dokumentacją</h2>
+<ul>
+<li>Narzędzia
+<ul>
+<li>Confluence - zintegrowany z Jirą</li>
+<li>SharePoint</li>
+<li>MediaWiki - silnik wikipedii</li>
+<li>GitHub - moduł wiki</li>
+</ul></li>
+<li>Zależy od struktury organizacji</li>
+<li>Narzędzia są wtórne do projektu, dostosowujemy narzędzia do
+problemu</li>
+<li>Dokumentację pisze się kiedy ktoś każe to zrobić</li>
+<li>Dokumentacja przestaje być aktualna w momencie opublikowania</li>
+<li>Najlepszą dokumentacją kodu jest sam kod</li>
+<li>Dokumentowanie publicznego API jest bardzo istotne
+<ul>
+<li>dokumentowanie usługi</li>
+</ul></li>
+</ul>
+<h2 id="git">Git</h2>
+<ul>
+<li>Metody zarządzania branchami
+<ul>
+<li>feature branches</li>
+<li>trunk based development</li>
+<li>git flow</li>
+</ul></li>
+<li>Nie warto zabijać projektu przez narzucanie skomplikowanych reguł
+<ul>
+<li>dostosowujemy do problemu</li>
+<li>zależy od skali projektu</li>
+</ul></li>
+<li>Warto utrzymywać stan głównej gałęzi, który może wejść na produkcję
+<ul>
+<li>nie ważne co, kod na masterze nie może zabić produkcji</li>
+<li>można używać feature switches - ogranicza się liczbę branchy i
+upraszcza deployment</li>
+</ul></li>
+<li>Branch, który żyje długo będzie sprawiać problemy
+<ul>
+<li>szybko może się rozjechać z masterem</li>
+</ul></li>
+</ul>
+<h3 id="platformy">Platformy</h3>
+<ul>
+<li>GitHub</li>
+<li>GitLab</li>
+<li>Bitbucket</li>
+<li>Samodzielnie hostowane</li>
+</ul>
+<h3 id="gitflow">GitFlow</h3>
+<ul>
+<li>Main (master)
+<ul>
+<li>kod produkcyjny</li>
+</ul></li>
+<li>Develop
+<ul>
+<li>główna gałąź rozwojowa</li>
+<li>tu programiści wrzucają zmiany</li>
+</ul></li>
+<li>Hotfix
+<ul>
+<li>jak coś się posypie na produkcji</li>
+<li>wychodzi z mastera</li>
+<li>doraźna poprawka</li>
+<li>merge’owana do mastera i wdrożona</li>
+<li>musi być też zmerge’owane do develop - bardzo ważne</li>
+</ul></li>
+<li>Release
+<ul>
+<li>stabilny stan gałęzi develop</li>
+<li>już bez zmian funkcjonalnych, tylko bugfixy</li>
+<li>release candidate</li>
+<li>scalany do mastera i do develop</li>
+</ul></li>
+<li>Feature
+<ul>
+<li>nie wiemy kiedy wejdą na release</li>
+<li>wychodzą od develop</li>
+<li>kiedy jest gotowy to merge’ujemy do develop</li>
+</ul></li>
+<li>CI
+<ul>
+<li>master - wdrożenie na produkcję</li>
+<li>wszędzie - odpalenie testów</li>
+<li>develop - zbudowanie i wypchnięcie artefaktów</li>
+</ul></li>
+</ul>
+<h3 id="github-flow">GitHub Flow</h3>
+<ul>
+<li>Feature branches</li>
+<li>Pull requests
+<ul>
+<li>dyskusja i review</li>
+<li>kiedy jest ok to merge do mastera</li>
+</ul></li>
+<li>Wygodne do małych projektów
+<ul>
+<li>na projekt z PIS może być dobre</li>
+</ul></li>
+<li>Przy wejściu kodu na produkcję może się nie sprawdzać</li>
+</ul>
+<h3 id="integracja-jiry-z-gitem">Integracja Jiry z Gitem</h3>
+<ul>
+<li>Warto</li>
+<li>Commity są automatycznie linkowane z zadaniami
+<ul>
+<li>w commit message podaje się id zadania</li>
+</ul></li>
+</ul>
+<h2 id="cicd">CI/CD</h2>
+<ul>
+<li>Continuous - codebase ma być ciągle karmiony commitami
+<ul>
+<li>minimum raz dziennie</li>
+<li>commit nie oznacza działającego programu, nie musi być gotowego
+feature’a, nie musi się budować</li>
+<li>mniejszą porcję kodu łatwiej poddać review</li>
+</ul></li>
+<li>Deployment / Delievery
+<ul>
+<li>wszystko automatycznie oprócz wdrożenia (na kliknięcie)</li>
+<li>wszystko automatycznie</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>szybsze dostarczanie rzeczy na produkcję</li>
+<li>łatwiejsze testowanie</li>
+<li>łatwiejsze wycofywanie zmian (w teorii, nie jeśli są zmiany w bazie
+danych)</li>
+</ul></li>
+</ul>
+<h3 id="review">Review</h3>
+<ul>
+<li>Kiedy/jak robić review
+<ul>
+<li>zacząć od sprawdzania testów (zanim spojrzę na kod)</li>
+</ul></li>
+<li>Przynajmniej raz dziennie</li>
+<li>Jak kod się nie buduje to nie sprawdzam - nie zawsze dobre
+podejście</li>
+</ul>
+<h3 id="narzędzia-1">Narzędzia</h3>
+<ul>
+<li>Jenkins</li>
+<li>GitLab</li>
+<li>Bamboo - bardzo złe</li>
+</ul>
+<h2 id="artefakty">Artefakty</h2>
+<ul>
+<li>.jar, obraz dockera, .zip ze stroną</li>
+<li>Warto trzymać na własnych serwerach, serwisy narzucają
+ograniczenia</li>
+<li>Narzędzia
+<ul>
+<li>Nexus</li>
+<li>Artifactory</li>
+</ul></li>
+<li>Przechowuje wynik budowania kodu</li>
+<li>Stąd brana jest aplikacja do wdrożenia</li>
+<li>Trzyma historię wszystkich wydanych wersji</li>
+</ul>
+<h3 id="jenkins">Jenkins</h3>
+<ul>
+<li>Pipeline’y
+<ul>
+<li>zazwyczaj odpowiedzialność devopsa, a nie programisty</li>
+</ul></li>
+<li>na projekcie używamy stosu złozonego z oddzielnych narzędzi, ale np
+gitlab ma to zintegrowane na jednej platformie</li>
+</ul>
+<h2 id="infrastrucutre-as-a-code">Infrastrucutre as a Code</h2>
+<ul>
+<li>Nie chcemy sytuacji, gdzie jest tylko jedna osoba, która wie jak
+działa infrastruktura</li>
+<li>Nie chcemy oddzielnie konfigurować wielu serwerów</li>
+<li>Ciężko zrobić to dobrze</li>
+<li>Przyspiesza proces</li>
+<li>Zapewnia weryfikowalność
+<ul>
+<li>np. pull request z nową konfiguracją</li>
+</ul></li>
+<li>Bezpieczeństwo
+<ul>
+<li>zabezpiecza przed pomyłkami</li>
+</ul></li>
+<li>Możliwość śledzenia zmian</li>
+<li>Kod dokumentuje infrastrukturę</li>
+</ul>
+<h3 id="ansible">Ansible</h3>
+<ul>
+<li>Jest bezstanowy, do konfiguracji spoko
+<ul>
+<li>nie spoko do zarządzania zasobami</li>
+</ul></li>
+<li>Narzędzie do
+<ul>
+<li>zarządzania konfiguracją systemu operacyjnego</li>
+<li>wdrażania aplikacji</li>
+<li>automatyzacji zadań</li>
+</ul></li>
+</ul>
+<h3 id="terraform">Terraform</h3>
+<ul>
+<li>Zachowuje stan</li>
+<li>Nie sprawdza faktycznego stanu środowiska</li>
+<li>Nie można wtedy modyfikować stanu środowiska ręcznie, tylko przez
+terraform</li>
+</ul>
+<h2 id="orkiestrowanie-kontenerami">Orkiestrowanie kontenerami</h2>
+<h3 id="podejścia-do-wirtualizacji">Podejścia do wirtualizacji</h3>
+<ul>
+<li>Maszyny wirtualne
+<ul>
+<li>oddzielne emulowane serwery</li>
+<li>zajmuje dużo zasobów (oddzielne systemy operacyjne)</li>
+<li>maszyny są od siebie odseparowane (jeśli nie ma błędów w
+procesorze)</li>
+<li>hypervisor</li>
+</ul></li>
+<li>Docker
+<ul>
+<li>jeden system operacyjny</li>
+<li>może być na maszynie wirtualnej</li>
+<li>działa dobrze tylko na linuxie, wykorzystuje jego kernel</li>
+<li>nie ma pełnej wirtualizacji</li>
+<li>procesy odseparowane za pomocą namespace’ów z kernela linuxa</li>
+<li>cgroups do zarządzania zasobami (np. ograniczenie przydziału
+RAMu)</li>
+<li>obraz dockerowy daje zamrożony wycinek rzeczywistości - konkretna
+wersja debiana, konkretna wersja javy</li>
+<li>obraz udostępnia się w świat i wszędzie można go identycznie
+odpalić</li>
+<li>w kontenerze jest tylko to czego potrzebuję</li>
+<li>nie muszę instalować niczego żeby odpalić aplikację</li>
+<li>mogą być problemy z bezpieczeństwem (wyjście z kontenera na
+zewnątrz)</li>
+<li>dużo lżejsze jest postawienie kontenera niż maszyny wirtualnej</li>
+</ul></li>
+</ul>
+<h3 id="kubernetes">Kubernetes</h3>
+<ul>
+<li>Uruchamia kontenery Dockerowe</li>
+<li>Dostarcza warstwę abstrakcji nad wieloma maszynami</li>
+<li>Orkiestrowanie kontenerami</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#narzędzia-infrastructure-as-code" id="toc-narzędzia-infrastructure-as-code">Narzędzia, Infrastructure as
+code</a>
+<ul>
+<li><a href="#zarządzanie-zadaniami" id="toc-zarządzanie-zadaniami">Zarządzanie zadaniami</a>
+<ul>
+<li><a href="#narzędzia" id="toc-narzędzia">Narzędzia</a></li>
+</ul></li>
+<li><a href="#zarządzanie-dokumentacją" id="toc-zarządzanie-dokumentacją">Zarządzanie dokumentacją</a></li>
+<li><a href="#git" id="toc-git">Git</a>
+<ul>
+<li><a href="#platformy" id="toc-platformy">Platformy</a></li>
+<li><a href="#gitflow" id="toc-gitflow">GitFlow</a></li>
+<li><a href="#github-flow" id="toc-github-flow">GitHub Flow</a></li>
+<li><a href="#integracja-jiry-z-gitem" id="toc-integracja-jiry-z-gitem">Integracja Jiry z Gitem</a></li>
+</ul></li>
+<li><a href="#cicd" id="toc-cicd">CI/CD</a>
+<ul>
+<li><a href="#review" id="toc-review">Review</a></li>
+<li><a href="#narzędzia-1" id="toc-narzędzia-1">Narzędzia</a></li>
+</ul></li>
+<li><a href="#artefakty" id="toc-artefakty">Artefakty</a>
+<ul>
+<li><a href="#jenkins" id="toc-jenkins">Jenkins</a></li>
+</ul></li>
+<li><a href="#infrastrucutre-as-a-code" id="toc-infrastrucutre-as-a-code">Infrastrucutre as a Code</a>
+<ul>
+<li><a href="#ansible" id="toc-ansible">Ansible</a></li>
+<li><a href="#terraform" id="toc-terraform">Terraform</a></li>
+</ul></li>
+<li><a href="#orkiestrowanie-kontenerami" id="toc-orkiestrowanie-kontenerami">Orkiestrowanie kontenerami</a>
+<ul>
+<li><a href="#podejścia-do-wirtualizacji" id="toc-podejścia-do-wirtualizacji">Podejścia do wirtualizacji</a></li>
+<li><a href="#kubernetes" id="toc-kubernetes">Kubernetes</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

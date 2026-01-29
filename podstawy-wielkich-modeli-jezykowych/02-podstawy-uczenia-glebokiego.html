@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-podstawy-uczenia-glebokiego</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wstep.html">Poprzedni: 01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-elementy-skladowe-sieci-neuronowych.html">Następny: 03-elementy-skladowe-sieci-neuronowych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="podstawy-uczenia-głębokiego">Podstawy uczenia głębokiego</h1>
+<h2 id="llm-jako-klasyfikator-probabilistyczny">LLM jako klasyfikator
+probabilistyczny</h2>
+<p><span class="math display">\[f_\Theta: \mathbb{N}^k \rightarrow
+\mathbb{R}^{|D|}\]</span></p>
+<ul>
+<li>Model jako parametryzowana funkcja mapująca sekwencję wejściową na
+rozkład prawdopodobieństwa kolejnego tokenu</li>
+<li><span class="math inline">\(\Theta\)</span> - wagi modelu</li>
+<li><span class="math inline">\(|D|\)</span> - rozmiar słownika</li>
+</ul>
+<h3 id="funkcja-mathrmsoftmax">Funkcja <span
+class="math inline">\(\mathrm{softmax}\)</span></h3>
+<p><span class="math display">\[\mathrm{softmax}(z) = \left[
+\frac{\exp{z_1}}{\sum_i \exp{z_i)}}, \ldots \right]\]</span></p>
+<ul>
+<li>Zazwyczaj sieci trenujemy tak, że w ostatniej warstwie zwracają
+wektor liczb rzeczywistych</li>
+<li>W żaden sposób nieznormalizowane wyjście</li>
+<li>Logity - zakres <span class="math inline">\((-\infty,
+\infty)\)</span></li>
+<li>Funkcja softmax zamienia wektor liczb rzeczywistych (logitów) na
+rozkład prawdopodobieństwa
+<ul>
+<li><span class="math inline">\(e^x\)</span> jest dodatnie</li>
+<li>elementy wektora sumują się do 1</li>
+</ul></li>
+</ul>
+<h2 id="uczenie-nadzorowane">Uczenie nadzorowane</h2>
+<ul>
+<li>Ryzyko empiryczne
+<ul>
+<li>średnia strata modelu predykcyjnego na zbiorze treningowym</li>
+</ul></li>
+<li>Problem optymalizacyjny - znajdź wartości parametrów minimalizujący
+ryzyko empiryczne</li>
+<li>Wytrenowany model powinien się generalizować
+<ul>
+<li>powinien zwracać sensowne odpowiedzi dla wejść, których wcześniej
+nie widział</li>
+</ul></li>
+</ul>
+<h2 id="entropia-krzyżowa">Entropia krzyżowa</h2>
+<p><span class="math display">\[l_{CE} = -\sum_i p_i \log( \hat{p_i}
+)\]</span></p>
+<ul>
+<li>Funkcja straty</li>
+<li><span class="math inline">\(p_i\)</span> - prawdziwe
+prawdopodobieństwo
+<ul>
+<li>tylko dla jednej wartości jest <span
+class="math inline">\(1\)</span></li>
+<li>dla reszty jest <span class="math inline">\(0\)</span></li>
+</ul></li>
+<li><span class="math inline">\(-\log(1)=0\)</span></li>
+<li><span class="math inline">\(-\log(0) \rightarrow
++\infty\)</span></li>
+<li>Suma upraszcza się do <span class="math inline">\(-\log
+\hat{p}_y\)</span>
+<ul>
+<li><span class="math inline">\(\hat{p}_y\)</span> - przewidziana
+wartość prawdopodobieństwa odpowiadająca poprawnej klasie</li>
+</ul></li>
+<li>Implementacja w torchu przyjmuje logity na wejście</li>
+</ul>
+<h2 id="optymalizacja-parametrów-sieci">Optymalizacja parametrów
+sieci</h2>
+<p><span class="math display">\[\Theta_{t+i} = \Theta_t - \eta_t \nabla
+\mathcal{L}\]</span></p>
+<ul>
+<li><span class="math inline">\(\eta_t\)</span> - stopa uczenia</li>
+<li>Liczymy gradient funkcji straty <span
+class="math inline">\(\mathcal{L}\)</span> po parametrach modelu <span
+class="math inline">\(\Theta\)</span></li>
+<li>Gradient to wektor pochodnych cząstkowych
+<ul>
+<li>tyle elementów ile parametrów sieci</li>
+<li>element wektora - jak bardzo wzrośnie strata modelu jak ten parametr
+się zwiększy</li>
+</ul></li>
+</ul>
+<h3 id="metoda-stochastycznego-spadku-wzdłuż-gradientu">Metoda
+stochastycznego spadku wzdłuż gradientu</h3>
+<ul>
+<li>Wyznaczamy wartość funkcji straty i jej gradientu na pojedynczym
+wsadzie treningowym
+<ul>
+<li>wsad - podzbiór zbioru treningowego</li>
+</ul></li>
+<li>Gradient wyznaczany metodą propagacji wstecznej</li>
+<li>SGD jest metodą optymalizacji lokalnej
+<ul>
+<li>dąży do lokalnego minimum, a nie globalnego</li>
+<li>w praktyce te optima lokalne są wystarczająco dobre</li>
+</ul></li>
+</ul>
+<h3 id="dobór-stopy-uczenia">Dobór stopy uczenia</h3>
+<ul>
+<li>Zbyt duża - brak zbieżności procesu optymalizacji</li>
+<li>Zbyt mała - zbyt wolna zbieżność</li>
+<li>Zazwyczaj powtarzamy eksperymenty z wieloma różnymi wartościami
+hiperparametrów
+<ul>
+<li>w tym stopy uczenia</li>
+</ul></li>
+</ul>
+<h3 id="lepsze-metody-optymalizacji-gradientowe">Lepsze metody
+optymalizacji (gradientowe)</h3>
+<ul>
+<li>Momentum
+<ul>
+<li>wielkość kroku uczenia jest zależna od od historii kroków</li>
+</ul></li>
+<li>Adam</li>
+</ul>
+<h3 id="optymalizacja-w-praktyce">Optymalizacja w praktyce</h3>
+<ul>
+<li>Pakiet <code>torch.optim</code></li>
+<li>Optymalizator <code>Adam</code>, <code>AdamW</code></li>
+<li>Domyślny wybór - <code>AdamW</code>
+<ul>
+<li>bardziej odporny na zbyt wysokie wartości stopy uczenia niż SGD</li>
+</ul></li>
+</ul>
+<h2 id="pętla-uczenia">Pętla uczenia</h2>
+<ul>
+<li>Epoka - jedno przejście przez cały zbiór treningowy</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span>eta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(n_epochs):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, train_input.size(<span class="dv">0</span>), batch_size):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        batch <span class="op">=</span> train_input[b:b<span class="op">+</span>batch_size]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model(batch)  <span class="co"># output - logity</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        target <span class="op">=</span> train_target[b:b<span class="op">+</span>batch_size]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(output, target)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        loss.backward()  <span class="co"># wyznaczanie gradientu - wsteczna propagacja przez graf obliczeń</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span></code></pre></div>
+<h2 id="przeuczenie">Przeuczenie</h2>
+<ul>
+<li>Dobra praktyka - logowanie wartości funkcji straty w każdej
+epoce</li>
+<li>Musimy mieć odłożony na bok zbiór walidacyjny, na którym model się
+nie trenuje
+<ul>
+<li>logujemy stratę na zbiorze walidacyjnym w kolejnych epokach</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#podstawy-uczenia-głębokiego" id="toc-podstawy-uczenia-głębokiego">Podstawy uczenia głębokiego</a>
+<ul>
+<li><a href="#llm-jako-klasyfikator-probabilistyczny" id="toc-llm-jako-klasyfikator-probabilistyczny">LLM jako klasyfikator
+probabilistyczny</a>
+<ul>
+<li><a href="#funkcja-mathrmsoftmax" id="toc-funkcja-mathrmsoftmax">Funkcja <span class="math inline">\(\mathrm{softmax}\)</span></a></li>
+</ul></li>
+<li><a href="#uczenie-nadzorowane" id="toc-uczenie-nadzorowane">Uczenie
+nadzorowane</a></li>
+<li><a href="#entropia-krzyżowa" id="toc-entropia-krzyżowa">Entropia
+krzyżowa</a></li>
+<li><a href="#optymalizacja-parametrów-sieci" id="toc-optymalizacja-parametrów-sieci">Optymalizacja parametrów
+sieci</a>
+<ul>
+<li><a href="#metoda-stochastycznego-spadku-wzdłuż-gradientu" id="toc-metoda-stochastycznego-spadku-wzdłuż-gradientu">Metoda
+stochastycznego spadku wzdłuż gradientu</a></li>
+<li><a href="#dobór-stopy-uczenia" id="toc-dobór-stopy-uczenia">Dobór
+stopy uczenia</a></li>
+<li><a href="#lepsze-metody-optymalizacji-gradientowe" id="toc-lepsze-metody-optymalizacji-gradientowe">Lepsze metody
+optymalizacji (gradientowe)</a></li>
+<li><a href="#optymalizacja-w-praktyce" id="toc-optymalizacja-w-praktyce">Optymalizacja w praktyce</a></li>
+</ul></li>
+<li><a href="#pętla-uczenia" id="toc-pętla-uczenia">Pętla
+uczenia</a></li>
+<li><a href="#przeuczenie" id="toc-przeuczenie">Przeuczenie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

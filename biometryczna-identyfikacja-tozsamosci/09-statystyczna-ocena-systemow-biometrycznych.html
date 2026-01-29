@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-statystyczna-ocena-systemow-biometrycznych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-inne-biometrie.html">Poprzedni: 08-inne-biometrie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-twarz.html">Następny: 10-twarz.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="statystyczna-ocena-systemów-biometrycznych">Statystyczna ocena
+systemów biometrycznych</h1>
+<h2 id="problem-ewaluacji-systemów-biometrycznych">Problem ewaluacji
+systemów biometrycznych</h2>
+<ul>
+<li>Niepewność pomiarów</li>
+<li>Jaki eksperyment należy wykonać żeby ocenić system</li>
+<li>Jakie powinny być wartości progów</li>
+<li>Jaka powinna być liczność próbek w bazie danych</li>
+<li>Jakie poziomy błędów możemy zagwarantować odbiorcy systemu</li>
+</ul>
+<h2 id="norma-iso">Norma ISO</h2>
+<ul>
+<li>Ocena technologiczna
+<ul>
+<li>off-line</li>
+<li>tylko część algorytmiczna</li>
+<li>istniejąca lub specjalnie utworzona próba badawcza</li>
+</ul></li>
+<li>Ocena w scenariuszu zastosowań
+<ul>
+<li>off-line lub on-line</li>
+<li>dla określonego scenariusza i określonej grupy docelowej</li>
+<li>środowisko przypominające środowisko docelowe</li>
+</ul></li>
+<li>Ocena w warunkach operacyjnych
+<ul>
+<li>on-line</li>
+<li>normalna eksploatacja systemu</li>
+<li>pilotaż</li>
+</ul></li>
+</ul>
+<h3 id="ocena-technologiczna">Ocena technologiczna</h3>
+<ul>
+<li>Ocena wybranego komponentu systemu - np. algorytmu</li>
+<li>Próba ustalona, pobrana przez uniwersalny sensor</li>
+<li>Próba nie powinna być znana twórcom komponentu</li>
+<li>Wyniki powinny być powtarzalne</li>
+<li>Znaczne niedoszacowanie błędów w stosunku do zastosowania w
+warunkach operacyjnych
+<ul>
+<li>niereprezentatywna próba</li>
+<li>pomija się trudności z pobraniem próbki biometrycznej</li>
+</ul></li>
+</ul>
+<h3 id="ocena-w-scenariuszu-zastosowań">Ocena w scenariuszu
+zastosowań</h3>
+<ul>
+<li>Testowanie kompletnego systemu</li>
+<li>Środowisko testowe bliskie produkcyjnemu</li>
+<li>Każdy system powinien mieć własny sensor</li>
+<li>Powtarzalność pod warunkiem kontroli scenariusza</li>
+<li>Niedoszacowanie błędów w porównaniu do warunków operacyjnych
+<ul>
+<li>proces nadal jest nadzorowany</li>
+</ul></li>
+</ul>
+<h3 id="ocena-w-warunkach-operacyjnych">Ocena w warunkach
+operacyjnych</h3>
+<ul>
+<li>Program pilotażowy</li>
+<li>Warunki mogą być nienadzorowane</li>
+<li>Warunki mogą się zmieniać w nieprzewidziany sposób
+<ul>
+<li>zalecana rejestracja zmian</li>
+</ul></li>
+<li>Brak powtarzalności wyników</li>
+<li>Najbardziej wiarygodna ocena funkcjonowania systemu
+<ul>
+<li>nie zawsze możliwa</li>
+<li>kosztowna</li>
+</ul></li>
+</ul>
+<h2 id="modelowanie-niepewności">Modelowanie niepewności</h2>
+<h3 id="próba-losowa">Próba losowa</h3>
+<ul>
+<li>Populacja generalna <span class="math inline">\(X\)</span></li>
+<li>Próba losowa zmiennej losowej <span
+class="math inline">\(X\)</span></li>
+<li>Z próby losowej pozyskujemy próbki, które są próbkami
+biometrycznymi</li>
+</ul>
+<h3 id="tworzenie-próby-losowej-w-biometrii">Tworzenie próby losowej w
+biometrii</h3>
+<ul>
+<li>Prezentacja charakterystyki biometrycznej
+<ul>
+<li>pojedyncze pobranie próbki</li>
+<li>np. wykonanie jednego zdjęcia tęczówki</li>
+</ul></li>
+<li>Podejście
+<ul>
+<li>jedna lub kilka prezentacji</li>
+<li>np. w celu doboru najlepszej</li>
+</ul></li>
+<li>Transakcja
+<ul>
+<li>co się dzieje jak człowiek podchodzi do systemu biometrycznego, robi
+co trzeba i dostaje decyzję</li>
+<li>składa się z jednego lub kilku podejść - jeśli system pozwala na
+powtórzenie</li>
+</ul></li>
+</ul>
+<h3 id="probabilistyka-i-statystyka">Probabilistyka i statystyka</h3>
+<ul>
+<li>Probabilistyka zakłada znajomość rozkładu</li>
+<li>Statystyka - dowolna funkcja próby losowej <span
+class="math inline">\(g(X_1, \ldots, X_n)\)</span>
+<ul>
+<li>statystyka jest zmienną losową</li>
+<li>brak założeń o pełnej znajomości rozkładów prawdopodobieństwa
+zmiennych losowych</li>
+<li>wyciąganie wniosków dotyczących badanej cechy w populacji generalnej
+na podstawie próby losowej</li>
+</ul></li>
+</ul>
+<h3 id="estymacja">Estymacja</h3>
+<ul>
+<li>Szacowanie nieznanego parametru rozkładu za pomocą wartości
+statystyki (konkretnej liczby)</li>
+<li>Estymator - dowolna statystyka</li>
+<li>Pożądane cechy estymatora
+<ul>
+<li>nieobciążoność - wartość oczekiwana jest równa estymowanemu
+parametrowi</li>
+<li>zgodność</li>
+</ul></li>
+<li>Przykłady estymatorów w biometrii
+<ul>
+<li>średnia arytmetyczna z wyników porównań</li>
+<li>FNMR, FMR</li>
+</ul></li>
+</ul>
+<h2 id="ocena-procesów-pozyskiwania-próbek-i-rejestracji">Ocena procesów
+pozyskiwania próbek i rejestracji</h2>
+<h3 id="niepowodzenia-pozyskania-próbki">Niepowodzenia pozyskania
+próbki</h3>
+<ul>
+<li>FTA - <em>Failure To Acquire</em>
+<ul>
+<li>liczba podejść zakończonych niepowodzeniem / liczba wszystkich
+podejść</li>
+<li>empiryczny estymator</li>
+</ul></li>
+<li>Czemu nie można pobrać próbki
+<ul>
+<li>dane nie mogły być zaprezentowane (choroba, zranienie)</li>
+<li>błąd algorytmu, timeout</li>
+<li>błąd przetwarzania próbki</li>
+<li>niewystarczająca jakość cech</li>
+</ul></li>
+</ul>
+<h3 id="niepowodzenie-rejestracji">Niepowodzenie rejestracji</h3>
+<ul>
+<li>FTE - <em>Failure To Enroll</em>
+<ul>
+<li>liczba rejestracji zakończonych niepowodzeniem / liczba wszystkich
+rejestracji</li>
+</ul></li>
+<li>Powody
+<ul>
+<li>tak jak dla FTA</li>
+<li>próbka nie została zaakceptowana w wyniku próbnej weryfikacji</li>
+</ul></li>
+<li>Surowsze wymagania na etapie rejestracji zwiększają jakość
+rozpoznawania ale zmniejszają liczbę zarejestrowanych wzorców
+<ul>
+<li>mniejsze FMR, FNMR</li>
+<li>większe FTE</li>
+</ul></li>
+</ul>
+<h2 id="ocena-zgodności-próbek">Ocena zgodności próbek</h2>
+<ul>
+<li>Rodzaje próbek
+<ul>
+<li>próbki własne - tej samej klasy</li>
+<li>próbki obce - innej klasy, w tym fałszerstwa bezwysiłkowe</li>
+<li>fałszerstwa zaawansowane - specjalnie spreparowane</li>
+</ul></li>
+<li>Dopasowanie próbek
+<ul>
+<li>stopień podobieństwa/niepodobieństwa lub
+dopasowania/niedopasowania</li>
+<li>nie zawsze jest łatwe przejście między podobieństwem i
+niepodobieńśtwwem</li>
+</ul></li>
+<li>Decyzja
+<ul>
+<li>dopasowanie/niedopasowanie na podstawie porównania stopnia
+dopasowania/niedopasowania z progiem decyzyjnym</li>
+</ul></li>
+</ul>
+<h3 id="testowanie-hipotez">Testowanie hipotez</h3>
+<ul>
+<li>Porównanie w biometrii to testowanie hipotezy statystycznej</li>
+<li>Hipoteza zerowa
+<ul>
+<li>ta którą chcemy odrzucić</li>
+</ul></li>
+<li>Hipoteza alternatywna
+<ul>
+<li>przyjmowana w razie odrzucenia hipotezy zerowej</li>
+</ul></li>
+<li>Najprostszy przypadek
+<ul>
+<li>hipotezy proste</li>
+<li>określają rozkłady z których są losowane próby</li>
+<li>znamy te rozkłady</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li><span class="math inline">\(H_0\)</span> - tęczówka X jest tęczówką
+osoby A</li>
+<li><span class="math inline">\(H_1\)</span> prosta - tęczówka X jest
+tęczówką osoby B</li>
+<li><span class="math inline">\(H_1\)</span> złożona - tęczówka X nie
+jest tęczówką osoby A</li>
+</ul></li>
+</ul>
+<h3 id="test-statystyczny">Test statystyczny</h3>
+<ul>
+<li>Metoda przyporządkowująca realizacjom próbie losowej decyzje
+przyjęcia bądź odrzucenia weryfikowanej hipotezy z ustalonym
+prawdopodobieństwem
+<ul>
+<li>próba losowa - wynik porównania próbek biometrycznych</li>
+</ul></li>
+<li>Statystyka testowa
+<ul>
+<li>wykorzystywana do oceny hipotezy <span
+class="math inline">\(H_0\)</span></li>
+<li>zbiór krytyczny i zbiór przyjęć hipotezy</li>
+<li>np. znormalizowany Hamming distance dla kodów tęczówki</li>
+</ul></li>
+<li>Błąd I rodzaju <span class="math inline">\(\alpha\)</span> - false
+non-match (FNMR)</li>
+<li>Błąd II rodzaju <span class="math inline">\(\beta\)</span> - false
+match (FMR)</li>
+<li>Nieodrzucenie prawdziwej hipotezy <span
+class="math inline">\((1-\alpha)\)</span>
+<ul>
+<li>poziom istotności</li>
+</ul></li>
+<li>Odrzucenie fałszywej hipotezy <span
+class="math inline">\((1-\beta)\)</span>
+<ul>
+<li>moc testu</li>
+</ul></li>
+</ul>
+<h3 id="ocena-fałszywego-niedopasowania">Ocena fałszywego
+niedopasowania</h3>
+<ul>
+<li>FNMR - w mianowniku tylko wewnątrzklasowe podejścia</li>
+<li>FNMR jest funkcją progu decyzyjnego</li>
+</ul>
+<h3 id="ocena-fałszywego-dopasowania">Ocena fałszywego dopasowania</h3>
+<ul>
+<li>FM - w mianowniku liczba porównań międzyklasowych</li>
+<li>FMR - nie włącza się fałszerstw zaawansowanych</li>
+</ul>
+<h2 id="ocena-systemów-biometrycznych">Ocena systemów
+biometrycznych</h2>
+<h3 id="różnice-w-ocenie-podejścia-i-transakcji">Różnice w ocenie
+podejścia i transakcji</h3>
+<ul>
+<li>Ocena systemu polega na badaniu transakcji, a nie pojedynczych
+podejść</li>
+<li>uwzględnia możliwość niepozyskania próbki (FTA)</li>
+<li>Transakcję nazywamy autentyczną jeśli prezentowana próbka pochodzi z
+rozpatrywanej klasy
+<ul>
+<li>w przeciwnym razie - transakcja fałszywa</li>
+</ul></li>
+<li>FRR (<em>False Rejection Rate</em>)
+<ul>
+<li>odrzucenie autentycznej transakcji</li>
+<li>funkcja polityki decyzyjnej</li>
+<li><span class="math inline">\(FRR = FTA + (1-FTA)FNMR\)</span> (dla
+systemu z jednym podejściem)</li>
+<li>liczba odrzuconych autentycznych transakcji / liczba transakcji
+wewnątrzklasowych</li>
+</ul></li>
+<li>FAR (<em>False Acceptance Rate</em>)
+<ul>
+<li>FAR = (1-FTA)FMR</li>
+<li>nie uwzględnia się niepozyskanych próbek</li>
+</ul></li>
+</ul>
+<h3 id="krzywa-roc">Krzywa ROC</h3>
+<ul>
+<li><em>Receiver Operation Characteristics</em></li>
+<li>Dla klasyfikacji binarnej</li>
+<li>Na osi y <span class="math inline">\(1-FAR\)</span> lub <span
+class="math inline">\(1-FMR\)</span></li>
+<li>na osi x <span class="math inline">\(FRR\)</span> lub <span
+class="math inline">\(FNMR\)</span></li>
+<li>Krzywa parametryczna, parametrem jest wartość progu</li>
+<li>Klasyfikator losowy - krzywa idzie po przekątnej</li>
+<li>Im bliżej lewego górnego rogu przechodzi krzywa tym lepszy
+klasyfikator</li>
+<li>Krzywa zaczyna się w punkcie <span
+class="math inline">\((0,0)\)</span> i kończy w punkcie <span
+class="math inline">\((1,1)\)</span></li>
+<li>Krzywa przechodzi nad przekątną</li>
+<li>Pole pod krzywą to miara jakości klasyfikacji</li>
+</ul>
+<h3 id="krzywa-det">Krzywa DET</h3>
+<ul>
+<li><em>Detection Error Tradeoff</em></li>
+<li>Dla klasyfikacji binarnej</li>
+<li><span class="math inline">\(FAR(FRR)\)</span></li>
+<li>Skala odwrotnej dystrybuanty rozkładu normalnego
+<ul>
+<li>dla rozkładów normalnych - proste</li>
+<li>nachylenie prostych - iloraz wariancji rozkładów</li>
+<li>odległość prostych - różnica średnich rozkładów</li>
+</ul></li>
+</ul>
+<h3 id="krzywa-cmc">Krzywa CMC</h3>
+<ul>
+<li><em>Cumulative Match Characteristic</em></li>
+<li>Dla identyfikacji</li>
+<li>Skumulowana charakterystyka dopasowania</li>
+<li>Częstość identyfikacji rzędu <span class="math inline">\(r\)</span>
+w funkcji <span class="math inline">\(r\)</span></li>
+<li>Identyfikację uznajemy za skuteczną, jeśli właściwa osoba będzie
+zwrócona wśród <span class="math inline">\(r\)</span> najbardziej
+dopasowanych</li>
+<li>Na osi y odsetek poprawnych identyfikacji
+<ul>
+<li>zakres <span class="math inline">\([0,1]\)</span></li>
+</ul></li>
+<li>Na osi x wartość <span class="math inline">\(r\)</span>
+<ul>
+<li>skala logarytmiczna</li>
+<li>zakres od <span class="math inline">\(1\)</span> do rozmiaru
+bazy</li>
+</ul></li>
+<li>Krzywe zaczynają się w <span class="math inline">\(r=1\)</span> i
+<span class="math inline">\(y &gt; 0\)</span>
+<ul>
+<li>kończą się w <span class="math inline">\(r=r_{max}\)</span>, <span
+class="math inline">\(y=1\)</span></li>
+</ul></li>
+</ul>
+<h3 id="systemy-zamknięte-vs-otwarte">Systemy zamknięte vs otwarte</h3>
+<ul>
+<li>Systemy zamknięte
+<ul>
+<li>wszyscy są zarejestrowani w systemie</li>
+<li>częstość identyfikacji rzędu <span
+class="math inline">\(r\)</span></li>
+</ul></li>
+<li>Systemy otwarte
+<ul>
+<li>nie wszyscy są zarejestrowani</li>
+<li>częstość identyfikacji rzędu <span
+class="math inline">\(r\)</span></li>
+<li><span class="math inline">\(FNIR\)</span> - częstość fałszywie
+negatywnej identyfikacji</li>
+<li><span class="math inline">\(FPIR\)</span> - częstość fałszywie
+pozytywnej identyfikacji</li>
+</ul></li>
+</ul>
+<h2 id="uwagi-praktyczne">Uwagi praktyczne</h2>
+<ul>
+<li>Podział baz danych na rozłączne zbiory
+<ul>
+<li>estymacyjny (treningowy)</li>
+<li>walidacyjny</li>
+<li>testowy</li>
+</ul></li>
+<li>Istnieje wiele możliwych podziału bazy
+<ul>
+<li>staramy się żeby wynikowe porównania były niezależne - wymaga dużych
+zbiorów</li>
+<li>przy małych zbiorach lepiej analizować więcej zmiennych zależnych
+niż za mało niezależnych</li>
+</ul></li>
+<li>Zasady wykorzystania biometrycznych baz danych
+<ul>
+<li>2 sposoby podziału próbek na estymacyjne i testowe</li>
+<li>podział obrazów - obrazy dla tej samej osoby mogą trafić do obu - ok
+tylko dla systemu zamkniętego</li>
+<li>podział obiektów - wszystkie obrazy jednego obiektu są albo w jednym
+albo w drugim zbiorze</li>
+</ul></li>
+<li>Projektowanie rozpoznawania biometrycznego
+<ul>
+<li><span class="math inline">\(EER\)</span> nie jest najważniejsze,
+prawdopodobnie nie wypadnie w punkcie pracy który nas w ogóle nie
+interesuje</li>
+<li>Różne punkty pracy systemu w zależności od zastosowania - tradeoff
+między wygodą a bezpieczeństwem</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#statystyczna-ocena-systemów-biometrycznych" id="toc-statystyczna-ocena-systemów-biometrycznych">Statystyczna ocena
+systemów biometrycznych</a>
+<ul>
+<li><a href="#problem-ewaluacji-systemów-biometrycznych" id="toc-problem-ewaluacji-systemów-biometrycznych">Problem ewaluacji
+systemów biometrycznych</a></li>
+<li><a href="#norma-iso" id="toc-norma-iso">Norma ISO</a>
+<ul>
+<li><a href="#ocena-technologiczna" id="toc-ocena-technologiczna">Ocena
+technologiczna</a></li>
+<li><a href="#ocena-w-scenariuszu-zastosowań" id="toc-ocena-w-scenariuszu-zastosowań">Ocena w scenariuszu
+zastosowań</a></li>
+<li><a href="#ocena-w-warunkach-operacyjnych" id="toc-ocena-w-warunkach-operacyjnych">Ocena w warunkach
+operacyjnych</a></li>
+</ul></li>
+<li><a href="#modelowanie-niepewności" id="toc-modelowanie-niepewności">Modelowanie niepewności</a>
+<ul>
+<li><a href="#próba-losowa" id="toc-próba-losowa">Próba losowa</a></li>
+<li><a href="#tworzenie-próby-losowej-w-biometrii" id="toc-tworzenie-próby-losowej-w-biometrii">Tworzenie próby losowej w
+biometrii</a></li>
+<li><a href="#probabilistyka-i-statystyka" id="toc-probabilistyka-i-statystyka">Probabilistyka i
+statystyka</a></li>
+<li><a href="#estymacja" id="toc-estymacja">Estymacja</a></li>
+</ul></li>
+<li><a href="#ocena-procesów-pozyskiwania-próbek-i-rejestracji" id="toc-ocena-procesów-pozyskiwania-próbek-i-rejestracji">Ocena procesów
+pozyskiwania próbek i rejestracji</a>
+<ul>
+<li><a href="#niepowodzenia-pozyskania-próbki" id="toc-niepowodzenia-pozyskania-próbki">Niepowodzenia pozyskania
+próbki</a></li>
+<li><a href="#niepowodzenie-rejestracji" id="toc-niepowodzenie-rejestracji">Niepowodzenie rejestracji</a></li>
+</ul></li>
+<li><a href="#ocena-zgodności-próbek" id="toc-ocena-zgodności-próbek">Ocena zgodności próbek</a>
+<ul>
+<li><a href="#testowanie-hipotez" id="toc-testowanie-hipotez">Testowanie
+hipotez</a></li>
+<li><a href="#test-statystyczny" id="toc-test-statystyczny">Test
+statystyczny</a></li>
+<li><a href="#ocena-fałszywego-niedopasowania" id="toc-ocena-fałszywego-niedopasowania">Ocena fałszywego
+niedopasowania</a></li>
+<li><a href="#ocena-fałszywego-dopasowania" id="toc-ocena-fałszywego-dopasowania">Ocena fałszywego
+dopasowania</a></li>
+</ul></li>
+<li><a href="#ocena-systemów-biometrycznych" id="toc-ocena-systemów-biometrycznych">Ocena systemów biometrycznych</a>
+<ul>
+<li><a href="#różnice-w-ocenie-podejścia-i-transakcji" id="toc-różnice-w-ocenie-podejścia-i-transakcji">Różnice w ocenie
+podejścia i transakcji</a></li>
+<li><a href="#krzywa-roc" id="toc-krzywa-roc">Krzywa ROC</a></li>
+<li><a href="#krzywa-det" id="toc-krzywa-det">Krzywa DET</a></li>
+<li><a href="#krzywa-cmc" id="toc-krzywa-cmc">Krzywa CMC</a></li>
+<li><a href="#systemy-zamknięte-vs-otwarte" id="toc-systemy-zamknięte-vs-otwarte">Systemy zamknięte vs
+otwarte</a></li>
+</ul></li>
+<li><a href="#uwagi-praktyczne" id="toc-uwagi-praktyczne">Uwagi
+praktyczne</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-antyaliasing</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-cieniowanie.html">Poprzedni: 07-cieniowanie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-potok-graficzny-gpu.html">Następny: 09-potok-graficzny-gpu.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="antyaliasing">Antyaliasing</h1>
+<h2 id="antyaliasing-1">Antyaliasing</h2>
+<ul>
+<li>Techniki służące zmniejszaniu liczby błędów, które powstają przy
+reprezentacji obrazu o wysokiej rozdzielczości w mniejszej
+rozdzielczości</li>
+<li>Im bliżej kąta 45 stopni tym bardziej rzuca się w oczy</li>
+<li>Główne błędy
+<ul>
+<li>krawędzie</li>
+<li>cienie</li>
+<li>odbłyski</li>
+</ul></li>
+<li>Rodzaje technik
+<ul>
+<li>supersampling</li>
+<li>odpowiednie próbkowanie</li>
+<li>metody morfologiczne</li>
+</ul></li>
+</ul>
+<h2 id="supersampling">Supersampling</h2>
+<ul>
+<li>Techniki bazujące na pobraniu większej ilości próbek dla komórki
+ekranu</li>
+<li>Wartość piksela wyznacza się jako sumę ważoną próbek</li>
+<li><span class="math inline">\(p(x,y) = \sum_{i=1}^n w_i c(i, x,
+y)\)</span>
+<ul>
+<li><span class="math inline">\(n\)</span> - liczba próbek dla
+piksela</li>
+<li><span class="math inline">\(c(i,x,y)\)</span> - kolor próbki</li>
+<li><span class="math inline">\(w_i\)</span> - waga dla próbki</li>
+</ul></li>
+</ul>
+<h3 id="fsaassaa">FSAA/SSAA</h3>
+<ul>
+<li>Full-Scene antialiasing / Supersampling Antialiasing</li>
+<li>Renderuje się np. 2 razy większy obraz żeby potem zredukować do
+mniejszej rozdzielczości przez uśrednianie
+<ul>
+<li>kosztowne</li>
+<li>większa liczba obliczeń per piksel</li>
+</ul></li>
+</ul>
+<h3 id="wykorzystanie-akumulacji">Wykorzystanie akumulacji</h3>
+<ul>
+<li>W czasie</li>
+<li>Wykorzystanie bufora akumulacji</li>
+<li>Wielkość bufora taka sama jak rozdzielczość obrazu
+<ul>
+<li>więcej bitów per kolor</li>
+</ul></li>
+<li>Kilkukrotny render sceny z małym przesunięciem
+<ul>
+<li>np. próbkowanie 2x2 - render 4 razy z przesunięciem o <span
+class="math inline">\(0.5\)</span> piksela w obu osiach</li>
+</ul></li>
+</ul>
+<h2 id="multisampling-antialiasing">Multisampling antialiasing</h2>
+<ul>
+<li>Obliczanie cieniowania powierzchni raz per piksel i udostępnienie
+rezultatu dla próbek</li>
+<li>W przypadku, gdy jeden trójkąt pokrywa każdą lokalizację - jedno
+obliczenie cieniowania</li>
+<li>EQAA
+<ul>
+<li>modyfikacja w celu optymalizacji pamięci</li>
+<li>przechowywanie koloru i głębi w tabeli + indeksy dla próbek</li>
+</ul></li>
+</ul>
+<h2 id="wzorce-próbkowania">Wzorce próbkowania</h2>
+<p><img src="./obrazy/wzorce-probkowania.png" /></p>
+<ul>
+<li>Kluczowe do redukcji aliasingu</li>
+<li>Największa wrażliwość - aliasing na pionowych / poziomych /
+przekręconych o 45 stopni liniach</li>
+<li>Przykładowe wzorce
+<ul>
+<li>Siatka</li>
+<li>Przekrzywione</li>
+<li>Szachownica</li>
+<li>RGSS - rotated grid supersampling</li>
+<li>N-wież - ułożenie wież na szachownicy tak żeby żadna się nie
+widziała nawzajem</li>
+</ul></li>
+</ul>
+<h2 id="metody-morfologiczne">Metody morfologiczne</h2>
+<ul>
+<li>Dokonywane w post-processingu</li>
+<li>Wykorzystuje informacje z otoczenia krawędzi</li>
+<li>Są lepsze informacje niż kolor do tego celu
+<ul>
+<li>głębia</li>
+<li>wektory normalne</li>
+</ul></li>
+<li>W ogólności
+<ul>
+<li>znajdź krawędź (metody typu Sobel)</li>
+<li>dla najbardziej prawdopodobnej dokonaj mieszania kolorów
+sąsiadów</li>
+</ul></li>
+</ul>
+<h2 id="fxaa">FXAA</h2>
+<ul>
+<li>Fast Approximate Antialiasing</li>
+<li>Algorytm
+<ul>
+<li>wyrenderowany obraz + opcjonalnie luminancja</li>
+<li>jeżeli nie ma danej luminancji, można ją oszacować - np. wziąć
+zielony kanał z obrazu</li>
+<li>wykryj piksele z wysokim kontrastem - filtr górnoprzepustowy</li>
+<li>wykorzystaj kontrast w celu określenia orientacji krawędzi</li>
+<li>mieszanie kolorów biorąc pod uwagę kierunek i długość</li>
+<li>analiza sąsiadów z siatki 3x3</li>
+<li>oblicz drugi współczynnik mieszania aby wziąć pod uwagę długość
+krawędzi i kierunek</li>
+<li>wymieszaj kolory wykorzystując współczynniki</li>
+</ul></li>
+</ul>
+<h2 id="inne-techniki">Inne techniki</h2>
+<ul>
+<li>DLSS
+<ul>
+<li>technologia Nvidii</li>
+<li>upsampling obrazu z wykorzystaniem głębokiego uczenia</li>
+<li>mniejszy rendering i upsamplowanie jest szybsze niż większy
+rendering</li>
+</ul></li>
+<li>Multiframe
+<ul>
+<li>przewidywanie kolejnych ramek</li>
+<li>nie trzeba wszystkich renderować(?)</li>
+</ul></li>
+</ul>
+<h2 id="przezroczystość">Przezroczystość</h2>
+<ul>
+<li>Duży problem w grafice</li>
+<li>Najbardziej skomplikowane uwzględniają
+<ul>
+<li>refrakcję</li>
+<li>tłumienie</li>
+<li>zmiany odbić i transmisji ze względu na widok</li>
+</ul></li>
+</ul>
+<h3 id="screen-door-transparency">Screen door transparency</h3>
+<ul>
+<li>Prosta metoda</li>
+<li>Odrzucenie co któregoś piksela z pierwszego planu i zastąpienie
+pikselem z drugiego planu</li>
+<li>Schemat szachownicy</li>
+<li>Działa tylko dla pojedynczego obiektu</li>
+</ul>
+<h3 id="przezroczystość-stochastyczna">Przezroczystość
+stochastyczna</h3>
+<ul>
+<li>Wykorzystanie subpikselowych masek</li>
+<li>Wykorzystanie próbkowania stochastycznego</li>
+<li>Stosowana w CADach</li>
+</ul>
+<h3 id="mieszanie">Mieszanie</h3>
+<ul>
+<li>ang. blending</li>
+<li>Koncepcja - przy renderowaniu oprócz koloru i głębi można
+zdefiniować komponent alfa</li>
+<li>Alfa
+<ul>
+<li>stopień nieprzezroczystości</li>
+<li>stopień pokrycia fragmentu dla danego piksela</li>
+</ul></li>
+<li>Mieszanie over
+<ul>
+<li><span class="math inline">\(c_o = \alpha_s c_s +
+(1-\alpha_s)c_d\)</span></li>
+<li><span class="math inline">\(\alpha_s\)</span> - alfa obiektu</li>
+<li><span class="math inline">\(c_s\)</span> - kolor przezroczystego
+obiektu</li>
+<li><span class="math inline">\(c_d\)</span> - kolor piksela przed
+mieszaniem</li>
+<li>suma ważona kanałem alfa z obiektu i z tła</li>
+</ul></li>
+<li>Można zmodyfikować do addytywnego efektu
+<ul>
+<li>świecące obiekty</li>
+<li>półprzezroczyste obiekty</li>
+</ul></li>
+<li>Mieszanie under
+<ul>
+<li>modyfikacja poprzedniego trybu</li>
+<li>mieszanie od przodu do tyłu daje zawsze ten sam rezultat</li>
+<li><span class="math inline">\(c_o = \alpha_d c_d + (1-\alpha_d)
+\alpha_s c_s\)</span></li>
+<li><span class="math inline">\(\alpha_o = \alpha_s(1-\alpha_d) +
+\alpha_d\)</span></li>
+<li>wykorzystywane do rysowania wszystkich przezroczystych obiektów do
+pojedynczego bufora</li>
+<li>potem połączenie wykorzystując mieszanie over</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#antyaliasing" id="toc-antyaliasing">Antyaliasing</a>
+<ul>
+<li><a href="#antyaliasing-1" id="toc-antyaliasing-1">Antyaliasing</a></li>
+<li><a href="#supersampling" id="toc-supersampling">Supersampling</a>
+<ul>
+<li><a href="#fsaassaa" id="toc-fsaassaa">FSAA/SSAA</a></li>
+<li><a href="#wykorzystanie-akumulacji" id="toc-wykorzystanie-akumulacji">Wykorzystanie akumulacji</a></li>
+</ul></li>
+<li><a href="#multisampling-antialiasing" id="toc-multisampling-antialiasing">Multisampling antialiasing</a></li>
+<li><a href="#wzorce-próbkowania" id="toc-wzorce-próbkowania">Wzorce
+próbkowania</a></li>
+<li><a href="#metody-morfologiczne" id="toc-metody-morfologiczne">Metody
+morfologiczne</a></li>
+<li><a href="#fxaa" id="toc-fxaa">FXAA</a></li>
+<li><a href="#inne-techniki" id="toc-inne-techniki">Inne
+techniki</a></li>
+<li><a href="#przezroczystość" id="toc-przezroczystość">Przezroczystość</a>
+<ul>
+<li><a href="#screen-door-transparency" id="toc-screen-door-transparency">Screen door transparency</a></li>
+<li><a href="#przezroczystość-stochastyczna" id="toc-przezroczystość-stochastyczna">Przezroczystość
+stochastyczna</a></li>
+<li><a href="#mieszanie" id="toc-mieszanie">Mieszanie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

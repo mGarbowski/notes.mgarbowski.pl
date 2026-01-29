@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-tylko-dekoder</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-transformer.html">Poprzedni: 05-transformer.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-fezy-trenowania.html">Następny: 07-fezy-trenowania.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="tylko-dekoder">Tylko-dekoder</h1>
+<ul>
+<li>Przyczynowe (<em>causal</em>) modelowanie języka
+<ul>
+<li>od lewej do prawej</li>
+<li>wyznacza kontekstowe reprezentacje wejściowych tokenów oraz rozkład
+prawdopodobieństwa następnego tokenu</li>
+</ul></li>
+<li>Atencja przyczynowa
+<ul>
+<li>od lewej do prawej</li>
+<li>w przeciwieństwie do modeli tylko-koder</li>
+<li>brane są tylko tokeny występujące nie później w sekwencji</li>
+</ul></li>
+<li>Odpowiednie do zastosowań związanych z generowaniem tekstu
+<ul>
+<li>duże modele mogą być dostosowane do praktycznie każdego zadania
+związanego z przetwarzaniem tekstów</li>
+</ul></li>
+</ul>
+<h2 id="wyznaczanie-prawdopodobieństwa-kolejnego-tokenu">Wyznaczanie
+prawdopodobieństwa kolejnego tokenu</h2>
+<ul>
+<li>Głowica modelowania języka
+<ul>
+<li>na wejściu kontekstowa reprezentacja tokenu</li>
+<li>na wyjściu estymowany rozkład prawdopodobieństwa kolejnego
+tokenu</li>
+<li>prawdopodobieństwo warunkowe, pod warunkiem kontekstu</li>
+</ul></li>
+<li>Warstwa <em>Unembedding</em>
+<ul>
+<li>warstwa liniowa bez obciążenia</li>
+<li>wymiary <span class="math inline">\(d \times |V|\)</span> (rozmiar
+embeddingu, rozmiar słownika)</li>
+<li>wyjściem są logity</li>
+</ul></li>
+<li>Funkcja softmax przekształca logity w rozkład
+prawdopodobieństwa</li>
+</ul>
+<h2 id="zastosowania">Zastosowania</h2>
+<ul>
+<li>Wiele praktycznych zadań związanych z przetwarzaniem języka
+naturalnego może zostać sformułowanych jako warunkowe generowanie tekst
+<ul>
+<li>generowanie odpowiedzi na podstawie podanego wejściowego tekstu
+(promptu)</li>
+</ul></li>
+<li>Zadania
+<ul>
+<li>odpowiedź na pytanie w języku naturalnym</li>
+<li>podsumowanie tekstu</li>
+<li>tłumaczenie maszynowe</li>
+<li>analiza sentymentu (czy zdanie ma wydźwięk pozytywny/negatywny)</li>
+</ul></li>
+</ul>
+<h2 id="generowanie-tekstu">Generowanie tekstu</h2>
+<ul>
+<li>Generowanie autoregresyjne (przyczynowe)
+<ul>
+<li>długi tekst generuje się token po tokenie</li>
+<li>bierze się reprezentację ostatniego tokenu na wyjściu</li>
+<li>przepuszcza się przez macierz projekcji i softmax</li>
+<li>z otrzymanego rozkładu próbkuje się token i dokłada na koniec
+wejścia</li>
+<li>znowu przepuszcza się całą sekwencję wejściową przez cały model</li>
+</ul></li>
+<li>Dla przyspieszenia generacji stosuje się KV cache</li>
+<li>Kompromis między jakością a różnorodnością
+<ul>
+<li>wybieranie najbardziej prawdopodobnego tokenu będzie generować
+bardziej spójny i zgodny z faktami tekst ale bardziej powtarzalny</li>
+<li>często się zapętla i generuje wiele razy to samo zdanie</li>
+<li>metoda, która częściej wybiera trochę mniej prawdopodobne słowa
+będzie generować tekst bardziej zróżnicowany i kreatywny ale mniej
+zgodny z faktami lub niespójny</li>
+</ul></li>
+</ul>
+<h3 id="metody-próbkowania-rozkładu-prawdopodobieństwa-tokenów">Metody
+próbkowania rozkładu prawdopodobieństwa tokenów</h3>
+<ul>
+<li>Próbkowanie losowe
+<ul>
+<li>losuj token zgodnie z rozkładem określonym przez model</li>
+<li>w praktyce często generowane są rzadkie tokeny i tekst nie ma
+sensu</li>
+<li>problem długiego ogona - jest bardzo wiele tokenów, wiele ma małe
+prawdopodobieństwo ale ich suma już jest duża</li>
+</ul></li>
+<li>Dekodowanie zachłanne
+<ul>
+<li><em>greedy</em></li>
+<li>wybierz słowo o największym prawdopodobieństwie</li>
+<li>deterministyczny wynik</li>
+<li>w praktyce słabe</li>
+<li>bardzo ogólny, powtarzalny wynik, może się zapętlić</li>
+<li>wybieranie zachłanne - największe prawdopodobieństwo w danym kroku,
+ale niekoniecznie największe prawdopodobieństwo całej sekwencji</li>
+</ul></li>
+<li>Top-k sampling
+<ul>
+<li>wybrane <span class="math inline">\(k\)</span> najbardziej
+prawdopodobnych słów</li>
+<li>znormalizuj rozkład dla tych <span class="math inline">\(k\)</span>
+słów</li>
+<li>próbkowanie losowe ze znormalizowanego rozkładu</li>
+<li>zróżnicowany i lepszej jakości tekst</li>
+</ul></li>
+<li>Top-p sampling
+<ul>
+<li>wybrane tyle najbardziej prawdopodobnych słów, żeby suma ich
+prawdopodobieństw była co najmniej <span
+class="math inline">\(p\)</span></li>
+<li>próbkowanie z rozkładu dla tych słów, analogicznie jak top-k</li>
+</ul></li>
+<li>Temperature sampling
+<ul>
+<li>zmienia kształt rozkładu prawdopodobieństwa</li>
+<li>temperatura - parametr funkcji softmax</li>
+<li>przy dużej temperaturze rozkład prawdopodobieństwa się
+spłaszcza</li>
+<li>przy niskiej temperaturze rozkład się wyostrza</li>
+</ul></li>
+</ul>
+<h3 id="zaawansowane-metody-generowania-tekstu">Zaawansowane metody
+generowania tekstu</h3>
+<ul>
+<li>Przeszukiwanie wiązki
+<ul>
+<li><em>beam search</em></li>
+<li>rozszerzenie metody zachłannej na dłuższe sekwencje</li>
+<li>często wykorzystywane w metodach sekwencja-na-sekwencję (np.
+tłumaczenie maszynowe)</li>
+<li>w każdym kroku wybieramy <span class="math inline">\(k\)</span>
+(szerokość wiązki) najlepszych hipotez</li>
+<li>typowo <span class="math inline">\(k \in [5,10]\)</span></li>
+<li>możemy zwrócić wszystkie <span class="math inline">\(k\)</span>
+najlepszych hipotez albo wybrać jedną najbardziej prawdopodobną</li>
+</ul></li>
+<li>Przeszukiwanie wiązki z ograniczeniami
+<ul>
+<li><em>constrained beam search</em></li>
+<li>nałożenie dodatkowych ograniczeń na generowany tekst</li>
+<li>wymuszenie wygenerowanie określonych tokenów/fraz</li>
+</ul></li>
+<li>Przeszukiwanie kontrastywne
+<ul>
+<li><em>constrastive search</em></li>
+<li>kara za degenerację tekstu</li>
+<li>tym większa im bardziej kontekstowa reprezentacja wygenerowanego
+tokenu byłaby podobna do kontekstowych reprezentacji wcześniej
+wygenerowanych tokenów</li>
+</ul></li>
+</ul>
+<h2 id="watermarking">Watermarking</h2>
+<ul>
+<li>Dodane do wygenerowanego tekstu sygnałów niewidocznych dla człowieka
+ale możliwych do wykrycia algorytmicznie</li>
+<li>Dla każdego generowanego tokenu
+<ul>
+<li>inicjalizacja generatora liczb losowych funkcją skrótu zależną od
+poprzednio wygenerowanego tokenu</li>
+<li>losowy podział słownika na część zieloną i czerwoną o ustalonych
+rozmiarach</li>
+<li>zwiększenie prawdopodobieństwa zielonych tokenów (dodanie wartości
+do logita każdego tokenu)</li>
+</ul></li>
+<li>Własności
+<ul>
+<li>gdy niezmodyfikowany rozkład ma małą entropię (jeden prawdopodobny
+kandydat) - praktycznie nie wpływa na wybór kolejnego tokenu</li>
+<li>gdy ma dużą entropię (wielu prawdopodobnych kandydatów) - wyraźnie
+zwiększa szansę wyboru zielonego tokenu</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#tylko-dekoder" id="toc-tylko-dekoder">Tylko-dekoder</a>
+<ul>
+<li><a href="#wyznaczanie-prawdopodobieństwa-kolejnego-tokenu" id="toc-wyznaczanie-prawdopodobieństwa-kolejnego-tokenu">Wyznaczanie
+prawdopodobieństwa kolejnego tokenu</a></li>
+<li><a href="#zastosowania" id="toc-zastosowania">Zastosowania</a></li>
+<li><a href="#generowanie-tekstu" id="toc-generowanie-tekstu">Generowanie tekstu</a>
+<ul>
+<li><a href="#metody-próbkowania-rozkładu-prawdopodobieństwa-tokenów" id="toc-metody-próbkowania-rozkładu-prawdopodobieństwa-tokenów">Metody
+próbkowania rozkładu prawdopodobieństwa tokenów</a></li>
+<li><a href="#zaawansowane-metody-generowania-tekstu" id="toc-zaawansowane-metody-generowania-tekstu">Zaawansowane metody
+generowania tekstu</a></li>
+</ul></li>
+<li><a href="#watermarking" id="toc-watermarking">Watermarking</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

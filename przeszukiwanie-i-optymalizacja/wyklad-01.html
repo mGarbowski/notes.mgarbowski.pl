@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-00.html">Poprzedni: wyklad-00.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-02.html">Następny: wyklad-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="c.d.">c.d.</h1>
+<h2 id="problemy-z-optymalizacją">Problemy z optymalizacją</h2>
+<ul>
+<li>Występowanie optimów lokalnych czyni zadanie praktycznie
+nierozwiązywalnym</li>
+<li>W optymalizacji dyskretnej bywa skończony zbiór rozwiązań, w ciągłej
+- nie</li>
+<li>Liczba sąsiadów w optymalizacji ciągłej jest nieskończona
+<ul>
+<li>nie można precyzyjnie znaleźć nawet optimum lokalnego</li>
+</ul></li>
+<li>Bez dodatkowej wiedzy nie można stwierdzić optymalności punktu
+<ul>
+<li>kiedy zatrzymać metodę optymalizacji</li>
+<li>stosowane kryteria (np. budżet zasobów) niczego nie gwarantują</li>
+</ul></li>
+<li>Optymalizacja ciągła - błędy numeryczne
+<ul>
+<li>nie da się reprezentować liczby rzeczywistej z dowolną
+dokładnością</li>
+</ul></li>
+</ul>
+<p>Matematycznie precyzyjne rozwiązanie nie zawsze musi być potrzebne
+biznesowo</p>
+<p>Nie zawsze bardziej pożądane jest optimum globalne od lokalnego
+Abstrakcyjna reprezentacja problemu może być jego przybliżeniem Problem
+może być w rzeczywistości obarczony niedokładnością/niepewnością Funkcja
+celu może mieć lepszą charakterystykę wokół optimum lokalnego niż
+globalnego</p>
+<h2 id="metody-heurystyczne">Metody heurystyczne</h2>
+<ul>
+<li>Metoda, która często daje dość dobre rozwiązania i wykorzystuje
+wiedzę dziedzinową</li>
+</ul>
+<h3 id="metaheurystyki">Metaheurystyki</h3>
+<ul>
+<li>Np. algorytmy genetyczne / ewolucyjne</li>
+<li>Techniki inspirowane naturą</li>
+</ul>
+<h2 id="problem-plecakowy">Problem plecakowy</h2>
+<ul>
+<li>Drzewo decyzji
+<ul>
+<li>węzły nieterminalne reprezentują częściowe decyzje</li>
+<li>liście reprezentują pełne decyzje do wszystkich przemdiotów</li>
+</ul></li>
+<li>Algorytm najpierw najlepszy
+<ul>
+<li>jako pierwszy węzeł terminalny znajdzie najlepsze rozwiązanie jeśli
+etykiety są dokładne (i w ogóle jeśli zachowana jest relacja)</li>
+</ul></li>
+<li>Funkcja zysku</li>
+<li>Funkcja heurystyczna
+<ul>
+<li>oszacowanie ile zysku może nam przybyć po dopełnieniu plecaka</li>
+<li>sortujemy przedmioty po stosunku ceny do wagi i bierzemy od
+najlepszych tyle ile się zmieści</li>
+</ul></li>
+<li>Zsumowanie wartości funkcji heurystycznej i częściowej funkcji zysku
+daje górne oszacowanie dokładnej wartości etykiety
+<ul>
+<li>niewystarczające żeby zagwarantować znalezienie najlepszego
+rozwiązania za pierwszym razem</li>
+<li>na najlepszej ścieżce muszą być największe etykiety</li>
+<li>oszacowanie urealnia się wraz ze zbliżaniem się do węzła
+terminalnego</li>
+</ul></li>
+<li>Lokalna informacja - wiemy ile zysku da częściowa decyzja
+<ul>
+<li>rozwiązanie komponuje się ze składowych elementów</li>
+<li>późniejsze decyzje nie zaburzą zysku z już podjętych decyzji</li>
+</ul></li>
+<li>Dopuszczalność
+<ul>
+<li>nadmierny optymizm</li>
+<li>dla maksymalizacji <span class="math inline">\(g(x) + h(x) \ge
+g(xt)\)</span></li>
+</ul></li>
+<li>Monotoniczność
+<ul>
+<li>błąd oszacowania maleje wraz ze zbliżaniem się do rozwiązania</li>
+<li>dla maksymalizacji <span class="math inline">\(g(x_i) + h(x_i) \ge
+g(x_{i+1}) + h(x_{i+1})\)</span></li>
+</ul></li>
+</ul>
+<h3 id="algorytm-a">Algorytm A*</h3>
+<pre><code>A := init(s_0)
+best := s_0
+
+while !stop
+    x := popPriorityQueue(A)
+    if g(x) + h(x) &gt;= g(best) + h(best)
+        Y := neighbors(x)
+        A := A union Y</code></pre>
+<ul>
+<li>Jeśli funkcja heurystyczna jest dopuszczalna i monotoniczna to
+zmniejsza się liczbę rozwijanych węzłów</li>
+<li>Algorytm musi wyczerpać listę A, żeby dać gwarancję uzyskania wyniku
+optymalnego</li>
+</ul>
+<h2 id="poszukiwanie-najkrótszej-drogi-z-miasta-do-miasta">Poszukiwanie
+najkrótszej drogi z miasta do miasta</h2>
+<ul>
+<li>Poszukujemy najtańszej ścieżki w grafie</li>
+<li>Przestrzeń przeszukiwań
+<ul>
+<li>przestrzeń ścieżek w grafie zaczynających się w mieście
+startowym</li>
+<li>rozwiązania dopuszczalne - ścieżki kończące się w mieście
+docelowym</li>
+</ul></li>
+</ul>
+<h2 id="problem-komiwojażera">Problem komiwojażera</h2>
+<ul>
+<li>Poszukiwanie cyklu hamiltona o najniższej sumie wag</li>
+<li>Przestrzeń przeszukiwań to przestrzeń ścieżek (zaczynających się w
+mieście startowym)</li>
+<li>Funkcja kosztu - suma wag krawędzi w ścieżce</li>
+<li>Funkcja heurystyczna
+<ul>
+<li>znamy liczbę krawędzi w poszukiwanym cyklu</li>
+<li>dolne oszacowanie przez wzięcie kosztu najtańszej krawędzi razy
+liczba niewybranych krawędzi (<span
+class="math inline">\(k\)</span>)</li>
+<li>dolne oszacowanie przez wzięcie <span
+class="math inline">\(k\)</span> najtańszych niewybranych krawędzi w
+grafie</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#c.d." id="toc-c.d.">c.d.</a>
+<ul>
+<li><a href="#problemy-z-optymalizacją" id="toc-problemy-z-optymalizacją">Problemy z optymalizacją</a></li>
+<li><a href="#metody-heurystyczne" id="toc-metody-heurystyczne">Metody
+heurystyczne</a>
+<ul>
+<li><a href="#metaheurystyki" id="toc-metaheurystyki">Metaheurystyki</a></li>
+</ul></li>
+<li><a href="#problem-plecakowy" id="toc-problem-plecakowy">Problem
+plecakowy</a>
+<ul>
+<li><a href="#algorytm-a" id="toc-algorytm-a">Algorytm A*</a></li>
+</ul></li>
+<li><a href="#poszukiwanie-najkrótszej-drogi-z-miasta-do-miasta" id="toc-poszukiwanie-najkrótszej-drogi-z-miasta-do-miasta">Poszukiwanie
+najkrótszej drogi z miasta do miasta</a></li>
+<li><a href="#problem-komiwojażera" id="toc-problem-komiwojażera">Problem komiwojażera</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>egzamin</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-paszport-biometryczny.html">Poprzedni: 12-paszport-biometryczny.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="egzamin">Egzamin</h1>
+<h2 id="z-wykładów">Z wykładów</h2>
+<ul>
+<li>Do narysowania wykresy
+<ul>
+<li>gęstość prawdopodobieństwa</li>
+</ul></li>
+<li>Czy DNA byłoby dobrym identyfikatorem biometrycznym w zastosowaniu
+na bardzo dużą skalę, np. do identyfikacji podróżnych na lotniskach?
+Uzasadnij odpowiedź.
+<ul>
+<li>Nie</li>
+<li>jest niewygodne dla użytkowników</li>
+<li>istnieją bliźnięta jednojajowe</li>
+<li>jest kosztowne i czasochłonne</li>
+</ul></li>
+<li>Czemu Bertillonage to zła metoda
+<ul>
+<li>znaleziono 2 różne osoby o identycznych cechach</li>
+</ul></li>
+<li>Dla każdej z poniższych propozycji orzec czy jest to minucja
+podstawowa
+<ul>
+<li>podstawowe to zakończenie i rozwidlenie</li>
+</ul></li>
+<li>Czy wraz ze wzrostem liczby zaakceptowanych fałszywych odcisków
+palca rośnie FMR?</li>
+<li>Biometria podpisu
+<ul>
+<li>narysować ścieżkę DWT dla pokazanego dopasowania krzywych</li>
+<li>rodzaje fałszerstw</li>
+<li>metody online/offline i różnice (cechy, dynamika)</li>
+<li>jakie cechy są wyznaczane</li>
+</ul></li>
+<li>Które z poniższych technik zapobiegają akceptacji nielegalnie
+pozyskanego wzorca przesłanego ponownie w niezmienionej formie w celu
+uwierzytelnienia
+<ul>
+<li>zaszumianie wzorców przed transmisją - nie, to samo zostanie
+zaszumione i porównywane</li>
+<li>permutacja elementów wzorca na etapie wyznaczanie - nie, to samo
+będzie permutowane</li>
+<li>ustalenie progu maksymalnej dozwolonej zgodności - tak, będzie
+identyczny wynik dla tego samego wejścia</li>
+<li>brak możliwości odtworzenia oryginalnej próbki na podstawie wzorca -
+nie rozwiąże tego problemu</li>
+<li>kwantyzacja wyniku dopasowania wzorców do trzech wartości (tak, nie,
+niepewne) - tutaj nie pomoże</li>
+<li>analogiczne pytanie o hill climbing</li>
+</ul></li>
+<li>Dystans hamminga</li>
+<li>Jakie własności dłoni nas wyróżniają
+<ul>
+<li>wymienić i opisać modalności</li>
+</ul></li>
+<li>Czym różni się biometria tęczówki od siatkówki
+<ul>
+<li>przynajmniej nie mylić</li>
+</ul></li>
+<li>FMR - nie włącza się fałszerstw zaawansowanych - na egzamin</li>
+<li>Krzywa CMC</li>
+<li>Testujemy dwa algorytmy rozpoznawania tęczówki wykorzystujące
+algorytm Daugmana: A i B. Dla systemu A otrzymaliśmy następujące wyniki
+porównań tych samych tęczówek: 0.1, 0.2, 0.3, oraz różnych tęczówek:
+0.4, 0.5, 0.6. Dla systemu B zostały odnotowane następujące wyniki
+porównań tych samych tęczówek: 0.1, 0.2, 0.4, oraz różnych tęczówek:
+0.3, 0.5, 0.6. Dla którego z systemów pole pod krzywą ROC jest większe?
+Uzasadnij odpowiedź.
+<ul>
+<li>dla systemu A można ustalić próg w przedziale <span
+class="math inline">\((0.3, 0.4)\)</span></li>
+<li>dla tych danych da idealną klasyfikację czyli większe pole pod
+ROC</li>
+</ul></li>
+<li>Grupy algorytmów detekcji twarzy</li>
+<li>Viola-Jones
+<ul>
+<li>ważne że jest szybki bo działa jako kaskada</li>
+<li>szybko odrzuca obszar niebędący twarzą</li>
+<li>niedokładny</li>
+</ul></li>
+</ul>
+<h2 id="z-powtórzenia">Z powtórzenia</h2>
+<ul>
+<li>Błąd zrównoważony (EER) to wartość dla której błąd FRR=FNMR
+<ul>
+<li>FAŁSZ</li>
+<li>FNMR dotyczy tylko technologii porównywania obrazów</li>
+<li>FRR dotyczy transakcji biometrycznej (też nieudane pomiary, polityka
+decyzyjna systemu)</li>
+</ul></li>
+<li>Narysuj dowolne krzywe FNMR i FMR i skonstruuj (graficznie)
+odpowiadającą im krzywą ROC pamiętając o kompletnym opisie osi
+wykresu</li>
+<li>Oznacz punkty osobliwe i określ klasę Henry’ego dla poniższego
+układu linii papilarnych, po co jest klasyfikacja Henry’ego (obrazek)
+<ul>
+<li>stosowana dla ułatwienia przeszukiwania dużych zbiorów danych</li>
+</ul></li>
+<li>Jakich odległości Hamminga spodziewać się można przy porównaniu
+dwóch różnych obrazów tęczówek lewego oka tej samej osoby zakładając że
+metoda wykonuje korekcję kąta patrzenia
+<ul>
+<li>małych (odp: poniżej 0.32)</li>
+</ul></li>
+<li>Które z poniższych stwierdzeń są prawdziwe dla metody Daugmana
+<ul>
+<li>PRAWDA: filtry Gabora o identycznych parametrach są stosowane w
+wielu punktach obrazu</li>
+<li>FAŁSZ: operator całkowo-różniczkowy pozwala na wydobycie informacji
+osobniczej (operator służy do lokalizacji tęczówki)</li>
+<li>FAŁSZ: istotnym etapem metody jest normalizacja kodu binarnego (nie
+normalizujemy kodu binarnego, obraz jest poddawany normalizacji)</li>
+<li>PRAWDA: informację osobniczą kodujemy za pomocą kwantyzacji fazy
+sygnału po filtracji</li>
+</ul></li>
+<li>Uszereguj oraz krótko scharakteryzuj etapy przetwarzania obrazu w
+metodzie rozpoznawania tęczówki Daugmana
+<ul>
+<li>segmentacja obrazu, np. metodą operatora całkowo-różniczkowego</li>
+<li>normalizacja obrazu (rozwinięcie do prostokąta o ustalonych
+rozmiarach)</li>
+<li>filtracja obrazu np. filtrami Gabora</li>
+<li>porównanie kodów binarnych (odległość Hamminga)</li>
+</ul></li>
+<li>Narysuj schematyczną krzywą ROC dla dwóch dowolnych, różnych od
+siebie nieidealnych systemów biometrycznych, pamiętając o odpowiednich
+opisach osi wykresu. Załóż, że odbiorca wykresu chciałby odczytać
+wartości oczekiwanego błędu fałszywego odrzucenia dla liniowo
+wzrastających wartości błędu fałszywej akceptacji. Następnie oznacz na
+stworzonym rysunku linią przerywaną przebieg dla klasyfikatora losowego.
+Określ również, który z dwóch systemów jest lepszy i dlaczego.</li>
+<li>… atak hill climbing
+<ul>
+<li>zabezpiecznie
+<ul>
+<li>ograniczenie liczby prób</li>
+<li>nie zwracać stopnia dopasowania tylko decyzję</li>
+</ul></li>
+<li>zalecenia
+<ul>
+<li>uniemożliwić odczytanie stopnia dopasowania</li>
+<li>uniemożliwić wprowadzanie sztucznie wytworzonych obrazów do
+systemu</li>
+</ul></li>
+<li>steganografia w celu podpisania danych z sensora mogłaby pomóc, bo
+sztuczne dane nie zawierałyby podpisu i można je odrzucić jako próby
+ataku</li>
+</ul></li>
+<li>Wskaż minucje podstawowe
+<ul>
+<li>rozwidlenie</li>
+<li>zakończenie</li>
+</ul></li>
+<li>Wyjaśnij dlaczego w biometrii tęczówki typowo stosujemy kamery
+operujące w bliskiej podczerwieni
+<ul>
+<li>nie ma reakcji źrenicy</li>
+<li>komfort użytkownika</li>
+<li>podczerwień jest w mniejszym stopniu pochłaniana przez melaninę</li>
+</ul></li>
+<li>Jakich odległości Hamminga można się spodziewać przy porównaniu
+lewego i prawego oka tej samej osoby
+<ul>
+<li>ok 0.45 (losowo jest ok 0.5)</li>
+</ul></li>
+<li>Metoda identyfikacji biometrycznej zwróciła poszukiwanego kandydata
+ze skutecznością dla identyfikacji rzędu k, narysować wykres CMC
+<ul>
+<li>podana tabela k i skuteczności identyfikacji</li>
+<li>będzie na egzaminie</li>
+</ul></li>
+<li>Dlaczego DNA nie jest dobrym identyfikatorem biometrycznym do
+stosowania na skalę masową np. do identyfikacji podróżnych
+<ul>
+<li>niewygodne, niekomfortowe</li>
+<li>wolne</li>
+<li>niewystarczające zróżnicowanie (bliźnięta jednojajowe)</li>
+</ul></li>
+<li>System rozpoznawania tęczówki metodą Daugmana zwrócił wynik
+dopasowania równy zero (hamming distance), o czym to może świadczyć
+<ul>
+<li>został podany identyczny obraz</li>
+<li>prawdopodobnie została wstrzyknięta wykradziona próbka</li>
+</ul></li>
+<li>W jaki sposób można obronić się przed atakiem na system biometrii
+tęczówki, w którym atakujący wykorzystuje papierowe wydruki
+tęczówek</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#egzamin" id="toc-egzamin">Egzamin</a>
+<ul>
+<li><a href="#z-wykładów" id="toc-z-wykładów">Z wykładów</a></li>
+<li><a href="#z-powtórzenia" id="toc-z-powtórzenia">Z
+powtórzenia</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

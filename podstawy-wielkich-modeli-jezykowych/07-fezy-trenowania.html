@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-fezy-trenowania</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-tylko-dekoder.html">Poprzedni: 06-tylko-dekoder.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">Następny: 08-efektywne-obliczeniowo-dostrajanie-modeli.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="fazy-trenowania-generatywnych-modeli-językowych">Fazy trenowania
+generatywnych modeli językowych</h1>
+<ul>
+<li>Wstępne trenowani
+<ul>
+<li>(<em>Pretraining</em></li>
+<li>najbardziej wymagające</li>
+<li>rzędu milionów godzin GPU</li>
+<li>modele udostępniane z tagiem BASE</li>
+</ul></li>
+<li>Nadzorowane dostrajanie do wykonywania poleceń
+<ul>
+<li><em>Supervised finetuning</em> (SFT)</li>
+<li>wersja INSTRUCT</li>
+</ul></li>
+<li>Dostosowanie do preferencji
+<ul>
+<li><em>Preference alignment</em></li>
+<li>wiele wariantów</li>
+<li><em>Reinforcement Learning from Human Feedback</em> (RLHF)</li>
+<li><em>Direct Preference Optimization</em> (DPO)</li>
+<li><em>Odds Ratio Preference Optimization</em> (ORPO)</li>
+</ul></li>
+<li>Fazy 2 i 3 - “wychowywanie modelu”
+<ul>
+<li>zgodność z oczekiwaniami użytkowników</li>
+<li>minimalizacja ryzyka generowania treści szkodliwych</li>
+<li>dostosowanie do ludzkich preferencji, wartości i zasad
+etycznych</li>
+</ul></li>
+<li>Fazy 1 i 2
+<ul>
+<li>predykcja następnego tokenu</li>
+</ul></li>
+</ul>
+<h2 id="wstępne-trenowanie">Wstępne trenowanie</h2>
+<ul>
+<li>Trening samonadzorowany
+<ul>
+<li>zadanie przyczynowego modelowania języka</li>
+</ul></li>
+<li>Przepuszczenie sekwencji przez transformer</li>
+<li>Wyjście dla każdego tokenu (inaczej niż przy inferencji)
+<ul>
+<li>estymacja rozkładu prawdopodobieństwa kolejnego tokenu</li>
+</ul></li>
+<li>Średnia entropii krzyżowej dla każdego elementu sekwencji</li>
+<li>Cel - dopasowanie dokładnie następnego tokenu</li>
+<li>Żeby skutecznie estymować rozkład prawdopodobieństwa kolejnego
+tokenu, model musi
+<ul>
+<li>nauczyć się reguł języka</li>
+<li>zdobyć wiedzę o świecie</li>
+<li>nauczyć się schematów rozumowania i wnioskowania</li>
+</ul></li>
+<li>Model bazowy
+<ul>
+<li>ma ograniczoną zdolność wykonywania poleceń</li>
+<li>próbuje generować tekst spójny z podanym promptem, niekoniecznie
+biorąc pod uwagę intencje użytkownika</li>
+</ul></li>
+</ul>
+<h3 id="zbiory-treningowe">Zbiory treningowe</h3>
+<ul>
+<li>Głównie dane pozyskane z internetu</li>
+<li>Publicznie dostępne zbiory danych
+<ul>
+<li>Common Crawl</li>
+<li>Colossal Clean Crawled Corpus</li>
+<li>Dolma</li>
+<li>SpeakLeash - w języku polskim</li>
+</ul></li>
+</ul>
+<h2 id="nadzorowane-dostrajanie-do-wykonywania-poleceń">Nadzorowane
+dostrajanie do wykonywania poleceń</h2>
+<ul>
+<li>Modele w wersji <em>instruct</em></li>
+<li>Dostrojone w sposób nadzorowany do wykonywania poleceń
+użytkownika</li>
+<li>Mogą być wykorzystane jako modele dialogowe</li>
+<li>Zwykle wymagają określonego formatu wejściowych promptów
+<ul>
+<li>zdefiniowane przez szablon dialogowy</li>
+</ul></li>
+</ul>
+<h3 id="zbiory-treningowe-1">Zbiory treningowe</h3>
+<ul>
+<li>Jest wiele publicznie dostępnych w różnych językach i do różnych
+zadań</li>
+<li>Przykłady
+<ul>
+<li>Aya</li>
+<li>SuperNatural Instructions</li>
+<li>Flan</li>
+</ul></li>
+<li>Zbiory danych do dostrajania modeli zawierają
+<ul>
+<li>pary złożone z poleceń i odpowiedzi utworzone przez ludzi</li>
+<li>Przykłady treningowe utworzone automatycznie na podstawie
+wcześniejszych zbiorów danych wykorzystywanych w zadaniach NLP</li>
+<li>syntetyczne przykłady wygenerowane przez modele językowe z
+wykorzystaniem specjalnie utworzonych promptów</li>
+</ul></li>
+</ul>
+<h3 id="szablony-dialogowe">Szablony dialogowe</h3>
+<ul>
+<li><em>Chat templates</em></li>
+<li>Wiele współczesnych modeli jest trenowanych jako systemy dialogowe
+(<em>chatbots</em>)</li>
+<li>Historia interakcji z systemem jest zwykle przechowywana jako lista
+komunikatów w ustalonym formacie</li>
+<li>Szablony dialogowe definiują sposób przekształcenia listy
+komunikatów w tekst podawany na wejściu do modelu językowego
+<ul>
+<li>dane treningowe wykorzystywane podczas SFT są formatowane z
+wykorzystaniem szablonów dialogowych</li>
+</ul></li>
+<li>Standardowe role
+<ul>
+<li>system - kontekst systemowy przekazywany modelowi aby sterować jego
+zachowaniem</li>
+<li>user - komunikat (polecenie i/lub kontekst) od użytkownika
+przekazywany modelowi</li>
+<li>assistant - odpowiedź wygenerowana przez model językowy</li>
+</ul></li>
+<li>Popularne standardy definiowania szablonów
+<ul>
+<li>ChatML - OpenAI</li>
+<li>OpenChatML 2.2 - specyfikacja rozwijana przez społeczność,
+rozbudowane mechanizmy</li>
+</ul></li>
+<li>Modele są dostrajane do wykorzystania konkretnego szablonu
+dialogowego</li>
+<li>W bibliotece <code>transformers</code> wykorzystuje się składnię
+biblioteki Jinja</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;system&quot;</span><span class="fu">,</span> <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;You are a friendly chatbot who always responds in the style of a pirate&quot;</span><span class="fu">,}</span><span class="ot">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span><span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;user&quot;</span><span class="fu">,</span> <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="st">&quot;How many helicopters can a human eat in one sitting?&quot;</span><span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="ot">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;|system|&gt;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>You are a friendly chatbot who always responds in the style of a pirate&lt;/s&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>&lt;|user|&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>How many helicopters can a human eat in one sitting?&lt;/s&gt;</span></code></pre></div>
+<h2 id="wychowywanie-modelu">Wychowywanie modelu</h2>
+<ul>
+<li>Dostosowanie modelu do ludzkich preferencji, wartości zasad
+etycznych
+<ul>
+<li>zwiększa zgodność odpowiedzi z oczekiwaniami użytkowników</li>
+<li>minimalizacja ryzyka generowania treści szkodliwych lub
+nieodpowiednich</li>
+<li>zapewnienie, że model będzie użyteczny i bezpieczny</li>
+</ul></li>
+<li>Zbiory treningowe zawierają prompt użytkownika i odpowiedzi
+uszeregowane według preferencji
+<ul>
+<li>też negatywne przykłady</li>
+<li>zwykle mniej przykładów niż w fazie nadzorowanego dostrajania</li>
+</ul></li>
+<li>Przypadki specjalne
+<ul>
+<li>dostrajanie do wykorzystania narzędzi</li>
+<li>dostrajanie do rozumowania</li>
+</ul></li>
+</ul>
+<h3 id="reinforcement-learning-form-human-feedback">Reinforcement
+Learning form Human Feedback</h3>
+<ul>
+<li>RLHF</li>
+<li>Wytrenowanie modelu (<em>reward model</em>) oceniającego odpowiedzi
+modelu językowego</li>
+<li>Zastosowanie metod uczenia ze wzmocnieniem do optymalizacji wag
+modelu językowego
+<ul>
+<li>cel - maksymalizacja oceny/nagrody dla wygenerowanych
+odpowiedzi</li>
+</ul></li>
+<li>Bardzo wrażliwe na ustawienia hiperparametrów
+<ul>
+<li>trening może nie być zbieżny</li>
+</ul></li>
+<li>Istnieją gotowe implementacje</li>
+<li>Kłopotliwe trenowanie modelu nagrody</li>
+<li>Nie omawiamy szczegółowo</li>
+</ul>
+<h4 id="uczenie-ze-wzmocnieniem">Uczenie ze wzmocnieniem</h4>
+<ul>
+<li>Rzadka nagroda
+<ul>
+<li>np. co kilka iteracji</li>
+</ul></li>
+<li>Agentem jest model językowy
+<ul>
+<li>nagroda po wygenerowaniu całej sekwencji</li>
+</ul></li>
+</ul>
+<h3 id="direct-preference-optimization">Direct Preference
+Optimization</h3>
+<ul>
+<li>DPO</li>
+<li>Dwie kopie modelu - trenowana i referencyjna</li>
+<li>Model trenowany powinien zwracać
+<ul>
+<li>większe prawdopodobieństwo dla preferowanych odpowiedzi</li>
+<li>mniejsze prawdopodobieństwa dla odrzuconych odpowiedzi niż model
+referencyjny</li>
+</ul></li>
+<li>Przewaga nad RLHF
+<ul>
+<li>bardziej stabilne</li>
+<li>nie wymaga trenowania modelu nagrody</li>
+</ul></li>
+</ul>
+<h3 id="odd-ratio-preference-optimization">Odd Ratio Preference
+Optimization</h3>
+<ul>
+<li>ORPO</li>
+<li>Technika łącząca nadzorowane dostrajanie do wykonywania poleceń
+(SFT) i dostosowanie do preferencji</li>
+<li>Zbiór danych zawiera
+<ul>
+<li>pytanie</li>
+<li>akceptowaną odpowiedź</li>
+<li>odrzuconą odpowiedź</li>
+</ul></li>
+<li>Funkcja straty jest sumą
+<ul>
+<li>składnika odpowiadającego SFT (entropia krzyżowa)</li>
+<li>składnika odpowiadającego dostosowaniu preferencji - stosunek
+prawdopodobieństw akceptowanego vs odrzuconego</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#fazy-trenowania-generatywnych-modeli-językowych" id="toc-fazy-trenowania-generatywnych-modeli-językowych">Fazy trenowania
+generatywnych modeli językowych</a>
+<ul>
+<li><a href="#wstępne-trenowanie" id="toc-wstępne-trenowanie">Wstępne
+trenowanie</a>
+<ul>
+<li><a href="#zbiory-treningowe" id="toc-zbiory-treningowe">Zbiory
+treningowe</a></li>
+</ul></li>
+<li><a href="#nadzorowane-dostrajanie-do-wykonywania-poleceń" id="toc-nadzorowane-dostrajanie-do-wykonywania-poleceń">Nadzorowane
+dostrajanie do wykonywania poleceń</a>
+<ul>
+<li><a href="#zbiory-treningowe-1" id="toc-zbiory-treningowe-1">Zbiory
+treningowe</a></li>
+<li><a href="#szablony-dialogowe" id="toc-szablony-dialogowe">Szablony
+dialogowe</a></li>
+</ul></li>
+<li><a href="#wychowywanie-modelu" id="toc-wychowywanie-modelu">Wychowywanie modelu</a>
+<ul>
+<li><a href="#reinforcement-learning-form-human-feedback" id="toc-reinforcement-learning-form-human-feedback">Reinforcement
+Learning form Human Feedback</a></li>
+<li><a href="#direct-preference-optimization" id="toc-direct-preference-optimization">Direct Preference
+Optimization</a></li>
+<li><a href="#odd-ratio-preference-optimization" id="toc-odd-ratio-preference-optimization">Odd Ratio Preference
+Optimization</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

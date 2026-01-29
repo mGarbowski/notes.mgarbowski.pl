@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-stereoskopia</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-light-field-ar-vr.html">Poprzedni: 11-light-field-ar-vr.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="13-cienie.html">Następny: 13-cienie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="stereoskopia">Stereoskopia</h1>
+<ul>
+<li>Podobne problemy pojawiają się w VR</li>
+<li>Umożliwia odwzorowanie trzeciego wymiaru za pomocą dwuwymiarowych
+obrazów</li>
+<li>Dwa obrazy
+<ul>
+<li>jeden na oko</li>
+<li>różne kąty widzenia obiektów</li>
+<li>różne przesłanianie się obiektów</li>
+</ul></li>
+</ul>
+<h2 id="sposoby-odwzorowania-stereo">Sposoby odwzorowania stereo</h2>
+<ul>
+<li>Anaglify</li>
+<li>Filtry polaryzacyjne</li>
+<li>Metoda migawkowa</li>
+</ul>
+<h2 id="disparity">Disparity</h2>
+<p><img src="./obrazy/disparity.png" /></p>
+<p>Odległość między dwoma pasującymi do siebie punktami obiektu na
+obrazie (ekranie)</p>
+<h3 id="anaglif">Anaglif</h3>
+<ul>
+<li>Red-cyan</li>
+<li>Słabe odwzorowanie kolorów
+<ul>
+<li>dobra zieleń</li>
+<li>prawie niewidoczny czerwony</li>
+</ul></li>
+<li>Ghosting
+<ul>
+<li>lewe oko widzi część obrazu prawego</li>
+</ul></li>
+<li>Lepsze odmiany
+<ul>
+<li>magenta + cyan</li>
+<li>trioscopic (zielony + magenta)</li>
+<li>ColorCode 3-D (bursztynowy + ciemny niebieski) - pełna percepcja ale
+wymaga jasnego obrazu i ciemnego pomieszczenia</li>
+</ul></li>
+<li>To można wydrukować na papierze i działa tak samo, nie potrzeba
+ekranu</li>
+</ul>
+<h3 id="okulary-pasywne">Okulary pasywne</h3>
+<ul>
+<li>Obrazy są widoczne dla każdego oka</li>
+<li>Soczewki polaryzacyjne
+<ul>
+<li>soczewka przepuszcza do oka tylko obraz dla danego oka</li>
+</ul></li>
+<li>Nie ma konieczności zasilania okularów</li>
+<li>Wymaga odpowiedniego zakodowania obrazu
+<ul>
+<li>np. linie na przemian - połowa rozdzielczości</li>
+</ul></li>
+</ul>
+<h3 id="okulary-aktywne">Okulary aktywne</h3>
+<ul>
+<li>Wyposażone w przesłony LCD</li>
+<li>Wymagają zasilania baterii</li>
+<li>Zsynchronizowane z ekranem
+<ul>
+<li>w momencie wyświetlania obrazu dla lewego oka, prawe jest
+zasłonięte</li>
+</ul></li>
+<li>Dla każdego oka pełna rozdzielczość i prawie pełny kolor</li>
+</ul>
+<h3 id="porównanie">Porównanie</h3>
+<ul>
+<li>Okulary aktywne
+<ul>
+<li>ciemniejszy obraz</li>
+<li>mniej widoczny cross-talk</li>
+</ul></li>
+<li>Okulary pasywne
+<ul>
+<li>może zmieniać barwę obrazu</li>
+<li>brak migotania</li>
+</ul></li>
+</ul>
+<h2 id="odbicia">Odbicia</h2>
+<ul>
+<li>Jest zależne od kierunku patrzenia</li>
+<li>Obraz dla lewego i prawego oka może wyglądać znacząco inaczej</li>
+<li>Disparity odbite i disparity rozproszone</li>
+</ul>
+<h2 id="załamanie">Załamanie</h2>
+<ul>
+<li>Disparity przezroczystości, disparity załamania</li>
+</ul>
+<h2 id="rywalizacja-między-oczami">Rywalizacja między oczami</h2>
+<ul>
+<li>Dąży się do minimalizacji różnic w odbiciach między jednym i drugim
+obrazem</li>
+<li>Można renderować odbicia z innego miejsca
+<ul>
+<li>przesunięcie wektora od oka obserwatora do renderowania odbić</li>
+<li>przesunięcie w stronę drugiego oka</li>
+</ul></li>
+</ul>
+<h2 id="problem-konwergencji-i-akomodacji">Problem konwergencji i
+akomodacji</h2>
+<ul>
+<li>Przesunięcie oka i zmiana widzenia głębokości</li>
+<li>Dla wyrenderowanego obrazu powinno być postrzeganie jak przy
+patrzeniu na ekran</li>
+<li>Jest określona strefa komfortu - trzeba spłaszczyć głębię do
+określonego zakresu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#stereoskopia" id="toc-stereoskopia">Stereoskopia</a>
+<ul>
+<li><a href="#sposoby-odwzorowania-stereo" id="toc-sposoby-odwzorowania-stereo">Sposoby odwzorowania
+stereo</a></li>
+<li><a href="#disparity" id="toc-disparity">Disparity</a>
+<ul>
+<li><a href="#anaglif" id="toc-anaglif">Anaglif</a></li>
+<li><a href="#okulary-pasywne" id="toc-okulary-pasywne">Okulary
+pasywne</a></li>
+<li><a href="#okulary-aktywne" id="toc-okulary-aktywne">Okulary
+aktywne</a></li>
+<li><a href="#porównanie" id="toc-porównanie">Porównanie</a></li>
+</ul></li>
+<li><a href="#odbicia" id="toc-odbicia">Odbicia</a></li>
+<li><a href="#załamanie" id="toc-załamanie">Załamanie</a></li>
+<li><a href="#rywalizacja-między-oczami" id="toc-rywalizacja-między-oczami">Rywalizacja między oczami</a></li>
+<li><a href="#problem-konwergencji-i-akomodacji" id="toc-problem-konwergencji-i-akomodacji">Problem konwergencji i
+akomodacji</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

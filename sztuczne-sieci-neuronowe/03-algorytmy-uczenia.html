@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-algorytmy-uczenia</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-technologie.html">Poprzedni: 02-technologie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-dobre-praktyki.html">Następny: 04-dobre-praktyki.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="algorytmy-uczenia-sieci-neuronowych">Algorytmy uczenia sieci
+neuronowych</h1>
+<ul>
+<li>Uczenie on-line
+<ul>
+<li>przetwarzanie próbek po kolei</li>
+</ul></li>
+<li>Uczenie off-line
+<ul>
+<li>dostępny cały zbiór</li>
+<li>można policzyć globalne operacje</li>
+<li>nierealne dla dużych zbiorów danych</li>
+</ul></li>
+<li>Strata na minipakiecie - nieobciążony estymator kryterium jakości
+<ul>
+<li>kryterium jakości jest zdefiniowane na całym zbiorze
+treningowym</li>
+</ul></li>
+<li>Gradient na minipakiecie - nieobciążony estymator gradientu</li>
+</ul>
+<h2 id="pętla-uczenia">Pętla uczenia</h2>
+<ul>
+<li>Epoka - przejście po całych danych treningowych</li>
+<li>Uczenie - zadana liczba epok</li>
+<li>Wynik - zoptymalizowane wagi sieci neuronowej</li>
+<li>W każdej epoce dane ustawiane losowo do tworzenia minipakietów
+<ul>
+<li>dla każdego minipakietu jest wyznaczany gradient</li>
+<li>gradient jest użyty do poprawy parametrów</li>
+</ul></li>
+</ul>
+<h2 id="stochastyczny-spadek-wzdłuż-gradientu-sgd">Stochastyczny spadek
+wzdłuż gradientu (SGD)</h2>
+<p><span class="math display">\[\theta = \theta - \beta
+\hat{g}\]</span></p>
+<ul>
+<li>Stochastyczny - gradient jest tylko estymowany na jednym
+minipakiecie</li>
+<li>Hiperparametr - <span class="math inline">\(\beta\)</span> -
+learning rate / step size
+<ul>
+<li>parametr kroku</li>
+</ul></li>
+<li>Warunki zbieżności
+<ul>
+<li>do optimum lokalnego</li>
+</ul></li>
+<li>Wrażliwość na <span class="math inline">\(\beta\)</span>
+<ul>
+<li>za mała wartość - wolne uczenie</li>
+<li>za duża wartość - niestabilność uczenia</li>
+</ul></li>
+<li>Konieczny jest dobór dobrej wartości <span
+class="math inline">\(\beta\)</span></li>
+<li>Przez wykorzystanie tylko jednego pakietu występują fluktuacje</li>
+</ul>
+<h2 id="algorytmy-z-inercją">Algorytmy z inercją</h2>
+<p><span class="math display">\[m = \lambda m - \beta \hat{g}\]</span>
+<span class="math display">\[ \theta = \theta + m\]</span></p>
+<ul>
+<li>Czynnik inercyjny akumuluje zmiany
+<ul>
+<li>akumulujemy gradienty z wielu minipakietów</li>
+<li>z większą wagą bierzemy nowsze</li>
+</ul></li>
+<li>Wykrywa trend i wzmacnia ten trend</li>
+<li>Redukuje fluktuacje</li>
+<li>Hiperparametry
+<ul>
+<li>współczynnik uczenia <span class="math inline">\(\beta\)</span></li>
+<li>stopień bezwładności <span
+class="math inline">\(\lambda\)</span></li>
+</ul></li>
+<li>Wersja CM (Classic Momentum)
+<ul>
+<li>metoda z inercją</li>
+<li>standardowe obliczanie gradientu</li>
+<li><span class="math inline">\(\hat{g} = \nabla_\theta \hat{q}(\theta,
+\xi)\)</span></li>
+</ul></li>
+<li>Wersja NAG (Nesterov Accelerated Gradient)
+<ul>
+<li>metoda Nesterova</li>
+<li>gradient jest liczony w przesuniętym punkcie (względem przesuniętych
+parametrów)</li>
+<li><span class="math inline">\(\hat{g} = \nabla_{\theta + \lambda m}
+\hat{q}(\theta + \lambda m, \xi)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="algorytmy-z-normalizacją-gradientów">Algorytmy z normalizacją
+gradientów</h2>
+<h3 id="adagrad">Adagrad</h3>
+<p><span class="math display">\[ G = G + \hat{g}^2 \]</span> <span
+class="math display">\[ \theta = \theta - \frac{\beta}{\sqrt{G +
+\epsilon}} \hat{g} \]</span></p>
+<ul>
+<li><span class="math inline">\(\epsilon\)</span> - stała, zapobiega
+dzieleniu przez 0</li>
+<li>Modyfikacja SGD</li>
+<li>Skaluje parametr kroku</li>
+<li>Wektor parametrów kroku - oddzielny krok dla każdego parametru sieci
+<ul>
+<li>większy krok dla wag z małymi zmianami</li>
+<li>mniejszy krok dla wag z dużymi zmianami</li>
+</ul></li>
+<li><span class="math inline">\(G\)</span> jest niemalejące</li>
+<li>Akumulacja przez sumowanie - gradient z każdego minipakietu wpływa
+tak samo (nowy i stary)</li>
+<li>Stabilny proces uczenia
+<ul>
+<li>zwalnia w miarę uczenia</li>
+</ul></li>
+</ul>
+<h3 id="rmsprop">RMSprop</h3>
+<p><span class="math display">\[ E\hat{g} = \gamma E \hat{g} +
+(1-\gamma) \hat{g}^2 \]</span> <span class="math display">\[ \theta =
+\theta - \frac{\beta}{\sqrt{E\hat{g} + \epsilon}} \hat{g} \]</span></p>
+<ul>
+<li>Modyfikacja SGD</li>
+<li>Wygładzanie wykładnicze gradientów</li>
+<li>Hiperparametr - współczynnik wygładzania <span
+class="math inline">\(\gamma\)</span></li>
+<li>Wygaszanie wpływu starszych gradientów</li>
+<li>Inne podejście do akumulacji kwadratów gradientów - wygładzanie
+wykładnicze
+<ul>
+<li>mocniejszy wpływ nowszych gradientów</li>
+</ul></li>
+<li>Ograniczenie agresywnego zmniejszania jak w Adagrad</li>
+</ul>
+<h3 id="adadelta">Adadelta</h3>
+<p><span class="math display">\[ E\hat{g} = \gamma E\hat{g} + (1-\gamma)
+\hat{g}^2\]</span> <span class="math display">\[ \Delta \theta =
+-\frac{\sqrt{E\theta + \epsilon}}{\sqrt{E\hat{g} + \epsilon}} \hat{g}
+\]</span> <span class="math display">\[ E\theta = \gamma E \theta +
+(1-\gamma) \Delta \theta^2 \]</span> <span class="math display">\[
+\theta = \theta + \Delta\theta \]</span></p>
+<ul>
+<li>Modyfikacja SGD</li>
+<li>Nie ma parametru kroku - szacowany przez samą metodę
+<ul>
+<li><span class="math inline">\(\frac{\sqrt{E\theta +
+\epsilon}}{\sqrt{E\hat{g} + \epsilon}}\)</span></li>
+<li>różny krok dla każdej wagi</li>
+</ul></li>
+<li>Jak RMSprop ale zmieniony wzór daje zgodne jednostki z parametrami
+sieci</li>
+<li>Można dodatkowo dołożyć parametr kroku skalujący <span
+class="math inline">\(\Delta\)</span>
+<ul>
+<li>w praktyce niepotrzebny</li>
+</ul></li>
+<li>Autorzy sugerują wartości hiperparametrów</li>
+<li>Nie ma agresywnego zmniejszania kroku jak w Adagrad</li>
+</ul>
+<h3 id="adam">Adam</h3>
+<p><span class="math display">\[ m = \gamma_1m + (1-\gamma_1)\hat{g}
+\]</span> <span class="math display">\[ v = \gamma_2v +
+(1-\gamma_2)\hat{g} \]</span> <span class="math display">\[ \hat{m} =
+\frac{m}{1-\gamma_1^t} \]</span> <span class="math display">\[ \hat{v} =
+\frac{v}{1-\gamma_2^t} \]</span> <span class="math display">\[ \theta =
+\theta - \frac{\beta}{\sqrt{\hat{v} + \epsilon}} \hat{m} \]</span> *
+Oznaczenia * <span class="math inline">\(\beta\)</span> - learning rate
+* <span class="math inline">\(\gamma_1, \gamma_2\)</span> -
+współczynniki wygładzania * <span
+class="math inline">\(\epsilon\)</span> - mała stała (zapobiega
+dzieleniu przez <span class="math inline">\(0\)</span>) * <span
+class="math inline">\(t\)</span> - krok czasowy (indeks minipakietu) *
+<span class="math inline">\(m\)</span> - estymator pierwszego momentu
+gradientów (średniej) * <span class="math inline">\(v\)</span> -
+estymator drugiego momentu gradientów (niewyśrodkowana wariancja) *
+<span class="math inline">\(\hat{m}, \hat{v}\)</span> - korekty
+estymatorów * Modyfikacja algorytmu CM * Najpopularniejszy obecnie *
+Wygładzanie wykładnicze estymatora gradientu i kwadratów gradientu *
+Wygładzanie działa jak człon inercyjny * Skalowanie parametru kroku *
+<span class="math inline">\(m\)</span> i <span
+class="math inline">\(v\)</span> się skaluje, żeby przyspieszyć
+początkowe kroki uczenia * są inicjowane zerami * z czasem mianownik
+zbliża się do 1 - wykładnik <span class="math inline">\(t\)</span> *
+wartość skorygowana zbliża się do oryginalnej * Wariacje * AdaMax -
+akumulacja wartości maksymalnych zamiast kwadratów * Nadam - oparty na
+NAG * AMSGRAD - autorzy wykazali, że Adam nie zawsze jest zbieżny dla
+pewnej klasy problemów * w praktyce podstawowy Adam często jest
+lepszy</p>
+<h2 id="inne-podejścia">Inne podejścia</h2>
+<ul>
+<li>Algorytmy drugiego rzędu
+<ul>
+<li>wykorzystują drugie pochodne (hesjan) funkcji straty względem
+parametrów</li>
+<li>szybsza zbieżność</li>
+<li>kosztowne obliczeniowo i pamięciowo (kwadratowo względem liczby
+parametrów, zamiast liniowo jak w gradiencie)</li>
+<li>praktyczne tylko dla bardzo małych sieci</li>
+</ul></li>
+<li>Algorytmy dostosowujące hiperparametry uczenia
+<ul>
+<li>modyfikacje konkretnych algorytmów</li>
+<li>mechanizmy ogólne</li>
+<li>często bardziej wymagające pamięciowo i obliczeniowo</li>
+<li>koszty mogą rekompensować czas potrzebny na eksperymenty ze
+strojeniem hiperparametrów</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytmy-uczenia-sieci-neuronowych" id="toc-algorytmy-uczenia-sieci-neuronowych">Algorytmy uczenia sieci
+neuronowych</a>
+<ul>
+<li><a href="#pętla-uczenia" id="toc-pętla-uczenia">Pętla
+uczenia</a></li>
+<li><a href="#stochastyczny-spadek-wzdłuż-gradientu-sgd" id="toc-stochastyczny-spadek-wzdłuż-gradientu-sgd">Stochastyczny spadek
+wzdłuż gradientu (SGD)</a></li>
+<li><a href="#algorytmy-z-inercją" id="toc-algorytmy-z-inercją">Algorytmy z inercją</a></li>
+<li><a href="#algorytmy-z-normalizacją-gradientów" id="toc-algorytmy-z-normalizacją-gradientów">Algorytmy z normalizacją
+gradientów</a>
+<ul>
+<li><a href="#adagrad" id="toc-adagrad">Adagrad</a></li>
+<li><a href="#rmsprop" id="toc-rmsprop">RMSprop</a></li>
+<li><a href="#adadelta" id="toc-adadelta">Adadelta</a></li>
+<li><a href="#adam" id="toc-adam">Adam</a></li>
+</ul></li>
+<li><a href="#inne-podejścia" id="toc-inne-podejścia">Inne
+podejścia</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

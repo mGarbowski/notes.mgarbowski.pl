@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-twarz</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-statystyczna-ocena-systemow-biometrycznych.html">Poprzedni: 09-statystyczna-ocena-systemow-biometrycznych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-rozpoznawanie-mowiacego.html">Następny: 11-rozpoznawanie-mowiacego.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="biometria-twarzy">Biometria twarzy</h1>
+<h2 id="wyzwania-w-rozpoznawaniu-twarzy">Wyzwania w rozpoznawaniu
+twarzy</h2>
+<ul>
+<li>Przesłonięcia</li>
+<li>Wyraz twarzy</li>
+<li>Obrót</li>
+<li>Zarost</li>
+<li>Starzenie się</li>
+<li>Urazy, procedury medyczne</li>
+<li>Zdjęcie w warunkach kontrolowanych lub niekontrolowanych</li>
+<li>Rozróżnianie bliźniąt</li>
+<li>Zwykłe podobieństwo wyglądu</li>
+</ul>
+<h2 id="potok">Potok</h2>
+<ul>
+<li>Detekcja twarzy</li>
+<li>Ustawienie w standardowej pozycji (alignment)
+<ul>
+<li>wyśrodkowanie</li>
+<li>obrót</li>
+</ul></li>
+<li>Ekstrakcja cech</li>
+</ul>
+<h2 id="detekcja">Detekcja</h2>
+<ul>
+<li>Krytyczny krok</li>
+<li>Często trudniejszy niż ekstrakcja cech</li>
+<li>Wyznaczanie cech z obszaru który nie jest twarzą nie może
+dać dobrego rezultatu</li>
+<li>Grupy algorytmów
+<ul>
+<li>oparte o regiony</li>
+<li>oparte o przesuwające się okno</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>retina face</li>
+<li>mtcnn</li>
+</ul></li>
+</ul>
+<h3 id="oparte-o-regiony">Oparte o regiony</h3>
+<ul>
+<li>Jeden model wyznacza propozycje regionów</li>
+<li>Klasyfikator ocenia czy region zawiera twarz</li>
+</ul>
+<h3 id="oparte-o-przesuwające-się-okna">Oparte o przesuwające się
+okna</h3>
+<ul>
+<li>Tworzy się piramidę obrazów różnej rozdzielczości</li>
+<li>Jeden rozmiar okna na obrazy różnej wielkości
+<ul>
+<li>wykrywa różne rozmiary obszarów</li>
+</ul></li>
+</ul>
+<h3 id="viola-jones">Viola-Jones</h3>
+<ul>
+<li>Stary detektor twarzy</li>
+<li>Oparty na falkach Haara</li>
+<li>Pewne obszary twarzy są jaśniejsze lub ciemniejsze względem
+siebie</li>
+<li>Przykładając falki można wykryć elementy odpowiadające
+charakterystyce twarzy</li>
+<li>Złożenie wielu słabych klasyfikatorów (setki) daje dobry
+klasyfikator</li>
+<li>Bardzo szybko można odrzucić obszar, który na pewno nie jest
+twarzą</li>
+<li>Jest implementacja w OpenCV</li>
+</ul>
+<h2 id="alignment">Alignment</h2>
+<ul>
+<li>Landmarki - punkty charakterystyczne twarzy</li>
+<li>Pozwalają na wyprostowanie obrazu
+<ul>
+<li>np. ustawienie oczu w linii poziomej</li>
+</ul></li>
+<li>Aproksymacja modelu 3D twarzy</li>
+<li>Poprawa oświetlenia
+<ul>
+<li>np. wyrównanie histogramu</li>
+</ul></li>
+<li>Wykorzystanie innych skanerów
+<ul>
+<li>bliska podczerwień</li>
+<li>kamera głębi</li>
+<li>termiczna podczerwień</li>
+<li>bardzo dobrze się sprawdzają</li>
+</ul></li>
+</ul>
+<h2 id="ekstrakcja-cech">Ekstrakcja cech</h2>
+<ul>
+<li>Ręcznie skonstruowane cechy
+<ul>
+<li>Filtry Gabora 2D</li>
+<li>SIFT</li>
+<li>SURF</li>
+<li>HOG</li>
+<li>LBP</li>
+</ul></li>
+<li>Modele neuronowe</li>
+</ul>
+<h3 id="local-binary-patterns">Local Binary Patterns</h3>
+<ul>
+<li>Podobne tekstury mają podobne histogramy</li>
+<li>Obraz po detekcji dzieli się na n komórek
+<ul>
+<li>np. 16</li>
+</ul></li>
+<li>Kodowanie komórek
+<ul>
+<li>dla sąsiedztwa np. 3x3 sprawdzenie czy każdy piksel jest większy czy
+mniejszy od środkowego</li>
+<li>przemnożenie maski binarnej przez predefiniowaną całkowitoliczbową
+maskę dla wyznaczenia wartości dla piksela</li>
+<li>różne możliwości definiowania sąsiedztwa</li>
+</ul></li>
+<li>Mapowanie kodów
+<ul>
+<li>wariant 256 binów</li>
+<li>wariant 59 binów - 58 niejednorodnych i wszystkie jednorodne do
+jednego bina</li>
+</ul></li>
+<li>Obliczenie histogramu
+<ul>
+<li>59 cech</li>
+<li>wektor liczb</li>
+</ul></li>
+<li>Normalizacja histogramów
+<ul>
+<li>będzie histogram dla każdej komórki</li>
+</ul></li>
+<li>Połączenie histogramów w jeden deskryptor</li>
+</ul>
+<h4 id="lbp-do-rozpoznawania-twarzy">LBP do rozpoznawania twarzy</h4>
+<ul>
+<li>Przykład</li>
+<li>Po kilka próbek na osobę</li>
+<li>Z każdego zdjęcia wyznaczany wektor cech</li>
+<li>Rozpoznawanie nieznanej osoby
+<ul>
+<li>wyznaczenie cech</li>
+<li>znalezienie najbliższego dopasowania</li>
+<li>próg podobieństwa</li>
+</ul></li>
+</ul>
+<h3 id="oparte-o-sieci-neuronowe">Oparte o sieci neuronowe</h3>
+<ul>
+<li>Głębokie struktury</li>
+<li>Głównie sieci splotowe</li>
+<li>System raczej nie ma klasyfikować na zamkniętym zbiorze</li>
+<li>FaceNet, triplet loss</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#biometria-twarzy" id="toc-biometria-twarzy">Biometria
+twarzy</a>
+<ul>
+<li><a href="#wyzwania-w-rozpoznawaniu-twarzy" id="toc-wyzwania-w-rozpoznawaniu-twarzy">Wyzwania w rozpoznawaniu
+twarzy</a></li>
+<li><a href="#potok" id="toc-potok">Potok</a></li>
+<li><a href="#detekcja" id="toc-detekcja">Detekcja</a>
+<ul>
+<li><a href="#oparte-o-regiony" id="toc-oparte-o-regiony">Oparte o
+regiony</a></li>
+<li><a href="#oparte-o-przesuwające-się-okna" id="toc-oparte-o-przesuwające-się-okna">Oparte o przesuwające się
+okna</a></li>
+<li><a href="#viola-jones" id="toc-viola-jones">Viola-Jones</a></li>
+</ul></li>
+<li><a href="#alignment" id="toc-alignment">Alignment</a></li>
+<li><a href="#ekstrakcja-cech" id="toc-ekstrakcja-cech">Ekstrakcja
+cech</a>
+<ul>
+<li><a href="#local-binary-patterns" id="toc-local-binary-patterns">Local Binary Patterns</a></li>
+<li><a href="#oparte-o-sieci-neuronowe" id="toc-oparte-o-sieci-neuronowe">Oparte o sieci neuronowe</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

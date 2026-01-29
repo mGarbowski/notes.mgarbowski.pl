@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-frontend-architektura.html">Poprzedni: 12-frontend-architektura.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-02.html">Następny: kolokwium-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="kolokwium-1">Kolokwium 1</h1>
+<h2 id="zagadnienia">Zagadnienia</h2>
+<p>Wrzucam przykladowe zagadnienia jakie moga sie pojawic na kolokwium
+ale prosze tego nie traktowac zawezajaco - moga sie pojawic inne
+pytania</p>
+<p><strong>Architektura:</strong>  </p>
+<ul>
+<li>Z tych zagadnien trzeba wiedziec co to jest, jakie ma założenia,
+jakie zalety itp. </li>
+<li>Clean architecture </li>
+<li>ADR </li>
+<li>DDD vs model anemiczny </li>
+<li>C4 </li>
+<li>Monolit/ modularny monolit / SOA/ mikroserwisy </li>
+<li>Może być  zadanie żeby dac przykład jakiegoś ADRa czy pytanie co w
+ktorej warstwie Clean architecture się znajduje   albo jakis termin z
+DDD opisac. </li>
+</ul>
+<p><strong>Logika biznesowa</strong> </p>
+<ul>
+<li>Pojecia: logika biznesowa, logika aplikacji, infrastruktura ( w
+rozumieniu kodu), separacja  </li>
+<li>Usługi SOAP, REST – zasada działania, podobienstwa, roznice </li>
+<li>Usługi oparte o komunikaty np.. JMS - </li>
+</ul>
+<p><strong>Warstwa trwałości</strong> </p>
+<ul>
+<li>CQRS / ES </li>
+<li>Polyglot Persistence </li>
+<li>JPA - dokładniej nieco - np. Rodzaje zapytan,  itp.  </li>
+<li>Wyszukiwanie pełnotekstowe - idea </li>
+<li>Bazy ze schematem bez schematu </li>
+<li>ACID vs BASE, twierdzenie CAP </li>
+<li>Transakcyjność rozproszona </li>
+<li>Cassndra – jak dziala </li>
+</ul>
+<p><strong>Jakość oprogramowania</strong> </p>
+<ul>
+<li>TDD - dokładnie, jakie są fazy, jak się przechodzi z jednej do
+drugiej itp. </li>
+<li>Rodzaje testów  i ich specyfika </li>
+</ul>
+<p><strong>Narzędzia</strong> </p>
+<ul>
+<li>Pojęcia: Ciągła integracja, Ciągłe dostarczanie </li>
+<li>Różnica między konteneryzacją a wirtualizacją  </li>
+<li>Do czego służą poszczególne klasy narzędzi na przykladzie 
+maven/gradle, jenins, docker, kubernetes, ansible, terraform </li>
+<li>Gitflow- jak to działa</li>
+</ul>
+<h2 id="inne">Inne</h2>
+<ul>
+<li>Zakazane słowa na kolosa
+<ul>
+<li>przestarzała technologia</li>
+<li>najnowsza technologia</li>
+<li>wydajne rozwiązanie</li>
+<li>np. różnice między SOAP a REST - opisać więcej niż ten jest stary a
+ten jest nowy</li>
+</ul></li>
+<li>Niektóre wątki niedokończone na wykładzie będzie trzeba doczytać na
+sprawdzian
+<ul>
+<li>model C4</li>
+</ul></li>
+<li>Na kolosie pytania koncepcyjne (nie jak napisać zapytanie itd)
+<ul>
+<li>Będą podane zagadnienia</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kolokwium-1" id="toc-kolokwium-1">Kolokwium 1</a>
+<ul>
+<li><a href="#zagadnienia" id="toc-zagadnienia">Zagadnienia</a></li>
+<li><a href="#inne" id="toc-inne">Inne</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

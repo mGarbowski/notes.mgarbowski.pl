@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-dostep-do-danych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-test-driven-development.html">Poprzedni: 04-test-driven-development.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-cassandra.html">Następny: 06-cassandra.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="warstwa-dostępu-do-danych">Warstwa dostępu do danych</h1>
+<h2 id="oltp-vs-olap">OLTP vs OLAP</h2>
+<ul>
+<li>OLTP
+<ul>
+<li>duża liczba transakcji</li>
+<li>raczej proste transakcje</li>
+<li>z reguły spójność ma znaczenie</li>
+</ul></li>
+<li>OLAP
+<ul>
+<li>mniejsza liczba skomplikowanych zapytań</li>
+<li>stosowane do analityki</li>
+</ul></li>
+<li>Big Data
+<ul>
+<li>variety</li>
+<li>velocity</li>
+<li>volume</li>
+</ul></li>
+</ul>
+<h2 id="architektura-dostępu-do-danych">Architektura dostępu do
+danych</h2>
+<ul>
+<li>Model domenowy
+<ul>
+<li>książka, autor</li>
+</ul></li>
+<li>Model logiczny
+<ul>
+<li>obiekt, mapa, encja</li>
+</ul></li>
+<li>Model fizyczny
+<ul>
+<li>tabela relacyjna</li>
+</ul></li>
+</ul>
+<p>Logika aplikacji powinna być osadzona w modelu domenowym</p>
+<h3 id="model-logiczny-a-fizyczny">Model logiczny a fizyczny</h3>
+<ul>
+<li>Mogą być tymi samymi modelami</li>
+<li>Jeśli są różne to wymagają odwzorowania
+<ul>
+<li>np. ORM</li>
+<li>narzut na konwersję może być bardzo duży</li>
+<li>dobór technologii i modelu fizycznego - na frontendzie i w bazie są
+JSONy - nie ma narzutu na samą konwersję</li>
+<li>marshallling</li>
+</ul></li>
+</ul>
+<h2 id="modele-nierelacyjne">Modele nierelacyjne</h2>
+<ul>
+<li>Nie wszystko daje się sensownie wtłoczyć w tabelę</li>
+<li>Często brak transakcji ACID</li>
+</ul>
+<h3 id="klucz-wartość-kolumnowe">Klucz-wartość / kolumnowe</h3>
+<ul>
+<li>Przechowują dane jako klucz-wartość lub klucz-wiele wartości</li>
+<li>Cassandra</li>
+<li>Hbase</li>
+</ul>
+<h3 id="dokumentowe">Dokumentowe</h3>
+<ul>
+<li>Cechy
+<ul>
+<li>przechowują dokumenty wraz z cechami</li>
+<li>dostosowane do przechowywania i indeksowania dużych plików</li>
+</ul></li>
+<li>MongoDB
+<ul>
+<li>własny system plików GridFS</li>
+<li>indeksowanie pełnotekstowe</li>
+<li>rekordy w formacie JSON</li>
+<li>zapytania w javascript</li>
+</ul></li>
+</ul>
+<h3 id="grafowe">Grafowe</h3>
+<ul>
+<li>Przykłady
+<ul>
+<li>neo4j</li>
+<li>GraphDB</li>
+</ul></li>
+</ul>
+<h2 id="polyglot-persistence">Polyglot persistence</h2>
+<ul>
+<li>Jedna aplikacja korzysta z wielu różnych baz danych</li>
+<li>Z jednej strony więcej baz do obsłużenia</li>
+<li>Z drugiej strony każda z baz ma interfejs bardziej dostosowany do
+zastosowania do którego została dobrana</li>
+<li>Problem z zamodelowaniem transakcji przechodzącej przez wiele
+baz</li>
+<li>Redukuje złożoność problemu po stronie aplikacji</li>
+<li>Zwiększa złożoność problemu po stronie infrastruktury</li>
+</ul>
+<h2 id="wyszukiwanie-pełnotekstowe">Wyszukiwanie pełnotekstowe</h2>
+<ul>
+<li>Apache Solr</li>
+<li>ElasticSearch</li>
+<li>Większość oparta o Apache Lucene</li>
+<li>Model danych (w dużym przybliżeniu)
+<ul>
+<li>w kluczu słowo</li>
+<li>w wartości - id dokumentów w których występuje</li>
+</ul></li>
+<li>Dokument to może być pdf</li>
+<li>Wierz w tabeli to może być dokument
+<ul>
+<li>można zaindeksować relacyjną bazę danych w bazie pełnotekstowej</li>
+</ul></li>
+</ul>
+<h2 id="command-query-responsibility-segregation">Command Query
+Responsibility Segregation</h2>
+<ul>
+<li>Osobny model do odczytu
+<ul>
+<li>np. denormalizacja dla przyspieszenia odczytu, cache’owanie</li>
+</ul></li>
+<li>Osobny model do zapisu/modyfikacji/usuwania
+<ul>
+<li>zapewnia walidację reguł biznesowych</li>
+</ul></li>
+<li>Zapis i odczyt mogą operować na oddzielnej infrastrukturze lub
+oddzielnych bazach danych</li>
+<li>Potencjalne problemy ze spójnością danych między dwoma modelami</li>
+<li>Ma na celu zwiększenie wydajności i skalowalności</li>
+</ul>
+<h2 id="event-sourcing">Event Sourcing</h2>
+<ul>
+<li>Każda zmiana stanu aplikacji jest zachowywana jako zdarzenie</li>
+<li>Zdarzenia są przechowywane w logu zdarzeń</li>
+<li>Stan aplikacji można odtworzyć na podstawie loga
+<ul>
+<li>lub na podstawie migawki wcześniejszego stanu i fragmentu loga od
+tamtego momentu</li>
+</ul></li>
+<li>Możliwość formułowania zapytań o konkretną chwilę w czasie
+<ul>
+<li>zdarzenia mają dołączone znaczniki czasowe</li>
+</ul></li>
+<li>Odtworzenie zdarzeń
+<ul>
+<li>np. jeśli któreś zdarzenie w przeszłości było niepoprawne</li>
+<li>można wyjść od jakiejś migawki stanu aplikacji i odtworzyć ciąg
+zdarzeń żeby dostać nowy stan aplikacji</li>
+</ul></li>
+<li>Podobna idea jak systemy kontroli wersji (git)</li>
+<li>Ponieważ stan aplikacji da się wyliczać z loga zdarzeń można
+stosować różne podejścia do cache’owania</li>
+<li>Można implementować odwracanie zdarzeń</li>
+</ul>
+<h2 id="schemat-w-bazach-danych">Schemat w bazach danych</h2>
+<ul>
+<li>Ciężko jest z góry zaprojektować schemat</li>
+<li>Trzeba pisać skrypty migrujące jeśli zmieni się model</li>
+<li>Schema - full
+<ul>
+<li>optymalizacja dostępu wg danego typu (indeksy)</li>
+<li>łatwe do zrozumienia</li>
+<li>uwzględnia związki</li>
+</ul></li>
+<li>Schema - less
+<ul>
+<li>elastyczność w dodawaniu typów</li>
+<li>schemat powstaje iteracyjne</li>
+<li>bez narzutu na utrzymanie więzów integralności po stronie bazy</li>
+<li>szybszy deveopment</li>
+<li>potencjalnie bałagan</li>
+</ul></li>
+</ul>
+<h2 id="zarządzanie-zmianą-w-schemacie">Zarządzanie zmianą w
+schemacie</h2>
+<ul>
+<li>Liquibase
+<ul>
+<li>do baz SQL</li>
+<li>schemat bazy danych też jest artefaktem</li>
+</ul></li>
+</ul>
+<h2 id="transakcje">Transakcje</h2>
+<ul>
+<li>Nie zawsze są potrzebne</li>
+<li>Pytanie o ACID na egzmainach dyplomowych</li>
+<li>JTA
+<ul>
+<li>Java Transaction API</li>
+<li>transakcja na wielu bazach jednocześnie</li>
+<li>bardziej ogólne niż tylko bazy danych</li>
+<li>two-phase commit</li>
+<li>bardzo obciążająca wydajnościowo</li>
+</ul></li>
+</ul>
+<h2 id="replikacja-i-transakcje">Replikacja i transakcje</h2>
+<ul>
+<li>Twierdzenie CAP</li>
+<li>BASE</li>
+<li>W bazach relacyjnych klastry zazwyczaj polegają na master-slave</li>
+</ul>
+<h2 id="jpa">JPA</h2>
+<ul>
+<li>Generowanie tabelek na podstawie kodu Javy - wygodne</li>
+<li>Kod Javy na podstawie istniejącego schematu bazy - syfiasty kod</li>
+<li>Problem z powiązaniami
+<ul>
+<li>proste pola są wyciągane od razu</li>
+<li>obiekty podrzędne są dociągane leniwie - ryzyko że zapytanie
+wyciągnie całą bazę</li>
+<li>wzorzec Proxy</li>
+</ul></li>
+</ul>
+<h3 id="zapytania-natywne">Zapytania natywne</h3>
+<ul>
+<li>Ograniczona przenośność</li>
+<li>Można wykorzystać pełne możliwości bazy</li>
+</ul>
+<h2 id="criteriaapi">CriteriaAPI</h2>
+<ul>
+<li>Tworzenie zapytań przez wywołania metod w Javie</li>
+<li>Zabezpieczenie przed wstrzyknięciem</li>
+</ul>
+<h2 id="joqq">JOQQ</h2>
+<ul>
+<li>Generuje kod na podstawie bazy</li>
+</ul>
+<h2 id="jcr">JCR</h2>
+<ul>
+<li>Java Content Repository</li>
+<li>Kombajn all in one</li>
+</ul>
+<h2 id="wydajność">Wydajność</h2>
+<ul>
+<li>Relacyjne bazy źle się klastrują</li>
+<li>Stosowane rozwiązania
+<ul>
+<li>optymalizacje</li>
+<li>cache 2 poziomu</li>
+<li>sharding pionowy i poziomy</li>
+<li>separacja bazy transakcyjnej i analitycznej</li>
+<li>separacja baz do edycji i do odczytu</li>
+</ul></li>
+</ul>
+<h3 id="cache">Cache</h3>
+<ul>
+<li>Aplikacja</li>
+<li>EntityManager - poziom 1</li>
+<li>EntityManagerFactory - poziom 2</li>
+<li>Driver JDBC (niskopoziomowy)</li>
+</ul>
+<p>Standard JCache EntityManager będzie np cache’ować zapisy żeby
+emitować jeden UPDATE zamiast wielu następujących po sobie</p>
+<p>Cache poziomu 2</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#warstwa-dostępu-do-danych" id="toc-warstwa-dostępu-do-danych">Warstwa dostępu do danych</a>
+<ul>
+<li><a href="#oltp-vs-olap" id="toc-oltp-vs-olap">OLTP vs OLAP</a></li>
+<li><a href="#architektura-dostępu-do-danych" id="toc-architektura-dostępu-do-danych">Architektura dostępu do
+danych</a>
+<ul>
+<li><a href="#model-logiczny-a-fizyczny" id="toc-model-logiczny-a-fizyczny">Model logiczny a fizyczny</a></li>
+</ul></li>
+<li><a href="#modele-nierelacyjne" id="toc-modele-nierelacyjne">Modele
+nierelacyjne</a>
+<ul>
+<li><a href="#klucz-wartość-kolumnowe" id="toc-klucz-wartość-kolumnowe">Klucz-wartość / kolumnowe</a></li>
+<li><a href="#dokumentowe" id="toc-dokumentowe">Dokumentowe</a></li>
+<li><a href="#grafowe" id="toc-grafowe">Grafowe</a></li>
+</ul></li>
+<li><a href="#polyglot-persistence" id="toc-polyglot-persistence">Polyglot persistence</a></li>
+<li><a href="#wyszukiwanie-pełnotekstowe" id="toc-wyszukiwanie-pełnotekstowe">Wyszukiwanie pełnotekstowe</a></li>
+<li><a href="#command-query-responsibility-segregation" id="toc-command-query-responsibility-segregation">Command Query
+Responsibility Segregation</a></li>
+<li><a href="#event-sourcing" id="toc-event-sourcing">Event
+Sourcing</a></li>
+<li><a href="#schemat-w-bazach-danych" id="toc-schemat-w-bazach-danych">Schemat w bazach danych</a></li>
+<li><a href="#zarządzanie-zmianą-w-schemacie" id="toc-zarządzanie-zmianą-w-schemacie">Zarządzanie zmianą w
+schemacie</a></li>
+<li><a href="#transakcje" id="toc-transakcje">Transakcje</a></li>
+<li><a href="#replikacja-i-transakcje" id="toc-replikacja-i-transakcje">Replikacja i transakcje</a></li>
+<li><a href="#jpa" id="toc-jpa">JPA</a>
+<ul>
+<li><a href="#zapytania-natywne" id="toc-zapytania-natywne">Zapytania
+natywne</a></li>
+</ul></li>
+<li><a href="#criteriaapi" id="toc-criteriaapi">CriteriaAPI</a></li>
+<li><a href="#joqq" id="toc-joqq">JOQQ</a></li>
+<li><a href="#jcr" id="toc-jcr">JCR</a></li>
+<li><a href="#wydajność" id="toc-wydajność">Wydajność</a>
+<ul>
+<li><a href="#cache" id="toc-cache">Cache</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

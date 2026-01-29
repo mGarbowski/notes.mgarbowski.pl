@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-10</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-09.html">Poprzedni: wyklad-09.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-11.html">Następny: wyklad-11.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="stl-funkcje-anonimowe-zpr--w11--2020-12-15">STL, funkcje
+anonimowe (ZPR- W11 -2020 12 15)</h1>
+<h2 id="stl">STL</h2>
+<ul>
+<li>Część standardu C++</li>
+<li>Skład
+<ul>
+<li>kontenery</li>
+<li>iteratory</li>
+<li>algorytmy</li>
+<li>funktory</li>
+<li>adaptery</li>
+<li>alokatory</li>
+</ul></li>
+<li>Bardzo efektywna, bez narzutów czasu wykonania</li>
+<li>Algorytmy korzystają ze wzorca iteratora</li>
+<li>Bezpieczna w aplikacjach współbieżnych</li>
+</ul>
+<h2 id="kontenery">Kontenery</h2>
+<h3 id="sekwencyjne">Sekwencyjne</h3>
+<ul>
+<li>basic_string - jednowymiarowa dablica
+<ul>
+<li>może stosować wzorzec copy-on-write</li>
+</ul></li>
+<li>vector - jednowymiarowa tablica</li>
+<li>list - lista dwukierunkowa</li>
+<li>deque - kolejka o dwu końcach</li>
+<li>Ma sens indeks i arytmetyka adresowa</li>
+</ul>
+<h3 id="asocjacyjne">Asocjacyjne</h3>
+<ul>
+<li>set</li>
+<li>map</li>
+<li>multiset</li>
+<li>multimap</li>
+</ul>
+<h3 id="haszujące">Haszujące</h3>
+<ul>
+<li>Kolejność nieznana programiście</li>
+<li>unordered_set</li>
+<li>unordered_map</li>
+<li>unordered_multiset</li>
+<li>unordered_multimap</li>
+</ul>
+<h3 id="adaptery">Adaptery</h3>
+<ul>
+<li>Szablony ograniczające interfejs</li>
+<li>queue</li>
+<li>priority_queue</li>
+<li>stack</li>
+<li>Wykorzystują inny kontener do implementacji, np. deque</li>
+</ul>
+<h3 id="bazujące-na-tablicach">Bazujące na tablicach</h3>
+<ul>
+<li>vector</li>
+<li>basic_string</li>
+<li>deque</li>
+</ul>
+<h3 id="bazujące-na-węzłach">Bazujące na węzłach</h3>
+<ul>
+<li>Każdy element przechowywany w oddzielnym bloku</li>
+<li>Więcej informacji sterujących</li>
+<li>Iterator jest ważny dopóki element nie zostanie usunięty</li>
+<li>list</li>
+<li>set</li>
+<li>map</li>
+<li>…</li>
+</ul>
+<h2 id="kopiowanie">Kopiowanie</h2>
+<ul>
+<li>Biblioteka STL operuje na kopiach
+<ul>
+<li>kontener przechowuje kopie elementów</li>
+</ul></li>
+<li>Obiekt przechowywany w kontenerze
+<ul>
+<li>powinien mieć publiczny konstruktor kopiujący</li>
+<li>powinien mieć publiczny operator przypisania</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>obiekty bazowe dla hierarchii klas (wycinanie)</li>
+<li>auto_ptr - nietypowe kopiowanie</li>
+</ul></li>
+<li>Gdy kopiowanie jes kosztowne
+<ul>
+<li>przechowuje isę w kontenerze wskaźniki na obiekty na stercie</li>
+<li>kontener sprytnych wskaźników ze zliczaniem (shared_ptr)</li>
+</ul></li>
+</ul>
+<h2 id="vector">vector</h2>
+<ul>
+<li>Dynamiczna tablica</li>
+<li>Przechowuje elementy w spójnym obszarze pamięci
+<ul>
+<li>mały narzut pamięciowy w porównaniu z tablicą</li>
+</ul></li>
+<li>size i capacity
+<ul>
+<li>wstawienie elmentu gdy <code>size==capacity</code> jest kozstowne -
+wymaga kopiowania całości</li>
+<li>zazwyczaj capacity zwiększane x2</li>
+</ul></li>
+<li>Metoda <code>at</code>
+<ul>
+<li>jak <code>operator[]</code>, ale bada zakres</li>
+</ul></li>
+<li><code>operator==</code>
+<ul>
+<li>taka sama liczba elementów i porównanie wszystkich elementów</li>
+</ul></li>
+<li><code>operator&lt;</code>
+<ul>
+<li>jak porównywanie napisów</li>
+</ul></li>
+<li>Specjalizacja dla <code>vecotr&lt;bool&gt;</code>
+<ul>
+<li>upakowuje na pojedynczych bitach</li>
+</ul></li>
+</ul>
+<h2 id="list">list</h2>
+<ul>
+<li>Lista dwukierunkowa</li>
+<li>Większe narzuty pamięciowe niż w wektorze
+<ul>
+<li>każdy blok przechowuje wskaźnik na następny i poprzedni element</li>
+</ul></li>
+<li>Element nie ma indeksu, nie ma operatora <code>[]</code></li>
+<li>Metoda <code>reverse</code></li>
+<li>Scalenie, sortowanie</li>
+</ul>
+<h2 id="deque">deque</h2>
+<ul>
+<li>Kolejka o dwóch końcach</li>
+<li>Oparta o tablicę</li>
+<li>Elementy nie muszą być przechowywane w pojedynczym bloku</li>
+<li>Wiele bloków, wielkość zależna od architektury</li>
+<li>Metody jak dla <code>vector</code></li>
+<li>Wygodne wstawianie i usuwanie na początek i koniec</li>
+</ul>
+<h2 id="basic_string">basic_string</h2>
+<ul>
+<li>Jak vector</li>
+<li>Stosuje optymalizację ze wzorcem copy-on-write</li>
+</ul>
+<h2 id="kontenery-asocjacyjne">Kontenery asocjacyjne</h2>
+<ul>
+<li>Przechowują elementy uporządkowane</li>
+<li>Dostarczają metod wyszukiwania w czasie logarytmicznym</li>
+<li>Drzewo czerwono-czarne</li>
+<li>Inny porządek elementów niż kolejność wstawiania
+<ul>
+<li>kolejność rosnąca</li>
+</ul></li>
+<li>Element musi mieć <code>operator&lt;</code>
+<ul>
+<li>ewentualnie funkcja porównująca</li>
+</ul></li>
+<li>Oparty o węzły</li>
+<li>Iterator typu <code>bidirectional</code></li>
+</ul>
+<h3 id="set">set</h3>
+<ul>
+<li>Zbiór elementów
+<ul>
+<li>bez powtórzeń</li>
+<li>nie wymaga operatora <code>==</code>
+(<code>!(a &lt; b) &amp;&amp; !(b &lt; a)</code>)</li>
+</ul></li>
+</ul>
+<h3 id="map">map</h3>
+<ul>
+<li>Słownik, tablica asocjacyjna</li>
+<li>Klucz, wartość
+<ul>
+<li>eliminuje identyczne klucze</li>
+</ul></li>
+<li>Elementy w porządku klucza</li>
+</ul>
+<h3 id="multiset">multiset</h3>
+<ul>
+<li>Jak set, ale nie eliminuje elementów równoważnych</li>
+<li>Elementy sortowane w kolejności rosnącej</li>
+</ul>
+<h3 id="multimap">multimap</h3>
+<ul>
+<li>Analogicznie może być wiele razy ten sam klucz</li>
+</ul>
+<h2 id="kontenery-oparte-o-funkcję-skrótu">Kontenery oparte o funkcję
+skrótu</h2>
+<ul>
+<li>Dostęp w czasie jednostkowym</li>
+<li>Działa wydajnie, gdy jest wypełniony w ok. 25%
+<ul>
+<li>zużycie pamięci</li>
+</ul></li>
+<li>W funkcji skrótu mogą występować konflikty</li>
+</ul>
+<h2 id="stdarray"><code>std::array</code></h2>
+<ul>
+<li>Adapter to tablicy z C</li>
+<li>Dostarcza iteratorów</li>
+<li>Metody at, front, back, itp.</li>
+<li>Operatory <code>==</code>, <code>&lt;</code></li>
+</ul>
+<h2 id="stl-i-wielowątkowość">STL i wielowątkowość</h2>
+<ul>
+<li>Bezpieczne czytanie
+<ul>
+<li>wiele wątków może jednocześnie czytać z kontenera</li>
+</ul></li>
+<li>Bezpieczne pisanie do różnych kontenerów
+<ul>
+<li>różne wątki mogą równocześnie pisać do różnych kontenerów</li>
+</ul></li>
+<li>Przy współdzielonych obiektach programista zapewnia mechanizmy
+synchronizacji</li>
+<li>Uwaga na <code>std::string</code> w bardzo starych kompilatorach
+<ul>
+<li>problem wynikający z copy-on-write</li>
+<li>we współczesnych wersjach biblioteki to jest zaimplementowane
+poprawnie</li>
+</ul></li>
+</ul>
+<h2 id="algorytmy">Algorytmy</h2>
+<ul>
+<li><code>for_each</code></li>
+<li>Nie modyfikują kolekcji
+<ul>
+<li>find, find_if, adjacent_find …</li>
+</ul></li>
+<li>Modyfikują kolekcję
+<ul>
+<li>copy, copy_n, sortujące, kopiec</li>
+</ul></li>
+<li>Poprawne użycie biblioteki standardowej nie wymaga użycia pętli</li>
+<li>Na niektórych platformach mogą wykonywać się równolegle</li>
+</ul>
+<h3 id="zakres">Zakres</h3>
+<ul>
+<li>Algorytmu jako wejście przyjmują zakres</li>
+<li>Zakres to para iteratorów</li>
+<li><code>begin()</code> - iterator do pierwszego elementu</li>
+<li><code>end()</code> - iterator do pierwszego za ostatnim</li>
+<li><code>rbegin()</code>, <code>rend()</code> - w odwrotnej kolejności
+(reverse_iterator)</li>
+<li>Pusty zakres kiedy iteratory są sobie równe</li>
+</ul>
+<h3 id="wykorzystanie-algorytmów">Wykorzystanie algorytmów</h3>
+<ul>
+<li>Najlepiej stosować najbardziej specjalizowany algorytm bo może
+zawierać więcej optymalizacji</li>
+<li>for_each zamiast pętli</li>
+<li>Funktory, funkcje anonimowe</li>
+</ul>
+<h3 id="wyszukiwanie">Wyszukiwanie</h3>
+<ul>
+<li>Przeszukiwanie liniowe (nieposortowane elementy)
+<ul>
+<li>count (int) - czy istnieje element, ile kopii</li>
+<li>find (iterator) - czy istnieje element i gdzie się znajduje</li>
+</ul></li>
+<li>Przeszukiwanie binarne (posortowane elementy)
+<ul>
+<li>sensowne tylko dla kontenerów typu random access (vector, deque,
+string)</li>
+<li>binary_search (bool) - czy istnieje element</li>
+<li>lower_bound (iterator) - pierwszy o danej wartości</li>
+<li>upper_bound (iterator) - pierwszy za ostatnim o danej wartości</li>
+<li>equal_range (para iteratorów) - zakres</li>
+<li>zamiast count - policzyć różnicę z iteratorów z equal_range</li>
+</ul></li>
+</ul>
+<h3 id="usuwanie-remove">Usuwanie (remove)</h3>
+<ul>
+<li>Algorytm nie zna wewnętrznej budowy kontenera</li>
+<li>Tak naprawdę nie usuwa, tylko przenosi elementy na koniec i zwraca
+iterator na pierwszy element <em>do usunięcia</em></li>
+<li>Typowo używa się w połączeniu z <code>erase</code>
+<ul>
+<li><code>v.erase(remove(v.begin(), v.end(), 3), v.end())</code></li>
+</ul></li>
+<li>Niebezpieczny dla kontenerów zawierających wskaźniki
+<ul>
+<li>nie należy przechowywać gołych wskaźników w kontenerach</li>
+</ul></li>
+</ul>
+<h3 id="sortowanie">Sortowanie</h3>
+<ul>
+<li>partition
+<ul>
+<li>elementy spełniające warunek na początku, reszta na końcu</li>
+</ul></li>
+<li>nth_element
+<ul>
+<li>znajduje pozycję wskazanego elementu</li>
+<li>wcześniej są mniejsze elementy, potem są większe</li>
+</ul></li>
+<li>partial_sort
+<ul>
+<li>sortuje od begin to wskazanego elementu</li>
+<li>w końcowej części są większe elementy ale nieposortowane</li>
+</ul></li>
+<li>sort
+<ul>
+<li>standardowe sortowanie</li>
+</ul></li>
+<li>stable_sort
+<ul>
+<li>zachowuje porządek dla równoważnych elementów</li>
+</ul></li>
+</ul>
+<h2 id="funkcje-anonimowe">Funkcje anonimowe</h2>
+<h3 id="stdbind"><code>std::bind</code></h3>
+<ul>
+<li>Od C++03</li>
+<li>Funkcja której chcemy użyć już istnieje ale ma nie taki
+interfejs</li>
+<li>Wstawia w miejsce argumentów stałe lub zmienia kolejność</li>
+<li><code>std::placeholders</code>
+<ul>
+<li><code>_1</code>, <code>_2</code></li>
+<li>do przekazania dalej argumentu</li>
+</ul></li>
+<li>Taka sama składnia dla obiektu, wskaźnika i sprytnego wskaźnika</li>
+<li>Przy przekazaniu metody trzeba jawnie związać obiekt użyty jako
+<code>this</code></li>
+<li>Można zagnieżdżać <code>bind</code> (kompozycja funkcji)</li>
+</ul>
+<h3 id="stdref"><code>std::ref</code></h3>
+<ul>
+<li>Standardowo algorytmy robią kopie elementów</li>
+<li>Do przekazania referencji <code>std::ref</code></li>
+<li>Do const referencji <code>std::cref</code></li>
+</ul>
+<h3 id="lambda">lambda</h3>
+<ul>
+<li>Od C++11</li>
+<li>Można użyć zamiast <code>std::bind</code>, bez różnicy
+wydajności</li>
+<li><code>[]() -&gt; T { }</code>
+<ul>
+<li>funkcja anonimowa zwracająca obiekt typu <code>T</code></li>
+</ul></li>
+<li>Wygodne do użycia z algorytmami</li>
+<li>Lista przechwytywana
+<ul>
+<li>które nazwy są wspólna dla kodu wewnątrz funkcji anonimowej</li>
+<li><code>[x]</code> - obiekt o nazwie x tylko do odczytu</li>
+<li><code>[&amp;x]</code> - obiekt o nazwie x do zapisu i odczytu
+przekazany przez referencję</li>
+<li><code>[=]</code> - dowolny obiekt do odczytu</li>
+<li><code>[&amp;]</code> - dowolny obiekt przekazywany przez referencję
+(zpais i odczyt)</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#stl-funkcje-anonimowe-zpr--w11--2020-12-15" id="toc-stl-funkcje-anonimowe-zpr--w11--2020-12-15">STL, funkcje
+anonimowe (ZPR- W11 -2020 12 15)</a>
+<ul>
+<li><a href="#stl" id="toc-stl">STL</a></li>
+<li><a href="#kontenery" id="toc-kontenery">Kontenery</a>
+<ul>
+<li><a href="#sekwencyjne" id="toc-sekwencyjne">Sekwencyjne</a></li>
+<li><a href="#asocjacyjne" id="toc-asocjacyjne">Asocjacyjne</a></li>
+<li><a href="#haszujące" id="toc-haszujące">Haszujące</a></li>
+<li><a href="#adaptery" id="toc-adaptery">Adaptery</a></li>
+<li><a href="#bazujące-na-tablicach" id="toc-bazujące-na-tablicach">Bazujące na tablicach</a></li>
+<li><a href="#bazujące-na-węzłach" id="toc-bazujące-na-węzłach">Bazujące
+na węzłach</a></li>
+</ul></li>
+<li><a href="#kopiowanie" id="toc-kopiowanie">Kopiowanie</a></li>
+<li><a href="#vector" id="toc-vector">vector</a></li>
+<li><a href="#list" id="toc-list">list</a></li>
+<li><a href="#deque" id="toc-deque">deque</a></li>
+<li><a href="#basic_string" id="toc-basic_string">basic_string</a></li>
+<li><a href="#kontenery-asocjacyjne" id="toc-kontenery-asocjacyjne">Kontenery asocjacyjne</a>
+<ul>
+<li><a href="#set" id="toc-set">set</a></li>
+<li><a href="#map" id="toc-map">map</a></li>
+<li><a href="#multiset" id="toc-multiset">multiset</a></li>
+<li><a href="#multimap" id="toc-multimap">multimap</a></li>
+</ul></li>
+<li><a href="#kontenery-oparte-o-funkcję-skrótu" id="toc-kontenery-oparte-o-funkcję-skrótu">Kontenery oparte o funkcję
+skrótu</a></li>
+<li><a href="#stdarray" id="toc-stdarray"><code>std::array</code></a></li>
+<li><a href="#stl-i-wielowątkowość" id="toc-stl-i-wielowątkowość">STL i
+wielowątkowość</a></li>
+<li><a href="#algorytmy" id="toc-algorytmy">Algorytmy</a>
+<ul>
+<li><a href="#zakres" id="toc-zakres">Zakres</a></li>
+<li><a href="#wykorzystanie-algorytmów" id="toc-wykorzystanie-algorytmów">Wykorzystanie algorytmów</a></li>
+<li><a href="#wyszukiwanie" id="toc-wyszukiwanie">Wyszukiwanie</a></li>
+<li><a href="#usuwanie-remove" id="toc-usuwanie-remove">Usuwanie
+(remove)</a></li>
+<li><a href="#sortowanie" id="toc-sortowanie">Sortowanie</a></li>
+</ul></li>
+<li><a href="#funkcje-anonimowe" id="toc-funkcje-anonimowe">Funkcje
+anonimowe</a>
+<ul>
+<li><a href="#stdbind" id="toc-stdbind"><code>std::bind</code></a></li>
+<li><a href="#stdref" id="toc-stdref"><code>std::ref</code></a></li>
+<li><a href="#lambda" id="toc-lambda">lambda</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

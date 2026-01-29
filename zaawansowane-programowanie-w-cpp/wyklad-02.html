@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01.html">Poprzedni: wyklad-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w03--2020-10-20"># ZPR- W03 -2020 10 20</h1>
+<h2 id="redefining">Redefining</h2>
+<p>Brana jest implementacja metody z zadeklarowanego typu (argumentu) a
+nie rzeczywistego typu obiektu</p>
+<p>To co innego niż nadpisanie w klasie pochodnej</p>
+<h2 id="polimorfizm-z-wykorzystaniem-funkcji-wirtualnych">Polimorfizm z
+wykorzystaniem funkcji wirtualnych</h2>
+<ul>
+<li>Dodanie składowej <code>virtual</code> do klasy
+<ul>
+<li>do obiektu będzie dodany wskaźnik do tablicy funkcji
+wirtualnych</li>
+</ul></li>
+<li>Wywołanie funkcji wirtualnej jest pośrednie</li>
+<li>Nadpisana metoda wirtualna jest umieszczona w tablicy funkcji
+wirtualnych
+<ul>
+<li>jedna tablica na typ</li>
+</ul></li>
+<li>Pozwala na tworzenie metod polimorficznych
+<ul>
+<li>różne w zależności od rzeczywistego typu obiektu</li>
+</ul></li>
+<li>Narzuty pamięciowe
+<ul>
+<li>wskaźnik w obiekcie <code>vtbl</code></li>
+<li>tablica wskaźników dla klas dostarczających funkcji wirtualnych</li>
+</ul></li>
+<li>Narzuty czasowe
+<ul>
+<li>dodatkowe adresowanie pośredni</li>
+<li>wołanie metody przez pobranie adresu z tablicy i skok (zamiast
+samego skoku)</li>
+</ul></li>
+</ul>
+<h2 id="rodzaje-metod">Rodzaje metod</h2>
+<ul>
+<li>Metoda
+<ul>
+<li><code>void m()</code></li>
+<li>kod nie może być zmieniany w klasach pochodnych</li>
+</ul></li>
+<li>Metoda wirtualna
+<ul>
+<li><code>virtual void m()</code></li>
+<li>kod może ale nie musi być dostarczony w klasach pochodnych</li>
+<li>domyślna implementacja w klasie bazowej</li>
+</ul></li>
+<li>Metoda czysto wirtualna
+<ul>
+<li><code>virtual void m() = 0</code></li>
+<li>kod musi być dostarczony w klasach pochodnych</li>
+</ul></li>
+</ul>
+<h2 id="nvi-idiom">NVI idiom</h2>
+<ul>
+<li>Nie powinno być publicznych funkcji wirtualnych
+<ul>
+<li>poza destruktorem</li>
+</ul></li>
+<li>Publiczna metoda to część interfejsu</li>
+<li>Funkcje wirtualne to implementacja
+<ul>
+<li>informacja że fragmenty mogą być zmieniane w klasach pochodnych</li>
+</ul></li>
+<li>Nie powinno się mieszać interfejsu i implementacji</li>
+<li>Prywatną metodę wirtualną można nadpisać w klasie pochodnej</li>
+</ul>
+<h2 id="wskaźnik-do-funkcji">Wskaźnik do funkcji</h2>
+<ul>
+<li>Alternatywa do użycia funkcji wirtualnych</li>
+<li>Narzut na 1 wskaźnik dla każdej funkcji</li>
+<li>Zachowanie może być różne dla obiektów tej samej klasy</li>
+<li>Zachowanie można zmienić w trakcie działania</li>
+<li>Funkcja nie jest metodą, ma dostęp tylko do publicznego interfejsu
+klasy</li>
+</ul>
+<h2 id="dziedziczenie-wielobazowe">Dziedziczenie wielobazowe</h2>
+<ul>
+<li>Multiple inheritance, MI</li>
+<li>Przejście od wskaźnika do klasy pochodnej na wskaźnik do klasy
+bazowej
+<ul>
+<li>przy pojedynczym dziedziczeniu to pusta operacja, adres jest ten
+sam</li>
+</ul></li>
+<li>Przy wielodziedziczeniu adres może się różnić
+<ul>
+<li>jest przesunięcie o stałą</li>
+<li>składowe klas bazowych zaczynają się w różnych miejscach</li>
+<li>któraś jest wcześniej</li>
+</ul></li>
+</ul>
+<h3 id="wielokrotne-wystąpienie-klasy-bazowej">Wielokrotne wystąpienie
+klasy bazowej</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{};</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D1 <span class="op">:</span> <span class="kw">public</span> Base <span class="op">{};</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D2 <span class="op">:</span> <span class="kw">public</span> Base <span class="op">{};</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Multi <span class="op">:</span> <span class="kw">public</span> D1<span class="op">,</span> <span class="kw">public</span> D2 <span class="op">{};</span></span></code></pre></div>
+<ul>
+<li>Obiekt klasy <code>Multi</code> zawiera dwa obiekty klasy
+<code>Base</code>
+<ul>
+<li>wprowadza niejednoznaczność</li>
+<li>może być nieporządane ze względu na zasoby</li>
+</ul></li>
+</ul>
+<h3 id="dziedziczenie-wirtualne">Dziedziczenie wirtualne</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Base <span class="op">{};</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D1 <span class="op">:</span> <span class="kw">virtual</span> <span class="kw">public</span> Base <span class="op">{};</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D2 <span class="op">:</span> <span class="kw">virtual</span> <span class="kw">public</span> Base <span class="op">{};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Multi <span class="op">:</span> <span class="kw">public</span> D1<span class="op">,</span> <span class="kw">public</span> D2 <span class="op">{};</span></span></code></pre></div>
+<ul>
+<li>Tylko jedna instancja obiektu klasy bazowej będzie umieszczana w
+klasie pochodnej</li>
+<li>Obiekt klasy bazowej nie jest agregowany</li>
+<li>Obiekty <code>D1</code> i <code>D2</code> przechowują uchwyt do
+obiektu <code>Base</code></li>
+<li>Dodatkowy poziom pośredniości przy wywołaniu</li>
+<li>Może być przydatne np. przy implementowaniu wzorca Dekoratora przez
+dziedziczenie</li>
+</ul>
+<h2 id="metody-wirtualne-a-konstruktory">Metody wirtualne a
+konstruktory</h2>
+<ul>
+<li>Jest ustalona kolejność wołania konstruktorów i destruktorów</li>
+<li>Przy wołaniu konstruktora dla klasy pochodnej wołane są w kolejności
+<ul>
+<li>konstruktory klas dziedziczonych wirtualnie</li>
+<li>konstruktory klas pochodnych</li>
+<li>konstruktor klasy tworzonej</li>
+</ul></li>
+<li>Destruktory są wołane w odwrotnej kolejności</li>
+<li>Funkcje wirtualne nie działają w konstruktorach i destruktorach
+<ul>
+<li>obiekt nie został jeszcze zainicjowany</li>
+<li>wołana jest metoda z klasy bazowej</li>
+</ul></li>
+</ul>
+<h2 id="dziedziczenie-prywatne-i-chronione">Dziedziczenie prywatne i
+chronione</h2>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="op">:</span> <span class="kw">public</span> B <span class="op">{}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="op">:</span> <span class="kw">protected</span> B <span class="op">{}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="op">:</span> <span class="kw">private</span> B <span class="op">{}</span></span></code></pre></div>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 28%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rodzaj</th>
+<th>Dostęp do konwersji <code>D*</code> do <code>B*</code></th>
+<th>Dostęp do składowych publicznych <code>B</code></th>
+<th>Dostęp do składowych chronionych <code>B</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Publiczne</td>
+<td>Wszystkie funkcje</td>
+<td>Wszystkie funkcje</td>
+<td>metody <code>D</code> i klas pochodnych <code>D</code></td>
+</tr>
+<tr class="even">
+<td>Chronione</td>
+<td>metody <code>D</code> i klas pochodnych <code>D</code></td>
+<td>metody <code>D</code> i klas pochodnych <code>D</code></td>
+<td>metody <code>D</code> i klas pochodnych <code>D</code></td>
+</tr>
+<tr class="odd">
+<td>Prywatne</td>
+<td>metody <code>D</code></td>
+<td>metody <code>D</code></td>
+<td>metody <code>D</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="wzorzec-adapter-wrapper">Wzorzec Adapter (wrapper)</h2>
+<ul>
+<li>Mamy typ o odpowiedniej funkcjonalności ale złym interfejsie</li>
+<li>Nie zawsze można zmienić implementację
+<ul>
+<li>kod z biblioteki</li>
+<li>zależności</li>
+</ul></li>
+<li>Adapter obiektów (agregacja)
+<ul>
+<li>preferowany sposób (prostszy)</li>
+<li>narzut czasu przez pośrednie wywołanie</li>
+</ul></li>
+<li>Adapter klas (dziedziczenie wielobazowe)
+<ul>
+<li>pozwala nadpisywać metody</li>
+<li>mniejszy narzut (bez pośrednich skoków)</li>
+</ul></li>
+</ul>
+<h2 id="wzorzec-wizytatora">Wzorzec wizytatora</h2>
+<ul>
+<li>Problem
+<ul>
+<li>dodawanie nowych klas do hierarchii jest proste</li>
+<li>dodanie metod do interfejsu jest złożone</li>
+</ul></li>
+<li>Stosuje się gdy
+<ul>
+<li>jest ustalona hierarchia klas</li>
+<li>wiele metod, metody mogą się zmieniać</li>
+</ul></li>
+<li>Unika się konieczności modyfikowania wszystkich klas w hierarchii
+przy dodawaniu nowej funkcjonalności</li>
+<li>Błędne rozwiązanie z wykorzystaniem <code>dynamic_cast</code></li>
+<li>Dwukrotne zastosowanie funkcji wirtualnej</li>
+<li>Wizytator bazowy ma tyle metod ile typów w hierarchii
+odwiedzanej</li>
+<li>Każda klasa w hierarchii odwiedzanej musi mieć jedną metodę
+<code>accept(Visitor &amp;v) { v.visit(*this); }</code>
+<ul>
+<li>tylko jedna zmiana</li>
+</ul></li>
+<li>Wizytator konkretny nadpisuje <code>visit</code> dla konkretnych
+typów</li>
+<li>Dostaje się informacje o typie bez rzutowania dynamicznego</li>
+<li>Problem z cyklicznymi zależnościami - trzeba stosować deklaracje
+klas
+<ul>
+<li>klasa bazowa hierarchii odwiedzanej (<code>Element</code>) jest
+zależna od bazowego wizytatora</li>
+<li>klassa bazowa wizytatora (<code>Visitor</code>) jest zależna od
+wszystkich klas w hierarchii odwiedzanej</li>
+<li>klasa konkretna z hierarchii odwiedzanej jest zależna od wizytatora
+bazowego</li>
+<li>klasa konkretnego wizytatora jest zależna od wszystkich klas w
+hierarchii odwiedzanej</li>
+</ul></li>
+</ul>
+<h3 id="wizytator-acykliczny-martin">Wizytator acykliczny (Martin)</h3>
+<ul>
+<li>Klasa bazowa wszystkich wizytatorów
+<ul>
+<li>tylko wirtualny destruktor</li>
+</ul></li>
+<li>Abstrakcyjna klasa bazowa dla wizytatora konkretnego typu z
+hierarchiii odwiedzanej
+<ul>
+<li>dziedziczy bo bazowym wizytatorze</li>
+</ul></li>
+<li>Konkretny wizytator
+<ul>
+<li>dziedziczy wielobazowo</li>
+<li>po bazowym wizytatorze</li>
+<li>po klasie wizytatora każdego typu z hierarchii odwiedzanej</li>
+</ul></li>
+<li>Użyty pojedynczy <code>dynamic_cast</code> w metodzie
+<code>accept</code> klasy odwiedzanej
+<ul>
+<li>operacja lokalna</li>
+</ul></li>
+<li>Dodanie nowej klasy do hierarchii odwiedzanej nie wymaga zmiany
+bazowego wizytatora i wszystkich konkretnych</li>
+</ul>
+<h2 id="wzorzec-wielometody">Wzorzec wielometody</h2>
+<ul>
+<li>Kod zależny od dwóch typów (a nie jednego jak Wizytator)</li>
+<li>Np. obliczenie pola powierzchni przecięcia 2 figur
+<ul>
+<li><code>double intersect(Circle&amp;, Circle&amp;);</code></li>
+<li><code>double intersect(Circle&amp;, Rectangle&amp;);</code></li>
+<li><code>double intersect(Rectangle&amp;, Rectangle&amp;);</code></li>
+</ul></li>
+<li>Są wizytatory dla wszystkich klas kształtów</li>
+<li>Niepoprawna implementacja przez wykładniczo wiele <code>if</code> i
+<code>dynamic_cast</code></li>
+<li>Można zaimplementować niskopoziomowo jako dwuwymiarową tablicę
+wskaźników do funkcji</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> intersect<span class="op">(</span>Figure <span class="op">&amp;</span>a<span class="op">,</span> Figure <span class="op">&amp;</span>b<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    IntersectVisitor visitor<span class="op">(</span>a<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    b<span class="op">.</span>accept<span class="op">(</span>visitor<span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> visitor<span class="op">.</span>value<span class="op">();</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> IntersectVisitor <span class="op">:</span> <span class="kw">public</span> Visitor <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    IntersectVisitor<span class="op">(</span>Figure <span class="op">&amp;</span>fig<span class="op">):</span> <span class="va">fig_</span><span class="op">(</span>fig<span class="op">),</span> <span class="va">value_</span><span class="op">(</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> visit<span class="op">(</span>Rectangle <span class="op">&amp;</span>r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        RectangleVisitor rectVisitor<span class="op">(</span>r<span class="op">);</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">fig_</span><span class="op">.</span>accept<span class="op">(</span>rectVisitor<span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">value_</span> <span class="op">=</span> rectVisitor<span class="op">.</span>value<span class="op">();</span>   </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> RectangleVisitor <span class="op">:</span> <span class="kw">public</span> Visitor <span class="op">{</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    RectangleVisitor<span class="op">(</span>Rectangle <span class="op">&amp;</span>r<span class="op">)</span> <span class="op">:</span> <span class="va">r_</span><span class="op">(</span>r<span class="op">),</span> <span class="va">value_</span><span class="op">(</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> visit<span class="op">(</span>Rectangle <span class="op">&amp;</span>r<span class="op">)</span> <span class="op">{</span> <span class="va">value_</span> <span class="op">=</span> intersect<span class="op">(</span><span class="va">r_</span><span class="op">,</span> r<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">void</span> visit<span class="op">(</span>Circle <span class="op">&amp;</span>c<span class="op">)</span> <span class="op">{</span> <span class="va">value_</span> <span class="op">=</span> intersect<span class="op">(</span>c<span class="op">,</span> r<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="wzorzec-dekoratora">Wzorzec dekoratora</h2>
+<ul>
+<li>Dodanie nowej funkcjonalności w czasie działania</li>
+<li>Alternatywa dla dziedziczenia</li>
+<li>Do sytuacji w których liczba sytuacji byłaby potęgowa
+<ul>
+<li>np. strumień binarny/tekstowy szyfrowany/nieszyfrowany
+kompresowany/niekompresowany</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w03--2020-10-20" id="toc-zpr--w03--2020-10-20"># ZPR-
+W03 -2020 10 20</a>
+<ul>
+<li><a href="#redefining" id="toc-redefining">Redefining</a></li>
+<li><a href="#polimorfizm-z-wykorzystaniem-funkcji-wirtualnych" id="toc-polimorfizm-z-wykorzystaniem-funkcji-wirtualnych">Polimorfizm z
+wykorzystaniem funkcji wirtualnych</a></li>
+<li><a href="#rodzaje-metod" id="toc-rodzaje-metod">Rodzaje
+metod</a></li>
+<li><a href="#nvi-idiom" id="toc-nvi-idiom">NVI idiom</a></li>
+<li><a href="#wskaźnik-do-funkcji" id="toc-wskaźnik-do-funkcji">Wskaźnik
+do funkcji</a></li>
+<li><a href="#dziedziczenie-wielobazowe" id="toc-dziedziczenie-wielobazowe">Dziedziczenie wielobazowe</a>
+<ul>
+<li><a href="#wielokrotne-wystąpienie-klasy-bazowej" id="toc-wielokrotne-wystąpienie-klasy-bazowej">Wielokrotne wystąpienie
+klasy bazowej</a></li>
+<li><a href="#dziedziczenie-wirtualne" id="toc-dziedziczenie-wirtualne">Dziedziczenie wirtualne</a></li>
+</ul></li>
+<li><a href="#metody-wirtualne-a-konstruktory" id="toc-metody-wirtualne-a-konstruktory">Metody wirtualne a
+konstruktory</a></li>
+<li><a href="#dziedziczenie-prywatne-i-chronione" id="toc-dziedziczenie-prywatne-i-chronione">Dziedziczenie prywatne i
+chronione</a></li>
+<li><a href="#wzorzec-adapter-wrapper" id="toc-wzorzec-adapter-wrapper">Wzorzec Adapter (wrapper)</a></li>
+<li><a href="#wzorzec-wizytatora" id="toc-wzorzec-wizytatora">Wzorzec
+wizytatora</a>
+<ul>
+<li><a href="#wizytator-acykliczny-martin" id="toc-wizytator-acykliczny-martin">Wizytator acykliczny
+(Martin)</a></li>
+</ul></li>
+<li><a href="#wzorzec-wielometody" id="toc-wzorzec-wielometody">Wzorzec
+wielometody</a></li>
+<li><a href="#wzorzec-dekoratora" id="toc-wzorzec-dekoratora">Wzorzec
+dekoratora</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

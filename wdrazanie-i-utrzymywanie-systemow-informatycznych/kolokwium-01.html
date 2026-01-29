@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-02.html">Następny: kolokwium-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wdrażanie i utrzymywanie systemów informatycznych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="lab-00.html">lab-00.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p><strong>1 Ansible:</strong><br />
+a. wymaga działającej maszyny wirtualnej javy (JVM) na węzłach
+zarządzanych.<br />
+<strong>b. wymaga dystrybucji kluczy ssh w celu konfiguracji węzłów
+zarządzanych</strong> c. należy do klasy narzędzi agentowych<br />
+d. nie może wykonywać poleceń wymagających uprawnień root-a</p>
+<p>Ansible jest bezagentowy i łączy się przez SSH z maszynami
+zarządzanymi</p>
+<p><strong>2 Dopuszczalny ciąg stanów dockera:</strong><br />
+a. created-&gt;paused-&gt;running-&gt;stoped<br />
+<strong>b. paused-&gt;running-&gt;stopped-&gt;deleted</strong>
+c. created-&gt;stoped-&gt;running-&gt;deleted<br />
+d. running-&gt;paused-&gt;running-&gt;deleted</p>
+<p>[[docker-container-states.png]]</p>
+<p><strong>3 Kontener:</strong><br />
+a. nie pozwala na uruchomienie programów przeznaczonych dla innego
+systemu operacyjnego niż system gospodarza<br />
+<strong>b. zapewnia izolację programu uruchomionego w kontenerze od
+systemu operacyjnego gospodarza</strong> c. nie wymaga wsparcia systemu
+operacyjnego gospodarza<br />
+d. dobrą praktyką jest jeden kontener działający na jednym systemie
+gospodarza</p>
+<p>Izolacja dzięki Linux namespaces i cgroups, a jest częściowo
+prawdziwe bo na windowsie wymaga WSL, nie jest przenośny między arm a
+x86</p>
+<p><strong>4 Zaznacz fałszywe stwierdzenie na temat modelu bare
+metal:</strong><br />
+a. zapewnia najbardziej efektywne wykorzystanie sprzętu<br />
+<strong>b. nie wymaga oprogramowania zależnego od platformy sprzętowej i
+systemu operacyjnego</strong> c. wyklucza wykorzystanie cloud
+computing<br />
+d. węzły logiczne są związane z węzłami fizycznymi</p>
+<p>c potencjalnie też fałszywe jeśli uznać kolokację za cloud
+computing</p>
+<p><strong>5 Docker-compose:</strong><br />
+<strong>a. pozwala na definiowanie zbioru kontenerów i uruchamianie tak
+zdefiniowanego zbioru</strong> b. jest narzędziem umożliwiającym
+orkiestrację kontenerów dockerowych<br />
+c. posługuje się pojęciami: image, service, task, node<br />
+d. zarządza stanem uruchomionych kontenerów dockerowych</p>
+<p><strong>6 Fałszywe stwierdzenie na temat kubernetes:</strong><br />
+<strong>a. węzły (nodes) są uruchomione w kontekście Pod-a</strong> b.
+komponenty kontrolne k8s (np. api server, etcd, kube-proxy, kubelete)
+działają w Podach c. w jednym węźle k8s może działać więcej niż jeden
+Pod d. kube-scheduler zarządza cyklem życia Podów</p>
+<p>Pod (jednostka wdrożeniowa) jest uruchamiany w kontekście węzła
+(maszyna fizyczna lub wirtualna)</p>
+<p><strong>7 Development pipeline:</strong><br />
+a. musi zawierać kroki manualne w celu nadzoru nad procesem CI/CD<br />
+b. obejmuje fazę wygaszania systemu c. wymaga wykorzystania
+kontenerów<br />
+<strong>d. w efekcie wykonania dostarcza nową wersję
+oprogramowania</strong></p>
+<p>development pipeline (programistyczna linia produkcyjna) - ciąg
+kroków/czynności, które muszą być przeprowadzone w celu dostarczenia
+nowej wersji oprogramowania na właściwe środowisko wykonawcze</p>
+<p><strong>8 Docker image:</strong><br />
+<strong>a. zawiera binaria i biblioteki potrzebne do uruchomienia
+programu</strong> b. nie jest specyficzny dla systemu operacyjnego
+gospodarza c. jest rejestrem w obrazów dockerowych d. musi znajdować się
+w lokalnym rejestrze</p>
+<p>jest specyficzny dla jądra systemu operacyjnego - Linux, można
+odpalić na Windowsie wykorzystując WSL, można na dowolnej innej
+dystrybucji linuxa</p>
+<p><strong>9 Zgodnie z definicją cloud computing NIST:</strong><br />
+<strong>a. w modelu PaaS klient usługi nie zarządza systemem
+operacyjnym</strong><br />
+b. w modelu SaaS klient usług zarządza siecią<br />
+c. w modelu IaaS dostawca usług zarządza licencjami na bazy danych<br />
+d. SaaS = PaaS + IaaS</p>
+<p><strong>10 Komenda docker exec:</strong><br />
+a. startuje dockera <strong>b. uruchamia komendę w kontekście
+działającego kontenera</strong> c. wykonuje egzekucję dockera<br />
+d. uruchamia główny program wykonawczy zdefiniowany w obrazie</p>
+<p><strong>11 SDLC:</strong> a. dotyczy systemów IT wytwarzanych i
+użytkowanych w modelu kaskadowym<br />
+<strong>b. obejmuje fazy wdrażania i rozwoju systemów IT</strong>
+c. obejmuje wdrażanie, utrzymanie i zarządzanie łańcuchem dostaw
+systemów IT<br />
+d. nie obejmuje wygaszania systemów</p>
+<p>SDLC - ogólny process rozwoju, wdrażania i wygaszania systemów
+informacyjnych, jest to proces wieloetapowy od inicjacji przez analizę,
+projekt, wdrożenie i utrzymanie aż do wygaszenia.</p>
+<p>[[sdlc.png]]</p>
+<p><strong>12 Zgodnie z zaleceniami architektonicznymi:</strong><br />
+a. Pody mogą się komunikować między sobą bezpośrednio po adresach
+IP<br />
+b. na jednej instancji systemu operacyjnego powinien być uruchomiony
+jeden kontener<br />
+<strong>c. na jednym kontenerze powinien być uruchomiony jeden
+proces</strong> d. na każdym Podzie k8s powinien być jeden kontener</p>
+<p>a - stosuje się abstrakcje, np. Serwisy k8s b - o to chodzi że można
+łatwo odpalić wiele kontenerów c - z zaleceń w dokumentacji Dockera -
+Limiting each container to one process is a good rule of thumb, but it’s
+not a hard and fast rule d - niekoniecznie, może mieć sens żeby w jednym
+podzie było więcej</p>
+<p><strong>13 Zaznacz fałszywe stwierdzenie na temat maszyny wirtualnej
+(VM):</strong><br />
+<strong>a. wymaga wsparcia procesora i systemu operacyjnego
+gospodarza</strong> b. aplikacje nie są świadome, że są uruchomione na
+VM c. można uruchomić VM w kontekście innej VM (VM na VM) d. mogą być
+uruchomione przez klienta usług w modelu IaaS</p>
+<p>a - hypervisor typu 1 działa w ogóle bez OS gospodarza b - generalnie
+tak, chociaż mogą to wykryć c - można d - na tym polega np EC2</p>
+<p><strong>14 Orkiestracja:</strong><br />
+a. nie wymaga stosowania kontenerów<br />
+b. obniża koszty działania aplikacji w postaci skonteneryzowanej
+c. zapewnia brak problemów utrzymaniowych <strong>d. umożliwia
+scentralizowane zarządzania aplikacjami skonteneryzowanej</strong></p>
+<p>a - orkiestruje się kontenerami b - autoscaling może obniżyć koszt -
+oszczędza się na infrastrukturze jak jest mały ruch, używa się tylko
+tyle ile potrzeba c - nie rozwiązuje wszystkich problemów, np. zmiany
+wersji oprogramowania d -</p>
+<p><strong>15 Pojęcia związane z Jenkinsem:</strong><br />
+a. servic, executor build<br />
+b. servant, butler, valet<br />
+<strong>c. build, executor, job</strong> d. master node, slave node,
+executor node</p>
+<p><strong>16 Kubernetes Pod:</strong><br />
+<strong>a. może zawierać jeden lub wiele kontenerów</strong> b.
+definiuje logiczny zbiór serwisów k8s oraz politykę dostępu do nich
+c. jest niezmienny (immutable) d. pełni taką samą rolę jak task w docker
+swarm</p>
+<p>a - Pod - najmniejsza jednostka wykonawcza K8s, może być realizowana
+przez jeden lub wiele konenerów d - mniej więcej tak, ale task mapuje
+się na tylko 1 kontener, a pod na 1 lub więcej</p>
+<p><strong>17 Zgodnie z modelem sieciowym dockera:</strong><br />
+a. w trybie overlay nie ma możliwości dostępu do działającego kontenera
+z zewnątrz hosta<br />
+b. w trybie host nie ma możliwości dostępu do działającego kontenera z
+zewnątrz host<br />
+<strong>c. w trybie bridge kontenery widzą się nawzajem w ramach jednego
+hosta ale nie są widoczne z zewnątrz</strong> d. w trybie host
+działający kontener ma adres z puli 172.17.0.1/24</p>
+<p><strong>18 Procesy CI/CD:</strong><br />
+a. mogą być wyłącznie stosowane w organizacjach zwinnych (agile)<br />
+b. nie mogą być wyłącznie stosowane w modelach kaskadowych rozwoju
+oprogramowania<br />
+c. służą zmniejszeniu kosztów wytwarzania oprogramowania d. mogą skrócić
+czas do zebrania wymagań do wdrożenia oprogramowania</p>
+<p>c i d są poprawne c - zmniejsza koszty, bo automatyzacja przyspiesza
+powtarzalne czynności, pozwala wyłapywać błędy itp d - skraca czas, bo
+wdrożenie może być szybsze jeśli wykonuje się automatycznie</p>
+<p><strong>19 Kubectl:</strong><br />
+a. działa wewnątrz kontenera dockerowego<br />
+b. to komponent kontrolny działający w ramach centralnego węzła
+zarządzającego (master plane) c. to komponent kontrolny działający na
+każdym węźle <strong>d. to komenda kontrolna do zarządzania
+klastrem</strong></p>
+<p><strong>20 Maszyna wirtualna (VM):</strong><br />
+<strong>a. umożliwia uruchomienie systemu operacyjnego</strong> b. może
+być tylko jedna VM na jednym węźle fizycznym c. jedna instancja może
+działać jednocześnie na wielu węzłach fizycznych d. wymaga dostosowanych
+aplikacji, odmiennych od uruchamianych bez pośrednictwa VM</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        None
+    </div>
+</div>
+</body>
+</html>

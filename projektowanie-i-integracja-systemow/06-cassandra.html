@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-cassandra</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-dostep-do-danych.html">Poprzedni: 05-dostep-do-danych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-logika-biznesowa.html">Następny: 07-logika-biznesowa.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="apache-cassandra">Apache Cassandra</h1>
+<ul>
+<li>Open source, licencja Apache2</li>
+<li>Rozproszona
+<ul>
+<li>zapewnia odporność na awarie</li>
+</ul></li>
+<li>Możliwość wymieniania komponentów bez wyłączania systemu
+<ul>
+<li>np. wymiana dysków twardych</li>
+</ul></li>
+<li>Przystosowana do ogromnych zbiorów (terabajty, petabajty)</li>
+</ul>
+<h2 id="model-danych">Model danych</h2>
+<ul>
+<li>Zbliżony do modelu relacyjnego</li>
+<li>Tabele, kolumny, wiersze</li>
+<li>Statyczny schemat</li>
+<li>Partycjonowane tabele
+<ul>
+<li>podzielone między fizyczne serwery</li>
+<li>klucz partycjonujący - wartość decyduje gdzie w klastrze zostanie
+umieszczony wiersz</li>
+</ul></li>
+<li>Klucz główny
+<ul>
+<li>zawiera klucz partycjonujący</li>
+<li>dodatkowe kolumny, decydują gdzie w ramach jednego serwera będzie
+przechowywany wiersz</li>
+<li>dodatkowe kolumny ustalają porządek w obrębie partycji</li>
+</ul></li>
+<li>Cała partycja jest na jednym serwerze</li>
+<li>Z każdą komórką danych jest związany znacznik czasowy
+<ul>
+<li>ten sam wiersz może być zapisany równocześnie przez 2 klientów na
+różnych serwerach</li>
+<li>serwery są symetryczne, klient nie musi wiedzieć gdzie dokładnie
+będzie zapisany wiersz</li>
+<li>późniejsze dane nadpisują wcześniejsze</li>
+<li>bardzo ważne jest zsynchronizowanie zegarów między serwerami w
+klastrze - mogą wracać stare dane, mogą znikać</li>
+<li>z każdą komórką można skojarzyć TTL, po upływie zamienia się na
+null</li>
+</ul></li>
+<li>Fizycznie każda komórka tabeli jest zapisywana jako nazwa kolumny i
+wartość
+<ul>
+<li>model dostosowany do rzadkich tabel (dużo nulli)</li>
+</ul></li>
+</ul>
+<h2 id="typy-danych">Typy danych</h2>
+<ul>
+<li>Standardowe jak w tabelach relacyjnych</li>
+<li>Typy zdefiniowane przez użytkownika
+<ul>
+<li>struktury</li>
+</ul></li>
+<li>Kolekcje
+<ul>
+<li>zbiór</li>
+<li>lista</li>
+<li>słownik</li>
+<li>wektor - szczególnie do algorytmów ML</li>
+</ul></li>
+</ul>
+<h2 id="różnice-z-bazami-relacyjnymi">Różnice z bazami relacyjnymi</h2>
+<ul>
+<li>Nie ma kluczy obcych</li>
+<li>Nie ma złączeń
+<ul>
+<li>możne zrobić je ręcznie w aplikacji</li>
+</ul></li>
+<li>Nie ma operatorów algebry relacyjnej</li>
+<li>Nie ma group by</li>
+<li>Nie ma podzapytań</li>
+<li>Bardziej ograniczony język zapytań</li>
+<li>Nie jest dobra jako baza analityczna
+<ul>
+<li>można dostawić obok inny system (np. Solr, Elastic Search,
+Spark)</li>
+</ul></li>
+</ul>
+<h2 id="interfejs">Interfejs</h2>
+<ul>
+<li>Cassandra Query Language</li>
+<li>Podony do SQL</li>
+<li>Wiele insertów na ten sam klucz główny
+<ul>
+<li>ważny jest ostatni</li>
+</ul></li>
+<li>Można zrobić update dla nieistniejącego rekordu
+<ul>
+<li>utworzy się nowy rekord</li>
+<li>update i insert są tłumaczone na to samo polecenie</li>
+<li>każda aktualizacja to dopisanie nowej informacji o komórkach</li>
+</ul></li>
+<li>Sterowniki do większości języków programowania</li>
+<li>REST</li>
+<li>gRPC</li>
+</ul>
+<h3 id="joiny">Joiny</h3>
+<ul>
+<li>Brak złączeń rozwiązuje się denormalizacją danych
+<ul>
+<li>zapisujemy te same dane w różnych postaciach w różnych tabelach</li>
+<li>projektujemy struktury danych pod zapytania jakie będą
+wykonywane</li>
+</ul></li>
+<li>Pola typu kolekcji</li>
+<li>Złączenia byłyby bardzo kosztowne w systemie rozproszonym</li>
+</ul>
+<h3 id="lekkie-transakcje---insert">Lekkie transakcje - Insert</h3>
+<ul>
+<li><code>INSERT INTO ... IF NOT EXISTS</code></li>
+<li><code>UPDATE ... IF ...</code></li>
+<li>Atomowa, niepodzielna operacja</li>
+<li>Algorytmy bez blokad</li>
+<li>Bardzo kosztowne
+<ul>
+<li>3-4 razy więcej niż normalnie</li>
+</ul></li>
+<li>Algorytm Paxos, Raft (nie na kolosa)</li>
+</ul>
+<h2 id="architektura">Architektura</h2>
+<ul>
+<li>Nie ma single point of failure</li>
+<li>Serwery są całkiem symetryczne</li>
+<li>Zapytania mogą trafiać do dowolnego serwera</li>
+<li>Serwery komunikują się między sobą</li>
+<li>Klucz partycjonujący decyduje gdzie zostaną umieszczone dane</li>
+<li>Funkcja skrótu murmur64
+<ul>
+<li>każdy węzeł ma przypisany zakres</li>
+<li>dzieli sie po równo zakresy wartości haszy</li>
+<li>różne wartości klucza - będzie równomierne obłożenie</li>
+</ul></li>
+<li>Dowolny węzeł może paść</li>
+<li>Dowolny węzeł może być zastąpiony bez downtime systemu</li>
+</ul>
+<h3 id="replikacja">Replikacja</h3>
+<ul>
+<li>Np. jak są serwery ABCD i z hasza wynika że wiersz ma trafić na
+serwer A to zostanie zapisany na ABC, jeśli B to BCD itd</li>
+<li>Współczynnik replikacji
+<ul>
+<li>zalecany 3</li>
+<li>lepsze są nieparzyste</li>
+</ul></li>
+</ul>
+<h3 id="cap">CAP</h3>
+<ul>
+<li>Cassandra umożliwia wybór między spójnością i dostępnością</li>
+</ul>
+<h3 id="rodzaje-spójności">Rodzaje spójności</h3>
+<ul>
+<li>Eventual consistency - spójność ale po jakimś czasie</li>
+<li>Immediate consistency - każdy klient odczytuje najbardziej aktualne
+dane</li>
+<li>Serial consistency - widoczny stan bazy taki jak gdyby wszystkie
+operacje były sekwencyjne
+<ul>
+<li>lightweight transactions</li>
+</ul></li>
+<li>Współczynnik spójności
+<ul>
+<li>podaje się przy zapytaniu</li>
+<li>ile replik ma potwierdzić operację</li>
+<li>any - dowolny (może być koordynator)</li>
+<li>one - jedna z replik</li>
+<li>local_one - w tym samym centurm danych</li>
+<li>two</li>
+<li>quorum - więcej niż połowa (dlatego lepsze są nieparzyste
+współczynniki replikacji)</li>
+<li>zapis z quorum 2z3 i odczyt z quorum 2z3 - na pewno będzie aktualna
+wartość</li>
+<li>local_quorum</li>
+<li>each_quorum</li>
+<li>serial</li>
+<li>all</li>
+</ul></li>
+<li>CL.READ + CL.WRITE &gt; RF gwarantuje natychmiastową spójność
+<ul>
+<li>replication factor</li>
+</ul></li>
+<li>Zapis dalej idzie do wszystkich replik</li>
+</ul>
+<h3 id="write-path">Write Path</h3>
+<ul>
+<li>Zapis trafia do memtable i commit log
+<ul>
+<li>commit log - dysk, dane dopisywane na koniec</li>
+<li>memtable - pamięć, dane posortowane wg klucza</li>
+</ul></li>
+<li>Po awarii serwer może odtworzyć stan na podstawie commit logu</li>
+<li>Kiedy zabraknie miejsca w memtable
+<ul>
+<li>flush - zapis memtable do jednego pliku na dysku (SSTable)</li>
+<li>system operacyjny potwierdza że zapis się skończył</li>
+<li>czyści się commit log - dane już są na dysku</li>
+<li>można znowu zapisywać</li>
+</ul></li>
+<li>Kiedy operacja odczytu
+<ul>
+<li>trzeba sprawdzić wszystkie miejsca - memtable i wszystkie
+SSTable</li>
+<li>szybkie bo dane są posortowane</li>
+</ul></li>
+<li>Z każdym flush rośnie liczba miejsc które trzeba przeszukiwać przy
+odczycie
+<ul>
+<li>filtry blooma do SSTable</li>
+<li>właściwe rozwiązanie - scalanie (compaction)</li>
+</ul></li>
+<li>Compaction
+<ul>
+<li>scalanie SSTable jak w mergesort</li>
+<li>jeśli 2 razy ten sam klucz to rozstrzygnięcie na podstawie znacznika
+czasowego</li>
+<li>scalony plik jest na ogół mniejszy niż suma 2 przed scaleniem</li>
+<li>jeśli trafi na znacznik usunięcia i dane to nie zapisze danych</li>
+<li>oryginalne SSTable są usuwane</li>
+</ul></li>
+<li>Usuwanie
+<ul>
+<li>dopisuje się znacznik usunięcia</li>
+<li>ze znacznikiem czasowym</li>
+<li>nie kasuje się danych</li>
+<li>GC grace period domyślnie ustawiony na tydzień - czas po którym
+znacznik usunięcia zostanie usunięty o ile dane zostały już scalone</li>
+<li>serwer w klastrze mógł być wyłączony i nie dostać informacji o
+usunięciu, a ma stare dane, jeśli jeszcze jakiś serwer ma znacznik
+usunięcia to system nie zwróci usuniętego rekordu, jeśli nie będzie to
+system zwróci usunięte dane (resurrection)</li>
+<li>są różne mechanizmy które przed tym zabezpieczają</li>
+</ul></li>
+</ul>
+<p>SSTable - sorted string table, dane posortowane po kluczu głównym</p>
+<h3 id="secondary-indexes">Secondary indexes</h3>
+<ul>
+<li>Zapytanie po kolumnie bez indeksu rzuca wyjątek
+<ul>
+<li>domyślnie nie można robić zapytań które wymagają filtrowania</li>
+<li>opcja allow filtering do zapytania - może być timeout</li>
+</ul></li>
+<li>Do każdego SSTable dołącza się indeks</li>
+<li>Dane dla poszczególnych kolumn w oddzielnych plikach</li>
+<li>Dane wspólne w jednym pliku per sstable</li>
+<li>Indeksy są oszczędne - tylko numery (wiersze w sstable można
+ponumerować)</li>
+<li>Przy odczycie z indeksem trzeba przejrzeć wszystkie indeksy</li>
+<li>Zapytanie z wieloma indeksami
+<ul>
+<li>obliczenie przecięcia na zbiorach posortowanych</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#apache-cassandra" id="toc-apache-cassandra">Apache
+Cassandra</a>
+<ul>
+<li><a href="#model-danych" id="toc-model-danych">Model danych</a></li>
+<li><a href="#typy-danych" id="toc-typy-danych">Typy danych</a></li>
+<li><a href="#różnice-z-bazami-relacyjnymi" id="toc-różnice-z-bazami-relacyjnymi">Różnice z bazami
+relacyjnymi</a></li>
+<li><a href="#interfejs" id="toc-interfejs">Interfejs</a>
+<ul>
+<li><a href="#joiny" id="toc-joiny">Joiny</a></li>
+<li><a href="#lekkie-transakcje---insert" id="toc-lekkie-transakcje---insert">Lekkie transakcje - Insert</a></li>
+</ul></li>
+<li><a href="#architektura" id="toc-architektura">Architektura</a>
+<ul>
+<li><a href="#replikacja" id="toc-replikacja">Replikacja</a></li>
+<li><a href="#cap" id="toc-cap">CAP</a></li>
+<li><a href="#rodzaje-spójności" id="toc-rodzaje-spójności">Rodzaje
+spójności</a></li>
+<li><a href="#write-path" id="toc-write-path">Write Path</a></li>
+<li><a href="#secondary-indexes" id="toc-secondary-indexes">Secondary
+indexes</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

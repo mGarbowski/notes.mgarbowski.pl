@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-reprezentacje-obiektow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-przeksztalcenia.html">Następny: 02-przeksztalcenia.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="reprezentacje-obiektów">Reprezentacje obiektów</h1>
+<h2 id="modelowanie-krzywych">Modelowanie krzywych</h2>
+<ul>
+<li>Linie łamane
+<ul>
+<li>sekwencja wierzchołków połączona prostymi liniami</li>
+<li>przydatne, ale nie dla gładkich krzywych</li>
+</ul></li>
+<li>Gładkie krzywe
+<ul>
+<li>splajny (ang. splines)</li>
+</ul></li>
+</ul>
+<h3 id="splajny">Splajny</h3>
+<ul>
+<li>Typ gładkich krzywych w 2D/3D</li>
+<li>Wykorzystanie
+<ul>
+<li>ilustracje 2D</li>
+<li>fonty</li>
+<li>modelowanie 3D</li>
+<li>animacja</li>
+</ul></li>
+<li>Konstrukcja
+<ul>
+<li>interpolacja</li>
+<li>aproksymacja</li>
+</ul></li>
+<li>Użytkownik definiuje punkty kontrolne</li>
+<li>Punkty są interpolowane w celu utworzenia gładkiej krzywej
+<ul>
+<li>krzywa jest całkowicie zdeterminowana przez punkty kontrolne</li>
+</ul></li>
+<li>Czemu splajny
+<ul>
+<li>prosta definicja - kilka punktów, mało danych do przechowania</li>
+<li>krzywa parametryczna - wygodna do pracy np. przy animacji</li>
+<li>wielomiany niskiego stopnia połączone ze sobą</li>
+</ul></li>
+</ul>
+<h3 id="definicja-krzywych">Definicja krzywych</h3>
+<ul>
+<li>Sposób jawny
+<ul>
+<li><span class="math inline">\(y=f(x)\)</span></li>
+<li>generowanie punktów przez podstawienie konkretnych wartości</li>
+<li>nie może być dwóch punktów o tym samym x</li>
+</ul></li>
+<li>Sposób niejawny
+<ul>
+<li><span class="math inline">\(f(x,y)=0\)</span></li>
+<li>sprawdzenie czy punkt należy do krzywej</li>
+<li>mniej wygodne do wyznaczenia</li>
+</ul></li>
+<li>Sposób parametryczny
+<ul>
+<li><span class="math inline">\(x=f(t)\)</span></li>
+<li><span class="math inline">\(y=g(t)\)</span></li>
+<li>podstawienie kolejnych wartości <span
+class="math inline">\(t\)</span> generuje kolejne punkty krzywej</li>
+</ul></li>
+</ul>
+<h3 id="interpolacja-i-aproksymacja">Interpolacja i aproksymacja</h3>
+<ul>
+<li>Interpolacja
+<ul>
+<li>krzywa przechodzi przez punkty kontrolne</li>
+<li>może być niestabilna</li>
+<li>krzywa interpolacyjna</li>
+</ul></li>
+<li>Aproksymacja
+<ul>
+<li>punkty służą do określenia kształtu krzywej</li>
+<li>krzywa nie musi przechodzić przez punkty kluczowe</li>
+<li>wygodne w użyciu</li>
+<li>np. krzywa Beziera</li>
+</ul></li>
+</ul>
+<h3 id="krzywe-beziera">Krzywe Beziera</h3>
+<p><img src="./obrazy/bezier-curve.png" /></p>
+<p><span class="math display">\[P(t) = (1-t)^3P_1 + 3t(1-t^2)P_2 +
+3t^2(1-t)P_3 + t^3P_4\]</span> <span class="math display">\[P(t) = [P_0,
+P_1, P_2, P_3] \cdot M \cdot \begin{bmatrix}t^3 \\ t^2 \\ t \\
+1\end{bmatrix}\]</span> <span class="math display">\[M = \begin{bmatrix}
+    -1 &amp; 2 &amp; -3 &amp; 1 \\
+    3 &amp; -6 &amp; 3 &amp; 0 \\
+    -3 &amp; 3 &amp; 0 &amp; 0 \\
+    1 &amp; 0 &amp; 0 &amp; 0 \\
+\end{bmatrix}\]</span></p>
+<ul>
+<li>Użytkownik definiuje 4 punkty kontrolne</li>
+<li>Krzywa przechodzi przez punkty definiujące początek i koniec</li>
+<li>Krzywa aproksymuje pozostałe dwa punkty kontrolne</li>
+<li>Krzywa wielomianowa</li>
+<li>Krzywa jest styczna w punktach
+<ul>
+<li><span class="math inline">\(P_0\)</span> do <span
+class="math inline">\(P_0-P_1\)</span></li>
+<li><span class="math inline">\(P_3\)</span> do <span
+class="math inline">\(P_3-P_2\)</span></li>
+</ul></li>
+<li>Jest ograniczona przez otoczkę wypukłą jej punktów kontrolnych</li>
+<li>Gładkie połączenia łuków
+<ul>
+<li>kiedy punkty kontrolne dwóch krzywych są współliniowe</li>
+</ul></li>
+<li>Łatwa do podziału
+<ul>
+<li>podzielona krzywa nadal będzie kubiczna</li>
+<li>przydatne do dodawania detali</li>
+<li>algorytm de Casteljau</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-de-casteljau">Algorytm de Casteljau</h3>
+<p><img src="./obrazy/algorytm-de-casteljau.png" /></p>
+<p>Geometryczna konstrukcja punktu krzywej Beziera odpowiadającego danej
+wartości parametru. Szukamy punktu określonego parametrem <span
+class="math inline">\(u\)</span>.</p>
+<ol type="1">
+<li>Podziel odcinki łączące kolejne punkty kontrolne w proporcjach <span
+class="math inline">\(\frac{u}{1-u}\)</span></li>
+<li>Połącz wyznaczone punkty odcinkami</li>
+<li>Podziel nowo utworzone odcinki w proporcjach <span
+class="math inline">\(\frac{u}{1-u}\)</span></li>
+<li>Połącz wyznaczone punkty odcinkami</li>
+<li>Podziel nowy odcinek w proporcjach <span
+class="math inline">\(\frac{u}{1-u}\)</span></li>
+<li>Weź wyznaczony punkt</li>
+</ol>
+<h2 id="reprezentacja-3d">Reprezentacja 3D</h2>
+<h3 id="jaka-jest-dobra-reprezentacja-3d">Jaka jest dobra reprezentacja
+3D</h3>
+<ul>
+<li>Intuicyjna</li>
+<li>Gwarancja ciągłości
+<ul>
+<li>bez dziur</li>
+</ul></li>
+<li>Gwarancja poprawności</li>
+<li>Wydajny rendering</li>
+<li>Wydajne operacje boolowskie</li>
+<li>Dokładne</li>
+<li>Zwięzłe</li>
+<li>Posiadające strukturę</li>
+</ul>
+<h3 id="stosowane-reprezentacje-3d">Stosowane reprezentacje 3D</h3>
+<ul>
+<li>Surowe dane
+<ul>
+<li>zebrane z czujnika (np. kamery 3D)</li>
+<li>obrazy głębi</li>
+<li>chmury punktów</li>
+<li>woksele</li>
+</ul></li>
+<li>Powierzchnie
+<ul>
+<li>siatki trójkątów</li>
+<li>powierzchnie parametryczne</li>
+</ul></li>
+<li>Bryły
+<ul>
+<li>CSG</li>
+</ul></li>
+<li>Graf sceny
+<ul>
+<li>typowe dla programów typu Blender, 3ds max</li>
+</ul></li>
+</ul>
+<h3 id="chmura-punktów">Chmura punktów</h3>
+<ul>
+<li>Zbiór punktów bez struktury</li>
+<li>Dane pochodzą z
+<ul>
+<li>skanery 3D</li>
+<li>fotogrametria</li>
+<li>algorytmy wizji komputerowej</li>
+</ul></li>
+<li>Jest dużo szumu
+<ul>
+<li>wymaga dalszego przetworzenia żeby zrobić coś użytecznego</li>
+<li>wyrzucić outliery itp.</li>
+</ul></li>
+<li>Bardzo lekkie
+<ul>
+<li>zapamiętane tylko pozycje punktów</li>
+</ul></li>
+<li>Wykorzystanie
+<ul>
+<li>wizualizacje</li>
+<li>kontrola jakości - np. mierzenie odchyleń od powierzchni</li>
+<li>tworzenie modeli CAD</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>reprezentacja obiektów za pomocą skończonej liczby punktów</li>
+<li>szybkie tworzenie modeli - za pomocą odpowiedniego sprzętu</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>brakuje precyzji modeli powierzchniowych</li>
+<li>konieczność rekonstrukcji powierzchni</li>
+<li>nie ma reprezentacji krzywych</li>
+</ul></li>
+</ul>
+<h3 id="obrazy-głębi-dystansu">Obrazy głębi / dystansu</h3>
+<ul>
+<li>Punkty 3D przeniesione na płaszczyznę obrazu odległość od pewnego
+punktu
+<ul>
+<li>zwykle sensora zbierającego dane</li>
+</ul></li>
+<li>Dane z
+<ul>
+<li>kamer time-of-flight</li>
+<li>triangulacja stereo</li>
+<li>skanery światła strukturalnego</li>
+</ul></li>
+<li>Kamery są konfigurowalne
+<ul>
+<li>np. czas zbierania informacji</li>
+<li>krótki czas - mniej dokładne</li>
+</ul></li>
+<li>Problemy np. z przezroczystymi obiektami (szklanka)</li>
+</ul>
+<h3 id="woksele">Woksele</h3>
+<ul>
+<li>Jednorodna siatka wolumetrycznych próbek
+<ul>
+<li>woksel - najmniejszy element przestrzeni 3D</li>
+<li>odpowiednik piksela w 2D</li>
+</ul></li>
+<li>Zazwyczaj sześciany</li>
+<li>Zawiera informację na temat wnętrza obiektu
+<ul>
+<li>np. gęstość chmury - jak będzie przepuszczać światło</li>
+</ul></li>
+<li>Dane z
+<ul>
+<li>tomografu - w zastosowaniach medycznych</li>
+<li>w animacji - dane pochodzące z symulacji</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>obrazowanie medyczne</li>
+<li>symulacja oświetlenia</li>
+<li>modelowanie obiektów (Z-Brush)</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>bardzo dobre modelowanie przestrzeni 3D</li>
+<li>możliwość symulacji których nie ma w innych metodach
+(wolumetria)</li>
+<li>najprostsza metoda wizualizacji danych medycznych</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>kosztowny sprzęt albo bardzo duży nakład czasu</li>
+<li>brak precyzji w modelowaniu powierzchni</li>
+<li>kosztowny rendering</li>
+</ul></li>
+</ul>
+<h3 id="siatki-poligonów">Siatki poligonów</h3>
+<ul>
+<li>Zwykle zbudowane z trójkątów
+<ul>
+<li>trójkąt reprezentowany przez 3 wierzchołki</li>
+<li>czasem czworokąty</li>
+</ul></li>
+<li>Tylko powierzchnie</li>
+<li>Reprezentacja np. przez paski trójkątów
+<ul>
+<li>kolejny trójkąt dodaje tylko jeden wierzchołek do sekwencji</li>
+</ul></li>
+<li>Realistyczne cieniowanie
+<ul>
+<li>interpolacja w poprzek wielokątów - redukcja krawędzi</li>
+</ul></li>
+<li>Wspierane przez sprzęt</li>
+<li>Zalety
+<ul>
+<li>prostota reprezentacji</li>
+<li>bezpośrednio przetwarzanie wspierane przez sprzęt (GPU)</li>
+<li>powszechnie dostępny software do modelowania (np. Blender)</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>gładkie powierzchnie wymagają dużej liczby trójkątów</li>
+<li>brak informacji o wnętrzu obiektu</li>
+</ul></li>
+</ul>
+<h3 id="tworzenie-powierzchni">Tworzenie powierzchni</h3>
+<ul>
+<li>Wykorzystanie krzywych
+<ul>
+<li>otwarta krzywa stanowi generator obracany wokół osi</li>
+<li>zamknięta krzywa przesuwana wzdłuż ścieżki (sweep
+representation)</li>
+</ul></li>
+<li>Reprezentacja parametryczna
+<ul>
+<li>część obiektów (prymitywy) da się określić równaniami - idealna
+reprezentacja obiektów</li>
+<li>np. sfera</li>
+</ul></li>
+</ul>
+<h3 id="csg">CSG</h3>
+<ul>
+<li>Constructive Solid Geometry</li>
+<li>Operacje boolowskie
+<ul>
+<li>unia</li>
+<li>przecięcie</li>
+<li>różnica</li>
+</ul></li>
+<li>Bardzo przydatne do modelowania</li>
+<li>Problemy z renderingiem
+<ul>
+<li>raczej w starszych oprogramowaniu</li>
+<li>wiszące wierzchołki, ściany o powierzchni zero itp.</li>
+</ul></li>
+</ul>
+<h3 id="fraktale">Fraktale</h3>
+<ul>
+<li>Obiekty samopodobne we wszystkich rozdzielczościach</li>
+<li>Generowane przez rekursywne aplikowanie takiej samej
+transformacji</li>
+<li>Wykorzystywane do generacji obiektów, które w rzeczywistości takie
+są
+<ul>
+<li>drzewa</li>
+<li>płatki śniegu</li>
+</ul></li>
+</ul>
+<h3 id="graf-sceny">Graf sceny</h3>
+<ul>
+<li>Wysokopoziomowa struktura opisu zależności obiektów między sobą
+<ul>
+<li>ułatwienie nakładania transformacji</li>
+<li>przede wszystkim ułatwienie dla artysty pracującego nad sceną</li>
+<li>można np. ukryć hierarchię obiektów</li>
+</ul></li>
+<li>Połączenie obiektów w liściach</li>
+<li>Wydajny rendering</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#reprezentacje-obiektów" id="toc-reprezentacje-obiektów">Reprezentacje obiektów</a>
+<ul>
+<li><a href="#modelowanie-krzywych" id="toc-modelowanie-krzywych">Modelowanie krzywych</a>
+<ul>
+<li><a href="#splajny" id="toc-splajny">Splajny</a></li>
+<li><a href="#definicja-krzywych" id="toc-definicja-krzywych">Definicja
+krzywych</a></li>
+<li><a href="#interpolacja-i-aproksymacja" id="toc-interpolacja-i-aproksymacja">Interpolacja i
+aproksymacja</a></li>
+<li><a href="#krzywe-beziera" id="toc-krzywe-beziera">Krzywe
+Beziera</a></li>
+<li><a href="#algorytm-de-casteljau" id="toc-algorytm-de-casteljau">Algorytm de Casteljau</a></li>
+</ul></li>
+<li><a href="#reprezentacja-3d" id="toc-reprezentacja-3d">Reprezentacja
+3D</a>
+<ul>
+<li><a href="#jaka-jest-dobra-reprezentacja-3d" id="toc-jaka-jest-dobra-reprezentacja-3d">Jaka jest dobra reprezentacja
+3D</a></li>
+<li><a href="#stosowane-reprezentacje-3d" id="toc-stosowane-reprezentacje-3d">Stosowane reprezentacje 3D</a></li>
+<li><a href="#chmura-punktów" id="toc-chmura-punktów">Chmura
+punktów</a></li>
+<li><a href="#obrazy-głębi-dystansu" id="toc-obrazy-głębi-dystansu">Obrazy głębi / dystansu</a></li>
+<li><a href="#woksele" id="toc-woksele">Woksele</a></li>
+<li><a href="#siatki-poligonów" id="toc-siatki-poligonów">Siatki
+poligonów</a></li>
+<li><a href="#tworzenie-powierzchni" id="toc-tworzenie-powierzchni">Tworzenie powierzchni</a></li>
+<li><a href="#csg" id="toc-csg">CSG</a></li>
+<li><a href="#fraktale" id="toc-fraktale">Fraktale</a></li>
+<li><a href="#graf-sceny" id="toc-graf-sceny">Graf sceny</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

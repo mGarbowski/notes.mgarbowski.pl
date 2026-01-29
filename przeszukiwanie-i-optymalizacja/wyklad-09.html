@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08.html">Poprzedni: wyklad-08.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10.html">Następny: wyklad-10.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-12-11</h1>
+<h2 id="naprawa-rozwiązań-widoczna-dla-metody">Naprawa rozwiązań
+widoczna dla metody</h2>
+<p>Rozwiązania są najpierw naprawiane, potem trafiają do loga i są
+poddawane ewaluacji</p>
+<p>Złączenie metody naprawy z algorytmem optymalizacyjnym skutkuje
+zmianą sposobu generowania sąsiadów - zmianą relacji sąsiedztwa Sposób
+jest różny i zależny od tego, w którym miejscu przestrzeni przeszukiwań
+znajduje się punkt (jak oddalony jest od granic)</p>
+<h2 id="obciążenia-naprawy-rozwiązań">Obciążenia naprawy rozwiązań</h2>
+<p>Wykresy</p>
+<p>Na górze zachowanie średniej dla rozkładu normalnego przy
+ograniczeniach od -1 do 1 sprawdzamy jaka jest wartość oczekiwana po
+wygenerowaniu i naprawie, odejmujemy wartość modyfikowanego losowo
+punktu</p>
+<p>oczekujemy wartości 0</p>
+<p>różnica w stronę środka (z dala od ograniczeń)</p>
+<p>Przy projekcji i odbiciu, stopień ucieczki jest mniejszy niż przy
+zawijaniu i reinicjacji</p>
+<p>dolne wykresy - wariancja po naprawie / wariancja przed naprawą</p>
+<h3 id="widoczna-dla-de">Widoczna dla DE</h3>
+<p>[[Pasted image 20250124165137.png]]</p>
+<p>benchmarki są wrażliwe na sposób naprawy rozwiązań najlepsze wyniki
+średnio daje metoda ponownego próbkowania</p>
+<p>schemat naprawy istotnie wpływa na wynik jeśli optimum jest blisko
+ograniczeń - warianty mogą mniej lub bardziej odsuwać populację od
+ograniczeń</p>
+<p>Rzutowanie - wiele punktów na ramce kostki odbijanie i reinicjacja -
+podobne chmury punktów zawijanie - ogrągła chmura zawinięta na inne
+narożniki</p>
+<h3 id="naprawa-niewidoczna-dla-de">Naprawa niewidoczna dla DE</h3>
+<p>[[Pasted image 20250124165218.png]] rzutowania - funkcja celu jest
+płaska za ograniczeniami poziomice - takie zachowanie jak wcześniej
+tłumaczyliśmy na 2D</p>
+<h2 id="styl-lamarckowski-i-darwinowski">Styl Lamarckowski i
+Darwinowski</h2>
+<p>Darwinowskie - cechy nabyte nie są dziedziczone Lamarckowskie - cechy
+nabyte są dziedziczone</p>
+<p>naprawa niewidoczna (darwinowska) działa gorzej (porównanie ECDF)</p>
+<p>rozważania o wyższości jednych metod nad drugimi nie są uniwersalne,
+trzeba by to zbadać dla inynch algorytmów niż DE</p>
+<p>resampling - ponowne losowanie sasiada, reinicjacja - losowanie z
+calej przestrzeni z oryginalnym rozkladem bez zwiazku z mutowanym</p>
+<p>w ewolucji różnicowej z naprawą lamarckowską</p>
+<p>ewolucja różnicowa w początkowej fazie głównie będzie się zajmować
+uwzględnianiem ograniczeń, a w końcowej ograniczenia sprawiają że staje
+się prawie bezużyteczny</p>
+<p>odbijanie lamarckowskie i optimum blisko granicy - chmura utrzymuje
+się w pewnej odległości od ograniczenia</p>
+<h1
+id="hybrydyzacja-metaheurystyk-z-metodami-optymalizacji-lokalnej-algorytmy-memetyczne">Hybrydyzacja
+metaheurystyk z metodami optymalizacji lokalnej, algorytmy
+memetyczne</h1>
+<p>Uwzględnianie ograniczeń też jest wariantem optymalizacji (problem
+spełniania ograniczeń)</p>
+<p>proces wyznaczania punktu naprawianego jest procesem optymalizacji -
+maksymalizacja funkcji charakterystycznej zbioru dopuszczalnego</p>
+<p>metoda optymalizacji globalnej i optymalizacja lokalna w miejsce
+naprawy</p>
+<p>też warianty darwinowski i lamarkowski</p>
+<h2 id="zbiór-przyciągania">Zbiór przyciągania</h2>
+<p>zbiór tych punktów, z których można wyprowadzić ścieżkę wzdłuż której
+f celu maleje i koniec ścieżki znajduje sie w optimum lokalnym</p>
+<p>definicja praktyczna - punkt należy do zbioru przyciągania jeśli
+algorytm optymalizacji lokalnej wystartowany w tym punkcie trafi do
+optimum lokalnego</p>
+<h2 id="wariant-lamarkowski">Wariant lamarkowski</h2>
+<p>Do loga będą trafiać same optima lokalne (przy idealnej optymalizacji
+lokalnej) - z punktu widzenia metody optymalizacji globalnej przestrzeń
+przeszukiwań składa się wyłącznie z optimów lokalnych</p>
+<p>Jedyny mechanizm, który pozwoliłby przejść od jednego optimum
+lokalnego do drugeigo to złoty strzał z mutacją, jeśli zakres mutacji
+nie umożliwia odpowiedniego przeskoku to algorytm nigdy nie wyjdzie poza
+zbiór przyciągania opt lokalnego Dla nieidealnej optymalizacji lokalnej
+warunek jest troche słabszy</p>
+<h2 id="wariant-darwinowski">Wariant darwinowski</h2>
+<p>Zmieniają się wartości funkcji celu - każdy punkt będzie wyceniany
+jak najbliższe optimum lokalne funkcja celu będzie schodkowa</p>
+<p>Symulowane wyżarzanie w tym wariancie - przez większość czasu błądzi
+przypadkowo po zbiorze przyciągania optimum lokalnego dopiero przy
+granicy zbioru przyciągania będzie uwzględniona wartość f celu przy
+akceptacji nowego punktu Łatwiej przejsć do lepszego zbioru przyciągania
+w wariancie z hybrydyzacją lokalną Może być trudniej podejść do granicy
+przez błądzenie przypadkowe z hybrydyzacją jest łatwiej jeśli optimum
+jest blisko granicy zbioru przyciągania</p>
+<p>W praktyce metody optymalizacji lokalnej nie dają idealnych wyników
+Funkcja celu raczej nie jest przedziałami stała</p>
+<h2 id="eksperyment-myślowy">Eksperyment myślowy</h2>
+<p>rysunek … mutacja ma rozkład jednostajny na odcinku (-a, a)</p>
+<p>wariant lamarkowski z AE</p>
+<p>jak cała populacja jest w otoczeniu opt globalnego a większe od 1 i
+selekcja bez elity - jest niezerowe prawdopodobieństwo, że wszystkie
+punkty przejdą do gorszego zbioru przyciągania a musi być większe od 4
+żeby populacja mogła wrócić z powrotem do opt globlanego</p>
+<p>ucieczka od opt globalnego w AE może też wystąpić bez hybrydyzacji
+jak otoczenie opt globalnego wąskie a lokalnego szerokie zasięg mutacji
+gaussowskiej - w odpowiedniej odległości od średniej numerycznie już się
+nie da wygenerować mutanta survival of the flattest</p>
+<p>wąskie optima - jak w funkcjach straty neuronowych klasyfikatorów
+obrazów - np. zmiana jednego piksela obrazka - takie problemy są przy
+optymalizacji gradientowej jak w uczeniu sieci</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-12-11</a>
+<ul>
+<li><a href="#naprawa-rozwiązań-widoczna-dla-metody" id="toc-naprawa-rozwiązań-widoczna-dla-metody">Naprawa rozwiązań
+widoczna dla metody</a></li>
+<li><a href="#obciążenia-naprawy-rozwiązań" id="toc-obciążenia-naprawy-rozwiązań">Obciążenia naprawy rozwiązań</a>
+<ul>
+<li><a href="#widoczna-dla-de" id="toc-widoczna-dla-de">Widoczna dla
+DE</a></li>
+<li><a href="#naprawa-niewidoczna-dla-de" id="toc-naprawa-niewidoczna-dla-de">Naprawa niewidoczna dla DE</a></li>
+</ul></li>
+<li><a href="#styl-lamarckowski-i-darwinowski" id="toc-styl-lamarckowski-i-darwinowski">Styl Lamarckowski i
+Darwinowski</a></li>
+</ul></li>
+<li><a href="#hybrydyzacja-metaheurystyk-z-metodami-optymalizacji-lokalnej-algorytmy-memetyczne" id="toc-hybrydyzacja-metaheurystyk-z-metodami-optymalizacji-lokalnej-algorytmy-memetyczne">Hybrydyzacja
+metaheurystyk z metodami optymalizacji lokalnej, algorytmy
+memetyczne</a>
+<ul>
+<li><a href="#zbiór-przyciągania" id="toc-zbiór-przyciągania">Zbiór
+przyciągania</a></li>
+<li><a href="#wariant-lamarkowski" id="toc-wariant-lamarkowski">Wariant
+lamarkowski</a></li>
+<li><a href="#wariant-darwinowski" id="toc-wariant-darwinowski">Wariant
+darwinowski</a></li>
+<li><a href="#eksperyment-myślowy" id="toc-eksperyment-myślowy">Eksperyment myślowy</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

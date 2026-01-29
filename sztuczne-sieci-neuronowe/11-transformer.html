@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-transformer</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-przetwarzanie-sekwencji.html">Poprzedni: 10-przetwarzanie-sekwencji.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-sieci-ze-zbieznym-stanem.html">Następny: 12-sieci-ze-zbieznym-stanem.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="transformer">Transformer</h1>
+<h2 id="motywacja">Motywacja</h2>
+<ul>
+<li>Problem przetwarzania sekwencji na sekwencję</li>
+<li><span class="math inline">\(y_t = f(x_1, \ldots, x_T, y_1 \ldots,
+y_{t-1})\)</span></li>
+<li>Stan sieci - wektor o stałym wymiarze
+<ul>
+<li>pamięta wszystko</li>
+</ul></li>
+</ul>
+<h2 id="transformer-1">Transformer</h2>
+<ul>
+<li>Przełomowa praca w 2017</li>
+<li>State-of-the-art dla tłumaczenia maszynowego</li>
+<li>Nie ma tam rekurencji</li>
+<li>Działa atencja</li>
+</ul>
+<figure>
+<img src="./obrazy/transformer-diagram.png" alt="Transformer diagram" />
+<figcaption aria-hidden="true">Transformer diagram</figcaption>
+</figure>
+<h3 id="architektura">Architektura</h3>
+<ul>
+<li>Dwie części
+<ul>
+<li>enkoder</li>
+<li>dekoder</li>
+</ul></li>
+<li>Na wyjściu wektor długości słownika</li>
+<li>Wygenerowanie tokenu, doklejenie do sekwencji wyjściowej, ponowne
+uruchomienie modelu
+<ul>
+<li>aż do momentu gdy model wygeneruje token End of sequence</li>
+</ul></li>
+<li>Można tłumaczyć sekwencję wejściową dowolnej długości na sekwencję
+wyjściową dowolnej długości</li>
+<li>Do enkodera podaje się cały tekst
+<ul>
+<li>np. jak tłumaczymy z polskiego na angielski to podajemy tekst po
+polsku</li>
+</ul></li>
+<li>Do dekodera wchodzi stan enkodera i sekwencja wyjściowa do tej pory
+<ul>
+<li>na początku tylko token Beginning Of Sentence</li>
+<li>potem po wygenerowaniu każdego kolejnego dokleja się do BOS i
+przewiduje następny</li>
+</ul></li>
+</ul>
+<h3 id="atencja">Atencja</h3>
+<ul>
+<li><span class="math inline">\(m\)</span> par klucz wartość o wymiarach
+<span class="math inline">\(d_K, d_V\)</span></li>
+<li><span class="math inline">\(n\)</span> zapytań o wymiarach <span
+class="math inline">\(d_K\)</span></li>
+<li><span class="math inline">\(Attention(Q,K,V) = softmax^{(w)}(QK^T /
+\sqrt{d_K}) V\)</span>
+<ul>
+<li>dzielenie przez <span class="math inline">\(\sqrt{d_K}\)</span> -
+normalizacja</li>
+<li><span class="math inline">\(softmax\)</span> liczony dla
+wierszy</li>
+</ul></li>
+<li>Wiele głów atencji - wyniki są konkatenowane i przemnożone przez
+macierz <span class="math inline">\(W^O\)</span> (output)</li>
+</ul>
+<h3 id="kodowanie-pozycyjne">Kodowanie pozycyjne</h3>
+<ul>
+<li>Cała sekwencja wejściowa jest przetwarzana jednocześnie</li>
+<li>Gubi się informacja o pozycji tokenu</li>
+<li>Do zagnieżdżeń wejściowych dodaje się wektory zawierające informacje
+o ich pozycjach</li>
+<li>Funkcje <span class="math inline">\(\sin\)</span> i <span
+class="math inline">\(\cos\)</span></li>
+<li>Ten sam token ale na różnych pozycjach w sekwencji dostanie różne
+zagnieżdżenia</li>
+</ul>
+<h3 id="maskowanie">Maskowanie</h3>
+<ul>
+<li>Nie chcemy żeby zagnieżdżenie na pozycji <span
+class="math inline">\(pos\)</span> wynikało z zagnieżdżeń dla
+późniejszych pozycji</li>
+<li>Przed wyliczeniem <span class="math inline">\(softmax\)</span> robi
+się maskowanie <span class="math inline">\(QK^T\)</span>
+<ul>
+<li>powyżej diagonali ustawia się <span
+class="math inline">\(-\infty\)</span></li>
+<li>po przeliczeniu <span class="math inline">\(softmax\)</span> wyjdzie
+<span class="math inline">\(0\)</span> w tych komórkach</li>
+</ul></li>
+</ul>
+<h3 id="feed-forward">Feed Forward</h3>
+<ul>
+<li>Wyjście z bloku atencji trafia do zwykłego perceptrona
+wielowarstwowego</li>
+</ul>
+<h3 id="normalizacja">Normalizacja</h3>
+<ul>
+<li>Wyjścia z bloku atencji i z MLP</li>
+<li>Normalizacja pakietowa
+<ul>
+<li>średnia <span class="math inline">\(0\)</span></li>
+<li>odchylenie <span class="math inline">\(1\)</span></li>
+</ul></li>
+</ul>
+<h3 id="linear-softmax">Linear &amp; Softmax</h3>
+<ul>
+<li>Na ostatnim (prawym) zagnieżdżeniu wyjściowym</li>
+<li>Softmax daje rozkład prawdopodobieństwa słów w słowniku
+<ul>
+<li>można wybrać np. najbardziej prawdopodobne</li>
+<li>różne strategie próbkowania</li>
+</ul></li>
+<li>Alternatywa - Teacher Forcing
+<ul>
+<li>do wejścia dekodera jest dopisywane żądane słowo wyjściowe</li>
+</ul></li>
+</ul>
+<h2 id="porównanie-transformera-z-sieciami-rekurencyjnymi">Porównanie
+transformera z sieciami rekurencyjnymi</h2>
+<ul>
+<li>Transformery uczą się szybciej niż sieci rekurencyjne
+<ul>
+<li>i tak wymagają ogromnych zasobów do nauczenia</li>
+</ul></li>
+<li>Nie ma stanu sieci, który musi pamiętać wszystko
+<ul>
+<li>adekwatnie długa reprezentacja zdania wejściowego</li>
+</ul></li>
+<li>Mniej warstw do propagowania gradientu, krótkie linie
+<ul>
+<li>dzięki temu szybkie uczenie</li>
+</ul></li>
+<li>Złożoność obliczeniowa <span class="math inline">\(O(T^2 +
+T&#39;^2)\)</span>
+<ul>
+<li>długości sekwencji wejściowej i wyjściowej</li>
+</ul></li>
+</ul>
+<h2 id="inne-zastosowania">Inne zastosowania</h2>
+<ul>
+<li>Tam gdzie interesuje nas <span class="math inline">\(P(x_t |
+x_{t-1}, \ldots, x_1)\)</span>
+<ul>
+<li>prognozowanie</li>
+</ul></li>
+<li>Przekształcenie jednej sekwencji w drugą
+<ul>
+<li>tłumaczenie maszynowe</li>
+<li>klasyfikacja tekstu</li>
+<li>streszczenia</li>
+<li>odpowiadanie na pytania</li>
+</ul></li>
+</ul>
+<h2 id="gpt">GPT</h2>
+<ul>
+<li>Generative Pretrained Transformer</li>
+<li>Nie ma podziału na enkoder i dekoder</li>
+<li>Po przejściu przez sieć doklejamy wyjście do zapytania i
+przepuszczamy jeszcze raz</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#transformer" id="toc-transformer">Transformer</a>
+<ul>
+<li><a href="#motywacja" id="toc-motywacja">Motywacja</a></li>
+<li><a href="#transformer-1" id="toc-transformer-1">Transformer</a>
+<ul>
+<li><a href="#architektura" id="toc-architektura">Architektura</a></li>
+<li><a href="#atencja" id="toc-atencja">Atencja</a></li>
+<li><a href="#kodowanie-pozycyjne" id="toc-kodowanie-pozycyjne">Kodowanie pozycyjne</a></li>
+<li><a href="#maskowanie" id="toc-maskowanie">Maskowanie</a></li>
+<li><a href="#feed-forward" id="toc-feed-forward">Feed Forward</a></li>
+<li><a href="#normalizacja" id="toc-normalizacja">Normalizacja</a></li>
+<li><a href="#linear-softmax" id="toc-linear-softmax">Linear &amp;
+Softmax</a></li>
+</ul></li>
+<li><a href="#porównanie-transformera-z-sieciami-rekurencyjnymi" id="toc-porównanie-transformera-z-sieciami-rekurencyjnymi">Porównanie
+transformera z sieciami rekurencyjnymi</a></li>
+<li><a href="#inne-zastosowania" id="toc-inne-zastosowania">Inne
+zastosowania</a></li>
+<li><a href="#gpt" id="toc-gpt">GPT</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

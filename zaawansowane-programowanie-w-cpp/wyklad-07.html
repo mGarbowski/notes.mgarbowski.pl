@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-08.html">Następny: wyklad-08.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w08--2020-11-24">ZPR- W08 -2020 11 24</h1>
+<h2 id="biblioteki">Biblioteki</h2>
+<ul>
+<li>Dostępne w formie kodu źródłowego
+<ul>
+<li>wykorzystują szablony</li>
+<li>brak problemów z łączeniem (konsolidacją)</li>
+</ul></li>
+<li>Biblioteki binarne
+<ul>
+<li>muszą być zgodne z aplikacją (platformą)</li>
+<li>skraca czas budowania aplikacji</li>
+<li>kod może być ukryty</li>
+</ul></li>
+<li>Biblioteki statyczne
+<ul>
+<li>Windows - .lib</li>
+<li>Linux - .a</li>
+<li>skompresowane wyniki kompilacji + tablica symboli</li>
+<li>potrzebna w czasie budowania aplikacji, konsolidowana z kodem
+aplikacji</li>
+<li>wbudowana w binarną aplikację</li>
+<li>nie trzeba ich dostarczać razem z aplikacją</li>
+</ul></li>
+<li>Biblioteki dynamiczne
+<ul>
+<li>Windows - .dll</li>
+<li>Linux - .so</li>
+<li>kod PIC (position independent code) + tablica symboli</li>
+<li>nie są wstawiane w kod binarny aplikacji</li>
+<li>specjalna instrukcja wyłapywana przez system operacyjny</li>
+<li>mniejszy rozmiar aplikacji</li>
+<li>musi być dostępna, dostarczona razem z aplikacją</li>
+<li>uzgadnianie adresów - dłuższe ładowanie</li>
+<li>instalując bibliotekę dynamiczną w systemie możemy nadpisać wersję
+używaną przez inne programy - do rozwiązania przez wersjonowanie</li>
+<li>ładowane podczas startu aplikacji</li>
+<li>ładowane podczas pracy aplikacji (np. wtyczki)</li>
+</ul></li>
+</ul>
+<h3 id="biblioteki-ładowane-dynamicznie">Biblioteki ładowane
+dynamicznie</h3>
+<ul>
+<li>Udogodnienia, które nie są dostępne w czasie kompilacji</li>
+<li>Interfejs klasy bazowej musi być znany w trakcie kompilacji</li>
+<li>Biblioteka upraszczająca wykorzystanie wtyczek zawiera
+<ul>
+<li>zarządce wtyczek - rejestracja, inicjacja, finalizacja</li>
+<li>wtyczka</li>
+<li>klasy pomocnicze</li>
+</ul></li>
+<li>Boost.DLL, Qt</li>
+</ul>
+<h3 id="reprezentacja-wtyczki-bez-użycia-refleksji-rtti">Reprezentacja
+wtyczki bez użycia refleksji (RTTI)</h3>
+<ul>
+<li>Dostarczenie metod, nadpisywanych w klasach konkretnych</li>
+<li>Wada
+<ul>
+<li>typy, które nie dostarczają interfejsu muszą go implementować</li>
+</ul></li>
+</ul>
+<h3 id="mechanizm-refleksji">Mechanizm refleksji</h3>
+<ul>
+<li>Dostarczony jest tylko interfejs</li>
+<li>Badanie istnienia interfejsu przez <code>dynamic_cast</code></li>
+<li>Klasy, które nie dostarczają interfejsu nie muszą go
+implementować</li>
+</ul>
+<h2 id="testowanie">Testowanie</h2>
+<ul>
+<li>Utrzymywanie działającej wersji przez cały czas trwania projektu
+<ul>
+<li>łatwiej poprawić jeden błąd</li>
+</ul></li>
+</ul>
+<h3 id="testowanie-modułów">Testowanie modułów</h3>
+<ul>
+<li>Rola testowania
+<ul>
+<li>klient upewnia się, że projekt działa zgodnie z założeniami</li>
+<li>programista upewnia się, że kod działa tak jak on zakłada</li>
+</ul></li>
+<li>Dostarczenie testów to jedna z początkowych faz implementacji -
+TDD</li>
+<li>Pisanie testów powinno być proste</li>
+<li>Test to pierwszy przypadek użycia</li>
+<li>Wiele małych testów (test-case), które można grupować
+(test-suite)</li>
+<li>Możliwość wyboru ilości wyświetlanej informacji w razie
+niepowodzenia testu, możliwość śledzenia postępu</li>
+<li>Biblioteki
+<ul>
+<li>Boost.Test</li>
+<li>cppunit</li>
+</ul></li>
+<li>Miary jakości testów
+<ul>
+<li>ile błędów pozwalają wykrać - trudna do obliczenia</li>
+<li>pokrycie kodu testami (linii / ścieżek)</li>
+<li>testowanie mutacyjne - modyfikuje się kod (zamienia plus na minus) i
+sprawdza się ile testów nie przechodzi</li>
+</ul></li>
+</ul>
+<h3 id="boost.test">Boost.Test</h3>
+<ul>
+<li>WARN
+<ul>
+<li>ostrzeżenie</li>
+<li>problemy mniej istotne niż poprawność (np. wydajność)</li>
+</ul></li>
+<li>CHECK
+<ul>
+<li>błąd</li>
+<li>standardowa asercja</li>
+<li>test będzie kontynuowany</li>
+</ul></li>
+<li>REQUIRE
+<ul>
+<li>błąd krytyczny</li>
+<li>kiedy kontynuacja testu nie ma sensu</li>
+</ul></li>
+<li>Warunki liczbowe
+<ul>
+<li>BITWISE_EQUAL - zgodność bitów</li>
+<li>EQUAL - operator==</li>
+<li>SMALL - wartość bezwzględna mniejsza niż epsilon</li>
+<li>CLOSE - wartość bezwzględna różnicy nie większa niż epsilon</li>
+</ul></li>
+<li>Wyjątki
+<ul>
+<li>NO_THROW - nie powinno generować wyjątku</li>
+<li>THROW - powinno zgłosić wyjątek danego typu</li>
+<li>EXCEPTION - powinno rzucić wyjątek spełniający predykat</li>
+</ul></li>
+<li>Generowanie wiadomości
+<ul>
+<li>MESSAGE - jeśli warunek fałszywy to generuje wiadomość</li>
+</ul></li>
+<li>Testy dziedziczą po test_case</li>
+<li>Zbiory testów
+<ul>
+<li>test_suite</li>
+<li>można ustawić timeout</li>
+<li>istnieje główny zbiór testów</li>
+<li>program wykonywalny wywołuje ten zbiór</li>
+</ul></li>
+<li>Może wypisywać informację o platformie</li>
+<li>Sterowanie poziomem logowania</li>
+<li>Wielkość komunikatu</li>
+<li>Komunikat czytelny dla człowieka albo raport w xml do użycia w
+innych narzędziach</li>
+<li>Może pokazywać postęp</li>
+<li>Kolejność zpaisania lub losowa</li>
+</ul>
+<h2 id="scons">SCons</h2>
+<ul>
+<li>Narzędzie do budowania aplikacji</li>
+<li>Opisuje projekt jako skrypt języka Python</li>
+<li>Wspiera kompilację równoległą</li>
+<li>Detekcja zmiany zawartości przez porównanie sygnatur MD5 (zamiast
+timestampów)</li>
+</ul>
+<h2 id="system-zarządzania-wersjami-repozytorium">System zarządzania
+wersjami, repozytorium</h2>
+<ul>
+<li>Serwer plików</li>
+<li>Przechowuje kolejne wersje plików i katalogów</li>
+<li>Umożliwia wycofywanie zmian i pracę grupową</li>
+</ul>
+<h2 id="debugger">Debugger</h2>
+<ul>
+<li>Wykorzystuje instrukcje pułapki procesora</li>
+<li>Aplikację trzeba skompilować w sepcjalnym trybie</li>
+<li>Rola maleje jeśli stosujemy testy jednostkowe</li>
+</ul>
+<h2 id="narzędzie-do-wysyłania-komunikatów">Narzędzie do wysyłania
+komunikatów</h2>
+<ul>
+<li>Boost.Log</li>
+<li>Często jedyny mechanizm do śledzenia błędów
+<ul>
+<li>w środowisku produkcyjnym</li>
+</ul></li>
+<li>Mniej uniwersalne niż debugger</li>
+<li>Definiuje się poziom logowania</li>
+<li>Obserwatorzy
+<ul>
+<li>konsola</li>
+<li>plik</li>
+<li>UNIX Syslog</li>
+</ul></li>
+</ul>
+<h2 id="ciągła-integracja">Ciągła integracja</h2>
+<ul>
+<li>Jenkins</li>
+<li>Współpracuje z repozytorium</li>
+<li>Uruchamianiebudowania, testów jednostkowych, testów
+funkcjonalnych</li>
+<li>Wiele obsługiwanych repozzytoriów</li>
+<li>Narzędzia do budowania dla różnych środowisk</li>
+<li>Rozbudowany zbiór wtyczek</li>
+<li>Interfejs webowy</li>
+</ul>
+<h2 id="architektury-systemów-komputerowych">Architektury systemów
+komputerowych</h2>
+<ul>
+<li>Architektury trójwarstwowe
+<ul>
+<li>warstwa trwałości (danych)</li>
+<li>warstwa logiki (przetwarzania)</li>
+<li>warstwa prezentacji (interfejs użytkownika)</li>
+</ul></li>
+<li>Architektury klient-serwer</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w08--2020-11-24" id="toc-zpr--w08--2020-11-24">ZPR-
+W08 -2020 11 24</a>
+<ul>
+<li><a href="#biblioteki" id="toc-biblioteki">Biblioteki</a>
+<ul>
+<li><a href="#biblioteki-ładowane-dynamicznie" id="toc-biblioteki-ładowane-dynamicznie">Biblioteki ładowane
+dynamicznie</a></li>
+<li><a href="#reprezentacja-wtyczki-bez-użycia-refleksji-rtti" id="toc-reprezentacja-wtyczki-bez-użycia-refleksji-rtti">Reprezentacja
+wtyczki bez użycia refleksji (RTTI)</a></li>
+<li><a href="#mechanizm-refleksji" id="toc-mechanizm-refleksji">Mechanizm refleksji</a></li>
+</ul></li>
+<li><a href="#testowanie" id="toc-testowanie">Testowanie</a>
+<ul>
+<li><a href="#testowanie-modułów" id="toc-testowanie-modułów">Testowanie
+modułów</a></li>
+<li><a href="#boost.test" id="toc-boost.test">Boost.Test</a></li>
+</ul></li>
+<li><a href="#scons" id="toc-scons">SCons</a></li>
+<li><a href="#system-zarządzania-wersjami-repozytorium" id="toc-system-zarządzania-wersjami-repozytorium">System zarządzania
+wersjami, repozytorium</a></li>
+<li><a href="#debugger" id="toc-debugger">Debugger</a></li>
+<li><a href="#narzędzie-do-wysyłania-komunikatów" id="toc-narzędzie-do-wysyłania-komunikatów">Narzędzie do wysyłania
+komunikatów</a></li>
+<li><a href="#ciągła-integracja" id="toc-ciągła-integracja">Ciągła
+integracja</a></li>
+<li><a href="#architektury-systemów-komputerowych" id="toc-architektury-systemów-komputerowych">Architektury systemów
+komputerowych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

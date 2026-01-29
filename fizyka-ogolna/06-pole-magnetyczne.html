@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-pole-magnetyczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-pole-elektryczne.html">Poprzedni: 05-pole-elektryczne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-indukcja-elektromagnetyczna.html">Następny: 07-indukcja-elektromagnetyczna.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="pole-magnetyczne">Pole magnetyczne</h1>
+<ul>
+<li>Pole wektorowe</li>
+<li>Wektor indukcji magnetycznej <span
+class="math inline">\(\vec{B}\)</span></li>
+<li>Oddziałuje z ładunkami elektrycznymi, które się poruszają</li>
+</ul>
+<h2 id="siła-lorentza">Siła Lorentza</h2>
+<p><span class="math display">\[\vec{F} = q\vec{v} \times
+\vec{B}\]</span></p>
+<ul>
+<li>Nie przyspiesza ładunków
+<ul>
+<li>siła skierowana normalnie</li>
+</ul></li>
+</ul>
+<h3 id="siła-elektrodynamiczna">Siła elektrodynamiczna</h3>
+<p><span class="math display">\[d\vec{F} = I d\vec{l} \times
+\vec{B}\]</span></p>
+<ul>
+<li>Szczególny przypadek siły Lorentza</li>
+<li>Przewodnik w polu magnetycznym</li>
+</ul>
+<h3 id="stara-definicja-ampera">Stara Definicja Ampera</h3>
+<ul>
+<li>Dawniej Amper był zdefiniowany przez eksperyment</li>
+<li>Dwa równoległe przewodniki, prąd płynie w tę samą stronę</li>
+<li>Działa siła Lorentza - przewodniki przyciągają się</li>
+<li>Definiowany za pomocą siły przy określonej odległości</li>
+</ul>
+<h3 id="waga-prądu">Waga prądu</h3>
+<ul>
+<li>Im większy prąd płynie w ruchomej cewce tym większa siła</li>
+</ul>
+<h3 id="spektroskop-mas">Spektroskop mas</h3>
+<ul>
+<li>Cząstka przelatuje przez pole magnetyczne skierowane
+prostopadle</li>
+<li>Siła Lorentza powoduje odchylenie trajektorii</li>
+<li>Przy znanym ładunku można obliczyć masę</li>
+</ul>
+<h3 id="efekt-halla">Efekt Halla</h3>
+<ul>
+<li>Siła Lorentza zakrzywia tor elektronów</li>
+<li>Można zmierzyć różnicę potencjałów między górną i dolną ścianką</li>
+<li>Pozwala zmierzyć pole magnetyczne</li>
+<li>W telefonach, pomiar szybkości obrotu wiatraków w PC</li>
+</ul>
+<h2 id="dipol-magnetyczny">Dipol magnetyczny</h2>
+<ul>
+<li>Zamknięty obwód z prądem w zewnętrznym polu magnetycznym</li>
+<li>Moment magnetyczny
+<ul>
+<li>proporcjonalny do powierzchni obwodu i prądu</li>
+</ul></li>
+<li>Obwód oddziałuje z polem magnetycznym</li>
+<li>Tak samo zachowuje się elektron w atomie - jak mały obwód</li>
+<li>Moment magnetyczny <span class="math inline">\(\vec{\mu} = I \cdot S
+\cdot \vec{n}\)</span>
+<ul>
+<li>pojedynczy atom posiada moment magnetyczny</li>
+<li>pole magnetyczne dąży do ustawienia ramki tak żeby <span
+class="math inline">\(\vec{\mu}\)</span> był zgodny z <span
+class="math inline">\(\vec{B}\)</span>(?)</li>
+</ul></li>
+</ul>
+<h2 id="prawo-ampera">Prawo Ampera</h2>
+<p>Postać różniczkowa prawa Ampere’a (dla przewodnika, dla ogólnej
+sytuacji jeszcze wzór nie jest kompletny)</p>
+<p><span class="math display">\[\nabla \times \vec{B} = \mu_0
+\vec{j}\]</span> Pole magnetyczne jest polem wirowym</p>
+<p>Poza tym nie ma swobodnych ładunków magnetycznych</p>
+<p><span class="math display">\[\nabla \cdot \vec{B} = 0\]</span></p>
+<h3 id="przykład-doświadczenie-orsteda">Przykład: doświadczenie
+Orsteda</h3>
+<p>Wokół przewodnika mamy koliste linie pola magnetycznego</p>
+<p>Cyrkulacja - przez zamkniętą krzywą, kanalik <span
+class="math display">\[\oint \limits_L \vec{B} \cdot d\vec{l} =
+\mu_0I\]</span> Wektory <span class="math inline">\(\vec{B}\)</span> i
+<span class="math inline">\(d\vec{l}\)</span> są do siebie
+równoległe</p>
+<p><span class="math display">\[\oint_L Bdl = \mu_0I\]</span> B jest
+zależne od odległości od przewodnika <span class="math inline">\(B =
+B(r)\)</span>, dla kontura mamy ustalone <span
+class="math inline">\(r\)</span></p>
+<p><span class="math display">\[B \oint_L dl = \mu_0I\]</span> <span
+class="math display">\[B \cdot 2\pi r = \mu_0I\]</span></p>
+<p><span class="math display">\[B = \frac{\mu_0}{2\pi r}I\]</span></p>
+<h2 id="prawo-biota-savarta">Prawo Biota-Savarta</h2>
+<p><span class="math display">\[d\vec{B} = \frac{\mu_0 I}{4 \pi}
+\frac{d\vec{l} \times \vec{r}}{r^3}\]</span></p>
+<ul>
+<li>Obliczenie sumy wkładów fragmentów przewodnika do pola magnetycznego
+w punkcie</li>
+<li>Przykładowy układ
+<ul>
+<li>przewodnik z zakolem</li>
+<li>odcinki proste nie wkładają nic do pola bo iloczyn wektorowy jest
+0</li>
+<li>dla odcinka półkolistego iloczyn wektorowy - zawsze kąt prosty</li>
+<li>w środku półkola będzie (po scałkowaniu <span
+class="math inline">\(dB\)</span>) <span
+class="math inline">\(\frac{\mu_0 I}{4R}\)</span></li>
+</ul></li>
+</ul>
+<h2 id="twierdzenie-helholtza">Twierdzenie Helholtza</h2>
+<p>(matematyka)</p>
+<ul>
+<li>Każde pole wektorowe można rozbić na składową źródłową, bezwirową i
+bezźródłową, wirową</li>
+<li>Dla pola magnetycznego jest tylko część wirowa</li>
+<li>Pole wektorowe <span class="math inline">\(\vec{B}\)</span> jest
+rotacją pewnego pola wektorowego <span
+class="math inline">\(\vec{A}\)</span>
+<ul>
+<li><span class="math inline">\(A\)</span> to potencjał wektorowy</li>
+<li>nie ma interpretacji fizycznej</li>
+</ul></li>
+</ul>
+<h2 id="moment-magnetyczny">Moment magnetyczny</h2>
+<ul>
+<li>Momenty magnetyczne w jakimś materiale w skali makro mogą być mniej
+lub bardziej uporządkowane</li>
+<li>Magnetyzacja <span class="math inline">\(\vec{M}\)</span> - parametr
+porządku
+<ul>
+<li>średni moment magnetyczny</li>
+<li><span class="math inline">\(\vec{M} = \frac{1}{V} \sum_i
+\vec{\mu_i}\)</span></li>
+</ul></li>
+<li>Ale dipol magnetyczny wytwarza swoje własne pole magnetyczne</li>
+<li>Po uporządkowaniu, pole wewnątrz materiału będzie większe niż pole
+zewnętrzne</li>
+<li>Włożenie rdzenia do cewki zwiększa pole
+<ul>
+<li>jak trzeba by zwiększyć prąd żeby uzyskać taki sam efekt bez
+rdzenia</li>
+<li>można skorzystać z pola Ampera dodając ten wirtualny prąd</li>
+</ul></li>
+<li>Można powiązać wirtualny prąd z magnetyzacją
+<ul>
+<li>równanie z cyrkulacją magnetyzacji i prądem wirtualnym</li>
+</ul></li>
+<li>Albo zamiast tego prądu wirtualnego można wprowadzić przenikalność
+magnetyczną <span class="math inline">\(\mu_r\)</span>
+<ul>
+<li><span class="math inline">\(\oint_L \vec{B} \: \vec{dl} =\mu_0 \mu_r
+I\)</span></li>
+</ul></li>
+<li>Podatność magnetyczna <span class="math inline">\(\chi_m \equiv
+\mu_r - 1\)</span>
+<ul>
+<li>stosunek skutku do przyczyny</li>
+<li>stosunek magnetyzacji do pola magnetycznego</li>
+<li>jak przy polu elektrycznym</li>
+</ul></li>
+<li>Przenikalność poniżej <span class="math inline">\(1\)</span> -
+odwrotne ułożenie niż pole
+<ul>
+<li>np. woda ma <span class="math inline">\(\simeq 0.9999\)</span></li>
+</ul></li>
+<li>Ferromagnetyki
+<ul>
+<li><span class="math inline">\(\mu_r &gt;&gt; 1\)</span></li>
+</ul></li>
+<li>Paramagnetyki
+<ul>
+<li><span class="math inline">\(\mu_r &gt; 1, \mu_r \simeq
+1\)</span></li>
+</ul></li>
+<li>Diamagnetyki
+<ul>
+<li><span class="math inline">\(\mu_r &lt; 1\)</span></li>
+</ul></li>
+<li>Nadprzewodniki
+<ul>
+<li><span class="math inline">\(\mu_r = 0\)</span></li>
+<li>mają takie właściwości w bardzo niskich temperaturach</li>
+</ul></li>
+<li>Struktury domenowe - lokalne uporządkowanie ale w skali makro
+magnetyzacja jest średnio 0</li>
+</ul>
+<h3 id="histereza-magnetyczna">Histereza magnetyczna</h3>
+<ul>
+<li>Magnetyzacja vs zewnętrzne pole magnetyczne</li>
+<li>Przy zwiększaniu pola magnetycznego rośnie magnetyzacja do wysycenia
+<ul>
+<li>jak wszystkie dipole się uporządkują to jest wysycenie - bardziej
+się nie uporządkuje</li>
+</ul></li>
+<li>Potem przy wyłączeniu zewnętrznego pola, uporządkowanie zostaje
+<ul>
+<li>ferromagnetyk ma pamięć</li>
+</ul></li>
+<li>Żeby przemagnesować trzeba przyłożyć odwrotne pole</li>
+<li>Po wyłączeniu będzie zapamiętana jakaś odwrotna magnetyzacja</li>
+<li>Bistabilność</li>
+<li>Żeby wrócić do magnetyzacji = 0 trzeba by podgrzać ferromagnetyk -
+tak jak w nośnikach magnetooptycznych</li>
+<li>Nośniki magnetooptyczne
+<ul>
+<li>zapis magnetyczny - rozgrzanie laserem powyżej temperatury
+Curie</li>
+<li>odczyt optyczny laserem</li>
+<li>przed DVD</li>
+</ul></li>
+<li>Temperatura Curie
+<ul>
+<li>jak się podgrzeje ferromagnetyk to drgania niszczą porządek dipoli
+magnetycznych</li>
+<li>podatność magnetyczna jest stała a powyżej temperatury krytycznej
+(Curie) spada - wchodzi w fazę paramagnetyczną</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#pole-magnetyczne" id="toc-pole-magnetyczne">Pole
+magnetyczne</a>
+<ul>
+<li><a href="#siła-lorentza" id="toc-siła-lorentza">Siła Lorentza</a>
+<ul>
+<li><a href="#siła-elektrodynamiczna" id="toc-siła-elektrodynamiczna">Siła elektrodynamiczna</a></li>
+<li><a href="#stara-definicja-ampera" id="toc-stara-definicja-ampera">Stara Definicja Ampera</a></li>
+<li><a href="#waga-prądu" id="toc-waga-prądu">Waga prądu</a></li>
+<li><a href="#spektroskop-mas" id="toc-spektroskop-mas">Spektroskop
+mas</a></li>
+<li><a href="#efekt-halla" id="toc-efekt-halla">Efekt Halla</a></li>
+</ul></li>
+<li><a href="#dipol-magnetyczny" id="toc-dipol-magnetyczny">Dipol
+magnetyczny</a></li>
+<li><a href="#prawo-ampera" id="toc-prawo-ampera">Prawo Ampera</a>
+<ul>
+<li><a href="#przykład-doświadczenie-orsteda" id="toc-przykład-doświadczenie-orsteda">Przykład: doświadczenie
+Orsteda</a></li>
+</ul></li>
+<li><a href="#prawo-biota-savarta" id="toc-prawo-biota-savarta">Prawo
+Biota-Savarta</a></li>
+<li><a href="#twierdzenie-helholtza" id="toc-twierdzenie-helholtza">Twierdzenie Helholtza</a></li>
+<li><a href="#moment-magnetyczny" id="toc-moment-magnetyczny">Moment
+magnetyczny</a>
+<ul>
+<li><a href="#histereza-magnetyczna" id="toc-histereza-magnetyczna">Histereza magnetyczna</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

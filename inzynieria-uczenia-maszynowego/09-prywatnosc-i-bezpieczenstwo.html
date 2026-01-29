@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-prywatnosc-i-bezpieczenstwo</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-diagnostyka-modeli.html">Poprzedni: 08-diagnostyka-modeli.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-kwestie-spoleczne.html">Następny: 10-kwestie-spoleczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="prywatność-i-bezpieczeństwo">Prywatność i bezpieczeństwo</h1>
+<h2 id="perspektywy">Perspektywy</h2>
+<ul>
+<li>Dane
+<ul>
+<li>wykorzystywane do trenowania modeli</li>
+<li>mogą zawierać elementy wrażliwe</li>
+<li>wymagają szczególnej ochrony</li>
+<li>dobre dane są tak w ogóle cenne</li>
+</ul></li>
+<li>Modele mogą stać się celem ataków
+<ul>
+<li>atakujący może wymusić inne niż pożądane zachowanie modelu</li>
+<li>np. destabilizacja działania, wykradanie danych</li>
+</ul></li>
+<li>Wykorzystanie metod UM jako narzędzi w zagadnieniach związanych z
+bezpieczeństwem i prywatnością
+<ul>
+<li>np. fake news</li>
+</ul></li>
+</ul>
+<h2 id="prywatność">Prywatność</h2>
+<h3 id="naruszenia-w-kontekście-um">Naruszenia w kontekście UM</h3>
+<ul>
+<li>W kontekście danych uczących
+<ul>
+<li>kradzież, wyciek danych</li>
+<li>brak zgody na gromadzenie i stosowanie danych</li>
+<li>przetwarzanie danych w nieuprawniony sposób (RODO)</li>
+<li>często model oznaczony jako open source mógł pod spodem używać
+czegoś z ograniczeniami licencyjnymi - nie nadaje się do zastosowania
+komercyjnego</li>
+<li>trzeba przeglądać licencje, na których udostępniane są modele i
+zbiory danych (z pomocą prawników)</li>
+</ul></li>
+<li>W kontekście gotowego modelu
+<ul>
+<li>ustalenie czy informacje o konkretnej osobie były w zbiorze
+treningowym (np. model wytrenowany na grupie chorych)</li>
+<li>inwersja - gdy mając dostęp do modelu próbujemy poznać atrybuty
+konkretnej osoby ze zbioru treningowego</li>
+<li>trudniej przekonać kogoś do udostępnienia swoich danych jeśli nie
+możemy zagwarantować prywatności i anonimowości tych danych</li>
+</ul></li>
+</ul>
+<h3 id="obrona-prywatności">Obrona prywatności</h3>
+<ul>
+<li>Anonimizacja
+<ul>
+<li>podmiana danych (np. login) na hasz / losowy ciąg</li>
+<li>bywa zawodna</li>
+<li>przykład Netflixa - skorelowanie z aktywnością w innych portalach
+(np. te same filmy ocenione w IMDb)</li>
+</ul></li>
+<li>Prywatność różnicowa
+<ul>
+<li>chcemy udzielić gwarancji co do prywatności i formalnie to
+udowodnić</li>
+<li>jeśli zgodzisz się udostępnić swoje dane, to nie będziesz
+poszkodowany bardziej niż gdybyś ich nie udostępnił</li>
+<li>nie udostępniamy surowych danych, agregatów itp.</li>
+<li>do danych domieszana jest losowość</li>
+<li>im silniejszy szum, tym silniejsze gwarancje, ale gorsze dane</li>
+<li>nie da się zaatakować pojedynczego wiersza z dużą pewnością</li>
+<li>do danego typu atrybutu dobieramy odpowiedni rozkład szumu</li>
+</ul></li>
+<li>Federated learning
+<ul>
+<li>nie przechowywać w jednym miejscu danych uczących - nie mają jak
+wyciec</li>
+<li>informacje użytkowników są trzymane na ich urządzeniach</li>
+<li>rozproszone trenowanie</li>
+<li>zamiast danych, pobieramy z urządzeń gradienty</li>
+<li>aktualizacja wag modelu jest rozsyłana do urządzeń</li>
+<li>jeśli model jest za duży to np. tylko aktualizacje ostatniej
+warstwy</li>
+<li>potrzebna jest duża baza użytkowników i kontrola nad
+ekosystemem</li>
+<li>aktualizacje są całkiem asynchroniczne - problem techniczny</li>
+</ul></li>
+</ul>
+<h2 id="um-jako-cel-ataków">UM jako cel ataków</h2>
+<h3 id="modele-zagrożeń">Modele zagrożeń</h3>
+<ul>
+<li>Definiuje założenia o tym, do czego ma dostęp atakujący</li>
+<li>Analizujemy techniki ataku i obrony w świecie opisanym przez model
+zagrożenia</li>
+<li>Co może atakujący na etapie treningu (od najłatwiejszej do
+najtrudniejszej)
+<ul>
+<li>poznanie zbioru treningowego</li>
+<li>wstrzyknięcie wiersza danych</li>
+<li>modyfikacja istniejącego wiersza</li>
+<li>zakłócenie logiki</li>
+</ul></li>
+<li>Co może atakujący na etapie inferencji
+<ul>
+<li>poznanie potoku</li>
+<li>poznanie modelu</li>
+<li>modyfikacja architektury</li>
+<li>modyfikacja parametrów</li>
+</ul></li>
+<li>W definiowaniu modeli wyróżniamy
+<ul>
+<li>black box - znany potok i model, ale bez dostępu do konkretnych
+parametrów modelu</li>
+<li>white box - atakujący ma pełen dostęp do kopii modelu</li>
+</ul></li>
+</ul>
+<h3 id="techniki-zabezpieczenia">Techniki zabezpieczenia</h3>
+<ul>
+<li>Wszystkie da się obejść</li>
+<li>Filtrowanie
+<ul>
+<li>np. w LLMach - czy prompt narusza jakieś reguły</li>
+</ul></li>
+</ul>
+<h3 id="klasyczne-techniki-ataków">Klasyczne techniki ataków</h3>
+<ul>
+<li>Wstrzykiwanie treści / zmiana kolejności wykonywania instrukcji</li>
+<li>Wirtualizacja - symulowanie fikcyjnych scenariuszy
+<ul>
+<li>rozbicie prompta na dłuższą interakcję</li>
+</ul></li>
+</ul>
+<h3 id="złośliwe-dane">Złośliwe dane</h3>
+<ul>
+<li>Adversarial examples</li>
+<li>Mamy poprawnie klasyfikowane zdjęcie
+<ul>
+<li>dodajemy do zdjęcia szum, niezauważalny dla człowieka</li>
+<li>zaszumione zdjęcie jest niepoprawnie klasyfikowane</li>
+</ul></li>
+<li>Celowo spreparowane przez dodawanie małych zaburzeń, które powodują,
+że model zwróci nie to co powinien, a to na czym zależy atakującemu</li>
+<li>Możemy zdefiniować szukanie takiego złośliwego zaburzenia jako
+zadanie optymalizacyjne
+<ul>
+<li>model jest zamrożony</li>
+<li>modyfikujemy zaburzenie</li>
+<li>jak najmniejsze zaburzenie</li>
+<li>dodanie zaburzenia do wejścia zmienia predykcję</li>
+</ul></li>
+</ul>
+<h3 id="modele-zagrożenia-a-metody-ataku">Modele zagrożenia, a metody
+ataku</h3>
+<ul>
+<li>Czarne skrzynki</li>
+<li>Białe skrzynki
+<ul>
+<li>atakujący może np. policzyć gradient (na kopii modelu,
+efektywnie)</li>
+</ul></li>
+<li>Dodatkowe ograniczenia
+<ul>
+<li>maksymalna liczba wywołań - dla modeli dostępnych jako serwisy</li>
+</ul></li>
+<li>Jeśli metoda obrony chroni przed atakiem na białą skrzynkę, to tym
+bardziej chroni przed atakiem na czarną skrzynkę</li>
+</ul>
+<h3 id="metoda-deepfool">Metoda DeepFool</h3>
+<ul>
+<li>Atak na białą skrzynkę - wymaga obliczania gradientu</li>
+<li>Założenie - w okolicy aktualnego punktu, funkcja straty może być
+przybliżona funkcją liniową (hiperpłaszczyzną)
+<ul>
+<li>skalowanie kroku (<span class="math inline">\(\beta\)</span>)</li>
+</ul></li>
+<li>Metoda gradientowa</li>
+<li>Powtarzane dopóki przewidywana klasa się nie zmieni</li>
+</ul>
+<h3 id="boundary-attack">Boundary attack</h3>
+<ul>
+<li>Atak na czarne skrzynki
+<ul>
+<li>nie korzysta z gradientu</li>
+</ul></li>
+<li>Atak z konkretnym celem
+<ul>
+<li>chcemy zmiany klasyfikacji na konkretną klasę</li>
+</ul></li>
+<li>Metoda startuje z punktu klasyfikowanego tak jak chce atakujący</li>
+<li>W kolejnych krokach stara się przemieszczać po granicy decyzyjnej i
+przejść jak najbliżej obrazu wejściowego
+<ul>
+<li>ślizganie po granicy decyzyjnej</li>
+</ul></li>
+<li>Wolna optymalizacja, jeśli nie mamy dostępu do gradientu</li>
+</ul>
+<h3 id="techniki-obrony">Techniki obrony</h3>
+<ul>
+<li>Pierwsze, mało skuteczne podejścia
+<ul>
+<li>dodawanie szumów, dyskretyzacja odpowiedzi - maskowanie
+gradientów</li>
+<li>rozszerzyć zbiór uczący o złośliwe dane</li>
+<li>wykrywanie, czy dany przykład został złośliwie zaburzony</li>
+</ul></li>
+<li>Złośliwe dane przenoszą się między architekturami i modelami!
+<ul>
+<li>chyba kwestia podobnych zbiorów treningowych</li>
+</ul></li>
+<li>Adversarial / robust training
+<ul>
+<li>inaczej sformułowane zadanie uczenia modelu</li>
+<li>optymalizuje zachowanie w najgorszym z możliwych przypadków</li>
+<li>minimalizacja straty przy maksymalnym dozwolonym zaburzeniu (przed
+takimi chronimy)</li>
+<li>funkcję celu można tylko przybliżać</li>
+<li>wplecenie ataków do procesu uczenia modeli</li>
+<li>znacznie wydłuża uczenie</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#prywatność-i-bezpieczeństwo" id="toc-prywatność-i-bezpieczeństwo">Prywatność i bezpieczeństwo</a>
+<ul>
+<li><a href="#perspektywy" id="toc-perspektywy">Perspektywy</a></li>
+<li><a href="#prywatność" id="toc-prywatność">Prywatność</a>
+<ul>
+<li><a href="#naruszenia-w-kontekście-um" id="toc-naruszenia-w-kontekście-um">Naruszenia w kontekście UM</a></li>
+<li><a href="#obrona-prywatności" id="toc-obrona-prywatności">Obrona
+prywatności</a></li>
+</ul></li>
+<li><a href="#um-jako-cel-ataków" id="toc-um-jako-cel-ataków">UM jako
+cel ataków</a>
+<ul>
+<li><a href="#modele-zagrożeń" id="toc-modele-zagrożeń">Modele
+zagrożeń</a></li>
+<li><a href="#techniki-zabezpieczenia" id="toc-techniki-zabezpieczenia">Techniki zabezpieczenia</a></li>
+<li><a href="#klasyczne-techniki-ataków" id="toc-klasyczne-techniki-ataków">Klasyczne techniki ataków</a></li>
+<li><a href="#złośliwe-dane" id="toc-złośliwe-dane">Złośliwe
+dane</a></li>
+<li><a href="#modele-zagrożenia-a-metody-ataku" id="toc-modele-zagrożenia-a-metody-ataku">Modele zagrożenia, a metody
+ataku</a></li>
+<li><a href="#metoda-deepfool" id="toc-metoda-deepfool">Metoda
+DeepFool</a></li>
+<li><a href="#boundary-attack" id="toc-boundary-attack">Boundary
+attack</a></li>
+<li><a href="#techniki-obrony" id="toc-techniki-obrony">Techniki
+obrony</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

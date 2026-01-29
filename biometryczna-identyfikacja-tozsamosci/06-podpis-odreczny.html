@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-podpis-odreczny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-bezpieczenstwo-teczowki.html">Poprzedni: 05-bezpieczenstwo-teczowki.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-bezpieczenstwo-systemu-biometrycznego.html">Następny: 07-bezpieczenstwo-systemu-biometrycznego.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="biometria-podpisu-odręcznego">Biometria podpisu odręcznego</h1>
+<h2 id="rodzaje-biometrii-podpisu">Rodzaje biometrii podpisu</h2>
+<ul>
+<li>Metody off-line
+<ul>
+<li>obraz na papierze, zbiór punktów na płaszczyźnie</li>
+<li>kolejność występowania elementów podpisu nie jest rejestrowana</li>
+</ul></li>
+<li>Metody on-line
+<ul>
+<li>rejestracja procesu podpisywania się</li>
+<li>za pomocą jakiegoś tabletu</li>
+<li>dodatkowo informacja o zmianie w czasie, nacisku końcówki pióra,
+kąta orientacji pióra</li>
+<li>informacje dynamiczne</li>
+</ul></li>
+</ul>
+<h2 id="nazewnictwo">Nazewnictwo</h2>
+<ul>
+<li>Obraz podpisu
+<ul>
+<li>pojedyncza realizacja podpisu</li>
+</ul></li>
+<li>Podpis
+<ul>
+<li>klasa wszystkich możliwych obrazów podpisu tego samego typu dla
+danej osoby</li>
+<li>inne typy (inicjały, tylko nazwisko, imię i nazwisko) są traktowane
+jako inne podpisy</li>
+</ul></li>
+<li>Wykresy
+<ul>
+<li>wykres xy - położenie punktów</li>
+<li>wykresy dynamiczne (od czasu)</li>
+</ul></li>
+</ul>
+<h2 id="rodzaje-fałszerstwa-podpisów">Rodzaje fałszerstwa podpisów</h2>
+<ul>
+<li>Podpisy obce
+<ul>
+<li>B nie ma żadnych informacji o podpisie A</li>
+<li>w praktyce podpisy innych osób wykorzystywane są jako próby
+fałszerstwa</li>
+</ul></li>
+<li>Fałszerstwa proste
+<ul>
+<li>B zna elementy podpisu A</li>
+<li>np. imię, nazwisko, inicjały</li>
+</ul></li>
+<li>Fałszerstwo zaawansowane
+<ul>
+<li>B może obserwować jak A się podpisuje</li>
+<li>B ma dostęp do obrazów podpisu A w celu treningu</li>
+<li>B ma możliwość obserwacji podpisu A podczas fałszowania</li>
+<li>B ma możliwość przekalkowania podpisu A</li>
+<li>dynamika i tak jest bardzo ciężka do naśladowania</li>
+</ul></li>
+</ul>
+<h2 id="pozyskiwanie-danych">Pozyskiwanie danych</h2>
+<ul>
+<li>Metody off-line - skanowanie
+<ul>
+<li>wrażliwe na rozdzielczość skanowania</li>
+<li>600 dpi raczej jest wystarczające</li>
+<li>przy lepszej rozdzielczości można oszacować siłę nacisku po
+grubości</li>
+</ul></li>
+<li>Metody on-line - wykorzystanie tabletów graficznych</li>
+<li>Tablety do zastosowań ogólnych
+<ul>
+<li>próbkowanie 100-200 Hz jest wystarczające</li>
+<li>pomiar również po oderwaniu pióra</li>
+</ul></li>
+<li>Specjalizowane tablety do biometrii podpisu
+<ul>
+<li>mniejsza powierzchnia do pisania</li>
+<li>dedykowane narzędzia deweloperskie</li>
+</ul></li>
+</ul>
+<h2 id="segmentacja">Segmentacja</h2>
+<ul>
+<li>Wyodrębnienie z tła
+<ul>
+<li>lokalizacja położenia podpisu</li>
+<li>usunięcie tła i zakłóceń</li>
+<li>progowanie</li>
+<li>utworzenie obrazu szkieletowego</li>
+</ul></li>
+<li>Podział na segmenty
+<ul>
+<li>jednorodny - wykorzystanie ustalonej siatki, np. prostokątnej
+<ul>
+<li>prosty ale wrażliwy na deformacje podpisu</li>
+<li>wymaga dobrego wyrównania położenia</li>
+</ul></li>
+<li>niejednorodny - poszukiwanie spójnych części podpisu w sensie
+wybranego wskaźnika
+<ul>
+<li>elementy tworzące spójne figury</li>
+<li>odrębne pociągnięcia pióra</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="segmentacja-w-metodach-on-line">Segmentacja w metodach
+on-line</h3>
+<ul>
+<li>Redukcja liczby punktów (resampling)
+<ul>
+<li>eliminuje szumy</li>
+<li>jednorodna - odrzucanie co k-tego punktu</li>
+<li>niejednorodna - odrzucenie punktów w segmentach o niskiej
+krzywiźnie</li>
+</ul></li>
+<li>Podział na segmenty
+<ul>
+<li>wykorzystanie informacji statycznej
+<ul>
+<li>podniesienia pióra</li>
+<li>lokalne ekstrema składników (np. nacisku)</li>
+</ul></li>
+<li>wykorzystanie informacji dynamicznej
+<ul>
+<li>ekstrema prędkości i przyspieszenia</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="wyznaczanie-cech">Wyznaczanie cech</h2>
+<h3 id="metody-off-line">Metody off-line</h3>
+<ul>
+<li>Cechy globalne
+<ul>
+<li>własności geometryczne obrysu</li>
+<li>liczba pętli</li>
+<li>liczba przecięć</li>
+<li>nachylenia linii</li>
+<li>grubość linii</li>
+<li>wartości średnie i odchylenia standardowe elementów podpisu</li>
+<li>własności obrazów po przekształceniach morfologicznych</li>
+</ul></li>
+<li>Cechy lokalne
+<ul>
+<li>wybrane cechy globalne policzone dla segmentów</li>
+<li>lokalne deskryptory obrazów: LBP, cechy Gabora</li>
+</ul></li>
+<li>Dylatacja / erozja
+<ul>
+<li>różne jądra filtrów</li>
+<li>zostawia elementy zgodne z orientacją filtra</li>
+<li>np. rozpoznawanie nachylenia podpisu, pole powierzchni po
+filtrowaniu</li>
+</ul></li>
+</ul>
+<h3 id="metody-on-line">Metody on-line</h3>
+<ul>
+<li>Cechy globalne</li>
+<li>Momenty statystyczne</li>
+<li>Czas trwania realizacji podpisu - bardzo istotne</li>
+<li>Współczynniki trendów liniowych</li>
+<li>Prędkość i przyspieszenie prowadzenia pióra</li>
+<li>Cechy po wstępnej filtracji (np. falkowej)</li>
+<li>Miejsca przejść przez zero (cechy dla metod zero-crossing)</li>
+</ul>
+<h3 id="dobór-cech">Dobór cech</h3>
+<ul>
+<li>W praktyce
+<ul>
+<li>zbieramy tyle cech ile jesteśmy w stanie</li>
+<li>eliminujemy cechy skorelowane</li>
+<li>dobór najbardziej rozróżniających cech</li>
+</ul></li>
+</ul>
+<h2 id="rozpoznawanie-podpisów">Rozpoznawanie podpisów</h2>
+<h3 id="grupowanie-cech-globalnych">Grupowanie cech globalnych</h3>
+<ul>
+<li>Cechy widoczne
+<ul>
+<li>łatwe do oszacowania przez fałszerza na podstawie wykresu xy</li>
+</ul></li>
+<li>Cechy ukryte
+<ul>
+<li>trudne lub niemożliwe do oszacowania na podstawie wykresu xy
+podpisu</li>
+<li>przyspieszenia i prędkość pióra, orientacje, siły nacisku</li>
+</ul></li>
+<li>Niechlujny podpis trudniej sfałszować</li>
+</ul>
+<h3 id="rozpoznawanie-w-podprzestrzeni-cech-ukrytych">Rozpoznawanie w
+podprzestrzeni cech ukrytych</h3>
+<ul>
+<li>Grupowanie podpisów podobnych w sensie odległości w podprzestrzeni
+cech widocznych
+<ul>
+<li>podobne wizualnie</li>
+</ul></li>
+<li>Klasyfikacja podprzestrzeni cech ukrytych
+<ul>
+<li>w przestrzeni cech ukrytych podpisy tej samej osoby powinny być
+blisko, a różnych osób daleko</li>
+</ul></li>
+</ul>
+<h3 id="klasyfikacja-cech">Klasyfikacja cech</h3>
+<ul>
+<li>Klasyfikatory neuronowe
+<ul>
+<li>perceptron wielowarstwowy</li>
+</ul></li>
+<li>SVM</li>
+<li>Warianty klasyfikacji
+<ul>
+<li>osobny klasyfikator dla każdego podpisu - typowe do weryfikacji -
+problem z liczbą danych</li>
+<li>wspólna funkcja klasyfikująca dla wszystkich podpisów - typowe dla
+identyfikacji</li>
+</ul></li>
+<li>W praktyce - sieci syjamskie</li>
+</ul>
+<h3 id="dynamiczne-marszczenie-czasu">Dynamiczne marszczenie czasu</h3>
+<ul>
+<li>Dwie realizacje tego samego podpisu nie muszą zajmować tyle samo
+czasu</li>
+<li>Liniowe przyporządkowanie nie jest idealne</li>
+<li>Przy nieliniowym przekształceniu może być wiele punktów z jednej
+krzywej mapowanych na jeden z drugiej</li>
+<li>Jak to działa
+<ul>
+<li>możemy nanieść przebiegi na osie układu współrzędnych</li>
+<li>zaczynamy od punktu (1,1)</li>
+<li>znaleźć takie przejście, żeby skończyć w punkcie (n1,n2)</li>
+<li>dalej można przejść albo w obu krzywych do kolejnej próbki (na skos
+na wykresie) albo pójść dalej tylko na jednej krzywej (pionowo lub
+poziomo na wykresie)</li>
+<li>wybór przejścia, które daje najmniejszą różnicę</li>
+</ul></li>
+<li>Jest błąd na wykresie na slajdzie</li>
+<li>W praktyce stosuje się ograniczenia na dynamiczne marszczenie czasu
+<ul>
+<li>ograniczenie ścieżki na wykresie do paska albo równoległoboku</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#biometria-podpisu-odręcznego" id="toc-biometria-podpisu-odręcznego">Biometria podpisu odręcznego</a>
+<ul>
+<li><a href="#rodzaje-biometrii-podpisu" id="toc-rodzaje-biometrii-podpisu">Rodzaje biometrii podpisu</a></li>
+<li><a href="#nazewnictwo" id="toc-nazewnictwo">Nazewnictwo</a></li>
+<li><a href="#rodzaje-fałszerstwa-podpisów" id="toc-rodzaje-fałszerstwa-podpisów">Rodzaje fałszerstwa
+podpisów</a></li>
+<li><a href="#pozyskiwanie-danych" id="toc-pozyskiwanie-danych">Pozyskiwanie danych</a></li>
+<li><a href="#segmentacja" id="toc-segmentacja">Segmentacja</a>
+<ul>
+<li><a href="#segmentacja-w-metodach-on-line" id="toc-segmentacja-w-metodach-on-line">Segmentacja w metodach
+on-line</a></li>
+</ul></li>
+<li><a href="#wyznaczanie-cech" id="toc-wyznaczanie-cech">Wyznaczanie
+cech</a>
+<ul>
+<li><a href="#metody-off-line" id="toc-metody-off-line">Metody
+off-line</a></li>
+<li><a href="#metody-on-line" id="toc-metody-on-line">Metody
+on-line</a></li>
+<li><a href="#dobór-cech" id="toc-dobór-cech">Dobór cech</a></li>
+</ul></li>
+<li><a href="#rozpoznawanie-podpisów" id="toc-rozpoznawanie-podpisów">Rozpoznawanie podpisów</a>
+<ul>
+<li><a href="#grupowanie-cech-globalnych" id="toc-grupowanie-cech-globalnych">Grupowanie cech globalnych</a></li>
+<li><a href="#rozpoznawanie-w-podprzestrzeni-cech-ukrytych" id="toc-rozpoznawanie-w-podprzestrzeni-cech-ukrytych">Rozpoznawanie w
+podprzestrzeni cech ukrytych</a></li>
+<li><a href="#klasyfikacja-cech" id="toc-klasyfikacja-cech">Klasyfikacja
+cech</a></li>
+<li><a href="#dynamiczne-marszczenie-czasu" id="toc-dynamiczne-marszczenie-czasu">Dynamiczne marszczenie
+czasu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

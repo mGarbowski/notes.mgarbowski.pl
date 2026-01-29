@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-drzewa-decyzyjne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-indukcja-regul.html">Poprzedni: 04-indukcja-regul.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-naiwny-klasyfikator-bayesowski.html">Następny: 06-naiwny-klasyfikator-bayesowski.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="drzewa-decyzyjne">Drzewa decyzyjne</h1>
+<p>Reguły i drzewa decyzyjne - metody symboliczne - model zrozumiały dla
+człowieka</p>
+<h2 id="budowa-drzewa">Budowa drzewa</h2>
+<ul>
+<li>Węzły
+<ul>
+<li>warunki odpowiadające selektorom</li>
+<li>dzieli zbiór na podzbiory, gdzie warunek jest spełniony lub nie</li>
+<li>warunki równości, przynależności do zbioru, nierówności</li>
+</ul></li>
+<li>Drzewa binarne i niebinarne</li>
+<li>W liściach estymacje prawdopodobieństwa dla każdej klasy
+<ul>
+<li>reprezentują decyzję o klasyfikacji</li>
+</ul></li>
+<li>Węzły
+<ul>
+<li>podziały (testy) na podstawie warunków dotyczących wartości
+atrybutów</li>
+<li>analogiczna rola jak selektory w regułach</li>
+<li><span class="math inline">\(t: X \rightarrow R_t\)</span> - funkcja,
+podział nie musi być binarny</li>
+</ul></li>
+<li>Gałęzie
+<ul>
+<li>dla każdego wyniku podziału <span class="math inline">\(t\)</span> w
+węźle prowadzą z tego węzła do jego węzłów potomnych</li>
+</ul></li>
+<li>Liście
+<ul>
+<li>klasy</li>
+<li>prawdopodobieństwa klas</li>
+</ul></li>
+<li>Proces predykcji
+<ul>
+<li>przykład <span class="math inline">\(x\)</span> przechodzi od
+korzenia do liścia</li>
+<li>podziały w węzłach wyznaczają ścieżkę na podstawie atrybutów <span
+class="math inline">\(x\)</span></li>
+<li>klasa z osiągniętego liścia</li>
+</ul></li>
+</ul>
+<h2 id="podziały-dla-atrybutów-dyskretnych">Podziały dla atrybutów
+dyskretnych</h2>
+<ul>
+<li><p>Wielowartościowe na podstawie wartości atrybutu</p>
+<ul>
+<li>po 1 gałęzi dla każdej możliwej wartości atrybutu</li>
+<li><span class="math inline">\(t(x) = a(x)\)</span></li>
+</ul></li>
+<li><p>Binarne na podstawie równości</p>
+<ul>
+<li><span class="math inline">\(1\)</span> jeśli <span
+class="math inline">\(a(x) = v\)</span></li>
+<li><span class="math inline">\(0\)</span> w przeciwnym przypadku</li>
+</ul></li>
+<li><p>Wielowartościowe na podstawie podzbiorów wartości
+atrybutów</p></li>
+<li><p>Binarne na podstawie przynależności do zbioru</p></li>
+<li><p>Nie miesza się rodzajów podziału w ramach jednego modelu</p></li>
+<li><p>Model powinien obejmować każdą możliwą wartość atrybutu</p></li>
+<li><p>Dla każdego możliwego przykładu chcemy żeby model potrafił dać
+predykcję</p></li>
+</ul>
+<h2 id="podziały-dla-atrybutów-ciągłych">Podziały dla atrybutów
+ciągłych</h2>
+<ul>
+<li>Binarne na podstawie nierówności</li>
+<li>Wielowartościowe na podstawie przedziałów wartości atrybutu
+<ul>
+<li>kubełkowanie</li>
+</ul></li>
+</ul>
+<h2 id="dekompozycja-dziedziny">Dekompozycja dziedziny</h2>
+<ul>
+<li>Cały model jest podziałem dziedziny na regiony (prostokąty,
+hiperprostopadłościany)
+<ul>
+<li>dobrze widoczne dla 2 atrybutów ciągłych</li>
+</ul></li>
+<li>W regionach da się dobrze przewidywać klasy</li>
+</ul>
+<h2 id="historia">Historia</h2>
+<ul>
+<li>Quinlan
+<ul>
+<li>wielowartościowe podziały</li>
+<li>algorytm ID3, C4, C4.5, C50</li>
+<li>Weka J48</li>
+</ul></li>
+<li>Breiman
+<ul>
+<li>podziały binarne</li>
+<li>algorytm CART</li>
+<li>scikit-learn, rpart</li>
+</ul></li>
+</ul>
+<h2 id="wymiar-vc">Wymiar VC</h2>
+<ul>
+<li>Teoretyczny, bez atrybutów ciągłych
+<ul>
+<li>liczba możliwych kombinacji wartości atrybutów</li>
+<li>w skrajnym przypadku można zbudować drzewo, gdzie każdy przykład
+trafia do oddzielnego liścia</li>
+</ul></li>
+<li>Teoretyczny, z atrybutami ciągłymi - <span
+class="math inline">\(\infty\)</span>
+<ul>
+<li>nieskończenie wiele sposobów etykietowania</li>
+</ul></li>
+<li>Efektywny
+<ul>
+<li>redukowany przez zastosowanie kryteriów stopu i przycinania</li>
+</ul></li>
+</ul>
+<h2 id="schemat-algorytmu">Schemat algorytmu</h2>
+<ul>
+<li>Sekwencja decyzji
+<ul>
+<li>kryterium stopu - węzeł czy liść</li>
+<li>wybór klasy dla liścia - jaka predykcja najlepsza w liściu</li>
+<li>wybór podziału dla węzła - jaki podział najlepszy w węźle</li>
+</ul></li>
+<li>Ten sam schemat powtarza się dla korzenia, jego węzłów potomnych,
+ich węzłów potomnych itd.</li>
+<li>Kolejność jest zazwyczaj nieistotna
+<ul>
+<li>w głąb albo wszerz</li>
+</ul></li>
+</ul>
+<h3 id="kryterium-stopu">Kryterium stopu</h3>
+<ul>
+<li>Decyzja czy węzeł, któremu odpowiada podzbiór <span
+class="math inline">\(T_n\)</span> powinien być liściem</li>
+<li><span class="math inline">\(T_n\)</span> - podzbiór zbioru
+trenującego w węźle <span class="math inline">\(n\)</span></li>
+<li>Prawdopodobieńśtwa klas w liściu
+<ul>
+<li>na podstawie rozkładu przykładów trenujących w <span
+class="math inline">\(T_n\)</span></li>
+</ul></li>
+<li>Jednolita klasa w <span class="math inline">\(T_n\)</span>
+<ul>
+<li>idealna klasyfikacja</li>
+</ul></li>
+<li><span class="math inline">\(T_n = \varnothing\)</span>
+<ul>
+<li>mógł być taki podział</li>
+<li>wybór klasy dominującej w rodzicu</li>
+</ul></li>
+<li>Brak możliwości podziału
+<ul>
+<li>wyczerpanie atrybutów</li>
+<li>każdy możliwy podział skutkuje tylko 1 gałęzią</li>
+<li>na ścieżce do tego węzła wszystkie podziały zostały
+wykorzystane</li>
+<li>2 przykłady o jednakowych wartościach atrybutów i różnych
+klasach</li>
+</ul></li>
+<li>Te 3 to najpóźniejsze kryteria jakie rozsądnie jest zastosować
+<ul>
+<li>można rozluźnić te kryteria - stosować wcześniej</li>
+<li>służy ograniczeniu nadmiernego dopasowania</li>
+<li>dla kryteriów powyżej model pomyli się na zbiorze trenującym tylko,
+kiedy pomyłka jest nieuchronna (niespójne dane)</li>
+</ul></li>
+<li>Rozluźnienie kryterium jednolitej klasy
+<ul>
+<li>któraś klasa jest istotnie dominująca w <span
+class="math inline">\(T_n\)</span></li>
+</ul></li>
+<li>Rozluźnienie kryterium pustego zbioru przykładów
+<ul>
+<li>zbiór jest dostatecznie mały</li>
+<li>wybór dominującej klasy</li>
+</ul></li>
+<li>Rozluźnienie kryterium braku możliwości podziału
+<ul>
+<li>jeśli najlepszy podział jest słaby</li>
+<li>wymaga oceny jakości, ale wybór podziału i tak wymaga oceny
+jakości</li>
+</ul></li>
+</ul>
+<h3 id="wybór-podziału">Wybór podziału</h3>
+<ul>
+<li>Istotny do kontrolowania poziomu dopasowania do danych</li>
+<li>Można wprowadzić do algorytmu obciążenie w stronę bardziej
+generalnych modeli
+<ul>
+<li>brzytwa Ockhama - preferujemy prostsze modele (heurystyka)</li>
+<li>intuicja - mniej decyzji - mniejsze uzależnienie modelu od zbioru
+danych trenujących</li>
+</ul></li>
+<li>Wybrać podział tak, żeby przyspieszył osiągnięcie kryterium stopu
+<ul>
+<li>będzie krótsza ściezka - prostszy model</li>
+<li>najlepiej kryterium jednolitej klasy</li>
+<li>podział powinien sprzyjać wyłanianiu się jednolitych klas</li>
+</ul></li>
+<li>Na podstawie entropii
+<ul>
+<li>miara jednolitości rozkładu</li>
+<li><span class="math inline">\(E_{T_{n,t=r}}(c) = \sum_{d \in C}
+-P_{T_{n,t=r}}(c=d) \cdot \log P_{T_{n,t=r}}(c=d)\)</span></li>
+<li>prawdopodobieństwa zbliżone do siebie - większa entropia</li>
+<li>któraś klasa dominuje - mniejsza entropia</li>
+<li>można uśrednić wartość po gałęziach podziału i dostać miarę dla
+podziału</li>
+<li>nie ma znaczenia jaka podstawa logarytmu</li>
+</ul></li>
+<li>Entropia warunkowa
+<ul>
+<li><span class="math inline">\(E_{T_n}(c|t) = \sum_{r \in R_t}
+\frac{|T_{n,t=r}|}{|T_n|} \cdot E_{T_{n,t=r}}(c)\)</span></li>
+<li>minimalizowana</li>
+</ul></li>
+<li>Redukcja nieczystości w wyniku podziału
+<ul>
+<li>przyrost informacji</li>
+<li><span class="math inline">\(\Delta E_{T_n}(c|t) = E_{T_n}(c) -
+E_{T_n}(c|t)\)</span></li>
+<li>przydatne do kryterium stopu</li>
+<li>pokzauje co wnosi podział</li>
+</ul></li>
+<li>Indeks Giniego
+<ul>
+<li><span class="math inline">\(G_{T_{n,t=r}}(c) = 1 - \sum_{d \in C}
+P_{T_{n,t=r}}^2(c=d)\)</span></li>
+<li>zachowanie podobne jak entropia</li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<p>Obliczanie entropii podziału na podstawie atrybutu overcast ze zbiou
+pogoda</p>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>outlook</th>
+<th>temperature</th>
+<th>humidity</th>
+<th>wind</th>
+<th>play</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>normal</td>
+<td>no</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>high</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>overcast</td>
+<td>hot</td>
+<td>high</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>rainy</td>
+<td>cold</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>rainy</td>
+<td>cold</td>
+<td>normal</td>
+<td>high</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>overcast</td>
+<td>cold</td>
+<td>normal</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>sunny</td>
+<td>mild</td>
+<td>high</td>
+<td>normal</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>sunny</td>
+<td>cold</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>rainy</td>
+<td>mild</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>sunny</td>
+<td>mild</td>
+<td>normal</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>overcast</td>
+<td>mild</td>
+<td>high</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>overcast</td>
+<td>hot</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>high</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>dla outlook=sunny 3x no, 2x yes <span class="math display">\[
+-2/5 \log(2/5) - 3/5 \log(3/5)
+\]</span> dla outlook=rainy <span class="math display">\[
+-3/5\log(3/5) - 2/5\log(2/5)
+\]</span> dla outlook=overcast 5x yes, 0x no <span
+class="math display">\[
+0
+\]</span></p>
+<h3 id="przykład-1">Przykład</h3>
+<p>Podział binarny, warunek równościowy</p>
+<p>dla outlook=sunny, waga 5/14 <span class="math display">\[
+-2/5 \log(2/5) - 3/5 \log(3/5)
+\]</span> dla outlook!=sunny, waga 9/14 <span class="math display">\[
+-6/9\log(6/9) - 3/9\log(3/9)
+\]</span> ## Przycinanie drzew decyzyjnych * Cel * zapobieganie
+nadmiernemu dopasowaniu * bardziej wymagające ale potencjalnie
+skuteczniejsze niż kryterium stopu * Operator * zastąpienie dodrzewa
+liściem * Kryterium * oczekiwana redukcja błędu rzeczywistego * wiele
+różnych szczegółowych wariantów * Strategia * najczęściej występująca *
+zstępująca * najpierw najlepszy * większość metod działa wstępująco (od
+liści do korzenia, odwrotnie niż rosło drzewo) * W praktyce * przy
+tworzeniu jak najlepszego modelu ma sens budowanie zbyt głębokiego węzła
+i przycinanie * współcześnie coraz rzadziej są stosowane jako docelowe
+modele * czasami jako części składowe modeli - wtedy raczej bez
+przycinania * częściej dostrajanie kryterium stopu niż przycinanie *
+trzeba budować głębokie drzewo, żeby było z czego przycinać</p>
+<h3 id="reduced-error-pruning-rep">Reduced Error Pruning (REP)</h3>
+<ul>
+<li>Kryteriium przycinania oparte na estymacji błędu rzeczywistego z
+wykorzystaniem osobnego podzbioru przykładów <span
+class="math inline">\(R\)</span> nieużywanego w trakcie budowy
+drzewa</li>
+<li>Węzeł <span class="math inline">\(n\)</span> jest zastępowany
+liściem <span class="math inline">\(l\)</span> jeśli
+<ul>
+<li><span class="math inline">\(e_R(l) \le e_R(n)\)</span></li>
+<li>błąd wyznacza się na podstawie tych przykładów z <span
+class="math inline">\(R\)</span>, które docierają do tego miejsca w
+drzewie</li>
+</ul></li>
+<li>Dobre podejście jeśli możemy poświęcić osobną pulę przykładów
+<ul>
+<li><span class="math inline">\(R\)</span> wyjęte ze zbioru
+trenującego</li>
+<li>bardziej rzędu 50% niż 5%</li>
+<li>inne metody nie wymagają odkładania przykładów na boku (np.
+estymacja na zbiorze trenującym, ale wprowadzona kara za wielkość
+drzewa, pesymistyczna korekta itp.)</li>
+</ul></li>
+<li>Może czasem lepiej przycinać trochę gorzej, ale budować lepiej
+<ul>
+<li>poza zakresem wykładu</li>
+</ul></li>
+</ul>
+<h3 id="konwersja-drzewa-do-zbioru-reguł">Konwersja drzewa do zbioru
+reguł</h3>
+<ul>
+<li>Każda ścieżka od korzenia do liścia jest koniunkcją warunków -
+reguła
+<ul>
+<li>tyle reguł ile liści</li>
+<li>klasa z liścia</li>
+</ul></li>
+<li>Czasem uważana za bardziej czytelną</li>
+<li>Można przycinać nie samo drzewo, a reguły
+<ul>
+<li>bardziej elastyczne</li>
+<li>można usunąć warunek z tylko jednej reguły</li>
+<li>usunięcie węzła modyfikuje wiele ścieżek</li>
+</ul></li>
+</ul>
+<h2 id="właściwości-drzew-decyzyjnych">Właściwości drzew
+decyzyjnych</h2>
+<ul>
+<li>Zwykle dobra jakość predykcji, chociaż często inne algorytmy dają
+nieco lepsze modele</li>
+<li>Obecnie rzadziej stosowane, po czasach świetności</li>
+<li>Użyteczne jeśli model ma być zrozumiały dla człowieka
+<ul>
+<li>każdą decyzję modelu można wytłumaczyć</li>
+</ul></li>
+<li>Podatne na nadmierne dopasowanie
+<ul>
+<li>konieczne staranne dobranie kryteriów stopu lub zastosowanie
+przycinania</li>
+</ul></li>
+<li>Po niewielkiej modyfikacji mogą służyć jako modele regresji
+<ul>
+<li>poza zakresem wykładu</li>
+</ul></li>
+<li>Stosowane jako komponenty modeli zespołowych
+<ul>
+<li>las losowy</li>
+<li>gradient boosting</li>
+<li>jedne z najlepszych modeli dla danych tabelarycznych</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#drzewa-decyzyjne" id="toc-drzewa-decyzyjne">Drzewa
+decyzyjne</a>
+<ul>
+<li><a href="#budowa-drzewa" id="toc-budowa-drzewa">Budowa
+drzewa</a></li>
+<li><a href="#podziały-dla-atrybutów-dyskretnych" id="toc-podziały-dla-atrybutów-dyskretnych">Podziały dla atrybutów
+dyskretnych</a></li>
+<li><a href="#podziały-dla-atrybutów-ciągłych" id="toc-podziały-dla-atrybutów-ciągłych">Podziały dla atrybutów
+ciągłych</a></li>
+<li><a href="#dekompozycja-dziedziny" id="toc-dekompozycja-dziedziny">Dekompozycja dziedziny</a></li>
+<li><a href="#historia" id="toc-historia">Historia</a></li>
+<li><a href="#wymiar-vc" id="toc-wymiar-vc">Wymiar VC</a></li>
+<li><a href="#schemat-algorytmu" id="toc-schemat-algorytmu">Schemat
+algorytmu</a>
+<ul>
+<li><a href="#kryterium-stopu" id="toc-kryterium-stopu">Kryterium
+stopu</a></li>
+<li><a href="#wybór-podziału" id="toc-wybór-podziału">Wybór
+podziału</a></li>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład</a></li>
+<li><a href="#reduced-error-pruning-rep" id="toc-reduced-error-pruning-rep">Reduced Error Pruning (REP)</a></li>
+<li><a href="#konwersja-drzewa-do-zbioru-reguł" id="toc-konwersja-drzewa-do-zbioru-reguł">Konwersja drzewa do zbioru
+reguł</a></li>
+</ul></li>
+<li><a href="#właściwości-drzew-decyzyjnych" id="toc-właściwości-drzew-decyzyjnych">Właściwości drzew
+decyzyjnych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

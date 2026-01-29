@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-perceptron</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-technologie.html">Następny: 02-technologie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="perceptron">Perceptron</h1>
+<h2 id="model-neuronu">Model neuronu</h2>
+<ul>
+<li>Perceptron</li>
+<li>Warstwy</li>
+<li>Neuron
+<ul>
+<li>obliczenie ważonego pobudzenia (suma ważona wejść)</li>
+<li>o 1 więcej wag niż wejść</li>
+<li><span class="math inline">\(\sum_{i=1}^n x_i \theta_i +
+\theta_{n+1}\)</span></li>
+<li>płaszczyzna, przechodzi przez 0 jeśli <span
+class="math inline">\(\theta_{n+1}=0\)</span></li>
+<li>jak mamy 2 wejścia to proporcja <span
+class="math inline">\(\theta_1/\theta_2\)</span> określa kąt
+nachylenia</li>
+</ul></li>
+<li>Funkcja aktywacji <span class="math inline">\(\psi\)</span>
+<ul>
+<li>przyjmuje wartość skalarną i wytwarza wartość skalarną</li>
+<li>nieliniowa</li>
+<li>np. <span class="math inline">\(\tanh\)</span> - asymptoty poziome w
+- i + <span class="math inline">\(\infty\)</span>, w <span
+class="math inline">\(0\)</span> wartość <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Neuron przekształca wektor liczb rzeczywistych na skalar (liczbę
+rzeczywistą)</li>
+</ul>
+<h2 id="perceptron-dwuwarstwowy">Perceptron dwuwarstwowy</h2>
+<ul>
+<li>Przypadek z 2 warstwami</li>
+<li>pierwsza ma funkcje aktywacji tanh, druga f(x)=x</li>
+<li>tanh ma asymptoty, po oddaleniu od 0 funkcja jest prawie stała</li>
+<li>wyjście neuronu jako funkcja wejść sieci</li>
+<li>perceptron dwuwarstwowy modeluje dowolne ciągłe odwzorowanie z <span
+class="math inline">\(\mathbb{R}^m\)</span> do <span
+class="math inline">\(\mathbb{R}^n\)</span> (m wejść, n wyjść)
+<ul>
+<li>twierdzenie o uniwersalnych własnościach aproksymacyjnych</li>
+<li>nie wiadomo ile neuronów ukrytych potrzeba ale istnieje taka
+skończona liczba która da błąd nie większy niż zadany</li>
+<li>twierdzenie jest niekonstruktywne, wiadomo że się da ale nie wiadomo
+jak dobrać liczbę neuronów warstwy ukrytej</li>
+</ul></li>
+</ul>
+<h2 id="uczenie-perceptronu-dwuwarstwowego">Uczenie perceptronu
+dwuwarstwowego</h2>
+<ul>
+<li>Uczenie to minimalizacja funkcji, nie wiadomo jak mierzyć jakość
+sieci</li>
+<li>Nie znamy funkcyjnej postaci funkcji aproksymowanej, funkcja jest
+zdefiniowana na zbiorze o mocy continuum</li>
+</ul>
+<p><span class="math display">\[\min_\theta \int_X \| f(x,\theta) -
+f(x)\|g(x) dx\]</span></p>
+<ul>
+<li>g(x) to funkcja gęstości prawdopodobieństwa próbek - zakładamy że
+źródło danych ma jakieś własności probabilistyczne</li>
+<li>minimalizujemy wartość oczekiwaną odległości między funkcjami</li>
+<li>błąd aproksymacji ma być możliwie jak najmniejszy, uwzględnia
+prawdopodobieństwo występowania wejść</li>
+<li>Mamy zbiory trenujący, walidacyjny i testowy, są zbiorami próbek S z
+rozkładem g(x)</li>
+</ul>
+<p><span class="math display">\[\min_\theta \sum_{x \in S} \|f(x,
+\theta) - f(x)\|\]</span> * realistyczny wzór (S już jest wybrane z
+danym rozkładem prawdopodobieństwa) * funkcja straty (kwadratowa) może
+mieć znacznie więcej niż jedno minimum lokalne * mimo tego, w uczeniu
+stosuje się metody gradientowe (optymalizacja lokalna) * znane metody
+optymalizacji globalnej mają istotne ograniczenia - słaba zbieżność, są
+powolne * dlatego mimo znanych wad stosuje się metodę stochastycznego
+gradientu</p>
+<h2 id="wsteczna-propagacja-błędu">Wsteczna propagacja błędu</h2>
+<ul>
+<li>Metoda obliczenia gradientu funkcji stray przy założeniu jakiegoś
+zbioru uczącego</li>
+<li>q - wartość funkcji straty dla konkretnej pary trenującej</li>
+<li>h - ważone pobudzenie (punkt pracy)</li>
+<li><span class="math inline">\(\frac{dq}{d\theta_{ij}^k}\)</span> -
+pochodna cząstkowa straty po wadze połączenia …</li>
+<li><span class="math inline">\(q = (y_i - f(x))^2\)</span></li>
+<li><span class="math inline">\(dq/dy_i = 2(y_i - f(x))\)</span></li>
+<li>sumowanie we wzorze na neuron ukryty - jakby było więcej neuronów
+(ścieżek od końca)</li>
+<li>część <span class="math inline">\(\delta\)</span> się pokrywa z tym
+co było poprzednio wyliczone</li>
+</ul>
+<p><span class="math display">\[
+\delta_l^{k-1} = \sum_i \delta_i^k \theta_{il} \psi&#39;(h_l^{k-1})
+\]</span></p>
+<ul>
+<li>Jak obliczamy wyjście sieci na podstawie wejścia to liczymy najpierw
+pierwszą warstwę neuronów, potem kolejną, …</li>
+<li>Obliczanie gradientu - najpierw obliczamy <span
+class="math inline">\(\delta\)</span> ostatniej warstwy, potem
+przedostatniej, …</li>
+<li>Wygodnie liczy się pochodną <span
+class="math inline">\(\tanh&#39;(z) = 1-\tanh^2(x)\)</span></li>
+<li>Obliczenie gradientu funkcji straty jest tego samego rzędu co
+obliczenie wyjścia sieci</li>
+</ul>
+<h2 id="metoda-stochastycznego-najszybszego-spadku">Metoda
+stochastycznego najszybszego spadku</h2>
+<p><span class="math display">\[x_{t+1} \leftarrow x_t -
+\beta_tg_t\]</span> <span class="math display">\[\mathbb{E}[g_t] =
+\nabla J(x_t)\]</span></p>
+<p>Możemy brać tylko niektóre przykłady ze zbioru trenującego do
+obliczania (oszacowania) wartości gradientu (koszt liczenia jest liniowy
+z liczbą próbek)</p>
+<h2 id="inicjacja-parametrów-sieci">Inicjacja parametrów sieci</h2>
+<ul>
+<li>Wagi neuronów ukrytych losuje się z rozkładu jednostajnego
+<ul>
+<li>heurystyczny wzór</li>
+<li><span class="math inline">\(U(-1/\sqrt{dim(we)},
+1/\sqrt{dim(wy)})\)</span></li>
+<li>wg. symulacji takie wartości są dobre</li>
+<li>unika się wylosowania parametrów które dają nasycenie neuronu</li>
+<li>dla innych funkcji aktywacji są inne dobre rozkłady do
+inicjacji</li>
+</ul></li>
+<li>Skalowanie wejść i wyjść tak żeby std każdego było zbliżone do
+1</li>
+<li>Wagi neuronów wyjściowych 0
+<ul>
+<li>sensowne tylko dla liniowego wyjścia</li>
+</ul></li>
+</ul>
+<h2 id="przeuczenie">Przeuczenie</h2>
+<ul>
+<li>Znacznie większy błąd na zbiorze testowym niż treningowym</li>
+<li>Wczesne zatrzymanie uczenia
+<ul>
+<li>uczymy dopóki strata na zbiorze walidacyjnym (a nie treningowym)
+spada</li>
+</ul></li>
+<li>Regularyzacja
+<ul>
+<li>redukujemy wartości bezwzględne wag</li>
+<li>działa jak funkcja kary za duże wartości wag</li>
+<li>pochodne w punkcie pracy nie powinny być zerowe - utrzymujemy się w
+tym regionie funkcji aktywacji gdzie nie ma nasycenia</li>
+</ul></li>
+<li>Odrzucanie
+<ul>
+<li>redukcja architektury przy uczeniu (mniej bogaty kształt
+modelu)</li>
+<li>zmniejszamy liczbę parametrów do uczenia - z jednej strony trudniej,
+a z drugiej strony większa generalizacja</li>
+</ul></li>
+</ul>
+<h2 id="perceptron-dwuwarstwowy-jako-klasyfikator">Perceptron
+dwuwarstwowy jako klasyfikator</h2>
+<ul>
+<li>Dla 2 klas może być próg wartości w 1 neuronie wyjściowym</li>
+<li>Dla n klas może być n wyjściowych</li>
+<li>Można bardziej egzotyczne - ponumerować klasy i kod Gray’a na
+wyjściu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#perceptron" id="toc-perceptron">Perceptron</a>
+<ul>
+<li><a href="#model-neuronu" id="toc-model-neuronu">Model
+neuronu</a></li>
+<li><a href="#perceptron-dwuwarstwowy" id="toc-perceptron-dwuwarstwowy">Perceptron dwuwarstwowy</a></li>
+<li><a href="#uczenie-perceptronu-dwuwarstwowego" id="toc-uczenie-perceptronu-dwuwarstwowego">Uczenie perceptronu
+dwuwarstwowego</a></li>
+<li><a href="#wsteczna-propagacja-błędu" id="toc-wsteczna-propagacja-błędu">Wsteczna propagacja błędu</a></li>
+<li><a href="#metoda-stochastycznego-najszybszego-spadku" id="toc-metoda-stochastycznego-najszybszego-spadku">Metoda
+stochastycznego najszybszego spadku</a></li>
+<li><a href="#inicjacja-parametrów-sieci" id="toc-inicjacja-parametrów-sieci">Inicjacja parametrów sieci</a></li>
+<li><a href="#przeuczenie" id="toc-przeuczenie">Przeuczenie</a></li>
+<li><a href="#perceptron-dwuwarstwowy-jako-klasyfikator" id="toc-perceptron-dwuwarstwowy-jako-klasyfikator">Perceptron
+dwuwarstwowy jako klasyfikator</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wprowadzenie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-zadania-modelowania.html">Następny: 02-zadania-modelowania.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="inżynieria-uczenia-maszynowego">Inżynieria uczenia
+maszynowego</h1>
+<p>Obejmuje proces przemysłowego wytwarzania modeli predykcyjnych,
+począwszy od analizy wymagań, przez projektowanie i tworzenie modeli, po
+ich wdrożenie, eksploatację i modernizację lub zastąpienie innymi
+podejściami.</p>
+<ul>
+<li>Uczenie maszynowe częściowo pokrywa się z metodami
+statystycznymi</li>
+<li>Sztuczna inteligencja to nie tylko uczenie maszynowe</li>
+<li>Zajmujemy się metodami, które opierają się na trenowaniu na zbiorach
+danych</li>
+</ul>
+<h2 id="czym-różni-się-budowa-modelu-od-normalnego-programowania">Czym
+różni się budowa modelu od normalnego programowania</h2>
+<ul>
+<li>Programowanie imperatywne i deklaratywne</li>
+<li>Uczenie nadzorowane
+<ul>
+<li>uczenie - podawanie przykładów pożądanego działania</li>
+<li>zastosowanie do generowania predykcji</li>
+<li>nie wiemy jak dokładnie powinny przebiegać obliczenia</li>
+<li>procesem uczenia sterują hiperparametry</li>
+<li>sprawdzać poprawność może <em>wyrocznia</em></li>
+</ul></li>
+<li>Uczenie nienadzorowane
+<ul>
+<li>np. zadanie klastrowania</li>
+<li>uczenie - podajemy dane, o których strukturze chcemy wnioskować</li>
+<li>zastosowanie do generowania predykcji</li>
+<li><em>wyrocznia</em> z definicji nie istnieje</li>
+<li>definicja poprawności jest dyskusyjna</li>
+<li>do oceny jakości wyników modelowania służą często kryteria
+zewnętrzne (użyteczność)</li>
+</ul></li>
+</ul>
+<h3 id="konsekwencje">Konsekwencje</h3>
+<ul>
+<li>Wynik zależy od danych
+<ul>
+<li>jakość danych wpływa na jakość modelu</li>
+</ul></li>
+<li>Specyficzne podejście do testowania</li>
+<li>Czasami trudno ustalić, czy mamy poprawny wynik</li>
+<li>Dokładny przebieg obliczeń nie jest wyspecyfikowany
+<ul>
+<li>drobne zmiany danych wejściowych dają znacznie różny wynik</li>
+<li>trudno ustalić co wpływa na zmianę</li>
+</ul></li>
+</ul>
+<h2 id="podejście-do-realizacji-projektu">Podejście do realizacji
+projektu</h2>
+<h3 id="semma">SEMMA</h3>
+<ul>
+<li>Sample
+<ul>
+<li>rozpoczynamy od wyciągnięcia próbki danych</li>
+<li>żeby szybciej i mniejszym nakładem osiągnąć jakiś efekt</li>
+</ul></li>
+<li>Explore
+<ul>
+<li>analiza eksploracyjna</li>
+<li>jakie są atrybuty, jakie mają rozkłady</li>
+<li>lepsze zrozumienie danych</li>
+</ul></li>
+<li>Modify
+<ul>
+<li>selekcja zmiennych</li>
+<li>transformacje</li>
+<li>feature engineering</li>
+</ul></li>
+<li>Model
+<ul>
+<li>wybór odpowiednich metod</li>
+<li>modelowanie</li>
+</ul></li>
+<li>Assess
+<ul>
+<li>ewaluacja uzyskanych wyników</li>
+</ul></li>
+<li>Nie jest bardzo sformalizowane</li>
+<li>Pomija aspekty biznesowe</li>
+<li>Raczej chwytliwy skrót niż dobra metodologia</li>
+</ul>
+<h3 id="kdd">KDD</h3>
+<ul>
+<li>Knowledge Discovery in Databases</li>
+<li>Iteracyjny proces dotyczący odkrywania wiedzy w bazach danych</li>
+<li>Sformalizowany w latach 90 (20 stron artykułu)</li>
+<li>Proces
+<ul>
+<li>zrozumienie domeny, z której pochodzą dane</li>
+<li>utworzenie roboczego zbioru danych</li>
+<li>oczyszczanie i preprocessing zebranych danych</li>
+<li>redukcja wymiarowości, projekcje</li>
+<li>dobór adekwatnego zadania modelowania do konkretnego celu</li>
+<li>eksploracyjna analiza danych, wybór metody, ustalanie
+hiperparametrów</li>
+<li>budowa modelu</li>
+<li>analiza uzyskanych wyników modelowania</li>
+<li>wdrożenie / zastosowanie przygotowanych modeli w praktyce</li>
+</ul></li>
+<li>Sprzężenie zwrotne
+<ul>
+<li>proces nie jest liniowy</li>
+<li>wracamy się do poprzednich etapów (o 1 lub więcej, nawet do
+początku)</li>
+</ul></li>
+</ul>
+<h3 id="crisp-dm">CRISP-DM</h3>
+<ul>
+<li>Cross-industry standard process for data mining</li>
+<li>Standard opisujący proces realizacji projektów data-mining</li>
+<li>Precyzyjny dokument opisujący standard</li>
+<li>Etapy
+<ul>
+<li>zrozumienie zagadnienia biznesowego</li>
+<li>zrozumienie danych - może trzeba się cofnąć, zmienić dane albo
+zmienić oczekiwania</li>
+<li>przygotowanie danych</li>
+<li>modelowanie - może trzeba się cofnąć do przygotowania danych</li>
+<li>ocena jakości</li>
+<li>wdrożenie jeśli poszło dobrze</li>
+<li>cofnięcie do początku jeśli model jest za słaby</li>
+</ul></li>
+<li>Warto poświęcić dużo czasu na pętlę zrozumienie biznesu -
+zrozumienie danych</li>
+<li>Iteracyjna praca nad modelem i przygotowaniem danych</li>
+<li>Dokładnie zdefiniowane jakie dokumenty (artefakty) powstają w ramach
+poszczególnych etapów</li>
+<li>Zrozumienie zagadnienia
+<ul>
+<li>biznesowe kryteria sukcesu - ile PLN</li>
+<li>analityczne kryteria sukcesu - jaki błąd średniokwadratowy</li>
+</ul></li>
+<li>Modelowanie
+<ul>
+<li>około 10% czasu całego projektu</li>
+<li>ewaluacja w sensie analitycznym</li>
+</ul></li>
+<li>Ewaluacja
+<ul>
+<li>w sensie biznesowym</li>
+</ul></li>
+<li>W projektach komercyjnych są różne wymagania co do dokumentacji
+<ul>
+<li>zależy od branży, organizacji</li>
+<li>raczej nie tworzy się wszystkich opisanych dokumentów</li>
+<li>i tak przechodzi się przez wszystkie etapy</li>
+</ul></li>
+</ul>
+<h2 id="iteracyjna-realizacja-projektu">Iteracyjna realizacja
+projektu</h2>
+<ul>
+<li>Podejście Model Development Process</li>
+<li>Iteracje można podzielić z grubsza na fazy</li>
+<li>W każdej fazie przechodzi się przez wszystkie etapy
+<ul>
+<li>ale pomiędzy fazami różnie rozkłada się nakład pracy na dany
+etap</li>
+<li>na początku więcej czasu na przygotowanie danych i zrozumienie niż
+na audyt</li>
+</ul></li>
+</ul>
+<h2 id="perspektywy-w-projekcie-um">Perspektywy w projekcie UM</h2>
+<ul>
+<li>Domenowa
+<ul>
+<li>ktoś musi rozumieć dziedzinę</li>
+<li>product owner</li>
+</ul></li>
+<li>Analityczna
+<ul>
+<li>jakie metody pasują do danego zagadnienia</li>
+<li>jakich danych potrzeba</li>
+</ul></li>
+<li>Techniczna
+<ul>
+<li>czy rozwiązanie da się wdrożyć i utrzymywać</li>
+<li>czy spełnia kryteria niefunkcjonalne</li>
+</ul></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Trzeba poświęcić czas na dokładne zrozumienie zadania
+<ul>
+<li>problemu i danych</li>
+</ul></li>
+<li>Dane są elementem determinującym co jesteśmy w stanie osiągnąć</li>
+<li>Obserwacje, założenia przyjmowane <em>po drodze</em> warto
+dokumentować</li>
+<li>Modelowanie jest tylko jednym z etapów</li>
+<li>Aby projekt mógł się udać trzeba określić kryteria sukcesu</li>
+<li>Praca z UM ma naturę iteracyjną i wymaga kilku perspektyw</li>
+<li>Tylko 10-20% projektów UM kończy się sukcesem</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#inżynieria-uczenia-maszynowego" id="toc-inżynieria-uczenia-maszynowego">Inżynieria uczenia
+maszynowego</a>
+<ul>
+<li><a href="#czym-różni-się-budowa-modelu-od-normalnego-programowania" id="toc-czym-różni-się-budowa-modelu-od-normalnego-programowania">Czym
+różni się budowa modelu od normalnego programowania</a>
+<ul>
+<li><a href="#konsekwencje" id="toc-konsekwencje">Konsekwencje</a></li>
+</ul></li>
+<li><a href="#podejście-do-realizacji-projektu" id="toc-podejście-do-realizacji-projektu">Podejście do realizacji
+projektu</a>
+<ul>
+<li><a href="#semma" id="toc-semma">SEMMA</a></li>
+<li><a href="#kdd" id="toc-kdd">KDD</a></li>
+<li><a href="#crisp-dm" id="toc-crisp-dm">CRISP-DM</a></li>
+</ul></li>
+<li><a href="#iteracyjna-realizacja-projektu" id="toc-iteracyjna-realizacja-projektu">Iteracyjna realizacja
+projektu</a></li>
+<li><a href="#perspektywy-w-projekcie-um" id="toc-perspektywy-w-projekcie-um">Perspektywy w projekcie UM</a></li>
+<li><a href="#podsumowanie" id="toc-podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

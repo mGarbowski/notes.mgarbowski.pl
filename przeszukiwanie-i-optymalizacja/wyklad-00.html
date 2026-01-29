@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-00</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="przed-kolokwium-02.html">Poprzedni: przed-kolokwium-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-01.html">Następny: wyklad-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="organizacja">Organizacja</h1>
+<ul>
+<li>Kolokwia z notatkami drukowanymi</li>
+<li>2 kolokwia po 25pkt, min 15pkt z obu(?)</li>
+<li>Projekt na 50pkt, min 20pkt</li>
+<li>Standardowa skala ocen</li>
+<li>Slajdy z wykładów na teamsach</li>
+</ul>
+<h2 id="projekt">Projekt</h2>
+<ul>
+<li>Jedno większe zadanie</li>
+<li>Za miesiąc będą tematy</li>
+<li>Nacisk na testowanie
+<ul>
+<li>przeprowadzić badanie na algorytmie, czy przynosi korzyść itd</li>
+<li>statystyczna analiza wyników na długotrwałym eksperymencie</li>
+<li>będzie trzeba odpalić długotrwałe testy</li>
+<li>lepiej mieć do świąt gotową implementacje żeby się wyrobić</li>
+</ul></li>
+<li>Dwuosobowe zespoły</li>
+<li>Będzie można się przenosić między grupami w usosie żeby być z osobą
+na projekt</li>
+</ul>
+<h2 id="wstęp">Wstęp</h2>
+<h2 id="słaba-sztuczna-inteligencja">Słaba sztuczna inteligencja</h2>
+<ul>
+<li>Uczenie maszynowe
+<ul>
+<li>objaśnianie zjawisk</li>
+<li>analiza przewidywanie zjawisk</li>
+<li>analiza scenariuszy</li>
+</ul></li>
+<li>Podejmowanie decyzji
+<ul>
+<li>tryb doradczy</li>
+<li>tryb autonomiczny</li>
+</ul></li>
+</ul>
+<h2 id="sortowanie-bąbelkowe">Sortowanie bąbelkowe</h2>
+<ul>
+<li>Permutacje to węzły w przestrzeni przeszukiwania</li>
+<li>Permutacje o parze sąsiednich elementów zamienionych miejscami są
+połączone krawędziami</li>
+<li>Operacja elementarna</li>
+<li>Sortowanie z punktu widzenia przestrzeni rozwiązań to znalezienie
+ścieżki w grafie do węzła z posortowaną tablicą</li>
+<li>Ruch w stronę rozwiązanie przechodzi do węzła, w którym liczba par w
+niedobrej kolejności maleje
+<ul>
+<li>zamiana sąsiednich elementów może zwiększyć albo zwiększyć liczbę
+par w złej kolejności o 1</li>
+<li>algorytm sortowanie bąbelkowego tylko zmniejsza</li>
+</ul></li>
+</ul>
+<h2 id="funkcja-celu">Funkcja celu</h2>
+<ul>
+<li>(Objective function)</li>
+<li>W jakim stopniu cel jest spełniony / niespełniony
+<ul>
+<li>dla sortowania bąbelkowego to liczba par, które nie spełniają
+relacji porządku</li>
+</ul></li>
+</ul>
+<h2 id="przestrzeń-przeszukiwań">Przestrzeń przeszukiwań</h2>
+<ul>
+<li>Zbiór reprezentacji rozwiązania</li>
+<li>Sposób organizacji przestrzeni
+<ul>
+<li>relacja sąsiedztwa - zbiór elementów oddalonych nie dalej niż
+promień sąsiedztwa</li>
+<li>metryka - odległość między elementami</li>
+</ul></li>
+<li>Przykład - przestrzeń wektorów binarnych
+<ul>
+<li>sąsiedztwo - wektory sąsiadują jeśli różnią się 1 bitem (metryka
+Hamminga)</li>
+</ul></li>
+<li>Przykład przestrzeń permutacji
+<ul>
+<li>metryka edycyjna - liczba zamian par dowolnych elementów</li>
+</ul></li>
+</ul>
+<h2 id="zadanie-optymalizacji">Zadanie optymalizacji</h2>
+<h3 id="przestrzeń-przeszukiwań-1">Przestrzeń przeszukiwań</h3>
+<ul>
+<li>Zbiór reprezentacji rozwiązania <span
+class="math inline">\(X\)</span></li>
+<li>Sposób organizacji przestrzeni
+<ul>
+<li>relacja sąsiedztwa <span class="math inline">\(N: X \rightarrow
+2^X\)</span></li>
+<li>metryka <span class="math inline">\(\delta: X \times X \rightarrow
+\mathbb{R}\)</span></li>
+<li>sąsiedztwo a metryka <span class="math inline">\(N_r(x) = \{ y \in
+X, \delta(x,y) &lt; r \}\)</span></li>
+</ul></li>
+<li>Ocena rozwiązań (wariantowo)
+<ul>
+<li>funkcja celu <span class="math inline">\(q: X \rightarrow
+\mathbb{R}\)</span></li>
+<li>relacja porównująca <span class="math inline">\(compare: X \times X
+\rightarrow \{-1, 0, 1\}\)</span></li>
+<li>czasami nie jest potrzebna konkretna wartość funkcji celu, tylko
+wystarczy relacja jej wartości między dwoma elementami (np. sortowanie
+bąbelkowe)</li>
+</ul></li>
+</ul>
+<h3 id="typowe-zadanie-optymalizacji-ciągłej">Typowe zadanie
+optymalizacji ciągłej</h3>
+<ul>
+<li>Funkcja celu <span class="math inline">\(q: F \rightarrow
+\mathbb{R}\)</span></li>
+<li>Zbiór dopuszczalny <span class="math inline">\(F \subseteq
+\mathbb{R}^n\)</span></li>
+<li>Metryka <span class="math inline">\(\delta(x,y) =
+||x-y||\)</span></li>
+<li>Norma euklidesowa <span class="math inline">\(||x-y|| =
+(\sum_{i=1}^n (x_i-y_i)^2)^{1/2}\)</span></li>
+<li>Każdy punkt dopuszczalny spełnia
+<ul>
+<li>ograniczenia kostkowe (bound constraints) <span
+class="math inline">\(l_i \le x_i \le u_i\)</span></li>
+<li>ograniczenia funkcyjne <span class="math inline">\(g_j(x) \le 0,
+h_j(x) = 0\)</span></li>
+</ul></li>
+</ul>
+<h3 id="minimum-lokalne">Minimum lokalne</h3>
+<p><span class="math display">\[
+\forall_{y \in N_r(x)} \quad q(x) &lt; q(y)
+\]</span> ### Minimum globalne <span class="math display">\[
+\forall_{y\in X} \quad q(x) &lt; q(y)
+\]</span></p>
+<h3 id="funkcja-unimodalna">Funkcja unimodalna</h3>
+<p>Ma jedno minimum lokalne i jednocześnie globalne</p>
+<p>Uczenie klasyfikatora przez minimalizację funkcji starty Klasyfikator
+liniowy charakteryzują 2 parametry <span class="math inline">\(p_1 x_1 +
+p_2 x_2 + 1 = 0\)</span> Przeszukiwanie przestrzeni <span
+class="math inline">\((p_1, p_2)\)</span>, np. metodą gradientową</p>
+<h2 id="zadania-łatwe-i-trudne">Zadania łatwe i trudne</h2>
+<ul>
+<li>Zadanie optymalizacyjne ma poza wymienionymi wyżej
+<ul>
+<li>kryterium zatrzymania - dla sortowania proste, dla problemu
+komiwojażera - problematyczne</li>
+<li>punkt startowy (np. tablica którą chcemy posortować, losowe
+parametry klasyfikatora liniowego)</li>
+</ul></li>
+<li>Problem łatwy (P)
+<ul>
+<li>każda ścieżka wzdłuż nierosnącej funkcji celu prowadzi do celu
+(jedno minimum lokalne)</li>
+<li>długości w/w ścieżki wielomianowo zależy od ilości danych</li>
+<li>liczność sąsiedztwa punktu wielomianowo zależy od ilości danych</li>
+</ul></li>
+</ul>
+<p>Maszyna Turinga * Model obliczeń * Taśma * Głowica czytająco-pisząca
+* Program (graf sterowania)</p>
+<p>Losowość rozumiemy jako czynnik zewnętrzny, poza naszą kontrolą, nie
+rozstrzygając natury samego zjawiska.</p>
+<p>Problem NP - rozwiązywany przez niedeterministyczną maszynę Turinga w
+czasie wielomianowym Problem NP-zupełny * nie jest znany algorytm
+rozwiązujący problem w czasie wielomianowym * każdy problem np-zupełny
+jest sprowadzalny w czasie wielomianowym do każdego innego
+np-zupełnego</p>
+<p>Dla zadania sortowania funkcja celu ma dokładnie jedno minimum
+lokalne (jest unimodalna). W problemie komiwojażera nierosnące ścieżki
+mogą się skończyć w 2 różnych rozwiązaniach.</p>
+<h3 id="kłopoty-z-optymalizacją">Kłopoty z optymalizacją</h3>
+<ul>
+<li>Występowanie optimów lokalnych czyni zadanie praktycznie
+nierozwiązywalnym</li>
+<li>W optymalizacji dyskretnej bywa skończony zbiór rozwiązań, w ciągłej
+- nie</li>
+<li>Liczba sąsiadów w optymalizaci ciągłej jest nieskończona
+<ul>
+<li>nie można precyzyjnie znaleźć nawet optimum lokalnego</li>
+</ul></li>
+<li>Bez dodatkowej wiedzy nie można stwierdzić optymalności punktu
+<ul>
+<li>kiedy zatrzymać optymalizację</li>
+</ul></li>
+<li>Błędy numeryczne w optymalizacji ciągłej</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#organizacja" id="toc-organizacja">Organizacja</a>
+<ul>
+<li><a href="#projekt" id="toc-projekt">Projekt</a></li>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a></li>
+<li><a href="#słaba-sztuczna-inteligencja" id="toc-słaba-sztuczna-inteligencja">Słaba sztuczna
+inteligencja</a></li>
+<li><a href="#sortowanie-bąbelkowe" id="toc-sortowanie-bąbelkowe">Sortowanie bąbelkowe</a></li>
+<li><a href="#funkcja-celu" id="toc-funkcja-celu">Funkcja celu</a></li>
+<li><a href="#przestrzeń-przeszukiwań" id="toc-przestrzeń-przeszukiwań">Przestrzeń przeszukiwań</a></li>
+<li><a href="#zadanie-optymalizacji" id="toc-zadanie-optymalizacji">Zadanie optymalizacji</a>
+<ul>
+<li><a href="#przestrzeń-przeszukiwań-1" id="toc-przestrzeń-przeszukiwań-1">Przestrzeń przeszukiwań</a></li>
+<li><a href="#typowe-zadanie-optymalizacji-ciągłej" id="toc-typowe-zadanie-optymalizacji-ciągłej">Typowe zadanie
+optymalizacji ciągłej</a></li>
+<li><a href="#minimum-lokalne" id="toc-minimum-lokalne">Minimum
+lokalne</a></li>
+<li><a href="#funkcja-unimodalna" id="toc-funkcja-unimodalna">Funkcja
+unimodalna</a></li>
+</ul></li>
+<li><a href="#zadania-łatwe-i-trudne" id="toc-zadania-łatwe-i-trudne">Zadania łatwe i trudne</a>
+<ul>
+<li><a href="#kłopoty-z-optymalizacją" id="toc-kłopoty-z-optymalizacją">Kłopoty z optymalizacją</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

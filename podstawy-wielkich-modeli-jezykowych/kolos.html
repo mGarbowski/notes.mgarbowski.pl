@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolos</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-retrieval-augmented-generation.html">Poprzedni: 11-retrieval-augmented-generation.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h2 id="z-wykładów">Z wykładów</h2>
+<ul>
+<li>Entropia krzyżowa</li>
+<li>Typy architektur transformer</li>
+<li>Fazy trenowania wielkich modeli językowych</li>
+<li>Różnica między wersją modelu base/instruct/chat</li>
+</ul>
+<h3 id="tokenizacja-quiz">Tokenizacja Quiz</h3>
+<ul>
+<li>BPE jest metodą tokenizacji na poziomie części słowa, która
+rozpoczyna z małym słownikiem i uczy się reguł łączenia elementów
+słownika
+<ul>
+<li>PRAWDA</li>
+</ul></li>
+<li>BPE jest metodą tokenizacji na poziomie części słowa, która
+rozpoczyna z dużym słownikiem a następnie sukcesywnie usuwa z niego
+kolejne elementy
+<ul>
+<li>FAŁSZ</li>
+<li>tak działa metoda Unigram Language Model</li>
+</ul></li>
+<li>BPE zamienia wejściowy tekst na tokeny poprzez podzielenie go na
+pojedyncze znaki a następnie zastosowanie wyuczonych reguł łączenia
+tokenów
+<ul>
+<li>PRAWDA</li>
+</ul></li>
+<li>Reguły łączenia tokenów tworzą nowe tokeny poprzez scalanie rzadko
+występujących par tokenów
+<ul>
+<li>FAŁSZ</li>
+<li>scal się często występujące pary tokenów</li>
+</ul></li>
+<li>Po scaleniu dwóch krótszych tokenów w jeden, do słownika zostaje
+dodany wynikowy token a tokeny które zostały scalone są usuwane
+<ul>
+<li>FAŁSZ</li>
+<li>scalane tokeny zostają, w wyuczonym słowniku są tokeny odpowiadające
+np. pojedynczym literom</li>
+</ul></li>
+</ul>
+<h3 id="transformer-quiz">Transformer Quiz</h3>
+<p><strong>Co oznaczają symbole Q, K, V w warstwie atencji?</strong></p>
+<ul>
+<li>Q - query</li>
+<li>K - key</li>
+<li>V value</li>
+</ul>
+<p><strong>Mamy sekwencję wektorów cech <span class="math inline">\(x_1,
+x_2, \ldots , x_s, \quad x_i \in \mathbb{R}^d\)</span> podanych na
+wejściu jednogłowicowej warstwy atencji. Jak wyznaczana jest mapa
+atencji dla <span class="math inline">\(i\)</span>-tego elementu
+sekwencji?</strong></p>
+<p>dla pojedynczego elementu to wiersz w tej macierzy <span
+class="math display">\[\mathrm{softmax}\left(\frac{Q^T K}{\sqrt{d}} + M
+\right)\]</span></p>
+<p><strong>Jak łączone są kontekstowe reprezentacje wyznaczone przez
+wiele głowic atencji w warstwie atencji wielogłowicowej?</strong></p>
+<p>Są konkatenowane - <span class="math inline">\(h\)</span> macierzy
+<span class="math inline">\(d \times d/h\)</span> do jednej macierzy
+<span class="math inline">\(d \times d\)</span> a następnie przemnażane
+przez macierz projekcyjną</p>
+<p><strong>Kodowanie pozycyjne - dlaczego stosujemy kodowanie pozycyjne?
+Czym różni się kodowanie bezwzględne od względnego?</strong></p>
+<ul>
+<li>Stosujemy żeby wprowadzić do modelu informację o wzajemnym położeniu
+tokenów w sekwencji
+<ul>
+<li>bez tego - ta sama sekwencja z poprzestawianymi tokenami byłaby
+traktowana identycznie</li>
+</ul></li>
+<li>Bezwzględne polega na jednorazowym zmodyfikowaniu wektora zanurzenia
+na początku kodując jego pozycję
+<ul>
+<li>np. dodając wektor będący wynikiem deterministycznej funkcji
+zależnej od położenia w sekwencji</li>
+</ul></li>
+<li>Względne jest wykonywane w każdej warstwie atencji
+<ul>
+<li>modyfikowane są wektory <span class="math inline">\(q\)</span> i
+<span class="math inline">\(k\)</span> tak żeby ich iloczyn był zależny
+od względnego położenia odpowiadających im tokenów w sekwencji</li>
+<li>mnoży się wektory <span class="math inline">\(q\)</span> i <span
+class="math inline">\(k\)</span> dodatkowo przez macierz rotacji zależną
+od położenia w sekwencji</li>
+</ul></li>
+</ul>
+<p><strong>Wejściowa sekwencja wektorów cech <span
+class="math inline">\(x_1, x_2, \ldots , x_s, \quad x_i \in
+\mathbb{R}^d\)</span> dana jako tensor <span
+class="math inline">\((s,d)\)</span>. Podaj rozmiar wyjściowego tensora
+po przetworzeniu sekwencji wejściowej przez</strong></p>
+<ul>
+<li>Warstwę wielogłowicowej atencji QKV z jedną głowicą atencji</li>
+<li>Warstwę wielogłowicowej atencji QKV z 5 głowicami atencji</li>
+<li>Pojedynczą warstwę kodera transformer</li>
+<li>3 warstwy kodera transformer</li>
+</ul>
+<p>W każdym przypadku - taki sam <span
+class="math inline">\((s,d)\)</span></p>
+<h3 id="tylko-koder-quiz">Tylko-koder Quiz</h3>
+<p>Jakie podejście zastosować do</p>
+<ul>
+<li>Klasyfikacja emaili od klientów
+<ul>
+<li>tylko-koder do klasyfikacji (jak wyżej)</li>
+</ul></li>
+<li>Generowanie kodu w Pythonie na podstawie opisu w języku naturalnym
+<ul>
+<li>tylko-dekoder dostrojony do tego zadania</li>
+</ul></li>
+<li>Ekstrakcja informacji w ustrukturyzowanej formie np. JSON z tekstu w
+języku naturalnym
+<ul>
+<li>tylko-dekoder, dostrojony albo few-shot learning</li>
+</ul></li>
+<li>Wygenerowanie opisu w języku naturalnym dla podanego zdjęcia
+<ul>
+<li>architektura koder wizyjny-dekoder</li>
+<li>koder generuje reprezentację obrazu</li>
+<li>dekoder dostaje reprezentację obrazu i generuje kolejne tokeny
+tekstu</li>
+</ul></li>
+</ul>
+<h2 id="od-prowadzącego">Od prowadzącego</h2>
+<p>Szanowni Państwo,</p>
+<p>23 stycznia (piątek) o godz. 8:30 zaplanowane jest kolokwium z
+Podstaw Wielkich Modeli Językowych.</p>
+<p><strong>Zakres materiału:</strong></p>
+<ul>
+<li>Podstawy głębokich sieci neuronowych
+<ul>
+<li>Znajomość elementów składowych głębokich sieci neuronowych:
+<ul>
+<li>Warstwa liniowa,</li>
+<li>Warstwy nieliniowe (m. in. ReLU. Sigmoid, SiLU)</li>
+<li>Warstwy normalizacji: normalizacja wsadu (BatchNorm), normalizacja
+warstwy (LayerNorm)</li>
+<li>Warstwa odrzutu (Dropout)</li>
+<li>Perceptron wielowarstwowy</li>
+<li>Warstwa Softmax</li>
+<li>Obliczenie liczby trenowalnych parametrów w każdej warstwie</li>
+</ul></li>
+</ul></li>
+<li>Metody tokenizacji
+<ul>
+<li>Tokenizacja Byte-Pair encoding (BPE)</li>
+</ul></li>
+<li>Architektura Transformer:
+<ul>
+<li>Elementy składowe architektury</li>
+<li>Mechanizm atencji   Query-Key-Value (zapytanie-klucz-wartość),
+atencja wielogłowicowa,</li>
+<li>Kodowanie pozycyjne - absolutne i względne</li>
+<li>Obliczanie liczby trenowanych parametrów dla składowych (warstwa
+atencji wielogłowicowej, warstwa w pełni połączona) i kompletnej
+architektury Transformer</li>
+</ul></li>
+<li>Rodziny architektur współczesnych modeli językowych:
+<ul>
+<li>tylko-koder, tylko-dekoder, koder-dekoder (różnice w architekturach
+poszczególnych rodzin; metody uczenia; zastosowania)</li>
+</ul></li>
+<li>Strategie generowania tekstu (dla modeli z rodziny tylko-dekoder)
+<ul>
+<li>Metody samplowania z rozkładu prawdopodobieństwa kolejnego
+tokenu</li>
+</ul></li>
+<li>Fazy trenowania generatywnych modeli językowych (modeli z rodziny
+tylko-dekoder); cek i funkcje straty wykorzystywane w każdej fazie</li>
+<li>Metody efektywnego obliczeniowo dostrajania modeli (LoRA,
+dostrajanie promptu, kwantyzacja)</li>
+<li>Wyznaczenie wspólnej reprezentacji wizyjno-językowej (model CLIP i
+pochodne)</li>
+<li>Generowanie wspomagane wyszukiwaniem (RAG)</li>
+<li>Metody ewaluacji wielkich modeli językowych</li>
+</ul>
+<hr />
+<p>Dzień Dobry,</p>
+<p>na kolokwium NIE będzie można korzystać z notatek. Na kolokwium
+będzie około 10 pytań.</p>
+<p>Zagadnienia na które należy zwrócić uwagę:</p>
+<ul>
+<li>Znajomość elementów składowych głębokich sieci neuronowych
+(wymienionych w podanym wcześniej zakresie materiału) - podanie wzoru
+warstwy oraz wyznaczenie jest wyjścia dla podanego wejścia. Na przykład
+podanie wzoru warstwy SiLU i wyznaczenie jej wyjścia dla wejściowego
+tensora [-2.0, -1.0, 0.0, 1.0, 2.0]. 
+<ul>
+<li>Podanie liczby trenowalnych parameterów w różnych warstwach. Np.
+liczba trenowalnych parametrów dwuwarstwowego perceptronu o wymiarze
+wejścia 100, wymiarze pierwszej warstwy ukrytej 10 i wymiarze wyjścia
+2</li>
+</ul></li>
+<li>Znajomość architektury Transformer i mechanizmu atencji
+wielogłowicowej (w tym wzory opisujące działanie atencji
+wielogłowicowej). Umiejętność obliczenia liczby trenowalnych parametrów
+w bloku Transformera o zadanych parametrach.</li>
+<li>Plus wszystkie punkty z podanego wcześniej zakresu materiału - z
+każdego z tych tematów może pojawić się jakieś pytanie. Na przykład
+“Porównaj metody samplowania z rozkładu prawdopodobieństwa kolejnego
+tokenu: metodę X i metodę  Y. Podaj stosowne wzory. W jakich prypadkach
+lepiej stosować metodę X a w jakich Y.”</li>
+</ul>
+<hr />
+<p>Kolokwium - dodatkowe informacje</p>
+<p>Szanowni Państwo,</p>
+<p>w związku z pytaniami jakie otrzymałem, chciałbym przekazać, że na
+kolokwium:</p>
+<ul>
+<li>Na kolokwium NIE można korzystać z notatek</li>
+<li>Można korzystać z kalkulatora - ale w zadaniach dotyczących
+wyznaczenia liczby trenowalnych parametrów albo wyznaczenia wyjścia z
+podanej warstwy dla podanego wejścia nie będę wymagał wykonania
+wszystkich obliczeń.. Wynik w postaci nieskróconej, np. “2048 x 1024
+ x3” jest OK.</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#z-wykładów" id="toc-z-wykładów">Z wykładów</a>
+<ul>
+<li><a href="#tokenizacja-quiz" id="toc-tokenizacja-quiz">Tokenizacja
+Quiz</a></li>
+<li><a href="#transformer-quiz" id="toc-transformer-quiz">Transformer
+Quiz</a></li>
+<li><a href="#tylko-koder-quiz" id="toc-tylko-koder-quiz">Tylko-koder
+Quiz</a></li>
+</ul></li>
+<li><a href="#od-prowadzącego" id="toc-od-prowadzącego">Od
+prowadzącego</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

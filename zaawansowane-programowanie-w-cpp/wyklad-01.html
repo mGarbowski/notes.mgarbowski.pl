@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-02.html">Następny: wyklad-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w02--2020-10-13"># ZPR- W02 -2020 10 13</h1>
+<h2 id="dopuszczalne-użycie-preprocesora">Dopuszczalne użycie
+preprocesora</h2>
+<ul>
+<li><code>#include</code></li>
+<li>Zabezpieczenie przed wielokrotnym dołączeniem nagłówka</li>
+<li>Warunkowa kompilacja
+<ul>
+<li>tylko w wyjątkowych sytuacjach</li>
+<li>należy pisać kod który jest przenośny i jej nie wymaga</li>
+</ul></li>
+</ul>
+<h3 id="błędne-użycie-define">Błędne użycie <code>#define</code></h3>
+<ul>
+<li>Nie rozumie języka</li>
+<li>Nie wiadomo w jakiej kolejności będą kompilowane pliki</li>
+<li>Należy stosować normalne stałe
+<ul>
+<li><code>const int MAX = 10;</code></li>
+<li>stałe statyczne w klasie</li>
+</ul></li>
+<li>Należy stosować szablony funkcji
+<ul>
+<li>rozumieją składnię języka</li>
+</ul></li>
+</ul>
+<p>Stałe globalne nie są wąskim gardłem dla programu bo można je tylko
+odczytywać</p>
+<h2 id="stałość">Stałość</h2>
+<ul>
+<li>Informacja dla programisty</li>
+<li>Uproszczenie kodu (unikanie magicznych liczb)</li>
+<li>Pozwala kompilatorowi na optymalizacje</li>
+<li><code>const int* p</code> - stała wartość wskazywana</li>
+<li><code>int* const q</code> - stały wskaźnik</li>
+<li><code>const int* const r</code> - stały wskaźnik i stała wartość
+wskazywana</li>
+<li>Czytanie od prawej do lewej</li>
+<li>Stałość jest częścią sygnatury metody
+<ul>
+<li>dwie wersje metody o tej samej nazwie</li>
+<li>dla stałego obiektu nie można wywołać metody nie-const</li>
+</ul></li>
+<li>Przekazanie argumentu przez const-referencję pozwala zwiększyć
+wydajność
+<ul>
+<li>unika kopiowania dużych obiektów</li>
+</ul></li>
+</ul>
+<h3 id="stałość-logiczna-vs-fizyczna">Stałość logiczna vs fizyczna</h3>
+<ul>
+<li>Stałość logiczna - nie zmieniamy stanu obiektu</li>
+<li>Stałość fizyczna - brak zmiany składowych</li>
+<li>Kompilator bada stałość fizyczną</li>
+<li>Nie zawsze są tożsame
+<ul>
+<li>np. metoda const zwracająca wskaźnik</li>
+<li>nie są zmienione składowe ale można zmienić stan jakiegoś obiektu
+przez wskaźnik</li>
+</ul></li>
+<li>Rozwiązanie
+<ul>
+<li>zwracanie stałego wskaźnika</li>
+<li>użycie <code>mutable</code> składowych</li>
+</ul></li>
+<li>Oznaczenie składowych jako <code>mutable</code> oznacza że nie są
+stanem obiektu
+<ul>
+<li>można je modyfikować w const metodach</li>
+</ul></li>
+</ul>
+<h2 id="konwersja-typów">Konwersja typów</h2>
+<ul>
+<li>Nie używać rzutowania w stylu C</li>
+<li>Nie używa się <code>void*</code></li>
+<li>Tylko <code>explicit</code> konstruktory</li>
+<li>Operatory rzutowania (unikać, tylko w ostateczności)</li>
+</ul>
+<h3 id="static_cast"><code>static_cast</code></h3>
+<ul>
+<li>Konwersja między spokrewnionymi typami</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> d <span class="op">=</span> <span class="fl">3.2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">-</span> <span class="kw">static_cast</span><span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;(</span>d<span class="op">);</span></span></code></pre></div>
+<p>Obcięcie części ułamkowej</p>
+<h3 id="dynamic_cast"><code>dynamic_cast</code></h3>
+<ul>
+<li>Rzutowanie w dół hierarchii klas</li>
+<li>Kosztowny
+<ul>
+<li>wymaga przejrzenie tablicy typeid</li>
+</ul></li>
+</ul>
+<h3 id="const_cast"><code>const_cast</code></h3>
+<ul>
+<li>Zniesienie kwalifikatora <code>const</code></li>
+<li>Przydatne jeśli chcemy użyć identycznej implementacji dla metod
+stałych i niestałych</li>
+<li>Przy serializacji obiektów (np. przesłanie przez sieć, składowe
+trzeba odtworzyć)</li>
+</ul>
+<h3 id="reinterpret_cast"><code>reinterpret_cast</code></h3>
+<ul>
+<li>Dowolna konwersja (tak jak w C)</li>
+</ul>
+<h2 id="tworzenie-nowych-klas">Tworzenie nowych klas</h2>
+<ul>
+<li>Agregacja jest preferowana do dziedziczenia</li>
+<li>Agregacja - budowa całości z mniejszych kawałków</li>
+<li>Kompozycja - agregacja, gdy obiekt składowy nie może istnieć
+samodzielnie</li>
+<li>Agregacja jest wygodna bo nie wiąże interfejsów klas</li>
+<li>Dziedziczenie wprowadza powiązanie pomiędzy typami
+<ul>
+<li>relacja <em>może być traktowany jako</em></li>
+<li><code>Kierownik</code> może być traktowany jako
+<code>Pracownik</code></li>
+</ul></li>
+</ul>
+<h2 id="wycinanie">Wycinanie</h2>
+<p>Dotyczy konstruktora kopiującego lub operatora przypisania</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pracownik <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Kierownik <span class="op">:</span> <span class="kw">public</span> Pracownik <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Kierownik k<span class="op">(...);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Pracownik p <span class="op">=</span> k<span class="op">;</span></span></code></pre></div>
+<ul>
+<li>Skopiowana zostanie tylko część klasy</li>
+<li>Źródło błędów</li>
+<li>Rozwiązanie
+<ul>
+<li>przekazywać wskaźniki lulb referencje</li>
+</ul></li>
+</ul>
+<h2 id="typy-klas">Typy klas</h2>
+<h3 id="klasa-wartość-klasa-autonomiczna">Klasa wartość (klasa
+autonomiczna)</h3>
+<ul>
+<li>Brak metod wirtualnych</li>
+<li>Konstruktor, konstruktor kopiujący, operator przypisania,
+destruktor</li>
+<li>Najczęściej obiekt automatyczny lub składowa klasy</li>
+<li>Może być przekazywana przez wartość</li>
+<li>Obiekt traktowany jako jedna całość (np. data)</li>
+</ul>
+<h3 id="klasa-bazowa-dla-hierarchii-klas">Klasa bazowa dla hierarchii
+klas</h3>
+<ul>
+<li>Używa metod wirtualnych</li>
+<li>Powinna mieć wirtualny destruktor</li>
+<li>Najlepiej jeśli jest abstrakcyjna albo ma prywatny konstruktor
+kopiujący i operator przypisania
+<ul>
+<li>zapobiega wycinaniu</li>
+</ul></li>
+<li>Najczęściej obiekt na stercie</li>
+<li>Przekazywana przez wskaźnik lub referencję
+<ul>
+<li>żeby uniknąć wycinania</li>
+</ul></li>
+<li>Problem z kopiowaniem
+<ul>
+<li>rozwiązanie przez zastosowanie wzorca Prototyp</li>
+</ul></li>
+</ul>
+<h2 id="kopiowanie-obiektów">Kopiowanie obiektów</h2>
+<h3 id="płytka-kopia-shell-copy">Płytka kopia (shell copy)</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Obj<span class="op">*</span> obj <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">();</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Obj<span class="op">*</span> copy <span class="op">=</span> obj<span class="op">;</span></span></code></pre></div>
+<ul>
+<li>Dwa wskaźniki do tego samego obiektu na stercie</li>
+<li>Zmiana obiektu zmienia też kopię</li>
+</ul>
+<h3 id="głęboka-kopia-deep-copy">Głęboka kopia (deep copy)</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Obj<span class="op">*</span> obj <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">();</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Obj<span class="op">*</span> copy <span class="op">=</span> <span class="kw">new</span> Obj<span class="op">(*</span>obj<span class="op">);</span></span></code></pre></div>
+<ul>
+<li>Kopia jest oddzielnym obiektem</li>
+</ul>
+<h3 id="wzorzec-prorotypu">Wzorzec prorotypu</h3>
+<ul>
+<li>Kopiowania obiektów w hierarchii klas</li>
+<li>Przeniesienie odpowiedzialności za kopiowanie na obiekty
+pochodne</li>
+<li>Wirtualna metoda clone</li>
+</ul>
+<h2 id="wzorzec-kompozytu">Wzorzec kompozytu</h2>
+<ul>
+<li>Do reprezentacji drzewiastych struktur obiektów</li>
+<li>Traktowanie w ten sam sposób obiektów prostych i złożonych</li>
+</ul>
+<h2 id="wzorzec-proxy">Wzorzec proxy</h2>
+<ul>
+<li>Kontroluje dostęp do obiektu (podobnie jak wskaźnik)</li>
+<li>Obiekt w innej przestrzeni adresowej - Remote Proxy
+<ul>
+<li>np. na innym komputerze</li>
+</ul></li>
+<li>Tworzenie obiektu przy pierwszym użyciu - Virtual Proxy</li>
+<li>Odkłada tworzenie kopii obiektu - Copy-On-Write Proxy
+<ul>
+<li>leniwe kopiowanie</li>
+<li>na początku tworzona kopia płytka</li>
+<li>utworzy kopię dopiero przy pierwszym wywołaniu nie-const metody</li>
+<li>implementacja <code>std::string</code></li>
+<li>narzut pamięciowy na licznik odniesień</li>
+</ul></li>
+<li>Kontroluje prawa dostępu - Protection Proxy</li>
+<li>Synchronizuje dostęp do obiektu - Synchronization Proxy</li>
+<li>Niszczy obiekt na stercie - Smart Pointer</li>
+<li>Wada - metody rzeczywistego obiektu są wołane pośrednio (1 skok
+więcej)</li>
+</ul>
+<h2 id="wzorzec-fasady">Wzorzec fasady</h2>
+<ul>
+<li>Uproszczenie koszystania ze złożonego systemu</li>
+<li>Zapewnienie wymienności podsystemu</li>
+<li>Tylko jeśli korzystamy z systemu w sposób uproszczony</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w02--2020-10-13" id="toc-zpr--w02--2020-10-13"># ZPR-
+W02 -2020 10 13</a>
+<ul>
+<li><a href="#dopuszczalne-użycie-preprocesora" id="toc-dopuszczalne-użycie-preprocesora">Dopuszczalne użycie
+preprocesora</a>
+<ul>
+<li><a href="#błędne-użycie-define" id="toc-błędne-użycie-define">Błędne
+użycie <code>#define</code></a></li>
+</ul></li>
+<li><a href="#stałość" id="toc-stałość">Stałość</a>
+<ul>
+<li><a href="#stałość-logiczna-vs-fizyczna" id="toc-stałość-logiczna-vs-fizyczna">Stałość logiczna vs
+fizyczna</a></li>
+</ul></li>
+<li><a href="#konwersja-typów" id="toc-konwersja-typów">Konwersja
+typów</a>
+<ul>
+<li><a href="#static_cast" id="toc-static_cast"><code>static_cast</code></a></li>
+<li><a href="#dynamic_cast" id="toc-dynamic_cast"><code>dynamic_cast</code></a></li>
+<li><a href="#const_cast" id="toc-const_cast"><code>const_cast</code></a></li>
+<li><a href="#reinterpret_cast" id="toc-reinterpret_cast"><code>reinterpret_cast</code></a></li>
+</ul></li>
+<li><a href="#tworzenie-nowych-klas" id="toc-tworzenie-nowych-klas">Tworzenie nowych klas</a></li>
+<li><a href="#wycinanie" id="toc-wycinanie">Wycinanie</a></li>
+<li><a href="#typy-klas" id="toc-typy-klas">Typy klas</a>
+<ul>
+<li><a href="#klasa-wartość-klasa-autonomiczna" id="toc-klasa-wartość-klasa-autonomiczna">Klasa wartość (klasa
+autonomiczna)</a></li>
+<li><a href="#klasa-bazowa-dla-hierarchii-klas" id="toc-klasa-bazowa-dla-hierarchii-klas">Klasa bazowa dla hierarchii
+klas</a></li>
+</ul></li>
+<li><a href="#kopiowanie-obiektów" id="toc-kopiowanie-obiektów">Kopiowanie obiektów</a>
+<ul>
+<li><a href="#płytka-kopia-shell-copy" id="toc-płytka-kopia-shell-copy">Płytka kopia (shell copy)</a></li>
+<li><a href="#głęboka-kopia-deep-copy" id="toc-głęboka-kopia-deep-copy">Głęboka kopia (deep copy)</a></li>
+<li><a href="#wzorzec-prorotypu" id="toc-wzorzec-prorotypu">Wzorzec
+prorotypu</a></li>
+</ul></li>
+<li><a href="#wzorzec-kompozytu" id="toc-wzorzec-kompozytu">Wzorzec
+kompozytu</a></li>
+<li><a href="#wzorzec-proxy" id="toc-wzorzec-proxy">Wzorzec
+proxy</a></li>
+<li><a href="#wzorzec-fasady" id="toc-wzorzec-fasady">Wzorzec
+fasady</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-wdrozenia</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-konstrukcja-modelu.html">Poprzedni: 05-konstrukcja-modelu.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-sukcesja.html">Następny: 07-sukcesja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wdrożenia">Wdrożenia</h1>
+<h2 id="użycie-jednokrotne-vs-wdrożenie">Użycie jednokrotne vs
+wdrożenie</h2>
+<ul>
+<li>Model użyty jednokrotnie
+<ul>
+<li>odpowiedź na konkretne pytanie / wygenerowanie predykcji</li>
+<li>prawdopodobnie autor modelu będzie generować predykcje</li>
+<li>całym projektem zajmuje się ten sam zespół</li>
+<li>dane zebrano wcześniej</li>
+<li>krótki cykl życia</li>
+<li>przez cały cykl życia modelem zajmuje się człowiek</li>
+<li>działanie w środowisku statycznym</li>
+</ul></li>
+<li>Gdy model będzie wdrożony
+<ul>
+<li>jest tylko jednym z elementów środowiska</li>
+<li>zależy od innych elementów</li>
+<li>każdy element może ulec awarii i powodować problemy</li>
+<li>większa potrzeba automatyzacji</li>
+<li>może osoby, które nie są autorami i nie mają kompletnej wiedzy o
+założeniach będą korzystać z modelu</li>
+<li>dane mogą się zmieniać w czasie</li>
+<li>możliwe że będzie modyfikowany po długim okresie</li>
+<li>działanie w środowisku dynamicznym</li>
+</ul></li>
+</ul>
+<h2 id="środowisko-dynamiczne">Środowisko dynamiczne</h2>
+<ul>
+<li>Model ma wpływ na środowisko zewnętrzne</li>
+<li>Po wdrożeniu model trzeba będzie co jakiś czas odświeżać</li>
+<li>Predykcje generowane dzisiaj mogą wpłynąć na dane zebrane jutro</li>
+<li>Sprzężenie zwrotne</li>
+</ul>
+<h2 id="typowe-składniki-systemu-korzystającego-z-um">Typowe składniki
+systemu korzystającego z UM</h2>
+<ul>
+<li>Bazy danych</li>
+<li>Indeksy wyszukiwania</li>
+<li>Serwisy korzystające z predykcji</li>
+<li>Komponenty zarządzające zasobami (scheduler)</li>
+<li>Szyny / kolejki do przesyłania danych</li>
+<li>Elementy związane z bezpieczeństwem</li>
+<li>Inne modele</li>
+<li>Ludzie</li>
+</ul>
+<h2 id="problemy-z-atrybutami-wejściowymi">Problemy z atrybutami
+wejściowymi</h2>
+<ul>
+<li>Model ma silne założenia co do rozkładu danych wejściowych</li>
+<li>Dobra publikacja o długu technicznym w uczeniu maszynowym</li>
+</ul>
+<h3 id="niestabilne-atrybuty-wejściowe">Niestabilne atrybuty
+wejściowe</h3>
+<ul>
+<li>Mogą się zmieniać z czasem</li>
+<li>Trendy, sezonowość, ewolucja samego zjawiska</li>
+<li>Inne moduły systemu mogą ewoluować
+<ul>
+<li>nowe wersje modeli</li>
+<li>nowe wartości słownikowe</li>
+<li>poprawki, optymalizacje, wersje bibliotek</li>
+</ul></li>
+</ul>
+<h3 id="zanikające-korelacje">Zanikające korelacje</h3>
+<ul>
+<li>Mamy dwa atrybuty skorelowane z <span
+class="math inline">\(y\)</span> i ze sobą nawzajem</li>
+<li>Korelacja nie oznacza związku przyczynowo-skutkowego</li>
+<li>Może do modelu wybierzemy <span class="math inline">\(x_1\)</span>,
+a naprawdę przyczyną było <span class="math inline">\(x_2\)</span></li>
+</ul>
+<h3 id="przecieki-informacji">Przecieki informacji</h3>
+<ul>
+<li>Zazwyczaj zakładamy aktualność i dostępność atrybutów
+wejściowych</li>
+<li>Przykład
+<ul>
+<li>przewidujemy temperaturę następnego dnia</li>
+<li>w zebranym zbiorze danych mamy atrybut - ciśnienie z następnego
+dnia</li>
+<li>w statycznym zbiorze danych da się to zebrać ale działając na
+bieżąco tego nie będzie</li>
+</ul></li>
+<li>Przykład
+<ul>
+<li>przewidywanie czy klient dokona zakupu</li>
+<li>w danych wejściowych są odwiedzone podstrony sklepu</li>
+<li>proces zbierający dane ignoruje strefy czasowe</li>
+<li>mamy atrybut mówiący o odwiedzeniu strony podziękowania za
+zakup</li>
+</ul></li>
+<li>Co zrobić z atrybutem
+<ul>
+<li>usunąć</li>
+<li>wziąć predykcję</li>
+<li>wzięć wartość bez przesunięcia jeśli jest</li>
+</ul></li>
+<li>Przyczyny
+<ul>
+<li>niezrozumienie dziedziny</li>
+<li>zaokrąglenie znaczników czasowych</li>
+<li>nieuwzględnienie możliwych opóźnień</li>
+<li>strefy czasowe / dziwne operacje na znacznikach czasowych</li>
+</ul></li>
+</ul>
+<h2 id="problemy-z-atrybutami-wyjściowymi">Problemy z atrybutami
+wyjściowymi</h2>
+<h3 id="użytkownicy-modelu">Użytkownicy modelu</h3>
+<ul>
+<li>Mogą mieć błędne założenia odnośnie predykcji</li>
+<li>Nie zawsze wiemy kto i do czego będzie korzystał z modelu</li>
+<li>Zmieniając model wpływamy na działanie innych elementów systemu</li>
+</ul>
+<h3 id="kaskady-korekt">Kaskady korekt</h3>
+<ul>
+<li>System B korzysta z A, C z B, …</li>
+<li>Zmiana w jednym modelu wpływa na kolejne</li>
+<li>Brak synchronizacji w zmianach modeli
+<ul>
+<li>ważne żeby zespoły utrzymujące modele komunikowały się między
+sobą</li>
+</ul></li>
+</ul>
+<h3 id="ukryte-sprzężenia-zwrotne">Ukryte sprzężenia zwrotne</h3>
+<ul>
+<li>Działający model może wpływać na dane, na których będzie trenowany w
+przyszłości</li>
+<li>Sprzężenie może być wzmacniane przez inne systemy</li>
+</ul>
+<h2 id="pożądane-cechy-infrastruktury">Pożądane cechy
+infrastruktury</h2>
+<ul>
+<li>Dostęp do informacji diagnostycznych (logi)</li>
+<li>Automatyczna weryfikacja kluczowych miar i monitorowanie
+<ul>
+<li>właściwości danych</li>
+<li>zależności wejściowych</li>
+<li>jakość generowanych predykcji</li>
+<li>metryki techniczne</li>
+</ul></li>
+<li>Wdrożenia na części ruchu
+<ul>
+<li>przeprowadzanie testów A/B</li>
+</ul></li>
+<li>Szybkie wycofanie modelu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wdrożenia" id="toc-wdrożenia">Wdrożenia</a>
+<ul>
+<li><a href="#użycie-jednokrotne-vs-wdrożenie" id="toc-użycie-jednokrotne-vs-wdrożenie">Użycie jednokrotne vs
+wdrożenie</a></li>
+<li><a href="#środowisko-dynamiczne" id="toc-środowisko-dynamiczne">Środowisko dynamiczne</a></li>
+<li><a href="#typowe-składniki-systemu-korzystającego-z-um" id="toc-typowe-składniki-systemu-korzystającego-z-um">Typowe składniki
+systemu korzystającego z UM</a></li>
+<li><a href="#problemy-z-atrybutami-wejściowymi" id="toc-problemy-z-atrybutami-wejściowymi">Problemy z atrybutami
+wejściowymi</a>
+<ul>
+<li><a href="#niestabilne-atrybuty-wejściowe" id="toc-niestabilne-atrybuty-wejściowe">Niestabilne atrybuty
+wejściowe</a></li>
+<li><a href="#zanikające-korelacje" id="toc-zanikające-korelacje">Zanikające korelacje</a></li>
+<li><a href="#przecieki-informacji" id="toc-przecieki-informacji">Przecieki informacji</a></li>
+</ul></li>
+<li><a href="#problemy-z-atrybutami-wyjściowymi" id="toc-problemy-z-atrybutami-wyjściowymi">Problemy z atrybutami
+wyjściowymi</a>
+<ul>
+<li><a href="#użytkownicy-modelu" id="toc-użytkownicy-modelu">Użytkownicy modelu</a></li>
+<li><a href="#kaskady-korekt" id="toc-kaskady-korekt">Kaskady
+korekt</a></li>
+<li><a href="#ukryte-sprzężenia-zwrotne" id="toc-ukryte-sprzężenia-zwrotne">Ukryte sprzężenia zwrotne</a></li>
+</ul></li>
+<li><a href="#pożądane-cechy-infrastruktury" id="toc-pożądane-cechy-infrastruktury">Pożądane cechy
+infrastruktury</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

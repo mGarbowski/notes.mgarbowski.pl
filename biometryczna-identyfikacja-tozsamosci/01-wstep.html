@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wstep</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-odcisk-palca.html">Następny: 02-odcisk-palca.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wstęp">Wstęp</h1>
+<h2 id="znaczenie-pojęcia">Znaczenie pojęcia</h2>
+<ul>
+<li>Bios - życie, metros - pomiar
+<ul>
+<li>niesprecyzowany cel - np. diagnostyka medyczna, ekologia</li>
+</ul></li>
+<li>Biometria jako dział informatyki
+<ul>
+<li>pomiar własności anatomicznych lub własności zachowania
+człowieka</li>
+<li>określony cel - automatyczne rozpoznanie tożsamości</li>
+</ul></li>
+<li>Definicja - zastosowanie własności anatomicznych lub własności
+zachowania człowieka do automatycznego rozpoznania tożsamości
+<ul>
+<li>automatyczne - bez udziału eksperta</li>
+<li>może częściowo wykorzystywać doświadczenie ekspertów (np.
+daktyloskopii)</li>
+<li>możliwość braku nadzoru, konieczna duża szybkość, powtarzalność
+działania</li>
+</ul></li>
+<li>Własności anatomiczne lub zachowania
+<ul>
+<li>w odróżnieniu od innych składników uwierzytelniania (coś co mam, coś
+co wiem)</li>
+</ul></li>
+<li>Dotyczy człowieka (żywej osoby)
+<ul>
+<li>odporność na fałszerstwo - np. pokazanie zdjęcia itp</li>
+<li>testowanie żywotności, autentyczności - niezbędne do nazywania
+systemu biometrycznym</li>
+</ul></li>
+</ul>
+<h2 id="rozpoznanie-biometryczne">Rozpoznanie biometryczne</h2>
+<ul>
+<li>Pozytywne
+<ul>
+<li>weryfikacja hipotezy że próbka pochodzi od osoby znanej systemowi
+(zarejestrowanej)</li>
+</ul></li>
+<li>Negatywne
+<ul>
+<li>weryfikacja hipotezy że próbka pochodzi od osoby nieznanej systemowi
+(niezarejestrowanej)</li>
+</ul></li>
+</ul>
+<h2 id="schematy-uwierzytelniania">Schematy uwierzytelniania</h2>
+<ul>
+<li>Klasyczne
+<ul>
+<li>ustalenie tożsamości (identyfikacja) - porównanie 1:n</li>
+<li>potwierdzenie tożsamości (weryfikacja) - porównanie 1:1</li>
+</ul></li>
+<li>Nowe (wynikające z biometrii)
+<ul>
+<li>negatywne uwierzytelnienie
+<ul>
+<li>identyfikacja - nie należę do grupy X</li>
+<li>weryfikacja - nie jestem osobnikiem X</li>
+</ul></li>
+<li>eliminacja “wielokrotnych tożsamości”</li>
+</ul></li>
+</ul>
+<h2 id="pojęcia">Pojęcia</h2>
+<figure>
+<img src="./obrazy/pojecia.png" alt="Pojęcia" />
+<figcaption aria-hidden="true">Pojęcia</figcaption>
+</figure>
+<ul>
+<li>Obiekt - człowiek</li>
+<li>Obserwacja - pomiar
+<ul>
+<li>np. fotografia</li>
+</ul></li>
+<li>Charakterystyka lub właściwość biometryczna
+<ul>
+<li>dziedzina obserwacji</li>
+<li>wygląd twarzy, kształt dłoni itp.</li>
+</ul></li>
+<li>Modalność biometryczna
+<ul>
+<li>kombinacja charakterystyki i sposobu pomiaru i przetwarzania</li>
+<li>np. wygląd twarzy 3D, cechy termiczne dłoni w IR</li>
+</ul></li>
+<li>Próbka biometryczna - wynik obserwacji (pomiaru)
+<ul>
+<li>surowe lub wstępnie przetworzone dane pomiarowe</li>
+<li>np. obraz twarzy 3D, obraz dłoni 2D</li>
+</ul></li>
+<li>Cecha biometryczna
+<ul>
+<li>reprezentacja (zwykle skrócona) próbki biometrycznej</li>
+<li>np. odległości między punktami charakterystycznymi twarzy</li>
+<li>wyizolowanie trwałych i wyjątkowych elementów z obrazu - te które
+niosą dużo informacji</li>
+<li>nieodwracalne przekształcenie - zaleta bezpieczeństwa, mniej boli
+jak wycieknie wektor cech niż obraz twarzy</li>
+</ul></li>
+<li>Wzorzec biometryczny
+<ul>
+<li>dane referencyjne, które zachowujemy w bazie danych na potrzeby
+rozpoznawania biometrycznego</li>
+<li>częściowo zazębia się z cechą biometryczną +metadane</li>
+</ul></li>
+</ul>
+<h2 id="historia-automatycznych-systemów-biometrycznych">Historia
+automatycznych systemów biometrycznych</h2>
+<ul>
+<li>Lata 60-te
+<ul>
+<li>automatyczna identyfikacji na podstawie odcisku palca i
+rozpoznawania głosu</li>
+</ul></li>
+<li>Lata 70-te
+<ul>
+<li>geometria dłoni</li>
+</ul></li>
+<li>Lata 80-te
+<ul>
+<li>obraz siatkówki i podpis odręczny</li>
+</ul></li>
+<li>Lata 90-te
+<ul>
+<li>obraz tęczówki</li>
+</ul></li>
+<li>XXI wiek
+<ul>
+<li>zastosowanie na masową skalę</li>
+<li>biometryczne urządzenia przenośne</li>
+<li>brak wymagania kooperacji z użytkownikiem</li>
+</ul></li>
+</ul>
+<h2 id="podział-modalności">Podział modalności</h2>
+<h3 id="anatomiczne">Anatomiczne</h3>
+<ul>
+<li>Raczej statyczny pomiar, chwilowa obserwacja</li>
+<li>Raczej nie uwzględnia zależności czasowych</li>
+<li>Stosowane w praktyce
+<ul>
+<li>palec - odcisk, układ żył</li>
+<li>dłoń - geometria 2D/3D, termika, układ żył, odcisk</li>
+<li>twarz - geometria 2D/3D, termika</li>
+<li>oko - tęczówka, układ żył w naczyniówce lub białkówce
+(siatkówka)</li>
+</ul></li>
+<li>Możliwe do wykorzystania
+<ul>
+<li>DNA</li>
+<li>zapach</li>
+<li>ucho - geometria, termika</li>
+<li>palec - termika, geometria, struktura kanałów pod paznokciem</li>
+</ul></li>
+</ul>
+<h3 id="behawioralne">Behawioralne</h3>
+<ul>
+<li>Obserwacja akcji
+<ul>
+<li>najczęściej świadomej</li>
+</ul></li>
+<li>Obserwacja w czasie, dynamiczny pomiar</li>
+<li>Kluczowe są zależności czasowe</li>
+<li>Stosowane w praktyce
+<ul>
+<li>podpis odręczny</li>
+<li>głos - rozpoznawanie mówiącego (<strong>nie</strong> rozpoznawanie
+mowy)</li>
+<li>rytm uderzania w klawisze</li>
+</ul></li>
+<li>Możliwe do wykorzystania
+<ul>
+<li>fale EEG</li>
+<li>pismo odręczne</li>
+<li>oko - dynamika gałki ocznej, dynamika źrenicy</li>
+<li>sposób chodzenia</li>
+<li>ruch warg</li>
+<li>palec - rezonans opuszków</li>
+<li>skojarzenia</li>
+</ul></li>
+</ul>
+<h2 id="pożądane-własności-biometrii">Pożądane własności biometrii</h2>
+<h3 id="unikalność">Unikalność</h3>
+<ul>
+<li>Wysoka zawartość informacyjna</li>
+<li>Niezależne od genotypu, penetracji genetycznej
+<ul>
+<li>bliźniąt jednojajowych jest zaskakująco dużo!</li>
+</ul></li>
+<li>Hipoteza o unikalności cech jest uzasadniona tylko eksperymentalnie
+<ul>
+<li>nie ma matematycznego dowodu że bliźnięta jednojajowe będą miały
+różne tęczówki</li>
+</ul></li>
+<li>Tęczówka jest uważana za najmniej zależną od genotypu, twarz
+bardziej
+<ul>
+<li>DNA oczywiście nie spełnia kryterium</li>
+</ul></li>
+</ul>
+<h3 id="niezmienność-w-czasie">Niezmienność w czasie</h3>
+<ul>
+<li>Odporność na zmiany powodowane chorobami</li>
+<li>Problem starzenia się wzorców
+<ul>
+<li>spadająca jakość dopasowania pomiędzy próbkami, których pobranie
+jest oddalone w czasie (norma ISO)</li>
+<li>aktualne badania dają sprzeczne wnioski</li>
+<li>badania muszą być rozciągnięte na wiele lat</li>
+<li>sprzęt się zmienia w ciągu dekady</li>
+</ul></li>
+<li>Dowód osobisty i paszport jest ważny przez 10 lat</li>
+</ul>
+<h3 id="akceptacja-użytkowników">Akceptacja użytkowników</h3>
+<ul>
+<li>W celu zwiększenia wiarygodności, dla wygody użytkownika</li>
+<li>Brak wymogu współpracy - możliwe nadużycia</li>
+<li>Obawy społeczne, kulturowe, o prywatność</li>
+<li>Obawy zdrowotne (czy kamera nie uszkodzi wzroku)</li>
+<li>Ochrona danych osobowych</li>
+<li>Dane biometryczne wg. RODO są szczególnie wrażliwe</li>
+<li>Minimalna iwazyjność</li>
+<li>Nieufność do decyzji systemów opartych o UM</li>
+<li>Np. DNA - słabe pod tym kątem</li>
+</ul>
+<h3 id="odporność-na-fałszerstwa">Odporność na fałszerstwa</h3>
+<ul>
+<li>Zmiana własności naszego ciała niemożliwa lub ryzykowna</li>
+<li>Możliwość konstrukcji efektywnych testów autentyczności</li>
+</ul>
+<h3 id="możliwość-realizacji-technicznej">Możliwość realizacji
+technicznej</h3>
+<ul>
+<li>Łatwość obserwacji i pomiaru</li>
+<li>Powtarzalność obserwacji i pomiaru</li>
+<li>Powszechność własności biometrycznych</li>
+<li>Niski koszt budowy urządzeń</li>
+</ul>
+<h2 id="tryby-pracy">Tryby pracy</h2>
+<h3 id="rejestracja">Rejestracja</h3>
+<ul>
+<li><em>Enrollment</em></li>
+<li>Wygenerowanie i zapamiętanie wzorca biometrycznego
+<ul>
+<li>np. wizyta w urzędzie w celu wyrobienia paszportu</li>
+</ul></li>
+<li>Trwa dłużej i jest bardziej skomplikowana</li>
+<li>Nadzorowana przez człowieka
+<ul>
+<li>albo interfejs z instrukcjami</li>
+</ul></li>
+<li>Wielokrotny pomiar
+<ul>
+<li>zaostrzona kontrola jakości próbek w celu uzyskania
+reprezentatywnych danych</li>
+<li>robi się raz na dłuższy czas, trzeba zadbać o jakość</li>
+</ul></li>
+<li>Przetwarzanie surowych danych i utworzenie wzorca
+<ul>
+<li>kontrola spójności cech biometrycznych</li>
+</ul></li>
+<li>Powiązanie danych biometrycznych z pozostałymi danymi osobowymi</li>
+<li>Zapis wzorców biometrycznych w bazie danych lub na indywidualnym
+nośniku danych</li>
+</ul>
+<h3 id="uwierzytelnienie">Uwierzytelnienie</h3>
+<ul>
+<li>Wykorzystanie zachowanego wzorca i aktualnie wyznaczonych cech do
+potwierdzenia lub ustalenia tożsamości
+<ul>
+<li>np. bramka na lotnisku</li>
+</ul></li>
+<li>Bez nadzoru człowieka</li>
+<li>Odczytanie wzorca biometrycznego z bazy danych (innego nośnika)</li>
+<li>Najczęściej jednokrotny pomiar
+<ul>
+<li>ma być szybciej</li>
+<li>test żywotności / autentyczności</li>
+<li>kontrola jakości</li>
+</ul></li>
+<li>Przetwarzanie surowych danych, wyznaczenie cech</li>
+<li>Wyznaczenie dopasowania</li>
+<li>Decyzja
+<ul>
+<li>porównaniu wyniku dopasowania z progiem zgodności</li>
+</ul></li>
+</ul>
+<h2 id="decyzje-systemu-biometrycznego">Decyzje systemu
+biometrycznego</h2>
+<ul>
+<li>Błędy metod biometrycznych
+<ul>
+<li>błędne niedopasowanie (<em>false non-match</em>)</li>
+<li>błędne dopasowanie (<em>false match</em>)</li>
+</ul></li>
+<li>Stopień dopasowania / podobieństwa
+<ul>
+<li>miara podobieństwa weryfikowanej próbki ze wzorcem</li>
+</ul></li>
+<li>Decyzja
+<ul>
+<li>dopasowanie (<em>match</em>) lub niedopasowanie
+(<em>non-match</em>)</li>
+<li>na podstawie progu decyzyjnego</li>
+<li>próg ustalony dla danego urządzenia / systemu</li>
+</ul></li>
+</ul>
+<h2 id="aproksymacja-prawdopodobieństw-błędów">Aproksymacja
+prawdopodobieństw błędów</h2>
+<figure>
+<img src="./obrazy/rodzaje-bledow.png"
+alt="Wykres gęstości prawdopodobieństwa" />
+<figcaption aria-hidden="true">Wykres gęstości
+prawdopodobieństwa</figcaption>
+</figure>
+<h3 id="stopień-fałszywych-niedopasowań">Stopień fałszywych
+niedopasowań</h3>
+<ul>
+<li><em>False non-match rate</em> (FNMR)</li>
+<li>Niebieskie na obrazku</li>
+<li>Jeśli znamy <span class="math inline">\(g\)</span> - <span
+class="math inline">\(g_{FNM}(c_0) = \int^{c_0}_{-\infty}
+g(c)dc\)</span></li>
+<li>Jeśli nie znamy <span class="math inline">\(\hat{g}_{FNM}(c_0) =
+FNMR(c_0)\)</span> - stosunek
+<ul>
+<li>liczba fałszywych niedopasowań dla <span
+class="math inline">\(c_0\)</span> / liczba wszystkich porównań w
+próbie</li>
+</ul></li>
+</ul>
+<h3 id="stopień-fałszywych-dopasowań">Stopień fałszywych dopasowań</h3>
+<ul>
+<li><em>False match rate</em> (FMR)</li>
+<li>Czerwone na obrazku</li>
+<li>Jeśli znamy <span class="math inline">\(f\)</span> - <span
+class="math inline">\(f_{FM}(c_0) = \int^{\infty}_{c_0}
+f(c)dc\)</span></li>
+<li>Jeśli nie znamy - <span class="math inline">\(\hat{f}_{FM}(c_0) =
+FMR(c_0)\)</span> - stosunek
+<ul>
+<li>liczba fałszywych dopasowań dla <span
+class="math inline">\(c_0\)</span> / liczba wszystkich porównań w
+próbie</li>
+</ul></li>
+</ul>
+<h3 id="podstawowe-wskaźniki-oceny">Podstawowe wskaźniki oceny</h3>
+<figure>
+<img src="./obrazy/krzywe-bledow.png" alt="Krzywe błędów" />
+<figcaption aria-hidden="true">Krzywe błędów</figcaption>
+</figure>
+<ul>
+<li><span class="math inline">\(FTA\)</span> - stopień nieudanych
+pomiarów (<em>Failure To Acquire</em>)</li>
+<li><span class="math inline">\(FTE\)</span> - stopień odrzuconych
+rejestracji (<em>Failure To Enroll</em>)</li>
+<li><span class="math inline">\(FMR\)</span>/<span
+class="math inline">\(FNMR\)</span> - dla danego punktu pracy (progu
+decyzyjnego)</li>
+<li><span class="math inline">\(EER\)</span> - błąd zrównoważony
+(<em>Equal Error Rate</em>)</li>
+<li><span class="math inline">\(ZeroFNMR\)</span> - najmniejszy <span
+class="math inline">\(FMR\)</span>, dla którego <span
+class="math inline">\(FNMR=0\)</span></li>
+<li><span class="math inline">\(ZeroFMR\)</span> - najmniejszy <span
+class="math inline">\(FNMR\)</span> dla którego <span
+class="math inline">\(FMR=0\)</span></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a>
+<ul>
+<li><a href="#znaczenie-pojęcia" id="toc-znaczenie-pojęcia">Znaczenie
+pojęcia</a></li>
+<li><a href="#rozpoznanie-biometryczne" id="toc-rozpoznanie-biometryczne">Rozpoznanie biometryczne</a></li>
+<li><a href="#schematy-uwierzytelniania" id="toc-schematy-uwierzytelniania">Schematy uwierzytelniania</a></li>
+<li><a href="#pojęcia" id="toc-pojęcia">Pojęcia</a></li>
+<li><a href="#historia-automatycznych-systemów-biometrycznych" id="toc-historia-automatycznych-systemów-biometrycznych">Historia
+automatycznych systemów biometrycznych</a></li>
+<li><a href="#podział-modalności" id="toc-podział-modalności">Podział
+modalności</a>
+<ul>
+<li><a href="#anatomiczne" id="toc-anatomiczne">Anatomiczne</a></li>
+<li><a href="#behawioralne" id="toc-behawioralne">Behawioralne</a></li>
+</ul></li>
+<li><a href="#pożądane-własności-biometrii" id="toc-pożądane-własności-biometrii">Pożądane własności biometrii</a>
+<ul>
+<li><a href="#unikalność" id="toc-unikalność">Unikalność</a></li>
+<li><a href="#niezmienność-w-czasie" id="toc-niezmienność-w-czasie">Niezmienność w czasie</a></li>
+<li><a href="#akceptacja-użytkowników" id="toc-akceptacja-użytkowników">Akceptacja użytkowników</a></li>
+<li><a href="#odporność-na-fałszerstwa" id="toc-odporność-na-fałszerstwa">Odporność na fałszerstwa</a></li>
+<li><a href="#możliwość-realizacji-technicznej" id="toc-możliwość-realizacji-technicznej">Możliwość realizacji
+technicznej</a></li>
+</ul></li>
+<li><a href="#tryby-pracy" id="toc-tryby-pracy">Tryby pracy</a>
+<ul>
+<li><a href="#rejestracja" id="toc-rejestracja">Rejestracja</a></li>
+<li><a href="#uwierzytelnienie" id="toc-uwierzytelnienie">Uwierzytelnienie</a></li>
+</ul></li>
+<li><a href="#decyzje-systemu-biometrycznego" id="toc-decyzje-systemu-biometrycznego">Decyzje systemu
+biometrycznego</a></li>
+<li><a href="#aproksymacja-prawdopodobieństw-błędów" id="toc-aproksymacja-prawdopodobieństw-błędów">Aproksymacja
+prawdopodobieństw błędów</a>
+<ul>
+<li><a href="#stopień-fałszywych-niedopasowań" id="toc-stopień-fałszywych-niedopasowań">Stopień fałszywych
+niedopasowań</a></li>
+<li><a href="#stopień-fałszywych-dopasowań" id="toc-stopień-fałszywych-dopasowań">Stopień fałszywych
+dopasowań</a></li>
+<li><a href="#podstawowe-wskaźniki-oceny" id="toc-podstawowe-wskaźniki-oceny">Podstawowe wskaźniki oceny</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

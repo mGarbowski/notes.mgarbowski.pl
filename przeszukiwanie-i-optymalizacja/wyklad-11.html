@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10.html">Poprzedni: wyklad-10.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1
+id="adaptacja-i-samoczynna-adaptacja-parametrów-ae-2025-01-15">Adaptacja
+i samoczynna adaptacja parametrów AE (2025-01-15)</h1>
+<p>Co to znaczy że algorytm działa lepiej Mówimy o algorytmach, które
+służą do zadań, gdzie nie jesteśmy w stanie uzyskać dokładnych rozwiązań
+w sensownym czasie To są generalnie metody drugiego wyboru Jeśli zadanie
+ma wiele optimów lokalnych to sięgamy po metody heurystyczne</p>
+<p>Jak wykreślimy krzywe ECDF, ułamek poziomów ambicji osiągniętych
+przez algorytm w określonym czasie stosunkowo szybko narasta</p>
+<p>Ustawienie parametrów nie jest oczywiste, a istotnie wpływa na
+efektywność metody optymalizacyjnej</p>
+<p>Nie wiadomo z góry jakie wybrać parametry dla np. algorytmu
+ewolucyjnego bardziej miękkie vs bardziej twarde warianty selekcji
+mniejsze szranki - większa odporność na optima lokalne ale mniejsza
+precyzja pamiętać jak działą selekcja progowa! przy selekcji
+proporcjonalnej możemy dodać dużą stałą do wszystkich wartości funkcji
+celu - zmniejszając ruchliwość i uodparniając na optima lokalne</p>
+<p>wpływ siły mutacji na krzywą ecdf</p>
+<p>są pewne intuicje ale nie ma analitycznych rozwiązań</p>
+<h2 id="różnica-między-algorytmem-i-programem">Różnica między algorytmem
+i programem</h2>
+<ul>
+<li>maszynowe reprezentacje liczb rzeczywistych</li>
+<li>błędy implementacyjne</li>
+<li>realizacja rozkładów prawdopodobieństwa - w praktyce rozkład
+normalny jest obcięty</li>
+<li>poprawność programu nie może się opierać na asymptotycznych
+zależnościach</li>
+</ul>
+<p>unikanie nadmiernego dopasowanie - nie można tego zakładać w
+algorytmach optymalizacji</p>
+<p>Rozważany algorytm populacja lambda wybieramy mi najlepszych następny
+punkt roboczy to średnia z mi najlepszych</p>
+<p>[[Pasted image 20250124172803.png]]</p>
+<p>odcinek step-size too large na wykresie - algorytm jest w okolicy
+optimum, ale przez dużą siłę mutacji kręci się po otoczeniu optimum</p>
+<p>odcinek step-size too small - daleko od optimum, mała siła mutacji
+powoduje powolne zmierzanie w stronę optimum</p>
+<p>potrzeba jakiejś reguły do adaptacji siły mutacji (zwiększenia zbyt
+małego kroku i zmniejszenia zbyt dużego) możemy porównać średnie
+wartości funkcji celu w kolejnych iteracjach możemy wyliczyć iloraz
+różnicowy</p>
+<p>i przy za dużym kroku i przy za małym są wypłaszczenia krzywej
+zbieżności</p>
+<p>Znane strategie</p>
+<h2 id="strategia-oparta-o-wartość-funkcji-celu">Strategia oparta o
+wartość funkcji celu</h2>
+<p>Daleko od optimum i mały krok - porządany jest większy krok połowa
+punktów mutantów będzie lepsza, a połowa gorsza (średnio) - należy
+zwiększać zasięg mutacji</p>
+<p>Blisko optimum - większość nowych punktów będzie gorsza - należy
+zmniejszyć zasięg mutacji</p>
+<p>Reguła 1/5 liczby sukcesów - wartość progu została wyznaczona
+empirycznie pierwotnie dla ES-(1+1) (algorytm wspinaczkowy) liczymy
+proporcję zakończonych sukcesem mutacji (liczby punktów lepszych od
+punktu środkowego)</p>
+<p>PPMF - współczesny odpowiednik</p>
+<h2 id="algorytm-csa">Algorytm CSA</h2>
+<p>Reguła adaptacji oparta o kierunek</p>
+<p>m - punkt środkowy</p>
+<p>wektor <span class="math inline">\(p_\sigma\)</span> - zakumulowany
+wektor przesunięcia punktu środkowego <span
+class="math inline">\(\Delta\)</span> - średni wektor, który doprowadził
+do poprawy w zalezności od długości wektora <span
+class="math inline">\(p_\sigma\)</span> krok wzrasta lub maleje</p>
+<p>przy stałej funkcji celu (lub bardzo gęstym sinusie) mutanty
+generowane rozkładem normalnym, nie ma związku między oddaleniem od
+punktu środkowego a jakością mutanta z chmury mutantów którykolwiek może
+być lepszy uśredniamy je rozkład uśrednionego <span
+class="math inline">\(\Delta\)</span> - średnia z <span
+class="math inline">\(\mu\)</span> realizacji rozkładu standardowego
+<span class="math inline">\(\Delta \sim N(0, \frac{1}{\mu} I) \implies
+\sqrt{\mu} \Delta \sim N(0, I)\)</span></p>
+<p>p jest średnią ważoną dwóch zmiennych o rozkładzie normalnym
+standaryzowanym Współczynniki uśredniania są tak dobrane że wynik też
+jest zmienną o rozkładzie nromalnym ustandaryzowanym to wszystko przy
+założeniu że rozkład mutantów ma właściwość szumu</p>
+<p>Wartość oczekiwana ilorazu w przedostatniej linijce ma wartość
+oczekiwaną 1 odejmujemy 1 więc równie często będzie dodatny wykładnik co
+ujemny</p>
+<h3 id="sytuacja-z-kwadratową-funkcją-celu">Sytuacja z kwadratową
+funkcją celu</h3>
+<p>Punkt zaczyna daleko od optimum wektory d będą zgodne ze sobą - w
+stronę optimum wektor <span class="math inline">\(p_\sigma\)</span>
+będzie się wydłużać, iloraz będzie częściej większy od 1 więc <span
+class="math inline">\(\sigma\)</span> częściej będzie się zwiększać</p>
+<p>Kiedy m pokrywa się z optimum lokalnym <span
+class="math inline">\(\Delta\)</span> zbliża się do 0 do <span
+class="math inline">\(p_\sigma\)</span> są akumulowane wartości bliskie
+0 częściej <span class="math inline">\(\sigma\)</span> będzie
+zmniejszana</p>
+<h3 id="zdolność-przeskakiwania-dołków">Zdolność przeskakiwania
+dołków</h3>
+<p>Blisko optimum zacznie wygaszać zasięg mutacji Algorytm da radę
+wyskoczyć z optimum lokalnego jeśli będzie wystarczająco rozpędzony i
+nie zdąży wygasić na tyle zasięgu mutacji</p>
+<h2 id="metoda-najszybszego-wzrostu">Metoda najszybszego wzrostu</h2>
+<p>Dodajemy do punktu roboczego przeskalowany gradient w punkcie
+Wymnożenie gradientu przez odwrotność hesjanu daje kierunek, który dla
+funkcji kwadratowej przechodzi przez optimum</p>
+<p>Trudne zadania, które są gradientowe - uczenie sieci neuronowych
+można obliczyć gradient funkcji straty w sposób analityczny</p>
+<p>metoda wstecznej propagacji błędu to po prostu metoda najszybszego
+wzrostu</p>
+<h2 id="metoda-momentum">Metoda momentum</h2>
+<p>metoda momentum - krok wynikający z gradientu jest akumulowany
+zachowuje się jakby zachowywał pęd</p>
+<h2 id="metoda-adam">Metoda Adam</h2>
+<h3 id="metody-zmiennej-metryki">Metody zmiennej metryki</h3>
+<p>Alternatywa do metody Newtona (z mnożeniem przez odwrotność hesjanu)
+nie ma sensu algorytm gdzie odwraca się macierz 10k x 10k stosuje się
+metody zmiennej metryki (BFGS, DFP) do szacowania odwrotności hesjanu
+(hesjan to intuicyjnie gradient gradientu)</p>
+<h3 id="adam">Adam</h3>
+<p>x jest przesuwany wektorem m dzielenie wektorowe - po współrzędnych
+epsilon to maly szum losowy v to czynnik normujący m i v od mean i
+variance (przez analogię)</p>
+<p>m to zakumulowany wektor gradientu (wypadkowa między poprzednim i
+aktualnym) v to zakumulowany wektor kwadratu wektora gradientu - wartość
+kwadratów współrzędnych wektora</p>
+<p>jak kierunki są zgodne to przyspiesza w tym kierunku jeśli kierunki
+niezgodne, to deformuje wektor gradientu podobnie do odwrotności
+hesjanu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#adaptacja-i-samoczynna-adaptacja-parametrów-ae-2025-01-15" id="toc-adaptacja-i-samoczynna-adaptacja-parametrów-ae-2025-01-15">Adaptacja
+i samoczynna adaptacja parametrów AE (2025-01-15)</a>
+<ul>
+<li><a href="#różnica-między-algorytmem-i-programem" id="toc-różnica-między-algorytmem-i-programem">Różnica między algorytmem
+i programem</a></li>
+<li><a href="#strategia-oparta-o-wartość-funkcji-celu" id="toc-strategia-oparta-o-wartość-funkcji-celu">Strategia oparta o
+wartość funkcji celu</a></li>
+<li><a href="#algorytm-csa" id="toc-algorytm-csa">Algorytm CSA</a>
+<ul>
+<li><a href="#sytuacja-z-kwadratową-funkcją-celu" id="toc-sytuacja-z-kwadratową-funkcją-celu">Sytuacja z kwadratową
+funkcją celu</a></li>
+<li><a href="#zdolność-przeskakiwania-dołków" id="toc-zdolność-przeskakiwania-dołków">Zdolność przeskakiwania
+dołków</a></li>
+</ul></li>
+<li><a href="#metoda-najszybszego-wzrostu" id="toc-metoda-najszybszego-wzrostu">Metoda najszybszego
+wzrostu</a></li>
+<li><a href="#metoda-momentum" id="toc-metoda-momentum">Metoda
+momentum</a></li>
+<li><a href="#metoda-adam" id="toc-metoda-adam">Metoda Adam</a>
+<ul>
+<li><a href="#metody-zmiennej-metryki" id="toc-metody-zmiennej-metryki">Metody zmiennej metryki</a></li>
+<li><a href="#adam" id="toc-adam">Adam</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

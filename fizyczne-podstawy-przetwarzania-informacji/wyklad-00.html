@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-00</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-03.html">Poprzedni: kolokwium-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-01.html">Następny: wyklad-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyczne podstawy przetwarzania informacji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="kolokwium-03.html">kolokwium-03.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2025-02-21</h1>
+<h2 id="organizacja">Organizacja</h2>
+<ul>
+<li>Kanał na teams
+<ul>
+<li>instrukcje do labów</li>
+</ul></li>
+<li>Do Firka komunikacja przez maila</li>
+<li>Wszystkie kwestie związane z labami do Walczaka</li>
+<li>Na kanale teams pojawi się jakieś rozwiązanie do zapisu do grup</li>
+<li>5 labów po 3h
+<ul>
+<li>laby po 5pkt</li>
+<li>zaliczenie od 1pkt</li>
+</ul></li>
+<li>3 kolokwia
+<ul>
+<li>13, 13, 14 pkt</li>
+<li>betony nie są dobre</li>
+<li>będą podane zagadnienia</li>
+<li>można zdobyć bonus</li>
+<li>nie będzie zadań obliczeniowych</li>
+</ul></li>
+<li>Zaliczenie
+<ul>
+<li>min 20pkt z kolosów</li>
+<li>min 13pkt z labów</li>
+<li>zaliczone co najmniej 4 laby</li>
+<li>piątka od 57/65</li>
+</ul></li>
+<li>Laboratorium
+<ul>
+<li>277, 279, 281 - zobaczymy bo teraz jest remont</li>
+<li>2 osobowe</li>
+<li>mikro wykład</li>
+<li>sprawozdanie robione na bieżąco</li>
+<li>wejściówka/wyjściówka</li>
+</ul></li>
+<li>Sprawozdania
+<ul>
+<li>warto mieć wydrukowany szablon</li>
+<li>wykresy na papierze milimetrowym</li>
+<li>obliczenia - podane wzory</li>
+<li>nie przyjmować wyniku kalkulatora bez refleksji - myśleć nad
+sensownymi rzędami wielkości</li>
+</ul></li>
+<li>Instrukcje do labów są kompletne i wystarczające do opanowania
+labów</li>
+<li>Książka podstawy elektroniki półprzewodnikowej Henla - polecana</li>
+<li>Będzie sporo wzorów na slajdów ale nie trzeba będzie ich znać</li>
+</ul>
+<h2 id="wstęp">Wstęp</h2>
+<p>Intuicja dla skali - grubość włosa - ok 50um, 1nm - ok 2 atomy</p>
+<p>Kropka kwantowa - fragment materii, grupa atomów, ciekawe właściwości
+z punktu widzenia mechaniki kwantowej, może uwięzić elektron, wyemitować
+kwant energii (100-1000 atomów)</p>
+<h2 id="próżnia">Próżnia</h2>
+<ul>
+<li>Idealistycznie - przestrzeń wolna od jakiejkolwiek materii</li>
+<li>Realistycznie - przestrzeń wolna od cząstek czy substancji, będących
+pierwiastkami lub związkami chemicznymi, …</li>
+<li>Współczesne procesy technologiczne wymagają próżni</li>
+<li>Próżnia to niskie ciśnienie</li>
+<li>Jednostki ciśnienia
+<ul>
+<li>atmosfera</li>
+<li>paskal</li>
+<li>tor</li>
+<li>mm Hg</li>
+</ul></li>
+<li>Klasyfikacja próżni
+<ul>
+<li>niska</li>
+<li>średnia</li>
+<li>wysoka</li>
+<li>bardzo wysoka</li>
+<li>ultrawysoka</li>
+</ul></li>
+<li>Jak jest obniżone ciśnienie to w przestrzeni jest mniej cząstek
+<ul>
+<li>cząstki rzadziej się zderzają</li>
+<li>droga swobodna <span class="math inline">\(\lambda_0\)</span> -
+statystycznie przebyta przez cząstkę między zderzeniami</li>
+<li>to jest istotne przy produkcji procesorów - strzela się atomami w
+płytki - nie powinien się zderzać po drodze</li>
+</ul></li>
+<li>Wykorzystuje się w
+<ul>
+<li>oświetleniu (żarówki)</li>
+<li>tomografia, rentgen</li>
+</ul></li>
+</ul>
+<h2 id="krzem">Krzem</h2>
+<ul>
+<li>Powszechnie dostępny
+<ul>
+<li>25% litosfery</li>
+</ul></li>
+<li>Jan Czochralski
+<ul>
+<li>metoda wytwarzania monokryształu krzemu</li>
+</ul></li>
+<li>Krystalografia
+<ul>
+<li>w zależności od tego w której osi się przetnie kryształ to ma różne
+właściwości</li>
+</ul></li>
+<li>Podłoże
+<ul>
+<li>rozróżnia się wafle po tym z której strony są ścięte</li>
+</ul></li>
+<li>Procesor
+<ul>
+<li>piach -&gt; oczyszczony krzem</li>
+<li>kryształ krzemu</li>
+<li>wafle krzemu</li>
+<li>dodawanie warstw, wytwarzanie kształtów, usuwanie reszty - tysiące
+razy</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2025-02-21</a>
+<ul>
+<li><a href="#organizacja" id="toc-organizacja">Organizacja</a></li>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a></li>
+<li><a href="#próżnia" id="toc-próżnia">Próżnia</a></li>
+<li><a href="#krzem" id="toc-krzem">Krzem</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

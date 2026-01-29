@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-powierzchnie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-podstawy-animacji.html">Poprzedni: 04-podstawy-animacji.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-barwy.html">Następny: 06-barwy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="powierzchnie">Powierzchnie</h1>
+<h2 id="modele-powierzchniowe">Modele powierzchniowe</h2>
+<ul>
+<li>Reprezentacja obiektu 3D za pomocą powierzchni brzegowych</li>
+<li>Każdy punkt na powierzchni opisany parametrycznie <span
+class="math inline">\(P(u,v)\)</span></li>
+<li>Cechy
+<ul>
+<li>dokładny opis matematyczny</li>
+<li>dobre właściwości krzywizn</li>
+<li>definicja z wykorzystaniem punktów sterujących</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>powierzchnie Beziera</li>
+<li>B-spline</li>
+<li>NURBS</li>
+</ul></li>
+</ul>
+<h3 id="powierzchnie-beziera">Powierzchnie Beziera</h3>
+<ul>
+<li>Powierzchnię Beziera opisują dwa zbiory krzywych Bezeira
+prowadzonych w płaszczyznach prostopadłych do siebie</li>
+<li>Opis położenia punktu
+<ul>
+<li><span class="math inline">\(P(u,v) = \sum_{j=0}^m\sum_{k=0}^n
+p_{j,k} B_{j,m}(v) B_{k,n}(u)\)</span></li>
+<li><span class="math inline">\(p_{j,k}\)</span> - punkty sterujące</li>
+<li><span class="math inline">\(B_{j,m}(v) B_{k,n}(u)\)</span> - funkcje
+bazowe</li>
+</ul></li>
+<li>Łatwa modyfikacja kształtu powierzchni
+<ul>
+<li>położenie punktów sterujących</li>
+</ul></li>
+<li>Model często składa się z kilku części
+<ul>
+<li>płaty Beziera - zwykle 16 punktów sterujących</li>
+</ul></li>
+</ul>
+<h3 id="powierzchnie-określone-niejawnie-uwikłane">Powierzchnie
+określone niejawnie (uwikłane)</h3>
+<ul>
+<li>Zbiór punktów będących miejscami zerowymi pewnej funkcji F - pola
+gęstości</li>
+<li>Konieczność znajdowania jawnej reprezentacji, w celu np. narysowania
+jej
+<ul>
+<li>obliczenie wartości F dla punktów siatki, której wierzchołki to
+miejsca zerowe F</li>
+<li>interpolacja funkcji wzdłuż krawędzi siatki - szukanie przybliżonych
+punktów przecięcia krawędzi z powierzchnią zadaną niejawnie</li>
+<li>tworzenie trójkątów o wierzchołkach na krawędziach</li>
+</ul></li>
+<li>Kategorie powierzchni
+<ul>
+<li>algebraiczne</li>
+<li>niealgebraiczne - reprezentacja za pomocą zbioru cząstek</li>
+</ul></li>
+<li>Gładkie łączenia</li>
+<li>Wysoki koszt obliczeń</li>
+</ul>
+<h2 id="metakule">Metakule</h2>
+<ul>
+<li>ang. metaballs
+<ul>
+<li>punkt środkowy <span class="math inline">\(C\)</span></li>
+<li>promień oddziaływania <span class="math inline">\(R\)</span></li>
+<li>funkcja gęstości <span class="math inline">\(f\)</span></li>
+<li>wartość progowa <span class="math inline">\(T\)</span></li>
+</ul></li>
+<li>Punkty należące spełniają <span
+class="math inline">\(f(\frac{r}{R})-T=0\)</span>
+<ul>
+<li><span class="math inline">\(r\)</span> - odległość punktu od środka
+metakuli</li>
+</ul></li>
+<li>Często używana funkcja gęstości (Wyvil)
+<ul>
+<li><span
+class="math inline">\(f(s)=1-\frac{4}{9}s^6+\frac{17}{4}s^4-\frac{22}{9}s^2\)</span></li>
+</ul></li>
+<li>Łączenie
+<ul>
+<li>każda cząstka to kula o pewnej funkcji gęstości</li>
+<li>gdy cząstki zbliżają się do siebie, ich gęstości dodają się</li>
+</ul></li>
+</ul>
+<h2 id="metoda-kolejnych-podziałów">Metoda kolejnych podziałów</h2>
+<ul>
+<li>Metody służące do tworzenia gładkich krzywych i powierzchni</li>
+<li>Coś pomiędzy dyskretnymi powierzchniami (siatki trójkątów), a
+ciągłymi powierzchniami</li>
+<li>Krzywe
+<ul>
+<li>podejście aproksymacyjne - obcinanie wierzchołków</li>
+<li>podejście interpolacyjne - zachowanie wierzchołków początkowych</li>
+</ul></li>
+</ul>
+<h3 id="obcinanie-rogów">Obcinanie rogów</h3>
+<p><img src="./obrazy/obcinanie-rogow.png" /></p>
+<ul>
+<li>Algorytm iteracyjny</li>
+<li>W każdej iteracji odcinane są rogi wielokąta</li>
+<li>Powstaje nowy wielokąt posiadający 2 razy więcej wierzchołków</li>
+<li>Schemat podziałów Chaikina
+<ul>
+<li><span class="math inline">\(p_{2i}^{k+1} = \frac{3}{4}p_i^k +
+\frac{1}{4}p_{i+1}^k\)</span></li>
+<li><span class="math inline">\(p_{2i+1}^{k+1} = \frac{1}{4} p_i^k +
+\frac{3}{4} p_{i+1}^k\)</span></li>
+</ul></li>
+</ul>
+<h3 id="podejście-interpolacyjne">Podejście interpolacyjne</h3>
+<p><img src="./obrazy/podejscie-interpolacyjne.png" /> * Schemat
+podziałów * <span class="math inline">\(p_{2i}^{k+1} = p_i^k\)</span> *
+<span class="math inline">\(p_{2i+1}^{k+1} = (\frac{1}{2} +
+2)(p_i^k+p_{i+1}^k) - w(p_{i-1}^k+p_{i+2}^k)\)</span> * <span
+class="math inline">\(w\)</span> - parametr naprężenia * <span
+class="math inline">\(w=0\)</span> - interpolacja liniowa</p>
+<h3 id="podział-powierzchni">Podział powierzchni</h3>
+<ul>
+<li>Faza udoskonalenia siatki
+<ul>
+<li>tworzenie nowych wierzchołków</li>
+<li>łączenia w celu stworzenia nowych trójkątów</li>
+</ul></li>
+<li>Faza wygładzania
+<ul>
+<li>obliczanie nowych pozycji dla niektórych/wszystkich
+wierzchołków</li>
+</ul></li>
+</ul>
+<h3 id="wierzchołki">Wierzchołki</h3>
+<ul>
+<li>Stopień wierzchołka - liczba przylegających krawędzi</li>
+<li>Siatka regularna - wszystkie stopnie wierzchołków są takie same</li>
+</ul>
+<h3 id="podział-loopa">Podział Loop’a</h3>
+<ul>
+<li>Każdy trójkąt generuje 4 nowe trójkąty przy podziale</li>
+<li>Zasady podziału
+<ul>
+<li><span class="math inline">\(p^{k+1} = (1-n\beta)p^k + \beta(p_0^k +
+\ldots + p_{n-1}^k)\)</span></li>
+<li><span class="math inline">\(p_i^{k+1} =
+\frac{1}{8}(3p^k+3p_i^k+p_{i-1}^k+p_{i+1}^k)\)</span></li>
+<li><span class="math inline">\(i=0 \ldots n-1\)</span></li>
+</ul></li>
+<li><span class="math inline">\(p^{k+1}\)</span> - obecny
+wierzchołek</li>
+<li><span class="math inline">\(p_i^{k+1}\)</span> - nowy wierzchołek
+pomiędzy <span class="math inline">\(p^k\)</span> i każdym z <span
+class="math inline">\(p_i^k\)</span></li>
+<li><span class="math inline">\(n\)</span> - stopień wierzchołka</li>
+<li>Obliczenia modulo <span class="math inline">\(n\)</span></li>
+<li>Stała <span class="math inline">\(\beta(n) = \frac{1}{n}(\frac{5}{8}
+- \frac{(3+2\cos(\frac{2\pi}{n}))^2}{64})\)</span></li>
+</ul>
+<h3 id="catmull-clark">Catmull-clark</h3>
+<p><img src="./obrazy/catmull-clark.png" /></p>
+<ul>
+<li>Potrafi dzielić siatki wielokątów</li>
+<li>Schemat podziału generuje tylko face’y z 4 wierzchołkami</li>
+<li>Dla każdego face’a generuje centroid <span
+class="math inline">\(f_j^{k+1}\)</span></li>
+<li><span class="math inline">\(v^{k+1} = \frac{n-2}{n}v^k +
+\frac{1}{n^2} \sum_{j=0}^{n-1}e_j^k +
+\frac{1}{n^2}\sum_{j=0}^{n-1}f_j^{k+1}\)</span></li>
+<li><span class="math inline">\(e_j^{k+1} =
+\frac{1}{4}(v^k+e_j^k+f_{j-1}^{k+1} + f_j^{k+1})\)</span></li>
+<li><span class="math inline">\(v\)</span> - wierzchołek</li>
+<li><span class="math inline">\(e\)</span> - punkt na krawędzi</li>
+<li><span class="math inline">\(n\)</span> - liczba sąsiadów</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#powierzchnie" id="toc-powierzchnie">Powierzchnie</a>
+<ul>
+<li><a href="#modele-powierzchniowe" id="toc-modele-powierzchniowe">Modele powierzchniowe</a>
+<ul>
+<li><a href="#powierzchnie-beziera" id="toc-powierzchnie-beziera">Powierzchnie Beziera</a></li>
+<li><a href="#powierzchnie-określone-niejawnie-uwikłane" id="toc-powierzchnie-określone-niejawnie-uwikłane">Powierzchnie
+określone niejawnie (uwikłane)</a></li>
+</ul></li>
+<li><a href="#metakule" id="toc-metakule">Metakule</a></li>
+<li><a href="#metoda-kolejnych-podziałów" id="toc-metoda-kolejnych-podziałów">Metoda kolejnych podziałów</a>
+<ul>
+<li><a href="#obcinanie-rogów" id="toc-obcinanie-rogów">Obcinanie
+rogów</a></li>
+<li><a href="#podejście-interpolacyjne" id="toc-podejście-interpolacyjne">Podejście interpolacyjne</a></li>
+<li><a href="#podział-powierzchni" id="toc-podział-powierzchni">Podział
+powierzchni</a></li>
+<li><a href="#wierzchołki" id="toc-wierzchołki">Wierzchołki</a></li>
+<li><a href="#podział-loopa" id="toc-podział-loopa">Podział
+Loop’a</a></li>
+<li><a href="#catmull-clark" id="toc-catmull-clark">Catmull-clark</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

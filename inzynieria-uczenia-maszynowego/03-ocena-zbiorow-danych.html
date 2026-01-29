@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-ocena-zbiorow-danych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-zadania-modelowania.html">Poprzedni: 02-zadania-modelowania.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-atrybuty.html">Następny: 04-atrybuty.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="ocena-zbiorów-danych">Ocena zbiorów danych</h1>
+<h2 id="czy-zbiór-danych-uczących-jest-odpowiedni">Czy zbiór danych
+uczących jest odpowiedni</h2>
+<ul>
+<li>Ilość
+<ul>
+<li>zazwyczaj im więcej tym lepiej</li>
+</ul></li>
+<li>Jakość
+<ul>
+<li>jeśli dostępne atrybuty nie niosą silnego sygnału / informacji
+(niska jakość) to więcej danych nie pomoże</li>
+</ul></li>
+<li>Reprezentatywność</li>
+</ul>
+<h2 id="reprezentatywność-danych">Reprezentatywność danych</h2>
+<ul>
+<li>Dane do analizy są próbą losową pochodzącą z pewnej większej
+populacji / z docelowego rozkładu <span
+class="math inline">\(\mathcal{D}\)</span></li>
+<li>Reprezentatywna próba losowa, to taka która pozwala w przybliżeniu
+opisać całą populację / rozkład <span
+class="math inline">\(\mathcal{D}\)</span></li>
+<li>Niereprezentatywna próba zawiera dane pochodzące ze specyficznego
+wycinka populacji</li>
+</ul>
+<h3 id="tworzenie-reprezentatywnego-zbioru-danych">Tworzenie
+reprezentatywnego zbioru danych</h3>
+<ul>
+<li>Żeby zapewnić reprezentatywność zbioru danych trzeba losować do
+niego elementy zgodnie z rozkładem <span
+class="math inline">\(\mathcal{D}\)</span>
+<ul>
+<li>idealny przypadek</li>
+<li>problem - nie znamy rozkładu</li>
+</ul></li>
+<li>W uczeniu maszynowym pojawiają się skomplikowane rozkłady
+<ul>
+<li>np. rozkład zdań w języku polskim</li>
+</ul></li>
+<li>Trudno w ogóle dowieść, że generator działa zgodnie z zadanym
+rozkładem</li>
+</ul>
+<h3 id="problem-z-reprezentatywnością">Problem z
+reprezentatywnością</h3>
+<ul>
+<li>W większości przypadków dane są w mniejszym lub większym stopniu
+obciążone
+<ul>
+<li>nie znamy rozkładu</li>
+<li>brak możliwości próbkowania z rozkładu</li>
+<li>wysokie koszty pozyskania danych</li>
+<li>zbyt mały zbiór</li>
+</ul></li>
+</ul>
+<h3 id="ocena-reprezentatywności">Ocena reprezentatywności</h3>
+<ul>
+<li>Jeśli znamy postać rozkładu <span
+class="math inline">\(\mathcal{D}\)</span>
+<ul>
+<li>wykresy QQ (kwantyl-kwantyl)</li>
+<li>testy statystyczne</li>
+<li>histogramy</li>
+<li>rzadko spotykany scenariusz</li>
+</ul></li>
+<li>Jeśli nie znamy <span class="math inline">\(\mathcal{D}\)</span>
+<ul>
+<li>pozostaje stosowanie wiedzy o dziedzinie (wiedzy eksperckiej)</li>
+<li>czy w danych występują najważniejsze atrybuty</li>
+</ul></li>
+</ul>
+<h2 id="jakość">Jakość</h2>
+<ul>
+<li>Typowe problemy
+<ul>
+<li>błędy w danych, zaszumienie</li>
+<li>brakujące wartości</li>
+<li>niespójność</li>
+<li>informatywność</li>
+</ul></li>
+<li>Więcej na kolejnych wykładach</li>
+</ul>
+<h2 id="ilość">Ilość</h2>
+<h3 id="minimalna-wielkość-zbioru-uczącego---metody-klasyczne">Minimalna
+wielkość zbioru uczącego - metody klasyczne</h3>
+<ul>
+<li>Znana heurystyka - wielkość zbioru uczącego powinna być 10 razy
+większa niż liczba parametrów estymowanych przez model</li>
+<li>W uczeniu głębokim modele z miliardami parametrów</li>
+<li>Za mało danych - większy problem przeuczenia</li>
+<li>Nie ma jednoznacznej odpowiedzi, uniwersalnej heurystyki do dobrania
+rozmiaru zbioru uczącego</li>
+<li>Liczenie przykładów ma niuanse
+<ul>
+<li>przy dużych modelach językowych mówimy o liczeniu tokenów, jedno
+zdanie to wiele tokenów</li>
+<li>stosuje się regularyzację</li>
+<li>stosuje się przekształcenia obrazów</li>
+</ul></li>
+<li>W praktyce porównuje się działanie modelu z innymi znanymi
+modelami</li>
+</ul>
+<h3 id="metody-klasyczne-vs-uczenie-maszynowe">Metody klasyczne vs
+uczenie maszynowe</h3>
+<ul>
+<li>W metodach klasycznych są relatywnie proste struktury modeli
+<ul>
+<li>łatwiejsza analiza</li>
+<li>mniej parametrów</li>
+<li>możliwe precyzyjne założenia odnośnie rozkładów zmiennych
+wejściowych i wyjściowych</li>
+<li>założenia odnośnie danych uczących da się wyprowadzić
+analitycznie</li>
+</ul></li>
+<li>W metodach uczenia maszynowego modele realizują skomplikowane
+(potencjalnie dowolne) funkcje nieliniowe
+<ul>
+<li>trudna, czasami niemożliwa analiza</li>
+<li>skomplikowane przestrzenie danych wejściowych i wyjściowych</li>
+<li>wymagania odnośnie danych uczących wynikają w dużej mierze z
+obserwacji praktycznych / doświadczenia</li>
+<li>istniejące gwarancje teoretyczne okazują się zbyt mało precyzyjne w
+praktyce (np. twierdzenie o uniwersalnej aproksymacji dla sieci
+neuronowych)</li>
+</ul></li>
+</ul>
+<h3 id="podział-dostępnych-danych">Podział dostępnych danych</h3>
+<ul>
+<li>Typowa praktyka - podział na 3 części</li>
+<li>Zbiór uczący
+<ul>
+<li>do trenowania modelu</li>
+</ul></li>
+<li>Zbiór walidacyjny
+<ul>
+<li>do strojenia parametrów</li>
+<li>selekcji atrybutów</li>
+<li>podejmowania decyzji odnośnie dalszych kroków</li>
+</ul></li>
+<li>Zbiór testowy
+<ul>
+<li>jedynie do testowania</li>
+<li>nie podejmujemy na jego podstawie decyzji wpływających na model</li>
+</ul></li>
+<li>Modele wygrywające konkursy na Kaggle raczej nie będą się nadawać do
+wdrożenia produkcyjnego</li>
+<li>Testować powinniśmy na najlepszych danych jakie mamy
+<ul>
+<li>chcemy mieć wiarygodną ocenę</li>
+<li>lepiej żeby dane uczące były obciążone niż testowe i
+walidacyjne</li>
+<li>łatwiej i taniej zebrać obciążony zbiór</li>
+<li>zjawisko covariate shift</li>
+</ul></li>
+</ul>
+<h2 id="obciążenie-i-wariancja-modelu">Obciążenie i wariancja
+modelu</h2>
+<ul>
+<li><strong>Modelu</strong>, a nie danych</li>
+<li>Bias/variance tradeoff</li>
+<li>Obciążenie - błąd wynikający z jego niedopasowania do rzeczywistości
+/ błędnych założeń / nieodpowiedniej struktury
+<ul>
+<li>błąd na zbiorze treningowym</li>
+</ul></li>
+<li>Wariancja modelu wynika z nadmiernego dopasowania do konkretnej
+próbki danych
+<ul>
+<li>różnica błędu pomiędzy zbiorem treningowym, a walidacyjnym</li>
+</ul></li>
+<li>Kompromis
+<ul>
+<li>bardziej skomplikowany model - zmniejsza obciążenie, zwiększa
+wariancja</li>
+</ul></li>
+<li>Małe obciążenie, mała wariancja
+<ul>
+<li>pożądana sytuacja</li>
+<li>mały błąd na zbiorze walidacyjnym i treningowym</li>
+</ul></li>
+<li>Małe obciążenie, duża wariancja
+<ul>
+<li>nadmierne dopasowanie</li>
+<li>zbyt skomplikowany model lub za mały zbiór uczący</li>
+<li>model wycisnął z danych co się da, ale nie generalizuje się</li>
+</ul></li>
+<li>Duże obciążenie, mała wariancja
+<ul>
+<li>niedostatecznie dobry model</li>
+<li>zbyt trudne zadanie lub nieodpowiednia architektura</li>
+</ul></li>
+<li>Duże obciążenie, duża wariancja
+<ul>
+<li>najgorsza sytuacja</li>
+<li>nadmiernie dopasowany model słabej jakości</li>
+<li>zbyt trudne zadanie, nieodpowiednia architektura lub zbyt mały zbiór
+uczący</li>
+<li>na pewno przyda się więcej danych</li>
+<li>do rozwagi zmiana architektury</li>
+</ul></li>
+<li>Skąd wiemy jakie obciążenie jest duże, a jakie małe
+<ul>
+<li>zależy od poziomu wyników, który nas satysfakcjonuje</li>
+<li>powiązane (może nie bezpośrednio) z kryteriami sukcesu</li>
+</ul></li>
+</ul>
+<h3 id="zbiór-walidacyjny-testowy-a-miary-jakości">Zbiór walidacyjny /
+testowy a miary jakości</h3>
+<ul>
+<li>Im mniej danych, tym mniej precyzyjnie określają jakość</li>
+<li>W klasyfikacji binarnej
+<ul>
+<li>jeśli zbiór ma 100 elementów, to nie wykryjemy różnicy dokładności
+mniejszej niż 1%</li>
+</ul></li>
+<li>Przy strojeniu hiperparametrów
+<ul>
+<li>różnica na 5. miejscu po przecinku - to raczej błędy numeryczne, nie
+ma sensu tego rozważać</li>
+</ul></li>
+</ul>
+<h3 id="przykładowa-sytuacja">Przykładowa sytuacja</h3>
+<p>Trenujemy model regresji logistycznej na dużym reprezentatywnym
+zbiorze danych, … proces o skomplikowanej nieliniowej naturze</p>
+<p>Prawdopodobnie będziemy mieć problem z obciążeniem - prosty model do
+modelowania złożonego, nieliniowego zjawiska</p>
+<h2 id="jak-dużo-danych-wymaga-nasz-model">Jak dużo danych wymaga nasz
+model</h2>
+<ul>
+<li>Nie ma jasnych kryteriów oceny
+<ul>
+<li>generalnie im więcej parametrów, bardziej skomplikowany model, tym
+większe zbiory są potrzebne</li>
+</ul></li>
+<li>Często prostszy algorytm uczący zasilony bardzo dużą ilością danych
+okazuje się lepszy niż skomplikowane, eksperckie podejścia</li>
+</ul>
+<h2 id="co-robić-jak-mamy-za-mały-zbiór-danych-do-modelowania">Co robić
+jak mamy za mały zbiór danych do modelowania</h2>
+<h3 id="zmiana-metody-modelowania">Zmiana metody modelowania</h3>
+<ul>
+<li>Prostszy model, bardziej zaawansowane atrybuty</li>
+<li>Transfer learning, few-shot learning, in-context learning</li>
+<li>Zmiana zadania modelowania
+<ul>
+<li>np. detekcja anomalii zamiast klasyfikacji binarnej</li>
+<li>np. przy klasyfikacji wieloklasowej, gdzie pewne klasy są bardzo
+mało liczne</li>
+</ul></li>
+</ul>
+<h3 id="zwiększenie-ilości-danych">Zwiększenie ilości danych</h3>
+<ul>
+<li>Najlepiej zebrać więcej danych ze źródła
+<ul>
+<li>nie zawsze możliwe</li>
+</ul></li>
+<li>Multiplikacja istniejących danych</li>
+<li>Generowanie danych syntetycznych</li>
+<li>Manualne etykietowanie danych</li>
+</ul>
+<h2 id="użycie-prostego-modelu">Użycie prostego modelu</h2>
+<ul>
+<li>Im bardziej skomplikowany model tym więcej danych potrzeba</li>
+<li>Każde zadanie klasyfikacji można załatwić klasyfikatorem liniowym -
+w odpowiedniej przestrzeni
+<ul>
+<li>bardziej zaawansowane atrybuty pozwalają użyć prostszego modelu</li>
+</ul></li>
+<li>Bardziej zaawansowane atrybuty
+<ul>
+<li>wytworzone na podstawie wiedzy eksperckiej</li>
+<li>opracowanie z wykorzystaniem innych modeli przez tzw. transfer
+wiedzy</li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<ul>
+<li>Atrybuty
+<ul>
+<li>timestamp</li>
+<li>nazwa produktu</li>
+<li>cena</li>
+<li>ocena</li>
+<li>treść recenzji</li>
+<li>czy klient wróci (etykieta)</li>
+</ul></li>
+<li>Można zrobić model liniowy na samej cenie i ocenie</li>
+<li>Można zastosować gotowy model do wykrywania sentymentu w tekście i
+zamienić treść recenzji na binarną zmienną</li>
+<li>Można zastosować kodowanie dyskretne nazwy produktu</li>
+<li>Można wyciągnąć markę z nazwy produktu i zakodować ją
+dyskretnie</li>
+<li>Można zastąpić cenę centylem ceny w tej samej kategorii - informacja
+czy cena to dużo czy mało zamiast surowej liczby</li>
+<li>Na cenę można patrzeć w odniesieniu do
+<ul>
+<li>grupy podobnych produktów</li>
+<li>marki</li>
+<li>historii ceny tego samego produktu</li>
+<li>cena wyrwana z kontekstu niewiele mówi</li>
+</ul></li>
+<li>Przekształcenie oceny
+<ul>
+<li>czy jest dobra na tle danego recenzenta</li>
+</ul></li>
+<li>Przekształcenie timestampu
+<ul>
+<li>czy weekend</li>
+<li>czy święta</li>
+<li>czy przed świętami</li>
+</ul></li>
+<li>Z jednego atrybutu można wyprowadzić nawet kilkadziesiąt atrybutów
+pochodnych</li>
+</ul>
+<h2 id="transfer-wiedzy-uczenie-transferowe">Transfer wiedzy / Uczenie
+transferowe</h2>
+<ul>
+<li>Transfer learning</li>
+<li>Wiedzę z trenowania modelu na jednym zbiorze danych stosujemy do
+innego zadania
+<ul>
+<li>ekstrakcja cech</li>
+<li>dostrajanie modelu na nowych danych</li>
+</ul></li>
+<li>Dotyczy szczególnie sieci neuronowych
+<ul>
+<li>model ma warstwy</li>
+<li>początkowe warstwy są odpowiedzialne za ekstrakcję cech</li>
+<li>końcowe warstwy odpowiadają za klasyfikację cech</li>
+<li>gdzieś po środku będzie pośrednia reprezentacja wektorowa danych
+wejściowych, zależy gdzie przetniemy</li>
+<li>przecinając sieć blisko końca dostajemy reprezentację wektorową w
+bogatej przestrzeni</li>
+<li>analogia do zastosowania przekształceń jądrowych w SVM</li>
+</ul></li>
+<li>Podejścia
+<ul>
+<li>linear probing - zamrożenie początkowej części sieci i modyfikowanie
+tylko ostatnich warstw sieci (główki klasyfikacyjnej), tańsze
+obliczeniowo, do linear probing wystarczy nawet model dostępny przez
+API</li>
+<li>full fine tuning - dostrajamy wszystkie wagi, potencjalnie bardziej
+dokładne wyniki</li>
+</ul></li>
+<li>Dobre dla wizji komputerowej, NLP
+<ul>
+<li>dostępne są modele trenowane na ogromnych zbiorach</li>
+</ul></li>
+</ul>
+<h3 id="przykłady">Przykłady</h3>
+<ul>
+<li>Tworząc klasyfikator znaków drogowych
+<ul>
+<li>zamiast przetwarzać surowe dane można użyć sieć wytrenowaną na
+ImageNet, która wygeneruje postać wektorową</li>
+<li>wektory będą wejściem dla budowanego modelu</li>
+</ul></li>
+<li>Model do analizy sentymentu wiadomości tekstowych
+<ul>
+<li>można użyć modelu BERT i douczyć warstwy klasyfikacji</li>
+</ul></li>
+</ul>
+<h3 id="przykładowe-popularnie-stosowane-struktury">Przykładowe
+popularnie stosowane struktury</h3>
+<ul>
+<li>Wizja komputerowa
+<ul>
+<li>ResNet</li>
+<li>AlexNet/VGG</li>
+<li>Inception (GoogleNet)</li>
+</ul></li>
+<li>NLP
+<ul>
+<li>BERT / RoBERTa</li>
+<li>GPT</li>
+<li>ELMo</li>
+</ul></li>
+</ul>
+<h3 id="duże-modele">Duże modele</h3>
+<ul>
+<li>Foundational models</li>
+<li>Zaawansowane architektury neuronowe trenowane na masowych zbiorach
+danych (cały internet)</li>
+</ul>
+<h3 id="in-context-learning">In-context learning</h3>
+<ul>
+<li>Strategia adaptacji modelu do nowych zadań bez aktualizacji wag</li>
+<li>Podaje się odpowiednie prompty do gotowego modelu z demonstracjami,
+a potem właściwy</li>
+</ul>
+<h3 id="przykład-evollm">Przykład EvoLLM</h3>
+<ul>
+<li>Zwykły LLM dostaje prompta z danymi generacji do algorytmu
+ewolucyjnego</li>
+<li>LLM przewiduje kolejnego osobnika</li>
+<li>raczej jako ciekawostka</li>
+</ul>
+<h3 id="przykład-tabpfn">Przykład TabPFN</h3>
+<ul>
+<li>Do danych tabelarycznych</li>
+<li>Wytrenowany na sztucznie generowanych zbiorach danych
+tabelarycznych</li>
+<li>Dostaje zbiór treningowy i atrybuty testowe jako prompt</li>
+<li>Bazuje na grafach przyczynowo-skutkowych (rozwinięcie sieci
+bayesowskich)
+<ul>
+<li>na podstawie tego grafu generuje się sztuczny zbiór danych</li>
+</ul></li>
+<li>Duży czas inferencji</li>
+<li>Zapamiętać i doczytać, potencjalnie bardzo dobre narzędzie</li>
+</ul>
+<h2 id="generowanie-danych-syntetycznych">Generowanie danych
+syntetycznych</h2>
+<ul>
+<li>Przydatne gdy uzyskanie odpowiedniej ilości danych jest trudne lub
+kosztowne</li>
+<li>Metody
+<ul>
+<li>modele przyczynowo skutkowe (SCM)</li>
+<li>generatywne modele neuronowe</li>
+<li>symulacje monte carlo - przyjmujemy założenia odnośnie jakiejś
+losowości, piszemy logikę, która symuluje nasze dane - przykład z
+overbooking</li>
+<li>symulacje fizykalne</li>
+</ul></li>
+</ul>
+<h2 id="multiplikacja-istniejących-danych">Multiplikacja istniejących
+danych</h2>
+<ul>
+<li>Zwłaszcza w wizji komputerowej
+<ul>
+<li>zaszumianie</li>
+<li>transformacje (translacja, obrót)</li>
+<li>losowanie przypadków negatywnych</li>
+<li>oversampling, bootstrapping i modele zagregowane</li>
+<li>wytrenowanie modelu generatywnego do tworzenia większej ilości
+danych</li>
+</ul></li>
+</ul>
+<h3 id="dane-syntetyczne-w-testach">Dane syntetyczne w testach</h3>
+<ul>
+<li>Użyteczne do weryfikowania czy algorytm zachowuje się zgodnie z
+oczekiwaniami (testy jednostkowe)
+<ul>
+<li>czy jest w stanie wykryć zależności, które są w danych</li>
+<li>czy nie uczy się szumu - nieistniejących zależności</li>
+<li>jak sobie poradzi z wartościami odstającymi</li>
+</ul></li>
+<li>Narzędzia
+<ul>
+<li><code>dataset</code> z scikit-learn -
+<code>make_regression, make_classification, make_blobs</code></li>
+<li>programowanie probabilistyczne - PyMC3</li>
+<li>prosty generator własnej roboty</li>
+</ul></li>
+</ul>
+<h2 id="uczenie-aktywne">Uczenie aktywne</h2>
+<ul>
+<li>Active Learning</li>
+<li>Model wybiera próbki, o których etykiety pyta</li>
+<li>Procedura
+<ul>
+<li>model jest trenowany na dostępnym zbiorze etykietowanych danych</li>
+<li>iteracyjny wybór próbek - algorytm wybiera próbkę, człowiek lub
+wyrocznia etykietuje</li>
+<li>aktualizacja modelu - trening na rozszerzonym zbiorze</li>
+</ul></li>
+<li>Strategie wyboru próbek
+<ul>
+<li>największa niepewność predykcji (funkcja <span
+class="math inline">\(1-\max_{\hat{y}} P(\hat{y}|x)\)</span>,
+entropia)</li>
+<li>rozbieżność predykcji - dla modeli komitetowych, jak komitet nie
+jest zgodny (entropia)</li>
+<li>największa gęstość informacji - nie patrzy na y, patrzy gdzie w
+obszarze nieoetykietowanych przykładów znajduje się przykład - bierzemy
+tego, który jest najbardziej podobny do innych (reprezentatywny dla
+klastra)</li>
+<li>itd.</li>
+</ul></li>
+<li>Trzeba wybrać jakąś strategię</li>
+<li>Zalety
+<ul>
+<li>zmniejsza koszty etykietowania</li>
+<li>poprawa dokładności modelu - skupia się na trudnych przypadkach,
+które więcej wnoszą do uczenia</li>
+<li>przydatne gdy mamy mało danych</li>
+<li>dobre przy niezbalansowanych danych, ze zróżnicowaną
+dystrybucją</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>źle dobrana strategia wprowadza obciążenie selekcji - gorsza
+generalizacja</li>
+<li>jakość i spójność etykiet wyroczni ma istotny wpływ na wyniki</li>
+<li>wymaga początkowego zestawu danych</li>
+<li>komplikuje proces uczenia</li>
+<li>wybór próbek może być obciążający obliczeniowo</li>
+</ul></li>
+</ul>
+<h2 id="manualne-etykietowanie-danych">Manualne etykietowanie
+danych</h2>
+<ul>
+<li>Złożony problem bo raczej pracuje nad tym wiele osób</li>
+<li>Bezpieczniej zrobić niewielką próbkę i uzgodnić całym zespołem przed
+adnotowaniem całego zbioru</li>
+<li>Mierzenie zgodności adnotacji
+<ul>
+<li>współczynnik Kappa Cohena</li>
+<li>obliczane na podstawie tabeli kontyngencji</li>
+<li>korekta na to że zgodność może być przypadkowa</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ocena-zbiorów-danych" id="toc-ocena-zbiorów-danych">Ocena
+zbiorów danych</a>
+<ul>
+<li><a href="#czy-zbiór-danych-uczących-jest-odpowiedni" id="toc-czy-zbiór-danych-uczących-jest-odpowiedni">Czy zbiór danych
+uczących jest odpowiedni</a></li>
+<li><a href="#reprezentatywność-danych" id="toc-reprezentatywność-danych">Reprezentatywność danych</a>
+<ul>
+<li><a href="#tworzenie-reprezentatywnego-zbioru-danych" id="toc-tworzenie-reprezentatywnego-zbioru-danych">Tworzenie
+reprezentatywnego zbioru danych</a></li>
+<li><a href="#problem-z-reprezentatywnością" id="toc-problem-z-reprezentatywnością">Problem z
+reprezentatywnością</a></li>
+<li><a href="#ocena-reprezentatywności" id="toc-ocena-reprezentatywności">Ocena reprezentatywności</a></li>
+</ul></li>
+<li><a href="#jakość" id="toc-jakość">Jakość</a></li>
+<li><a href="#ilość" id="toc-ilość">Ilość</a>
+<ul>
+<li><a href="#minimalna-wielkość-zbioru-uczącego---metody-klasyczne" id="toc-minimalna-wielkość-zbioru-uczącego---metody-klasyczne">Minimalna
+wielkość zbioru uczącego - metody klasyczne</a></li>
+<li><a href="#metody-klasyczne-vs-uczenie-maszynowe" id="toc-metody-klasyczne-vs-uczenie-maszynowe">Metody klasyczne vs
+uczenie maszynowe</a></li>
+<li><a href="#podział-dostępnych-danych" id="toc-podział-dostępnych-danych">Podział dostępnych danych</a></li>
+</ul></li>
+<li><a href="#obciążenie-i-wariancja-modelu" id="toc-obciążenie-i-wariancja-modelu">Obciążenie i wariancja modelu</a>
+<ul>
+<li><a href="#zbiór-walidacyjny-testowy-a-miary-jakości" id="toc-zbiór-walidacyjny-testowy-a-miary-jakości">Zbiór walidacyjny /
+testowy a miary jakości</a></li>
+<li><a href="#przykładowa-sytuacja" id="toc-przykładowa-sytuacja">Przykładowa sytuacja</a></li>
+</ul></li>
+<li><a href="#jak-dużo-danych-wymaga-nasz-model" id="toc-jak-dużo-danych-wymaga-nasz-model">Jak dużo danych wymaga nasz
+model</a></li>
+<li><a href="#co-robić-jak-mamy-za-mały-zbiór-danych-do-modelowania" id="toc-co-robić-jak-mamy-za-mały-zbiór-danych-do-modelowania">Co robić
+jak mamy za mały zbiór danych do modelowania</a>
+<ul>
+<li><a href="#zmiana-metody-modelowania" id="toc-zmiana-metody-modelowania">Zmiana metody modelowania</a></li>
+<li><a href="#zwiększenie-ilości-danych" id="toc-zwiększenie-ilości-danych">Zwiększenie ilości danych</a></li>
+</ul></li>
+<li><a href="#użycie-prostego-modelu" id="toc-użycie-prostego-modelu">Użycie prostego modelu</a>
+<ul>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+</ul></li>
+<li><a href="#transfer-wiedzy-uczenie-transferowe" id="toc-transfer-wiedzy-uczenie-transferowe">Transfer wiedzy / Uczenie
+transferowe</a>
+<ul>
+<li><a href="#przykłady" id="toc-przykłady">Przykłady</a></li>
+<li><a href="#przykładowe-popularnie-stosowane-struktury" id="toc-przykładowe-popularnie-stosowane-struktury">Przykładowe
+popularnie stosowane struktury</a></li>
+<li><a href="#duże-modele" id="toc-duże-modele">Duże modele</a></li>
+<li><a href="#in-context-learning" id="toc-in-context-learning">In-context learning</a></li>
+<li><a href="#przykład-evollm" id="toc-przykład-evollm">Przykład
+EvoLLM</a></li>
+<li><a href="#przykład-tabpfn" id="toc-przykład-tabpfn">Przykład
+TabPFN</a></li>
+</ul></li>
+<li><a href="#generowanie-danych-syntetycznych" id="toc-generowanie-danych-syntetycznych">Generowanie danych
+syntetycznych</a></li>
+<li><a href="#multiplikacja-istniejących-danych" id="toc-multiplikacja-istniejących-danych">Multiplikacja istniejących
+danych</a>
+<ul>
+<li><a href="#dane-syntetyczne-w-testach" id="toc-dane-syntetyczne-w-testach">Dane syntetyczne w testach</a></li>
+</ul></li>
+<li><a href="#uczenie-aktywne" id="toc-uczenie-aktywne">Uczenie
+aktywne</a></li>
+<li><a href="#manualne-etykietowanie-danych" id="toc-manualne-etykietowanie-danych">Manualne etykietowanie
+danych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

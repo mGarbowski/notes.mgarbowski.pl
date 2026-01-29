@@ -86,7 +86,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="kompresja-sekwencji-obrazów">Kompresja sekwencji obrazów</h1>
 <h2 id="kodowanie-wideo">Kodowanie wideo</h2>
 <ul>
@@ -568,47 +567,55 @@ stabilność długości strumieni kodowych dla kolejnych ramek</li>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#kompresja-sekwencji-obrazów">Kompresja sekwencji
-obrazów</a>
+<li><a href="#kompresja-sekwencji-obrazów" id="toc-kompresja-sekwencji-obrazów">Kompresja sekwencji obrazów</a>
 <ul>
-<li><a href="#kodowanie-wideo">Kodowanie wideo</a></li>
-<li><a href="#koder-wideo">Koder wideo</a>
+<li><a href="#kodowanie-wideo" id="toc-kodowanie-wideo">Kodowanie
+wideo</a></li>
+<li><a href="#koder-wideo" id="toc-koder-wideo">Koder wideo</a>
 <ul>
-<li><a href="#prosta-predykcja-międzyobrazowa">Prosta predykcja
+<li><a href="#prosta-predykcja-międzyobrazowa" id="toc-prosta-predykcja-międzyobrazowa">Prosta predykcja
 międzyobrazowa</a></li>
-<li><a href="#estymacja-ruchu">Estymacja ruchu</a></li>
-<li><a href="#wektory-ruchu">Wektory ruchu</a></li>
-<li><a href="#złożoność-estymacji-ruchu">Złożoność estymacji
+<li><a href="#estymacja-ruchu" id="toc-estymacja-ruchu">Estymacja
 ruchu</a></li>
-<li><a href="#szybkie-wyznaczanie-wektorów-ruchu">Szybkie wyznaczanie
-wektorów ruchu</a></li>
-<li><a href="#podpikselowa-estymacja-ruchu">Podpikselowa estymacja
+<li><a href="#wektory-ruchu" id="toc-wektory-ruchu">Wektory
 ruchu</a></li>
-<li><a href="#kompensacja-ruchu">Kompensacja ruchu</a></li>
+<li><a href="#złożoność-estymacji-ruchu" id="toc-złożoność-estymacji-ruchu">Złożoność estymacji ruchu</a></li>
+<li><a href="#szybkie-wyznaczanie-wektorów-ruchu" id="toc-szybkie-wyznaczanie-wektorów-ruchu">Szybkie wyznaczanie wektorów
+ruchu</a></li>
+<li><a href="#podpikselowa-estymacja-ruchu" id="toc-podpikselowa-estymacja-ruchu">Podpikselowa estymacja
+ruchu</a></li>
+<li><a href="#kompensacja-ruchu" id="toc-kompensacja-ruchu">Kompensacja
+ruchu</a></li>
 </ul></li>
-<li><a href="#grupa-obrazów">Grupa obrazów</a></li>
-<li><a href="#plastry-slices">Plastry (slices)</a></li>
-<li><a href="#dekoder-wideo">Dekoder wideo</a></li>
-<li><a href="#standardy-kompresji">Standardy kompresji</a>
+<li><a href="#grupa-obrazów" id="toc-grupa-obrazów">Grupa
+obrazów</a></li>
+<li><a href="#plastry-slices" id="toc-plastry-slices">Plastry
+(slices)</a></li>
+<li><a href="#dekoder-wideo" id="toc-dekoder-wideo">Dekoder
+wideo</a></li>
+<li><a href="#standardy-kompresji" id="toc-standardy-kompresji">Standardy kompresji</a>
 <ul>
-<li><a href="#mpeg-1">MPEG-1</a></li>
-<li><a href="#mpeg-2">MPEG-2</a></li>
-<li><a href="#mpeg-4">MPEG-4</a></li>
-<li><a href="#h.261">H.261</a></li>
-<li><a href="#h.263">H.263</a></li>
-<li><a href="#h.263-1">H.263+</a></li>
-<li><a href="#h.264-mpeg-4">H.264 / MPEG-4</a></li>
+<li><a href="#mpeg-1" id="toc-mpeg-1">MPEG-1</a></li>
+<li><a href="#mpeg-2" id="toc-mpeg-2">MPEG-2</a></li>
+<li><a href="#mpeg-4" id="toc-mpeg-4">MPEG-4</a></li>
+<li><a href="#h.261" id="toc-h.261">H.261</a></li>
+<li><a href="#h.263" id="toc-h.263">H.263</a></li>
+<li><a href="#h.263-1" id="toc-h.263-1">H.263+</a></li>
+<li><a href="#h.264-mpeg-4" id="toc-h.264-mpeg-4">H.264 /
+MPEG-4</a></li>
 </ul></li>
-<li><a href="#predykcja-intra-16x16">Predykcja Intra 16x16</a></li>
-<li><a href="#predykcja-inter">Predykcja Inter</a></li>
-<li><a href="#transformacje">Transformacje</a></li>
-<li><a href="#kwantyzacja">Kwantyzacja</a></li>
-<li><a href="#kodowanie-entropijne">Kodowanie entropijne</a>
+<li><a href="#predykcja-intra-16x16" id="toc-predykcja-intra-16x16">Predykcja Intra 16x16</a></li>
+<li><a href="#predykcja-inter" id="toc-predykcja-inter">Predykcja
+Inter</a></li>
+<li><a href="#transformacje" id="toc-transformacje">Transformacje</a></li>
+<li><a href="#kwantyzacja" id="toc-kwantyzacja">Kwantyzacja</a></li>
+<li><a href="#kodowanie-entropijne" id="toc-kodowanie-entropijne">Kodowanie entropijne</a>
 <ul>
-<li><a href="#modelowanie-kontekstu">Modelowanie kontekstu</a></li>
-<li><a href="#strumień-kodowy">Strumień kodowy</a></li>
+<li><a href="#modelowanie-kontekstu" id="toc-modelowanie-kontekstu">Modelowanie kontekstu</a></li>
+<li><a href="#strumień-kodowy" id="toc-strumień-kodowy">Strumień
+kodowy</a></li>
 </ul></li>
-<li><a href="#regulacja-stopnia-kompresji">Regulacja stopnia
+<li><a href="#regulacja-stopnia-kompresji" id="toc-regulacja-stopnia-kompresji">Regulacja stopnia
 kompresji</a></li>
 </ul></li>
 </ul>

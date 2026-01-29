@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-00</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="lab-00.html">Poprzedni: lab-00.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-01.html">Następny: wyklad-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wdrażanie i utrzymywanie systemów informatycznych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="lab-00.html">lab-00.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2025-02-28</h1>
+<h2 id="organizacja">Organizacja</h2>
+<ul>
+<li>Informacje na kanale Teams
+<ul>
+<li>slajdy</li>
+<li>kalendarz</li>
+</ul></li>
+<li>Laboratoria do de facto projekt
+<ul>
+<li>nie trzeba być obecnym na miejscu na każdym terminie</li>
+<li>3 zadania, na każde 4-5 tygodni</li>
+<li>na 1 wprowadzającym muszą być wszyscy</li>
+<li>potem indywidualnie się dogadujemy na oddanie</li>
+</ul></li>
+<li>Przenosimy wykład na termin w czwartek 18-20
+<ul>
+<li>wtedy laby w terminie środowym</li>
+</ul></li>
+<li>2 kolokwia
+<ul>
+<li>11 VI</li>
+<li>6 VI</li>
+<li>termin rezerwowy 13 VI</li>
+<li>po 30 pkt</li>
+</ul></li>
+<li>Laby
+<ul>
+<li>zespoły 4-osobowe</li>
+<li>40 pkt w sumie</li>
+<li>3 projekty</li>
+</ul></li>
+<li>Standardowa skala ocen</li>
+<li>Pierwszy lab w ciągu 2 tygodni
+<ul>
+<li>będzie info na teams</li>
+</ul></li>
+</ul>
+<h2 id="system-development-life-cycle">System Development Life
+Cycle</h2>
+<ul>
+<li>SDLC</li>
+<li>Każdy system podlega cyklowi rozwoju i utrzymania aż do wygaszenia
+<ul>
+<li>wygaszanie może być równie złożone co cała reszta - zapewnienie
+obsługi klientów, usług</li>
+</ul></li>
+<li>Etapy
+<ul>
+<li>planowanie</li>
+<li>analiza</li>
+<li>projektowanie</li>
+<li>implementacja</li>
+<li>testowanie i integracja</li>
+<li>utrzymanie</li>
+</ul></li>
+</ul>
+<h3 id="wdrażanie">Wdrażanie</h3>
+<ul>
+<li>Konfiguracja</li>
+<li>Aktywacja mechanizmów bezpieczeństwa</li>
+<li>Testy funkcjonalności</li>
+<li>Przegląd oprogramowania</li>
+<li>Instalacja</li>
+<li>Formalna autoryzacja do eksploatacji
+<ul>
+<li>związane z przeniesieniem odpowiedzialności na właściciela
+biznesowego</li>
+<li>może być bardzo sformalizowana, pisemne dokumenty itp.</li>
+<li>bardziej miękkie formy (mail z akceptacją)</li>
+<li>np. na podstawie testów</li>
+<li>mogą być wymagania żeby zespół testerski jest oddzielony od zespołu
+deweloperskiego</li>
+</ul></li>
+<li>Odnosi się zarówno do całego nowego systemu i do każdej poważnej
+modyfikacji funkcjonalnej działającego systemu</li>
+<li>Rezultaty testów i przeglądów powinny być dokumentowane
+<ul>
+<li>w praktyce…</li>
+</ul></li>
+<li>Odpowiedzialność za eksploatację przejmuje właściciel biznesowy
+<ul>
+<li>jeśli przez działanie systemu dojdzie do naruszenia prawa to on
+odpowiada</li>
+</ul></li>
+</ul>
+<h3 id="utrzymanie">Utrzymanie</h3>
+<ul>
+<li>System jest zainstalowany we właściwej lokalizacji</li>
+<li>Używany operacyjnie</li>
+<li>Ulepszenia i modyfikacje są rozwijanie i testowane</li>
+<li>Elementy sprzętowe i oprogramowania są dodawane lub usuwane</li>
+<li>Organizacja powinna w sposób ciągły monitorować działanie systemu i
+zapewnić spójność z wymaganiami bezpieczeństwa
+<ul>
+<li>trzeba reagować na awarie, zapełnienie dysków</li>
+<li>lepiej monitorować proaktywnie niż tylko reagować po fakcie</li>
+<li>zarządzanie uprawnieniami administracyjnymi</li>
+</ul></li>
+</ul>
+<h2 id="system-informacyjny">System informacyjny</h2>
+<ul>
+<li>Oprogramowanie + infrastruktura
+<ul>
+<li>sprzęt</li>
+<li>sieci</li>
+<li>oprogramowanie systemowe</li>
+<li>maszyny wirtualne</li>
+<li>kontenery</li>
+<li>etc.</li>
+</ul></li>
+<li>Każdy z tych elementów musimy mieć pod kontrolą</li>
+</ul>
+<h2 id="zadania-wdrożeniowe">Zadania wdrożeniowe</h2>
+<ul>
+<li>Instalacja oprogramowania na infrastrukturze produkcyjnej
+<ul>
+<li>system operacyjny</li>
+<li>bazy danych</li>
+</ul></li>
+<li>Pierwotna konfiguracja infrastruktury
+<ul>
+<li>systemów operacyjnych (użytkownicy, uprawnienia)</li>
+<li>sieci (firewall)</li>
+<li>oprogramowania systemowego (bazy danych, serwery aplikacyjne)</li>
+</ul></li>
+<li>Zapewnienie aktualnych i odpowiednich licencji na oprogramowanie
+<ul>
+<li>jak open source to luz ale trzeba wiedzieć jakie to są licencje</li>
+</ul></li>
+</ul>
+<h2 id="utrzymanie-1">Utrzymanie</h2>
+<ul>
+<li>Co to znaczy, że system działa
+<ul>
+<li>są różne moduły z których korzystają różne grupy użytkowników</li>
+</ul></li>
+<li>Jak dobrze działa system
+<ul>
+<li>jakie mamy oczekiwania co do czasów odpowiedzi, liczby obsługiwanych
+klientów</li>
+</ul></li>
+<li>Czy system działa zgodnie z oczekiwaniami
+<ul>
+<li>mamy ustalone wymagania</li>
+</ul></li>
+<li>Definiuje się ścieżki krytyczne
+<ul>
+<li>najważniejsze operacje dla których użytkownicy korzystają z
+systemu</li>
+<li>jak to działa to można binarnie powiedzieć, że system działa</li>
+<li>awaria musi być naprawiona tak szybko jak to możliwe</li>
+</ul></li>
+</ul>
+<h2 id="zadania-utrzymaniowe">Zadania utrzymaniowe</h2>
+<ul>
+<li>Monitoring stanu aplikacji i infrastruktury
+<ul>
+<li>z jednej strony powinniśmy gromadzić jak najwięcej faktów i wyciągać
+z nich wnioski</li>
+<li>z drugiej strony danych może być za dużo (logi)</li>
+<li>ważny jest odpowiedni dobór danych i sposobów agregacji</li>
+<li>na końcu chcemy mieć kilka wskaźników, które mówią czy działa czy
+nie działa (i czemu?)</li>
+</ul></li>
+<li>Zapobieganie awariom i wczesne reagowanie na awarie
+<ul>
+<li>przyczyna nie musi leżeć w tym komponencie, który się wysypał</li>
+<li>monitoring ma pomóc dotrzeć jak najszybciej do źródła awarii</li>
+<li>możemy dostrzec niepokojące symptomy zanim się przerodzą w
+awarię</li>
+<li>np. kończy się miejsce na dysku</li>
+</ul></li>
+<li>Instalacja aktualizacja oprogramowania systemowego, dbanie o
+aktualność
+<ul>
+<li>możemy przetestować wcześniej na środowisku pre-produkcyjnym (testy
+regresji)</li>
+</ul></li>
+<li>Instalacji poprawek do utrzymywanego oprogramowania
+<ul>
+<li>w ramach utrzymania wdrażamy małe poprawki, a w ramach wdrożenia
+duże</li>
+<li>płynna granica</li>
+<li>bugfix to mała poprawka, nowy feature to duża</li>
+</ul></li>
+<li>Utrzymywanie aktualnych licencji</li>
+<li>Zapewnienie bezpieczeństwa utrzymywanych systemów</li>
+<li>Administracja kontami systemowymi</li>
+<li>Optymalizacja kosztów finansowych eksploatacji systemów
+<ul>
+<li>ten sam system, przy takich samych parametrach jakościowych można
+utrzymać na tańszej infrastrukturze</li>
+<li>warto benchmarkować</li>
+</ul></li>
+</ul>
+<h2 id="architektura-z-perspektywy-wdrażania-i-utrzymania">Architektura
+z perspektywy wdrażania i utrzymania</h2>
+<ul>
+<li>Komponenty oprogramowania
+<ul>
+<li>moduły</li>
+<li>mikroserwisy</li>
+</ul></li>
+<li>Infrastruktura
+<ul>
+<li>węzły logiczne</li>
+<li>węzły fizyczne</li>
+</ul></li>
+<li>Komponenty oprogramowania komunikują się ze sobą
+<ul>
+<li>między węzłami musi być możliwa ta komunikacja</li>
+</ul></li>
+<li>Komponenty oprogramowania mapują się na węzły logiczne</li>
+<li>Węzły logiczne mapują się na węzły fizyczne</li>
+<li>Monitoring możemy robić na poziomie oprogramowania, węzłów
+logicznych, węzłów fizycznych
+<ul>
+<li>monitorowanie samego oprogramowania może nie wystarczyć</li>
+</ul></li>
+</ul>
+<h2 id="typy-infrastruktury">Typy infrastruktury</h2>
+<ul>
+<li>Bare metal</li>
+<li>Maszyna wirtualna</li>
+<li>Kontener</li>
+<li>Serverless computing</li>
+</ul>
+<h3 id="podział-odpowiedzialności">Podział odpowiedzialności</h3>
+<ul>
+<li>Enterprise IT / legacy IT
+<ul>
+<li>wszystkim zarządza klient</li>
+<li>przepisy mogą tego wymagać</li>
+<li>przy dużej skali powinno być najtańsze (nie jest oczywiste)</li>
+</ul></li>
+<li>IaaS
+<ul>
+<li>klient zarządza stosem od poziomu systemu operacyjnego</li>
+</ul></li>
+<li>PaaS
+<ul>
+<li>klient zarządza tylko aplikacją</li>
+</ul></li>
+<li>SaaS
+<ul>
+<li>wszystko dostarczone jako usługa</li>
+<li>klient konfiguruje gotową usługę</li>
+</ul></li>
+</ul>
+<h2 id="inne-spojrzenie">Inne spojrzenie</h2>
+<ul>
+<li>W aplikacji jest błąd, gdzie jest przyczyna
+<ul>
+<li>błąd w kodzie aplikacji</li>
+<li>runtime (JVM)</li>
+<li>kontener</li>
+<li>system operacyjny</li>
+<li>maszyny wirtualne</li>
+<li>fizyczne maszyny</li>
+</ul></li>
+<li>Utrzymanie może wymagać zejścia w niskie poziomy abstrakcji</li>
+</ul>
+<h2 id="automatyzacja-czynności-utrzymaniowych">Automatyzacja czynności
+utrzymaniowych</h2>
+<ul>
+<li>Automatyzacja wdrożeń i integracji CI/CD
+<ul>
+<li>styk z rozwojem</li>
+</ul></li>
+<li>Automatyzacja czynności powtarzalnych
+<ul>
+<li>backupy</li>
+<li>rotacja logów</li>
+<li>czyszczenie dysków</li>
+</ul></li>
+<li>Automatyczny monitoring i alerty</li>
+<li>Nie wszystko da się zautomatyzować
+<ul>
+<li>nie wszystko warto automatyzować</li>
+</ul></li>
+</ul>
+<h2 id="infrastructure-as-a-code">Infrastructure as a code</h2>
+<ul>
+<li>Konfigurację infrastruktury zapisujemy w postaci deklaratywnej jako
+plik</li>
+<li>Zarządzamy podobnie jak kodem źródłowym</li>
+<li>Zapewnia powtarzalność</li>
+<li>Te same praktyki co przy kodzie źródłowym
+<ul>
+<li>wersjonowanie, code reviews, etc.</li>
+</ul></li>
+<li>Narzędzia
+<ul>
+<li>ansible</li>
+<li>terraform</li>
+<li>puppet</li>
+</ul></li>
+</ul>
+<h2 id="monitoring">Monitoring</h2>
+<ul>
+<li>Na różnych poziomach
+<ul>
+<li>biznesowy aplikacji</li>
+<li>techniczny aplikacji</li>
+<li>platformy na której działa aplikacja</li>
+<li>infrastruktury logicznej i fizycznej</li>
+<li>sieci</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2025-02-28</a>
+<ul>
+<li><a href="#organizacja" id="toc-organizacja">Organizacja</a></li>
+<li><a href="#system-development-life-cycle" id="toc-system-development-life-cycle">System Development Life Cycle</a>
+<ul>
+<li><a href="#wdrażanie" id="toc-wdrażanie">Wdrażanie</a></li>
+<li><a href="#utrzymanie" id="toc-utrzymanie">Utrzymanie</a></li>
+</ul></li>
+<li><a href="#system-informacyjny" id="toc-system-informacyjny">System
+informacyjny</a></li>
+<li><a href="#zadania-wdrożeniowe" id="toc-zadania-wdrożeniowe">Zadania
+wdrożeniowe</a></li>
+<li><a href="#utrzymanie-1" id="toc-utrzymanie-1">Utrzymanie</a></li>
+<li><a href="#zadania-utrzymaniowe" id="toc-zadania-utrzymaniowe">Zadania utrzymaniowe</a></li>
+<li><a href="#architektura-z-perspektywy-wdrażania-i-utrzymania" id="toc-architektura-z-perspektywy-wdrażania-i-utrzymania">Architektura
+z perspektywy wdrażania i utrzymania</a></li>
+<li><a href="#typy-infrastruktury" id="toc-typy-infrastruktury">Typy
+infrastruktury</a>
+<ul>
+<li><a href="#podział-odpowiedzialności" id="toc-podział-odpowiedzialności">Podział odpowiedzialności</a></li>
+</ul></li>
+<li><a href="#inne-spojrzenie" id="toc-inne-spojrzenie">Inne
+spojrzenie</a></li>
+<li><a href="#automatyzacja-czynności-utrzymaniowych" id="toc-automatyzacja-czynności-utrzymaniowych">Automatyzacja czynności
+utrzymaniowych</a></li>
+<li><a href="#infrastructure-as-a-code" id="toc-infrastructure-as-a-code">Infrastructure as a code</a></li>
+<li><a href="#monitoring" id="toc-monitoring">Monitoring</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

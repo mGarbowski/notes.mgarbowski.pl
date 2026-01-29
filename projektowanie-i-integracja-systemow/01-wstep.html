@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wstep</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-narzedzia-iac.html">Następny: 02-narzedzia-iac.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wstęp">Wstęp</h1>
+<h2 id="inżynieria-wymagań">Inżynieria wymagań</h2>
+<h3 id="rodzaje-wymagań">Rodzaje wymagań</h3>
+<ul>
+<li>Funkcjonalne
+<ul>
+<li>odnoszoą się do tego co system ma robić</li>
+<li>jakie powinien mieć funkcje biznesowe</li>
+<li>mówią CO, a nie JAK</li>
+</ul></li>
+<li>Niefunkcjonalne (pozafunkcjonalne)
+<ul>
+<li>odnoszą się do cech systemu</li>
+<li>wydajność</li>
+<li>ergonomia</li>
+<li>bezpieczeństwo</li>
+<li>kluczowy wpływ na architekturę</li>
+<li>mogą mieć kluczowe znaczenie dla klienta</li>
+<li>muszą być precyzyjne i weryfikowalne</li>
+</ul></li>
+</ul>
+<h3 id="attribute-driven-design">Attribute-driven design</h3>
+<ul>
+<li>Wymagania funkcjonalne</li>
+<li>Wymagania jakosciowe
+<ul>
+<li>skalowalność</li>
+<li>bezpieczeństwo</li>
+<li>dostępność (bezawaryjność)</li>
+<li>dostępność (WCAG / ergonomia)</li>
+<li>interoperacyjność (komunikacja z innymi systemami)</li>
+<li>stabilność / niezawodność (uptime)</li>
+<li>rozszerzalność</li>
+<li>szybkość wytwarzania (time to market)</li>
+<li>zgodność z ustawami</li>
+</ul></li>
+<li>Ograniczenia
+<ul>
+<li>technologiczne
+<ul>
+<li>klient ma serwery o maksymalnie 64GB RAM</li>
+<li>zespół pracuje w Javie</li>
+</ul></li>
+<li>biznesowe
+<ul>
+<li>czas</li>
+<li>budżet</li>
+<li>system krytyczny dla działania organizacji</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Rozróżnienie między wymaganiami a ograniczeniami nie do
+przeskoczenia</p>
+<h4 id="potencjalne-konflikty">Potencjalne konflikty</h4>
+<ul>
+<li>rozszerzalność vs niezawodność</li>
+<li>time to market vs rozszerzalność</li>
+<li>time to market vs wydajność</li>
+</ul>
+<h4 id="wydajność">Wydajność</h4>
+<ul>
+<li>Systemy low latency</li>
+<li>Systemy high-throughput</li>
+<li>Ważny szybki zapis / ważny szybki odczyt / oba</li>
+</ul>
+<h3 id="osie-złożoności">Osie złożoności</h3>
+<ul>
+<li>Liczba technologii</li>
+<li>Rozmiar projektów</li>
+<li>Rozmiar i zróżnicowanie zespołów</li>
+<li>Infrastruktura i integrowalność</li>
+<li>Złożona domena</li>
+<li>Zmienność wymagań i podążanie za zmianą</li>
+</ul>
+<h2 id="standardy-java">Standardy Java</h2>
+<ul>
+<li>jcp.org - Java Community Process</li>
+<li>Ustandaryzowany proces wpływania na rozwój Javy</li>
+<li>Ma nie być uzależniona od jednego dostawcy</li>
+<li>Jedna specyfikacja, wiele implementacji
+<ul>
+<li>np. JPA jest pustą specyfikacją, dostawcy dostarczają implementacji
+(np. Hibernate)</li>
+<li>implementacje można wymienić</li>
+</ul></li>
+<li>Standard często będzie w tyle za natywnymi rozwiązaniami
+bibliotek</li>
+</ul>
+<h2 id="adr">ADR</h2>
+<ul>
+<li>Architecture Decision Records</li>
+<li>Dokumentuje się decyzje architektoniczne w jakimś szablonie
+<ul>
+<li>czemu wybrałem tą bazę a nie tą</li>
+</ul></li>
+<li>Powinny zostawać w firmie na przyszłość</li>
+<li>Przykładowo zawiera
+<ul>
+<li>tytuł</li>
+<li>status</li>
+<li>kryteria ewaluacji</li>
+<li>kandydaci do rozważenia</li>
+<li>research i analiza dot. każdego z kandydatów</li>
+<li>rekomendacja</li>
+</ul></li>
+</ul>
+<h2 id="architektura-komponentowa">Architektura komponentowa</h2>
+<ul>
+<li>Ukrycie złożoności warstwy komunikacyjnej przed deweloperem logiki
+biznesowej
+<ul>
+<li>programista nie myśli o puli wątków, połączeń z bazą danych itd</li>
+</ul></li>
+<li>Middleware zarządza takimi aspektami jak
+<ul>
+<li>transakcje</li>
+<li>wielowątkowość</li>
+<li>bezpieczeństwo</li>
+<li>klastry</li>
+<li>failover</li>
+<li>cykl życia obiektów</li>
+</ul></li>
+</ul>
+<h2 id="architektura-wielowarstwowa">Architektura wielowarstwowa</h2>
+<ul>
+<li>Warstwa prezentacji
+<ul>
+<li>klient <em>thin</em> (webowy opart o servlety, JSP, JSF)</li>
+<li>klient <em>thick</em> (webowy oparty o Angular, React, komunikujący
+się z API)</li>
+</ul></li>
+<li>Warstwa logiki biznesowej</li>
+<li>Warstwa trwałości</li>
+</ul>
+<h2 id="dependency-injection">Dependency Injection</h2>
+<ul>
+<li>Wzorzec architektoniczny polegający na usunięciu bezpośrednich
+zależności pomiędzy komponentami systemu</li>
+<li>Odpowiedzialność za tworzenie obiektów przeniesione do zewnętrzenej
+fabryki obiektów - kontenera</li>
+<li>Kontener na żądanie tworzy obiekt lub zwraca istniejący z puli
+ustawiając powiązania z innymi obiektami</li>
+</ul>
+<h2 id="narzędzia">Narzędzia</h2>
+<ul>
+<li>Na poziomie programisty
+<ul>
+<li>IDE</li>
+<li>narzędzia automatyzacji budowania</li>
+<li>budowa i uruchamianie testów jednostkowych</li>
+</ul></li>
+<li>Na poziomie zespołu programistycznego
+<ul>
+<li>repozytorium kod źródłowego</li>
+<li>narzędzia przegląda kodu</li>
+<li>repozytorium bibliotek / wydań</li>
+<li>serwery ciągłej integracji</li>
+<li>analiza pokrycia kodu testami</li>
+<li>system przydziału i kontroli realizacji zadań, planowanie wydań</li>
+</ul></li>
+<li>Na poziomie wdrożenia
+<ul>
+<li>serwery ciągłego wdrożenia</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a>
+<ul>
+<li><a href="#inżynieria-wymagań" id="toc-inżynieria-wymagań">Inżynieria
+wymagań</a>
+<ul>
+<li><a href="#rodzaje-wymagań" id="toc-rodzaje-wymagań">Rodzaje
+wymagań</a></li>
+<li><a href="#attribute-driven-design" id="toc-attribute-driven-design">Attribute-driven design</a></li>
+<li><a href="#osie-złożoności" id="toc-osie-złożoności">Osie
+złożoności</a></li>
+</ul></li>
+<li><a href="#standardy-java" id="toc-standardy-java">Standardy
+Java</a></li>
+<li><a href="#adr" id="toc-adr">ADR</a></li>
+<li><a href="#architektura-komponentowa" id="toc-architektura-komponentowa">Architektura komponentowa</a></li>
+<li><a href="#architektura-wielowarstwowa" id="toc-architektura-wielowarstwowa">Architektura
+wielowarstwowa</a></li>
+<li><a href="#dependency-injection" id="toc-dependency-injection">Dependency Injection</a></li>
+<li><a href="#narzędzia" id="toc-narzędzia">Narzędzia</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

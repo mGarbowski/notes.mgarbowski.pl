@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-uczenie-nienadzorowane-i-autoenkodery</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-sieci-splotowe.html">Poprzedni: 05-sieci-splotowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-autoenkodery-generatywne.html">Następny: 07-autoenkodery-generatywne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="uczenie-nienadzorowanie---autoenkodery-i-inne">Uczenie
+nienadzorowanie - autoenkodery i inne</h1>
+<h2 id="dziedziny-uczenia-maszynowego">Dziedziny uczenia
+maszynowego</h2>
+<ul>
+<li>Uczenie nadzorowane</li>
+<li>Uczenie nienadzorowane
+<ul>
+<li>zbiór danych bez powiązania wejście-wyjście</li>
+</ul></li>
+<li>Uczenie ze wzmocnieniem</li>
+</ul>
+<h3 id="uczenie-nienadzorowane">Uczenie nienadzorowane</h3>
+<ul>
+<li>Większość danych jest nieopisanych</li>
+<li>Anotacja jest kosztowna (przekształcenie w problem uczenia
+nadzorowanego)</li>
+<li>Generalnie, ludzie uczą się w sposób nienadzorowany</li>
+<li>Niektóre problemy mogą być zbyt trudne dla ludzi (tak żeby pokazać
+rozwiązania)
+<ul>
+<li>np. odpowiedzi LLM</li>
+</ul></li>
+</ul>
+<h3 id="uczenie-nadzorowane-a-reprezentacje">Uczenie nadzorowane a
+reprezentacje</h3>
+<ul>
+<li>Pomiędzy warstwami w sieci neuronowej</li>
+<li>Wiedząc który przykład należy do której klasy można stworzyć taką
+funkcję i model żeby je oddzielać z jakąś dokładnością</li>
+<li>Model tworzy taką reprezentację, która będzie użyteczna do
+zadania</li>
+</ul>
+<h2 id="autoenkoder">Autoenkoder</h2>
+<ul>
+<li>Sieć mapuje wejście na przestrzeń ukrytą <span
+class="math inline">\(z\)</span></li>
+<li>Kolejna sieć odtwarza z przestrzeni ukrytej oryginalne wejście</li>
+<li>Mamy funkcję celu - błąd rekonstrukcji</li>
+<li>Wymuszamy, żeby przestrzeń ukryta była mniejszej wymiarowości niż
+wejście
+<ul>
+<li>nie można po prostu zakodować wszystkich pikseli w naiwny
+sposób</li>
+</ul></li>
+<li>Pozwala w sposób nienadzorowany uczyć się relacji pomiędzy
+obiektami</li>
+<li>W przestrzeni ukrytej dane wejściowe są pogrupowane tak żeby
+zmniejszać błąd rekonstrukcji</li>
+<li>Obiekty semantycznie podobne mają dużą szansę znaleźć się blisko
+siebie</li>
+</ul>
+<h3 id="autoenkodery-niedopełnione">Autoenkodery niedopełnione</h3>
+<ul>
+<li>Wejście i wyjście są tej samej wymiarowości</li>
+<li>Gdzieś po środku jest warstwa bottleneck - mniejszej
+wymiarowości</li>
+</ul>
+<h3 id="autoenkodery-przepełnione">Autoenkodery przepełnione</h3>
+<ul>
+<li>Warstwa ukryta jest większej wymiarowości niż wejście i wyjście</li>
+<li>Regularyzacja na warstwie ukrytej. np. L2</li>
+</ul>
+<h3 id="rzadkie-autoenkodery">Rzadkie autoenkodery</h3>
+<ul>
+<li>Wiele wymiarów przestrzeni ukrytej</li>
+<li>Każdy obrazek wykorzystuje tylko ograniczoną liczbę neuronów</li>
+<li>Regularyzacja L1 - dąży do tego żeby jak najwięcej wag miało
+dokładnie 0</li>
+<li>Regularyzacja w oparciu o dywergencję Kullbacka LEiblera</li>
+</ul>
+<h3 id="autoenkodery-odszumiające">Autoenkodery odszumiające</h3>
+<ul>
+<li>Uczenie odszumiania przykładów</li>
+<li>Najpierw dodajemy szum do obrazka i wtedy wrzucamy do sieci</li>
+<li>Porównujemy wyjście z oryginałem bez szumu</li>
+<li>Pozwala na wykształcenie bardziej ogólnych reprezentacji</li>
+</ul>
+<h3 id="architektura-unet">Architektura UNet</h3>
+<ul>
+<li>Dekoder ma odwrócone warstwy względem enkodera
+<ul>
+<li>np zamiast pooling - upsampling i konwolucja</li>
+</ul></li>
+<li>Skip connections - warstwa jest połączona nie tylko z kolejną ale
+też z symetryczną w drugiej części</li>
+<li>Wiele wewnętrznych reprezentacji z różnym poziomem szczegółowości
+<ul>
+<li>w głębokich warstwach są wysokopoziomowe, wysokoczęstotliwościowe
+cechy</li>
+<li>w pierwszych warstwach są wysokoczęstotliwościowe cechy (np.
+tekstura)</li>
+</ul></li>
+<li>Model w pełni konwolucyjny
+<ul>
+<li>tylko warstwy splotowe, pooling i up-conv (upsampling i splot)</li>
+</ul></li>
+</ul>
+<h2 id="zastosowania-autoenkoderów">Zastosowania autoenkoderów</h2>
+<ul>
+<li>Redukcja wymiarowości / kompresja
+<ul>
+<li>lepsza kompresja obrazów niż JPEG</li>
+<li>kosztowne obliczeniowo - dlatego jeszcze nie został wyparty</li>
+<li>redukcja wymiarowości w przetwarzaniu wstępnym</li>
+</ul></li>
+<li>Detekcja anomalii
+<ul>
+<li>Kodowanie przykładów do przestrzeni ukrytej</li>
+<li>Nowy obrazek zupełnie nie pasujący ląduje daleko od innych
+przykładów w przestrzeni ukrytej</li>
+</ul></li>
+<li>Wyszukiwanie obrazów
+<ul>
+<li>wyszukiwanie semantycznie podobnych obrazów na podstawie dystansów w
+przestrzeni ukrytej</li>
+</ul></li>
+</ul>
+<h2 id="samo-słabo-nadzorowane-uczenie">Samo / słabo nadzorowane
+uczenie</h2>
+<ul>
+<li>Przewidywanie części wejścia na podstawie pozostałej części
+<ul>
+<li>domalowywanie obrazka</li>
+</ul></li>
+<li>Uczenie relacji między fragmentami obrazków
+<ul>
+<li>można pociąć obrazek na 9 części</li>
+<li>pozwala na naukę relacji między nimi</li>
+</ul></li>
+</ul>
+<h3 id="uczenie-kontrastywne">Uczenie kontrastywne</h3>
+<ul>
+<li>Porównywanie i różnicowanie obiektów w przestrzeni
+reprezentacji</li>
+<li>Minimalizowanie dystansu między podobnymi obiektami,
+maksymalizowanie dystansu między różnymi</li>
+<li>Przecięcie tego samego zdjęcia na pół - oba po zakodowaniu w
+przestrzeni ukrytej powinny być blisko siebie</li>
+<li>Fragmenty innych obrazów powinny być kodowane daleko od siebie</li>
+<li>Przykładowe metody
+<ul>
+<li>sieci syjamskie - dwie kopie sieci</li>
+<li>triplet loss - odległość od pozytywnych i negatywnych
+przykładów</li>
+<li>SimCLR - uczenie w oparciu o augmentacje</li>
+</ul></li>
+</ul>
+<h3 id="modele-multimodalne-clip">Modele multimodalne (CLIP)</h3>
+<ul>
+<li>Uczenie kontrastywne na parach obraz - opis tekstowy
+<ul>
+<li>zbliżanie do siebie obrazu i pasującego podpisu</li>
+<li>oddalanie od siebie obrazów i niepasujących podpisów</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>zero-shot klasyfikacja</li>
+<li>segmentacja</li>
+<li>porównywanie cech</li>
+<li>warunkowanie dużych modeli generatywnych</li>
+</ul></li>
+</ul>
+<h3 id="modele-językowe">Modele językowe</h3>
+<ul>
+<li>Uczenie wpół nadzorowane
+<ul>
+<li>np. przewidywanie słów w zdaniu (ukrycie słowa w istniejącym
+zdaniu)</li>
+</ul></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Metody nadzorowane posiadają swoje ograniczenia i wymagają
+kosztownego opisywania danych</li>
+<li>Metody nienadzorowane np. autoenkodery pozwalają na uczenie się
+niskopoziomowych reprezentacji danych</li>
+<li>Metody samonadzorowane mogą być stosowane jako alternatywa do metod
+nienadzorowanych przy uczeniu reprezentacji</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uczenie-nienadzorowanie---autoenkodery-i-inne" id="toc-uczenie-nienadzorowanie---autoenkodery-i-inne">Uczenie
+nienadzorowanie - autoenkodery i inne</a>
+<ul>
+<li><a href="#dziedziny-uczenia-maszynowego" id="toc-dziedziny-uczenia-maszynowego">Dziedziny uczenia maszynowego</a>
+<ul>
+<li><a href="#uczenie-nienadzorowane" id="toc-uczenie-nienadzorowane">Uczenie nienadzorowane</a></li>
+<li><a href="#uczenie-nadzorowane-a-reprezentacje" id="toc-uczenie-nadzorowane-a-reprezentacje">Uczenie nadzorowane a
+reprezentacje</a></li>
+</ul></li>
+<li><a href="#autoenkoder" id="toc-autoenkoder">Autoenkoder</a>
+<ul>
+<li><a href="#autoenkodery-niedopełnione" id="toc-autoenkodery-niedopełnione">Autoenkodery niedopełnione</a></li>
+<li><a href="#autoenkodery-przepełnione" id="toc-autoenkodery-przepełnione">Autoenkodery przepełnione</a></li>
+<li><a href="#rzadkie-autoenkodery" id="toc-rzadkie-autoenkodery">Rzadkie autoenkodery</a></li>
+<li><a href="#autoenkodery-odszumiające" id="toc-autoenkodery-odszumiające">Autoenkodery odszumiające</a></li>
+<li><a href="#architektura-unet" id="toc-architektura-unet">Architektura
+UNet</a></li>
+</ul></li>
+<li><a href="#zastosowania-autoenkoderów" id="toc-zastosowania-autoenkoderów">Zastosowania autoenkoderów</a></li>
+<li><a href="#samo-słabo-nadzorowane-uczenie" id="toc-samo-słabo-nadzorowane-uczenie">Samo / słabo nadzorowane
+uczenie</a>
+<ul>
+<li><a href="#uczenie-kontrastywne" id="toc-uczenie-kontrastywne">Uczenie kontrastywne</a></li>
+<li><a href="#modele-multimodalne-clip" id="toc-modele-multimodalne-clip">Modele multimodalne (CLIP)</a></li>
+<li><a href="#modele-językowe" id="toc-modele-językowe">Modele
+językowe</a></li>
+</ul></li>
+<li><a href="#podsumowanie" id="toc-podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

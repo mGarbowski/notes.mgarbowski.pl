@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-sieci-ze-zbieznym-stanem</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-transformer.html">Poprzedni: 11-transformer.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="13-detekcja-obiektow.html">Następny: 13-detekcja-obiektow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="sieci-ze-zbieżnym-stanem">Sieci ze zbieżnym stanem</h1>
+<ul>
+<li>Sieć o charakterze pamięciowym
+<ul>
+<li>podajemy wzorce</li>
+<li>sieć ustala wagi</li>
+<li>podajemy kolejną uszkodzoną próbkę</li>
+<li>sieć odtwarza tą próbkę</li>
+</ul></li>
+<li>Raczej zagadnienie historyczne</li>
+</ul>
+<h2 id="ogólna-koncepcja">Ogólna koncepcja</h2>
+<ul>
+<li>Inspiracja biologią
+<ul>
+<li>naturalne neurony mrugają do siebie</li>
+<li>informacja w cyrkulacji elektrycznej</li>
+<li>ludzka pamięć - stan jest jakoś przechowywany</li>
+</ul></li>
+<li>Koncepcja sztucznej sieci
+<ul>
+<li>podajemy wektor wejściowy</li>
+<li>wagi pozwalają powrócić do oryginalnego stanu przez
+przemnożenie</li>
+</ul></li>
+</ul>
+<h2 id="sieć-hopfielda">Sieć Hopfielda</h2>
+<ul>
+<li>Jedna warstwa neuronów</li>
+<li>Wejścia mnożone przez wagi</li>
+<li>Wyjścia są zapętlone z powrotem na wejście
+<ul>
+<li>na wejście neuronu trafiają wyjścia wszystkich innych neuronów (poza
+nim samym - <span class="math inline">\(w_{ii}=0\)</span>)</li>
+<li>wagi są symetryczne <span class="math inline">\(w_{ij} =
+w_{ji}\)</span></li>
+</ul></li>
+<li>Szukamy stanu, gdzie sieć się ustabilizuje</li>
+<li>W trybie odtwarzania wagi są zamrożone
+<ul>
+<li>podaje się wejście i wielokrotnie zapętla sygnał wyjściowy
+(sprzężenie zwrotne)</li>
+<li>aż do ustabilizowania się odpowiedzi sieci (wyjść)</li>
+</ul></li>
+<li>W trakcie uczenia są aktualizowane</li>
+<li>Uczenie
+<ul>
+<li>metoda Hebba - <span class="math inline">\(w_{k,j} = \frac{1}{n}
+\sum_{k=1}^M s_k^is_j^i\)</span> (mnożenie wektorów)</li>
+<li>metoda pseudoinwersji - wyprowadzenie ze wzoru macierzowego</li>
+</ul></li>
+</ul>
+<h3 id="nowoczesna-sieć-hopfielda">Nowoczesna sieć Hopfielda</h3>
+<ul>
+<li>Pamięć asocjacyjna</li>
+<li>Opis problemu
+<ul>
+<li>dany jest zestaw wektorów binarnych <span class="math inline">\(Z
+\subset \{-1, 1 \}^n\)</span></li>
+<li>uczymy sieć na tym zbiorze <span
+class="math inline">\(Z\)</span></li>
+<li>dla danego wektora <span class="math inline">\(v \in \{-1,
+1\}^n\)</span> sieć znajduje wektor w <span
+class="math inline">\(Z\)</span> najbliższy do <span
+class="math inline">\(v\)</span></li>
+</ul></li>
+<li>Połączenie między wszystkimi neuronami
+<ul>
+<li>asynchroniczna aktualizacja</li>
+<li>tylko jeden neuron jest aktualizowany w danym momencie</li>
+<li>niejednoznaczność, wynik zależy od kolejności</li>
+<li>można np. narzucić zawsze tą samą kolejność</li>
+</ul></li>
+<li>Sieć ma <span class="math inline">\(n\)</span> neuronów ze stanem
+<ul>
+<li>stan początkowy - wektor wejściowy</li>
+<li>stan końcowy - wektor wyjściowy</li>
+<li>połączone każdy z każdym (graf pełny)</li>
+</ul></li>
+<li>Autoasocjacja - wyjście odtwarza wejście</li>
+<li>Działanie
+<ul>
+<li><span class="math inline">\(w_{i,j}\)</span> - waga połączenia <span
+class="math inline">\(i \rightarrow j\)</span></li>
+<li>symetryczne</li>
+<li>waga do samego siebie równa <span
+class="math inline">\(0\)</span></li>
+<li><span class="math inline">\(u_i\)</span> - dodatkowy parametr</li>
+<li><span class="math inline">\(s_i\)</span> - stan neuronu <span
+class="math inline">\(i\)</span></li>
+</ul></li>
+<li>Trajektoria stanu
+<ul>
+<li><span class="math inline">\(\sum_j w_{j,i} s_j &lt; u_i \rightarrow
+s_i\)</span></li>
+<li><span class="math inline">\(\sum_j w_{j,i} s_j &gt; u_i \rightarrow
+s_i := 1\)</span></li>
+</ul></li>
+<li>Asynchroniczne aktualizacje
+<ul>
+<li>w jednym momencie jest aktualizowany jeden neuron</li>
+<li>kolejność może być losowa</li>
+<li>może być predefiniowana</li>
+</ul></li>
+<li>Sieć szuka takich wag, które minimalizują lokalnie funkcję energii
+<ul>
+<li><span class="math inline">\(E=-\frac{1}{2} \sum_{i,j} w_{i,j} s_i
+s_j + \sum_i u_i s_i\)</span></li>
+<li>utworzenie sieci to utworzenie minimów lokalnych</li>
+<li>wzór na liczbę minimów funkcji energii - ile różnych wzorców może
+zapamiętać sieć</li>
+<li><span class="math inline">\(\simeq \frac{n}{2 \log_2
+n}\)</span></li>
+</ul></li>
+<li>Uczenie - metoda Storkey’a
+<ul>
+<li>pokazanie sieci kolejnych przykładów indeksowanych przez <span
+class="math inline">\(t=1, 2, \ldots, T\)</span></li>
+<li>stan sieci w chwili <span class="math inline">\(t\)</span>
+reprezentuje <span class="math inline">\(t\)</span>-ty przykład</li>
+<li><span class="math inline">\(w_{i,j}(0) = 0\)</span></li>
+<li><span class="math inline">\(w_{i,j}(t) = w_{i,j}(t-1) +
+\frac{1}{n}s_i(t) s_j(t) - \frac{1}{n}s_i(t)h_{j,i}(t) -
+\frac{1}{n}h_{i,j}(t)s_j(t)\)</span></li>
+<li><span class="math inline">\(h_{i,j}(t) = \sum_{k=1, k\notin\{i, j
+\}}^n w_{i,k}(t-1)s_k(t)\)</span></li>
+</ul></li>
+<li>Praktyczne zastosowania
+<ul>
+<li>pamięć asocjacyjna - zapamiętuje wzorce w trakcie uczenia, po
+podaniu wektora wejściowego, odpowiedzią będzie jeden z zapamiętanych
+wzorców, najbardziej podobny do wejścia</li>
+<li>problemy optymalizacyjne - pozwala znaleźć rozwiązanie problemów
+optymalizacyjnych (NP) przez odpowiednią konstrukcję sieci i funkcji
+energii</li>
+<li>rekonstrukcja danych, odszumianie</li>
+</ul></li>
+</ul>
+<h2 id="ograniczone-maszyny-bolzmanna">Ograniczone maszyny
+Bolzmanna</h2>
+<ul>
+<li>Restricted Bolzman Machines (RBM)</li>
+<li>Na wejściu wektor binarny</li>
+<li>Sieć stara się znaleźć najbardziej podobny, zapamiętany wektor</li>
+<li>Zastosowania
+<ul>
+<li>odszumianie danych</li>
+<li>uzupełnianie danych</li>
+<li>symulowanie pracy generatora</li>
+</ul></li>
+<li>Jedna warstwa wejściowa, jedna warstwa ukryta</li>
+<li>Stan
+<ul>
+<li>ukrytej - losowany z wejściową</li>
+<li>wejściowej - losowany z ukrytą</li>
+<li>początkowy wejściowej - dany</li>
+<li>końcowy wejściowej to wynik</li>
+</ul></li>
+<li>Funkcja energii
+<ul>
+<li><span class="math inline">\(E(v,h) = - \sum_{i} a_i v_i - \sum_j b_j
+h_j - \sum_{i,j} v_i w_{ij} h_j\)</span></li>
+<li>a - obciążenia dla wejść</li>
+<li>b - obciążenia dla neuronów ukrytych</li>
+<li>v - wejścia</li>
+<li>h - ukryte</li>
+</ul></li>
+<li>Uczenie
+<ul>
+<li>maksymalizacja entropii</li>
+</ul></li>
+<li>Contrastive divergence
+<ul>
+<li>losujemy jedną z próbek treningowych <span
+class="math inline">\(v\)</span></li>
+<li>wyliczamy wartości stanów <span
+class="math inline">\(h\)</span></li>
+<li>na podstawie <span class="math inline">\(h\)</span> próbujemy
+odtworzyć <span class="math inline">\(v\)</span> - <span
+class="math inline">\(v&#39;\)</span></li>
+<li>na podstawie <span class="math inline">\(v&#39;\)</span> próbujemy
+odgadnąć <span class="math inline">\(h\)</span> - <span
+class="math inline">\(h&#39;\)</span></li>
+<li>aktualizacja wag (<span class="math inline">\(w\)</span>) i obciążeń
+(<span class="math inline">\(a\)</span>, <span
+class="math inline">\(b\)</span>) przy na podstawie różnic między
+rzeczywistymi v,h a przewidywanymi</li>
+</ul></li>
+<li>Można wytrenować sieć, tak żeby nauczyły się wzorców obrazów
+<ul>
+<li>widoczne jednostki reprezentują piksele wejściowe</li>
+<li>ukryte jednostki przechwytują cechy wyższego poziomu</li>
+</ul></li>
+<li>Po wytrenowaniu może rekonstruować obrazy z aktywacji ukrytych
+jednostek
+<ul>
+<li>i generować nowe przez próbkowanie z wyuczonej dystrybucji</li>
+</ul></li>
+</ul>
+<h2 id="głębokie-sieci-przekonań-dbn">Głębokie Sieci Przekonań
+(DBN)</h2>
+<ul>
+<li>Deep Belief Networks</li>
+<li>Problem
+<ul>
+<li>rzutowanie danych binarnych na przestrzeń o małym wymiarze</li>
+<li>jak PCA, tylko nieliniowe i binarne</li>
+</ul></li>
+<li>Ogólny pomysł
+<ul>
+<li>kilka OMB połączonych ze sobą - stos</li>
+</ul></li>
+<li>Ukryta warstwa jednego RBM połączona(?) z widoczną warstwą kolejnego
+RBM</li>
+<li>Uczenie po kolei</li>
+<li>Po nauczeniu
+<ul>
+<li>w jedną stronę - ekstraktor cech wyjścia</li>
+<li>w obie strony - generator próbek analogicznych do danych</li>
+</ul></li>
+</ul>
+<h2 id="samoorganizująca-się-mapa-som">Samoorganizująca się mapa
+(SOM)</h2>
+<ul>
+<li>Sieć Kohonena, Self-organizing map, SOM</li>
+<li>Cel - nisko-wymiarowa reprezentacja danych
+<ul>
+<li>jak nieliniowe PCA</li>
+<li>nienadzorowane uczenie</li>
+<li>grupowanie podobnych danych</li>
+</ul></li>
+<li>Koncept
+<ul>
+<li>kulki połączone sprężynami, sprężyny ulegają odkształceniom</li>
+<li>każda kula ma jakąś wartość</li>
+<li>bierzemy próbkę o jakiejś wartości, szukamy do której kuli jest
+najbardziej podobna</li>
+<li>ta podobna kula jest aktualizowana - przyciąga do siebie sąsiednie
+kulki, w zależności od stopnia podobieństwa</li>
+<li>odchylające się kulki ciągną za sobą sąsiadów</li>
+</ul></li>
+<li>Sieć odtwarza strukturę danych</li>
+<li>Nienadzorowane grupowanie
+<ul>
+<li>nie wymaga żadnych założeń</li>
+</ul></li>
+<li>Wytrenowaną sieć można wykorzystać jako klasyfikator
+<ul>
+<li>trzeba każdemu neuronowi przypisać klasę</li>
+</ul></li>
+<li>Neurony ułożone na siatce, zazwyczaj w <span
+class="math inline">\(\mathbb{R}^2\)</span>
+<ul>
+<li>neuron ma wektor wag takiej wymiarowości jak dane wejściowe</li>
+</ul></li>
+<li>Uczenie
+<ul>
+<li>losowanie próbki</li>
+<li>liczymy odległość próbki do każdego neuronu</li>
+<li>wybieramy najbliższy</li>
+<li>aktualizacja wszystkich wag neuronów zgodnie z funkcją
+sąsiedztwa</li>
+<li>w implementacji sąsiedztwo zwęża się wraz z krokiem <span
+class="math inline">\(t\)</span></li>
+</ul></li>
+<li>Praktyczne zastosowanie
+<ul>
+<li>problem kompresji obrazów, RGB, każdy piksel kodowany przez
+0-255</li>
+<li>każdy piksel może mieć <span class="math inline">\(256^3\)</span>
+różnych wartości</li>
+<li>wyświetlacz nie wyświetli <span class="math inline">\(256^3\)</span>
+różnych wartości tylko mniej</li>
+<li>jak byśmy każdej trójce (r,g,b) przypisali stałego integera
+8-bitowego - mamy 256 różnych barw piksela</li>
+<li>możemy wcześniej wybrać takie 256 barw rozłożonych równomiernie</li>
+<li>równomierna paleta raczej będzie słaba, jak wybrać dobrą</li>
+<li>chcemy algorytmu, który z obrazka wejściowego wyznaczy najlepsze 256
+barw</li>
+<li>można wyznaczyć przez klasteryzację z 256 klastrami</li>
+</ul></li>
+</ul>
+<p>Ważna jest umiejętność przetransformowanie problemu do formatu
+odpowiedniego dla wybranego modelu. Będą pojawiać się nowe, lepsze model
+SI</p>
+<p>TSNE - jak PCE ale bierze pod uwagę etykiety</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sieci-ze-zbieżnym-stanem" id="toc-sieci-ze-zbieżnym-stanem">Sieci ze zbieżnym stanem</a>
+<ul>
+<li><a href="#ogólna-koncepcja" id="toc-ogólna-koncepcja">Ogólna
+koncepcja</a></li>
+<li><a href="#sieć-hopfielda" id="toc-sieć-hopfielda">Sieć Hopfielda</a>
+<ul>
+<li><a href="#nowoczesna-sieć-hopfielda" id="toc-nowoczesna-sieć-hopfielda">Nowoczesna sieć Hopfielda</a></li>
+</ul></li>
+<li><a href="#ograniczone-maszyny-bolzmanna" id="toc-ograniczone-maszyny-bolzmanna">Ograniczone maszyny
+Bolzmanna</a></li>
+<li><a href="#głębokie-sieci-przekonań-dbn" id="toc-głębokie-sieci-przekonań-dbn">Głębokie Sieci Przekonań
+(DBN)</a></li>
+<li><a href="#samoorganizująca-się-mapa-som" id="toc-samoorganizująca-się-mapa-som">Samoorganizująca się mapa
+(SOM)</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-test-driven-development</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-architektura-oprogramowania.html">Poprzedni: 03-architektura-oprogramowania.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-dostep-do-danych.html">Następny: 05-dostep-do-danych.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="test-driven-development">Test Driven Development</h1>
+<h2 id="feedback-loop">Feedback loop</h2>
+<ul>
+<li>Jak dużo czasu minie między momentem kiedy coś zrobimy, a kiedy
+dowiemy się jaki to coś miało efekt
+<ul>
+<li>czy kod działa</li>
+<li>czy kod spełnia wymagania</li>
+<li>czy system spełnia oczekiwania użytkowników</li>
+<li>czy nic nie zepsuliśmy</li>
+</ul></li>
+<li>Sprowadza się do pytania jak długo uruchamiają się testy</li>
+</ul>
+<h2 id="waterfall">Waterfall</h2>
+<ul>
+<li>Szczególnie przy przetargach</li>
+<li>Kolejne etapy
+<ul>
+<li>specyfikacja</li>
+<li>projektowanie</li>
+<li>implementacja</li>
+<li>testowanie</li>
+</ul></li>
+<li>Specyfikacja
+<ul>
+<li>określenie wymagań funkcjonalnych itp</li>
+</ul></li>
+<li>Projektowanie
+<ul>
+<li>domena architektów</li>
+<li>dobór technologii</li>
+<li>powstają diagramy, schematy architektury itp</li>
+</ul></li>
+<li>Implementacja
+<ul>
+<li>domena zespołów deweloperskich</li>
+</ul></li>
+<li>Testowanie
+<ul>
+<li>testerzy są oddzielną grupą od osób pracujących na pozostałych
+etapach</li>
+<li>problemy z komunikacją</li>
+<li>testowanie na samym końcu</li>
+<li>konflikt testerów z deweloperami</li>
+<li>bez automatyzacji testów (głównie z braku czasu)</li>
+</ul></li>
+</ul>
+<h2 id="agile">Agile</h2>
+<ul>
+<li>Podział czasu pod kątem funkcjonalności
+<ul>
+<li>dostarcza się po kolei funkcjonalności</li>
+<li>krótsze fazy projektowania, implementacji, testowania</li>
+<li>krótsze cykle</li>
+</ul></li>
+<li>Testowanie
+<ul>
+<li>testerzy są częścią zespołu</li>
+<li>współbieżnie z implementacją</li>
+<li><em>shift left</em> - chcemy jak najwcześniej dostawać feedback od
+testerów</li>
+<li>ścisła współpraca z biznesem</li>
+<li>automatyzacja testów</li>
+</ul></li>
+</ul>
+<h2 id="extreme-programming">Extreme Programming</h2>
+<ul>
+<li>Jeśli coś jest trudne to rób to częściej</li>
+<li>Cały kod powinien mieć testy</li>
+<li>Kod musi przejść wszystkie testy zanim zostanie wdrożony/wydany</li>
+<li>Kiedy znajdujemy błąd, dodajemy od razu test który go wykrywa</li>
+</ul>
+<h2 id="piramida-testów">Piramida testów</h2>
+<ul>
+<li>Testy manualne</li>
+<li>Automatyczne testy UI</li>
+<li>Testy akceptacyjne</li>
+<li>Testy integracyjne</li>
+<li>Testy jednostkowe</li>
+<li>Im niżej na piramidzie tym więcej tego typu testów powinno być i tym
+szybciej można je wykonać</li>
+</ul>
+<h3 id="testy-manualne">Testy manualne</h3>
+<ul>
+<li>Na początku koszt jest mały</li>
+<li>Łatwo znaleźć błędy</li>
+<li>Elastyczne</li>
+<li>Nie wszystko da się łatwo przetestować ręcznie</li>
+<li>Powtarzalność jest kosztowna
+<ul>
+<li>każde przeklikanie kosztuje czas</li>
+</ul></li>
+</ul>
+<h3 id="testy-automatyczne">Testy automatyczne</h3>
+<ul>
+<li>Duży koszt na początku</li>
+<li>Konieczność poznania nowych narzędzi</li>
+<li>Nie wszystko da się przetestować automatycznie
+<ul>
+<li>nie wszystko warto automatyzować</li>
+</ul></li>
+<li>Szybki feedback</li>
+<li>Jednoznaczne rezultaty</li>
+<li>Nie tak nudne jak testy manualne</li>
+<li>Mniejsze koszty w dłuższej perspektywie</li>
+</ul>
+<h3 id="testy-uie2e">Testy UI/E2E</h3>
+<ul>
+<li>Testy działającej aplikacji
+<ul>
+<li>głównie oparte o przeglądarkę</li>
+</ul></li>
+<li>Narzędzia
+<ul>
+<li>cypress</li>
+<li>playwright</li>
+</ul></li>
+<li>Wrażliwe na zmiany w interfejsie użytkownika
+<ul>
+<li>warto opierać asercje np. na id elementów zamiast na tekście, który
+może się zmieniać</li>
+</ul></li>
+<li>Wolne</li>
+<li>Duży próg wejścia</li>
+</ul>
+<h3 id="testy-akceptacyjne">Testy akceptacyjne</h3>
+<ul>
+<li>Testują cały system</li>
+<li>Dokumentują jak powinna działać aplikacja</li>
+<li>Czytelne dla ludzi nietechnicznych</li>
+<li>Narzędzia
+<ul>
+<li>Cucumber</li>
+</ul></li>
+<li>Podejście Bhaviour Driven Development
+<ul>
+<li>opis scenariuszy w języku naturalnym, odpowiednio
+sformalizowany</li>
+<li>można implementować odpowiednie parsowanie wyrażeń w języku
+naturalnym</li>
+<li>czytelne jako specyfikacja</li>
+<li>specification by example</li>
+<li>bardzo czasochłonne</li>
+<li>może być użyteczne nawet bez automatyzacji, do czytelnego opisania
+wymagań</li>
+</ul></li>
+</ul>
+<h3 id="testy-integracyjne">Testy integracyjne</h3>
+<ul>
+<li>Test kilku warstw aplikacji
+<ul>
+<li>np. serwisu z bazą danych</li>
+</ul></li>
+<li>Jak komponenty wchodzą ze sobą w interakcje</li>
+</ul>
+<h3 id="testy-jednostkowe">Testy jednostkowe</h3>
+<ul>
+<li>Test małej funkcjonalności
+<ul>
+<li>dyskusyjne co można nazwać jednostką</li>
+<li>w praktyce np. jedna metoda, jedna klasa, kilka klas</li>
+</ul></li>
+<li>Szybkie</li>
+<li>Można pokryć wiele przypadków brzegowych</li>
+<li>Kruche
+<ul>
+<li>wiele sposobów na jakie można źle napisać test</li>
+</ul></li>
+<li>Własności FIRST
+<ul>
+<li>fast</li>
+<li>isolated</li>
+<li>repeatable</li>
+<li>self-verifying</li>
+<li>timely - napisany w odpowiednim momencie</li>
+</ul></li>
+<li>Dają pewność że kod jest poprawny</li>
+<li>Pozytywnie wpływają na jakosć kodu
+<ul>
+<li>pisanie kodu tak, żeby dało się go przetestować</li>
+<li>wymusza dobrą architekturę</li>
+</ul></li>
+<li>Pomagają w znalezieniu błędu</li>
+<li>Przyśpieszają pracę programisty</li>
+</ul>
+<h3 id="kiedy-testować">Kiedy testować</h3>
+<ul>
+<li>Testowanie po napisaniu kodu
+<ul>
+<li>może okazać się że kodu nie da się przetestować</li>
+<li>trudniej wpaść na przypadki brzegowe</li>
+</ul></li>
+<li>Test przed napisaniem kodu
+<ul>
+<li>do kodu który chcielibyśmy mieć</li>
+<li>zmusza do myślenia o tym jak będzie się używać kodu</li>
+</ul></li>
+<li>Test-Driven Development</li>
+</ul>
+<h2 id="test-driven-development-1">Test Driven Development</h2>
+<ul>
+<li>Cykl red, green, refactor
+<ul>
+<li>piszemy test, który nie przechodzi</li>
+<li>piszemy implementację tak, żeby test przeszedł</li>
+<li>refaktoryzujemy implementację, poprawiamy jakość kodu</li>
+</ul></li>
+<li>Red
+<ul>
+<li>do czego dążymy, jak powinien zachowywać się system</li>
+</ul></li>
+<li>Green
+<ul>
+<li>piszemy tylko tyle żeby zadowolić test</li>
+<li>skupiamy się na funkcjonalności, nie na estetyce kodu</li>
+</ul></li>
+<li>Refactor
+<ul>
+<li>zmiana struktury kodu bez zmiany działania</li>
+</ul></li>
+<li>Zasady TDD
+<ul>
+<li>Nie możesz napisać produkcyjnego kodu jeśli nie napisałeś wcześniej
+testu jednostkowego który nie przechodzi</li>
+<li>Nie możesz napisać większego testu niż to konieczne żeby nie
+przeszedł</li>
+<li>Nie możesz napisać więcej kodu produkcyjnego niż potrzeba żeby
+napisany test przeszedł</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>szybki feedback</li>
+<li>jakość wbudowana w proces wytwarzania oprogramowania</li>
+<li>możliwość refaktoringu</li>
+<li>łatwiej wprowadzać nowe zmiany</li>
+<li>inkrementalny postęp</li>
+</ul></li>
+<li>Efekty uboczne
+<ul>
+<li>testowalność kodu</li>
+<li>lepsze zrozumienie dziedziny i kryteriów akceptacji</li>
+<li>testy są żywą dokumentacją kodu</li>
+<li>mniej błędów</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#test-driven-development" id="toc-test-driven-development">Test Driven Development</a>
+<ul>
+<li><a href="#feedback-loop" id="toc-feedback-loop">Feedback
+loop</a></li>
+<li><a href="#waterfall" id="toc-waterfall">Waterfall</a></li>
+<li><a href="#agile" id="toc-agile">Agile</a></li>
+<li><a href="#extreme-programming" id="toc-extreme-programming">Extreme
+Programming</a></li>
+<li><a href="#piramida-testów" id="toc-piramida-testów">Piramida
+testów</a>
+<ul>
+<li><a href="#testy-manualne" id="toc-testy-manualne">Testy
+manualne</a></li>
+<li><a href="#testy-automatyczne" id="toc-testy-automatyczne">Testy
+automatyczne</a></li>
+<li><a href="#testy-uie2e" id="toc-testy-uie2e">Testy UI/E2E</a></li>
+<li><a href="#testy-akceptacyjne" id="toc-testy-akceptacyjne">Testy
+akceptacyjne</a></li>
+<li><a href="#testy-integracyjne" id="toc-testy-integracyjne">Testy
+integracyjne</a></li>
+<li><a href="#testy-jednostkowe" id="toc-testy-jednostkowe">Testy
+jednostkowe</a></li>
+<li><a href="#kiedy-testować" id="toc-kiedy-testować">Kiedy
+testować</a></li>
+</ul></li>
+<li><a href="#test-driven-development-1" id="toc-test-driven-development-1">Test Driven Development</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

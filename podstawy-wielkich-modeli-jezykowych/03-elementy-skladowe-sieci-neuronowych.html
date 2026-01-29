@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-elementy-skladowe-sieci-neuronowych</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-podstawy-uczenia-glebokiego.html">Poprzedni: 02-podstawy-uczenia-glebokiego.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-tokenizacja.html">Następny: 04-tokenizacja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="elementy-składowe-sieci-neuronowych">Elementy składowe sieci
+neuronowych</h1>
+<h2 id="elementy-składowe">Elementy składowe</h2>
+<ul>
+<li>Warstwa - podstawowy element składowy
+<ul>
+<li>warstwa to jakaś operacja matematyczna</li>
+<li>operują na tensorach zawierających przetwarzane dane</li>
+<li>moduł <code>torch.nn</code></li>
+<li>klasy warstw dziedziczą po <code>torch.nn.Module</code></li>
+<li>warstwa może mieć swoje parametry</li>
+<li>parametry też są przechowywane w tensorach</li>
+<li>w Torchu tensor może mieć ustawioną flagę
+<code>requires_grad=True</code> - będzie akumulować historię
+obliczeń</li>
+</ul></li>
+<li>Moduł może składać się z innych modułów
+<ul>
+<li>budowanie modelu jak z klocków</li>
+</ul></li>
+<li>Warstwy w sieci tworzę acykliczny graf skierowany (DAG)
+<ul>
+<li>w szczególnym, prostym przypadku - połączone sekwencyjnie</li>
+</ul></li>
+<li>Niektóre warstwy zachowują się inaczej w fazie treningu i inaczej w
+fazie ewaluacji
+<ul>
+<li>przełączenie przez wywołanie metody <code>model.train()</code> /
+<code>model.eval()</code></li>
+</ul></li>
+</ul>
+<h2 id="warstwa-liniowa">Warstwa liniowa</h2>
+<p><span class="math display">\[y = xW^T + b\]</span></p>
+<ul>
+<li><span class="math inline">\(y\)</span> - wektor wyjściowy</li>
+<li><span class="math inline">\(x\)</span> - wektor wejściowy</li>
+<li><span class="math inline">\(W\)</span> - macierz wag (parametr
+warstwy)</li>
+<li><span class="math inline">\(b\)</span> wektor obciążenia (parametr
+warstwy)</li>
+<li>Klasa <code>torch.nn.Linear</code></li>
+<li>Większość parametrów transformera bierze się z warstw liniowych</li>
+<li>Przekształcenie afiniczne
+<ul>
+<li>mnożenie przez macierz i dodanie wektora</li>
+</ul></li>
+<li>Złożenie wielu warstw liniowych można zastąpić jedną warstwą liniową
+<ul>
+<li>właściwość przekształceń afinicznych</li>
+<li>siła wyrazu samej warstwy liniowej jest ograniczona</li>
+</ul></li>
+</ul>
+<h2 id="warstwy-nieliniowe">Warstwy nieliniowe</h2>
+<ul>
+<li>Nieliniowe przekształcenie każdego elementu wejściowego tensora</li>
+<li>Nie posiada parametrów optymalizowanych w procesie uczenia</li>
+<li>Twierdzenie o uniwersalnej aproksymacji
+<ul>
+<li>sieć neuronowa z co najmniej jedną nieliniową warstwą ukrytą może
+aproksymować dowolną funkcję ciągłą z dowolną dokładnością</li>
+<li>przy wystarczającej liczbie neuronów</li>
+</ul></li>
+</ul>
+<h3 id="rectified-linear-unit-relu">Rectified Linear Unit (ReLU)</h3>
+<p><span class="math display">\[
+ReLU(x) = \begin{cases}
+    0 &amp; x &lt;0 \\
+    x &amp; x \ge 0
+\end{cases}
+\]</span></p>
+<h3 id="gaussian-error-linear-unit-gelu">Gaussian Error Linear Unit
+(GELU)</h3>
+<p><span class="math display">\[GELU(x) = x \cdot \Phi(x)\]</span></p>
+<ul>
+<li><span class="math inline">\(\Phi(x)\)</span> - dystrybuanta rozkładu
+normalnego</li>
+<li>Dobre własności
+<ul>
+<li>jest różniczkowalna w każdym punkcie</li>
+<li>gradient nigdzie nie jest zerowy (bardzo bliski zera dla małych
+wartości)</li>
+</ul></li>
+</ul>
+<h3 id="sigmoid-linear-unit-silu-swish">Sigmoid Linear Unit (SiLU,
+Swish)</h3>
+<ul>
+<li><span class="math inline">\(SiLU(x) = x \cdot
+\sigma(x)\)</span></li>
+<li>Podobny kształt i własności do GELU</li>
+</ul>
+<h3 id="sigmoid">Sigmoid</h3>
+<p><span class="math display">\[\sigma(x) = \frac{1}{1+e^{-x}}\]</span>
+* Zakres wartości <span class="math inline">\((0,1)\)</span></p>
+<h3 id="tangens-hiperboliczny">Tangens hiperboliczny</h3>
+<p><span class="math display">\[\tanh(x)= \frac{e^x - e^{-x}}{e^x +
+e^{-x}}\]</span></p>
+<ul>
+<li>Obecnie rzadko stosowany w praktyce</li>
+<li>Zakres wartości <span class="math inline">\((-1,1)\)</span></li>
+</ul>
+<h2 id="warstwy-normalizacji">Warstwy normalizacji</h2>
+<h3 id="normalizacja-wsadu-batchnorm">Normalizacja wsadu
+(BatchNorm)</h3>
+<p><span class="math display">\[y = \frac{x -
+\mathbb{E}[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} \cdot \gamma +
+\beta\]</span></p>
+<ul>
+<li>Przekształca wejście
+<ul>
+<li>średnia zbliżona do <span class="math inline">\(0\)</span></li>
+<li>Odchylenie zbliżone do <span class="math inline">\(1\)</span></li>
+<li>dodatkowe uczone parametry odpowiedzialne za skalowanie</li>
+</ul></li>
+<li>Stabilizuje trening</li>
+<li>Przyspiesza zbieżność</li>
+<li>Zmniejsza szansę na przeuczenie</li>
+<li>Statystyki wyznaczane wzdłuż wymiaru związanego z rozmiarem
+wsadu</li>
+<li>W fazie treningu
+<ul>
+<li>zapamiętywana średnia krocząca</li>
+</ul></li>
+<li>W fazie inferencji
+<ul>
+<li>wykorzystanie wartości wyznaczonych w fazie treningu</li>
+</ul></li>
+</ul>
+<h3 id="normalizacja-warstwy-layernorm">Normalizacja warstwy
+(LayerNorm)</h3>
+<ul>
+<li>Analogicznie do normalizacji wsadu, tylko wzdłuż wymiaru cech
+<ul>
+<li>dla wielu wymiarów (poza wymiarem wsadu) - po jednym wyznaczonym
+wymiarze</li>
+</ul></li>
+<li>Może poprawić generalizację modelu, stabilizować i przyspieszyć
+trening</li>
+<li>Stosowana w sieciach rekurencyjnych i transformerach</li>
+<li>Identyczne działanie ww trakcie treningu i inferencji</li>
+</ul>
+<h2 id="inne-warstwy">Inne warstwy</h2>
+<h3 id="warstwa-odrzutu-dropout">Warstwa odrzutu (Dropout)</h3>
+<ul>
+<li>Jest metodą regularyzacji, stosowany w celu ograniczenia
+przeuczenia</li>
+<li>Polepsza generalizację sieci neuronowej</li>
+<li>W fazie treningu
+<ul>
+<li>losowo zerowane wejścia z prawdopodobieństwem <span
+class="math inline">\(p\)</span></li>
+<li>wyjście skalowane przez <span
+class="math inline">\(\frac{1}{1-p}\)</span> (żeby skompensować te
+wyzerowane)</li>
+</ul></li>
+<li>W fazie inferencji
+<ul>
+<li>przekształcenie tożsamościowe</li>
+</ul></li>
+</ul>
+<h3 id="warstwa-sekwencyjna">Warstwa sekwencyjna</h3>
+<ul>
+<li>Połączenie sekwencyjne wielu warstw w jeden moduł</li>
+<li>Przykład - perceptron wielowarstwowy</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    nn.Linear(<span class="dv">100</span>, <span class="dv">256</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    nn.ReLU(),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    nn.Linear(<span class="dv">256</span>, <span class="dv">16</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    nn.ReLU(),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    nn.Linear(<span class="dv">16</span>, <span class="dv">4</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3 id="warstwa-softmax">Warstwa softmax</h3>
+<ul>
+<li>Stosuje funkcję <span
+class="math inline">\(\mathrm{softmax}\)</span> wzdłuż podanego wymiaru
+wejściowego tensora</li>
+<li>Przekształca nieznormalizowane wyjścia z sieci (logity) w rozkład
+prawdopodobieństwa</li>
+<li>Nie powinien być stosowany wewnątrz modułu klasyfikatora do
+wyznaczenia prawdopodobieństwa klas
+<ul>
+<li>klasyfikator powinien zwracać logity</li>
+</ul></li>
+<li>Aby zwiększyć stabilność numeryczną, funkcja straty
+<code>nn.CrossEntropyLoss</code> oczekuje na wejściu logitów, a nie
+rozkładu prawdopodobieństwa</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#elementy-składowe-sieci-neuronowych" id="toc-elementy-składowe-sieci-neuronowych">Elementy składowe sieci
+neuronowych</a>
+<ul>
+<li><a href="#elementy-składowe" id="toc-elementy-składowe">Elementy
+składowe</a></li>
+<li><a href="#warstwa-liniowa" id="toc-warstwa-liniowa">Warstwa
+liniowa</a></li>
+<li><a href="#warstwy-nieliniowe" id="toc-warstwy-nieliniowe">Warstwy
+nieliniowe</a>
+<ul>
+<li><a href="#rectified-linear-unit-relu" id="toc-rectified-linear-unit-relu">Rectified Linear Unit
+(ReLU)</a></li>
+<li><a href="#gaussian-error-linear-unit-gelu" id="toc-gaussian-error-linear-unit-gelu">Gaussian Error Linear Unit
+(GELU)</a></li>
+<li><a href="#sigmoid-linear-unit-silu-swish" id="toc-sigmoid-linear-unit-silu-swish">Sigmoid Linear Unit (SiLU,
+Swish)</a></li>
+<li><a href="#sigmoid" id="toc-sigmoid">Sigmoid</a></li>
+<li><a href="#tangens-hiperboliczny" id="toc-tangens-hiperboliczny">Tangens hiperboliczny</a></li>
+</ul></li>
+<li><a href="#warstwy-normalizacji" id="toc-warstwy-normalizacji">Warstwy normalizacji</a>
+<ul>
+<li><a href="#normalizacja-wsadu-batchnorm" id="toc-normalizacja-wsadu-batchnorm">Normalizacja wsadu
+(BatchNorm)</a></li>
+<li><a href="#normalizacja-warstwy-layernorm" id="toc-normalizacja-warstwy-layernorm">Normalizacja warstwy
+(LayerNorm)</a></li>
+</ul></li>
+<li><a href="#inne-warstwy" id="toc-inne-warstwy">Inne warstwy</a>
+<ul>
+<li><a href="#warstwa-odrzutu-dropout" id="toc-warstwa-odrzutu-dropout">Warstwa odrzutu (Dropout)</a></li>
+<li><a href="#warstwa-sekwencyjna" id="toc-warstwa-sekwencyjna">Warstwa
+sekwencyjna</a></li>
+<li><a href="#warstwa-softmax" id="toc-warstwa-softmax">Warstwa
+softmax</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

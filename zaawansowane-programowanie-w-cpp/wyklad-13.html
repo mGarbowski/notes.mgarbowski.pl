@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-13</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-12.html">Poprzedni: wyklad-12.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="optymalizacja-zpr--w14--2021-01-19">Optymalizacja (ZPR- W14
+-2021 01 19)</h1>
+<p>Nie ma narzutu w wektorze względem tablicy (tylko przez wyciągnięcie
+długości ale i tak należy grupować tablicę z rozmiarem)</p>
+<p>-O3 może wygenerować więcej kodu niż -O2 stosując dzikie
+optymalizacje ma znaczenie czy cały program mieści się w cache’u
+instrukcji na procesroze</p>
+<p><code>int[][]</code> vs
+<code>vector&lt;vector&lt;int&gt;&gt;</code></p>
+<p>Kompilator zamieni mnożenie przez stałą na shift - należy pisać
+normalne semantycznie wyrażenia matematyczne Kompilator i tak zamienia
+te operacje na najbadziej wydajne</p>
+<p><code>const</code> umożliwia potężne optymalizacje lokalna zmienna
+nie jest zmienną</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#optymalizacja-zpr--w14--2021-01-19" id="toc-optymalizacja-zpr--w14--2021-01-19">Optymalizacja (ZPR- W14
+-2021 01 19)</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-integracja-systemow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-spring.html">Poprzedni: 08-spring.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-cloud.html">Następny: 10-cloud.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="integracja-systemów-2024-12-09">Integracja systemów
+(2024-12-09)</h1>
+<h2 id="rodzaje-integracji">Rodzaje integracji</h2>
+<h3 id="integracja-danych">Integracja danych</h3>
+<ul>
+<li>Różne źródła danych</li>
+<li>Różne formaty danych</li>
+<li>Proces ETL
+<ul>
+<li>extract, transform, load</li>
+</ul></li>
+<li>Data Flow Diagram (DFD)</li>
+<li>Apache Flink
+<ul>
+<li>narzędzie z ekosystemu Javy</li>
+</ul></li>
+<li>Arkusze migracyjne
+<ul>
+<li>klient przygotowuje dane</li>
+<li>widoki SQLowe</li>
+<li>arkusze w excelu</li>
+</ul></li>
+</ul>
+<h2 id="strategie-integracji">Strategie integracji</h2>
+<h3 id="integracja-przez-pliki">Integracja przez pliki</h3>
+<ul>
+<li>Jeden system eksportuje dane do pliku</li>
+<li>Drugi system importuje dane z pliku</li>
+<li>Najstarsza i najprostsza metoda integracji</li>
+<li>Wymaga uzgodnienia formatu pliku</li>
+<li>Do operacji batchowych, gdzie jest bardzo dużo danych może być
+całkiem ok</li>
+<li>Nie ma dużego problemu jeśli jeden z systemów leży
+<ul>
+<li>plik może poczekać w katalogu</li>
+</ul></li>
+<li>Systemy nie muszą nic o sobie wiedzieć</li>
+<li>Komunikacja jest asynchroniczna
+<ul>
+<li>nie muszą być jendoczesnie aktywnie</li>
+<li>nie da się pobierać danych na żywo</li>
+<li>dane wędrują z opóźnieniem</li>
+</ul></li>
+<li>Komunikacja jednokierunkowa</li>
+<li>Różne protokoły
+<ul>
+<li>FTP</li>
+<li>NFS</li>
+<li>S3</li>
+</ul></li>
+<li>Nie ma sensownej obsługi błędów</li>
+<li>Rytm dostarczania plików może generować problemy</li>
+<li>Sensowny dla plików binarnych</li>
+<li>Nie jest sensowny dla metadanych</li>
+</ul>
+<h3 id="apirpc">API/RPC</h3>
+<ul>
+<li>Oba systemy muszą działać jednocześnie</li>
+<li>Może być dwukierunkowy przepływ danych</li>
+<li>Nie jest zależne od szczegółów implementacyjnych (jaka baza
+itp)</li>
+<li>Może być problem wydajnościowy przy dużych ilościach danych</li>
+<li>Wymaga decyzji kto kogo woła
+<ul>
+<li>push vs pull</li>
+<li>problemy projektowe, może wymagać pracy po stronie innego zespołu /
+podmiotu</li>
+<li>dodatkowy aspekt wpływający na wydajność - jak inne systemy
+korzystają z naszego API</li>
+</ul></li>
+<li>Problem jeśli zmieni się API</li>
+<li>Problem jeśli API nie ma wszystkich potrzebnych metod</li>
+<li>Niemożliwe do zastosowania w starych systemach nie wystawiających
+API</li>
+<li>Problem jeśli jest wiele systemów</li>
+<li>Łatwe do analizy</li>
+<li>Dobra granulacja bezpieczeństwa</li>
+<li>Dostęp do danych na żywo</li>
+</ul>
+<h4 id="protokoły-binarne-vs-tekstowe">Protokoły binarne vs
+tekstowe</h4>
+<ul>
+<li>Binarne protokoły bardziej wydajnie pakują dane</li>
+<li>Problemy z serializacją danych przy binarnych protokołach</li>
+<li>Łatwość debugowania tekstowych protokołów</li>
+</ul>
+<h3 id="integracja-przez-bazę-danych">Integracja przez bazę danych</h3>
+<ul>
+<li>Są mechanizmy transakcji</li>
+<li>Asynchroniczny</li>
+<li>Może system nie musi chodzić jeśli system jest na innym
+serwerze</li>
+<li>Nie ma takiego narzutu jak API</li>
+<li>Przywiązany do szczegółów implementacyjnych
+<ul>
+<li>kwestia granulacji informacji</li>
+<li>można użyć widoków albo procedur składowanych jako API</li>
+</ul></li>
+<li>Można się zintegrować z prawie każdym systemem</li>
+<li>Radzi sobie z dużą ilością danych</li>
+<li>Da się pobrać dane i na żywo i asynchronicznie</li>
+<li>Praktyczne jedyne podejście transakcyjne</li>
+<li>Trudne do analizy</li>
+<li>Słaba granulacja bezpieczeństwa</li>
+<li>Łatwo coś popsuć w drugim systemie</li>
+<li>Duże ryzyko, że jeśli system się zmieni to integracja przestanie
+działać</li>
+</ul>
+<h3 id="szyna-komunikatów">Szyna komunikatów</h3>
+<ul>
+<li>Message broker
+<ul>
+<li>np. JMS</li>
+<li>obsługuje trasowanie - nie każdy system musi o wszystkim
+wiedzieć</li>
+<li>granulacja bezpieczeńśtwa</li>
+<li>single point of failure</li>
+</ul></li>
+<li>Asynchroniczna komunikacja</li>
+<li>Tam gdzie istotna jest niezawodność i wiele systemów
+<ul>
+<li>odciąża systemy z obsługi komunikatów</li>
+</ul></li>
+<li>Gwarantuje dostarczenie</li>
+<li>Standaryzuje wiele systemów</li>
+<li>Rzadko da się zastosować
+<ul>
+<li>to decyzja organizacji</li>
+</ul></li>
+</ul>
+<h4 id="jms">JMS</h4>
+<ul>
+<li>Kolejka - jeden do jeden</li>
+<li>Topic - publish and subscribe</li>
+<li>Poziomy gwarancji dostarczenia
+<ul>
+<li>at most once</li>
+<li>at least once - często wystarcza ale wymaga obsługi duplikatów u
+odbiorcy</li>
+<li>exactly once - najcięższe wydajnościowo</li>
+</ul></li>
+</ul>
+<h4 id="amqp">AMQP</h4>
+<ul>
+<li>Agnostyczny względem technologii</li>
+</ul>
+<h4 id="technologie">Technologie</h4>
+<ul>
+<li>RabbitMQ</li>
+<li>Apache ActiveMQ</li>
+<li>Mule ESB</li>
+</ul>
+<h4 id="kafka">Kafka</h4>
+<ul>
+<li>Wymiana komunikatów
+<ul>
+<li>trochę jak integracja przez bazę danych …</li>
+</ul></li>
+</ul>
+<h4 id="szyna-vs-message-broker">Szyna vs message broker</h4>
+<ul>
+<li>Szyna obsługuje wiele różnych protokołów
+<ul>
+<li>np. adaptery do SOAP i REST</li>
+</ul></li>
+<li>ESB obsługuje orkiestrację
+<ul>
+<li>zdarzenie inicjuje zdefiniowany workflow</li>
+</ul></li>
+<li>Szyna często przywiązuje do konkretnego dostawcy</li>
+<li>Szyna jest mądra i wie gdzie wszystko dostarczyć</li>
+</ul>
+<h4 id="outbox-pattern">Outbox pattern</h4>
+<ul>
+<li>Uniknięcie problemu rozproszonych transakcji</li>
+</ul>
+<h4 id="saga">Saga</h4>
+<ul>
+<li>Implementacja długotrwałej transakcji</li>
+<li>Rozbicie długotrwałego procesu na krótkie etapy</li>
+<li>Każdy kawałek jest transakcyjny</li>
+<li>Zamiast wycofania jest kompensacja
+<ul>
+<li>np. nie da się odrezerwować hotelu - trzeba wykonać anulowanie</li>
+</ul></li>
+</ul>
+<h2 id="błędy-wersjonowanie">Błędy, wersjonowanie</h2>
+<ul>
+<li>Wersjonowanie przez ściezki URL</li>
+<li>Wersjonowanie przez nagłówki Accept</li>
+<li>Forwards compatibility
+<ul>
+<li>co jeśli nowa wersji systemu zwróci więcej danych niż poprzednia
+wersja (np. dodatkowe pola)</li>
+<li>problemy przy głupim parsowaniu</li>
+<li>powinna być przynajmniej sensowna obsługa błędów</li>
+</ul></li>
+</ul>
+<h3 id="błędy-biznesowe-i-techniczne">Błędy biznesowe i techniczne</h3>
+<ul>
+<li>Techniczne
+<ul>
+<li>zerwane połączenie, przeciążenie systemu</li>
+</ul></li>
+<li>Błąd biznesowy
+<ul>
+<li>błędy walidacji</li>
+</ul></li>
+</ul>
+<h2 id="enterprise-integration-patterns">Enterprise Integration
+Patterns</h2>
+<ul>
+<li>Stara książka</li>
+<li>EAI</li>
+<li>Wzorce implementowane np. w Springu</li>
+<li>Wzorce bezstanowe
+<ul>
+<li>filtry</li>
+<li>translacja</li>
+<li>wzbogacanie - np. zamiast dużego zdjęcia wprowadzić id jak można się
+do niego dobrać z innego źródła lepiej zoptymalizowanego pod dane
+binarne</li>
+<li>split</li>
+<li>throttle - krytyczne systmy, których nie wolno zapchać
+<ul>
+<li>przydatne przy okresowych importach</li>
+<li>zadania do przetworzenia <em>o północy</em></li>
+</ul></li>
+</ul></li>
+<li>Wzorce stanowe
+<ul>
+<li>claim-check - wykorzystuje zewnętrzne repozytorium, podobne do
+enricher</li>
+<li>agregacja - sklejanie wiadomości z różnych systemów</li>
+<li>scatter-gather - rozproszenie przetwarzania</li>
+</ul></li>
+</ul>
+<p>Nie zawsze dostarczanie dobrego API do systemu jest w interesie
+dostawcy</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#integracja-systemów-2024-12-09" id="toc-integracja-systemów-2024-12-09">Integracja systemów
+(2024-12-09)</a>
+<ul>
+<li><a href="#rodzaje-integracji" id="toc-rodzaje-integracji">Rodzaje
+integracji</a>
+<ul>
+<li><a href="#integracja-danych" id="toc-integracja-danych">Integracja
+danych</a></li>
+</ul></li>
+<li><a href="#strategie-integracji" id="toc-strategie-integracji">Strategie integracji</a>
+<ul>
+<li><a href="#integracja-przez-pliki" id="toc-integracja-przez-pliki">Integracja przez pliki</a></li>
+<li><a href="#apirpc" id="toc-apirpc">API/RPC</a></li>
+<li><a href="#integracja-przez-bazę-danych" id="toc-integracja-przez-bazę-danych">Integracja przez bazę
+danych</a></li>
+<li><a href="#szyna-komunikatów" id="toc-szyna-komunikatów">Szyna
+komunikatów</a></li>
+</ul></li>
+<li><a href="#błędy-wersjonowanie" id="toc-błędy-wersjonowanie">Błędy,
+wersjonowanie</a>
+<ul>
+<li><a href="#błędy-biznesowe-i-techniczne" id="toc-błędy-biznesowe-i-techniczne">Błędy biznesowe i
+techniczne</a></li>
+</ul></li>
+<li><a href="#enterprise-integration-patterns" id="toc-enterprise-integration-patterns">Enterprise Integration
+Patterns</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

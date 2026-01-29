@@ -84,7 +84,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="potokowe-jednostki-wykonawcze">Potokowe jednostki
 wykonawcze</h1>
 <p>Krótszy okres zegara, bo wygnał musi przepropagować tylko do
@@ -375,50 +374,52 @@ obrocie pętli będzie niepotrzebny prefetch z początku pętli</p>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#potokowe-jednostki-wykonawcze">Potokowe jednostki
-wykonawcze</a>
+<li><a href="#potokowe-jednostki-wykonawcze" id="toc-potokowe-jednostki-wykonawcze">Potokowe jednostki wykonawcze</a>
 <ul>
-<li><a href="#rozwiązanie-hazardu-typu-read-after-write-raw">Rozwiązanie
+<li><a href="#rozwiązanie-hazardu-typu-read-after-write-raw" id="toc-rozwiązanie-hazardu-typu-read-after-write-raw">Rozwiązanie
 hazardu typu Read-After-Write (RAW)</a></li>
-<li><a href="#load-use-penalty">Load-Use Penalty</a></li>
-<li><a href="#instrukcje-skoku-w-potoku">Instrukcje skoku w potoku</a>
+<li><a href="#load-use-penalty" id="toc-load-use-penalty">Load-Use
+Penalty</a></li>
+<li><a href="#instrukcje-skoku-w-potoku" id="toc-instrukcje-skoku-w-potoku">Instrukcje skoku w potoku</a>
 <ul>
-<li><a href="#delayed-branch">Delayed branch</a></li>
+<li><a href="#delayed-branch" id="toc-delayed-branch">Delayed
+branch</a></li>
 </ul></li>
-<li><a href="#wydajność-potoku">Wydajność potoku</a>
+<li><a href="#wydajność-potoku" id="toc-wydajność-potoku">Wydajność
+potoku</a>
 <ul>
-<li><a href="#opóźnienia-powodują">Opóźnienia powodują</a></li>
+<li><a href="#opóźnienia-powodują" id="toc-opóźnienia-powodują">Opóźnienia powodują</a></li>
 </ul></li>
-<li><a href="#przyspieszanie-potoku">Przyspieszanie potoku</a>
+<li><a href="#przyspieszanie-potoku" id="toc-przyspieszanie-potoku">Przyspieszanie potoku</a>
 <ul>
-<li><a href="#rozwiązanie-w-mips-r4000">Rozwiązanie w MIPS
-R4000</a></li>
+<li><a href="#rozwiązanie-w-mips-r4000" id="toc-rozwiązanie-w-mips-r4000">Rozwiązanie w MIPS R4000</a></li>
 </ul></li>
-<li><a href="#budowa-pamięci-każdej">Budowa pamięci (każdej)</a></li>
-<li><a href="#wydajność-superpotoków">Wydajność superpotoków</a></li>
-<li><a href="#realizacja-potokowa-procesora-cisc">Realizacja potokowa
+<li><a href="#budowa-pamięci-każdej" id="toc-budowa-pamięci-każdej">Budowa pamięci (każdej)</a></li>
+<li><a href="#wydajność-superpotoków" id="toc-wydajność-superpotoków">Wydajność superpotoków</a></li>
+<li><a href="#realizacja-potokowa-procesora-cisc" id="toc-realizacja-potokowa-procesora-cisc">Realizacja potokowa
 procesora CISC</a></li>
 </ul></li>
-<li><a href="#procesory-wielopotokowe-superskalarne">Procesory
-wielopotokowe (superskalarne)</a>
+<li><a href="#procesory-wielopotokowe-superskalarne" id="toc-procesory-wielopotokowe-superskalarne">Procesory wielopotokowe
+(superskalarne)</a>
 <ul>
-<li><a href="#pseudosuperskalar">Pseudosuperskalar</a></li>
-<li><a href="#superskalar-z-kolejnym-wykonaniem-instrukcji">Superskalar
-z kolejnym wykonaniem instrukcji</a></li>
-<li><a href="#superskalar-z-kolejnym-rozpoczynaniem-i-niekolejnym-kończeniem">Superskalar
+<li><a href="#pseudosuperskalar" id="toc-pseudosuperskalar">Pseudosuperskalar</a></li>
+<li><a href="#superskalar-z-kolejnym-wykonaniem-instrukcji" id="toc-superskalar-z-kolejnym-wykonaniem-instrukcji">Superskalar z
+kolejnym wykonaniem instrukcji</a></li>
+<li><a href="#superskalar-z-kolejnym-rozpoczynaniem-i-niekolejnym-kończeniem" id="toc-superskalar-z-kolejnym-rozpoczynaniem-i-niekolejnym-kończeniem">Superskalar
 z kolejnym rozpoczynaniem i niekolejnym kończeniem</a></li>
-<li><a href="#superskalar-z-niekolejnym-wykonaniem-instrukcji">Superskalar z
+<li><a href="#superskalar-z-niekolejnym-wykonaniem-instrukcji" id="toc-superskalar-z-niekolejnym-wykonaniem-instrukcji">Superskalar z
 niekolejnym wykonaniem instrukcji</a></li>
-<li><a href="#superskalarny-z-niekolejnym-wykonaniem-instrukcji">Superskalarny
+<li><a href="#superskalarny-z-niekolejnym-wykonaniem-instrukcji" id="toc-superskalarny-z-niekolejnym-wykonaniem-instrukcji">Superskalarny
 z niekolejnym wykonaniem instrukcji</a></li>
-<li><a href="#synchronizacja-przy-superskalarze-ze-zmianą-kolejności">Synchronizacja
+<li><a href="#synchronizacja-przy-superskalarze-ze-zmianą-kolejności" id="toc-synchronizacja-przy-superskalarze-ze-zmianą-kolejności">Synchronizacja
 przy superskalarze ze zmianą kolejności</a></li>
-<li><a href="#register-renaming">Register renaming</a></li>
-<li><a href="#półka">Półka</a>
+<li><a href="#register-renaming" id="toc-register-renaming">Register
+renaming</a></li>
+<li><a href="#półka" id="toc-półka">Półka</a>
 <ul>
-<li><a href="#antypółka">Antypółka</a></li>
+<li><a href="#antypółka" id="toc-antypółka">Antypółka</a></li>
 </ul></li>
-<li><a href="#liczba-rejestrów-fizycznych">Liczba rejestrów
+<li><a href="#liczba-rejestrów-fizycznych" id="toc-liczba-rejestrów-fizycznych">Liczba rejestrów
 fizycznych</a></li>
 </ul></li>
 </ul>

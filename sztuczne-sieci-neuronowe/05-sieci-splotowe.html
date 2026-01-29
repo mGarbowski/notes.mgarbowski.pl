@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-sieci-splotowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-dobre-praktyki.html">Poprzedni: 04-dobre-praktyki.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-uczenie-nienadzorowane-i-autoenkodery.html">Następny: 06-uczenie-nienadzorowane-i-autoenkodery.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="sieci-splotowe">Sieci splotowe</h1>
+<h2 id="splot-w-matematyce">Splot w matematyce</h2>
+<ul>
+<li>Rodzaj złożenia dwóch funkcji na przedziale</li>
+<li>Do zastosowań w wizji komputerowej i rozpoznawaniu obrazów - splot
+dyskretny</li>
+<li>Splot 2 wektorów 1D będzie dłuższy niż wektory wejściowe</li>
+</ul>
+<p><span class="math display">\[ (h \ast f)(t) = \int_{-\infty}^\infty
+h(t-\tau)f(\tau)d\tau \]</span></p>
+<h2 id="splot-2d">Splot 2D</h2>
+<ul>
+<li>Co z pikselami na brzegach
+<ul>
+<li>można dołożyć zera</li>
+<li>można dopełnić tymi samymi wartościami co na brzegach</li>
+<li>można obciąć macierz maski (np. w rogu będzie obcięta z 3x3 do
+2x2)</li>
+</ul></li>
+<li>Filtry uśredniające
+<ul>
+<li>same jedynki (przeskalowane żeby sumowały się do 1) - rozmycie</li>
+<li>gauss</li>
+<li>dobre na szum gaussowski</li>
+</ul></li>
+<li>Filtry górnoprzepustowe
+<ul>
+<li>kierunkowo wykrywające krawędzie</li>
+<li>działa jak gradient</li>
+<li>laplasjany - jak drugie pochodne, więcej szczegółów</li>
+</ul></li>
+<li>Dodanie obrazu krawędziowego do oryginalnego - wyostrzenie
+<ul>
+<li>w obrazie barwnym wykonuje się operację osobno dla każdego
+kanału</li>
+</ul></li>
+</ul>
+<h2 id="w-sieciach-neuronowych">W sieciach neuronowych</h2>
+<ul>
+<li>Wagi masek do splotu są trenowane w procesie uczenia</li>
+<li>W pierwszych warstwach robią operacje rozmycia</li>
+<li>W późniejszych warstwach robią wykrywanie krawędzi</li>
+<li>Czemu sieci gęste nie nadają się do przetwarzania obrazów
+<ul>
+<li>przy rozwinięciu macierzy w wektor traci się informacje o
+sąsiedztwie</li>
+</ul></li>
+<li>Operacja splotu po całym obrazie
+<ul>
+<li>uwzględnia zależności przestrzenne</li>
+</ul></li>
+<li>Też do dźwięków - zamienia się na spektrogramy - macierzowa
+reprezentacja</li>
+<li>Dopiero złożenie kilku warstw splotowych pozwala wyszukiwać bardziej
+złożone zależności</li>
+</ul>
+<h2 id="warstwa-splotowa">Warstwa splotowa</h2>
+<ul>
+<li>Obraz szary - macierz</li>
+<li>Obraz barwny - 3 wymiary (3 kanały barwy)</li>
+<li>Powierzchnia maski - pole recepcyjne</li>
+<li>Pola recepcyjne pokrywają poprzednią warstwę</li>
+<li>Neuron oblicza pozycję na wyjściu</li>
+<li>Warstwa splotowa 1x1 służy do zmiany liczby kanałów w wejściu</li>
+</ul>
+<h2 id="działanie-warstwy-splotowej">Działanie warstwy splotowej</h2>
+<ul>
+<li>Funkcja aktywacji - zazwyczaj ReLU</li>
+<li>Sigmoidy dają wolniejszą naukę</li>
+<li>Neuron może mieć obciążenie - dodawane do wyjścia po przemnożeniu
+przez maskę</li>
+</ul>
+<h2 id="parametry-warstwy-splotowej">Parametry warstwy splotowej</h2>
+<ul>
+<li>Głębokość - liczba kanałów wyjściowych (liczba różnych filtrów)</li>
+<li>Wysokość i szerokość pola recepcyjnego
+<ul>
+<li>zazwyczaj kwadratowe</li>
+<li>nieparzysty rozmiar - ustalony środek</li>
+</ul></li>
+<li>Krok (stride) - co ile pikseli są pola recepcyjne
+<ul>
+<li>większość implementacji ma 1 piksel (standrardowo)</li>
+</ul></li>
+<li>Ramka (padding)
+<ul>
+<li>jak obsługiwać piksele na krawędziach</li>
+<li>jak szeroko dookoła obrazu sięga obwódka wypełniona zerami</li>
+</ul></li>
+<li>Dylacja
+<ul>
+<li>rozproszenie pola recepcyjnego</li>
+<li>równomiernie oddalone od siebie komórki macierzy</li>
+</ul></li>
+<li>Trzeba zwracać uwagę na domyślne ustawienia
+<ul>
+<li>w zastosowaniach przemysłowych na innym środowisku się trenuje, a na
+innym wdraża na produkcji</li>
+<li>często runtime to dedykowany mikrokontroler</li>
+<li>przenoszenie przez framework ONNX</li>
+</ul></li>
+</ul>
+<h2 id="warstwa-łącząca">Warstwa łącząca</h2>
+<ul>
+<li>Pooling, subsampling</li>
+<li>Np. okno 2x2 z operacją maximum/średnią</li>
+<li>Też ma konfigurowany krok
+<ul>
+<li>np. krok równy rozmiarowi maski</li>
+</ul></li>
+</ul>
+<h2 id="warstwa-gęsta">Warstwa gęsta</h2>
+<ul>
+<li>Dense</li>
+<li>Tak samo jak w perceptronie wielowarstwowym</li>
+</ul>
+<h2 id="cała-struktura">Cała struktura</h2>
+<ul>
+<li>Wyjście
+<ul>
+<li>klasyfikacja - tyle wyjść ile klas</li>
+<li>identyfikacja - jedno wyjście tak/nie</li>
+</ul></li>
+<li>Algorytm propagacji wstecz do wyliczania gradientów</li>
+<li>Do detekcji jednego obiektu - można dołożyć do wektora wyjść x,y,w,h
+<ul>
+<li>do detekcji wielu obiektów ta architektura się nie nadaje</li>
+<li>można wycinać fragmenty zdjęcia i je klasyfikować</li>
+<li>po zaklasyfikowaniu fragmentu można rozszerzać okno</li>
+</ul></li>
+<li>Nie nadaje się do wszystkiego
+<ul>
+<li>detekcja</li>
+<li>segmentacja</li>
+<li>do tego są dedykowane architektury</li>
+</ul></li>
+<li>Nadają się do reprezentacji macierzowych</li>
+</ul>
+<h2 id="znane-architektury">Znane architektury</h2>
+<ul>
+<li>LeNet (1989)
+<ul>
+<li>warstwy splotowe ze zmniejszającymi się wymiarami</li>
+<li>na koniec warstwy gęste</li>
+</ul></li>
+<li>LeNet-5 (1998)
+<ul>
+<li>4 warstwy konwolucyjne, 2 gęste</li>
+</ul></li>
+<li>AlexNet (2012)</li>
+<li>ZFNet
+<ul>
+<li>optymalizacja AlexNet</li>
+<li>autorzy pracy robili wizualizacje w pośrednich warstwach</li>
+</ul></li>
+<li>VGGNet (2014)
+<ul>
+<li>wystarczają filtry 3x3</li>
+<li>więcej warstw splotowych to raczej lepiej</li>
+</ul></li>
+<li>GoogleNet
+<ul>
+<li>rzadka reprezentacja filtra</li>
+<li>moduły incepcji</li>
+<li>kilka operacji splotowych na raz na tym samym obszarze (różne
+rozmiary sąsiedztwa)</li>
+<li>skuteczność na zbiorze testowym zbliżona do człowieka</li>
+</ul></li>
+<li>ResNet
+<ul>
+<li>jeśli dodawanie warstw nie poprawia wyniku</li>
+<li>skip connection</li>
+<li>warstwa rezydualna inicjowana zerami</li>
+<li>wyjście <span class="math inline">\(f(x) + x\)</span></li>
+<li>szybciej się uczą</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sieci-splotowe" id="toc-sieci-splotowe">Sieci splotowe</a>
+<ul>
+<li><a href="#splot-w-matematyce" id="toc-splot-w-matematyce">Splot w
+matematyce</a></li>
+<li><a href="#splot-2d" id="toc-splot-2d">Splot 2D</a></li>
+<li><a href="#w-sieciach-neuronowych" id="toc-w-sieciach-neuronowych">W
+sieciach neuronowych</a></li>
+<li><a href="#warstwa-splotowa" id="toc-warstwa-splotowa">Warstwa
+splotowa</a></li>
+<li><a href="#działanie-warstwy-splotowej" id="toc-działanie-warstwy-splotowej">Działanie warstwy
+splotowej</a></li>
+<li><a href="#parametry-warstwy-splotowej" id="toc-parametry-warstwy-splotowej">Parametry warstwy
+splotowej</a></li>
+<li><a href="#warstwa-łącząca" id="toc-warstwa-łącząca">Warstwa
+łącząca</a></li>
+<li><a href="#warstwa-gęsta" id="toc-warstwa-gęsta">Warstwa
+gęsta</a></li>
+<li><a href="#cała-struktura" id="toc-cała-struktura">Cała
+struktura</a></li>
+<li><a href="#znane-architektury" id="toc-znane-architektury">Znane
+architektury</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

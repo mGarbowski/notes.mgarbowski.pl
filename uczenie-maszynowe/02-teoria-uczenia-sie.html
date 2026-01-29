@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-teoria-uczenia-sie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-indukcyjne-uczenie-sie.html">Poprzedni: 01-indukcyjne-uczenie-sie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-uczenie-sie-przestrzeni-wersji.html">Następny: 03-uczenie-sie-przestrzeni-wersji.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="teoria-uczenia-się">Teoria uczenia się</h1>
+<h2 id="pac-nauczalność">PAC-nauczalność</h2>
+<ul>
+<li>Probably Approximately Correct</li>
+<li>Jest właściwością klasy pojęć</li>
+<li>To nie jest tak słaba gwarancja jak brzmi
+<ul>
+<li>prawdopodobieństwo może być blisko <span
+class="math inline">\(1\)</span>, a błąd blisko <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Klasa pojęć <span class="math inline">\(\mathbb{C}\)</span> dla
+dziedziny <span class="math inline">\(X\)</span> jest PAC-nauczalna za
+pomocą przestrzeni modeli <span
+class="math inline">\(\mathbb{H}\)</span> jeśli
+<ul>
+<li>istnieje algorytm uczenia się używający <span
+class="math inline">\(\mathbb{H}\)</span></li>
+<li>którego uruchomienie z dostępem do źródła przykładów <span
+class="math inline">\(EX(\Omega,c)\)</span> oraz z parametrami <span
+class="math inline">\(\epsilon\)</span> i <span
+class="math inline">\(\delta\)</span></li>
+<li>daje w wyniku z prawdopodobieństwem co najmniej <span
+class="math inline">\(1-\delta\)</span> model <span
+class="math inline">\(h \in \mathbb{H}\)</span>, dla którego <span
+class="math inline">\(e_{\Omega,c}(h) \le \epsilon\)</span></li>
+<li>dla dowolnego pojęcia <span class="math inline">\(c \in
+\mathbb{C}\)</span>, dowolnego rozkładu prawdopodobieństwa <span
+class="math inline">\(\Omega\)</span> na <span
+class="math inline">\(X\)</span> oraz dowolnych <span
+class="math inline">\(0 &lt; \epsilon &lt; 1\)</span> i <span
+class="math inline">\(0 &lt; \delta &lt; 1\)</span></li>
+</ul></li>
+<li>Źródło przykładów, a nie zbiór - nie zakładamy ograniczenia na jakąś
+liczbę przykładów</li>
+<li>Parametry <span class="math inline">\(\epsilon\)</span> i <span
+class="math inline">\(\delta\)</span> określają nasze wymagania do
+algorytmu
+<ul>
+<li>im bliższe <span class="math inline">\(0\)</span> tym lepszy
+model</li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<ul>
+<li>Algorytm uczy się prostokątu o bokach równoległych do osi układu
+współrzędnych</li>
+<li>Klasa pojęć = przestrzeń modeli = zbiór prostokątów o bokach
+równoległych do osi</li>
+<li>Algorytm - prostokąt najciaśniej dopasowany do punktów klasy <span
+class="math inline">\(1\)</span></li>
+<li>Chcemy zagwarantować, że <span class="math inline">\(e_{\Omega,c}(h)
+&lt; \epsilon\)</span></li>
+<li>Sytuacja szczególna
+<ul>
+<li>klasa jest bardzo rzadka</li>
+<li>prawdopodobieństw wylosowania punktu o klasie 1 <span
+class="math inline">\(&lt;\epsilon\)</span> - trywialny przypadek</li>
+</ul></li>
+<li>Prawdopodobieństwo wylosowania punktu klasy <span
+class="math inline">\(1\)</span> większe niż epsilon</li>
+<li>Odcinamy kawałek prostokąta <span class="math inline">\(c\)</span>,
+który ma prawdopodobieństwo <span class="math inline">\(\epsilon /
+4\)</span></li>
+<li>Odcinamy <span class="math inline">\(4\)</span> takie paski po
+bokach (nakładają się na rogach)</li>
+<li>Łącznie mają prawdopodobieństwo <span class="math inline">\(\le
+\epsilon\)</span></li>
+<li>Jeśli model jest prostokątem zachodzącym na odcięte paski to ma błąd
+mniejszy niż <span class="math inline">\(\epsilon\)</span></li>
+<li>To nie jest jedyna sytuacja, gdzie model ma błąd mniejszy niż <span
+class="math inline">\(\epsilon\)</span>
+<ul>
+<li>chodzi o wskazanie jakiegoś przypadku, który może występować z
+wystarczająco dużym prawdopodobieństwem</li>
+</ul></li>
+<li>Żeby powstał taki model, który zachodzi na każdy pasek, to w każdym
+musi być co najmniej jeden punkt
+<ul>
+<li>warunek wystarczający małego błędu</li>
+</ul></li>
+<li>Obliczamy prawdopodobieństwo że tak nie będzie</li>
+<li>Dla jednego punktu, jest prawdopodobieństwo <span
+class="math inline">\(1-\epsilon/4\)</span> że nie leży w danym
+pasku</li>
+<li>Dla <span class="math inline">\(m\)</span> przykładów jest
+prawdopodobieństwo <span class="math inline">\((1-\epsilon/4)^m\)</span>
+że żaden z nich nie należy do danego paska</li>
+<li>Prawdopodobieństwo że w conajmniej jednym pasku nie żadnego punkut
+<span class="math inline">\(&lt; 4(1-\epsilon/4)^m\)</span></li>
+<li>Wystarczy mieć odpowiednio duże <span
+class="math inline">\(m\)</span>
+<ul>
+<li>odpowiednio dużo danych</li>
+</ul></li>
+<li>PAC-nauczalność - możemy mieć taką pewność i błąd jak chcemy jeśli
+mamy wystarczająco dużo danych</li>
+<li>Dodatkowo korzysta się z <span class="math inline">\(1+\alpha \le
+e^\alpha\)</span>
+<ul>
+<li><span class="math inline">\(4(1-\epsilon/4)^m \le 4e^{-m \epsilon /
+4} \le \delta\)</span></li>
+<li><span class="math inline">\(m \ge 4 / \epsilon(\ln 4 + \ln
+1/\delta)\)</span></li>
+</ul></li>
+<li>W sytuacji rzeczywistej mamy ustalone <span
+class="math inline">\(m\)</span>, możemy wyznaczyć jaki błąd prawie na
+pewno da się zagwarantować</li>
+</ul>
+<h2 id="spójne-uczenie-się">Spójne uczenie się</h2>
+<ul>
+<li>Consistent learning</li>
+<li>Spójny model - zerowy błąd na zbiorze trenującym</li>
+<li>Spójny algorytm uczenia się - zwraca spójny model albo zawodzi
+<ul>
+<li>jeśli takiego modelu nie ma w <span
+class="math inline">\(\mathbb{H}\)</span></li>
+</ul></li>
+<li>Niezawodność spójnego uczenia się
+<ul>
+<li>można zagwarantować tylko jeśli <span
+class="math inline">\(\mathbb{C} \subseteq \mathbb{H}\)</span></li>
+</ul></li>
+<li>Przestrzeń wersji - zbiór wszystkich spójnych modeli
+<ul>
+<li><span class="math inline">\(VS_{\mathbb{H},T}(c) = \{h \in
+\mathbb{H} | e_{T,c}(h)=0 \}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="przykład-1">Przykład</h3>
+<ul>
+<li><span class="math inline">\(X = \{0,1\}^n\)</span></li>
+<li><span class="math inline">\(\mathbb{H}\)</span> = koniunkcje
+boolowskie</li>
+<li>Zaczynamy od koniunkcji ze wszystkimi literałami (daje stałe 0
+logiczne)</li>
+<li><span class="math inline">\(a_1 \wedge \neg a_1 \wedge
+\ldots\)</span></li>
+<li>Mamy zbiór danych i dla każdego przykładu o klasie 1 usuwamy te
+literały, które przeszkadzają</li>
+<li>Model zadziała jeśli faktyczne pojęcie też jest koniunkcją boolowską
+(<span class="math inline">\(\mathbb{C} \subseteq
+\mathbb{H}\)</span>)</li>
+<li>Na pewno da model, który da zerowy błąd na zbiorze trenującym</li>
+</ul>
+<h3 id="błąd-rzeczywisty-spójnych-modeli">Błąd rzeczywisty spójnych
+modeli</h3>
+<ul>
+<li>Algorytm spójne może zwrócić dowolny model spójny
+<ul>
+<li>potrzebujemy ograniczenia błędu rzeczywistego</li>
+</ul></li>
+<li>Przestrzeń wersji jest <span
+class="math inline">\(\epsilon\)</span>-wyczerpana jeśli błąd
+rzeczywisty wszystkich należących do niej modeli nie przekracza <span
+class="math inline">\(\epsilon\)</span></li>
+<li>Prawdopodobieństwo, że pewien model o błędzie rzeczywistym powyżej
+<span class="math inline">\(\epsilon\)</span> należy do przestrzeni
+wersji nie przekracza <span class="math inline">\((1-\epsilon)^m \le
+e^{-m\epsilon}\)</span>
+<ul>
+<li><span class="math inline">\(m\)</span> - liczba przykładów
+trenujących</li>
+</ul></li>
+<li>Dla skończonej przestrzeni modeli, prawdopodobieństwo, że
+którykolwiek model z tej przestrzeni o błędzie rzeczywistym powyżej
+<span class="math inline">\(\epsilon\)</span> należy do przestrzeni
+wersji nie przekracza <span
+class="math inline">\(|\mathbb{H}|e^{-m\epsilon}\)</span>
+<ul>
+<li><span class="math inline">\(P(e_{\Omega,c}(h) &gt; \epsilon) \le
+|\mathbb{H}|e^{-m\epsilon}\)</span></li>
+<li>ograniczamy przez <span class="math inline">\(\delta\)</span> -
+<span class="math inline">\(|\mathbb{H}|e^{-m\epsilon} \le
+\delta\)</span></li>
+<li><span class="math inline">\(m \ge 1/ \epsilon(\ln |\mathbb{H}| + \ln
+1/ \delta)\)</span></li>
+<li><span class="math inline">\(\epsilon \ge 1/m(\ln |\mathbb{H}| + \ln
+1/ \delta)\)</span></li>
+</ul></li>
+<li>Więc z prawdopodobieństwem <span class="math inline">\(1 -
+\delta\)</span>
+<ul>
+<li><span class="math inline">\(e_{\Omega,c}(c) \le 1/m(\ln |\mathbb{H}|
++ \ln 1/ \delta)\)</span></li>
+</ul></li>
+<li>Algorytmy spójne używające skończonej przestrzeni modeli mogą
+osiągnąć dowolnie mały błąd, mimo podatności na nadmierne dopasowanie
+<ul>
+<li>wystarczy wystarczająco dużo przykładów</li>
+</ul></li>
+<li>Dla ustalonej liczby przykładów można określić, jaki poziom błędu
+rzeczywistego może być probabilistycznie zagwarantowany</li>
+</ul>
+<h3 id="wyznaczanie-mathbbh">Wyznaczanie <span
+class="math inline">\(|\mathbb{H}|\)</span></h3>
+<ul>
+<li>Koniunkcje boolowskie
+<ul>
+<li>dla każdego atrybutu koniunkcja może zawierać literał, zanegowany
+literał lub nie zawierać go</li>
+<li>dodatkowo liczymy stałe <span class="math inline">\(0\)</span>
+logiczne</li>
+<li><span class="math inline">\(|\mathbb{H}| = 3^n + 1\)</span></li>
+</ul></li>
+<li>Dowolne funkcje boolowskie
+<ul>
+<li>wszystkie możliwe sposoby etykietowania wszystkich możliwych <span
+class="math inline">\(2^n\)</span> przykładów z dziedziny</li>
+<li><span class="math inline">\(|\mathbb{H}| = 2^{2^n}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="przykład-2">Przykład</h3>
+<ul>
+<li>Rozważania do tej pory były mało realistyczne, bo zakładały że wiemy
+że istnieje model idealnie pasujących do danych, zakładaliśmy że liczba
+modeli jest skończona</li>
+<li>Dziedzina - wektory binarne</li>
+<li>Przestrzeń modeli - drzewa decyzyjne</li>
+<li>Węzeł drzewa zawiera jakiś atrybut i zawiera 2 rozejścia (dla 1 i
+dla 0)</li>
+<li>Drzewo decyzyjne jest innym sposobem zapisu funkcji boolowskiej -
+jest odwzorowaniem łańcucha binarnego na zbiór <span
+class="math inline">\(\{0, 1\}\)</span></li>
+<li>Skrajny przypadek - każdy wektor jest dopasowany do oddzielnego
+liścia - liści jest <span class="math inline">\(2^n\)</span>, każdy może
+mieć 1 z 2 klas, więc bez ograniczenia na głębokość będzie <span
+class="math inline">\(2^{(2^n)}\)</span> drzew
+<ul>
+<li>tyle co funkcji boolowskich</li>
+</ul></li>
+<li>Rozważmy drzewa ograniczone do drzew wysokości 3 (korzeń, 2 węzły, 4
+liście)
+<ul>
+<li><span class="math inline">\(n \cdot (n-1)^2 \cdot 2^4\)</span> -
+oszacowanie z góry, nie uwzględnia symetrii</li>
+</ul></li>
+</ul>
+<h2 id="agnostyczne-uczenie-się">Agnostyczne uczenie się</h2>
+<ul>
+<li>Nie ma pewności, że <span class="math inline">\(c \in
+\mathbb{H}\)</span>
+<ul>
+<li>może nie istnieć model, który mógł by dać błąd mniejszy niż <span
+class="math inline">\(0.1\)</span></li>
+</ul></li>
+<li>Nie można zagwarantować dowolnie małego błędu, ale można
+zagwarantować dowolnie małą różnicę między błędem rzeczywistym a błędem
+na zbiorze trenującym
+<ul>
+<li>teraz rozważamy <span class="math inline">\(P(e_{\Omega, c}(h) &gt;
+e_{T,c}(h) + \epsilon) \le \delta\)</span></li>
+<li>wcześniej rozważaliśmy <span class="math inline">\(P(e_{\Omega,
+c}(h) &gt; \epsilon) \le \delta\)</span></li>
+</ul></li>
+<li>Ograniczenie dla ustalonego modelu <span
+class="math inline">\(h\)</span> (Hoeffdinga)
+<ul>
+<li><span class="math inline">\(P(e_{\Omega, c}(h) &gt; e_{T,c}(h) +
+\epsilon) \le e^{-2m\epsilon^2}\)</span></li>
+<li>nie omawiamy dokładnie</li>
+</ul></li>
+<li>Ryzyko zbyt dużego błędu dla któregokolwiek modelu
+<ul>
+<li><span class="math inline">\(P(e_{\Omega, c}(h) &gt; e_{T,c}(h) +
+\epsilon) \le |\mathbb{H}|e^{-2m\epsilon^2} \le \delta\)</span></li>
+<li><span class="math inline">\(m \ge \frac{1}{2\epsilon^2} (
+\ln|\mathbb{H}| + \ln1/\delta)\)</span></li>
+<li><span class="math inline">\(\epsilon \ge \sqrt{\frac{1}{2m} (
+\ln|\mathbb{H}| + \ln1/\delta)}\)</span></li>
+</ul></li>
+<li>Z prawdopodobieństwem <span class="math inline">\(1-\delta\)</span>
+<ul>
+<li><span class="math inline">\(e_{\Omega,c}(h) \le e_{t,c}(h) +
+\sqrt{1/2m(\ln |\mathbb{H}| + \ln1/\delta)}\)</span></li>
+<li>ograniczenie dotyczy wszystkich modeli</li>
+<li>nie ma gwarancji, że algorytm znajdzie najlepszy</li>
+<li>mając <span class="math inline">\(m\)</span> przykładów możemy
+zapewnić taki epsilon lub większy - nie zakładając niczego o
+algorytmie</li>
+</ul></li>
+<li>Błąd rzeczywisty może być tak bliski błędowi na zbiozre trenującym
+jak chcemy (przy wystarczającej liczbie przykładów)</li>
+<li>Prawie na pewno błąd rzeczywisty nie będzie znacząco gorszy niż na
+zbiorze trenującym przy danej liczbie przykładów</li>
+</ul>
+<h2 id="wymiar-vc">Wymiar VC</h2>
+<p>Wymiarem <span class="math inline">\(VC\)</span> przestrzeni modeli
+<span class="math inline">\(\mathbb{H}\)</span> jest maksymalna liczba
+<span class="math inline">\(k\)</span> taka, że
+<strong>istnieje</strong> <span class="math inline">\(k\)</span>
+przykładów, dla których każde z tych <span
+class="math inline">\(2^k\)</span> możliwych etykietowań jest
+realizowane przez pewien model z przestrzeni <span
+class="math inline">\(\mathbb{H}\)</span>, albo <span
+class="math inline">\(\infty\)</span> jeśli warunek ten jest spełniony
+dla dowolnego <span class="math inline">\(k\)</span>.</p>
+<ul>
+<li>Wymiar Vapnika-Chervonenkisa</li>
+<li>Intuicja
+<ul>
+<li>w dużej przestrzeni modeli trudno się uczyć bo jest więcej
+możliwości do wyboru</li>
+<li>może jeśli modeli jest więcej to większa szansa żeby istniał dobry
+model</li>
+<li>można rozważyć inne miary bogactwa przestrzeni modeli określająca
+jak trudno się w niej uczyć - wymiar VC</li>
+<li>nie liczymy ile jest modeli, tylko na ile sposobów potrafią
+rozrzucać przykłady pomiędzy klasami</li>
+</ul></li>
+<li>Przy klasach binarnych i <span class="math inline">\(k\)</span>
+przykładach jest <span class="math inline">\(2^k\)</span>
+etykietowań</li>
+<li>Maksymalna liczba przykładów, którą na pewno można dokładnie
+klasyfikować dla dowolnego pojęcia <span
+class="math inline">\(c\)</span></li>
+<li>Modeli musi być <span class="math inline">\(|\mathbb{H}| \ge
+2^{VC(\mathbb{H})}\)</span> więc <span
+class="math inline">\(VC(\mathbb{H}) \le \log_2
+|\mathbb{H}|\)</span></li>
+</ul>
+<h3 id="przykład-3">Przykład</h3>
+<ul>
+<li>Dziedzina - liczby rzeczywiste</li>
+<li>Pojęcie - przedziały</li>
+<li>Dla jednego przykładu można wziąć przedział do którego należy lub
+taki do którego nie należy, VC &gt;= 1</li>
+<li>Czy dla dwóch przykładów możliwe są wszystkie 4 etykietowania? - tak
+-&gt; VC &gt;= 2</li>
+<li>Dla 3 niemożliwe jest uzyskanie wszystkich etykietowań
+<ul>
+<li>nie ma przedziału który zawiera punkt 1 i 3, a nie 2 - VC = 2</li>
+</ul></li>
+</ul>
+<h3 id="przykład-4">Przykład</h3>
+<ul>
+<li>Dziedzina - <span class="math inline">\(\mathbb{R}^2\)</span></li>
+<li>Pojęcie - prostokąty</li>
+<li>Dla 3 przykładów - da się uzyskać wszystkie 8 etykietowań -&gt; VC
+&gt;= 3
+<ul>
+<li>nie da się dla punktów współliniowych, ale szukamy takiego <span
+class="math inline">\(k\)</span> dla których <strong>istnieje</strong>
+…, nie dla dowolnych</li>
+<li>nie musimy rozważać niewygodnych przypadków, wystarczy pokazać 1
+konkretny układ</li>
+</ul></li>
+<li>Dla 4 się da -&gt; VC &gt;= 4</li>
+<li>Dla 5 raczej się nie da, ale trudniej udowodnić że VC jest nie
+większy niż n</li>
+</ul>
+<h3 id="przykład-5">Przykład</h3>
+<ul>
+<li>Model - prosta (ze znakiem), dwie klasy</li>
+<li>Chyba VC=3, może dla n wymiarów jest n+1</li>
+<li>W ogólności wymiar VC nie jest proporcjonalny do wymiarowości
+zadania (liczby atrybutów)</li>
+<li>Kontrprzykład - klasa binarna - znak wyrażenia <span
+class="math inline">\(\sin(\alpha x)\)</span>, jest 1 wymiar ale da się
+tak dobrać <span class="math inline">\(\alpha\)</span>, żeby osiągnąć
+wszystkie etykietowania, rozmieszaczmy przykłady w pozycjach <span
+class="math inline">\(1/2^k\)</span></li>
+<li>wymier VC jest nieskończony</li>
+</ul>
+<h3 id="przykład-6">Przykład</h3>
+<ul>
+<li>Wektory binarne, koniunkcje boolowskie</li>
+<li>Wybieramy przykład z jedynką i zerami na pozostałych pozycjach</li>
+<li><span class="math inline">\(VC \ge n\)</span>, można udowodnić że
+jest dokładnie <span class="math inline">\(VC=n\)</span></li>
+</ul>
+<h3 id="zastosowanie-wymiaru-vc">Zastosowanie wymiaru VC</h3>
+<p>Wymiar VC pozwala dostarczyć gwarancje dowolnie małego błędu
+(bliskiego błedowi na zbiorze trenującym) dla nieskończonych przestrzeni
+modeli.</p>
+<p><strong>Spójne uczenie się</strong> - do uzyskania przez spójny
+algorytm uczenia się z prawdopodobieństwem co najmniej <span
+class="math inline">\(1-\delta\)</span> modelu o błędzie rzeczywistym
+nieprzekraczającym <span class="math inline">\(\epsilon\)</span>
+wystarczy <span class="math inline">\(m\)</span> przykładów
+trenujących.</p>
+<p><span class="math display">\[ m \ge \frac{1}{\epsilon} (4
+\log_2(2/\delta) + 8VC(\mathbb{H}) \log_2(13/\epsilon)) \]</span></p>
+<p><strong>Agnostyczne uczenie się</strong> - z prawdopodobieństwem
+<span class="math inline">\(1-\delta\)</span></p>
+<p><span class="math display">\[ e_{\Omega,c}(h) \le e_{T,c}(h) +
+\sqrt{\frac{1}{m}(VC(\mathbb{H})(\ln\frac{2m}{VC(\mathbb{H})}+1)+\ln(4/\delta))}
+\]</span></p>
+<h2 id="podsumowanie-wniosków-z-teorii">Podsumowanie wniosków z
+teorii</h2>
+<ul>
+<li>Jeśli jest dużo modeli (liczba lub przestrzeń modeli jest bogata i
+złożona (wymiar VC) to uczenie jest trudniejsze</li>
+<li>Zbyt bogata przestrzeń modeli zwiększa ryzyko nadmiernego
+dopasowania
+<ul>
+<li>potrzeba więcej przykładów trenujących żeby uzyskać mniejszy
+błąd</li>
+</ul></li>
+<li>Zbyt uboga przestrzeń modeli zwiększa ryzyko niedopasowania
+<ul>
+<li>zmniejsza szansę, że istnieje model o wystarczająco małym
+błędzie</li>
+</ul></li>
+<li>Trzeba znaleźć balans</li>
+<li>W praktyce spójne uczenie nie jest pożądane, mamy gwarancję
+teoretyczną małego błędu, ale może wymagać tak dużej liczby przykładów
+że jest nierealistyczne
+<ul>
+<li>często nie może istnieć model o zerowym błędzie - mamy za mało
+atrybutów</li>
+</ul></li>
+<li>Nadmierne dopasowanie jest tym większym problemem dla bogatej
+przestrzeni modeli i małego zbioru trenującego</li>
+<li>Praktyczne algorytmy mogą używać bogatych przestrzeni modeli, ale
+przycinają ją przez dodatkowe mechanizmy - efektywnie redukują wymiar VC
+<ul>
+<li>np. algorytm budowania drzew preferuje niższe drzewa</li>
+<li>efektywny wymiar VC - można wyznaczać eksperymentalnie</li>
+</ul></li>
+<li>Brzytwa Ockhama - preferencja dla prostych modeli</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#teoria-uczenia-się" id="toc-teoria-uczenia-się">Teoria
+uczenia się</a>
+<ul>
+<li><a href="#pac-nauczalność" id="toc-pac-nauczalność">PAC-nauczalność</a>
+<ul>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+</ul></li>
+<li><a href="#spójne-uczenie-się" id="toc-spójne-uczenie-się">Spójne
+uczenie się</a>
+<ul>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład</a></li>
+<li><a href="#błąd-rzeczywisty-spójnych-modeli" id="toc-błąd-rzeczywisty-spójnych-modeli">Błąd rzeczywisty spójnych
+modeli</a></li>
+<li><a href="#wyznaczanie-mathbbh" id="toc-wyznaczanie-mathbbh">Wyznaczanie <span class="math inline">\(|\mathbb{H}|\)</span></a></li>
+<li><a href="#przykład-2" id="toc-przykład-2">Przykład</a></li>
+</ul></li>
+<li><a href="#agnostyczne-uczenie-się" id="toc-agnostyczne-uczenie-się">Agnostyczne uczenie się</a></li>
+<li><a href="#wymiar-vc" id="toc-wymiar-vc">Wymiar VC</a>
+<ul>
+<li><a href="#przykład-3" id="toc-przykład-3">Przykład</a></li>
+<li><a href="#przykład-4" id="toc-przykład-4">Przykład</a></li>
+<li><a href="#przykład-5" id="toc-przykład-5">Przykład</a></li>
+<li><a href="#przykład-6" id="toc-przykład-6">Przykład</a></li>
+<li><a href="#zastosowanie-wymiaru-vc" id="toc-zastosowanie-wymiaru-vc">Zastosowanie wymiaru VC</a></li>
+</ul></li>
+<li><a href="#podsumowanie-wniosków-z-teorii" id="toc-podsumowanie-wniosków-z-teorii">Podsumowanie wniosków z
+teorii</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

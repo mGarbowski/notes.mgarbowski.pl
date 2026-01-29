@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-tokenizacja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-elementy-skladowe-sieci-neuronowych.html">Poprzedni: 03-elementy-skladowe-sieci-neuronowych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-transformer.html">Następny: 05-transformer.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="tokenizacja">Tokenizacja</h1>
+<h2 id="reprezentacja-tekstu-w-języku-naturalnym">Reprezentacja tekstu w
+języku naturalnym</h2>
+<ul>
+<li>Tekst jest dzielony na tokeny</li>
+<li>Tokeny zamieniane na ich numery w słowniku</li>
+<li>Numery w słowniku na reprezentację wektorową (embedding)
+<ul>
+<li>reprezentacja jest gęsta</li>
+<li>to jest element modelu językowego</li>
+<li>inicjowany losowo, trenowany</li>
+</ul></li>
+</ul>
+<h2 id="tokenizacja-1">Tokenizacja</h2>
+<ul>
+<li>Podzielenie tekstu na mniejsze jednostki - tokeny</li>
+<li>Słownik tokenów jest tworzony przez analizę korpusu tekstowego</li>
+<li>Słownik tworzy się niezależnie od treningu modelu językowego</li>
+</ul>
+<h3 id="podejście-klasyczne">Podejście klasyczne</h3>
+<ul>
+<li>Tokenizacja na poziomie słów</li>
+<li>Wstępna normalizacja - usunięcie znaków przestankowych itp.</li>
+<li>Stemming - sprowadzanie wyrazów do ich podstawowej formy przez
+usuwanie końcówek fleksyjnych
+<ul>
+<li>biegać, biegam, biegli -&gt; bieg</li>
+</ul></li>
+<li>Rzadkie lub błędnie zapisane słowa kodowane przez specjalny token
+<code>&lt;UNK&gt;</code></li>
+</ul>
+<h3 id="tokenizacja-na-poziomie-części-słów">Tokenizacja na poziomie
+części słów</h3>
+<ul>
+<li>Podejście współczesne</li>
+<li>Tokeny reprezentują
+<ul>
+<li>często występujące słowa</li>
+<li>często występujące morfemy / części słów</li>
+<li>pojedyncze symbole z alfabetu lub bajty składające się na symbol w
+UTF-8</li>
+</ul></li>
+<li>Redukuje problem słów błędnie zapisanych lub słów spoza słownika
+<ul>
+<li>słowo może być reprezentowane przez jeden lub kilka tokenów</li>
+<li>w najgorszym przypadku będzie 1 token na znak</li>
+</ul></li>
+<li>Byte Pair Encoding (BPE)
+<ul>
+<li>tak naprawdę działa na znakach, a nie bajtach</li>
+<li>dzieli wejściowy tekst na najmniejsze jednostki (znaki)</li>
+<li>iteracyjnie łączy pary sąsiednich symboli korzystając z ustalonych
+reguł</li>
+</ul></li>
+<li>Byte-level BPE
+<ul>
+<li>najpopularniejsze podejście</li>
+<li>dowolne znaki unicode</li>
+<li>koduje tekst w formacie UTF-8 i traktuje jako strumień bajtów</li>
+<li>GPT, LLaMA, Claude, Mistral, Falcon</li>
+<li>słowo i to samo słowo z doklejoną spacją to mogą być 2 różne
+tokeny</li>
+<li>tokenizacja liczb - nie ma narzuconego żadnego porządku</li>
+</ul></li>
+<li>Unigram Language Model
+<ul>
+<li>probabilistyczny model tworzenia słownika</li>
+<li>lepszy dla języków o złożonej morfologii</li>
+<li>dla danego tekstu rozważa wszystkie możliwe segmentacje z użyciem
+znanych tokenów</li>
+<li>wybiera tę segmentację, która ma największe prawdopodobieństwo
+łączone</li>
+<li>bardziej złożony obliczeniowo</li>
+<li>mniej popularny</li>
+</ul></li>
+<li>W GPT4 token odpowiada średnio 3/4 słowa</li>
+</ul>
+<h2 id="tokeny-specjalne">Tokeny specjalne</h2>
+<ul>
+<li>Oprócz tokenów reprezentujących słowa / części słów, do słownika
+dodaje się specjalne tokeny
+<ul>
+<li>zależnie od modelu</li>
+</ul></li>
+<li>Tokeny wywołania zewnętrznych narzędzi
+<ul>
+<li>integracje systemu dialogowego</li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Token</th>
+<th>Znaczenie</th>
+<th>Zastosowanie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[unkn]</code></td>
+<td>Nieznane słowo</td>
+<td>W tokenizatorach opartych na całych słowach</td>
+</tr>
+<tr class="even">
+<td><code>[endoftext]</code></td>
+<td>Koniec tekstu</td>
+<td>Oddzielanie niepowiązanych tekstów przy treningu, koniec generowania
+tekstu, zamiast <code>[PAD]</code></td>
+</tr>
+<tr class="odd">
+<td><code>[BOS]</code></td>
+<td>Początek sekwencji</td>
+<td>Zasygnalizowanie rozpoczęcia generowanie tekstu</td>
+</tr>
+<tr class="even">
+<td><code>[EOS]</code></td>
+<td>Koniec sekwencji</td>
+<td>Jak <code>[endoftext]</code></td>
+</tr>
+<tr class="odd">
+<td><code>[PAD]</code></td>
+<td>Padding</td>
+<td>Dopełnienie sekwencji do równej długości przy tworzeniu wsadów
+treningowych</td>
+</tr>
+<tr class="even">
+<td><code>[CLS]</code></td>
+<td>Klasyfikacja</td>
+<td>Dodawany na początku sekwencji w zadaniach klasyfikacji tekstu
+(modele tylko-koder)</td>
+</tr>
+<tr class="odd">
+<td><code>[MASK]</code></td>
+<td>Zamaskowany token</td>
+<td>Maskowanie tokenów w sekwencji wejściowej podczas treningu (modele
+tylko-koder)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uczenie-tokenizatora">Uczenie tokenizatora</h2>
+<ul>
+<li>Na podstawie analizy dużego zbioru tekstów - korpusu językowego</li>
+<li>Każdy token ma numeryczny identyfikator</li>
+<li>Trening tokenizatora jest niezależny od treningu modelu
+językowego</li>
+</ul>
+<h3 id="algorytm-uczenia-unigram-language-model">Algorytm uczenia
+Unigram Language Model</h3>
+<ul>
+<li>Zaczyna od dużego zbioru możliwych tokenów
+<ul>
+<li>np. dla każdego słowa w korpusie - wszystkie możliwe podsłowa</li>
+</ul></li>
+<li>Iteracyjne usuwanie rzadko pojawiające się w najbardziej
+prawdopodobnych segmentacjach tekstu
+<ul>
+<li>do osiągnięcia założonego rozmiaru słownika</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-uczenia-bpe">Algorytm uczenia BPE</h3>
+<ul>
+<li>Przygotowanie korpusu tekstowego</li>
+<li>Zaczynamy ze słownikiem ze wszystkimi znakami albo bajtami
+UTF-8</li>
+<li>Wybierz najczęściej występujące obok siebie tokeny</li>
+<li>Połącz w nowy token i dodaj do słownika
+<ul>
+<li>łączone tokeny też zostają w słowniku</li>
+</ul></li>
+<li>Zastąp wszystkie wystąpienia nowym tokenem</li>
+<li>Powtarzamy do osiągnięcia założonego rozmiaru słownika</li>
+<li>Wynikiem treningu są
+<ul>
+<li>słownik - zbiór wyznaczonych tokenów</li>
+<li>reguły łączenia tokenów - zapisane w kolejności (tokenizacja jest
+jednoznaczna)</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-tokenizacji">Algorytm tokenizacji</h3>
+<ul>
+<li>Normalizacja i pre-tokenizacja tekstu
+<ul>
+<li>zależnie od zastosowania</li>
+<li>np. usuwanie nadmiarowych spacji</li>
+</ul></li>
+<li>Podziel tekst na najmniejsze jednostki
+<ul>
+<li>znaki lub bajty unicode</li>
+</ul></li>
+<li>Stosuj kolejno reguły łączenia tokenów
+<ul>
+<li>jeśli można zastosować regułę to zastosuj i wróć na początek</li>
+<li>jeśli nie można zastosować żadnej reguły - zakończ</li>
+</ul></li>
+</ul>
+<h2 id="słownik-osadzeń">Słownik osadzeń</h2>
+<ul>
+<li><em>Embedding layer</em></li>
+<li>Mapuje indeks tokenu na wektor zanurzenia</li>
+<li>Część modelu językowego</li>
+<li>Lookup table
+<ul>
+<li>wagi inicjowane losowo</li>
+<li>optymalizowane podczas treningu</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#tokenizacja" id="toc-tokenizacja">Tokenizacja</a>
+<ul>
+<li><a href="#reprezentacja-tekstu-w-języku-naturalnym" id="toc-reprezentacja-tekstu-w-języku-naturalnym">Reprezentacja tekstu w
+języku naturalnym</a></li>
+<li><a href="#tokenizacja-1" id="toc-tokenizacja-1">Tokenizacja</a>
+<ul>
+<li><a href="#podejście-klasyczne" id="toc-podejście-klasyczne">Podejście klasyczne</a></li>
+<li><a href="#tokenizacja-na-poziomie-części-słów" id="toc-tokenizacja-na-poziomie-części-słów">Tokenizacja na poziomie
+części słów</a></li>
+</ul></li>
+<li><a href="#tokeny-specjalne" id="toc-tokeny-specjalne">Tokeny
+specjalne</a></li>
+<li><a href="#uczenie-tokenizatora" id="toc-uczenie-tokenizatora">Uczenie tokenizatora</a>
+<ul>
+<li><a href="#algorytm-uczenia-unigram-language-model" id="toc-algorytm-uczenia-unigram-language-model">Algorytm uczenia
+Unigram Language Model</a></li>
+<li><a href="#algorytm-uczenia-bpe" id="toc-algorytm-uczenia-bpe">Algorytm uczenia BPE</a></li>
+<li><a href="#algorytm-tokenizacji" id="toc-algorytm-tokenizacji">Algorytm tokenizacji</a></li>
+</ul></li>
+<li><a href="#słownik-osadzeń" id="toc-słownik-osadzeń">Słownik
+osadzeń</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

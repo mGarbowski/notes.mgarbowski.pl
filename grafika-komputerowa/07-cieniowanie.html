@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-cieniowanie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-barwy.html">Poprzedni: 06-barwy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-antyaliasing.html">Następny: 08-antyaliasing.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="cieniowanie">Cieniowanie</h1>
+<ul>
+<li>Określa wygląd obiektu
+<ul>
+<li>fotorealizm</li>
+<li>stylizacja - np. ograniczenie kolorów, przejścia między
+kolorami</li>
+</ul></li>
+<li>Zależne od różnych czynników
+<ul>
+<li>orientacja powierzchni</li>
+<li>kierunek patrzenia</li>
+<li>oświetlenie</li>
+<li>właściwości powierzchni (chropowatość itp.)</li>
+</ul></li>
+<li>W większości przypadków, minimalna ilość informacji to
+<ul>
+<li><span class="math inline">\(\vec{V}\)</span> wektor w kierunku
+patrzenia</li>
+<li><span class="math inline">\(\vec{N}\)</span> wektor normalny dla
+powierzchni w danym punkcie</li>
+<li><span class="math inline">\(\vec{L}\)</span> wektor w kierunku
+światła</li>
+</ul></li>
+<li>Dodatkowe informacje na temat światła i samego obiektu</li>
+</ul>
+<h2 id="typowe-operacje-wykorzystywane-w-cieniowaniu">Typowe operacje
+wykorzystywane w cieniowaniu</h2>
+<ul>
+<li>Zaimplementowane w językach programowania shader’ów</li>
+<li>Clamping - ściskanie wartości do zadanego zakresu
+<ul>
+<li><code>clamp</code></li>
+</ul></li>
+<li>Iloczyn skalarny
+<ul>
+<li><code>dot</code></li>
+</ul></li>
+<li>Interpolacja liniowa
+<ul>
+<li><code>Mix</code> / <code>lerp</code></li>
+</ul></li>
+<li>Odbijanie
+<ul>
+<li>odbicie <span class="math inline">\(\vec{L}\)</span> względem <span
+class="math inline">\(\vec{N}\)</span></li>
+<li><span class="math inline">\(Reflected = 2(\vec{N} \cdot
+\vec{L})\vec{N} - \vec{L}\)</span></li>
+<li><code>reflect</code></li>
+</ul></li>
+</ul>
+<h2 id="światło">Światło</h2>
+<ul>
+<li>Oświetlenie w prawdziwym świecie jest dosyć złożone
+<ul>
+<li>rozmiar</li>
+<li>kształt</li>
+<li>kolor</li>
+<li>intensywność</li>
+</ul></li>
+<li>Przy tworzeniu modelu cieniowania należy wziąć pod uwagę
+<ul>
+<li>obecność światła</li>
+<li>zachowanie modelu w przypadku braku oświetlenia</li>
+<li>odległość od światła</li>
+</ul></li>
+</ul>
+<h2 id="padanie-światła">Padanie światła</h2>
+<ul>
+<li>Wpływ światła - grupa promieni
+<ul>
+<li>gęstość promieni zderzająca się z powierzchnią zależna od
+intensywności światła</li>
+</ul></li>
+<li>Opisujemy jedną zależnością w najprostszym przypadku</li>
+<li>Odstępy między promieniami świetlnymi odwrotnie porporcjonalne do
+cosinusa kąta między <span class="math inline">\(\vec{L}\)</span> a
+<span class="math inline">\(\vec{N}\)</span></li>
+</ul>
+<h3 id="wzór">Wzór</h3>
+<p><span class="math display">\[c_{shaded} = f_{unlit}(\vec{N}, \vec{V})
++ \sum_i (\vec{L_i} \cdot \vec{N})^+ c_{light_i} f_{lit}(\vec{L},
+\vec{N}, \vec{V})\]</span></p>
+<ul>
+<li><span class="math inline">\(c_{shaded}\)</span> - Kolor
+wynikowy</li>
+<li><span class="math inline">\(f_{unlit}\)</span> - wygląd gdy nie
+dociera światło</li>
+<li><span class="math inline">\((\vec{L_i} \cdot \vec{N})^+\)</span> -
+clampowany iloczyn skalarny
+<ul>
+<li>wartości ujemne do <span class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Suma składowych od każdego światła w scenie</li>
+<li><span class="math inline">\(c_{light_i}\)</span> - kolor <span
+class="math inline">\(i\)</span>-tego światła</li>
+<li><span class="math inline">\(f_{lit}\)</span> - funkcja oddziaływania
+światła na powierzchnię
+<ul>
+<li>jeśli funkcja stała = kolor powierzchni - model Lambertowski</li>
+</ul></li>
+<li>Bardziej skomplikowane modele - uwzględniają np. chropowatość
+powierzchni</li>
+</ul>
+<h2 id="światło-punktowe">Światło punktowe</h2>
+<ul>
+<li>Położenie</li>
+<li>Intensywność</li>
+<li>Emisja światła w każdym kierunku w ten sam sposób</li>
+<li>Daje uproszczoną możliwość generacji cienia
+<ul>
+<li>ostra granica cienia</li>
+</ul></li>
+</ul>
+<h2 id="światło-reflektorowe">Światło reflektorowe</h2>
+<ul>
+<li>Wariacja światła punktowego</li>
+<li>Ograniczone do stożka
+<ul>
+<li>punkty w zasięgu pierwszego stożka są całkowicie oświetlone</li>
+<li>od końca pierwszego stożka do całej szerokości następuje spadek
+oświetlenia od pełnego do <span class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Dodatkowe parametry
+<ul>
+<li>początek spadku</li>
+<li>całkowita szerokość</li>
+</ul></li>
+</ul>
+<h2 id="obszarowe-źródło-światła">Obszarowe źródło światła</h2>
+<ul>
+<li>Efekt półcienia - gładkie granice cienia</li>
+<li>Traktowanie jako wiele punktowych źródeł światła
+<ul>
+<li>problem z próbkowaniem punktów - wpływa na ostateczny wynik</li>
+</ul></li>
+<li>Wyliczanie osi przecięcia i granic półcienia</li>
+</ul>
+<h2 id="aliasing">Aliasing</h2>
+<ul>
+<li>Pożądany efekt - gładkie przejście między wartościami pikseli</li>
+<li>Aliasing - próbkowanie sygnału ze zbyt małą częstotliwością
+<ul>
+<li>problem pojawia się przede wszystkim na krawędziach</li>
+</ul></li>
+</ul>
+<h2 id="materiały">Materiały</h2>
+<ul>
+<li>Czym jest materiał
+<ul>
+<li>opis wyglądu obiektu w scenie</li>
+<li>służą do symulacji interakcji światła z otoczeniem</li>
+</ul></li>
+<li>Różne materiały odbijają światło w różnych kierunkach i absorbują
+różną jego ilość</li>
+</ul>
+<h2 id="odbicia">Odbicia</h2>
+<ul>
+<li>Lustrzane
+<ul>
+<li>idealne odbicie</li>
+<li>funkcja reflect</li>
+</ul></li>
+<li>Połyskliwe
+<ul>
+<li>promienie odbite - idealne odbicie + odchylenia</li>
+</ul></li>
+<li>Rozproszone
+<ul>
+<li>promień odbity może odbić się w dowolnym kierunku w półkuli
+otaczającej punkt</li>
+</ul></li>
+</ul>
+<h2 id="model-oświetlenia-phonga">Model oświetlenia Phonga</h2>
+<ul>
+<li>Suma składowych
+<ul>
+<li>otoczenia</li>
+<li>rozproszenia</li>
+<li>odbicia</li>
+</ul></li>
+<li>Poza modelem oświetlenia jest model cieniowania</li>
+</ul>
+<h3 id="otoczenie">Otoczenie</h3>
+<ul>
+<li><span class="math inline">\(I=k_aI_a\)</span></li>
+<li><span class="math inline">\(k_a\)</span> - współczynnik
+otoczenia</li>
+<li><span class="math inline">\(I_a\)</span> - intensywność otoczenia
+sceny / źródła światła
+<ul>
+<li>element globalnego oświetlenia</li>
+</ul></li>
+</ul>
+<h3 id="rozproszenie">Rozproszenie</h3>
+<ul>
+<li><span class="math inline">\(I = k_d(\vec{L} \cdot
+\vec{N})I_d\)</span></li>
+<li><span class="math inline">\(k_d\)</span> - współczynnik
+rozproszenia</li>
+<li><span class="math inline">\(\vec{L}\)</span> - wektor w kierunku
+źródła światła</li>
+<li><span class="math inline">\(\vec{N}\)</span> - wektor normalny</li>
+<li><span class="math inline">\(I_d\)</span> - intensywność światła dla
+rozproszenia</li>
+</ul>
+<h3 id="odbicie">Odbicie</h3>
+<ul>
+<li>ang. specular</li>
+<li>Rozbłysk na powierzchni</li>
+<li><span class="math inline">\(I = k_s(\vec{V}, \cdot \vec{R})^n
+I_s\)</span></li>
+<li><span class="math inline">\(k_d\)</span> - współczynnik odbicia</li>
+<li>Zależne od obserwatora
+<ul>
+<li><span class="math inline">\(\vec{V}\)</span> - wektor w kierunku
+obserwatora</li>
+<li>odbicie zmienia wartość ze zmianą położenia obserwatora</li>
+</ul></li>
+<li><span class="math inline">\(\vec{R}\)</span> - wektor światła
+odbitego</li>
+<li><span class="math inline">\(n\)</span> - współczynnik
+połyskliwości</li>
+<li><span class="math inline">\(I_S\)</span> - intensywność światła dla
+odbicia</li>
+</ul>
+<h2 id="modele-cieniowanie">Modele cieniowanie</h2>
+<h3 id="cieniowanie-płaskie">Cieniowanie płaskie</h3>
+<ul>
+<li>Kolor dla każdego wielokąta liczony raz
+<ul>
+<li>każdy piksel w jednym wielokącie</li>
+</ul></li>
+<li>Obliczenia dla punktu leżącego w środku wielokąta</li>
+<li>Wykorzystujemy wektory normalne do wierzchołków</li>
+</ul>
+<h3 id="cieniowanie-gourauda">Cieniowanie Gourauda</h3>
+<ul>
+<li>Barwa wyznaczana jest w każdym wierzchołku</li>
+<li>Piksele z wnętrza wielokąta są interpolowane z wierzchołków</li>
+<li>Działa dobrze do pewnego momentu
+<ul>
+<li>dobre dla powierzchni matowych</li>
+<li>dla połyskliwych pojawiają się artefakty ze względu na interpolację
+po wierzchołkach</li>
+<li>charakterystyczne krzyże</li>
+</ul></li>
+<li>Obliczenia w vertex shaderze
+<ul>
+<li>obliczone wartości przekazywane do pixel shadera</li>
+<li>pixel shader bierze interpolowaną wartość z vertex shadera i
+przekazuje na wyjście</li>
+</ul></li>
+</ul>
+<h3 id="cieniowanie-phonga">Cieniowanie Phonga</h3>
+<ul>
+<li>Obliczenia barwy dla każdego piksela ekranu</li>
+<li>Interpolowane są wektory normalne i pozycje</li>
+<li>Vertex shader zapisuje wektory normalne i pozycje</li>
+<li>Pixel shader odczytuje interpolowane wartości i wykorzystuje do
+obliczeń</li>
+<li>Pozbawione błędów poprzedników</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cieniowanie" id="toc-cieniowanie">Cieniowanie</a>
+<ul>
+<li><a href="#typowe-operacje-wykorzystywane-w-cieniowaniu" id="toc-typowe-operacje-wykorzystywane-w-cieniowaniu">Typowe operacje
+wykorzystywane w cieniowaniu</a></li>
+<li><a href="#światło" id="toc-światło">Światło</a></li>
+<li><a href="#padanie-światła" id="toc-padanie-światła">Padanie
+światła</a>
+<ul>
+<li><a href="#wzór" id="toc-wzór">Wzór</a></li>
+</ul></li>
+<li><a href="#światło-punktowe" id="toc-światło-punktowe">Światło
+punktowe</a></li>
+<li><a href="#światło-reflektorowe" id="toc-światło-reflektorowe">Światło reflektorowe</a></li>
+<li><a href="#obszarowe-źródło-światła" id="toc-obszarowe-źródło-światła">Obszarowe źródło światła</a></li>
+<li><a href="#aliasing" id="toc-aliasing">Aliasing</a></li>
+<li><a href="#materiały" id="toc-materiały">Materiały</a></li>
+<li><a href="#odbicia" id="toc-odbicia">Odbicia</a></li>
+<li><a href="#model-oświetlenia-phonga" id="toc-model-oświetlenia-phonga">Model oświetlenia Phonga</a>
+<ul>
+<li><a href="#otoczenie" id="toc-otoczenie">Otoczenie</a></li>
+<li><a href="#rozproszenie" id="toc-rozproszenie">Rozproszenie</a></li>
+<li><a href="#odbicie" id="toc-odbicie">Odbicie</a></li>
+</ul></li>
+<li><a href="#modele-cieniowanie" id="toc-modele-cieniowanie">Modele
+cieniowanie</a>
+<ul>
+<li><a href="#cieniowanie-płaskie" id="toc-cieniowanie-płaskie">Cieniowanie płaskie</a></li>
+<li><a href="#cieniowanie-gourauda" id="toc-cieniowanie-gourauda">Cieniowanie Gourauda</a></li>
+<li><a href="#cieniowanie-phonga" id="toc-cieniowanie-phonga">Cieniowanie Phonga</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

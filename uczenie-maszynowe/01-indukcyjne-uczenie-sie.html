@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-indukcyjne-uczenie-sie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-teoria-uczenia-sie.html">Następny: 02-teoria-uczenia-sie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="indukcyjne-uczenie-się">Indukcyjne uczenie się</h1>
+<h2 id="definicja-uczenia-się">Definicja uczenia się</h2>
+<p>System uczący się - autonomiczna poprawa jakościa wykonywania zadania
+na podstawie zewnętrznej informacji trenującej</p>
+<h3 id="program-uczący-się">Program uczący się</h3>
+<ul>
+<li>Algorytm wykonywania zadania
+<ul>
+<li>niedoskonały, niepełny</li>
+</ul></li>
+<li>Algorytm uczenia się
+<ul>
+<li>dostarczający wiedzy / umiejętności uzupełniającej/doskonalącej
+algorytm wykonywania zadania</li>
+</ul></li>
+<li>Zaczynamy od szczątkowego zrozumienia problemu z lukami, które
+będzie wypełniał algorytm uczenia się</li>
+<li>Uczenie się nie musi startować z niczego, jest nałożona pewna ramowa
+struktura</li>
+</ul>
+<h3 id="informacja-trenująca">Informacja trenująca</h3>
+<ul>
+<li>Przykłady etykietowane
+<ul>
+<li>uczenie się z nauczycielem (z nadzorem)</li>
+<li>znane wejście, znane wyjście</li>
+<li>algorytm ma przewidzieć wyjście na podstawie wejścia</li>
+</ul></li>
+<li>Odpowiedzi na zapytania
+<ul>
+<li>uczenie się z nauczycielem (z nadzorem)</li>
+<li>program pyta o etykietę dla wybranego wejścia</li>
+<li>aktywne uczenie się</li>
+</ul></li>
+<li>Przykłady nieetykietowane
+<ul>
+<li>uczenie bez nauczyciela (bez nadzoru)</li>
+</ul></li>
+<li>Nagrody / kary
+<ul>
+<li>uczenie się ze wzmocnieniem</li>
+<li>nagrody i kary mogą być opóźnione</li>
+<li>np. gra planszowa - po iluś ruchach zobaczymy konsekwencje
+ruchu</li>
+</ul></li>
+</ul>
+<h3 id="wynik-uczenia-się">Wynik uczenia się</h3>
+<ul>
+<li>Wiedza
+<ul>
+<li>jakie coś jest</li>
+</ul></li>
+<li>Umiejętność
+<ul>
+<li>jak coś zrobić</li>
+</ul></li>
+</ul>
+<p>Podział nie jest ostry</p>
+<h3 id="uogólnianie-informacji-trenującej">Uogólnianie informacji
+trenującej</h3>
+<ul>
+<li>Wnioskowanie indukcyjne</li>
+<li>Uogólnianie obserwacji
+<ul>
+<li>bywa zawodne</li>
+</ul></li>
+</ul>
+<h2 id="uporządkowanie-pojęć">Uporządkowanie pojęć</h2>
+<ul>
+<li>Dziedzina <span class="math inline">\(X\)</span>
+<ul>
+<li>zbiór tego o czym się wypowiadamy</li>
+<li>może być bardzo precyzyjnie zdefiniowany</li>
+<li>może być zdefiniowany luźno, nieprecyzyjnie</li>
+</ul></li>
+<li>Przykład / obserwacja / próbka <span class="math inline">\(x \in
+X\)</span>
+<ul>
+<li>wektor atrybutów (cech)</li>
+</ul></li>
+<li>Atrybut <span class="math inline">\(a: X \rightarrow A\)</span>
+<ul>
+<li>funkcja</li>
+<li>np. wiek człowieka</li>
+<li>dyskretne (kategoryczne)
+<ul>
+<li>nominalne <span class="math inline">\((=, \neq)\)</span></li>
+<li>porządkowe <span class="math inline">\((\lt, \gt, \le,
+\ge)\)</span></li>
+</ul></li>
+<li>ciągłe (numeryczne, o interpretacji liczbowej)</li>
+</ul></li>
+</ul>
+<h3 id="zadanie-klasyfikacji">Zadanie klasyfikacji</h3>
+<ul>
+<li>Zadanie uczenia się pojęć (concept)</li>
+<li>Skończony zbiór klas <span class="math inline">\(C\)</span></li>
+<li>Pojęcie <span class="math inline">\(c: X \rightarrow C\)</span>
+<ul>
+<li>wyróżniony atrybut dyskretny</li>
+<li>w ogólności nieznany (inaczej nie trzeba było by się go uczyć)</li>
+<li>znany dla oetykietowanych przykładów</li>
+</ul></li>
+<li>Zbiór danych <span class="math inline">\(D \subset X\)</span>
+<ul>
+<li>dla <span class="math inline">\(x \in D\)</span> znane <span
+class="math inline">\(c(x)\)</span></li>
+</ul></li>
+<li>Zbiór trenujący <span class="math inline">\(T \subseteq D\)</span>
+<ul>
+<li>wejście dla algorytmu uczenia się</li>
+<li>na jego podstawie znajduje się <strong>model</strong></li>
+</ul></li>
+<li>Model <span class="math inline">\(h: X \rightarrow C\)</span>
+<ul>
+<li>przewiduje klasy</li>
+<li>model jest wytworem algorytmu uczenia się</li>
+</ul></li>
+<li>Predykcja <span class="math inline">\(h(x)\)</span>
+<ul>
+<li>zastosowanie modelu</li>
+<li>konkretna klasa przewidziana przez model</li>
+</ul></li>
+<li>Przestrzeń modeli <span class="math inline">\(\mathbb{H}\)</span>
+<ul>
+<li>jest właściwością algorytmu</li>
+<li>może być nieskończona, skończona</li>
+</ul></li>
+<li>Klasa pojęć <span class="math inline">\(\mathbb{C}\)</span></li>
+</ul>
+<h4 id="przykład-1">Przykład 1</h4>
+<p><span class="math inline">\(X = \mathbb{R}^2\)</span> - płaszczyzna
+przykład - punkt na płaszczyźnie atrybuty - współrzędne Zbiór klas <span
+class="math inline">\(C=\{0,1\}\)</span> - czy punkt należy do obszaru
+na płaszczyźnie Przykładowe pojęcie - prostokąt o bokach równoległych do
+osi Uczenie się pojęcia - znalezienie parametrów prostokąta znamy
+przykłady - punkty leżący w lub poza prostokątem</p>
+<p>Model - może też być prostokątem, np. najciaśniej dopasowany do
+przykładów</p>
+<h4 id="przykład-2">Przykład 2</h4>
+<p><span class="math inline">\(X = \{0,1\}^n\)</span> - wektor binarny
+<span class="math inline">\(c: X \rightarrow \{0,1\}\)</span> - funkcje
+boolowskie <span class="math inline">\(h(x) = a_1(x) \wedge \neg
+a_3(x)\)</span></p>
+<h3 id="zadanie-regresji">Zadanie regresji</h3>
+<ul>
+<li>Przewiduje liczby</li>
+<li>Funkcja docelowa <span class="math inline">\(f: X \rightarrow
+\mathbb{R}\)</span></li>
+<li>Zbiór trenujący <span class="math inline">\(T \subseteq D \subset
+X\)</span>
+<ul>
+<li>dla <span class="math inline">\(x \in D\)</span> znane <span
+class="math inline">\(f(x)\)</span></li>
+</ul></li>
+<li>Model <span class="math inline">\(h \simeq f\)</span></li>
+</ul>
+<h2 id="jakość-modelu">Jakość modelu</h2>
+<h3 id="błąd-klasyfikacji-na-zbiorze">Błąd klasyfikacji na zbiorze</h3>
+<p>Do policzenia testując na zbiorze</p>
+<p><span class="math display">\[ e_{S,c}=\frac{|\{x\in S | h(x) \neq
+c(x)\}|}{|S|} \]</span></p>
+<h3 id="błąd-rzeczywisty-klasyfikacji">Błąd rzeczywisty
+klasyfikacji</h3>
+<ul>
+<li>Jak dobry jest model w ogóle</li>
+<li>Nie do policzenia dokładnie</li>
+<li>Jak prawdopodobna jest pomyłka modelu na dowolnym przykładzie z
+dziedziny</li>
+<li>Oparty na rozkładzie prawdopodobieństwa <span
+class="math inline">\(\Omega\)</span></li>
+</ul>
+<p><span class="math display">\[ e_{\Omega,c}(h) = P(h(x) \neq c(x)
+\quad | \quad x \in X, x \sim \Omega) \]</span></p>
+<h3 id="błąd-średniokwadratowy-na-zbiorze">Błąd średniokwadratowy na
+zbiorze</h3>
+<p>Jak dobry jest model regresji na zbiorze</p>
+<p><span class="math display">\[ mse_{S,f}(h) = \frac{\sum_{x \in
+S}(f(x)-h(x))^2}{|S|} \]</span></p>
+<h3 id="błąd-średniokwadratowy-rzeczywisty">Błąd średniokwadratowy
+rzeczywisty</h3>
+<p>Oszacowanie jak dobry naprawdę jest model <span
+class="math display">\[ mse_{\Omega,f}(h) = \mathbb{E}[(f(x) - h(x))^2 |
+x \in X, x \sim \Omega] \]</span></p>
+<h2 id="obciążenie-indukcyjne">Obciążenie indukcyjne</h2>
+<p>Obciążenie indukcyjne (inductive bias) - przykłady na wejściu nie
+determinują tego jaki model można wybrać, algorytm uczenia ma swobodę do
+tego jaki algorytm wybierze, obciążenie to skłonność do wyboru jakiegoś
+algorytmu (np. w stronę prostszego modelu, modelu zajmującego mniej
+pamięci itd.). Może ograniczać wybór modeli lub narzucać
+preferencje.</p>
+<ul>
+<li>Właściwość algorytmu uczenia się
+<ul>
+<li>determinuje wybór <span class="math inline">\(h\)</span> na
+podstawie <span class="math inline">\(T\)</span></li>
+<li>sposób uogólnienia przykładów trenujących</li>
+</ul></li>
+<li>Realizacja
+<ul>
+<li>obciążenie reprezentacji - zawężenie przestrzeni modeli dostępnej
+dla algorytmu</li>
+<li>obciążenie preferencji - wprowadzenie kryteriów preferencji modeli
+(np. preferencja dla prostszych)</li>
+</ul></li>
+</ul>
+<h2 id="nadmierne-dopasowanie-overfitting">Nadmierne dopasowanie
+(overfitting)</h2>
+<p>Model <span class="math inline">\(h_1\)</span> jest nadmiernie
+dopasowany do zbioru trenującego <span class="math inline">\(T\)</span>,
+jeśli istnieje model <span class="math inline">\(h_2\)</span> taki, że
+<span class="math inline">\(e_{T,c}(h_1) &lt; e_{T,c}(h_2)\)</span> (ma
+mniejszy błąd na zbiorze trenującym) i <span
+class="math inline">\(e_{\Omega,c}(h_1) &gt; e_{\Omega,c}(h_2)\)</span>
+(ma większy błąd rzeczywisty).</p>
+<ul>
+<li>Model wydaje się lepszy, a naprawdę jest gorszy</li>
+<li>Zasadnicze wyzwanie przy tworzeniu modeli przez uczenie się</li>
+<li>Definicja nie jest zbyt wygodna</li>
+<li>Błąd rzeczywisty w ogólnym przypadku nie jest znany</li>
+<li>W rzeczywistości sygnałem, że model może być nadmiernie dopasowany
+jest mały błąd na zbiorze trenującym i większy na zbiorze testowym
+<ul>
+<li>ale nie wiemy tego na pewno, nie mamy drugiego modelu ani nie znamy
+błędu rzeczywistego</li>
+</ul></li>
+<li>Łatwiej o nadmierne dopasowanie jeśli mamy mniej danych</li>
+<li>Zapobieganie i kontrola
+<ul>
+<li>stosowanie algorytmów o mniejszym ryzyku nadmiernego
+dopasowania</li>
+<li>wprowadzenie do algorytmu mechanizmów zmniejszających ryzyko
+nadmiernego dopasowania</li>
+<li>staranna ocena jakości modeli</li>
+</ul></li>
+</ul>
+<h2 id="estymacja-błędu-rzeczywistego">Estymacja błędu
+rzeczywistego</h2>
+<ul>
+<li>Substytutem dla błędu rzeczywistego może być błąd na konkretnym
+zbiorze <span class="math inline">\(S\)</span> (testowym)</li>
+<li>Żeby błąd na zbiorze był wiarygodnym estymatorem błędu
+rzeczywistego, zbiór <span class="math inline">\(S\)</span> powinien być
+<ul>
+<li>wystarczająco duży</li>
+<li>wybrany z dziedziny niezależnie od <span
+class="math inline">\(h\)</span> (nie korzystamy z wiedzy o modelu)</li>
+<li>wybrany z dziedziny zgodnie z rozkładem <span
+class="math inline">\(\Omega\)</span></li>
+</ul></li>
+<li>W praktyce
+<ul>
+<li><span class="math inline">\(S \subset D\)</span></li>
+<li><span class="math inline">\(T \subset D\)</span></li>
+<li><span class="math inline">\(D \subset X\)</span> jest zbiorem
+przykładów o znanych klasach</li>
+<li><span class="math inline">\(S \cap T = \varnothing\)</span> - zbiór
+danych dzieli się na rozłączne podzbiory</li>
+</ul></li>
+<li>Uproszczone praktyczne kryterium ryzyka nadmiernego dopasowania
+<ul>
+<li><span class="math inline">\(e_{s,c}(h) \gg e_{T,c}(h)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(S\)</span> i <span
+class="math inline">\(T\)</span> mogą też być niezależnie wylosowane ze
+zbioru danych</li>
+<li>Dysponujemy ograniczonym zbiorem danych <span
+class="math inline">\(D\)</span></li>
+</ul>
+<h3 id="estymacja-przedziałowa-błędu">Estymacja przedziałowa błędu</h3>
+<ul>
+<li>Estymacja przedziałowa - narzędzie statystyczne to estymowania błędu
+rzeczywistego</li>
+<li>Pozwala oszacować z jakiego przedziału jest błąd rzeczywisty na
+podstawie błędu na zbiorze <span class="math inline">\(S\)</span></li>
+<li>Zajrzeć do podręcznika od statystyki</li>
+<li>Przedział ufności
+<ul>
+<li>przedział eokół <span class="math inline">\(e_{S,c}(h)\)</span>,
+który z prawdopodobieństwem <span
+class="math inline">\(1-\delta\)</span> zawiera <span
+class="math inline">\(e_{\Omega,c}(h)\)</span></li>
+<li><span class="math inline">\(\delta\)</span> - poziom ufności</li>
+</ul></li>
+<li>Przedział Walda
+<ul>
+<li>tylko jeśli błąd na zbiorze nie jest zbyt bliski <span
+class="math inline">\(0\)</span> ani <span
+class="math inline">\(1\)</span></li>
+</ul></li>
+<li>Przedział Wilsona
+<ul>
+<li>także jeśli błąd na zbiorze jest bliski 0 lub 1</li>
+</ul></li>
+<li><span class="math inline">\(u_\delta\)</span> - współczynnik
+skalujący
+<ul>
+<li>dla <span class="math inline">\(U \sim N(0,1)\)</span>: <span
+class="math inline">\(P(|U| &lt; u_\delta) = 1 - \delta\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\delta\)</span> - prawdopodobieństwo że
+prawdziwy błąd jest w przedziale, często przyjmuje się <span
+class="math inline">\(0.95\)</span></li>
+</ul>
+<h4 id="przedział-walda">Przedział Walda</h4>
+<p><span class="math display">\[ |e_{\Omega,c}(h) - e_{S,c}(h)|
+&lt; u_\delta \sqrt{\dfrac{e_{S,c}(h)(1-e_{S,c}(h))}{|S|}} \]</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#indukcyjne-uczenie-się" id="toc-indukcyjne-uczenie-się">Indukcyjne uczenie się</a>
+<ul>
+<li><a href="#definicja-uczenia-się" id="toc-definicja-uczenia-się">Definicja uczenia się</a>
+<ul>
+<li><a href="#program-uczący-się" id="toc-program-uczący-się">Program
+uczący się</a></li>
+<li><a href="#informacja-trenująca" id="toc-informacja-trenująca">Informacja trenująca</a></li>
+<li><a href="#wynik-uczenia-się" id="toc-wynik-uczenia-się">Wynik
+uczenia się</a></li>
+<li><a href="#uogólnianie-informacji-trenującej" id="toc-uogólnianie-informacji-trenującej">Uogólnianie informacji
+trenującej</a></li>
+</ul></li>
+<li><a href="#uporządkowanie-pojęć" id="toc-uporządkowanie-pojęć">Uporządkowanie pojęć</a>
+<ul>
+<li><a href="#zadanie-klasyfikacji" id="toc-zadanie-klasyfikacji">Zadanie klasyfikacji</a></li>
+<li><a href="#zadanie-regresji" id="toc-zadanie-regresji">Zadanie
+regresji</a></li>
+</ul></li>
+<li><a href="#jakość-modelu" id="toc-jakość-modelu">Jakość modelu</a>
+<ul>
+<li><a href="#błąd-klasyfikacji-na-zbiorze" id="toc-błąd-klasyfikacji-na-zbiorze">Błąd klasyfikacji na
+zbiorze</a></li>
+<li><a href="#błąd-rzeczywisty-klasyfikacji" id="toc-błąd-rzeczywisty-klasyfikacji">Błąd rzeczywisty
+klasyfikacji</a></li>
+<li><a href="#błąd-średniokwadratowy-na-zbiorze" id="toc-błąd-średniokwadratowy-na-zbiorze">Błąd średniokwadratowy na
+zbiorze</a></li>
+<li><a href="#błąd-średniokwadratowy-rzeczywisty" id="toc-błąd-średniokwadratowy-rzeczywisty">Błąd średniokwadratowy
+rzeczywisty</a></li>
+</ul></li>
+<li><a href="#obciążenie-indukcyjne" id="toc-obciążenie-indukcyjne">Obciążenie indukcyjne</a></li>
+<li><a href="#nadmierne-dopasowanie-overfitting" id="toc-nadmierne-dopasowanie-overfitting">Nadmierne dopasowanie
+(overfitting)</a></li>
+<li><a href="#estymacja-błędu-rzeczywistego" id="toc-estymacja-błędu-rzeczywistego">Estymacja błędu rzeczywistego</a>
+<ul>
+<li><a href="#estymacja-przedziałowa-błędu" id="toc-estymacja-przedziałowa-błędu">Estymacja przedziałowa
+błędu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

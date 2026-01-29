@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-autoenkodery-generatywne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-uczenie-nienadzorowane-i-autoenkodery.html">Poprzedni: 06-uczenie-nienadzorowane-i-autoenkodery.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-modele-generatywne.html">Następny: 08-modele-generatywne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="autoenkodery-generatywne">Autoenkodery generatywne</h1>
+<ul>
+<li>Co jakby wziąć punkt z przestrzeni ukrytej w otoczeniu innych
+reprezentujących jakieś pojęcie (np. konia)
+<ul>
+<li>możemy wylosować taki punkt i go zdekodować dekoderem</li>
+<li>z każdym kolejnym wymiarem dokłada się więcej pustej przestrzeni
+niewypełnionej przykładami treningowymi</li>
+<li>z wymiarowością rośnie prawdopodobieństwo, że wylosujemy punkt
+bardzo daleko od czegoś sensownego</li>
+<li>klątwa wymiarowości</li>
+</ul></li>
+<li>Można dokonać regularyzacji przestrzeni ukrytej
+<ul>
+<li>niech wszystkie przykłady będą zakodowane wg znanego rozkładu
+prawdopodobieństwa (najlepiej Gauss)</li>
+<li>sprzeczne zadania z zachowaniem zdolności rozróżniania reprezentacji
+ukrytych od siebie</li>
+</ul></li>
+<li>Autoenkoder generatywny może generować nowe przykłady z losowych
+wartości o rozkładzie normalnym podawanym przez warstwę ukrytą</li>
+</ul>
+<h2 id="model-probabilistyczny-z-przestrzenią-ukrytą">Model
+probabilistyczny z przestrzenią ukrytą</h2>
+<ul>
+<li>Mamy próbki z rzeczywistego rozkładu</li>
+<li>Wprowadzamy model w ramach którego uczymy się przestrzeni ukrytej, z
+której można losować reprezentację przykładu - <span
+class="math inline">\(z\)</span></li>
+<li>Na podstawie <span class="math inline">\(z\)</span> można losować
+przykład <span class="math inline">\(x\)</span> z warunkowego
+prawdopodobieństwa <span class="math inline">\(p(x|z)\)</span></li>
+<li>Szukamy mapowania do przestrzeni ukrytej <span
+class="math inline">\(z\)</span> opisanej znanym rozkładem
+(gaussem)</li>
+</ul>
+<h3 id="aproksymacja-rozkładu">Aproksymacja rozkładu</h3>
+<ul>
+<li>Teoretycznie można metodą Monte Carlo
+<ul>
+<li>dla wielowymiarowego problemu - klątwa wymiarowości</li>
+</ul></li>
+<li>Aproksymacja rozkładu metodą variational inference -
+alternatywa</li>
+</ul>
+<h3 id="evidence-lower-bound-elbo">Evidence Lower Bound (ELBO)</h3>
+<ul>
+<li>Enkoder jest siecią neuronową z parametrami <span
+class="math inline">\(\phi\)</span>
+<ul>
+<li>przyjmuje x</li>
+<li>stochastycznie zwraca z</li>
+</ul></li>
+<li>Minimalizowany błąd rekonstrukcji
+<ul>
+<li>zakładamy że przykłady treningowe dobrze odzwierciedlają
+rozkład</li>
+</ul></li>
+<li>Regularyzacja - kara za odejście od znanego rozkładu (np.
+Gaussa)</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#autoenkodery-generatywne" id="toc-autoenkodery-generatywne">Autoenkodery generatywne</a>
+<ul>
+<li><a href="#model-probabilistyczny-z-przestrzenią-ukrytą" id="toc-model-probabilistyczny-z-przestrzenią-ukrytą">Model
+probabilistyczny z przestrzenią ukrytą</a>
+<ul>
+<li><a href="#aproksymacja-rozkładu" id="toc-aproksymacja-rozkładu">Aproksymacja rozkładu</a></li>
+<li><a href="#evidence-lower-bound-elbo" id="toc-evidence-lower-bound-elbo">Evidence Lower Bound (ELBO)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

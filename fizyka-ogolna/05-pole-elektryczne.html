@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-pole-elektryczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-analiza-wektorowa.html">Poprzedni: 04-analiza-wektorowa.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-pole-magnetyczne.html">Następny: 06-pole-magnetyczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="pole-elektryczne">Pole elektryczne</h1>
+<h2 id="ładunki-elektryczne">Ładunki elektryczne</h2>
+<ul>
+<li>Ładunek jest cechą cząstek elementarnych</li>
+<li>Ładunek elektryczny jest skwantowany
+<ul>
+<li>całkowity ładunek jest wielokrotnością ładunku elementarnego <span
+class="math inline">\(e\)</span></li>
+</ul></li>
+<li>Elektron
+<ul>
+<li>ładunek <span class="math inline">\(q_e = -e = -1.602 \times
+10^{-19} C\)</span></li>
+</ul></li>
+<li>Zasada zachowania ładunku
+<ul>
+<li>nie znika</li>
+<li>nie pojawia się znikąd</li>
+</ul></li>
+</ul>
+<h2 id="prawo-coulomba">Prawo Coulomba</h2>
+<ul>
+<li>Ładunku oddziałują ze sobą</li>
+<li>Jednoimienne się odpychają, różnoimienne przyciągają</li>
+<li>Prawo empiryczne - uzyskane doświadczalne</li>
+</ul>
+<p><span class="math display">\[\vec{F_c} = \frac{1}{4\pi \varepsilon_0}
+\frac{q_1 q_2}{r^2} \vec{i_r}\]</span> * Stała elektryczna <span
+class="math inline">\(\varepsilon_0\)</span></p>
+<h2 id="natężenie-pola-elektrycznego">Natężenie pola elektrycznego</h2>
+<ul>
+<li>Model matematyczny
+<ul>
+<li>“prawdziwe” są oddziaływania, pole jest modelem</li>
+</ul></li>
+<li>Każdy ładunek wytwarza pole</li>
+<li>Pole oddziałuje na inny ładunek</li>
+<li>Pole wektorowe</li>
+<li>Natężenie - stosunek siły do próbnego ładunku</li>
+</ul>
+<p>Definicja</p>
+<p><span class="math display">\[\vec{E} =
+\frac{\vec{F}}{q_{pr}}\]</span> Dla ładunku punktowego <span
+class="math inline">\(Q\)</span></p>
+<p><span class="math display">\[\vec{E} = \frac{1}{4\pi \varepsilon_0}
+\frac{Q}{r^2} \vec{i_r}\]</span></p>
+<ul>
+<li>Konwencja
+<ul>
+<li>pole jest skierowane od ładunków dodatnich do ładunków ujemnych</li>
+</ul></li>
+<li>Pole w dowolnym punkcie jest superpozycją pól wytwarzanych przez
+wszystkie ładunki w przestrzeni</li>
+</ul>
+<h2 id="indukcja-elektryczna">Indukcja elektryczna</h2>
+<ul>
+<li>Doświadczenie
+<ul>
+<li>zetknąć płytki metalowe (przewodnik) - obojętne elektrycznie</li>
+<li>umieścić w polu elektrycznym</li>
+<li>rozsunąć</li>
+<li>sprawdzić czy dalej są obojętne elektrycznie - elektroskop</li>
+</ul></li>
+<li>Ilość zgromadzonego ładunku będzie zależeć od kierunku natężenia
+pola</li>
+<li>W przewodniku ładunek rozkłada się na powierzchni
+<ul>
+<li>ładunki odpychają się od siebie</li>
+</ul></li>
+<li>Gęstość powierzchniowa ładunku <span
+class="math inline">\(\sigma=\frac{Q}{S}\)</span></li>
+<li>Indukcja elektryczne <span class="math inline">\(|\vec{D}| =
+\sigma\)</span>
+<ul>
+<li>kierunek normalny do powierzchni</li>
+<li>w próżni <span class="math inline">\(\varepsilon_0 \vec{E} =
+\vec{D}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="szereg-tryboelektryczny">Szereg tryboelektryczny</h3>
+<ul>
+<li>Materiał w zależności od budowy będzie albo chętniej
+oddawać elektrony albo chętniej przyjmować</li>
+<li>Szereg tryboelektryczny - uszeregowanie materiałów po tym jak
+chętnie oddają elektrony</li>
+<li>Przy pocieraniu dwóch materiałów zwiększa się efektywna powierzchnia
+oddziaływania</li>
+</ul>
+<h2 id="prawo-gaussa">Prawo Gaussa</h2>
+<ul>
+<li>Fizyczne prawo, które wynika z matematycznego twierdzenia
+Gaussa-Ostrogradskiego</li>
+<li>W polu wektorowym umieszczamy wirtualną powierzchnię <span
+class="math inline">\(S\)</span>
+<ul>
+<li>po to żeby policzyć ile linii pola przecina powierzchnię</li>
+<li>strumień</li>
+</ul></li>
+<li>Wielkość strumieni zależy od
+<ul>
+<li>liczby linii pola - jak silne jest pole</li>
+<li>powierzchnia <span class="math inline">\(S\)</span> - im większa tym
+więcej linii złapie</li>
+<li>kąt nachylenia powierzchni <span class="math inline">\(S\)</span> -
+jak będzie styczne do linii to nic nie przetnie</li>
+</ul></li>
+<li>Jeśli mamy ładunek <span class="math inline">\(Q\)</span> i otoczymy
+go zamkniętą powierzchnią <span class="math inline">\(S\)</span>, która
+jest brzegiem objętości <span class="math inline">\(V\)</span>
+<ul>
+<li>całkowity strumień przez <span class="math inline">\(S\)</span>
+będzie równy ładunkowi zamkniętemu w objętości <span
+class="math inline">\(V\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\oint \limits_S \vec{E} \: d\vec{S} =
+\frac{Q}{\varepsilon_0} = \frac{1}{\varepsilon_0}\int \limits_V \rho \:
+dV\]</span> * Gęstość ładunku <span
+class="math inline">\(\frac{\rho}{\varepsilon_0} = \mathrm{div} \:
+\vec{E} = \nabla \cdot \vec{E}\)</span> * Równanie oznacza, że ładunki
+elektryczne są źródłem pola elektrycznego * w sensie dywergencji</p>
+<h3 id="dla-ładunku-punktowego">Dla ładunku punktowego</h3>
+<ul>
+<li>Żeby policzyć całkę musimy wybrać jakąś sensowną powierzchnię
+<ul>
+<li>symetria jest sferyczna więc łatwo będzie policzyć dla sfery</li>
+</ul></li>
+<li><span class="math inline">\(\oint_S \vec{E} \cdot d\vec{S} =
+\frac{Q}{\varepsilon_0}\)</span>
+<ul>
+<li>wektor <span class="math inline">\(\vec{E}\)</span> i <span
+class="math inline">\(\vec{S}\)</span> będą mieć zawsze zgodne
+kierunki</li>
+<li><span class="math inline">\(\vec{E}\)</span> wychodzi wzdłuż
+promienia</li>
+<li><span class="math inline">\(d\vec{S}\)</span> jest prostopadłe do
+powierzchni</li>
+<li>więc <span class="math inline">\(\oint \limits_S \vec{E} \cdot
+d\vec{S} = \oint_S E \: dS = \frac{Q}{\varepsilon_0}\)</span></li>
+<li>natężenie zależy tylko od odległości <span class="math inline">\(E =
+E(r)\)</span> czyli na sferze E będzie takie samo więc</li>
+<li><span class="math inline">\(\oint_S E \: dS = E \oint_S
+dS\)</span></li>
+<li>Całka po powierzchni to całkowita powierzchnia</li>
+<li><span class="math inline">\(E \oint_S dS = E \cdot 4\pi r^2 =
+\frac{Q}{\varepsilon_0}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="dla-ładunku-rozłożonego-na-nieskończenie-długiej-nici">Dla
+ładunku rozłożonego na nieskończenie długiej nici</h3>
+<ul>
+<li>Możemy otoczyć fragment nici</li>
+<li>Symetria jest cylindryczna więc wybieramy cylinder jako powierzchnię
+Gaussa</li>
+<li>Górna i dolna podstawa nic nie wnoszą do strumienia bo są styczne do
+linii pola</li>
+<li>Tylko powierzchnia boczna walca się liczy w strumieniu</li>
+</ul>
+<h3 id="dla-płaszczyzny">Dla płaszczyzny</h3>
+<ul>
+<li>Mamy gęstość powierzchniową <span
+class="math inline">\(\sigma\)</span></li>
+<li>Linie pola odchodzą prostopadle do płaszczyzny w obie strony</li>
+<li>Bierzemy walec zorientowany podstawami równolegle do powierzchni
+<ul>
+<li>linie pola przecinają tylko podstawy, a nie przez boki</li>
+<li><span class="math inline">\(\oint_S \vec{E} \cdot dS = E \cdot
+2A\)</span></li>
+</ul></li>
+<li>Otoczony ładunek to ten zgromadzony na wycinku powierzchni o polu
+<span class="math inline">\(A\)</span></li>
+<li><span class="math inline">\(E \cdot 2A = \frac{\sigma
+A}{\varepsilon_0}\)</span></li>
+<li><span class="math inline">\(E = \frac{\sigma}{2
+\varepsilon_0}\)</span></li>
+<li>Pole jest jednorodne - nie zależy od położenia
+<ul>
+<li>w kondensatorze okładki są bardzo blisko siebie (mała odległość w
+stosunku do powierzchni)</li>
+<li>między okładkami mamy w przybliżeniu pole jednorodne</li>
+<li>na brzegach się nie zgadza</li>
+</ul></li>
+</ul>
+<h2 id="dipol-elektryczny">Dipol elektryczny</h2>
+<ul>
+<li>Cząstkę można zamodelować elektrycznie jako dipol</li>
+<li>Układ dwóch ładunków oddalonych od siebie o stałą odległość
+<ul>
+<li>wypadkowy ładunek jest <span class="math inline">\(0\)</span></li>
+<li>ale oddziałuje z polem elektrycznym</li>
+</ul></li>
+<li>Moment dipolowy <span class="math inline">\(\vec{p} =
+q\vec{l}\)</span>
+<ul>
+<li><span class="math inline">\(\vec{l}\)</span> - wektor od ujemnego
+ładunku do dodatniego</li>
+</ul></li>
+</ul>
+<h3 id="energia-dipola-w-polu-zewnętrznym">Energia dipola w polu
+zewnętrznym</h3>
+<ul>
+<li>Dipol ma w polu jakąś energię potencjalną</li>
+<li>Będzie dążył do takiego ustawienia, które będzie odpowiadać minimum
+energii potencjalnej</li>
+<li>Energię potencjalną wyznaczamy z definicji
+<ul>
+<li>praca jaką trzeba wykonać, żeby obrócić dipol o dany kąt</li>
+</ul></li>
+<li>Są różne rodzaje przewodnictwa
+<ul>
+<li>elektronowe (przewodniki)</li>
+<li>jonowe (elektrolity)</li>
+<li>dziurowe (półprzewodniki)</li>
+</ul></li>
+<li>Na dipol umieszczony w polu zewnętrznym działa moment siły</li>
+<li>Dipol wytwarza swoje własne pole skierowane przeciwnie do pola
+zewnętrznego (jak już się ustawi zgodnie z polem)
+<ul>
+<li>efektywnie dipol osłabia to pole zewnętrzne</li>
+<li>pomiędzy ładunkami dipola</li>
+<li>co poza ładunkami dipola - nieważne, będzie kompensowane przez
+pozostałe dipole</li>
+</ul></li>
+</ul>
+<h2 id="dielektryki">Dielektryki</h2>
+<ul>
+<li>Substancja zbudowana z dipoli
+<ul>
+<li>np. woda</li>
+<li>mała koncentracja swobodnych ładunków</li>
+<li>występują ładunki związane - dipole</li>
+<li>odpowiada na zewnętrzne pole - dipole się porządkują</li>
+</ul></li>
+<li>Po umieszczeniu w zewnętrznym polu elektrycznym indukuje się moment
+dipolowy lub istniejący moment orientuje się zgodnie z polem</li>
+<li>Jeśli dipole są uporządkowane to tworzą własne pole elektryczne
+<ul>
+<li>skierowane przeciwnie do zewnętrznego pola</li>
+<li>wewnątrz dielektryka wypadkowe pole elektryczne jest słabsze niż
+jakby go nie było</li>
+</ul></li>
+<li>Dielektryk niepolarny
+<ul>
+<li>nie ma dipoli albo są bardzo słabe</li>
+<li>jeśli umieścić taką cząsteczkę w zewnętrznym polu elektrycznym to
+zachodzi zjawisko indukcji</li>
+</ul></li>
+<li>Nie ma znaczenia czy dielektryk jest polarny czy nie dla
+oddziaływania elektrycznego</li>
+</ul>
+<h3 id="mechanizm-propagacji">Mechanizm propagacji</h3>
+<ul>
+<li>Przykład EKG</li>
+<li>Ładunek powierzchniowy na powierzchni serca</li>
+<li>Między skórą jest dielektryk - człowiek składa się głównie z
+wody</li>
+<li>W komórkach indukują się ładunki</li>
+<li>To się propaguje przez kolejne komórki</li>
+<li>To forma przewodzenia</li>
+<li>W końcu na elektrodzie indukuje się ładunek</li>
+</ul>
+<h3 id="prawo-gaussa-w-dielektrykach">Prawo Gaussa w dielektrykach</h3>
+<ul>
+<li>Dwie okładki kondensatora</li>
+<li><span class="math inline">\(E_0\)</span> - pole gdyby nie było
+dielektryka</li>
+<li>Założenie odnośnie modelu oddziaływania
+<ul>
+<li>wynikowe pole będzie <span
+class="math inline">\(E=\frac{E_0}{\varepsilon_r}\)</span></li>
+<li>liniowa zależność</li>
+</ul></li>
+<li>Co jak się wsunie dielektryk pomiędzy okładki
+<ul>
+<li>uporządkuje się</li>
+<li>od tego jak dobrze się uporządkuje zależy jak silne pole się
+wyindukuje wewnątrz</li>
+<li>pole w dielektryku będzie przeciwnie skierowane do pola zewnętrznego
+z okładek</li>
+</ul></li>
+<li>Jaki jest makroskopowy wpływ dielektryka na pole
+<ul>
+<li><span class="math inline">\(q_{sw}\)</span> ładunek swobodny - na
+przewodniku</li>
+<li><span class="math inline">\(q&#39;\)</span> - ładunek wyindukowany w
+dielektryku</li>
+</ul></li>
+<li>Przenikalność dielektryczna <span
+class="math inline">\(\varepsilon_r\)</span>
+<ul>
+<li>nie jest stała</li>
+<li>nie musi być liczbą</li>
+<li>dla anizotropowych materiałów (mających wyróżnione kierunki) będzie
+tensorem</li>
+<li>makroskopowa</li>
+<li>dla próżni stała równa <span class="math inline">\(1\)</span>, dla
+dielektryków większa</li>
+<li>zależy od częstotliwości (kondensator w układzie AC)</li>
+</ul></li>
+<li>Kondensator w AC
+<ul>
+<li>jak prąd zmienia się bardzo wolno to dipol obraca się zgodnie, tak
+jak w DC</li>
+<li>przy dużej częstotliwości nie nadąży się obracać</li>
+<li><span class="math inline">\(\varepsilon_r\)</span> może być
+zespolone, jak jest przesunięcie w fazie, wektor się obraca(?)</li>
+</ul></li>
+</ul>
+<p>Wektor indukcji elektrycznej <span class="math display">\[\vec{D}
+\equiv \varepsilon_0 \varepsilon_r \vec{E} \implies \oint_S \vec{D}
+\cdot d\vec{S} = q_{sw}\]</span></p>
+<h2 id="wektory-indukcji-i-polaryzacji">Wektory indukcji i
+polaryzacji</h2>
+<ul>
+<li>Prawo Gaussa dla wektora indukcji <span
+class="math inline">\(\vec{D}\)</span> - we wzorze mamy tylko ładunek
+swobodny
+<ul>
+<li>to łatwiej policzyć</li>
+</ul></li>
+<li>Prawo Gaussa dla wektora polaryzacji <span
+class="math inline">\(\vec{P}\)</span> - pole elektryczne wytworzone
+wyłącznie przez ładunki związane</li>
+</ul>
+<h3 id="trzy-wektory-elektryczne">Trzy wektory elektryczne</h3>
+<ul>
+<li>Natężenie pola</li>
+<li>Indukcja elektryczna</li>
+<li>Polaryzacja</li>
+<li>Nie muszą mieć zgodnych kierunków - ośrodki anizotropowe</li>
+<li>Podatność elektryczna <span class="math inline">\(\chi\)</span>
+<ul>
+<li>stosunek skutku (polaryzacji) do przyczyny (natężenia pola)</li>
+</ul></li>
+</ul>
+<h2 id="potencjał-pola-elektrycznego">Potencjał pola elektrycznego</h2>
+<ul>
+<li>Potencjał to alternatywny sposób opisu pola elektrycznego
+<ul>
+<li>natężenie - opis wektorowy z punktu widzenia siły</li>
+<li>potencjał - opis skalarny z punktu widzenia energii</li>
+</ul></li>
+<li>Potencjał elektryczny <span class="math inline">\(\varphi\)</span> -
+pole skalarne
+<ul>
+<li>pomnożony przez ładunek daje energię potencjalną w punkcie</li>
+<li>wyrażany w woltach</li>
+<li>różnica potencjałów - napięcie - wyrażane w woltach</li>
+</ul></li>
+<li>Pole elektryczne jest zachowawcze</li>
+</ul>
+<p><span class="math display">\[\vec{E} = -\nabla \varphi\]</span></p>
+<h3 id="potencjał-dla-ładunku-punktowego">Potencjał dla ładunku
+punktowego</h3>
+<ul>
+<li>Natężenie zależy od <span class="math inline">\(r\)</span> -
+symetria sferyczna</li>
+<li>Gradient w układzie sferycznym - inaczej niż w układzie
+kartezjańskim
+<ul>
+<li>przy symetrii sferycznej sprowadza się do <span
+class="math inline">\(\nabla \varphi = \frac{d\varphi}{dr}\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\frac{d\varphi}{dr} = -\frac{q}{4\pi
+\varepsilon_0 r^2}\]</span> <span class="math display">\[\int d \varphi
+= \frac{q}{4\pi \varepsilon_0} \int \frac{-dr}{r^2}\]</span> <span
+class="math display">\[\varphi =
+\frac{q}{4\pi\varepsilon_0r}\]</span></p>
+<h2 id="bezwirowość-pola-elektrycznego">Bezwirowość pola
+elektrycznego</h2>
+<ul>
+<li>Cyrkulacja będzie 0 bo praca przeniesienia ładunku po krzywej
+zamknięte wynosi <span class="math inline">\(0\)</span> - pole
+zachowawcze</li>
+</ul>
+<p><span class="math display">\[\nabla \times \vec{E} = 0\]</span> <span
+class="math display">\[\nabla \times \nabla \varphi = 0\]</span></p>
+<h2 id="dywergencja-pola-elektrycznego">Dywergencja pola
+elektrycznego</h2>
+<ul>
+<li>Strumień jest skalarem
+<ul>
+<li>można rozbić na sumę 3 składników dla strumieni przechodzących przez
+ściany w osi x, y, z</li>
+</ul></li>
+<li>Strumień przez ściany w osi x
+<ul>
+<li>powierzchnia ściany <span class="math inline">\(\Delta y \Delta
+z\)</span></li>
+<li>pole zmienia się pomiędzy obiema ściankami - różniczka</li>
+<li>strumień to różnica między wychodzącym a wchodzącym</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\Phi_x
+= [(E_x + \frac{\partial E_x}{\partial x} \Delta x) - E_x] \Delta y
+\Delta z
+=\frac{\partial E_x}{\partial x} \Delta x \Delta y \Delta z
+\]</span> <span class="math display">\[\Phi = \oint_V (\frac{\partial
+E_x}{\partial x} + \frac{\partial E_y}{\partial y} + \frac{\partial
+E_z}{\partial z}) dx dy dz\]</span></p>
+<h3 id="prawo-gaussa-w-postaci-różniczkowej">Prawo Gaussa w postaci
+różniczkowej</h3>
+<p><span class="math display">\[\nabla \cdot \vec{E} =
+\frac{\rho}{\varepsilon_0}\]</span></p>
+<ul>
+<li>Źródłem pola elektrycznego są ładunki elektryczne</li>
+<li><span class="math inline">\(\rho\)</span> - gęstość ładunków</li>
+<li><span class="math inline">\(\varepsilon_0\)</span> - przenikalność
+elektryczna próżni</li>
+</ul>
+<h3 id="równanie-poissona-i-laplacea">Równanie Poissona i Laplace’a</h3>
+<ul>
+<li>Mamy równania:
+<ul>
+<li>związek między natężeniem pola elektrycznego a potencjałem</li>
+<li>prawo Gaussa</li>
+<li>bezwirowość pola elektrostatycznego</li>
+</ul></li>
+<li>Po podstawieniu wychodzi</li>
+</ul>
+<p><span class="math display">\[-\nabla^2 \varphi =
+\frac{\rho}{\varepsilon_0}\]</span></p>
+<ul>
+<li>Można zmierzyć potencjał, żeby wyznaczyć gęstość ładunków</li>
+</ul>
+<h2 id="przewodniki">Przewodniki</h2>
+<ul>
+<li>Do opisu chmury elektronowej potrzebna jest mechanika kwantowa</li>
+<li>Możemy opisać własności przewodników</li>
+<li>Założenia (wynikające z mechaniki kwantowej)
+<ul>
+<li>w przewodniku jest gaz elektronowy - ładunki niezwiązane z atomami,
+swobodnie poruszające się w obrębie całego przewodnika</li>
+<li>swobodne elektrony są nośnikami prądu elektrycznego</li>
+<li>poza przewodnikami metalicznymi są również przewodniki jonowe i
+elektrolityczne</li>
+</ul></li>
+</ul>
+<h3 id="właściwości-przewodników">Właściwości przewodników</h3>
+<p>Co wynika z powyższych założeń</p>
+<ul>
+<li>Elektrony będą ułożone na powierzchni przewodnika - odpychają się
+jako ładunki różnoimienne</li>
+<li>Pole elektryczne wewnątrz przewodnika jest równe 0 - prawo Gaussa,
+wszystkie ładunki są na powierzchni</li>
+<li>Na powierzchni <span class="math inline">\(\vec{E}\)</span> jest
+prostopadły (normalny) do powierzchni - w stanie równowagowym
+(stacjonarnym)
+<ul>
+<li>gdyby tak nie było to istniałaby składowa styczna do powierzchni i
+ładunki by się przemieszczały</li>
+</ul></li>
+<li>Na powierzchni potencjał <span
+class="math inline">\(\varphi\)</span> jest jednakowy - powierzchnia
+ekwipotencjalna
+<ul>
+<li>gdyby tak nie było to musiałaby istnieć składowa <span
+class="math inline">\(\vec{E}\)</span> styczna do powierzchni</li>
+<li>żeby przenieść ładunek na przewodnik, nie ma znaczenia w którym
+miejscu się go przyłoży - praca to różnica potencjału</li>
+</ul></li>
+<li>Gęstość ładunku - największa na ostrzach
+<ul>
+<li>i w związku z tym silniejsze pole</li>
+<li>model - dwie kule, wzór na potencjał jak dla ładunku punktowego</li>
+<li>kule łączy się cienką nicią</li>
+<li>wyrównuje się potencjał na obu kulach</li>
+<li>gęstość powierzchniowa <span class="math inline">\(\sigma =
+\frac{Q}{4\pi R^2}\)</span></li>
+<li>gęstość będzie większa dla mniejszej kuli</li>
+<li>uogólniając na dowolny przewodnik - przewodnik można podzielić na
+kule o różnych promieniach krzywizny</li>
+</ul></li>
+</ul>
+<h2 id="pojemność-elektryczna">Pojemność elektryczna</h2>
+<ul>
+<li>Z równania Poissona
+<ul>
+<li>laplasjan - suma drugich pochodnych</li>
+<li>wiąże gęstość ładunku z potencjałem</li>
+<li>liniowa zależność między potencjałem a gęstością ładunku</li>
+</ul></li>
+<li>Stosunek potencjału wytwarzanego przez ładunek do tego ładunku jest
+stały
+<ul>
+<li>dla określonego przewodnika</li>
+</ul></li>
+<li>Pojemność elektryczna - <span class="math inline">\(C =
+\frac{Q}{\varphi}\)</span>
+<ul>
+<li>ile ładunku trzeba dołożyć, żeby potencjał wzrósł o <span
+class="math inline">\(1V\)</span></li>
+</ul></li>
+<li><span class="math inline">\(W = \int dW = \int_0^Q \varphi dq =
+\int_0^Q \frac{q}{C} dq = C \int_0^Q q \: dq = \frac{Q^2}{2C}\)</span>
+<ul>
+<li>energia naładowanego przewodnika</li>
+</ul></li>
+</ul>
+<h2 id="prąd-elektryczny">Prąd elektryczny</h2>
+<ul>
+<li>Wcześniej mówiliśmy o elektrostatyce - nieruchome ładunki</li>
+<li>Siła elektromotoryczna - powoduje przemieszczanie się ładunków
+<ul>
+<li>ogniwo</li>
+<li>zmienne pole magnetyczne</li>
+<li>gradient koncentracji nośników</li>
+</ul></li>
+<li>Wektor gęstości prądu <span class="math inline">\(\vec{j} =
+ne\vec{v}\)</span>
+<ul>
+<li>definicja mikroskopowa</li>
+<li><span class="math inline">\(ne\)</span> - ładunek</li>
+<li><span class="math inline">\(n\)</span> - koncentracja ładunków
+(liczba na element objętości)</li>
+</ul></li>
+<li>Natężenie prądu elektrycznego <span class="math inline">\(I = \int
+\limits_S \vec{j} \cdot d\vec{S} = \frac{dq}{dt}\)</span></li>
+</ul>
+<h3 id="prawo-ohma">Prawo Ohma</h3>
+<ul>
+<li>Pod wpływem siły zewnętrznej (pola elektrycznego) w przewodniku
+ustala się prędkość nośników ładunku proporcjonalna do siły (jak w
+ośrodku lepkim)</li>
+<li><span class="math inline">\(\vec{j} = \sigma \vec{E}\)</span>
+<ul>
+<li><span class="math inline">\(\sigma\)</span> - przewodność
+właściwa</li>
+</ul></li>
+<li>Równoważne z makroskopową formą <span
+class="math inline">\(U=IR\)</span></li>
+<li>Z 2 zasady dynamiki przyspieszenie jest proporcjonalne do siły
+<ul>
+<li>a w <span class="math inline">\(j=\sigma E\)</span> mamy prędkość
+proporcjonalną do siły</li>
+<li>w przewodniku nie mamy tak naprawdę ładunków swobodnych (tak jak w
+próżni)</li>
+<li>poruszają się tak jakby działała siła oporu <span
+class="math inline">\(-kv\)</span> - ciało uzyskuje prędkość
+graniczną</li>
+</ul></li>
+</ul>
+<h3 id="równanie-ciągłości">Równanie ciągłości</h3>
+<ul>
+<li>Jak z objętości wypływają ładunki to maleje gęstość ładunków</li>
+<li>Dywergencja gęstości prądu <span
+class="math inline">\(\vec{j}\)</span>
+<ul>
+<li>dodatnia jeśli z obszaru wypływa prąd</li>
+<li>czyli gęstość ładunków w tym obszarze maleje</li>
+<li><span class="math inline">\(\frac{\partial \rho}{\partial t} &lt;
+0\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\nabla \cdot \vec{j} = - \frac{\partial
+\rho}{\partial t}\]</span> Zasada zachowania ładunku</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#pole-elektryczne" id="toc-pole-elektryczne">Pole
+elektryczne</a>
+<ul>
+<li><a href="#ładunki-elektryczne" id="toc-ładunki-elektryczne">Ładunki
+elektryczne</a></li>
+<li><a href="#prawo-coulomba" id="toc-prawo-coulomba">Prawo
+Coulomba</a></li>
+<li><a href="#natężenie-pola-elektrycznego" id="toc-natężenie-pola-elektrycznego">Natężenie pola
+elektrycznego</a></li>
+<li><a href="#indukcja-elektryczna" id="toc-indukcja-elektryczna">Indukcja elektryczna</a>
+<ul>
+<li><a href="#szereg-tryboelektryczny" id="toc-szereg-tryboelektryczny">Szereg tryboelektryczny</a></li>
+</ul></li>
+<li><a href="#prawo-gaussa" id="toc-prawo-gaussa">Prawo Gaussa</a>
+<ul>
+<li><a href="#dla-ładunku-punktowego" id="toc-dla-ładunku-punktowego">Dla ładunku punktowego</a></li>
+<li><a href="#dla-ładunku-rozłożonego-na-nieskończenie-długiej-nici" id="toc-dla-ładunku-rozłożonego-na-nieskończenie-długiej-nici">Dla
+ładunku rozłożonego na nieskończenie długiej nici</a></li>
+<li><a href="#dla-płaszczyzny" id="toc-dla-płaszczyzny">Dla
+płaszczyzny</a></li>
+</ul></li>
+<li><a href="#dipol-elektryczny" id="toc-dipol-elektryczny">Dipol
+elektryczny</a>
+<ul>
+<li><a href="#energia-dipola-w-polu-zewnętrznym" id="toc-energia-dipola-w-polu-zewnętrznym">Energia dipola w polu
+zewnętrznym</a></li>
+</ul></li>
+<li><a href="#dielektryki" id="toc-dielektryki">Dielektryki</a>
+<ul>
+<li><a href="#mechanizm-propagacji" id="toc-mechanizm-propagacji">Mechanizm propagacji</a></li>
+<li><a href="#prawo-gaussa-w-dielektrykach" id="toc-prawo-gaussa-w-dielektrykach">Prawo Gaussa w
+dielektrykach</a></li>
+</ul></li>
+<li><a href="#wektory-indukcji-i-polaryzacji" id="toc-wektory-indukcji-i-polaryzacji">Wektory indukcji i
+polaryzacji</a>
+<ul>
+<li><a href="#trzy-wektory-elektryczne" id="toc-trzy-wektory-elektryczne">Trzy wektory elektryczne</a></li>
+</ul></li>
+<li><a href="#potencjał-pola-elektrycznego" id="toc-potencjał-pola-elektrycznego">Potencjał pola elektrycznego</a>
+<ul>
+<li><a href="#potencjał-dla-ładunku-punktowego" id="toc-potencjał-dla-ładunku-punktowego">Potencjał dla ładunku
+punktowego</a></li>
+</ul></li>
+<li><a href="#bezwirowość-pola-elektrycznego" id="toc-bezwirowość-pola-elektrycznego">Bezwirowość pola
+elektrycznego</a></li>
+<li><a href="#dywergencja-pola-elektrycznego" id="toc-dywergencja-pola-elektrycznego">Dywergencja pola
+elektrycznego</a>
+<ul>
+<li><a href="#prawo-gaussa-w-postaci-różniczkowej" id="toc-prawo-gaussa-w-postaci-różniczkowej">Prawo Gaussa w postaci
+różniczkowej</a></li>
+<li><a href="#równanie-poissona-i-laplacea" id="toc-równanie-poissona-i-laplacea">Równanie Poissona i
+Laplace’a</a></li>
+</ul></li>
+<li><a href="#przewodniki" id="toc-przewodniki">Przewodniki</a>
+<ul>
+<li><a href="#właściwości-przewodników" id="toc-właściwości-przewodników">Właściwości przewodników</a></li>
+</ul></li>
+<li><a href="#pojemność-elektryczna" id="toc-pojemność-elektryczna">Pojemność elektryczna</a></li>
+<li><a href="#prąd-elektryczny" id="toc-prąd-elektryczny">Prąd
+elektryczny</a>
+<ul>
+<li><a href="#prawo-ohma" id="toc-prawo-ohma">Prawo Ohma</a></li>
+<li><a href="#równanie-ciągłości" id="toc-równanie-ciągłości">Równanie
+ciągłości</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

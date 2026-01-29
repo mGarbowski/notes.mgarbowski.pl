@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-kwestie-spoleczne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-prywatnosc-i-bezpieczenstwo.html">Poprzedni: 09-prywatnosc-i-bezpieczenstwo.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-01.html">Następny: kolokwium-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="kwestie-społeczne">Kwestie społeczne</h1>
+<ul>
+<li>Metody sztucznej inteligencji są coraz szerzej stosowane</li>
+<li>Im szersze grono odbiorców, tym więcej potencjalnych problemów i
+zagrożeń</li>
+<li>Z perspektywy fairness za <em>bezpieczne</em> można uznać atrybuty
+dla których możemy uzasadnić istnienie związku przyczynowo-skutkowego z
+modelowanym zjawiskiem</li>
+</ul>
+<h2 id="źródła-obciążenia">Źródła obciążenia</h2>
+<ul>
+<li>Historyczne - to jak wyglądał / wygląda świat jest odzwierciedlone w
+danych</li>
+<li>Niedostateczna reprezentacja niektórych grup społecznych w
+danych</li>
+<li>Dobór atrybutów stosowanych podczas modelowania
+<ul>
+<li>łatwe do zdobycia sygnały często mogą korelować z modelowanym
+zjawiskiem ale nie mieć relacji przyczynowo-skutkowej</li>
+</ul></li>
+<li>Stosowanie niereprezentatywnych benchmarków do oceny modeli</li>
+<li>Spojrzenie jedynie na zagregowane statystyki podczas oceny modelu
+<ul>
+<li>paradoks Simpsona</li>
+</ul></li>
+</ul>
+<h2 id="definicja-fairness">Definicja fairness</h2>
+<ul>
+<li>Bardzo wiele różnych</li>
+<li>Dają się przybliżać przez 3 pojęcia dot. klasyfikatorów
+binarnych</li>
+<li>Oznaczenia
+<ul>
+<li><span class="math inline">\(R\)</span> - odpowiedź
+klasyfikatora</li>
+<li><span class="math inline">\(Y\)</span> - prawdziwa etykieta</li>
+<li><span class="math inline">\(A\)</span> - wrażliwy / chroniony
+atrybut</li>
+</ul></li>
+<li>Niezależność
+<ul>
+<li>odpowiedź modelu nie zależy od wrażliwego atrybutu</li>
+<li><span class="math inline">\(P(R=1|A=a)=P(R=1|A=b)\)</span></li>
+<li>taka sama odpowiedź modelu we wszystkich chronionych podgrupach</li>
+</ul></li>
+<li>Separacja
+<ul>
+<li>jeżeli dwie osoby mają tą samą prawdziwą etykietę, to wrażliwy
+atrybut nie wpływa na predykcję</li>
+<li><span class="math inline">\(P(R=1|Y=1,A=a) =
+P(R=1|Y=1,A=b)\)</span></li>
+<li><span class="math inline">\(P(R=1|Y=0,A=a) =
+P(R=1|Y=0,A=b)\)</span></li>
+<li>dopuszczalna jest korelacja między A oraz R, którą uzasadniają
+różnice w zmiennej celu</li>
+<li>dla wszystkich grup jest ten sam poziom fałszywych pozytywów FP i
+FN</li>
+</ul></li>
+<li>Wystarczalność
+<ul>
+<li>osoby o różnych wartościach chronionego atrybutu, a takiej samej
+odpowiedzi mają takie same prawdopodobieństwo wystąpienia etykiety <span
+class="math inline">\(Y=1\)</span></li>
+<li><span
+class="math inline">\(P(Y=1|R=r,A=a)=P(Y=1|R=r,A=b)\)</span></li>
+<li>można interpretować jako kalibrację modelu wewnątrz grup</li>
+</ul></li>
+<li>Kalibracja
+<ul>
+<li>np. przez dołożenie elementu na końcu sieci</li>
+<li>raczej postprocessing - zwłaszcza przy uczeniu transferowym</li>
+<li>skalowanie Platta</li>
+</ul></li>
+</ul>
+<h2 id="kluczowe-założenia-fairness">Kluczowe założenia fairness</h2>
+<ul>
+<li>Istnieją atrybuty szczególnie wrażliwe społecznie, które mogą być w
+pewnym sensie chronione
+<ul>
+<li>np. płeć, kolor skóry, orientacja seksualna, niepełnosprawność</li>
+</ul></li>
+<li>Dostępne do trenowania modeli czy analiz dane zawierają
+<ul>
+<li>większą reprezentację niektórych podgrup wydzielonych przez atrybuty
+chronione - może zaburzać występujące korelacje</li>
+<li>informacje zbierane historycznie, w dłuższych okresach - proces
+generujący dane mógł ulec zmianom</li>
+</ul></li>
+</ul>
+<h2 id="konsekwencje">Konsekwencje</h2>
+<ul>
+<li>Wszystkie zbiory danych będą mniej lub bardziej obciążone
+<ul>
+<li>zawsze występują różnice między grupami</li>
+</ul></li>
+<li>Nie wystarczy pominąć atrybutów wrażliwych w danych do modelowania
+<ul>
+<li>występują atrybuty skorelowane</li>
+<li>problematyczne są wszystkie atrybuty korelujące, ale nie mające
+relacji przyczynowo-skutkowej</li>
+</ul></li>
+<li>Korygowanie tego zjawiska musi się odbywać aktywnie
+<ul>
+<li>na etapie tworzenia modelu</li>
+</ul></li>
+</ul>
+<h2 id="narzędzia-przykłady">Narzędzia, przykłady</h2>
+<h3 id="fairlearn">Fairlearn</h3>
+<ul>
+<li>Szkody alokacyjne - nierówne dystrybuowanie szans
+<ul>
+<li>np. na zatrudnienie, udzielenie kredytu</li>
+</ul></li>
+<li>Gorsza jakość usług
+<ul>
+<li>różnice w skuteczności systemu między grupami</li>
+<li>np. rozpoznawanie twarzy, mowy</li>
+</ul></li>
+<li>Pakiet dostarcza dwa typy narzędzi
+<ul>
+<li>miary do oceny, które grupy są negatywnie dotknięte przez model</li>
+<li>algorytmy wprowadzające korektę do istniejącego modelu</li>
+</ul></li>
+<li>Metoda
+<ul>
+<li>w jaki sposób mogą być poszkodowane grupy wrażliwe</li>
+<li>jakie mamy grupy wrażliwe - cechy demograficzne i analiza ich
+kombinacji</li>
+<li>identyfikacja miar jakości i ich analiza w podgrupach</li>
+<li>porównanie wyników między grupami i ewentualnie zastosowanie
+algorytmów poprawiających</li>
+</ul></li>
+</ul>
+<h3 id="ai-fairness-360">AI Fairness 360</h3>
+<ul>
+<li>Projekt Linux Foundation</li>
+<li>Grupy metod korekty
+<ul>
+<li>pre-processing na poziomie danych trenujących (np. ważenie)</li>
+<li>in-processing - analogiczne techniki jak do generowania danych
+złośliwych</li>
+<li>post-processing - dołożenie czegoś do wytrenowanego modelu</li>
+</ul></li>
+</ul>
+<h3 id="adversarial-debiasing">Adversarial debiasing</h3>
+<ul>
+<li>Zapewnienie niezależności predykcji <span
+class="math inline">\(\hat{y}\)</span> od zmiennej chronionej <span
+class="math inline">\(z\)</span>
+<ul>
+<li>nie wystarczy usunąć atrybutu bo mogą być atrybuty skorelowane</li>
+</ul></li>
+<li>Intuicja
+<ul>
+<li>jeśli na podstawie wartości <span
+class="math inline">\(\hat{y}\)</span> nie da się przewidzieć wartości
+<span class="math inline">\(z\)</span> to zmienne muszą być
+niezależne</li>
+</ul></li>
+<li>Modyfikacja funkcji straty
+<ul>
+<li>mamy dwa modele - ten właściwy i drugi model zgadujący <span
+class="math inline">\(z\)</span></li>
+<li>ten pierwszy ma się stawać coraz lepszy</li>
+<li>ten drugi ma się stawać coraz gorszy</li>
+<li>podobnie do treningu GAN</li>
+</ul></li>
+<li>Atrybutu <span class="math inline">\(z\)</span> może w ogóle nie być
+w <span class="math inline">\(x\)</span>
+<ul>
+<li>chcemy się upewnić że nie przecieka do żadnych innych atrybutów</li>
+</ul></li>
+</ul>
+<h2 id="otwarte-pytania-dotyczące-fairness">Otwarte pytania dotyczące
+fairness</h2>
+<ul>
+<li>Arbitralne, zależą od przypadku użycia modelu</li>
+<li>Jakie atrybuty powinny być chronione</li>
+<li>Które miary / kryteria stosować</li>
+</ul>
+<h2 id="ograniczenia-prawne">Ograniczenia prawne</h2>
+<h3 id="ai-act">AI-Act</h3>
+<ul>
+<li>Przewiduje bardzo wysokie kary za naruszenia</li>
+<li>Ryzyko niedopuszczalne
+<ul>
+<li>zakazane ze względu na sprzeczność z prawami człowieka</li>
+</ul></li>
+<li>Ryzyko wysokie
+<ul>
+<li>muszą spełniać rygorystyczne wymogi</li>
+<li>np. diagnostyka medyczna, narzędzia rekrutacyjne</li>
+</ul></li>
+<li>Ryzyko ograniczone
+<ul>
+<li>systemy wymagające transparentności</li>
+<li>np. chatboty, automatyczne podpowiedzi</li>
+</ul></li>
+<li>Ryzyko minimalne
+<ul>
+<li>bez dodatkowych regulacji, obowiązują ogólne zasady etyczne</li>
+<li>np. filtry antyspamowe</li>
+</ul></li>
+<li>Modele ogólnego przeznaczenia (GPAI)
+<ul>
+<li>np. LLM</li>
+<li>podlegają dodatkowym wymogom</li>
+<li>szczególnie gdy stają się komponentami systemów wysokiego
+ryzyka</li>
+</ul></li>
+</ul>
+<h2 id="bańki-filtrujące-z-perspektywy-um">Bańki filtrujące z
+perspektywy UM</h2>
+<ul>
+<li>Brak eksploracji
+<ul>
+<li>model serwuje nam tylko najbardziej trafione dane</li>
+</ul></li>
+<li>Pętla sprzężenia zwrotnego przy zbieraniu danych</li>
+<li>Użytkownicy widzą coraz mniejszy wycinek świata</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kwestie-społeczne" id="toc-kwestie-społeczne">Kwestie
+społeczne</a>
+<ul>
+<li><a href="#źródła-obciążenia" id="toc-źródła-obciążenia">Źródła
+obciążenia</a></li>
+<li><a href="#definicja-fairness" id="toc-definicja-fairness">Definicja
+fairness</a></li>
+<li><a href="#kluczowe-założenia-fairness" id="toc-kluczowe-założenia-fairness">Kluczowe założenia
+fairness</a></li>
+<li><a href="#konsekwencje" id="toc-konsekwencje">Konsekwencje</a></li>
+<li><a href="#narzędzia-przykłady" id="toc-narzędzia-przykłady">Narzędzia, przykłady</a>
+<ul>
+<li><a href="#fairlearn" id="toc-fairlearn">Fairlearn</a></li>
+<li><a href="#ai-fairness-360" id="toc-ai-fairness-360">AI Fairness
+360</a></li>
+<li><a href="#adversarial-debiasing" id="toc-adversarial-debiasing">Adversarial debiasing</a></li>
+</ul></li>
+<li><a href="#otwarte-pytania-dotyczące-fairness" id="toc-otwarte-pytania-dotyczące-fairness">Otwarte pytania dotyczące
+fairness</a></li>
+<li><a href="#ograniczenia-prawne" id="toc-ograniczenia-prawne">Ograniczenia prawne</a>
+<ul>
+<li><a href="#ai-act" id="toc-ai-act">AI-Act</a></li>
+</ul></li>
+<li><a href="#bańki-filtrujące-z-perspektywy-um" id="toc-bańki-filtrujące-z-perspektywy-um">Bańki filtrujące z
+perspektywy UM</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-naiwny-klasyfikator-bayesowski</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-drzewa-decyzyjne.html">Poprzedni: 05-drzewa-decyzyjne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-regresja.html">Następny: 07-regresja.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="naiwny-klasyfikator-bayesowski">Naiwny klasyfikator
+bayesowski</h1>
+<p><span class="math display">\[ P(A|B) = \frac{P(A) \cdot P(B|A)}{P(B)}
+\]</span> <span class="math display">\[ P(d|x) = P(c=d|a_1=v_1, a_2=v_2,
+\ldots a_n=v_n) \]</span></p>
+<p><span class="math display">\[ P(d|x) = \frac{P(c=d) \cdot P(a_1=v_1,
+\ldots, a_n=v_n | c=d)}{P(a_1=v_1, \ldots, a_n=v_n)}\]</span></p>
+<p><span class="math display">\[
+P(d|x) \simeq
+\frac
+{P(c=d) \cdot \prod_{i=1}^n P(a_i=v_i | c=d)}
+{\sum_{d&#39; \in C} P(c=d&#39;) \prod_{i=1}^n P(a_i=v_i | c=d&#39;)}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(A\)</span> - klasa</li>
+<li><span class="math inline">\(B\)</span> - wartości atrybutów
+przykładu</li>
+<li>Jeden z najczęściej używanych algorytmów uczenia maszynowego
+<ul>
+<li>to jest wystarczające do klasyfikacji</li>
+<li>porównujemy prawdopodobieństwa wszystkich klas</li>
+<li>wybieramy klasę najbardziej prawdopodobną</li>
+</ul></li>
+<li><span class="math inline">\(P(c=d)\)</span> - prawdopodobieństwo a
+priori
+<ul>
+<li>trywialne do estymacji ze zbioru uczącego</li>
+<li>jak często występuje w czasie trenującym</li>
+<li><span class="math inline">\(|T_{c=d}|/|T|\)</span></li>
+</ul></li>
+<li>Prawdopodobieństwa z koniunkcjami
+<ul>
+<li>nie jest oczywiste do estymacji</li>
+<li>wiele kombinacji może w ogóle nie wystąpić w zbiorze trenującym</li>
+<li>zastępowane iloczynem prawdopodobieństw - zakładamy
+niezależność</li>
+<li>warunkowa niezależność atrybutów względem klas - naiwne, prawie
+nigdy nie jest spełnione</li>
+</ul></li>
+<li><span class="math inline">\(P(a_i=v_i | c=d)\)</span> daje się
+estymować na zbiorze uczącym
+<ul>
+<li><span class="math inline">\(|T_{a_i=v_i,
+c=d}|/|T_{c=d}|\)</span></li>
+<li>może się zdarzyć, że wartość atrybutu nie wystąpi w danej klasie -
+wyzerowałoby iloczyn</li>
+<li>stosuje się wygładzanie prawdopodobieństw</li>
+</ul></li>
+<li>Niezależność bezwarunkowa to jescze mocniejsze założenia niż
+niezależność warunkowa
+<ul>
+<li>nie chcemy przyjmować kolejnego nieprawdziwego założenia, które jest
+jeszcze mocniejsze</li>
+<li>zamiast mianownika wprowadzamy taką wielkość, która wymusi, żeby
+prawdopodobieństwa sumowały się do 1</li>
+<li>mianownik to stała normalizująca</li>
+</ul></li>
+<li>Jedna pętla przez dane</li>
+<li>W drzewie pojedyncza ścieżka sprawdzi tylko kilka atrybutów
+<ul>
+<li>tutaj nawet jeśli atrybutów jest bardzo dużo, to każdy coś wnosi do
+predykcji</li>
+<li>NKB może działać lepiej niż drzewo jeśli granice między klasami są
+nieostre</li>
+</ul></li>
+</ul>
+<h2 id="wygładzanie">Wygładzanie</h2>
+<ul>
+<li>Wygładzanie przez przypisanie stałej wartości dodatniej <span
+class="math inline">\(\epsilon\)</span> jeśli zbiór <span
+class="math inline">\(T_{a_i=v_i, c=d}\)</span> jest pusty</li>
+<li>Wygładzanie Laplace’a
+<ul>
+<li><span class="math inline">\(|A_i|\)</span> - liczba wartości
+atrybutu <span class="math inline">\(a_i\)</span></li>
+<li>interpretacja - dokładamy <span class="math inline">\(l\)</span>
+fikcyjnych przykładów, gdzie wszystkie wartości atrybutu <span
+class="math inline">\(a_i\)</span> są jednakowo prawdopodobne</li>
+<li><span class="math inline">\(l\)</span> - liczba typu <span
+class="math inline">\(1\)</span>, <span
+class="math inline">\(2\)</span>, …</li>
+<li><span class="math inline">\(\frac{|T_{a_i=v_i, c=d}| + l}{|T_{c=d}|
++ l \cdot |A_i|}\)</span></li>
+</ul></li>
+</ul>
+<h2 id="implementacja">Implementacja</h2>
+<ul>
+<li>Prowadzi się obliczenia na logarytmach prawdopodobieństw</li>
+<li>Zamiast iloczynu liczy się sumę logarytmów</li>
+<li>Bardziej odporne na błędy numeryczne</li>
+<li>Można przeliczyć z powrotem na prawdopodobieństwa przez funkcję
+wykładniczą</li>
+</ul>
+<h2 id="atrybuty-ciągłe">Atrybuty ciągłe</h2>
+<ul>
+<li>Można zastąpić <span class="math inline">\(P(a_i=v_i|c=d)\)</span>
+przez <span class="math inline">\(g_{d,i}(v_i)\)</span> - funkcję
+gęstości atrybutu <span class="math inline">\(a_i\)</span> w klasie
+<span class="math inline">\(d\)</span>
+<ul>
+<li>zakładamy rozkład normalny z parametrami estymowanymi jako</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[ m_{T_{c=d}}(a_i) = \frac{1}{|T_{c=d}|}
+\sum_{x \in T_{c=d}} a_i(x) \]</span></p>
+<p><span class="math display">\[ s_{T_{c=d}} (a_i) =
+\sqrt{\frac{1}{|T_{c=d}|-1} \sum_{c \in T_{c=d}} (a_i(x) -
+m_{T_{c=d}}(a_i))^2} \]</span> * Dyskretyzacja * często lepsze *
+bardziej pracochłonne * podział wartości atrybutu ciągłego na
+przedziały</p>
+<h2 id="obsługa-brakujących-wartości">Obsługa brakujących wartości</h2>
+<ul>
+<li>Tworzenie modelu
+<ul>
+<li>pomijanie brakujących wartości przy estymacji prawdopodobieństw
+<span class="math inline">\(P(a_i=v_i|c=d)\)</span></li>
+</ul></li>
+<li>Predykcja
+<ul>
+<li>pomijanie prawdopodobieństw <span
+class="math inline">\(P(a_i=v_i|c=d)\)</span> jeśli wartość <span
+class="math inline">\(a_i\)</span> nie jest znana dla klasyfikowanego
+przykładu</li>
+</ul></li>
+<li>Przy mnożeniu to zastąpienie przez <span
+class="math inline">\(1\)</span></li>
+</ul>
+<h2 id="właściwości-naiwnego-klasyfikatora-bayesowskiego">Właściwości
+naiwnego klasyfikatora bayesowskiego</h2>
+<ul>
+<li>Prosty koncepcyjnie i obliczeniowo</li>
+<li>Często wykorzystywany w praktyce
+<ul>
+<li>klasyfikacja danych tekstowych</li>
+<li>atrybuty - czy słowo ze słownika wystąpiło czy nie (tysiące
+atrybutów)</li>
+<li>trudny do pobicia do tego typu zadań</li>
+</ul></li>
+<li>Odporny na nadmierne dopasowanie
+<ul>
+<li>wymiar VC liniowy względem liczby atrybutów</li>
+</ul></li>
+<li>Nie wymaga strojenia parametrów</li>
+<li>Naruszenie założenia o niezależności nie wyklucza wartości
+predykcyjnej</li>
+<li>Skuteczny jeśli
+<ul>
+<li>trzeba uwzględnić nieznaczny wpływ znacznej liczby atrybutów (np.
+klasyfikacja tekstu)</li>
+<li>liczba przykładów jest stosunkowo mała w porównaniu z liczbą
+atrybutów</li>
+<li>występują liczne brakujące wartości</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#naiwny-klasyfikator-bayesowski" id="toc-naiwny-klasyfikator-bayesowski">Naiwny klasyfikator
+bayesowski</a>
+<ul>
+<li><a href="#wygładzanie" id="toc-wygładzanie">Wygładzanie</a></li>
+<li><a href="#implementacja" id="toc-implementacja">Implementacja</a></li>
+<li><a href="#atrybuty-ciągłe" id="toc-atrybuty-ciągłe">Atrybuty
+ciągłe</a></li>
+<li><a href="#obsługa-brakujących-wartości" id="toc-obsługa-brakujących-wartości">Obsługa brakujących
+wartości</a></li>
+<li><a href="#właściwości-naiwnego-klasyfikatora-bayesowskiego" id="toc-właściwości-naiwnego-klasyfikatora-bayesowskiego">Właściwości
+naiwnego klasyfikatora bayesowskiego</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

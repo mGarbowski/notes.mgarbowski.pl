@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-oscylator-harmoniczny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wstep.html">Poprzedni: 01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-fale.html">Następny: 03-fale.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="oscylator-harmoniczny">Oscylator harmoniczny</h1>
+<ul>
+<li>Oscylator harmoniczny (jedna z definicji) - potencjał oscylatora
+harmonicznego jest parabolą (proporcjonalny do <span
+class="math inline">\(x^2\)</span>)
+<ul>
+<li>Jak rozwinąć każdą funkcję w szereg taylora, w optimach - wyraz
+liniowy to 0 (bo optimum), wyraz kwadratowy będzie niezerowy</li>
+<li>Dlatego drgania harmoniczne występują w wielu miejscach - przy
+minimach lokalnych potencjału jest jak w oscylatorze harmonicznym</li>
+</ul></li>
+<li>Minimum potencjału jest stabilne - jak cząstkę wytrącimy z minimum
+to ona będzie próbowała tam wrócić
+<ul>
+<li>punkt stały stabilny</li>
+</ul></li>
+<li>Maximum jest niestabilne (punkt równowagi chwiejnej)
+<ul>
+<li>punkt stały niestabilny</li>
+</ul></li>
+</ul>
+<h2 id="drgania-harmoniczne">Drgania harmoniczne</h2>
+<h3 id="równanie-ruchu">Równanie ruchu</h3>
+<p><span class="math display">\[m \frac{d^2x}{dt^2} = -kx\]</span>
+Alternatywna postać</p>
+<p><span class="math display">\[\ddot{x} + \omega_0 x = 0\]</span></p>
+<ul>
+<li>Częstość własna <span class="math inline">\(\omega_0\)</span></li>
+<li><span class="math inline">\(m\ddot{x}\)</span> - Siła
+<ul>
+<li>dla sprężyny <span class="math inline">\(k\)</span> to stała
+sprężystości (prawo Hooke’a)</li>
+</ul></li>
+<li>Ujemne sprzężenie zwrotne
+<ul>
+<li>sprzężenie zwrotne - pochodna zależy od <span
+class="math inline">\(x\)</span></li>
+<li>ujemne - znak minus</li>
+<li>występują oscylacje</li>
+<li>oscylacje też pojawiają się przy sprężeniu zwrotnym ujemnym w innych
+kontekstach (np. zmiana populacji mięsożerców i roślinożerców)</li>
+</ul></li>
+</ul>
+<h3 id="rozwiązanie-ogólne">Rozwiązanie ogólne</h3>
+<p><span class="math display">\[x(t) = A \sin(\omega_0 t) + B
+\cos(\omega_0 t)\]</span> <span class="math display">\[x(t) = A
+\sin(\omega_0 t + \phi)\]</span> <span class="math display">\[x(t) = A
+\exp[i(\omega_0t + \phi)]\]</span></p>
+<ul>
+<li>Dwie stałe całkowania
+<ul>
+<li>bo równanie jest 2. rzędu</li>
+<li><span class="math inline">\(A\)</span> i <span
+class="math inline">\(B\)</span> albo <span
+class="math inline">\(A\)</span> i <span
+class="math inline">\(\phi\)</span></li>
+<li>wyznaczamy z warunku początkowego</li>
+</ul></li>
+<li>Złożenie sinusa i kosinusa to dalej sinus
+<ul>
+<li>przesunięcie w fazie</li>
+</ul></li>
+</ul>
+<h3 id="wahadło-matematyczne">Wahadło matematyczne</h3>
+<ul>
+<li>To nie jest oscylator harmoniczny</li>
+<li>Dla małych kątów wychylenia - przybliżenie sinusa przez funkcję
+liniową</li>
+<li>Jest w przybliżeniu oscylatorem harmonicznym przy małych
+wychyleniach</li>
+<li>Częstość własna / częstość kołowa <span
+class="math inline">\(\omega_0 = \frac{2\pi}{T}\)</span></li>
+<li>Dla wahadła przy małym wychyleniu <span
+class="math inline">\(\omega_0 = \sqrt{\frac{g}{l}}\)</span></li>
+</ul>
+<h3 id="energia-potencjalna-sprężystości">Energia potencjalna
+sprężystości</h3>
+<ul>
+<li>Wyprowadzenie wzoru na energię kinetyczną
+<ul>
+<li>…</li>
+</ul></li>
+<li>Największa siła działa w skrajnym położeniu
+<ul>
+<li>skierowana do minimum energii</li>
+</ul></li>
+<li>W minimum energii potencjalnej będzie największa energia
+kinetyczna</li>
+<li>Siła harmoniczna jest siłą potencjalną
+<ul>
+<li><span class="math inline">\(F = -kx = -\frac{dE_p}{dx}\)</span></li>
+<li>w jednym wymiarze</li>
+<li>po scałkowaniu jest wzór na energię potencjalną</li>
+</ul></li>
+</ul>
+<h2 id="drgania-tłumione-oscylatora-harmonicznego">Drgania tłumione
+oscylatora harmonicznego</h2>
+<ul>
+<li>Siła tłumiąca <span class="math inline">\(T_t = - \gamma v\)</span>
+<ul>
+<li><span class="math inline">\(\gamma\)</span> - stała</li>
+<li>proporcjonalna do prędkości, przeciwnie skierowana</li>
+</ul></li>
+<li>Dla masy na sprężynie
+<ul>
+<li><span class="math inline">\(m \ddot{x} = -kx - \gamma
+v\)</span></li>
+</ul></li>
+<li>Ogólne równanie
+<ul>
+<li><span class="math inline">\(\ddot{x} + 2 \alpha \dot{x} + \omega_0^2
+x = 0\)</span></li>
+<li><span class="math inline">\(2 \alpha =
+\frac{\gamma}{m}\)</span></li>
+</ul></li>
+<li>Siła zachowawcza - cała praca zamienia się na energię
+mechaniczną</li>
+<li>Siły niezachowawcze - część pracy zamienia się w ciepło</li>
+</ul>
+<h3 id="rozwiązanie-ogólne-1">Rozwiązanie ogólne</h3>
+<p><span class="math display">\[x(t) = A\exp(\lambda_1t) +
+B\exp(\lambda_2t)\]</span> <span class="math display">\[\lambda_1 =
+-\alpha - \sqrt{\alpha^2 - \omega_0^2}\]</span> <span
+class="math display">\[\lambda_2 = -\alpha + \sqrt{\alpha^2 -
+\omega_0^2}\]</span> <span class="math display">\[x(t) = A \exp(-\alpha
+t) \sin(\sqrt{\omega_0^2 - \alpha^2t} + \phi)\]</span></p>
+<ul>
+<li>Częstość własna jest mniejsza niż <span
+class="math inline">\(\omega_0\)</span></li>
+<li>Czynnik <span class="math inline">\(\exp(-\alpha t)\)</span>
+odpowiada za malenie amplitudy
+<ul>
+<li>to co można zmierzyć linijką</li>
+</ul></li>
+<li>Tłumienie słabe
+<ul>
+<li><span class="math inline">\(\alpha^2 &lt; \omega_0^2\)</span></li>
+</ul></li>
+<li>Tłumienie duże
+<ul>
+<li><span class="math inline">\(\alpha^2 &gt; \omega_0^2\)</span></li>
+<li>oba pierwiastki są rzeczywiste</li>
+<li>nie ma drgań - wykładniczy zanik do <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Tłumienie krytyczne
+<ul>
+<li><span class="math inline">\(\alpha^2=\omega_0^2\)</span></li>
+<li>wartość graniczna</li>
+<li>poniżej mamy drgania, powyżej nie</li>
+</ul></li>
+</ul>
+<h2 id="drgania-wymuszone-oscylatora-harmonicznego">Drgania wymuszone
+oscylatora harmonicznego</h2>
+<p><span class="math display">\[F_{zewn}(t) = F_0 \sin(\omega
+t)\]</span> <span class="math display">\[\ddot{x} + 2 \alpha \dot{x} +
+\omega_0^2 x = f_0 \sin(\omega t)\]</span></p>
+<ul>
+<li>Jakaś harmoniczna siła wymuszająca</li>
+<li><span class="math inline">\(f_0 = \frac{F_0}{m}\)</span></li>
+<li>Częstość wymuszenia <span class="math inline">\(\omega\)</span>
+<ul>
+<li>jest jakaś wartość dla której będzie rezonans</li>
+</ul></li>
+<li>Układ wymuszany nie drga ze swoją częstością własną
+<ul>
+<li>drga z częstością wymuszenia</li>
+</ul></li>
+<li>Rozwiązanie
+<ul>
+<li>dotyczy stanu stacjonarnego!! - już po stanie nieustalonym (który
+może być bardzo długi)</li>
+<li>są drgania - sinus</li>
+<li>modulowany jakąś amplitudą</li>
+<li>arctan - różnica faz między układem wymuszanym i wymuszającym</li>
+<li>przesunięcie o 90 stopni jeśli …</li>
+</ul></li>
+<li>Amplituda drgań jako funkcja częstości
+<ul>
+<li>krzywe dla różnego tłumienia</li>
+<li>większe tłumienie - amplituda opada</li>
+<li>maksimum się przesuwa - częstotliwość rezonansowa się przesuwa bo
+częstość własna się przesuwa</li>
+<li>krzywa rezonansowa</li>
+</ul></li>
+<li>Oscylator harmoniczny jest filtrem pasmowym
+<ul>
+<li>odpowiada na jakąś częstotliwość - blisko częstotliwości
+rezonansowej</li>
+</ul></li>
+</ul>
+<h3 id="drgania-w-obwodzie-rlc-z-wymuszeniem">Drgania w obwodzie RLC z
+wymuszeniem</h3>
+<ul>
+<li>Napięcie przemienne - sinus</li>
+<li>Z prawa kirchoffa - suma spadków napięć
+<ul>
+<li>na oporniku</li>
+<li>na cewce</li>
+<li>na kondensatorze</li>
+</ul></li>
+<li><span class="math inline">\(U(t) + U_R + U_L + U_C = 0\)</span></li>
+<li>opornik - z prawa ohma</li>
+<li>cewka - współczynnik samoindukcji, pochodna prądu po czasie (prawo
+Faradaya)
+<ul>
+<li>gromadzi energię</li>
+<li>przepływ prądu indukuje pole magnetyczne</li>
+<li>pole magnetyczne się zmienia i indukuje przepływ prądu</li>
+</ul></li>
+<li>kondensator - z definicji pojemności</li>
+</ul>
+<p>Po podstawieniu</p>
+<p><span class="math display">\[\ddot{q} + \frac{R}{L} \dot{q} +
+\frac{1}{LC} q = \frac{U_0}{L} \sin(\omega t)\]</span></p>
+<ul>
+<li>To jest równanie oscylatora harmonicznego</li>
+<li>Współczynnik tłumienia zależy od oporu i od L</li>
+<li>Z tego można zbudować radio
+<ul>
+<li>strojenie - sterowanie pojemnością kondensatora albo indukcyjnością
+cewki</li>
+<li>oscylator działa jako filtr</li>
+</ul></li>
+</ul>
+<h2 id="transformata-laplacea">Transformata Laplace’a</h2>
+<ul>
+<li>Transformacja z dziedziny czasu do przestrzeni zespolonej s</li>
+<li>Przedstawienie funkcji jako kombinację oscylatorów harmonicznych
+tłumionych</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#oscylator-harmoniczny" id="toc-oscylator-harmoniczny">Oscylator harmoniczny</a>
+<ul>
+<li><a href="#drgania-harmoniczne" id="toc-drgania-harmoniczne">Drgania
+harmoniczne</a>
+<ul>
+<li><a href="#równanie-ruchu" id="toc-równanie-ruchu">Równanie
+ruchu</a></li>
+<li><a href="#rozwiązanie-ogólne" id="toc-rozwiązanie-ogólne">Rozwiązanie ogólne</a></li>
+<li><a href="#wahadło-matematyczne" id="toc-wahadło-matematyczne">Wahadło matematyczne</a></li>
+<li><a href="#energia-potencjalna-sprężystości" id="toc-energia-potencjalna-sprężystości">Energia potencjalna
+sprężystości</a></li>
+</ul></li>
+<li><a href="#drgania-tłumione-oscylatora-harmonicznego" id="toc-drgania-tłumione-oscylatora-harmonicznego">Drgania tłumione
+oscylatora harmonicznego</a>
+<ul>
+<li><a href="#rozwiązanie-ogólne-1" id="toc-rozwiązanie-ogólne-1">Rozwiązanie ogólne</a></li>
+</ul></li>
+<li><a href="#drgania-wymuszone-oscylatora-harmonicznego" id="toc-drgania-wymuszone-oscylatora-harmonicznego">Drgania wymuszone
+oscylatora harmonicznego</a>
+<ul>
+<li><a href="#drgania-w-obwodzie-rlc-z-wymuszeniem" id="toc-drgania-w-obwodzie-rlc-z-wymuszeniem">Drgania w obwodzie RLC z
+wymuszeniem</a></li>
+</ul></li>
+<li><a href="#transformata-laplacea" id="toc-transformata-laplacea">Transformata Laplace’a</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

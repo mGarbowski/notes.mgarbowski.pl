@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-detekcja-obiektow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-sieci-ze-zbieznym-stanem.html">Poprzedni: 12-sieci-ze-zbieznym-stanem.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="detekcja-obiektów">Detekcja obiektów</h1>
+<h2 id="zadania">Zadania</h2>
+<ul>
+<li>Rozpoznawanie obrazów - czy na obrazie jest kot</li>
+<li>Rozpoznawanie obiektów i ich lokalizacja - gdzie na obrazie jest
+kot</li>
+<li>Detekcja obiektów - jakie zwierzęta i gdzie są na obrazie
+<ul>
+<li>liczba obiektów nie jest znana</li>
+</ul></li>
+</ul>
+<h2 id="technika-okna-przesuwnego">Technika okna przesuwnego</h2>
+<ul>
+<li>Prostokątny obszar o stałych rozmiarach</li>
+<li>Przesuwa się po obrazie z określonym krokiem</li>
+<li>Każdy podobszar jest klasyfikowany jako obiekt lub tło</li>
+<li>Potem każdy wybrany podobszar może być ponownie klasyfikowany pod
+kątem przynależności obiektu do konkretnej klasy</li>
+<li>Po przejściu całego obrazu okno można powiększyć i powtórzyć</li>
+<li>Bardzo kosztowne obliczeniowo
+<ul>
+<li>klasyfikacja na wszystkich podobszarach</li>
+</ul></li>
+</ul>
+<h2 id="indeks-jaccarda">Indeks Jaccarda</h2>
+<ul>
+<li>Intersection over Union (IoU)</li>
+<li>Miara dokładności detekcji</li>
+<li>Porównuje się bounding box wyznaczony przez algorytm z wyznaczonym
+ręcznie przez człowieka (ground truth)</li>
+<li><span class="math inline">\(J = \frac{A \cap B}{A \cup
+B}\)</span></li>
+<li>Detekcję uznaje się za poprawną jeśli <span
+class="math inline">\(J\)</span> jest powyżej przyjętego progu (np.
+<span class="math inline">\(0.5\)</span>)</li>
+</ul>
+<h2 id="algorytm-nms">Algorytm NMS</h2>
+<ul>
+<li>Non maximum suppression</li>
+<li>Algorytmy używające okien przesuwnych mogą zwrócić wiele bounding
+boxów dla tego samego obiektu</li>
+<li>NMS służy do grupowania bounding boxów</li>
+<li>Wiele nakładających się prostokątów (IoU powyżej progu) zamieniamy
+na 1 prostokąt przez uśrednianie ich współrzędnych</li>
+</ul>
+<h2 id="algorytm-selektywnego-poszukiwania">Algorytm selektywnego
+poszukiwania</h2>
+<ul>
+<li>Selective search</li>
+<li>Zamiast okna przesuwnego</li>
+<li>Najpierw grupowanie</li>
+<li>Przestrzeń poszukiwań obiektów ograniczona da wyznaczonych
+klastrów</li>
+<li>Mniej podobszarów do sprawdzenia</li>
+</ul>
+<h2 id="r-cnn">R-CNN</h2>
+<ul>
+<li>Regions with CNN</li>
+<li>Dwuetapowy detektor</li>
+<li>Wyznaczenie kandydatów na obiekty
+<ul>
+<li>pierwszy etap</li>
+<li>np. algorytm selektywnego poszukiwania</li>
+<li>wyznacza się ok. 2000 podobszarów do późniejszego sprawdzenia</li>
+<li>ta mniej kosztowna obliczeniowo część detekcji</li>
+</ul></li>
+<li>Klasyfikacja kandydatów
+<ul>
+<li>docelowy klasyfikator</li>
+<li>określa czy tło czy obiekt, jeśli obiekt to określa klasę</li>
+</ul></li>
+<li>Na koniec regiony agreguje się algorytmem NMS</li>
+<li>Bardzo nieefektywny
+<ul>
+<li>ekstrakcja cech działa niezależnie dla każdego z 2000 regionów</li>
+</ul></li>
+</ul>
+<h2 id="fast-r-cnn">Fast R-CNN</h2>
+<ul>
+<li>Na początku tworzy się mapę cech dal całego obrazu</li>
+<li>Dla każdego kandydata na obiekt wyciąga się wektor cech stałej
+długości z tej mapy</li>
+<li>Na końcu jeden wektor z rozkładem prawdopodobieństwa klas i dla
+każdej klasy współrzędne bounding boxa</li>
+<li>Generowanie kandydatów na obiekty jest zupełnie niezależnym
+krokiem</li>
+</ul>
+<h2 id="faster-r-cnn">Faster R-CNN</h2>
+<ul>
+<li>Mapa cech wyznaczona dla całego obrazu służy jednocześnie do
+detekcji kandydatów na obiekty</li>
+<li>Jedna sieć i do wyznaczania kandydatów i do klasyfikacji</li>
+<li>Wyznaczanie regionów zainteresowania (ROI)
+<ul>
+<li>Region Proposal Network (RPN)</li>
+<li>wyznacza zestaw regionów wokół równomiernie rozmieszczonych punktów
+kotwic</li>
+<li>dla każdego obszaru wyznacza się prawdopodobieństwo, że zawiera
+obiekt</li>
+<li>przesunięcie regionu wyznaczane przez regresję</li>
+</ul></li>
+<li>Do drugiego etapu jest wybierane 2000 najlepszych kandydatów
+<ul>
+<li>wycina się region z mapy cech</li>
+<li>klasyfikacja na podstawie wycinka mapy cech</li>
+<li>regresja - lepsze dopasowanie obrysów do kandydatów na obiekty
+wyznaczonych przez RPN (przesunięcia)</li>
+</ul></li>
+<li>Warstwy konwolucyjne są współdzielone - wyznaczona mapa cech jest
+używana w 1 i 2 etapie</li>
+</ul>
+<h2 id="yolo">YOLO</h2>
+<ul>
+<li>You Only Look Once</li>
+<li>Dużo szybsze, a tylko trochę mniej dokładne niż Faster R-CNN</li>
+<li>Obraz odpowiednio przeskalowany</li>
+<li>Dzieli się obraz na siatkę <span class="math inline">\(S \times
+S\)</span>
+<ul>
+<li>każda komórka odpowiada za wykrywanie obiektów w jej granicach</li>
+</ul></li>
+<li>Siec przewiduje położenie <span class="math inline">\(B\)</span>
+obrysów w każdej komórce
+<ul>
+<li><span class="math inline">\((x,y,w,h,c)\)</span></li>
+<li>współrzędne</li>
+<li><span class="math inline">\(c\)</span> - confidence score</li>
+<li>dodatkowo dla każdego obrysu przynależność do klasy (rozkład
+prawdopodobieństwa)</li>
+</ul></li>
+<li>Z jednego obrazu generuje wyjście wymiaru
+<ul>
+<li><span class="math inline">\(S \times S \times (B \cdot 5 +
+C)\)</span></li>
+<li><span class="math inline">\(C\)</span> - liczba klas</li>
+</ul></li>
+<li>Maksymalna liczba znalezionych obiektów jest ograniczona rozmiarem
+siatki</li>
+<li>Nie nadaje się do wykrywania małych, gęsto rozmieszczonych
+obiektów</li>
+<li>Jedna sieć konwolucyjna - działa w czasie rzeczywistym</li>
+<li>Problem z detekcją obiektów, których proporcje znacznie się różnią
+od przykładów ze zbioru treningowego</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#detekcja-obiektów" id="toc-detekcja-obiektów">Detekcja
+obiektów</a>
+<ul>
+<li><a href="#zadania" id="toc-zadania">Zadania</a></li>
+<li><a href="#technika-okna-przesuwnego" id="toc-technika-okna-przesuwnego">Technika okna przesuwnego</a></li>
+<li><a href="#indeks-jaccarda" id="toc-indeks-jaccarda">Indeks
+Jaccarda</a></li>
+<li><a href="#algorytm-nms" id="toc-algorytm-nms">Algorytm NMS</a></li>
+<li><a href="#algorytm-selektywnego-poszukiwania" id="toc-algorytm-selektywnego-poszukiwania">Algorytm selektywnego
+poszukiwania</a></li>
+<li><a href="#r-cnn" id="toc-r-cnn">R-CNN</a></li>
+<li><a href="#fast-r-cnn" id="toc-fast-r-cnn">Fast R-CNN</a></li>
+<li><a href="#faster-r-cnn" id="toc-faster-r-cnn">Faster R-CNN</a></li>
+<li><a href="#yolo" id="toc-yolo">YOLO</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

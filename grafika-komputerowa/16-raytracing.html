@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>16-raytracing</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="15-grafika-wokselowa.html">Poprzedni: 15-grafika-wokselowa.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="17-opengl.html">Następny: 17-opengl.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="raytracing">Raytracing</h1>
+<h2 id="rendering-w-porządku-obiektowym">Rendering w porządku
+obiektowym</h2>
+<ul>
+<li>Rasteryzacja, <em>object-order viewing</em></li>
+<li>Do tej pory omawialiśmy algorytmy działające w porządku
+obiektowym</li>
+<li>Mamy ekran i wszystkie obiekty sceny rzutujemy na ekran</li>
+<li>To robi potok graficzny, wszystkie transformacje na wielokątach
+itd.</li>
+<li>To co przeglądamy to lista obiektów w scenie (np. wielokątów)</li>
+</ul>
+<h2 id="rendering-w-porządku-obrazowym">Rendering w porządku
+obrazowym</h2>
+<ul>
+<li>Śledzenie promieni, <em>image-order viewing</em></li>
+<li>Mamy obserwatora i ekran</li>
+<li>Ekran składa się z pikseli</li>
+<li>Przez każdy piksel przechodzi promień
+<ul>
+<li>wychodzący z punktu obserwatora</li>
+</ul></li>
+<li>Jak na drodze promienia pojawia się obiekt, to uwzględniamy go w
+kolorze piksela</li>
+<li>Niektóre obiekty w scenie są trafione (nawet wielokrotnie), a
+niektóre nie</li>
+<li>Potocznie to nazywamy raytracingiem ale jest wiele odmian</li>
+<li>Ta metoda jest bardziej zbliżona do rzeczywistego postrzegania
+świata
+<ul>
+<li>tutaj promień wychodzi z oka, a nie wpada do oka</li>
+</ul></li>
+</ul>
+<h2 id="rzutowanie-promieni">Rzutowanie promieni</h2>
+<ul>
+<li><em>Ray Casting</em></li>
+<li>Mamy obserwatora, ekran, obiekty sceny</li>
+<li>Przez piksel ekranu, od oka wychodzi promień, trafia w jakiś punkt
+obiektu w scenie</li>
+<li>Pierwszy napotkany punkt to jedyny który wpływa na barwę piksela
+<ul>
+<li>nie kontynuujemy promienia</li>
+</ul></li>
+<li>Promień (prostą) definiują 2 punkty
+<ul>
+<li>położenie obserwatora</li>
+<li>położenia piksela na ekranie</li>
+<li>dalej nic nie wiemy</li>
+<li><strong>ważne</strong></li>
+</ul></li>
+<li>Barwę trafionego punktu trzeba przenieść na piksel
+<ul>
+<li>ustalone schematem cieniowania</li>
+<li>można poprowadzić promień od punktu do źródła światła</li>
+<li>model Phonga</li>
+<li>składowa ambient, składowa dyfuzyjna, składowa odbicia
+zwierciadlanego</li>
+<li>składowa odbicia jest bardzo dobrze realizowana przez ray
+tracing</li>
+</ul></li>
+<li>Bardzo sprawny</li>
+<li>Nie daje najlepszych efektów jeśli chodzi o realizm
+<ul>
+<li>ray tracing robimy po to żeby lepiej oddać rzeczywistość niż przy
+rasteryzacji</li>
+</ul></li>
+<li>W grafice chodzi o osiągnięcie realistycznego obrazu tak szybko jak
+się da
+<ul>
+<li>sprzeczne cele, im bardziej realistycznie tym wolniej</li>
+<li>w miarę zwiększania mocy obliczeniowych jest coraz łatwiej to
+pogodzić</li>
+</ul></li>
+</ul>
+<h2 id="śledzenie-promieni">Śledzenie promieni</h2>
+<ul>
+<li><em>Ray Tracing</em></li>
+<li>Klasyczna wersja</li>
+<li>Są też promienie wtórne</li>
+<li>Po trafieniu obiektu promieniem pojawiają się promienie wtórne
+<ul>
+<li>promienie odbite od powierzchni w punkcie trafienia</li>
+<li>promienie załamane</li>
+<li>promienie w kierunku źródła światła (promienie cienia)</li>
+</ul></li>
+<li>Promienie wtórne dalej mogą trafiać na obiekty
+<ul>
+<li>promień cienia po odbiciu może trafić na przeszkodę - obiekt jest w
+cieniu</li>
+<li>tworzenie cieni jest wbudowane w sam algorytm</li>
+</ul></li>
+<li>Promienie tworzą logicznie drzewo
+<ul>
+<li>promień pierwotny rozgałęzia się na promienie wtórne</li>
+<li>w każdym punkcie trafienia promienie do źródeł światła</li>
+<li>promienie wtórne dalej się rozgałęziają na kolejne promienie
+wtórne</li>
+</ul></li>
+<li>Rekursywna procedura</li>
+</ul>
+<h3 id="promienie-wtórne">Promienie wtórne</h3>
+<ul>
+<li>Zgodnie z zasadami optyki
+<ul>
+<li>kąt padania równy kątowi odbicia</li>
+<li>przy załamaniu prawo Snelliusa</li>
+</ul></li>
+<li>Stosunek światła odbitego i załamanego określają współczynniki
+Fresnela</li>
+</ul>
+<h3 id="promienie-cieni">Promienie cieni</h3>
+<ul>
+<li>Do każdego punktu w cieniu dociera oświetlenie rozproszone i odbite
+od innych obiektów</li>
+<li>Jeśli obiekt jest w cieniu to składowe diffuse i specular mnożymy
+przez <span class="math inline">\(0\)</span></li>
+<li>Jeśli światło jest punktowe to jest jeden promień cienia</li>
+<li>Dla światła powierzchniowego jest wiele promieni
+<ul>
+<li>można uzyskać półcień</li>
+</ul></li>
+</ul>
+<h3 id="co-daje-śledzenie-promieni">Co daje śledzenie promieni</h3>
+<ul>
+<li>Quasi-fizycza symulacja promieni
+<ul>
+<li>quasi bo promienie wychodzą z oka</li>
+<li>znacznie mniej promieni niż w rzeczywistości</li>
+</ul></li>
+<li>Odbicia lustrzane</li>
+<li>Cienie (za darmo)</li>
+<li>Większy realizm</li>
+</ul>
+<h3 id="wady-śledzenia-promieni">Wady śledzenia promieni</h3>
+<ul>
+<li>Efektywność obliczeniowa
+<ul>
+<li>wiele promieni</li>
+<li>tyle promieni pierwotnych ile pikseli</li>
+<li>dla każdego wiele promieni wtórnych, w pewnym momencie obcinamy</li>
+<li>podatność na aliasing - żeby poprawić - próbkowanie subpikselowe
+czyli jeszcze więcej promieni</li>
+</ul></li>
+<li>Koszt znajdowania przecięć promienia z obiektami sceny
+<ul>
+<li>nigdy nie wiadomo a priori czy obiekt zostanie trafiony czy nie</li>
+<li>wszystkie obiekty sceny trzeba porównać z promieniem</li>
+</ul></li>
+<li>Kłopoty ze zrównolegleniem
+<ul>
+<li>rasteryzacja się bardzo dobrze zrównolegla</li>
+<li>promienie są co prawda niezależne ale nakład obliczeniowy jest
+bardzo nierównomierny</li>
+<li>jedne promienie w nic nie trafią, a inne przebijają się przez setki
+obiektów</li>
+</ul></li>
+<li>Problem z globalnym oświetleniem (w klasycznej wersji algorytmu)
+<ul>
+<li>też problem wszystkich algorytmów opartych na rasteryzacji</li>
+<li>w scenie jest oświetlenie rozproszone, po prostu jest, nie ma na to
+wpływu położenie obserwatora</li>
+<li>z punktu widzenia obliczeń nie interesuje nas skąd się wzięło to
+światło</li>
+<li>to nie jest fizyczne</li>
+</ul></li>
+</ul>
+<h3 id="redukcja-obliczeń">Redukcja obliczeń</h3>
+<ul>
+<li>Najbardziej czasochłonne jest wyznaczanie przecięć promieni z
+obiektami sceny</li>
+<li>Bryły otaczające
+<ul>
+<li>budujemy hierarchię brył w preprocessingu</li>
+<li>kule, bo łatwo wyznacza się przecięcie z linią</li>
+<li>jeśli promień nie trafia przez bryłę wyżej w hierarchii to na pewno
+nie trafia w bryły wewnątrz - zysk</li>
+</ul></li>
+<li>Podział sceny na woksele
+<ul>
+<li>podział sceny na siatkę</li>
+<li>przypisanie obiektów sceny do wokseli</li>
+<li>prowadzimy promień przez woksele (w przyległości 6-krotnej)</li>
+<li>tylko dla trafionych wokseli sprawdzamy przecięcie promienia z
+bryłami w tym wokselu</li>
+</ul></li>
+<li>Można łączyć obie metody
+<ul>
+<li>umieścić bryły otaczające w wokselach</li>
+</ul></li>
+</ul>
+<h2 id="równanie-oświetlenia">Równanie oświetlenia</h2>
+<p><em>Reflectance Equation</em> <span class="math display">\[L_o(p,v) =
+\int_{l \in \Omega} f(l,v) L)i(p,l)(n \cdot l)dl\]</span></p>
+<ul>
+<li>Jasność punktu w kierunku widzenia
+<ul>
+<li><span class="math inline">\(p\)</span> - punkt</li>
+<li><span class="math inline">\(v\)</span> - kierunek widzenia</li>
+</ul></li>
+<li>Funkcja BRDF <span class="math inline">\(f(l,v)\)</span>
+<ul>
+<li><em>Bidirectional Reflectance Distribution Function</em></li>
+<li>w silnikach fizycznych objawia się jako materiał</li>
+<li>zależna od kierunku widzenia i kierunku od źródła światła</li>
+<li>najprostsza wersja to np. model Phonga</li>
+<li>niektóre materiały mają podpowierzchniowe odbicia</li>
+</ul></li>
+<li>Oświetlenie lokalne (<em>local illumination</em>) <span
+class="math inline">\(L_i(p,l)\)</span>
+<ul>
+<li>źródło światła generuje jakąś stałą wartość</li>
+<li>może być związana ze źródłem światła ale nie jest obliczana
+(niezależnie od innych elementów sceny)</li>
+<li>uproszczenie ze względów wydajnościowych</li>
+</ul></li>
+</ul>
+<h2 id="równanie-renderingu">Równanie renderingu</h2>
+<p><em>Rendering Equation</em> <span class="math display">\[L_o(p,v) =
+L_e(p,v) + \int_{l \in \Omega} f(l,v) L_o(r(p,l), -l) (n \cdot l)^+
+dl\]</span></p>
+<ul>
+<li>Równanie oświetlenia to szczególny przypadek równania
+renderingu</li>
+<li>Uwzględnia to, że światło padające ze źródła światła na obiekt musi
+zostać obliczone</li>
+<li>Każdy punkt w scenie może emitować światło <span
+class="math inline">\(L_e(p,v)\)</span></li>
+<li>Skoro każdy obiekt może emitować światło do od każdego obiektu może
+dojść światło odbite (tak jak ze źródła światła)</li>
+</ul>
+<h2 id="oświetlenie-globalne-global-illumination">Oświetlenie globalne
+(Global illumination)</h2>
+<ul>
+<li>Algorytmy oświetlenia globalnego obliczają światło odbite od innych
+obiektów</li>
+<li>Bardzo dobra symulacja rzeczywistości
+<ul>
+<li>fotorealistyczne obrazy</li>
+</ul></li>
+<li>Dwie klasy
+<ul>
+<li>metody elementów skończonych (FEM) - <em>Radiosity</em></li>
+<li>metody Monte-Carlo - Path Tracing</li>
+</ul></li>
+</ul>
+<h2 id="metoda-energetyczna">Metoda energetyczna</h2>
+<ul>
+<li><em>Radiosity</em></li>
+<li>Wszystkie obiekty sceny dzielimy na płaty (patches)
+<ul>
+<li>bardziej dokładny podział niż na wielokąty</li>
+</ul></li>
+<li>Każdy płat może emitować i odbijać światło od innych płatów
+<ul>
+<li>albedo - współczynnik odbicia</li>
+<li>każdy płat jest związany z innym przez współczynnik sprzężenia</li>
+<li>współczynnik sprzężenia obliczany na podstawie odległości, kątów
+itd</li>
+</ul></li>
+<li>Uzyskujemy układ równań liniowych dla wszystkich płatów w scenie
+<ul>
+<li>da się rozwiązać (metoda Jacobiego)</li>
+</ul></li>
+<li>Dla każdego pasma długości fal świetlnych możemy wyliczyć
+promienistość każdego płata
+<ul>
+<li>wiadomo wszystko o każdym wielokącie w scenie</li>
+</ul></li>
+<li>Do tej pory wszystko niezależne od położenia obserwatora</li>
+<li>Dalej można już wyrenderować klasyczną metodą</li>
+<li>W klasycznej postaci jest słabo skalowalny i nie radzi sobie z
+efektami zależnymi od położenia obserwatora
+<ul>
+<li>odbicia lustrzane, rozbłyski</li>
+</ul></li>
+<li>Często używana jako wstępne przygotowanie sceny przed inną metodą,
+która obsługuje odbicia (np. path tracing)</li>
+</ul>
+<h2 id="śledzenie-ścieżek">Śledzenie ścieżek</h2>
+<ul>
+<li><em>Path Tracing</em></li>
+<li>Dzisiaj dominująca metoda</li>
+<li>Promień pierwotny jak w klasycznym śledzeniu promieni</li>
+<li>Promienie wtórne wysyłane w <strong>losowych</strong> kierunkach
+<ul>
+<li>ważne żeby losowanie było serio losowe</li>
+</ul></li>
+<li>Śledzona ścieżka wpływa na natężenie światła docierające do
+obserwatora</li>
+<li>Radzi sobie z problemem Ambient Occlusions (też radiosity)
+<ul>
+<li>obszary sceny do których dociera tylko światło odbite, a nie światło
+od źródła</li>
+</ul></li>
+<li>Cechy
+<ul>
+<li>bardzo dobra jakość obrazu</li>
+<li>prosta koncepcja</li>
+<li>eleganckie rozwiązanie</li>
+<li>ogromny koszt obliczeniowy</li>
+</ul></li>
+</ul>
+<h3 id="kaustyki">Kaustyki</h3>
+<ul>
+<li>Rozbłyski, obwiednie, często pojawiające się np. na powierzchni
+wody</li>
+<li>Kiedy promień odbija się lustrzenie i odbite światło odbija się
+dyfuzyjnie</li>
+<li>Path Tracing to symuluje</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#raytracing" id="toc-raytracing">Raytracing</a>
+<ul>
+<li><a href="#rendering-w-porządku-obiektowym" id="toc-rendering-w-porządku-obiektowym">Rendering w porządku
+obiektowym</a></li>
+<li><a href="#rendering-w-porządku-obrazowym" id="toc-rendering-w-porządku-obrazowym">Rendering w porządku
+obrazowym</a></li>
+<li><a href="#rzutowanie-promieni" id="toc-rzutowanie-promieni">Rzutowanie promieni</a></li>
+<li><a href="#śledzenie-promieni" id="toc-śledzenie-promieni">Śledzenie
+promieni</a>
+<ul>
+<li><a href="#promienie-wtórne" id="toc-promienie-wtórne">Promienie
+wtórne</a></li>
+<li><a href="#promienie-cieni" id="toc-promienie-cieni">Promienie
+cieni</a></li>
+<li><a href="#co-daje-śledzenie-promieni" id="toc-co-daje-śledzenie-promieni">Co daje śledzenie promieni</a></li>
+<li><a href="#wady-śledzenia-promieni" id="toc-wady-śledzenia-promieni">Wady śledzenia promieni</a></li>
+<li><a href="#redukcja-obliczeń" id="toc-redukcja-obliczeń">Redukcja
+obliczeń</a></li>
+</ul></li>
+<li><a href="#równanie-oświetlenia" id="toc-równanie-oświetlenia">Równanie oświetlenia</a></li>
+<li><a href="#równanie-renderingu" id="toc-równanie-renderingu">Równanie
+renderingu</a></li>
+<li><a href="#oświetlenie-globalne-global-illumination" id="toc-oświetlenie-globalne-global-illumination">Oświetlenie globalne
+(Global illumination)</a></li>
+<li><a href="#metoda-energetyczna" id="toc-metoda-energetyczna">Metoda
+energetyczna</a></li>
+<li><a href="#śledzenie-ścieżek" id="toc-śledzenie-ścieżek">Śledzenie
+ścieżek</a>
+<ul>
+<li><a href="#kaustyki" id="toc-kaustyki">Kaustyki</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10.html">Poprzedni: wyklad-10.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wdrażanie i utrzymywanie systemów informatycznych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="lab-00.html">lab-00.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="bezpieczeństwo-w-utrzymywaniu-2025-05-08">Bezpieczeństwo w
+utrzymywaniu (2025-05-08)</h1>
+<h2 id="cyberbezpieczeństwo">Cyberbezpieczeństwo</h2>
+<ul>
+<li>Każdy system jest narażony na cyberataki
+<ul>
+<li>jest wart zaatakowania</li>
+</ul></li>
+<li>Nie ma systemów absolutnie bezpiecznych</li>
+<li>Bezpieczeństwo jest przeciwstawne łatwości użytkowania</li>
+<li>Rachunek wartości oczekiwanej
+<ul>
+<li>jaka jest szansa, że ktoś wykorzysta podatność</li>
+<li>jakie będą koszty wykorzystania podatności</li>
+</ul></li>
+<li>Podatności są zarówno w domenie rozwoju i utrzymania</li>
+</ul>
+<h2 id="cyberbezpieczeństwo-a-utrzymanie">Cyberbezpieczeństwo a
+utrzymanie</h2>
+<ul>
+<li>Podatność
+<ul>
+<li>słabość danego systemu wynikająca z błędów wewnętrznych lub błędów
+użytkownika</li>
+</ul></li>
+<li>Podatność zero-day
+<ul>
+<li>cały świat się o niej dowiaduje i większość systemów nie jest na nią
+odporna</li>
+</ul></li>
+<li>Niektóre podatności są konsekwencją decyzji architektonicznych i
+powstają w fazie budowy systemów
+<ul>
+<li>np. decyzja o sposobie uwierzytelnienia użytkownika</li>
+</ul></li>
+<li>Utrzymanie dodaje od siebie podatności</li>
+<li>Na końcu za usuwanie lub przeciwdziałanie wszystkim rodzajom
+podatności odpowiada utrzymanie
+<ul>
+<li>rozpoznanie ataku</li>
+<li>zidentyfikowanie jak poważne są skutki ataku</li>
+</ul></li>
+</ul>
+<h2 id="podstawowe-pojęcia">Podstawowe pojęcia</h2>
+<ul>
+<li>Uwierzytelnienie - sprawdzenie tożsamości użytkownika / systemu,
+który ma dostęp do chronionego systemu
+<ul>
+<li>posiadana informacja (hasło)</li>
+<li>posiadana cecha (biometria)</li>
+<li>posiadany przedmiot (fizyczny klucz)</li>
+</ul></li>
+<li>Autoryzacja - weryfikacja uprawnień uprzednio uwierzytelnionego
+użytkownika / systemu</li>
+</ul>
+<h2 id="owasp">OWASP</h2>
+<ul>
+<li>The Open Web Application Security Project
+<ul>
+<li>aplikacje dostępne przez HTTP</li>
+</ul></li>
+<li>Społeczność praktyków bezpieczeństwa</li>
+<li>Tworzą otwarte raporty dotyczące bezpieczeństwa
+<ul>
+<li>top 10 kategorii podatności</li>
+<li>ASVS - Application Security Verification Standard</li>
+</ul></li>
+</ul>
+<h3 id="owasp-top-10">OWASP Top 10</h3>
+<ul>
+<li>Broken Access Control
+<ul>
+<li>naruszenie przyznanych uprawnień (autoryzacji)</li>
+</ul></li>
+<li>Cryptographic Failures
+<ul>
+<li>wszelkie błędy, które powodują wyciek poufnych informacji</li>
+</ul></li>
+<li>Injection
+<ul>
+<li>uruchamianie przez serwer niebezpiecznego kodu wstrzykniętego przez
+użytkownika (XSS, SQL injection)</li>
+</ul></li>
+<li>Insecure Design
+<ul>
+<li>niewłaściwy / niesprawdzony projekt i architektura</li>
+<li>trudno przewidzieć wszystkie przypadki brzegowe</li>
+</ul></li>
+<li>Security Misconfiguration
+<ul>
+<li>brak konfiguracji bezpieczeństwa</li>
+<li>np. domyślne hasła, niepotrzebnie otwarte porty, uruchomione
+nieużywane usługi</li>
+</ul></li>
+<li>Vulnerable and Outdated Components
+<ul>
+<li>przestarzałe, dziurawe wersje komponentów</li>
+<li>np. zaniedbanie aktualizacji</li>
+</ul></li>
+<li>Identification and Authentication Failures
+<ul>
+<li>słabe hasła</li>
+<li>podpowiedzi bezpieczeństwa</li>
+<li>sesje z nieograniczonym czasem</li>
+</ul></li>
+<li>Software and Data Integrity Failures
+<ul>
+<li>podatności spowodowane przez używanie oprogramowania z
+niesprawdzonych źródeł</li>
+<li>każdy projekt używa masy zależności open source</li>
+</ul></li>
+<li>Security Logging and Monitoring Failures
+<ul>
+<li>brak logowania</li>
+<li>nieanalizowanie logów pod względem bezpieczeństwa</li>
+<li>brak alertów bezpieczeństwa</li>
+<li>duży potencjał na zastosowanie AI do wykrywania wzorców</li>
+</ul></li>
+<li>Server Side Request Forgery (SSRF)
+<ul>
+<li>umieszczenie na serwerze kodu wykonywalnego</li>
+</ul></li>
+</ul>
+<h3 id="owasp-asvs">OWASP ASVS</h3>
+<ul>
+<li>Trzy poziomy wymagań bezpieczeństwa aplikacji webowych</li>
+<li>Kompaktowy standard, warto poczytać</li>
+<li>Level 1
+<ul>
+<li>dla aplikacji o niskim poziomie bezpieczeństwa (podstawowy)</li>
+<li>zapewnione przez testy penetracyjne</li>
+</ul></li>
+<li>Level 2
+<ul>
+<li>dla aplikacji, które przechowują dane wrażliwe (poziom
+rekomendowany)</li>
+</ul></li>
+<li>Level 3
+<ul>
+<li>dla aplikacji krytycznych, które przetwarzają transakcje finansowe o
+wysokim poziomie</li>
+<li>dane medyczne, inne wymagające dużego poziomu zaufania</li>
+</ul></li>
+<li>Wymagania mają strukturę
+<ul>
+<li>treść</li>
+<li>stosowalność do poziomu (L1-L3)</li>
+<li>referencja do katalogu słabości (Common Weakness Enumeration)</li>
+<li>referencja do wymagań bezpieczeństwa NIST</li>
+</ul></li>
+<li>Podzielone na 14 rozdziałów
+<ul>
+<li>architektura, projektowanie i modelowanie zagrożeń</li>
+<li>uwierzytelnianie</li>
+<li>zarządzanie sesją</li>
+<li>autoryzacja</li>
+<li>walidacja, kodowanie parametrów wejściowych</li>
+<li>kryptografia</li>
+<li>…</li>
+<li>złoścliwy kod</li>
+<li>logika biznesowa</li>
+<li>API i WebServices</li>
+<li>konfiguracja</li>
+</ul></li>
+</ul>
+<p>Za tydzień nie ma wykładu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bezpieczeństwo-w-utrzymywaniu-2025-05-08" id="toc-bezpieczeństwo-w-utrzymywaniu-2025-05-08">Bezpieczeństwo w
+utrzymywaniu (2025-05-08)</a>
+<ul>
+<li><a href="#cyberbezpieczeństwo" id="toc-cyberbezpieczeństwo">Cyberbezpieczeństwo</a></li>
+<li><a href="#cyberbezpieczeństwo-a-utrzymanie" id="toc-cyberbezpieczeństwo-a-utrzymanie">Cyberbezpieczeństwo a
+utrzymanie</a></li>
+<li><a href="#podstawowe-pojęcia" id="toc-podstawowe-pojęcia">Podstawowe
+pojęcia</a></li>
+<li><a href="#owasp" id="toc-owasp">OWASP</a>
+<ul>
+<li><a href="#owasp-top-10" id="toc-owasp-top-10">OWASP Top 10</a></li>
+<li><a href="#owasp-asvs" id="toc-owasp-asvs">OWASP ASVS</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-las-losowy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-ocena-jakosci.html">Poprzedni: 08-ocena-jakosci.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-svm.html">Następny: 10-svm.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="las-losowy">Las losowy</h1>
+<h2 id="modelowanie-zespołowe">Modelowanie zespołowe</h2>
+<ul>
+<li>Model składa się z wielu modeli</li>
+<li>Z jednego zbioru trenującego budujemy wiele modeli</li>
+<li>Na podstawie predykcji modeli składowych wyłaniamy ostateczną
+predykcję modelu <span class="math inline">\(h_{1:m}\)</span></li>
+<li>Modele składowe powinny się od siebie różnić</li>
+<li>Modele składowe nie mogą być całkiem złe</li>
+<li>Oczekujemy, że niedoskonałości poszczególnych modeli kompensują się
+po połączeniu</li>
+<li>Rozwinięcie metody <em>bagging</em></li>
+</ul>
+<h3 id="bagging">Bagging</h3>
+<ul>
+<li>Bootstrat aggregating</li>
+<li>Wykonujemy wiele zaburzonych kopii zbioru trenującego <span
+class="math inline">\(T\)</span></li>
+<li>Zaburzenie przez generowanie prób bootstrapowych
+<ul>
+<li>losowanie ze zwracaniem ze zbioru <span
+class="math inline">\(T\)</span></li>
+<li>z reguły losuje się <span class="math inline">\(|T|\)</span>
+przykładów</li>
+<li>niektóre przykłady bedą zwielokrotnione, a niektóre nie zostaną
+wybrane</li>
+</ul></li>
+<li>Ile przykładów nie zostanie wylosowanych do żadnej próby
+bootstrapowej</li>
+<li>Jakie jest prawdopodobieństwo, że dany przykład nie zostanie
+wylosowany
+<ul>
+<li><span class="math inline">\(|T|=N\)</span></li>
+<li><span class="math inline">\((1 - 1/N)^N \rightarrow 1/e \simeq
+0.368\)</span></li>
+<li>ok. <span class="math inline">\(37\%\)</span> pierwotnego zbioru nie
+znajdzie się w próbie bootstrapowej</li>
+</ul></li>
+<li>Na próbowach bootstrapowych trenuje się różne modele
+<ul>
+<li>algorytmy różnią się wrażliwością na takie zaburzenia</li>
+</ul></li>
+<li>Algorytmy niestabilne - większe różnice przy zaburzeniu danych
+<ul>
+<li>intuicja - w trakcie uczenia podejmowane są dyskretne decyzje, które
+mogą doprowadzić do skokowej różnicy</li>
+<li>np. indukcja reguł, drzewa decyzyjne (wybór podziału w węźle)</li>
+<li>jeśli zmieni się rozkład atrybutów to może zmienić się decyzja co do
+podziału</li>
+</ul></li>
+<li>Łączenie predykcji
+<ul>
+<li>głosowanie, klasa większościowa - ta którą zgłosiło najwięcej
+modeli</li>
+<li>klasa najbardziej prawdopodobna - sumowanie prawdopodobieństw
+pojedynczych predykcji</li>
+</ul></li>
+<li>Można użyć do regresji
+<ul>
+<li>uśrednianie predykcji</li>
+<li>mało typowe rozwiązanie</li>
+</ul></li>
+<li>Metoda nie daje spektakularnej poprawy</li>
+</ul>
+<h2 id="las-losowy-1">Las losowy</h2>
+<ul>
+<li>Podobny jak bagging ale
+<ul>
+<li>modele to drzewa decyzyjne</li>
+<li>budując każde z drzew wprowadzamy dodatkową losowość</li>
+</ul></li>
+<li>Dzięki losowości modele są bardziej zróżnicowane
+<ul>
+<li>daje spektakularną poprawę</li>
+</ul></li>
+<li>W trakcie budowy drzewa, w każdym węźle dokonujemy podziału na
+losowym podzbiorze atrybutów
+<ul>
+<li>nie losuje się podzbioru dla całego drzewa tylko każdorazowo w
+węźle</li>
+<li>podział na podstawie zysku informacyjnego itd ale najpierw zawężamy
+zbiór atrybutów możliwych do wybrania</li>
+</ul></li>
+<li>Jeden z najlepszych w praktyce, bardzo powszechnie stosowany</li>
+<li>Trudno go niepoprawnie użyć</li>
+<li>Mało hiperparametrów
+<ul>
+<li>opłaca się budować drzewa do oporu - nie wybieramy kryterium stopu
+(dla pojedynczego drzewa niekoniecznie najlepsze ale tu chcemy
+zróżnicowanych drzew)</li>
+<li>bez przycinania</li>
+<li>liczba drzew - raczej im więcej tym lepiej, ogranicza nas czas na
+obliczenia (100, 200, 500)</li>
+<li>jak duże podzbiory atrybutów losować - popularne heurystyki <span
+class="math inline">\(\sqrt{n}, \log n\)</span></li>
+</ul></li>
+<li>Można wyznaczać prawdopodobieństwa przewidywanych klas
+<ul>
+<li>rozkład głosów przy głosowaniu</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#las-losowy" id="toc-las-losowy">Las losowy</a>
+<ul>
+<li><a href="#modelowanie-zespołowe" id="toc-modelowanie-zespołowe">Modelowanie zespołowe</a>
+<ul>
+<li><a href="#bagging" id="toc-bagging">Bagging</a></li>
+</ul></li>
+<li><a href="#las-losowy-1" id="toc-las-losowy-1">Las losowy</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

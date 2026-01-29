@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-teksturowanie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-potok-graficzny-gpu.html">Poprzedni: 09-potok-graficzny-gpu.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-light-field-ar-vr.html">Następny: 11-light-field-ar-vr.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="teksturowanie">Teksturowanie</h1>
+<ul>
+<li>Proces który na wejściu otrzymuje powierzchnię i dokonuje
+modyfikacji jej wyglądu
+<ul>
+<li>obraz</li>
+<li>funkcja</li>
+<li>inne źródło danych</li>
+</ul></li>
+</ul>
+<h2 id="potok-teksturowania">Potok teksturowania</h2>
+<ul>
+<li>Lokalizacja obiektu w przestrzeni <span
+class="math inline">\((x,y,z)\)</span>
+<ul>
+<li>tekstura jest powiązana z obiektem</li>
+</ul></li>
+<li>Projekcja w celu otrzymania współrzędnych tekstury
+<ul>
+<li>współrzędne <span class="math inline">\((u,v)\)</span></li>
+<li>wierzchołek w modelu typowo będzie miał powiązane współrzędne
+uv</li>
+</ul></li>
+<li>Funkcja korespondencji
+<ul>
+<li>przejście od uv do przestrzeni tekstury</li>
+</ul></li>
+<li>Pobranie wartości z tekstury</li>
+<li>Przekształcona wartość tekstury</li>
+<li>Przekształcenie odczytanych wartości</li>
+<li>Modyfikacja właściwości powierzchni
+<ul>
+<li>np. diffuse - kolor</li>
+<li>równie dobrze można modyfikować inne właściwości, np. wektory
+normalne</li>
+</ul></li>
+</ul>
+<h2 id="współrzędne-tekstur">Współrzędne tekstur</h2>
+<ul>
+<li>Pierwszym krokiem jest pobranie współrzędnych obiektu i
+przekształcenie ich na współrzędne tekstur <span
+class="math inline">\((u,v)\)</span></li>
+<li>Dla części obiektów mamy z automatu
+<ul>
+<li>kule, cylindry</li>
+</ul></li>
+<li>Typowo trzeba to jednak zrobić ręcznie
+<ul>
+<li>np. twarz się rozpłaszcza do prostokąta</li>
+<li>problem jak rozciąć model to wypłaszczenia</li>
+</ul></li>
+<li>Często na jednej teksturze umieszcza się wiele obiektów
+<ul>
+<li>dla optymalizacji</li>
+</ul></li>
+<li>Projekcja siatki</li>
+</ul>
+<h2 id="corresponder-function">Corresponder function</h2>
+<ul>
+<li>Przekształcenie współrzędnych tekstury do przestrzeni tekstury</li>
+<li>Wybranie części obrazu</li>
+<li>Przekształcenie macierzowe współrzędnych</li>
+<li>Wyjście poza granice tekstury
+<ul>
+<li>powielenie</li>
+<li>odbicie</li>
+<li>clamping</li>
+</ul></li>
+</ul>
+<h2 id="obrazy-a-teksturowanie">Obrazy a teksturowanie</h2>
+<ul>
+<li>Teksel - elementarny fragment tekstury</li>
+<li>Teksturę może stanowić dowolna mapa bitowa</li>
+<li>W typowym przypadku obiekt jest za mały lub za duży względem
+tekstury, potrzeba jakiegoś odwzorowania</li>
+</ul>
+<h3 id="magnifikacja">Magnifikacja</h3>
+<ul>
+<li>Rozdzielczość tekstury jest mniejsza niż rozdzielczość ekranu</li>
+<li>Filtrowanie
+<ul>
+<li>najbliższy sąsiad</li>
+<li>dwuliniowe - interpolacja</li>
+</ul></li>
+</ul>
+<h4 id="interpolacja-dwuliniowa">Interpolacja dwuliniowa</h4>
+<ul>
+<li>Znajdź 4 sąsiadujące teksele</li>
+<li>Wykonaj interpolację liniową w dwóch wymiarach</li>
+</ul>
+<h3 id="minifikacja">Minifikacja</h3>
+<ul>
+<li>Rozdzielczość tekstury jest większa od rozdzielczości ekranu</li>
+<li>Jednemu pikselowi może odpowiadać wiele tekseli</li>
+<li>Rozwiązania
+<ul>
+<li>filtrowanie - ale jest aliasing</li>
+<li>wykorzystanie mipmap</li>
+</ul></li>
+</ul>
+<h4 id="mipmapping">Mipmapping</h4>
+<ul>
+<li>Wstępne obliczanie tekstur o zmniejszonej rozdzielczości</li>
+<li>Każdy kolejny poziom 2 razy mniejszy
+<ul>
+<li>można uśredniać</li>
+<li>można wybrać maximum itp.</li>
+</ul></li>
+<li>Zajętość pamięci jest rzędu 133% - nie tak duży narzut</li>
+<li>Parametr <span class="math inline">\(d\)</span>
+<ul>
+<li>texture level detail</li>
+<li>poziom mapy właściwy do wykorzystania</li>
+<li>można powiązać z LOD, a można obliczać w locie</li>
+</ul></li>
+<li>Teksturę można odczytywać w sposób dyskretny (współrzędne) lub
+ciągły - wartość z <span class="math inline">\([0,1]\)</span></li>
+</ul>
+<h2 id="tekstury-objętościowe">Tekstury objętościowe</h2>
+<ul>
+<li>Rzadko stosowane</li>
+<li>Współrzędne <span class="math inline">\((u,v,w)\)</span></li>
+<li>Interpolacja trójliniowa</li>
+<li>Proceduralne
+<ul>
+<li>definicja RGB w każdym punkcie przestrzeni 3D</li>
+</ul></li>
+<li>Wokselowe
+<ul>
+<li>kolor w każdym wokselu</li>
+</ul></li>
+<li>Można zapisać jako kostkę albo jako tablicę tekstur 2D</li>
+</ul>
+<h2 id="proceduralne-generowanie-tekstur">Proceduralne generowanie
+tekstur</h2>
+<ul>
+<li>Zamiast odczytywania wartości z obrazu można generować w locie</li>
+<li>Wykorzystuje się szumy, np. szum Perlina</li>
+<li>Wykorzystanie tekstury komórkowej</li>
+<li>Symulacje fizyczne</li>
+</ul>
+<h3 id="szum-perlina">Szum Perlina</h3>
+<ul>
+<li>W każdym punkcie węzłowym <span class="math inline">\(v_i\)</span> o
+wartości całkowitej
+<ul>
+<li>funkcja równa <span class="math inline">\(0\)</span></li>
+<li>funkcja ma gradient <span class="math inline">\(g_i\)</span></li>
+</ul></li>
+<li>Dla każdego węzła <span class="math inline">\(v_i\)</span> w którym
+gradient jest równy <span class="math inline">\(g_i\)</span> można
+stworzyć funkcję
+<ul>
+<li><span class="math inline">\(y_i(x) = g_i(x-v_i)\)</span></li>
+</ul></li>
+<li>W przedziale <span class="math inline">\(v_i \le x \le
+v_{i+1}\)</span> można interpolować kolejnymi funkcjami liniowymi <span
+class="math inline">\(y_i, y_{i+1}\)</span> korzystając z funkcji <span
+class="math inline">\(a(t)\)</span>
+<ul>
+<li><span class="math inline">\(f(x) = y_i(x)(1-a(t)) +
+y_{i+1}(x)a(t)\)</span></li>
+<li><span class="math inline">\(a(t) = x - floor(x)\)</span></li>
+</ul></li>
+<li>Jest dobra biblioteka do Pythona</li>
+<li>Jak szum się dobrze pokoloruje to wychodzą ładne tekstury</li>
+</ul>
+<h2 id="mapowanie-alfa">Mapowanie alfa</h2>
+<ul>
+<li>Wykorzystanie dodatkowego kanału tekstury</li>
+<li>Efekty
+<ul>
+<li>pominięcie niechcianych wartości tekstury</li>
+<li>można zdefiniować maskę</li>
+<li>przypisuje się wartość 0 do tekseli</li>
+</ul></li>
+<li>Rendering roślin
+<ul>
+<li>najprostsze - dwa prostokątny skrzyżowane ze sobą z odpowiednią
+teksturą</li>
+</ul></li>
+</ul>
+<h2 id="bump-mapping">Bump mapping</h2>
+<ul>
+<li>Symulacja nierówności powierzchni</li>
+<li>Zmienia się wektory normalne do wyznaczania oświetlenia
+<ul>
+<li>podmiana wartością wczytaną z tekstury</li>
+<li>wykorzystanie pola wysokości</li>
+<li>mapa normalnych</li>
+</ul></li>
+<li>Nie modyfikuje samej geometrii</li>
+<li>Wady
+<ul>
+<li>Krawędzie obiektu nie ulegają zmianie (dalej są gładkie)</li>
+</ul></li>
+</ul>
+<h2 id="parallax-mapping">Parallax mapping</h2>
+<ul>
+<li>Problemy z bump mapping
+<ul>
+<li>perturbacje nie przemieszczają się z widokiem</li>
+<li>perturbacje nie blokują się nawzajem</li>
+</ul></li>
+<li>Perturbacje są przechowywane w teksturze wysokości</li>
+<li>W czasie oglądania powierzchni
+<ul>
+<li>pobiera się wartość z tekstury wysokości</li>
+<li>wykorzystuje się tą wysokość do przesunięcia współrzędnych
+tekstury</li>
+</ul></li>
+</ul>
+<h2 id="displacement-mapping">Displacement mapping</h2>
+<ul>
+<li>Zmienia powierzchnię obiektu</li>
+<li>Przesuwanie punktów nad powierzchnię wzdłuż normalnych o wartość
+określoną w teksturze</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#teksturowanie" id="toc-teksturowanie">Teksturowanie</a>
+<ul>
+<li><a href="#potok-teksturowania" id="toc-potok-teksturowania">Potok
+teksturowania</a></li>
+<li><a href="#współrzędne-tekstur" id="toc-współrzędne-tekstur">Współrzędne tekstur</a></li>
+<li><a href="#corresponder-function" id="toc-corresponder-function">Corresponder function</a></li>
+<li><a href="#obrazy-a-teksturowanie" id="toc-obrazy-a-teksturowanie">Obrazy a teksturowanie</a>
+<ul>
+<li><a href="#magnifikacja" id="toc-magnifikacja">Magnifikacja</a></li>
+<li><a href="#minifikacja" id="toc-minifikacja">Minifikacja</a></li>
+</ul></li>
+<li><a href="#tekstury-objętościowe" id="toc-tekstury-objętościowe">Tekstury objętościowe</a></li>
+<li><a href="#proceduralne-generowanie-tekstur" id="toc-proceduralne-generowanie-tekstur">Proceduralne generowanie
+tekstur</a>
+<ul>
+<li><a href="#szum-perlina" id="toc-szum-perlina">Szum Perlina</a></li>
+</ul></li>
+<li><a href="#mapowanie-alfa" id="toc-mapowanie-alfa">Mapowanie
+alfa</a></li>
+<li><a href="#bump-mapping" id="toc-bump-mapping">Bump mapping</a></li>
+<li><a href="#parallax-mapping" id="toc-parallax-mapping">Parallax
+mapping</a></li>
+<li><a href="#displacement-mapping" id="toc-displacement-mapping">Displacement mapping</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

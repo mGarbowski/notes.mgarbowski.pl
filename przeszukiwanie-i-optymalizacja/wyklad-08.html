@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07.html">Poprzedni: wyklad-07.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09.html">Następny: wyklad-09.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1
+id="przeszukiwanie-iteracyjne-z-ograniczeniami-2024-12-04">Przeszukiwanie
+iteracyjne z ograniczeniami (2024-12-04)</h1>
+<p>Przy systematycznym przeszukiwaniu (np. A* i problem plecakowy) to
+jasne jak to robić redukuje się drzewo przeszukiwań</p>
+<h2 id="optymalizacja-z-ograniczeniami">Optymalizacja z
+ograniczeniami</h2>
+<ul>
+<li>Funkcja celu <span class="math inline">\(q: F \rightarrow
+R\)</span></li>
+<li>Zbiór dopuszczalny <span class="math inline">\(F \subseteq
+X\)</span>
+<ul>
+<li>podzbiór przestrzeni przeszukiwań</li>
+</ul></li>
+<li>Każdy punkt dopuszczalny spełnia ograniczenia <span
+class="math inline">\(g_j(x) \le 0\)</span></li>
+</ul>
+<h3 id="optymalizacja-ciągła-z-ograniczeniami">Optymalizacja ciągła z
+ograniczeniami</h3>
+<ul>
+<li>Funkcja celu</li>
+<li>Zbiór dopuszczalny</li>
+<li>Metryka</li>
+<li>Norma euklidesowa</li>
+<li>Każdy punkt dopuszczalny spełnia
+<ul>
+<li>ograniczenia kostkowe <span class="math inline">\(l_i \le x_i \le
+u_i\)</span> - zbiór rozwiązań dopuszczalnych to
+hiperprostopadłościan</li>
+<li>ograniczenia funkcyjne <span class="math inline">\(g_j(x) \le 0,
+h_j(x) = 0\)</span></li>
+</ul></li>
+</ul>
+<h2 id="skąd-się-biorą-ograniczenia">Skąd się biorą ograniczenia</h2>
+<ul>
+<li>Fizyka
+<ul>
+<li>temperatura nie może być poniżej zera absolutnego</li>
+<li>twarde ograniczenia</li>
+</ul></li>
+<li>Ograniczenia miękkie
+<ul>
+<li>budżet który można troche przekroczyć</li>
+<li>są wynikiem kompromisu między wieloma kryteriami optymalizacji</li>
+</ul></li>
+</ul>
+<p>Optymalizacja wielokryterialna * rozwiazania alternatywnie * nie
+można jednoznacznie rozstrzygnąć które rozwiązanie jest lepsze *
+kryteria nie są porównywalne ze sobą</p>
+<h2 id="po-wprowadzeniu-przestrzeni-przeszukiwań">Po wprowadzeniu
+przestrzeni przeszukiwań</h2>
+<ul>
+<li>Ograniczenia zawężają przestrzeń przeszukiwań</li>
+<li>Po usunięciu krawędzi pojawiają się nowe minima lokalne
+<ul>
+<li>zadanie z jednym optimum może zamienić się w zadanie z wieloma
+optimami</li>
+</ul></li>
+<li>Przestrzeń przeszukiwań może przestać być spójna
+<ul>
+<li>nie do każdego punktu można dojść przez ciąg operacji na
+sąsiadach</li>
+</ul></li>
+<li>Anizotropowość zbioru dopuszczalnego
+<ul>
+<li>liczebność sąsiedztwa jest różna</li>
+</ul></li>
+</ul>
+<h2 id="kłopoty-z-ograniczeniami">Kłopoty z ograniczeniami</h2>
+<ul>
+<li>Jak rozpocząć przeszukiwanie</li>
+<li>Jak zapewnić dopuszczalność kolejno generowanych punktów</li>
+<li>Jak umożliwić przegląd całego zbioru dopuszczalnego</li>
+<li>Funkcja celu może dawać niewłaściwe sygnały
+<ul>
+<li>prowadzić do gorszego optimum lokalnego</li>
+<li>prowadzić do sztucznego optimum lokalnego wynikającego z rozcięcia
+zbioru przeszukiwań</li>
+</ul></li>
+<li>Wynik mutacji może nie być symetryczny względem kierunków
+<ul>
+<li>obciążenie w stronę środka zbioru dopuszczalnego</li>
+<li>ucieczka od ograniczeń</li>
+</ul></li>
+<li>Przeszukiwanie wyczerpujące - im więcej ograniczeń tym lepiej
+<ul>
+<li>A*</li>
+<li>tym mniej musimy przeglądać</li>
+</ul></li>
+<li>Algorytmy iteracyjne
+<ul>
+<li>chcemy dostosować problem do standardowego schematu dla tych
+algorytmów</li>
+<li>różowe okulary, metoda przeszukiwania jest nieświadoma</li>
+</ul></li>
+</ul>
+<h2 id="sposoby-uwzględniania-ograniczeń">Sposoby uwzględniania
+ograniczeń</h2>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 39%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Zmiana przestrzeni przeszukiwań</th>
+<th>Zmiana funkcji celu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Redefinicja zadania przeszukiwania</td>
+<td>modyfikacja reprezentacji rozwiązań lub wariacji</td>
+<td>funkcja kary</td>
+</tr>
+<tr class="even">
+<td>Wykorzystanie procedur naprawczych</td>
+<td>naprawa rozwiązań widoczna dla metody</td>
+<td>naprawa rozwiązań niewidoczna dla metody</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Dookreślenie funkcji celu poza zbiorem dopuszczalnym
+<ul>
+<li>ma informować algorytm czy idzie w dobrą stronę</li>
+</ul></li>
+<li>Sprawienie żeby nie było możliwości wygenerowania rozwiązań
+niedopuszczalnych</li>
+</ul>
+<p>Np. do problemu gwiazdki na kolokwium Są różne sposoby numerowania
+krawędzi, przyjmujemy arbitralny Jest jakiś sposób numerowania, który
+charakteryzuje się tym że pierwsze x to rozwiązanie problemu Możemy
+przeszukiwać przestrzeń permutacji krawędzi Problem z ograniczeniami w
+przestrzeni wektorów binarnych zamieniamy na problem bez ograniczeń w
+przestrzeni permutacji krawędzi Redefinicję problemu raczej znacznie
+ciężej wymyślić</p>
+<p>Procedury naprawcze Pomiędzy metodą a ewaluatorem jest naprawiacz</p>
+<h2 id="funkcja-kary">Funkcja kary</h2>
+<ul>
+<li><span class="math inline">\(q&#39;(x) = q(x) + p(x)\)</span>
+<ul>
+<li>nie jest uniwersalne</li>
+</ul></li>
+<li><span class="math inline">\(p(x) = (g(x))^2\)</span>
+<ul>
+<li>kwadrat - pochodna zerowa w 0 i jest różniczkowalny jeśli g jest
+różniczkowalne</li>
+<li>po zsumowaniu mogą być dodatkowe minima lokalne</li>
+</ul></li>
+<li>Można wprowadzić nieciągłość
+<ul>
+<li>skrajnie - kara równa nieskończoność (kara śmierci)</li>
+</ul></li>
+<li>substytutywna funkcja kary
+<ul>
+<li>poza zbiorem dopuszczalnym <span class="math inline">\(q&#39;(x) =
+p(x)\)</span> - uniwersalne</li>
+<li><span class="math inline">\(p(x) = Q + (g(x))^2\)</span></li>
+<li>Q to wartość maksymalna ze zbioru dopuszczalnego</li>
+</ul></li>
+</ul>
+<h2 id="narpawa-rozwiązań">Narpawa rozwiązań</h2>
+<h3 id="niewidoczna-dla-metody">Niewidoczna dla metody</h3>
+<ul>
+<li>naprawa pomiędzy logiem a ewaluatorem</li>
+<li>ewaluowane jest dopiero to co wyszło z naprawy</li>
+<li>ale naprawiona informacja nie wraca do loga</li>
+</ul>
+<h3 id="przykłady-naprawy">Przykłady naprawy</h3>
+<ul>
+<li>Rzutowanie
+<ul>
+<li>kierunek od punktu naprawianego do środka zbioru</li>
+<li>wyznaczany punkt przecięcia z granicą zbioru</li>
+<li>czasami niejednoznaczne</li>
+<li>skomplikowane</li>
+<li>rozkład ciągły i na granicy delta diraca</li>
+<li>poza zbiorem dopuszczalnym nie ma sygnału w którą stronę iść -
+błądzenie przypadkowe</li>
+</ul></li>
+<li>Rzutowanie prostopadłe
+<ul>
+<li>przy ograniczeniach kostkowych</li>
+<li>uwzględnienie każdego ograniczenia</li>
+<li>proste</li>
+</ul></li>
+<li>Odbijanie
+<ul>
+<li>odbicie względem przekroczonej krawędzi zbioru (kostkowego)</li>
+<li>można powtarzać do skutku jeśli po pierwszym rzutowaniu wyleci z
+drugiej strony</li>
+<li>bardziej podobny kształt rozkładu do teego sprzed naprawy</li>
+</ul></li>
+<li>Zawijanie
+<ul>
+<li>donut</li>
+</ul></li>
+<li>Reinicjacja
+<ul>
+<li>zpominamy o punkcie który wyleciał</li>
+<li>zastępujemy punktem z pierwotnego rozkładu (np rozkład jednostajny w
+kostce)</li>
+<li>nie ma związku między naprawianym punktem a naprawionym</li>
+<li>histogram podniesiony</li>
+</ul></li>
+<li>Powtórna generacja
+<ul>
+<li>jak wygenerowany losowo sąsiad jest niedopuszczalny</li>
+<li>losujemy znowu do wyczerpania cierpliwości</li>
+<li>niesymetrycznie obcięty rozkład</li>
+<li>funkcja celu już nie jest funkcją, tylko zmienną losową</li>
+</ul></li>
+</ul>
+<h2 id="naprawa-rozwiązań-widoczna-dla-metody">Naprawa rozwiązań
+widoczna dla metody</h2>
+<ul>
+<li>Naprawa przed logiem</li>
+<li>Inne zachowanie algorytmu optymalizacyjnego</li>
+<li>Zmienia się sąsiedztwo</li>
+<li>Zmienia się rozkład próbkowania generowania sąsiadów</li>
+<li>Pojawia się obciążenie</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przeszukiwanie-iteracyjne-z-ograniczeniami-2024-12-04" id="toc-przeszukiwanie-iteracyjne-z-ograniczeniami-2024-12-04">Przeszukiwanie
+iteracyjne z ograniczeniami (2024-12-04)</a>
+<ul>
+<li><a href="#optymalizacja-z-ograniczeniami" id="toc-optymalizacja-z-ograniczeniami">Optymalizacja z
+ograniczeniami</a>
+<ul>
+<li><a href="#optymalizacja-ciągła-z-ograniczeniami" id="toc-optymalizacja-ciągła-z-ograniczeniami">Optymalizacja ciągła z
+ograniczeniami</a></li>
+</ul></li>
+<li><a href="#skąd-się-biorą-ograniczenia" id="toc-skąd-się-biorą-ograniczenia">Skąd się biorą
+ograniczenia</a></li>
+<li><a href="#po-wprowadzeniu-przestrzeni-przeszukiwań" id="toc-po-wprowadzeniu-przestrzeni-przeszukiwań">Po wprowadzeniu
+przestrzeni przeszukiwań</a></li>
+<li><a href="#kłopoty-z-ograniczeniami" id="toc-kłopoty-z-ograniczeniami">Kłopoty z ograniczeniami</a></li>
+<li><a href="#sposoby-uwzględniania-ograniczeń" id="toc-sposoby-uwzględniania-ograniczeń">Sposoby uwzględniania
+ograniczeń</a></li>
+<li><a href="#funkcja-kary" id="toc-funkcja-kary">Funkcja kary</a></li>
+<li><a href="#narpawa-rozwiązań" id="toc-narpawa-rozwiązań">Narpawa
+rozwiązań</a>
+<ul>
+<li><a href="#niewidoczna-dla-metody" id="toc-niewidoczna-dla-metody">Niewidoczna dla metody</a></li>
+<li><a href="#przykłady-naprawy" id="toc-przykłady-naprawy">Przykłady
+naprawy</a></li>
+</ul></li>
+<li><a href="#naprawa-rozwiązań-widoczna-dla-metody" id="toc-naprawa-rozwiązań-widoczna-dla-metody">Naprawa rozwiązań
+widoczna dla metody</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

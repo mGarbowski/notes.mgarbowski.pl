@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-wstep</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="00-organizacja.html">Poprzedni: 00-organizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="02-oscylator-harmoniczny.html">Następny: 02-oscylator-harmoniczny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wstęp">Wstęp</h1>
+<h2 id="opis-ruchu">Opis ruchu</h2>
+<ul>
+<li>Układ odniesienia
+<ul>
+<li>kartezjański</li>
+<li>wersory</li>
+</ul></li>
+<li>Wektor położenia
+<ul>
+<li>łączy początek układu współrzędnych z położeniem punktu</li>
+</ul></li>
+<li>Tor ruchu
+<ul>
+<li>linia zakreślana przez poruszający się punkt</li>
+</ul></li>
+<li>Równanie toru
+<ul>
+<li>postać jawna</li>
+<li>postać uwikłana</li>
+<li>postać parametryczna</li>
+</ul></li>
+<li>Prędkość</li>
+<li>Przyspieszenie
+<ul>
+<li>wektor przyspieszenia możemy rozłożyć na składowe względem toru
+ruchu</li>
+<li>składowa styczna <span class="math inline">\(a_t\)</span> (tangent)
+- styczna do toru ruchu</li>
+<li>składowa normalna <span class="math inline">\(a_n\)</span> -
+prostopadła do toru ruchu, związana z promieniem krzywizny</li>
+<li>wyjaśnienie składowych na slajdach dla AIRu</li>
+<li><span class="math inline">\(i\)</span> we wzorach - wersory</li>
+</ul></li>
+<li>Promień krzywizny
+<ul>
+<li>krzywą można podzielić na odcinki będące łukami (fragment
+okręgu)</li>
+<li>dla okręgu promień krzywizny jest stały - promień okręgu</li>
+<li>dla prostej promień krzywizny <span
+class="math inline">\(\infty\)</span></li>
+</ul></li>
+<li>Droga
+<ul>
+<li>skalar</li>
+<li>długość trajektorii</li>
+<li>całka prędkości po czasie</li>
+</ul></li>
+<li>Przewidywanie jak zachowa się układ - rozwiązywanie równań
+różniczkowych</li>
+</ul>
+<h3 id="wersor">Wersor</h3>
+<ul>
+<li>Wektor długości <span class="math inline">\(1\)</span></li>
+<li>Wektor można przedstawić jako kombinację liniową wersorów</li>
+<li>Np. wersor styczny i wersor normalny dla punktu na krzywej</li>
+<li>Np. wersory układu współrzędnych - oznaczenia <span
+class="math inline">\(\vec{i_x}, \vec{i_y}, \vec{i_z}\)</span></li>
+</ul>
+<p><span class="math display">\[
+\vec{v} = [v_x, v_y, v_z] = v_x \vec{i_x} + v_y \vec{i_y} + v_z
+\vec{i_z}
+\]</span> ### Różniczki * Krzywą możemy podzielić na krótkie odcinki
+<span class="math inline">\(ds\)</span> - różniczki * droga przebyta w
+czasie <span class="math inline">\(dt\)</span> * tor <span
+class="math inline">\(ds\)</span> możemy potraktować jako prostoliniowy
+* <span class="math inline">\(\vec{v}\)</span> na tym odcinku możemy
+potraktować jako stały * Wektor <span
+class="math inline">\(\vec{v}\)</span> - zawsze styczny do toru ruchu *
+<span class="math inline">\(ds = v \cdot dt\)</span> * <span
+class="math inline">\(s = \int_{t_1}^{t_2} ds\)</span> - suma kawałków w
+granicy</p>
+<h2 id="rodzaje-układów-współrzędnych">Rodzaje układów
+współrzędnych</h2>
+<h3 id="układ-kartezjański">Układ kartezjański</h3>
+<ul>
+<li>Jak różniczkować wektor</li>
+<li><span class="math inline">\(\vec{v} = v_x \vec{i_x} + v_y \vec{i_y}
++ v_z \vec{i_z}\)</span>
+<ul>
+<li>pochodna <span class="math inline">\(\vec{v}\)</span> to wektor
+pochodnych składowych</li>
+<li>wersory to stałe</li>
+<li>pochodna sumy to suma pochodnych</li>
+</ul></li>
+</ul>
+<h3 id="układ-cylindryczny">Układ cylindryczny</h3>
+<ul>
+<li>Wyróżniony pojedynczy kierunek</li>
+<li>Wygodny do np. przepływu prądu</li>
+<li>Położenie opisane przez składowe <span class="math inline">\((\rho,
+\phi, z)\)</span>
+<ul>
+<li><span class="math inline">\(\rho\)</span> - odległość od osi <span
+class="math inline">\(\in [0, +\infty)\)</span></li>
+<li><span class="math inline">\(\phi\)</span> - kąt <span
+class="math inline">\(\in [0, 2\pi)\)</span></li>
+<li><span class="math inline">\(z\)</span> - wyróżniony kierunek - jak w
+układzie kartezjańskim</li>
+</ul></li>
+<li>Kąt <span class="math inline">\(\phi\)</span>
+<ul>
+<li>potrzeba 2 kierunków</li>
+<li>jeden jest ustalony przez <span
+class="math inline">\(\rho\)</span></li>
+<li>wybrany wyróżniony kierunek - dobieramy tak jak jest wygodnie w
+danej sytuacji</li>
+</ul></li>
+<li>Przeliczanie z układu walcowego do kartezjańskiego
+<ul>
+<li>…</li>
+</ul></li>
+<li>Przeliczanie z układu kartezjańskiego do walcowego
+<ul>
+<li>…</li>
+</ul></li>
+</ul>
+<h3 id="układ-biegunowy">Układ biegunowy</h3>
+<ul>
+<li>Układ walcowy w 2D</li>
+<li>Położenie opisane przez składowe <span class="math inline">\((r,
+\phi)\)</span>
+<ul>
+<li><span class="math inline">\(r\)</span> - odległość od początku
+układu</li>
+<li><span class="math inline">\(\phi\)</span> - kąt</li>
+</ul></li>
+<li>Wersor radialny <span class="math inline">\(\vec{i_r}\)</span></li>
+<li>Wersor transwersalny (poprzeczny) <span
+class="math inline">\(\vec{i_\phi}\)</span></li>
+<li><span class="math inline">\(\vec{v} = \vec{v_r} +
+\vec{v_\phi}\)</span></li>
+<li>Różniczkowanie fi po czasie - prędkość kątowa</li>
+</ul>
+<h3 id="układ-sferyczny">Układ sferyczny</h3>
+<ul>
+<li>Przede wszystkim w elektromagnetyzmie</li>
+<li><span class="math inline">\((r, \phi, \theta)\)</span>
+<ul>
+<li>phi - jak w układzie cylindrycznym <span class="math inline">\(\in
+[0, 2\pi)\)</span></li>
+<li>theta - kąt pomiędzy wyróżnionym kierunkiem a promieniem wodzącym
+<span class="math inline">\(\in [0, \pi]\)</span></li>
+</ul></li>
+</ul>
+<h2 id="zasady-dynamiki-newtona">Zasady dynamiki Newtona</h2>
+<h3 id="i---zasada-bezwładności">I - zasada bezwładności</h3>
+<p>Istnieje taki układ odniesienia, w którym ciało pozostaje w spoczynku
+lub porusza się ruchem jednostajnym prostoliniowym, jeśli nie działają
+na nie żadne siły zewnętrzne, lub działające siły się równoważą.</p>
+<ul>
+<li>To jest postulat</li>
+<li>Postuluje, że każde ciało ma pewną własność</li>
+<li>Własność to niechęć układu do zmiany stanu</li>
+<li>Miarą niechęci do zmiany stanu - bezwładności jest
+<ul>
+<li>masa - dla punktu</li>
+<li>moment bezwładności dla bryły sztywnej</li>
+</ul></li>
+<li>Postuluje pewien szczególny układ odniesienia
+<ul>
+<li>układ inercjalny</li>
+</ul></li>
+</ul>
+<h3 id="ii---równanie-ruchu">II - równanie ruchu</h3>
+<p>Przyspieszenie ciała jest proporcjonalne do przyłożonej siły</p>
+<p><span class="math display">\[\vec{F} = m\vec{a} =
+\frac{d\vec{p}}{dt}\]</span> <span class="math display">\[\vec{M} = I
+\vec{\epsilon} = \frac{d\vec{L}}{dt}\]</span> * <span
+class="math inline">\(d\vec{p} = \vec{F} dt\)</span> * <span
+class="math inline">\(d\vec{p}\)</span> - różnica wektorów pędu w dwóch
+chwilach <span class="math inline">\(t\)</span> i <span
+class="math inline">\(t+dt\)</span> * zmiana pędu jest proporcjonalna do
+siły</p>
+<h3 id="iii---zasada-akcji-i-reakcji">III - zasada akcji i reakcji</h3>
+<p>Względem każdego działania (akcji) siły istnieje równe co do wartości
+i przeciwnie zwrócone przeciwdziałanie (reakcja) siły.</p>
+<h2 id="zasady-zachowania">Zasady zachowania</h2>
+<ul>
+<li>Zasada zachowania pędu</li>
+<li>Zasada zachowania momentu pędu</li>
+<li>Zasada zachowania energii</li>
+</ul>
+<h2 id="potencjał">Potencjał</h2>
+<ul>
+<li>Jak siła przesuwa jakąś cząstkę</li>
+<li><span class="math inline">\(dW = \vec{F} \cdot
+d\vec{s}\)</span></li>
+<li>Całkowita praca to całka, bo siła może się zmieniać na drodze</li>
+<li><span class="math inline">\(W = \int_L \vec{F} \cdot
+d\vec{s}\)</span></li>
+<li>Możemy rozróżnić 2 rodzaje sił
+<ul>
+<li>siły zachowawcze / potencjalne - np. siła ciężkości, sprężystości,
+elektrostatyczna</li>
+<li>siły niezachowawcze - praca zależy od drogi - np. siła tarcia,
+lepkości, opór powietrza (inne zależne od prędkości)</li>
+</ul></li>
+<li>Dla siły zachowawczej
+<ul>
+<li>przesunięcie obiektu po zamkniętej krzywej daje pracę <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Siła zachowawcza to siła, dla której istnieje jakieś pole skalarne
+takie, że <span class="math inline">\(-\nabla\)</span> tego pola jest
+równe sile
+<ul>
+<li>pole skalarne - np. temperatura w pokoju - dla każdego punktu w
+przestrzeni przypisany skalar</li>
+</ul></li>
+<li>Potencjał to pole skalarne
+<ul>
+<li>potencjał jest miarą energii potencjalnej</li>
+<li>punkt w przestrzeni ma jakiś potencjał - jak umieścić cząstkę w tym
+miejscu to będzie miała energię potencjalną równą temu potencjałowi</li>
+</ul></li>
+<li>Potencjał <span class="math inline">\(U\)</span>
+<ul>
+<li><span class="math inline">\(\nabla U\)</span> - gradient - wektor
+wskazujący w którą stronę pole rośnie najszybciej</li>
+<li>w jednym wymiarze gradient to pochodna</li>
+<li><span class="math inline">\(\vec{F} = -\nabla U\)</span> - wektor w
+stronę gdzie pole najszybciej maleje</li>
+<li>siła potencjalna - próbuje przepchnąć cząsteczkę do lokalnego
+minimum potencjału</li>
+<li>potencjał wynika z oddziaływań (grawitacyjne, sprężyste, …)</li>
+<li>Potencjał  jest miarą oddziaływań</li>
+<li>siła potencjalna to taka dla której istnieje potencjał</li>
+<li>dla siły niezachowawczej nie można zdefiniować potencjału</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a>
+<ul>
+<li><a href="#opis-ruchu" id="toc-opis-ruchu">Opis ruchu</a>
+<ul>
+<li><a href="#wersor" id="toc-wersor">Wersor</a></li>
+</ul></li>
+<li><a href="#rodzaje-układów-współrzędnych" id="toc-rodzaje-układów-współrzędnych">Rodzaje układów współrzędnych</a>
+<ul>
+<li><a href="#układ-kartezjański" id="toc-układ-kartezjański">Układ
+kartezjański</a></li>
+<li><a href="#układ-cylindryczny" id="toc-układ-cylindryczny">Układ
+cylindryczny</a></li>
+<li><a href="#układ-biegunowy" id="toc-układ-biegunowy">Układ
+biegunowy</a></li>
+<li><a href="#układ-sferyczny" id="toc-układ-sferyczny">Układ
+sferyczny</a></li>
+</ul></li>
+<li><a href="#zasady-dynamiki-newtona" id="toc-zasady-dynamiki-newtona">Zasady dynamiki Newtona</a>
+<ul>
+<li><a href="#i---zasada-bezwładności" id="toc-i---zasada-bezwładności">I - zasada bezwładności</a></li>
+<li><a href="#ii---równanie-ruchu" id="toc-ii---równanie-ruchu">II -
+równanie ruchu</a></li>
+<li><a href="#iii---zasada-akcji-i-reakcji" id="toc-iii---zasada-akcji-i-reakcji">III - zasada akcji i
+reakcji</a></li>
+</ul></li>
+<li><a href="#zasady-zachowania" id="toc-zasady-zachowania">Zasady
+zachowania</a></li>
+<li><a href="#potencjał" id="toc-potencjał">Potencjał</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

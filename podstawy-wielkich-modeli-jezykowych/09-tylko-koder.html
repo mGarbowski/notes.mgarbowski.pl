@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-tylko-koder</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">Poprzedni: 08-efektywne-obliczeniowo-dostrajanie-modeli.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-modele-wizyjno-jezykowe.html">Następny: 10-modele-wizyjno-jezykowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="architektura-tylko-koder">Architektura tylko-koder</h1>
+<h2 id="architektura">Architektura</h2>
+<ul>
+<li>Wyznacza kontekstowe reprezentacje wejściowych tokenów
+<ul>
+<li>reprezentacja tokenu na wyjściu zależna od wszystkich pozostałych
+tokenów</li>
+</ul></li>
+<li>Bardzo podobna do tylko-dekoder</li>
+<li>W bloku kodera w bloku atencji nie ma masek atencji
+<ul>
+<li>dwukierunkowa atencja</li>
+</ul></li>
+<li>Do wyznaczania reprezentacji tekstu
+<ul>
+<li>bierze pod uwagę od razu cały kontekst</li>
+<li>zwykle lepsze reprezentacje niż modele z rodziny tylko-dekoder</li>
+</ul></li>
+</ul>
+<h2 id="rodzina-architektur">Rodzina architektur</h2>
+<ul>
+<li>BERT (2019)
+<ul>
+<li>słownik 30k tokenów, tokenizator WordPiece</li>
+<li>okno kontekstu 512 tokenów</li>
+<li>wyuczone kodowanie pozycyjne</li>
+<li>wersja Base - 110M parametrów, reprezentacja 768</li>
+<li>wersja Large - 340M parametrów, reprezentacja 1024</li>
+</ul></li>
+<li>XLM-Roberta
+<ul>
+<li>trenowany na 100 różnych językach</li>
+</ul></li>
+<li>Modern BERT (2024)
+<ul>
+<li>tokenizator BPE</li>
+<li>słownik 50k tokenów</li>
+<li>okno kontekstu 8k tokenów</li>
+<li>395M parametrów w większej wersji - bardzo mało</li>
+<li>GeGLU - gated-linear unit
+<ul>
+<li>jedna odnoga liniowa+GELU</li>
+<li>druga odnoga z warstwą liniową i sigmoidem</li>
+<li>na wyjściu mnożenie elementwise z obu odnóg</li>
+</ul></li>
+<li>alternating attention - na przemian globalna i lokalna atencja
+<ul>
+<li>bardziej wydajne obliczeniowo</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="trening">Trening</h2>
+<ul>
+<li>Nie można trenować tak jak dekodera - do przewidywania kolejnego
+tokenu
+<ul>
+<li>nie ma maski atencji więc model widzi jaki będzie kolejny token</li>
+</ul></li>
+<li>Uczenie zamonadzorowane w oparciu o duży zbiór tekstów</li>
+</ul>
+<h3 id="maskowane-modelowanie-języka">Maskowane modelowanie języka</h3>
+<ul>
+<li><em>Masked language modeling</em> (MLM)</li>
+<li>Losowo wybrane 15% tokenów
+<ul>
+<li>80% z nich zastąpione przez specjalny token maski</li>
+<li>10% zostaje zastąpione przez losowo wybrany token ze słownika</li>
+<li>10% zostaje bez zmian</li>
+</ul></li>
+<li>Cel uczenia - predykcja oryginalnej wartości każdego zamaskowanego
+tokenu</li>
+<li>Funkcja straty - entropia krzyżowa</li>
+<li>Trening jest mniej skuteczny niż przy dekoderach
+<ul>
+<li>bo tylko do niektórych wyjść przykłada się funkcję straty</li>
+<li>w treningu kodera nie można zamaskować wszystkiego bo nie będzie z
+czego wyznaczać reprezentacji</li>
+</ul></li>
+</ul>
+<h3 id="predykcja-następnego-zdania">Predykcja następnego zdania</h3>
+<ul>
+<li><em>Next sentence prediction</em> (NSP)</li>
+<li>Sieć dostaje dwa zdania na wejście, musi ocenić, czy drugie zdanie
+jest kontynuacją pierwszego
+<ul>
+<li>dwie sekwencje rozdzielone specjalnym tokenem separatora</li>
+</ul></li>
+<li>Cel - wyznaczanie lepszych reprezentacji dla zadań wykorzystujących
+relacje między parami zdań
+<ul>
+<li>detekcja parafrazy - czy dwa zdania mają podobne znaczenie</li>
+<li>ocena spójności - czy zdania tworzą spójną wypowiedź</li>
+</ul></li>
+<li>Kontekstową reprezentację wyznacza się od pierwszego specjalnego
+tokenu <code>[CLS]</code>
+<ul>
+<li>do tego wyjścia przyłożona głowica klasyfikacji</li>
+<li>tak samo się robi przy użyciu koderów do klasyfikacji tekstu</li>
+<li>tutaj klasyfikacja binarna</li>
+</ul></li>
+<li>Funkcja straty - entropia krzyżowa</li>
+<li>Losowy wybór par pozytywnych i negatywnych</li>
+</ul>
+<h2 id="zastosowania">Zastosowania</h2>
+<ul>
+<li>Wyznaczają dobre kontekstowe reprezentacje
+<ul>
+<li>reprezentacje można wykorzystać do wielu zadań docelowych</li>
+</ul></li>
+<li>Interpretacja, klasyfikacja, wyszukiwanie tekstu</li>
+<li>Indeksowanie i wyszukiwanie danych tekstowych
+<ul>
+<li>moduł wyszukiwania/indeksowania w RAG</li>
+<li>moduł rerankingu w RAG (cross-encoder)</li>
+</ul></li>
+<li>Analiza sentymentu</li>
+<li>Typowe podejścia
+<ul>
+<li>wykorzystanie reprezentacji jako wejściowe cechy klasycznego modelu
+uczenia maszynowego</li>
+<li>dodanie warstwy z niewielką liczbą parametrów do kodera i
+dotrenowanie tylko tej warstwy (np. głowicy klasyfikacyjnej)</li>
+</ul></li>
+</ul>
+<h2 id="klasyfikacja">Klasyfikacja</h2>
+<ul>
+<li>Mamy zdanie wejściowe</li>
+<li>Out of the box, koder daje reprezentacje dla każdego tokenu
+<ul>
+<li>można uśrednić te tokeny i średnią traktować jako kontekstową
+reprezentację</li>
+<li>można dokleić na początek specjalny token <code>[CLS]</code> i z
+wyjścia dla tego tokena wyznaczać reprezentację</li>
+</ul></li>
+<li>Tokenizator musi być zgodny z wersją modelu
+<ul>
+<li>tokenizatory w wersji uncased - tekst jest zamieniany na małe
+litery</li>
+</ul></li>
+<li><code>transformers.AutoModelForSequenceClassification</code>
+<ul>
+<li>automatycznie dodaje głowicę klasyfikacyjną do wyjścia dla
+pierwszego tokena (<code>CLS</code>)</li>
+</ul></li>
+<li>W <code>transformers</code> już jest zaimplementowana pętla
+treningowa</li>
+<li>Klasyfikacja dłuższego fragmentu tekstu
+<ul>
+<li>określenie sentymentu</li>
+<li>detekcja spamu</li>
+</ul></li>
+<li>Klasyfikacja par sekwencji tekstowych
+<ul>
+<li>detekcja parafrazy</li>
+<li>detekcja plagiatu</li>
+<li>specjalny token <code>[SEP]</code> oddzielający sekwencje na
+wejściu</li>
+</ul></li>
+</ul>
+<h2 id="sentence-transformers">Sentence Transformers</h2>
+<ul>
+<li>Biblioteka zawierająca implementacje metod wyznaczania wektorowej
+reprezentacji zdań i dłuższych fragmentów</li>
+<li>BERT out of the box nie był dostrojony do wyznaczania
+reprezentacji</li>
+<li>Biblioteka zawiera wagi dostrojonych modeli - też dla języka
+polskiego</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#architektura-tylko-koder" id="toc-architektura-tylko-koder">Architektura tylko-koder</a>
+<ul>
+<li><a href="#architektura" id="toc-architektura">Architektura</a></li>
+<li><a href="#rodzina-architektur" id="toc-rodzina-architektur">Rodzina
+architektur</a></li>
+<li><a href="#trening" id="toc-trening">Trening</a>
+<ul>
+<li><a href="#maskowane-modelowanie-języka" id="toc-maskowane-modelowanie-języka">Maskowane modelowanie
+języka</a></li>
+<li><a href="#predykcja-następnego-zdania" id="toc-predykcja-następnego-zdania">Predykcja następnego
+zdania</a></li>
+</ul></li>
+<li><a href="#zastosowania" id="toc-zastosowania">Zastosowania</a></li>
+<li><a href="#klasyfikacja" id="toc-klasyfikacja">Klasyfikacja</a></li>
+<li><a href="#sentence-transformers" id="toc-sentence-transformers">Sentence Transformers</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

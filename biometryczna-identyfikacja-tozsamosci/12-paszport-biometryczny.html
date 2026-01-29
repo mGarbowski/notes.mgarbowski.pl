@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-paszport-biometryczny</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-rozpoznawanie-mowiacego.html">Poprzedni: 11-rozpoznawanie-mowiacego.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="egzamin.html">Następny: egzamin.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="paszport-biometryczny">Paszport biometryczny</h1>
+<ul>
+<li>Dokument tożsamości możliwy do odczytu przez maszyny
+<ul>
+<li><em>Machine Readable Travel Document</em> (MRTD)</li>
+</ul></li>
+<li>Dokument wyposażony w mikroprocesor
+<ul>
+<li>zapis danych</li>
+<li>wybrane operacje kryptograficzne</li>
+</ul></li>
+<li>Zawiera zapisane dane biometryczne</li>
+</ul>
+<h2 id="motywacja-wprowadzenia-paszportu-biometrycznego">Motywacja
+wprowadzenia paszportu biometrycznego</h2>
+<ul>
+<li>Powiązanie dokumentu z właścicielem</li>
+<li>Utrudnienie kradzieży tożsamości</li>
+<li>Uniemożliwienie duplikowania dokumentów</li>
+<li>Automatyzacja i usprawnienie kontroli granicznej przy jednoczesnym
+zwiększeniu bezpieczeństwa</li>
+</ul>
+<h2 id="w-polsce">W Polsce</h2>
+<ul>
+<li>Produkowane przez PWPW</li>
+<li>Dane obywateli nanoszone w Centrum Personalizacji Dokumentów
+MSW</li>
+</ul>
+<h2 id="elementy-systemu-paszportu-biometrycznego">Elementy systemu
+paszportu biometrycznego</h2>
+<ul>
+<li>e-Paszport (książeczka)</li>
+<li>Urządzenia komunikujące się z dokumentem, urządzenia
+transmisyjne</li>
+<li>System personalizacji dokumentów</li>
+<li>Infrastruktura klucza publicznego</li>
+<li>System kontroli dokumentów</li>
+<li>Systemy biometryczne
+<ul>
+<li>urządzenie dostarczające właściwe próbki biometryczne</li>
+<li>algorytmy rozpoznawania</li>
+</ul></li>
+</ul>
+<h3 id="struktura-paszportu">Struktura paszportu</h3>
+<ul>
+<li>Wklejka z czipem i anteną RFID</li>
+</ul>
+<h3 id="interfejs-elektroniczny">Interfejs elektroniczny</h3>
+<ul>
+<li>Zbliżeniowa karta mikroprocesorowa
+<ul>
+<li>to samo co wcześniej omawiane karty inteligentne</li>
+</ul></li>
+</ul>
+<h3 id="machine-readable-zone">Machine Readable Zone</h3>
+<ul>
+<li>Pasek na dole</li>
+<li>Ten sam standard na dowodach osobistych</li>
+<li>Rodzaj i typ dokumentu</li>
+<li>Państwo wydania</li>
+<li>Imię, nazwisko, identyfikator osoby</li>
+</ul>
+<h2 id="dane-biometryczne">Dane biometryczne</h2>
+<ul>
+<li>Obraz 2D twarzy</li>
+<li>Obrazy odcisków palca</li>
+<li>W planach obrazy tęczówki
+<ul>
+<li>od zawsze w planach</li>
+</ul></li>
+<li>Formaty danych
+<ul>
+<li>obrazy</li>
+<li>dla twarzy kolorowe</li>
+<li>w skali szarości dla odcisków palca i tęczówek</li>
+<li>kompresja JPEG</li>
+</ul></li>
+<li>Automatyczne porównanie wzorców odbywa się poza środowiskiem karty
+mikroprocesorowej
+<ul>
+<li>schemat match-off-card</li>
+</ul></li>
+<li>Przechowywane obrazy po to żeby możliwe było weryfikowanie przez
+dowolny system
+<ul>
+<li>nie trzeba stosować tej samej metody wyznaczania wzorców itd.</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#paszport-biometryczny" id="toc-paszport-biometryczny">Paszport biometryczny</a>
+<ul>
+<li><a href="#motywacja-wprowadzenia-paszportu-biometrycznego" id="toc-motywacja-wprowadzenia-paszportu-biometrycznego">Motywacja
+wprowadzenia paszportu biometrycznego</a></li>
+<li><a href="#w-polsce" id="toc-w-polsce">W Polsce</a></li>
+<li><a href="#elementy-systemu-paszportu-biometrycznego" id="toc-elementy-systemu-paszportu-biometrycznego">Elementy systemu
+paszportu biometrycznego</a>
+<ul>
+<li><a href="#struktura-paszportu" id="toc-struktura-paszportu">Struktura paszportu</a></li>
+<li><a href="#interfejs-elektroniczny" id="toc-interfejs-elektroniczny">Interfejs elektroniczny</a></li>
+<li><a href="#machine-readable-zone" id="toc-machine-readable-zone">Machine Readable Zone</a></li>
+</ul></li>
+<li><a href="#dane-biometryczne" id="toc-dane-biometryczne">Dane
+biometryczne</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

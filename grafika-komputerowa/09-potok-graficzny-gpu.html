@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-potok-graficzny-gpu</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-antyaliasing.html">Poprzedni: 08-antyaliasing.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-teksturowanie.html">Następny: 10-teksturowanie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="potok-graficzny">Potok graficzny</h1>
+<h2 id="po-co-gpu">Po co GPU</h2>
+<ul>
+<li>Istotne kwestie
+<ul>
+<li>ilość danych przetwarzanych w tym samym czasie</li>
+<li>szybkość przetwarzania każdego elementu</li>
+<li>ilość danych transferowanych w jednostce czasu (przepustowość
+pamięci)</li>
+<li>czas przesyłania danych</li>
+</ul></li>
+<li>Wg. taksonomii Flynna - SIMD
+<ul>
+<li>single instruction, multiple data</li>
+</ul></li>
+<li>Wątki, grupy wątków i grupy grup</li>
+<li>Każde wywołanie shadera dla fragmentu ma swój wątek, rejestry i
+niedużo pamięci</li>
+<li>Grupa wątków wykonująca ten sam program - Warp</li>
+<li>Grupy wątków są harmonogramowane do rdzeni cieniowania</li>
+<li>Warp-swapping
+<ul>
+<li>maskowanie opóźnień</li>
+<li>np. pobieranie informacji z tekstury</li>
+</ul></li>
+<li>Dynamic branching
+<ul>
+<li>w przypadku gdy wszystkie wątki wykonują tę samą gałąź, druga nie ma
+znaczenia</li>
+<li>odrzucanie gałęzi kodu, których wyniki są niepotrzebne</li>
+<li>jeśli którykolwiek wątek wchodzi w inną gałąź to trzeba wykonać obie
+i odrzucić niepotrzebne wyniki</li>
+</ul></li>
+</ul>
+<h3 id="synchronizacja-wątków">Synchronizacja wątków</h3>
+<ul>
+<li>Stosuje się bariery, żeby zapewnić, że wszystkie wątki zakończyły
+obliczenia</li>
+<li>Szybciej będzie przekopiować macierz do pamięci dzielonej grupy
+wątków i zastosować barierę niż wykonywać obliczenia na pamięci
+globalnej (która jest wolniejsza)</li>
+</ul>
+<h2 id="potok-graficzny-1">Potok graficzny</h2>
+<ul>
+<li>Potok renderujący - generacja / rendering obrazów 2D
+<ul>
+<li>kamery</li>
+<li>obiekty</li>
+<li>źródła światła</li>
+<li>materiały</li>
+<li>tekstury</li>
+</ul></li>
+<li>Położenie i kształt obiektów
+<ul>
+<li>geometria</li>
+<li>środowisko</li>
+<li>kamera</li>
+</ul></li>
+<li>Wygląd obiektów
+<ul>
+<li>materiały</li>
+<li>źródła światła</li>
+<li>tekstury</li>
+<li>modele cieniowania</li>
+</ul></li>
+<li>Potok
+<ul>
+<li>najwolniejszy element potoku spowalnia cały potok</li>
+<li>część elementów może być przetwarzana równolegle</li>
+</ul></li>
+<li>Architektura - 4 części
+<ul>
+<li>aplikacja</li>
+<li>przetwarzanie geometrii</li>
+<li>rasteryzacja</li>
+<li>przetwarzanie pikseli ### Aplikacja</li>
+</ul></li>
+<li>Pełna kontrola nad przebiegiem przetwarzania</li>
+<li>Wykorzystuje CPU</li>
+<li>Możliwość wykorzystania compute shader GPU</li>
+<li>Ustawienia lub algorytmy
+<ul>
+<li>np. redukcja siatki trójkątów</li>
+</ul></li>
+<li>Jeśli się da to przetwarzanie równoległe</li>
+<li>Algorytmy, których nie da się / ciężko zaimplementować w kolejnych
+krokach
+<ul>
+<li>np. detekcja kolizji</li>
+</ul></li>
+<li>Główne zadanie - przesłanie prymitywów do renderingu do etapu
+przetwarzania geometrii
+<ul>
+<li>linie</li>
+<li>punkty</li>
+<li>trójkąty</li>
+</ul></li>
+<li>Obsługa wejścia od użytkownika</li>
+</ul>
+<h3 id="przetwarzanie-geometrii">Przetwarzanie geometrii</h3>
+<ul>
+<li>Etap odpowiedzialny za wszystkie operacje na trójkątach i
+wierzchołkach</li>
+<li>Etapy
+<ul>
+<li>cieniowanie wierzchołków</li>
+<li>projekcja</li>
+<li>obcinanie</li>
+<li>mapowanie na ekran</li>
+</ul></li>
+</ul>
+<h4 id="cieniowanie-wierzchołków">Cieniowanie wierzchołków</h4>
+<ul>
+<li>Zadania
+<ul>
+<li>obliczenie położenia wierzchołka</li>
+<li>obliczenie dodatkowych danych dla wierzchołka (normalne, uv,
+itd.)</li>
+</ul></li>
+<li>Dawniej też w tym kroku liczono cieniowanie, teraz raczej obliczane
+per piksel</li>
+<li>Teraz raczej przetwarzane są tutaj dane związane z wierzchołkiem
+<ul>
+<li>np. obliczanie wag dla animacji szkieletowej</li>
+</ul></li>
+<li>Wyjściem jest obowiązkowo pozycja wierzchołka</li>
+<li>Seria przekształceń
+<ul>
+<li>przestrzeń modelu -&gt; przestrzeń świata</li>
+<li>przestrzeń świata -&gt; przestrzeń widoku</li>
+</ul></li>
+<li>Każdy model istnieje w swoim układzie współrzędnych</li>
+<li>Model może mieć swoje przekształcenie - transformacja modelu</li>
+<li>Wiele przekształceń może być skojarzonych z tym samym modelem
+<ul>
+<li>ta sama geometria</li>
+<li>wiele instancji w różnych miejscach, różnej wielkości</li>
+</ul></li>
+<li>Po aplikacji transformacji model znajdzie się w przestrzeni
+świata</li>
+</ul>
+<h4 id="przestrzeń-kamery-widoku">Przestrzeń kamery / widoku</h4>
+<ul>
+<li>Interesują nas tylko obiekty, które są widoczne w kamerze</li>
+<li>Zadanie - przekształcenie widoku
+<ul>
+<li>umieszczenie kamery w środku układu współrzędnych</li>
+<li>typowo wzdłuż osi z, orientacja zależnie od biblioteki</li>
+</ul></li>
+<li>Kamera ma wartości near i far
+<ul>
+<li>odległości odcięcia</li>
+</ul></li>
+</ul>
+<h4 id="projekcja">Projekcja</h4>
+<ul>
+<li>Przekształcenie bryły widoku na kostkę
+<ul>
+<li>ekstrema <span class="math inline">\((-1,-1,-1)\)</span> i <span
+class="math inline">\((1,1,1)\)</span></li>
+</ul></li>
+<li>Może być określona macierzowo</li>
+<li>Ortogonalne lub perspektywiczne</li>
+<li>Ortogonalna
+<ul>
+<li>ułatwia modelowanie obiektów</li>
+<li>nie ma zniekształceń</li>
+<li>linie równoległe zostają równoległe</li>
+<li>zachowuje relatywne odległości</li>
+<li>definiowana przez 6 krawędzie prostopadłościanu widzenia</li>
+</ul></li>
+<li>Perspektywiczna
+<ul>
+<li>obiekty które są daleko są mniejsze</li>
+<li>nie zachowuje odległości ani kątów</li>
+<li>linie równoległe przestają być równoległe</li>
+<li>dodatkowo wartość field of view
+<ul>
+<li>szerokość stożka</li>
+<li>do skalowania wartości z płaszczyzny projekcji na koordynaty <span
+class="math inline">\([-1,1]\)</span> w płaszczyźnie widoku</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="obcinanie">Obcinanie</h4>
+<ul>
+<li>Odrzucenie prymitywów poza widokiem (sześcianem jednostkowym)</li>
+<li>Przycinanie do kostki jednostkowej</li>
+<li>Sprowadzenie do współrzędnych znormalizowanych
+<ul>
+<li>między <span class="math inline">\((-1,-1,-1)\)</span> i <span
+class="math inline">\((1,1,1)\)</span></li>
+</ul></li>
+<li>Przy przycinaniu mogą powstać nowe wierzchołki
+<ul>
+<li>jeśli nachodzi na krawędź</li>
+</ul></li>
+</ul>
+<h4 id="mapowanie-do-przestrzeni-ekranu">Mapowanie do przestrzeni
+ekranu</h4>
+<ul>
+<li>Przejście z trójwymiarowych współrzędnych na dwuwymiarowe
+<ul>
+<li>mapowanie na współrzędne ekranu</li>
+<li>mapowanie wartości głębi do przedziału <span
+class="math inline">\([z_1,z_2]\)</span> (domyślnie <span
+class="math inline">\([0,1]\)</span>)</li>
+</ul></li>
+<li>Współrzędne okna z remapowaną wartością przekazane do
+rasteryzacji</li>
+</ul>
+<h3 id="rasteryzacja">Rasteryzacja</h3>
+<ul>
+<li>Znalezienie wszystkich pikseli które należą do prymitywów które są
+renderowane</li>
+<li>Tego nie można oprogramować</li>
+<li>Etapy
+<ul>
+<li>ustawianie trójkątów</li>
+<li>przejście przez trójkąty</li>
+</ul></li>
+<li>Ustawienie trójkątów
+<ul>
+<li>obliczanie równań dla każdego prymitywu</li>
+<li>może być wykorzystane do interpolacji cieniowania</li>
+<li>wykonywane przez sprzęt</li>
+</ul></li>
+<li>Przechodzenie trójkątów
+<ul>
+<li>generacja fragmentów - dla każdego piksela którego środek jest
+pokryty przez trójkąt</li>
+<li>każdy fragment posiada informacje o głębi i inne pochodzące z
+przetwarzania geometrii</li>
+<li>właściwości fragmentu - generowane z wykorzystaniem interpolowanych
+danych z trójkąta</li>
+</ul></li>
+</ul>
+<h3 id="przetwarzanie-pikseli">Przetwarzanie pikseli</h3>
+<ul>
+<li>Dokonywanie obliczeń dla piksela/próbki, która jest wewnątrz
+prymitywu</li>
+<li>Etapy
+<ul>
+<li>cieniowanie pikseli</li>
+<li>łączenie</li>
+</ul></li>
+</ul>
+<h4 id="cieniowanie-pikseli">Cieniowanie pikseli</h4>
+<ul>
+<li>Obliczenia cieniowania dla każdego piksela
+<ul>
+<li>wykorzystanie interpolowanych informacji z poprzednich etapów</li>
+</ul></li>
+<li>Całkowicie programowalne</li>
+<li>Różne operacje do wykonania
+<ul>
+<li>np. nakładanie tekstury</li>
+</ul></li>
+<li>Rezultat - ostateczny kolor dla każdego fragmentu</li>
+</ul>
+<h4 id="łączenie">Łączenie</h4>
+<ul>
+<li>Potok operacji rastrowych (Raster Operations Pipeline - ROP)</li>
+<li>Brak możliwości programowania, dużo możliwości konfiguracji</li>
+<li>Zadanie
+<ul>
+<li>połączenie koloru z etapu cieniowania z tym, który już jest w
+buforze</li>
+<li>stwierdzenie widoczności</li>
+</ul></li>
+</ul>
+<h5 id="potok-operacji-rastrowych">Potok operacji rastrowych</h5>
+<ul>
+<li>Bufory
+<ul>
+<li>koloru</li>
+<li>głębi</li>
+<li>kanał alfa</li>
+<li>szablonowy (stencil buffer)</li>
+<li>ramki (frame buffer) - zawiera wszystkie pozostałe bufory</li>
+</ul></li>
+</ul>
+<h5 id="bufor-szablonowy">Bufor szablonowy</h5>
+<ul>
+<li>Zapamiętuje lokalizacje renderowanych prymitywów</li>
+<li>Rendering do bufora może być wykonany z wykorzystaniem różnych
+funkcji
+<ul>
+<li>np. porównania - piksel wyświetlany jeśli relacja jest
+prawdziwa</li>
+</ul></li>
+<li>Można generować różne efekty - np. przezroczystość</li>
+</ul>
+<h3 id="rezultaty">Rezultaty</h3>
+<ul>
+<li>Po przejściu przez cały potok prymitywy, które przeszły wszystkie
+testy są wyświetlane na ekranie</li>
+<li>Podwójne buforowanie
+<ul>
+<li>renderujemy piksel po pikselu</li>
+<li>nie chcemy żeby użytkownik to widział</li>
+<li>renderowanie robi się w tle - zapis do back buffer</li>
+<li>po zakończeniu renderowania podmieniamy back buffer z front
+buffer</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#potok-graficzny" id="toc-potok-graficzny">Potok
+graficzny</a>
+<ul>
+<li><a href="#po-co-gpu" id="toc-po-co-gpu">Po co GPU</a>
+<ul>
+<li><a href="#synchronizacja-wątków" id="toc-synchronizacja-wątków">Synchronizacja wątków</a></li>
+</ul></li>
+<li><a href="#potok-graficzny-1" id="toc-potok-graficzny-1">Potok
+graficzny</a>
+<ul>
+<li><a href="#przetwarzanie-geometrii" id="toc-przetwarzanie-geometrii">Przetwarzanie geometrii</a></li>
+<li><a href="#rasteryzacja" id="toc-rasteryzacja">Rasteryzacja</a></li>
+<li><a href="#przetwarzanie-pikseli" id="toc-przetwarzanie-pikseli">Przetwarzanie pikseli</a></li>
+<li><a href="#rezultaty" id="toc-rezultaty">Rezultaty</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

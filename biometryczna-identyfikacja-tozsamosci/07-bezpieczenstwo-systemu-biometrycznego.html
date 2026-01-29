@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-bezpieczenstwo-systemu-biometrycznego</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-podpis-odreczny.html">Poprzedni: 06-podpis-odreczny.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-inne-biometrie.html">Następny: 08-inne-biometrie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="bezpieczeństwo-systemu-biometrycznego">Bezpieczeństwo systemu
+biometrycznego</h1>
+<h2 id="budowa-systemu-biometrycznego">Budowa systemu
+biometrycznego</h2>
+<ul>
+<li>Podsystem pomiarowy
+<ul>
+<li>sensor</li>
+<li>sensor mierzy obiekt</li>
+</ul></li>
+<li>Podsystem przetwarzania sygnałów
+<ul>
+<li>sfera algorytmiczna</li>
+<li>segmentacja</li>
+<li>wyznaczanie cech</li>
+<li>kontrola autentyczności</li>
+</ul></li>
+<li>Podsystem przechowywania danych</li>
+<li>Podsystem dopasowania danych</li>
+<li>Podejmowanie decyzji</li>
+<li>Podsystem administracyjny
+<ul>
+<li>ustalanie progów akceptacji próbek i kryteriów</li>
+<li>inne rzeczy wynikające z tego że to system informatyczny,
+niekoniecznie związane z biometrią</li>
+<li>kontrolowanie środowiska</li>
+<li>logowanie, monitorowanie</li>
+<li>zapewnienie prywatności</li>
+</ul></li>
+<li>Interfejs
+<ul>
+<li>programistyczny i sprzętowy</li>
+<li>umożliwia komunikację między systemami</li>
+</ul></li>
+<li>Każdy komponent jest punktem wrażliwym
+<ul>
+<li>w każdym mogą wystąpić podatności</li>
+</ul></li>
+</ul>
+<h3 id="przepływ-danych">Przepływ danych</h3>
+<figure>
+<img src="./obrazy/przeplyw-danych.png"
+alt="Przeplyw danych w systemie biometrycznym" />
+<figcaption aria-hidden="true">Przeplyw danych w systemie
+biometrycznym</figcaption>
+</figure>
+<ul>
+<li>Rejestracja
+<ul>
+<li>pomiar obiektu sensorem</li>
+<li>przetworzenie próbki biometrycznej - utworzenie wzorca</li>
+<li>zapis wzorca na nośniku lub w bazie danych</li>
+</ul></li>
+<li>Weryfikacja
+<ul>
+<li>deklaracja tożsamości</li>
+<li>wyszukanie wzorca w bazie</li>
+<li>pomiar i wyznaczenie wzorca</li>
+<li>dopasowanie utworzonego wzorca ze wzorcem z bazy</li>
+<li>wyznaczenie współczynnika podobieństwa</li>
+<li>podejmowanie decyzji</li>
+</ul></li>
+<li>Identyfikacja
+<ul>
+<li>pomiar i wyznaczenie wzorca</li>
+<li>porównanie z każdym wzorcem z bazy</li>
+<li>znalezienie najbliższego dopasowania</li>
+<li>podjęcie decyzji</li>
+</ul></li>
+</ul>
+<h2 id="bezpieczeństwo-sensora">Bezpieczeństwo sensora</h2>
+<h3 id="testowanie-żywotności">Testowanie żywotności</h3>
+<ul>
+<li>Przetwarzane dane muszą być wynikiem pomiaru cech żywej osoby</li>
+<li>Muszą być dostarczane właściwe próbki biometryczne</li>
+<li>Badanie żywotności jest niezbędne aby system można było nazwać
+biometrycznym</li>
+</ul>
+<h3 id="ochrona-urządzeń-i-danych">Ochrona urządzeń i danych</h3>
+<ul>
+<li>Obudowy odporne na ingerencję
+<ul>
+<li>nie da się otworzyć śrubokrętem</li>
+</ul></li>
+<li>Kasowanie i zamazywanie pamięci w przypadku ingerencji</li>
+<li>Uwierzytelnienie i certyfikacja urządzeń
+<ul>
+<li>nawzajem przez komunikujące się urządzenia</li>
+<li>poddanie testom przez akredytowaną instytucję</li>
+</ul></li>
+<li>Szyfrowanie i podpisywanie danych do dalszych komponentów
+systemu</li>
+</ul>
+<h2 id="bezpieczeństwo-transferu-danych">Bezpieczeństwo transferu
+danych</h2>
+<ul>
+<li>Podsłuchiwanie transmisji
+<ul>
+<li>dane biometryczne - próbki, dane wstępnie przetworzone, wzorce</li>
+<li>parametry kodowania</li>
+<li>wyniki testów żywotności</li>
+<li>parametry jakościowe</li>
+<li>wyniki dopasowania</li>
+<li>decyzje</li>
+</ul></li>
+<li>Ingerencja w transmisję
+<ul>
+<li>modyfikacja danych</li>
+<li>wstrzykiwanie danych</li>
+</ul></li>
+</ul>
+<h3 id="przykład-ataku---hill-climbing">Przykład ataku - hill
+climbing</h3>
+<ul>
+<li>Atakujący zyskuje dostęp do kanału transmisji, może wstrzykiwać
+syntetyczne dane biometryczne</li>
+<li>Próbuje dopasować sztuczny zbiór minucji do wzorca</li>
+<li>Atakujący generuje losowy zbiór minucji
+<ul>
+<li>porównuje ze wzorcem</li>
+<li>generuje kolejny, zmieniony zbiór minucji</li>
+<li>optymalizacja współczynnika dopasowania</li>
+</ul></li>
+<li>Wiele iteracji</li>
+<li>Obrona przed atakiem
+<ul>
+<li>spowolnienie, ograniczenie liczby zapytań do systemu</li>
+<li>nie udostępniać współczynnika dopasowania, tylko decyzję</li>
+<li>załatać dziurę, która umożliwiła dostęp do kanału komunikacji</li>
+</ul></li>
+</ul>
+<h3 id="syntetyczne-dane-biometryczne">Syntetyczne dane
+biometryczne</h3>
+<ul>
+<li>Generowanie danych na podstawie których można uzyskać wymagane
+podobieństwo wzorca biometrycznego wyznaczonego dla tych danych z
+wzorcem referencyjnym</li>
+<li>Biometria odwrotna
+<ul>
+<li>odtworzenie surowych danych na podstawie wzorców</li>
+<li>zabezpieczenie - stosowanie operacji jednokierunkowych przy
+wyznaczaniu wzorców</li>
+</ul></li>
+<li>Przykład tęczówki
+<ul>
+<li>jednoznaczne przekształcenie z przestrzeni zdjęć tęczówki do
+przestrzeni kodów</li>
+<li>niemożliwość jednoznacznego odwzorowania w drugą stronę</li>
+</ul></li>
+</ul>
+<h3 id="możliwości-zabezpieczeń">Możliwości zabezpieczeń</h3>
+<ul>
+<li>Kryptografia
+<ul>
+<li>szyfrowanie</li>
+<li>podpisywanie</li>
+</ul></li>
+<li>Steganografia
+<ul>
+<li>osadzanie tajnej informacji niezaburzającej informacji
+biometrycznej</li>
+<li>stosowana do uwierzytelniania urządzeń i wzorców</li>
+<li>np. odłożenie tajnego klucza na najmniej znaczących bitach</li>
+<li>np. w celu uwierzytelnienia urządzeń</li>
+</ul></li>
+<li>Bio-kryptografia
+<ul>
+<li>tworzenie klucza kryptograficznego na podstawie danych
+biometrycznych</li>
+<li>klucz potem używany np. do kontroli dostępu</li>
+</ul></li>
+<li>Wykorzystanie właściwości biometrii
+<ul>
+<li>naturalna zmienność wzorców biometrycznych - realistycznie nie
+będzie dwóch identycznych pomiarów</li>
+<li>można wprowadzić górny próg podobieństwa</li>
+<li>parametryzacja i interaktywność metod porównywania - biometria
+wielokrotna</li>
+<li>zaszumienie / kwantyzacja wyników porównań - przeciwdziałanie atakom
+hill climbing, brute force</li>
+<li>jednokierunkowość przekształceń</li>
+</ul></li>
+</ul>
+<h2 id="bezpieczeństwo-nośników-i-przechowywania-danych">Bezpieczeństwo
+nośników i przechowywania danych</h2>
+<h3 id="karta-mikroprocesorowa">Karta mikroprocesorowa</h3>
+<ul>
+<li>Np. dowód osobisty</li>
+<li>Urządzenie wyposażone w procesor, pamięć, często koprocesor
+kryptograficzny</li>
+<li>Zasilanie indukcyjne
+<ul>
+<li>przytknięcie do sensora z pętlą indukcyjną</li>
+</ul></li>
+<li>Wysokie bezpieczeństwo, ograniczone zasoby</li>
+</ul>
+<h3 id="technologia-match-off-card">Technologia match-off-card</h3>
+<ul>
+<li>Wzorzec jest przechowywany na karcie mikroprocesorowej</li>
+<li>Nie ma centralnej bazy</li>
+<li>Np. kontrola paszportu</li>
+<li>Nie można wykraść danych z centralnej bazy bo nie istnieje centralna
+baza</li>
+<li>Trzymanie danych po stronie użytkownika wymusza interoperacyjność
+<ul>
+<li>wzorce ustandaryzowane przez ISO</li>
+</ul></li>
+</ul>
+<h3 id="technologia-match-on-card">Technologia match-on-card</h3>
+<ul>
+<li>Podejmowanie decyzji wykonywane po stronie karty inteligentnej</li>
+<li>Przetwarzanie sygnałów nie może być robione na karcie, bo to za dużo
+obliczeń dla tak małych zasobów</li>
+<li>Rzadki schemat</li>
+</ul>
+<h3 id="technologia-measure-and-match-on-token">Technologia
+measure-and-match-on-token</h3>
+<ul>
+<li>W jednym urządzeniu wszystkie elementy przetwarzania</li>
+<li>Np. biometria w telefonie</li>
+<li>Tokeny biometryczne</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bezpieczeństwo-systemu-biometrycznego" id="toc-bezpieczeństwo-systemu-biometrycznego">Bezpieczeństwo systemu
+biometrycznego</a>
+<ul>
+<li><a href="#budowa-systemu-biometrycznego" id="toc-budowa-systemu-biometrycznego">Budowa systemu biometrycznego</a>
+<ul>
+<li><a href="#przepływ-danych" id="toc-przepływ-danych">Przepływ
+danych</a></li>
+</ul></li>
+<li><a href="#bezpieczeństwo-sensora" id="toc-bezpieczeństwo-sensora">Bezpieczeństwo sensora</a>
+<ul>
+<li><a href="#testowanie-żywotności" id="toc-testowanie-żywotności">Testowanie żywotności</a></li>
+<li><a href="#ochrona-urządzeń-i-danych" id="toc-ochrona-urządzeń-i-danych">Ochrona urządzeń i danych</a></li>
+</ul></li>
+<li><a href="#bezpieczeństwo-transferu-danych" id="toc-bezpieczeństwo-transferu-danych">Bezpieczeństwo transferu
+danych</a>
+<ul>
+<li><a href="#przykład-ataku---hill-climbing" id="toc-przykład-ataku---hill-climbing">Przykład ataku - hill
+climbing</a></li>
+<li><a href="#syntetyczne-dane-biometryczne" id="toc-syntetyczne-dane-biometryczne">Syntetyczne dane
+biometryczne</a></li>
+<li><a href="#możliwości-zabezpieczeń" id="toc-możliwości-zabezpieczeń">Możliwości zabezpieczeń</a></li>
+</ul></li>
+<li><a href="#bezpieczeństwo-nośników-i-przechowywania-danych" id="toc-bezpieczeństwo-nośników-i-przechowywania-danych">Bezpieczeństwo
+nośników i przechowywania danych</a>
+<ul>
+<li><a href="#karta-mikroprocesorowa" id="toc-karta-mikroprocesorowa">Karta mikroprocesorowa</a></li>
+<li><a href="#technologia-match-off-card" id="toc-technologia-match-off-card">Technologia match-off-card</a></li>
+<li><a href="#technologia-match-on-card" id="toc-technologia-match-on-card">Technologia match-on-card</a></li>
+<li><a href="#technologia-measure-and-match-on-token" id="toc-technologia-measure-and-match-on-token">Technologia
+measure-and-match-on-token</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

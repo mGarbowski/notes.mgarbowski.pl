@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01.html">Poprzedni: wyklad-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">(2024-10-16)</h1>
+<h2 id="a">A*</h2>
+<p>Kolejka priorytetowa</p>
+<p>Przeszukiwanie najpierw-najlepszy, gdzie priorytet to liczba krawędzi
+od węzła początkowego - BFS</p>
+<p>rysunek poziomicowy (poglądowy) funkcja heurystyczna sprawia, że
+poziomice są przesunięte w stronę węzła docelowego idealna funkcja
+heurystyczna - poziomica obejmuje wszystkie węzły na ścieżce do węzła
+docelowego</p>
+<h2 id="funkcja-celu">Funkcja celu</h2>
+<p>Funkcja celu zależy od rozwiązywanego zadania</p>
+<p>Funkcja zysku razem z funkcją heurystyczną stanowią priorytet - mówią
+w jakiej odległości od korzenia jest dany węzeł drzewa
+przeszukiwania</p>
+<p>Sposoby organizacji przestrzeni * relacja sąsiedztwa - węzły w
+drzewie</p>
+<p>Chcemy drugiej informacji, która jest lokalnie dostępna, a prowadzi
+do globalnie porządanego celu</p>
+<p>Funkcja heurystyczna - nadmiernie optymistyczna i monotoniczna i poza
+tym mniej kosztowna obliczeniowo niż samo rozwiązanie problemu!!</p>
+<h2 id="przykład---łamigłówka-15">Przykład - łamigłówka 15</h2>
+<h3 id="reprezentacja---stan-łamigłówki">Reprezentacja - stan
+łamigłówki</h3>
+<p>Sąsiedztwo - łlamigłówka po przesunięciu jednego elementu Przestrzeń
+przeszukiwań nie będzie drzewem - będą cykle A* służy tylko do
+przeszukiwania przestrzeni zorganizowanej w drzewo Żeby przekształcić
+taką przestrzeń w drzewo - trzeba by zapamiętać wszystkie węzły żeby
+wykrywać cykle</p>
+<h3 id="reprezentacji---sekwencja-ruchów">Reprezentacji - sekwencja
+ruchów</h3>
+<p>Ciąg decyzji Wykonanego ruchu nie można już odjąć - nie zmienia się
+historia Jest wiele sekwencji, które doprowadzą do rozwiązania Szukamy
+możliwie najkrótszej ścieżki Decyzje układają się w drzewo - możemy użyć
+A* Potrzeba funkcji kosztu i funkcji heurystycznej Funkcja kosztu -
+liczba wykonanych decyzji (wysokość węzła) Funkcja heurystyczna</p>
+<p>liczba elementów nie na swoim miejscu - jest nadmiernie optymistyczna
+lepsze oszacowanie - suma odległości elementów od docelowych miejsc</p>
+<p>Czy funckja jest monotoniczna?</p>
+<h2 id="kiedy-można-mówić-o-funkcji-heurystycznej">Kiedy można mówić o
+funkcji heurystycznej</h2>
+<ul>
+<li>Zadanie jest złożeniem składników</li>
+<li>Da się ocenić rozwiązanie cząstkowe</li>
+<li>Przestrzeń przeszukiwań obejmuje rozwiązania cząstkowe</li>
+<li>Algorytmy wszerz, w głąb, najpierw najlepszy są stosowalne w
+przestrzeniach rozwiązań cząstkowych</li>
+<li>Porządana jest drzewiasta struktura przestrzeni</li>
+<li>A* jest odmianą najpierw najlepszy, która korzysta z sumy funkcji
+kosztu i funkcji heurystycznej</li>
+</ul>
+<p>Trzeba znaleźć tą rzecz w zadaniu, która sprawia że problem jest
+trudny (przedmiotów w plecaku nie da się podzielić, klocki w 15 sobie
+przeszkadzają) Jeśli relaksacja założenia sprawia, że problem staje się
+bardzo prosty Przestrzeń z ograniczeniem jest podzbiorem przestrzeni ze
+zdjętym ograniczeniem Szukamy sensownego nadzbioru, który zawiera
+wszystkie dopuszczalne rozwiązania i jest możliwie najmniejszy (ma
+najmniej niedopuszczalnych rozwiązań)</p>
+<h1 id="przeszukiwanie-niedrzewiastych-przestrzeni">Przeszukiwanie
+niedrzewiastych przestrzeni</h1>
+<h2 id="algorytm-wspinaczkowy">Algorytm wspinaczkowy</h2>
+<pre><code>initialize(x)
+log.append(x)
+while !stop
+    Y = neighbourhood(x)
+    y = selectBest(Y)
+    if q(y) &gt; q(x)
+        x = y
+    log.append(Y)</code></pre>
+<p>Algorytmy gradientowe - algorytmy najszybszego spadku/wzrostu</p>
+<p>Dane przy trenowaniu sieci nauronowej to próbki Szukamy przybliżenia
+jakiejś funkcji (klasyfikacji lub regresji)</p>
+<p>Standardowa metoda gradientowa też ma w sobie zaszytą losowość -
+wybór danych do trenowania Tym łatwiej się pogodzić ze stochastycznym
+gradientem - jest mniej kosztowny obliczeniowo i dodatkowo wystartowany
+z tego samego punktu nie zawsze dojdzie do tego samego punktu</p>
+<h3 id="stochastyczny-algorytm-wspinaczkowy">Stochastyczny algorytm
+wspinaczkowy</h3>
+<pre><code>initialize(x)
+log.append(x)
+while !stop:
+    y = selectRandom(neighbourhood(x))
+    if q(y) &gt; q(x):
+        x = y
+    log.append(y)</code></pre>
+<p>Nie ma gwarancji że znajdzie minimum lokalne (losowanie ze zwracaniem
+wybiera ten sam punkt)</p>
+<h2 id="błądzenie-przypadkowe">Błądzenie przypadkowe</h2>
+<p>Algorytm wspinaczkowy bez elementu decyzyjnego</p>
+<pre><code>initialize(x)
+log.append(x)
+while !stop:
+    x = selectRandom(neighbourhood(x))
+    log.append(x)</code></pre>
+<p>Nie ma tendencji do utykania w otoczeniu optimów lokalnych Jaka mamy
+nieskończenie wiele czasu to znajdzie optimum globalne</p>
+<h2 id="symulowane-wyżarzanie">Symulowane wyżarzanie</h2>
+<pre><code>initialize(x)
+log.append(x)
+while !stop:
+    y = selectRandom(neighbourhood(x))
+    if q(y) &gt; q(x):
+        x = y
+    else if uniform(0,1) &lt; p_a:
+        x = y
+    log.append(y)
+
+p_a = exp(-|q(y) - q(x)| / T)</code></pre>
+<p>T - temperatura analogia to procesu krystalizacji parametryzuje to
+jaką odległość uznaje się za dużą</p>
+<p>Jest szansa że algorytm zaakceptuje gorszy punkt Pomieszanie
+algorytmu wspinaczkowego z błądzeniem przypadkowym</p>
+<p>dla p_a == 1 - błądzenie przypadkowe dla p_a == 0 - stochastyczny
+algorytm wspinaczkowy</p>
+<p>Zbieżność lokalna i zbieżność globalna</p>
+<p>wartość p_a określa balans między eksploracją a eksploatacją</p>
+<p>Przy symlowanym wyżarzaniu zaczyna się od arbitralnie wybranej
+wysokiej temperatury i obniża się z kolejnymi iteracjami np. wg reguły
+<span class="math inline">\(T(t+1) = \alpha T(t), 0 &lt; \alpha &lt;
+1\)</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">(2024-10-16)</a>
+<ul>
+<li><a href="#a" id="toc-a">A*</a></li>
+<li><a href="#funkcja-celu" id="toc-funkcja-celu">Funkcja celu</a></li>
+<li><a href="#przykład---łamigłówka-15" id="toc-przykład---łamigłówka-15">Przykład - łamigłówka 15</a>
+<ul>
+<li><a href="#reprezentacja---stan-łamigłówki" id="toc-reprezentacja---stan-łamigłówki">Reprezentacja - stan
+łamigłówki</a></li>
+<li><a href="#reprezentacji---sekwencja-ruchów" id="toc-reprezentacji---sekwencja-ruchów">Reprezentacji - sekwencja
+ruchów</a></li>
+</ul></li>
+<li><a href="#kiedy-można-mówić-o-funkcji-heurystycznej" id="toc-kiedy-można-mówić-o-funkcji-heurystycznej">Kiedy można mówić o
+funkcji heurystycznej</a></li>
+</ul></li>
+<li><a href="#przeszukiwanie-niedrzewiastych-przestrzeni" id="toc-przeszukiwanie-niedrzewiastych-przestrzeni">Przeszukiwanie
+niedrzewiastych przestrzeni</a>
+<ul>
+<li><a href="#algorytm-wspinaczkowy" id="toc-algorytm-wspinaczkowy">Algorytm wspinaczkowy</a>
+<ul>
+<li><a href="#stochastyczny-algorytm-wspinaczkowy" id="toc-stochastyczny-algorytm-wspinaczkowy">Stochastyczny algorytm
+wspinaczkowy</a></li>
+</ul></li>
+<li><a href="#błądzenie-przypadkowe" id="toc-błądzenie-przypadkowe">Błądzenie przypadkowe</a></li>
+<li><a href="#symulowane-wyżarzanie" id="toc-symulowane-wyżarzanie">Symulowane wyżarzanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

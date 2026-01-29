@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-07.html">Następny: wyklad-07.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyczne podstawy przetwarzania informacji</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="kolokwium-03.html">kolokwium-03.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="elektronika-ciała-stałego-c.d.-2025-04-11">Elektronika ciała
+stałego c.d. (2025-04-11)</h1>
+<ul>
+<li>Tranzystor MOS
+<ul>
+<li>kanał ma swoją długość, rzędu 1-2nm</li>
+<li>miniaturyzacja we wszystkich wymiarach</li>
+<li>mierzymy charakterystyki prądowo-napięciowe</li>
+<li>napięcie progowe - najważniejszy parametr</li>
+<li>żeby je skutecznie zamodelować trzeba wziąć pod uwagę kwantyzację
+energii</li>
+</ul></li>
+<li>Mówimy o nanoelektronice jako odrębnej poddziedzinie nie tylko ze
+względu na skalę miniaturyzacji, ale też ze względu na to że rządzi się
+mechaniką kwantową</li>
+<li>Półprzewodniki do elektroniki wysokotemperaturowej
+<ul>
+<li>granica między półprzewodnikiem a izolatorem jest umowna</li>
+<li>w wysokiej temperaturze będzie wyższa wartość przerwy energetycznej
+niż 2eV</li>
+</ul></li>
+<li>Struktura pasmowa jest konsekwencją periodyczności (w
+krysztale)</li>
+</ul>
+<h2 id="dynamika-elektronu-w-krysztale">Dynamika elektronu w
+krysztale</h2>
+<ul>
+<li>k - wektor falowy
+<ul>
+<li>w fizyce klasycznej mówimy o pędzie</li>
+</ul></li>
+<li>E(k) - parabola
+<ul>
+<li>energia jest proporcjonalna to kwadratu pędu</li>
+</ul></li>
+<li>W rzeczywistym krysztale to nie jest takie proste
+<ul>
+<li>sieć krystaliczna drga (w temperaturze powyżej 0K)</li>
+<li>gradient potencjału - pole elektryczne</li>
+</ul></li>
+<li>W rzeczywistym krysztale pojawiają się lokalne minima - tam E(k)
+jest lokalnie parabolą
+<ul>
+<li>półprzewodniki z prostą przerwą zabronioną (GaAs) - minimum pasma
+przewodnictwa i maksimum pasma walencyjnego dla tego samego k</li>
+<li>półprzewodniki ze skośną przerwą zabronioną (krzem) - minimum pasma
+przewodzenia jest w innym k niż maksimum pasma walencyjnego</li>
+<li>różnica jest istotna przy zastosowaniach optycznych</li>
+<li>pęd i energia muszą zostać zachowane</li>
+<li>przy skośnej przerwie przy emisji fotonu jest też emitowany
+fonon</li>
+<li>raczej nie robi się diod świecących z krzemu z tego powodu</li>
+<li>kolor światła w diodzie świecącej wynika z szerokości przerwy
+zabronionej</li>
+<li>do diod świecących - prosta przerwa zabroniona</li>
+</ul></li>
+</ul>
+<h2 id="efekt-fotoelektryczny-wewnętrzny">Efekt fotoelektryczny
+wewnętrzny</h2>
+<ul>
+<li>Próg absorpcji</li>
+<li>Materiały mają różną charakterystykę absorpcji</li>
+<li>Od tego zależy czy ciało będzie przezroczyste czy nie</li>
+<li>Szkło krzemowe
+<ul>
+<li>ciało amorficzne</li>
+<li>SiO2</li>
+<li>przepuszcza całe promieniowanie widzialne</li>
+<li>ultrafiolet jest pochłaniany - powoduje emisję elektronów</li>
+</ul></li>
+<li>Szkło kwarcowe
+<ul>
+<li>ma większą szerokość przerwy zabronionej</li>
+<li>uporządkowana struktura SiO2</li>
+<li>mniejsza granica absorpcji (długość fali)</li>
+<li>przepuszcza ultrafiolet</li>
+</ul></li>
+</ul>
+<h2 id="pamięć-nieulotna-eprom">Pamięć nieulotna (EPROM)</h2>
+<ul>
+<li>utrzymuje stan po wyłączeniu zasilania</li>
+<li>jest studnia potencjału</li>
+<li>w studni są elektrony (ładunek) lub nie ma</li>
+<li>jak wyłączymy zasilanie to elektrony dalej tam są</li>
+<li>jak zresetować (stare pamięci)
+<ul>
+<li>przykładamy duże napięcie i naświetlamy powierzchnię półprzewodnika
+ultrafioletem</li>
+<li>elektrony dostają energię i mogą wyjść poza barierę</li>
+<li>okienko ze szkła kwarcowego - żeby przepuścić ultrafiolet</li>
+<li>niewygodne, podwyższa koszt, naświetlanie może długo trwać</li>
+</ul></li>
+<li>Jak resetować (współcześnie)
+<ul>
+<li>w pełni elektrycznie</li>
+<li>jak zwiększymy napięcie to rośnie gradient potencjału</li>
+<li>elektron może przemieścić się do wolnego stanu energetycznego
+(tunelowanie)</li>
+<li>procesem kasowania jest tunelowanie przez trójkątną barierę
+potencjału</li>
+</ul></li>
+</ul>
+<h2 id="masa-efektywna">Masa efektywna</h2>
+<ul>
+<li>Krótszy kanał w tranzystorze - powinien działać szybciej bo jest
+mniejszy dystans do przebycia</li>
+<li>Miniaturyzacja zwiększa szybkość działania</li>
+<li>Łatwiej przyspieszyć lżejszy elektron (masa efektywna)</li>
+<li>W ciele stałym masa efektywna jest inna niż dla swobodnego
+elektronu</li>
+<li>Masa efektywna - jak ostra jest parabola E(k)</li>
+<li>W arsenku galu
+<ul>
+<li>0.067 masy elektronu swobodnego</li>
+</ul></li>
+<li>W krzemie
+<ul>
+<li>0.97 albo 0.19 masy elektronu swobodnego ???</li>
+</ul></li>
+<li>W arsenku galu elektrony będą szybsze
+<ul>
+<li>decyduje ekonomia</li>
+<li>krzem bierze się z piasku, jest łatwo dostępny</li>
+<li>produkcja z GaAs jest ok. 5 razy droższa</li>
+</ul></li>
+<li>Masę efektywną można zmniejszyć
+<ul>
+<li>atom germanu jest większy od krzemu</li>
+<li>jak zastąpimy w krysztale krzemu część atomów germanem</li>
+<li>te większe naprężają strukturę krystaliczną</li>
+<li>doświadczalnie widzimy że to zmniejsza masę efektywną</li>
+</ul></li>
+</ul>
+<h2 id="filtry-optyczne">Filtry optyczne</h2>
+<ul>
+<li>Zastosowanie różnych progów absorpcji krzemu i germanu</li>
+</ul>
+<h2 id="diody-świecące">Diody świecące</h2>
+<ul>
+<li>Nie ma specjalnie wyboru przy kolorze zielonym</li>
+<li>Problem z diodą świecącą na biało
+<ul>
+<li>element świecący na niebiesko, np. GaN</li>
+<li>obudowa pokryta luminoforem, pobiera energię od diody i oddaje w
+zakresie widzialnym</li>
+</ul></li>
+</ul>
+<h2 id="koncentracja-ładunków">Koncentracja ładunków</h2>
+<ul>
+<li>Ile elektronów (lub dziur) mamy w krysztale</li>
+<li>Koncentracja - liczba nośników w jednostce objętości (cm^3)</li>
+<li>n - koncentracja elektronów</li>
+<li>p - koncentracja dziur</li>
+<li>Koncentracja równowagowa
+<ul>
+<li><span class="math inline">\(n_0\)</span>, <span
+class="math inline">\(p_0\)</span></li>
+<li>w równowadze termodynamicznym</li>
+<li>w ustalonej temperaturze, np. 300K</li>
+<li>elektrony ruszają się</li>
+</ul></li>
+<li>Procesy wstrzykiwania z zewnątrz</li>
+<li>strumienie elektronowe się kompensują
+<ul>
+<li>wypadkowy prąd jest 0</li>
+</ul></li>
+</ul>
+<h3 id="opis-formalny">Opis formalny</h3>
+<ul>
+<li>Koncentracja elektronów w paśmie przewodnictwa
+<ul>
+<li>obowiązuje zakaz Pauliego</li>
+<li>w danej temperaturze elektrony zajmują poziomy z jakimś
+prawdopodobieństwem</li>
+</ul></li>
+<li>Rozkład Fermiego-Diraca
+<ul>
+<li><span class="math inline">\(E_F\)</span> - poziomy powyżej są wolne,
+poziomy poniżej są obsadzone</li>
+<li>leży gdzieś po środku przerwy zabronionej</li>
+<li>im bliżej pasma przewodnictwa tym więcej elektronów</li>
+<li><span class="math inline">\(p_0n_0\)</span> nie zależy od <span
+class="math inline">\(E_F\)</span></li>
+</ul></li>
+</ul>
+<h2 id="półprzewodnik-samoistny">Półprzewodnik samoistny</h2>
+<ul>
+<li><span class="math inline">\(p_0=n_0=n_i\)</span>, - koncentracja
+samoistna</li>
+<li>Tylko przez samoistne przechodzenie…</li>
+<li>Poziom Fermiego <span class="math inline">\(E_i\)</span> w połowie
+przerwy zabronionej (mniej więcej)</li>
+<li>W krzemie w 300K <span
+class="math inline">\(n_i=10^{10}/cm^3\)</span>
+<ul>
+<li>bardzo słabo przewodzi prąd</li>
+</ul></li>
+<li>Dla porównania w metalu jest rzędu <span
+class="math inline">\(10^{22}\)</span>
+<ul>
+<li>prąd będzie dużo większy</li>
+</ul></li>
+<li>Krzem samoistny to idealnie czysty, bez defektów i domieszek
+<ul>
+<li>inne atomy wbudowują się w sieć krystaliczną</li>
+</ul></li>
+<li>Liczba samoistnych elektronów mocno zależy od <span
+class="math inline">\(E_G\)</span> (przerwy)
+<ul>
+<li>większa przerwa - mniejsza koncentracja</li>
+</ul></li>
+<li>Zastosowania krzemu samoistnego
+<ul>
+<li>rezystor (termistor, fotorezystor)</li>
+</ul></li>
+</ul>
+<h2 id="półprzewodnik-niesamoistny-domieszkowy">Półprzewodnik
+niesamoistny (domieszkowy)</h2>
+<ul>
+<li>Najczęściej w praktyce</li>
+<li>Typy
+<ul>
+<li>donorowy</li>
+<li>akceptorowy</li>
+</ul></li>
+<li>Donorowy
+<ul>
+<li>atom krzemu zastąpiony np. atomem fosforu</li>
+<li>ma 5 elektronów walencyjnych, 4 tworzą wiązania, a 1 jest
+swobodny</li>
+<li>piąty elektron jest ciągle związany z jądrem</li>
+<li>wystarczy niewiele energii żeby przeniósł się do pasma
+przewodnictwa</li>
+<li>jądro zostaje dodatnio zjonizowane</li>
+<li>donory zwiększają koncentrację elektronów, dziur nie</li>
+<li>półprzewodnik typu n</li>
+<li><span class="math inline">\(n_0 &gt; p_0\)</span>, liczba dziur
+wynika z temperatury</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#elektronika-ciała-stałego-c.d.-2025-04-11" id="toc-elektronika-ciała-stałego-c.d.-2025-04-11">Elektronika ciała
+stałego c.d. (2025-04-11)</a>
+<ul>
+<li><a href="#dynamika-elektronu-w-krysztale" id="toc-dynamika-elektronu-w-krysztale">Dynamika elektronu w
+krysztale</a></li>
+<li><a href="#efekt-fotoelektryczny-wewnętrzny" id="toc-efekt-fotoelektryczny-wewnętrzny">Efekt fotoelektryczny
+wewnętrzny</a></li>
+<li><a href="#pamięć-nieulotna-eprom" id="toc-pamięć-nieulotna-eprom">Pamięć nieulotna (EPROM)</a></li>
+<li><a href="#masa-efektywna" id="toc-masa-efektywna">Masa
+efektywna</a></li>
+<li><a href="#filtry-optyczne" id="toc-filtry-optyczne">Filtry
+optyczne</a></li>
+<li><a href="#diody-świecące" id="toc-diody-świecące">Diody
+świecące</a></li>
+<li><a href="#koncentracja-ładunków" id="toc-koncentracja-ładunków">Koncentracja ładunków</a>
+<ul>
+<li><a href="#opis-formalny" id="toc-opis-formalny">Opis
+formalny</a></li>
+</ul></li>
+<li><a href="#półprzewodnik-samoistny" id="toc-półprzewodnik-samoistny">Półprzewodnik samoistny</a></li>
+<li><a href="#półprzewodnik-niesamoistny-domieszkowy" id="toc-półprzewodnik-niesamoistny-domieszkowy">Półprzewodnik
+niesamoistny (domieszkowy)</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

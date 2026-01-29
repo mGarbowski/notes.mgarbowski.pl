@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w06--2020-11-10">ZPR- W06 -2020 11 10</h1>
+<h2 id="łączenie-c-i-c">Łączenie C i C++</h2>
+<ul>
+<li>Kompilatory muszą być zgodne
+<ul>
+<li>w taki sam sposób reprezentować dane</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>dekorowanie nazw dla linkera</li>
+<li>struktury danych</li>
+<li>funkcja main</li>
+<li>operacje na stercie</li>
+</ul></li>
+</ul>
+<h3 id="dekorowanie-nazw">Dekorowanie nazw</h3>
+<ul>
+<li>W C nazwy nie mogą być przeciążone, a w C++ tak</li>
+<li><code>extern "C" { ... }</code> - zapobiega dekorowaniu nazw</li>
+<li>Typy wbudowane, struktury i unie są wspólne dla obu języków</li>
+<li>Funkcja z bloku będzie bezpieczna do użycia w kodzie C</li>
+</ul>
+<h3 id="funkcja-main">Funkcja main</h3>
+<ul>
+<li>Należy wybrać tą z C++
+<ul>
+<li>zapewnia prawidłową inicjację składowych statycznych</li>
+<li>zapewnia wołanie destruktorów składowych statycznych</li>
+</ul></li>
+</ul>
+<h3 id="struktury-danych">Struktury danych</h3>
+<ul>
+<li>Wymieniać dane między modułami tylko za pomocą
+<ul>
+<li>typów wbudowanych</li>
+<li>POD - plain old data</li>
+<li>struktur bez funkcji wirtualnych</li>
+</ul></li>
+</ul>
+<h3 id="zarządzanie-stertą">Zarządzanie stertą</h3>
+<ul>
+<li>Obiekty zaalokowane przez <code>new</code> powinny być zwalniane
+przez <code>delete</code></li>
+<li>Pamięć zaalokowana przez <code>malloc</code> powinna być zwalniana
+przez <code>free</code></li>
+</ul>
+<h2 id="łączenie-c-i-python">Łączenie C++ i Python</h2>
+<h3 id="python">Python</h3>
+<ul>
+<li>Język interpretowany</li>
+<li>Dynamiczna kontrola typów</li>
+<li>Brak enkapsulacji</li>
+<li>Zarządzanie pamięcią przez garbage collection</li>
+<li>Dokumentacja w kodzie źródłowym</li>
+<li>Zmienna liczba argumentów funkcji i metod</li>
+<li>Wszystkie metody zachowują się jak wirtualne</li>
+<li><code>isinstance</code>, <code>issubclass</code></li>
+<li>Można dodawać metody do obiektu dynamicznie, w trakcie
+działania</li>
+<li>Pakiety
+<ul>
+<li>katalog zawierający plik <code>__init__.py</code>, może być
+pusty</li>
+</ul></li>
+<li>Ścieżka poszukiwań modułów
+<ul>
+<li><code>sys.path</code></li>
+<li>zmienna środowiskowa <code>PYTHONPATH</code></li>
+</ul></li>
+<li>Automatyczna instalacja pakietów</li>
+</ul>
+<h3 id="potrzeba-użycia-różnych-języków">Potrzeba użycia różnych
+języków</h3>
+<ul>
+<li>Nie ma języka do wszystkiego</li>
+<li>System komputerowy zawwsze
+<ul>
+<li>ma ograniczenia czasowe, tworzenie całości powinno być możliwie
+szybkie</li>
+<li>posiada pewne elementy, które są wąskim gardłem - powinny być
+zaimplementowane wydajnie (20% kodu)</li>
+</ul></li>
+<li>System komputerowy często
+<ul>
+<li>posiada elementy, których autor nie chce udostępniać (ukryć kod
+źródłowy przed użytkownikiem)</li>
+<li>posiada pewne fragmenty, które powinny być dostępne dla użytkownika
+(aby dostosować aplikację do indywidualnych potrzeb, np.
+konfiguracja)</li>
+</ul></li>
+<li>Powody rozszerzenia Pythona w C++
+<ul>
+<li>kod wykonywany jest szybciej</li>
+<li>wykorzystanie istniejącego kodu</li>
+<li>kod jest ukryty przed użytkownikiem</li>
+</ul></li>
+<li>Powody osadzenia Pythona w C++
+<ul>
+<li>brak potrzeby kompilacji</li>
+<li>wykorzystanie bibliotek Pythona</li>
+<li>kod dostępny dla użytkownika</li>
+</ul></li>
+<li>Interfejsy
+<ul>
+<li>Python C API</li>
+<li>Boost Python</li>
+</ul></li>
+<li>Interpreter Pythona jest dostarczony jako biblioteka dzielona</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w06--2020-11-10" id="toc-zpr--w06--2020-11-10">ZPR-
+W06 -2020 11 10</a>
+<ul>
+<li><a href="#łączenie-c-i-c" id="toc-łączenie-c-i-c">Łączenie C i
+C++</a>
+<ul>
+<li><a href="#dekorowanie-nazw" id="toc-dekorowanie-nazw">Dekorowanie
+nazw</a></li>
+<li><a href="#funkcja-main" id="toc-funkcja-main">Funkcja main</a></li>
+<li><a href="#struktury-danych" id="toc-struktury-danych">Struktury
+danych</a></li>
+<li><a href="#zarządzanie-stertą" id="toc-zarządzanie-stertą">Zarządzanie stertą</a></li>
+</ul></li>
+<li><a href="#łączenie-c-i-python" id="toc-łączenie-c-i-python">Łączenie
+C++ i Python</a>
+<ul>
+<li><a href="#python" id="toc-python">Python</a></li>
+<li><a href="#potrzeba-użycia-różnych-języków" id="toc-potrzeba-użycia-różnych-języków">Potrzeba użycia różnych
+języków</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

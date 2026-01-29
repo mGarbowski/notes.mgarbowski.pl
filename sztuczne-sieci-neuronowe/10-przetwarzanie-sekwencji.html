@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-przetwarzanie-sekwencji</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-sieci-rekurencyjne.html">Poprzedni: 09-sieci-rekurencyjne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-transformer.html">Następny: 11-transformer.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="przetwarzanie-sekwencji-i-tłumaczenie-maszynowe">Przetwarzanie
+sekwencji i tłumaczenie maszynowe</h1>
+<h2 id="sieci-dwukierunkowe">Sieci dwukierunkowe</h2>
+<ul>
+<li>Dwie sieci rekurencyjne</li>
+<li>Zadanie - wskazywanie specyficznych fragmentów sekwencji</li>
+<li>Problem - dopiero później dowiemy się że to był ten interesujący nas
+fragment</li>
+<li>Rozwiązanie - jedna sieć przechodzi sekwencję w jedną stronę, a
+druga w drugą
+<ul>
+<li>wyjścia z obu sieci produkujących stan (<span
+class="math inline">\(m\)</span> i <span
+class="math inline">\(m&#39;\)</span>) trafiają do sieci produkującej
+wyjście (<span class="math inline">\(g\)</span>)</li>
+</ul></li>
+</ul>
+<h2 id="sieci-wielowymiarowe">Sieci wielowymiarowe</h2>
+<ul>
+<li>Więcej wymiarów, które potraktujemy analogicznie jak czas
+<ul>
+<li>np. współrzędne <span class="math inline">\(x\)</span> i <span
+class="math inline">\(y\)</span> piksela w obrazie</li>
+</ul></li>
+<li>Możemy traktować wielowymiarowe dane jako sekwencje
+<ul>
+<li>np. obraz 2D</li>
+</ul></li>
+<li>Dostęp do poprzedniego elementu sekwencji jednego i drugiego
+wymiaru</li>
+<li>Jest jedna sieć, która idzie np. od lewego dolnego piksela do
+prawego górnego</li>
+<li>Oblicza stan na podstawie
+<ul>
+<li>wartości piksela</li>
+<li>stanu dla piksela po lewej</li>
+<li>stanu dla piksela po prawej</li>
+</ul></li>
+<li><span class="math inline">\(h_{x,y} = m(h_{x-1,y}, h_{x, y-1},
+x_{x,y}; \theta)\)</span></li>
+</ul>
+<h2 id="sieci-wielowymiarowe-dwukierunkowe">Sieci
+wielowymiarowe-dwukierunkowe</h2>
+<ul>
+<li>Przed sieciami splotowymi</li>
+<li>Mamy <span class="math inline">\(n\)</span> wymiarów takich jak
+czas</li>
+<li>Po każdym wymiarze sieci chodzą w oba kierunki</li>
+<li>Sieci jest tyle ile kombinacji kierunków - <span
+class="math inline">\(2^n\)</span>
+<ul>
+<li>dla 2D lewo-góra, lewo-dół, prawo-góra, prawo-dół</li>
+</ul></li>
+</ul>
+<h2
+id="alternatywy-dla-rekurencji-rozwiązujące-ten-sam-problem">Alternatywy
+dla rekurencji rozwiązujące ten sam problem</h2>
+<h3 id="przesuwające-się-okno">Przesuwające się okno</h3>
+<ul>
+<li>Sliding window</li>
+<li><span class="math inline">\(y_t = f(x_t, \ldots, x_{t-w+1};
+\theta)\)</span>
+<ul>
+<li><span class="math inline">\(w\)</span> - szerokość okna</li>
+</ul></li>
+<li>Oprócz elementu aktualnego bierze też określoną liczbę poprzednich
+elementów</li>
+<li>Bez operacji rekurencyjnych</li>
+<li>Działa szybko</li>
+<li>Nie ma dostępu do stanu, nie wiemy co było przed oknem</li>
+<li>Waga każdego elementu jest jednakowa
+<ul>
+<li>sieć może przypisać wagę co najwyżej do pozycji w oknie</li>
+</ul></li>
+</ul>
+<h3 id="atencja">Atencja</h3>
+<ul>
+<li>Liczba głów uwagi <span class="math inline">\(m\)</span>
+<ul>
+<li>wynik z wielu głów agreguje się na końcu</li>
+</ul></li>
+<li>Szerokość okna <span class="math inline">\(w\)</span></li>
+<li>Dopisujemy do każdego <span class="math inline">\(x_i\)</span>
+znaczniki pozycji
+<ul>
+<li><span class="math inline">\(\sin((t-i)/p)\)</span>, <span
+class="math inline">\(\cos((t-i)/p)\)</span></li>
+<li>między <span class="math inline">\(-1\)</span> i <span
+class="math inline">\(1\)</span></li>
+<li>relatywna pozycja elementu w całej sekwencji</li>
+<li>kilka różnych <span class="math inline">\(p\)</span> - skala
+(bardziej lokalne / bardziej globalne)</li>
+<li>ten sam token ale na różnych pozycjach dostaje różne zanurzenia</li>
+</ul></li>
+<li>Każdej głowie odpowiada sieć <span
+class="math inline">\(b_j\)</span>
+<ul>
+<li><span class="math inline">\(a_{i,j} = b_j(x_i, \ldots, x_{i-w+1};
+\nu)\)</span></li>
+<li>wyjście sieci - <span class="math inline">\(a_{i,j}\)</span> - waga
+konkretnego elementu</li>
+</ul></li>
+<li>Dla każdej głowy sieć <span class="math inline">\(g_j\)</span>
+<ul>
+<li>przetwarza okno sekwencji wejściowej w wynik</li>
+<li>wyjście ważone wagami <span
+class="math inline">\(a_{i,j}\)</span></li>
+<li><span class="math inline">\(o_j = (\sum_{i=w}^t \exp(a_{i,j})
+g_j(x_i, \ldots, x_{i-w+1}; \nu) / (\sum_{i=w}^t
+\exp(a_{i,j}))\)</span></li>
+</ul></li>
+<li>Wyjścia z każdej głowy agregowane przez kolejną sieć acykliczną
+<ul>
+<li><span class="math inline">\(f(o_1, \ldots, o_m;
+\theta)\)</span></li>
+</ul></li>
+<li>Sprawdza się dużo lepiej niż przesuwające się okno</li>
+</ul>
+<h2 id="dowolne-przekształcenie-sekwencja-sekwencja">Dowolne
+przekształcenie sekwencja-sekwencja</h2>
+<ul>
+<li>Architektury</li>
+<li>Wejście - sekwencja o dowolnej długości</li>
+<li>Wyjście - sekwencja o dowolnej długości</li>
+<li>Zadania
+<ul>
+<li>tłumaczenie maszynowe</li>
+<li>transkrypcja mowy</li>
+<li>przetwarzanie sekwencji DNA</li>
+</ul></li>
+</ul>
+<h2 id="tłumaczenie-maszynowe">Tłumaczenie maszynowe</h2>
+<h3 id="słowa-w-wektorach">Słowa w wektorach</h3>
+<ul>
+<li>Cel - reprezentacja słów wektorami</li>
+<li>Wektory reprezentacji (embeddings)
+<ul>
+<li>wektor liczb rzeczywistych reprezentujących dane słowo (token)</li>
+</ul></li>
+<li>Zagnieżdżenia
+<ul>
+<li>Word2Vec</li>
+<li>GloVe</li>
+<li>BERT</li>
+</ul></li>
+<li>Zagnieżdżenia dla języków bierze się z bibliotek
+<ul>
+<li>nie trenuje się tego na własną rękę</li>
+<li>użycie gotowców jest wskazane</li>
+</ul></li>
+</ul>
+<h3 id="word2vec">Word2Vec</h3>
+<ul>
+<li>Technika uczenia modelu generującego zanurzenia z tokenów</li>
+<li>Trenuje się model z dwoma warstwami
+<ul>
+<li>pierwsza warstwa zamienia indeks w słowniku na embedding</li>
+<li>druga zamienia embedding na rozkład prawdopodobieństwa</li>
+<li>po treningu używa się tylko tej pierwszej do generowania
+zanurzeń</li>
+<li>są 2 podejścia do uczenia - zadania optymalizacji na tym rozkładzie
+prawdopodobieństw</li>
+</ul></li>
+<li>Continuous Bag Of Words
+<ul>
+<li>Okno - słowa wcześniej i później</li>
+<li>promień okna - <span class="math inline">\(C\)</span></li>
+<li>maksymalizujemy prawdopodobieństwo słowa na miejscu <span
+class="math inline">\(t\)</span> pod warunkiem że przed i po są
+określone słowa</li>
+<li><span class="math inline">\(\max P(x_t | x_{t+i}), \quad i \in \{-C,
+\ldots, -1, 1, \ldots, C\}\)</span></li>
+<li>przewiduje docelowe słowo na podstawie kontekstu</li>
+<li>model oblicza zanurzenia dla wszystkich słów z kontekstu a potem je
+uśrednia</li>
+</ul></li>
+<li>Skip-Gram
+<ul>
+<li>odwrotnie niż CBOW</li>
+<li>wiedząc że w miejscu <span class="math inline">\(t\)</span> jest
+słowo <span class="math inline">\(x_t\)</span> maksymalizujemy
+prawdopodobieństwo że dookoła (w oknie) są określone słowa</li>
+<li>przewidywanie okna kontekstu na podstawie jednego słowa</li>
+</ul></li>
+<li>W porządku dla małych słowników</li>
+<li>Zagnieżdżenia dotyczą całych słów</li>
+</ul>
+<h3 id="enkoder-dekoder">Enkoder-dekoder</h3>
+<ul>
+<li>Najczęściej symetryczne części</li>
+<li>Koder
+<ul>
+<li>koduje sekwencję wejściową</li>
+<li>nie ma wyjść</li>
+<li>produkuje swój stan ukryty</li>
+</ul></li>
+<li>Dekoder
+<ul>
+<li>produkuje wyjściową sekwencję na podstawie stanu ukrytego
+kodera</li>
+<li>ostatni element to EOS (end of sentence)</li>
+</ul></li>
+<li>Prosta architektura</li>
+<li>Zbija całą sekwencję w stałowymiarowy wektor
+<ul>
+<li>może być duża strata informacji</li>
+</ul></li>
+<li>Nie ma ważenia elementów w sekwencji wejściowej</li>
+</ul>
+<h3 id="enkoder-dekoder-z-atencją">Enkoder-dekoder z atencją</h3>
+<ul>
+<li>Koder - dwukierunkowa, rekurencyjna sieć
+<ul>
+<li>produkuje adnotacje</li>
+</ul></li>
+<li>Warstwa atencji tworzy wagi adnotacji
+<ul>
+<li>poprawia działanie dekodera bo dzięki wagom skupia się bardziej na
+ważniejszych elementach</li>
+</ul></li>
+<li>Dekoder wykorzystuje ważone adnotacje i stan kodera do produkowania
+wyjścia</li>
+</ul>
+<h3 id="enkoder-dekoder-z-atencją-v2">Enkoder-dekoder z atencją v2</h3>
+<ul>
+<li>Dodatkowo rekurencyjna część dekodera i sprzężenie zwrotne</li>
+<li>Przy atencji bierze pod uwagę stan ukryty z części kodera i z części
+dekodera</li>
+<li>Zakodowana informacja o wszystkich elementach wyjścia i wejścia do
+momentu <span class="math inline">\(t\)</span>
+<ul>
+<li>lepsze ważenie</li>
+<li>lepsze określenie co jest ważne</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przetwarzanie-sekwencji-i-tłumaczenie-maszynowe" id="toc-przetwarzanie-sekwencji-i-tłumaczenie-maszynowe">Przetwarzanie
+sekwencji i tłumaczenie maszynowe</a>
+<ul>
+<li><a href="#sieci-dwukierunkowe" id="toc-sieci-dwukierunkowe">Sieci
+dwukierunkowe</a></li>
+<li><a href="#sieci-wielowymiarowe" id="toc-sieci-wielowymiarowe">Sieci
+wielowymiarowe</a></li>
+<li><a href="#sieci-wielowymiarowe-dwukierunkowe" id="toc-sieci-wielowymiarowe-dwukierunkowe">Sieci
+wielowymiarowe-dwukierunkowe</a></li>
+<li><a href="#alternatywy-dla-rekurencji-rozwiązujące-ten-sam-problem" id="toc-alternatywy-dla-rekurencji-rozwiązujące-ten-sam-problem">Alternatywy
+dla rekurencji rozwiązujące ten sam problem</a>
+<ul>
+<li><a href="#przesuwające-się-okno" id="toc-przesuwające-się-okno">Przesuwające się okno</a></li>
+<li><a href="#atencja" id="toc-atencja">Atencja</a></li>
+</ul></li>
+<li><a href="#dowolne-przekształcenie-sekwencja-sekwencja" id="toc-dowolne-przekształcenie-sekwencja-sekwencja">Dowolne
+przekształcenie sekwencja-sekwencja</a></li>
+<li><a href="#tłumaczenie-maszynowe" id="toc-tłumaczenie-maszynowe">Tłumaczenie maszynowe</a>
+<ul>
+<li><a href="#słowa-w-wektorach" id="toc-słowa-w-wektorach">Słowa w
+wektorach</a></li>
+<li><a href="#word2vec" id="toc-word2vec">Word2Vec</a></li>
+<li><a href="#enkoder-dekoder" id="toc-enkoder-dekoder">Enkoder-dekoder</a></li>
+<li><a href="#enkoder-dekoder-z-atencją" id="toc-enkoder-dekoder-z-atencją">Enkoder-dekoder z atencją</a></li>
+<li><a href="#enkoder-dekoder-z-atencją-v2" id="toc-enkoder-dekoder-z-atencją-v2">Enkoder-dekoder z atencją
+v2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

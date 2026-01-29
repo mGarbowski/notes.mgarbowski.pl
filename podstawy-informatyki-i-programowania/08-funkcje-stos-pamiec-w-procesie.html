@@ -70,7 +70,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="funkcje-stos-i-struktura-pamięci-procesu">Funkcje, stos i
 struktura pamięci procesu</h1>
 <h2 id="funkcje">Funkcje</h2>
@@ -403,53 +402,59 @@ przy buffer overflow.</p>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#funkcje-stos-i-struktura-pamięci-procesu">Funkcje, stos i
+<li><a href="#funkcje-stos-i-struktura-pamięci-procesu" id="toc-funkcje-stos-i-struktura-pamięci-procesu">Funkcje, stos i
 struktura pamięci procesu</a>
 <ul>
-<li><a href="#funkcje">Funkcje</a></li>
-<li><a href="#stos">Stos</a>
+<li><a href="#funkcje" id="toc-funkcje">Funkcje</a></li>
+<li><a href="#stos" id="toc-stos">Stos</a>
 <ul>
-<li><a href="#do-zrealizowania-stosu-potrzeba">Do zrealizowania stosu
+<li><a href="#do-zrealizowania-stosu-potrzeba" id="toc-do-zrealizowania-stosu-potrzeba">Do zrealizowania stosu
 potrzeba</a></li>
 </ul></li>
-<li><a href="#surowe-wywołanie-funkcji">Surowe wywołanie funkcji</a>
+<li><a href="#surowe-wywołanie-funkcji" id="toc-surowe-wywołanie-funkcji">Surowe wywołanie funkcji</a>
 <ul>
-<li><a href="#ramka-wywołania">Ramka wywołania</a></li>
+<li><a href="#ramka-wywołania" id="toc-ramka-wywołania">Ramka
+wywołania</a></li>
 </ul></li>
-<li><a href="#instrukcje-call-i-ret">Instrukcje call i ret</a>
+<li><a href="#instrukcje-call-i-ret" id="toc-instrukcje-call-i-ret">Instrukcje call i ret</a>
 <ul>
-<li><a href="#call">Call</a></li>
-<li><a href="#ret">Ret</a></li>
+<li><a href="#call" id="toc-call">Call</a></li>
+<li><a href="#ret" id="toc-ret">Ret</a></li>
 </ul></li>
-<li><a href="#zwrócenie-wyniku-z-funkcji">Zwrócenie wyniku z
+<li><a href="#zwrócenie-wyniku-z-funkcji" id="toc-zwrócenie-wyniku-z-funkcji">Zwrócenie wyniku z funkcji</a></li>
+<li><a href="#zachowanie-kontekstu" id="toc-zachowanie-kontekstu">Zachowanie kontekstu</a></li>
+<li><a href="#przekazanie-argumentów-do-funkcji" id="toc-przekazanie-argumentów-do-funkcji">Przekazanie argumentów do
+funkcji</a>
+<ul>
+<li><a href="#parametr-funkcji" id="toc-parametr-funkcji">Parametr
 funkcji</a></li>
-<li><a href="#zachowanie-kontekstu">Zachowanie kontekstu</a></li>
-<li><a href="#przekazanie-argumentów-do-funkcji">Przekazanie argumentów
-do funkcji</a>
-<ul>
-<li><a href="#parametr-funkcji">Parametr funkcji</a></li>
-<li><a href="#argument-funkcji">Argument funkcji</a></li>
+<li><a href="#argument-funkcji" id="toc-argument-funkcji">Argument
+funkcji</a></li>
 </ul></li>
-<li><a href="#zmienne-lokalne">Zmienne lokalne</a></li>
-<li><a href="#rejestr-bazowy-base-pointer---ebp">Rejestr bazowy (Base
-Pointer) - EBP</a></li>
-<li><a href="#ramka-stosu-w-x86">Ramka stosu w x86</a></li>
-<li><a href="#czemu-stos-rośnie-w-dół">Czemu stos rośnie w dół</a>
+<li><a href="#zmienne-lokalne" id="toc-zmienne-lokalne">Zmienne
+lokalne</a></li>
+<li><a href="#rejestr-bazowy-base-pointer---ebp" id="toc-rejestr-bazowy-base-pointer---ebp">Rejestr bazowy (Base Pointer)
+- EBP</a></li>
+<li><a href="#ramka-stosu-w-x86" id="toc-ramka-stosu-w-x86">Ramka stosu
+w x86</a></li>
+<li><a href="#czemu-stos-rośnie-w-dół" id="toc-czemu-stos-rośnie-w-dół">Czemu stos rośnie w dół</a>
 <ul>
-<li><a href="#mechanizm-stronicowania-pamięci">Mechanizm stronicowania
+<li><a href="#mechanizm-stronicowania-pamięci" id="toc-mechanizm-stronicowania-pamięci">Mechanizm stronicowania
 pamięci</a></li>
-<li><a href="#segmenty-pamięci">Segmenty pamięci</a></li>
+<li><a href="#segmenty-pamięci" id="toc-segmenty-pamięci">Segmenty
+pamięci</a></li>
 </ul></li>
-<li><a href="#przekazywanie-argumentów">Przekazywanie
-argumentów</a></li>
-<li><a href="#python">Python</a>
+<li><a href="#przekazywanie-argumentów" id="toc-przekazywanie-argumentów">Przekazywanie argumentów</a></li>
+<li><a href="#python" id="toc-python">Python</a>
 <ul>
-<li><a href="#kopia-płytka">Kopia płytka</a></li>
-<li><a href="#kopia-głęboka">Kopia głęboka</a></li>
+<li><a href="#kopia-płytka" id="toc-kopia-płytka">Kopia płytka</a></li>
+<li><a href="#kopia-głęboka" id="toc-kopia-głęboka">Kopia
+głęboka</a></li>
 </ul></li>
-<li><a href="#lambda">Lambda</a></li>
-<li><a href="#rekurencja">Rekurencja</a></li>
-<li><a href="#buffer-overflow">Buffer overflow</a></li>
+<li><a href="#lambda" id="toc-lambda">Lambda</a></li>
+<li><a href="#rekurencja" id="toc-rekurencja">Rekurencja</a></li>
+<li><a href="#buffer-overflow" id="toc-buffer-overflow">Buffer
+overflow</a></li>
 </ul></li>
 </ul>
 </nav>

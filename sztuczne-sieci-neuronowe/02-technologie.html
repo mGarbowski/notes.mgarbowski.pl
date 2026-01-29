@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-technologie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-perceptron.html">Poprzedni: 01-perceptron.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-algorytmy-uczenia.html">Następny: 03-algorytmy-uczenia.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="technologie">Technologie</h1>
+<h2 id="neuron">Neuron</h2>
+<ul>
+<li>Pojedynczy neuron realizuje mnożenie elementów wektora wejść przez
+wagi i dodanie obciążenia
+<ul>
+<li>mnożenie wektora wejść (rozszerzonego o 1) przez wektor wag (iloczyn
+skalarny)</li>
+</ul></li>
+<li>Warstwa neuronów to mnożenie wektora wejść przez macierz parametrów
+neuronów warstwy</li>
+<li>Warstwa neuronów z mini-pakietem
+<ul>
+<li>mnożenie macierzy - wagi warstwy i przykłady z minipakietu</li>
+<li>często rozmiar mini-pakietu to potęga 2</li>
+<li>w mnożeniu macierzy nie jest ważna kolejność - dobrze nadaje się do
+zrównoleglania</li>
+</ul></li>
+<li>Mówiliśmy o przypadku gdzie wejściem jest wektor
+<ul>
+<li>obraz w skali szarości jest macierzą</li>
+<li>obraz barwny ma 3 wymiary</li>
+<li>wejściem neuronu może być macierz lub tensor wyższego rzędu</li>
+<li>wtedy wagi też są odpowiednio wyższego rzędu</li>
+</ul></li>
+<li>Biblioteki zakładają że jeden wymiar wejścia przypada na pozycję w
+mini-pakiecie</li>
+</ul>
+<h3 id="liczba-wag-w-perceptronie-przykład">Liczba wag w perceptronie
+(przykład)</h3>
+<ul>
+<li>mamy 6 warstw ukrytych po 5 neuronów</li>
+<li>1 neuron wyjściowy</li>
+<li>10 elementów wejścia</li>
+<li>w pierwszej warstwie ukrytej jest 10 wejść do każdego neuronu</li>
+<li><span class="math inline">\(10 \cdot 5 + 5\)</span> wag (po 10 wag i
+1 obciążenie na neuron)</li>
+<li>między 1 a 2 ukrytą warstwą jest 25 wag i 5 obciążeń</li>
+<li>do ostatniej warstwy jest 5 wag i 1 obciążenie</li>
+<li>w sumie sieć ma <span class="math inline">\((10 \cdot 5 + 5) + 5
+\cdot (5 \cdot 5 + 5) + (5 + 1)\)</span> parametrów</li>
+</ul>
+<h2 id="tensory">Tensory</h2>
+<ul>
+<li>Macierz n-wymiarowa</li>
+<li>Rząd tensora
+<ul>
+<li>1 - wektor</li>
+<li>2 - macierz</li>
+</ul></li>
+<li>Większe rzędy
+<ul>
+<li>np. obrazy hiperspektralne - więcej różnych długości światła niż
+standardowe 3</li>
+</ul></li>
+</ul>
+<h2 id="obliczenia-tensorowe">Obliczenia tensorowe</h2>
+<ul>
+<li>Większość operacji jest wykonywana jako operacje tensorowe</li>
+<li>Wagi / aktywacje są rzadziej odczytywane z pamięci</li>
+</ul>
+<h2 id="obliczenia-na-gpu">Obliczenia na GPU</h2>
+<ul>
+<li>Zwiększając liczbę rdzeni można efektywnie wykonywać operacje dla
+sieci neuronowych</li>
+<li>GPU działa asynchronicznie z CPU
+<ul>
+<li>transfer danych z CPU do GPU</li>
+<li>zadanie obliczeniowe do kolejki na GPU</li>
+<li>CPU czeka aż GPU sygnalizuje że skończyło</li>
+<li>transfer danych z GPU na CPU</li>
+</ul></li>
+<li>Te same obliczenia na floatach mogą nie być powtarzalne przez
+przełączanie wątków</li>
+<li>Architektura GPU - SIMD
+<ul>
+<li>wiele wątków wykonuje ten sam kod</li>
+<li>wątek ma w zmiennej swój identyfikator</li>
+</ul></li>
+</ul>
+<h2 id="technologia-cuda">Technologia CUDA</h2>
+<ul>
+<li>Compute Unified Device Architecture
+<ul>
+<li>produkt Nvidii</li>
+</ul></li>
+<li>AMD dostosował się do OpenCL
+<ul>
+<li>Open Computing Language</li>
+<li>język programowania kart graficznych ogólnego przeznaczenia</li>
+</ul></li>
+<li>GPU ma kilka multi-procesorów strumieniowych
+<ul>
+<li>SM (Streaming Multiprocessor)</li>
+</ul></li>
+<li>Każdy SM ma kilka rdzeni
+<ul>
+<li>np. 128 wątki wykonywane współbieżnie / synchronicznie na 1 SM</li>
+</ul></li>
+<li>Pamięć GPU - DDR
+<ul>
+<li>pamięć dzielona SM w rejestrach</li>
+</ul></li>
+<li>Mini-pakiet musi mieścić się w pamięci GPU
+<ul>
+<li>w plikach konfiguracyjnych modeli można sterować rozmiarem
+mini-pakietów</li>
+</ul></li>
+<li>Procedura obliczeniowa
+<ul>
+<li>ten sam kod</li>
+<li>zbiór bloków wątków</li>
+<li>jeden blok realizowany na tym samym SM</li>
+</ul></li>
+<li>Wątek zna
+<ul>
+<li>indeks swojego bloku</li>
+<li>swój indeks w bloku</li>
+<li>liczbę bloków i rozmiar bloku</li>
+</ul></li>
+<li>Wszystkie wątki mają wspólny dostęp do kolejnych adresów pamięci
+GPU</li>
+<li>Zadania są tak dekomponowane żeby czytały sąsiednie komórki pamięci
+GPU</li>
+<li>Szeroka szyna pamięci GPU wpływa na wydajne przetwarzanie</li>
+</ul>
+<h2 id="biblioteki-do-obliczeń-na-sieciach-neuronowych">Biblioteki do
+obliczeń na sieciach neuronowych</h2>
+<ul>
+<li>TensorFlow</li>
+<li>PyTorch
+<ul>
+<li>obecnie najbardziej popularny w zastosowaniach prototypowych</li>
+</ul></li>
+<li>JAX</li>
+<li>MXNet</li>
+<li>Theano</li>
+<li>Keras</li>
+<li>Paddle Paddle
+<ul>
+<li>popularny w Chinach</li>
+</ul></li>
+</ul>
+<h3 id="wspólne-cechy">Wspólne cechy</h3>
+<ul>
+<li>Wsparcie dla obliczeń na GPU</li>
+<li>Radzą sobie z asynchronicznością CPU-GPU</li>
+<li>Wsparcie dla przetwarzania mini-pakietów</li>
+<li>Automatyczne różniczkowanie</li>
+<li>Separacja
+<ul>
+<li>budowy sieci</li>
+<li>obliczeń w sieci</li>
+<li>obliczania gradientu</li>
+<li>uczenia sieci</li>
+</ul></li>
+</ul>
+<h3 id="tensorflow">TensorFlow</h3>
+<ul>
+<li>Kod programu ustawia graf obliczeniowy
+<ul>
+<li>ustawia się sesję</li>
+<li>w ramach sesji podaje się na wejściu dane</li>
+<li>graf jest wykonywany</li>
+<li>trudne do debugowania - całe obliczenia jako black-box</li>
+</ul></li>
+<li>W wersji 2
+<ul>
+<li>bliżej programowania obiektowego</li>
+</ul></li>
+<li>Python, C++ i JS
+<ul>
+<li>JS dobry do odpalania demonstracji wytrenowanego modelu w
+przeglądarce</li>
+</ul></li>
+</ul>
+<h3 id="pytorch">PyTorch</h3>
+<ul>
+<li>Kod faktycznie uruchamia obliczenie wyjść sieci w przód operacjami
+na tensorach i tworzy graf obliczeniowy</li>
+<li>Możliwość debugowania
+<ul>
+<li>podglądanie grafu obliczeniowego w trakcie wykonania</li>
+</ul></li>
+<li>Metoda <code>backward</code> oblicza gradient</li>
+<li>Metoda <code>step</code> wykonuje krok optymalizacji wag sieci</li>
+</ul>
+<h2 id="onnx">ONNX</h2>
+<ul>
+<li>Open Neural Network Exchange</li>
+<li>Język</li>
+<li>Umożliwia eksport wag i struktury modelu w ustandaryzowany
+sposób</li>
+<li>Niezależny od frameworka i języka programowania</li>
+<li>Częsty przypadek
+<ul>
+<li>kod w pytorchu do trenowania</li>
+<li>eksport do onnx</li>
+<li>uruchomienie produkcyjne w innym środowisku</li>
+</ul></li>
+<li>Jest runtime działający w przeglądarce</li>
+</ul>
+<h2 id="praktyczne-kwestie">Praktyczne kwestie</h2>
+<ul>
+<li>Korzystając z pretrenowanych modeli
+<ul>
+<li>np. sieć głęboka do wykrywania cech w obrazach i klasyfikacji</li>
+</ul></li>
+<li>Można zamrozić część wag
+<ul>
+<li>np. warstwy odpowiedzialne za ekstrakcję cech z obrazów</li>
+</ul></li>
+<li>A samemu dotrenować tylko ostatnie warstwy np. tylko warstwy głęboko
+połączone do nowego zadania</li>
+</ul>
+<h2 id="numba">Numba</h2>
+<ul>
+<li>Do obliczeń macierzowych, nie tylko związane z sieciami
+neuronowymi</li>
+<li>Kod optymalizowany przez użycie <code>@jit</code></li>
+<li>Obliczenia na CPU i GPU</li>
+<li>Jeśli istnieją funkcje wbudowane w pythonie to raczej one będą
+szybsze</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#technologie" id="toc-technologie">Technologie</a>
+<ul>
+<li><a href="#neuron" id="toc-neuron">Neuron</a>
+<ul>
+<li><a href="#liczba-wag-w-perceptronie-przykład" id="toc-liczba-wag-w-perceptronie-przykład">Liczba wag w perceptronie
+(przykład)</a></li>
+</ul></li>
+<li><a href="#tensory" id="toc-tensory">Tensory</a></li>
+<li><a href="#obliczenia-tensorowe" id="toc-obliczenia-tensorowe">Obliczenia tensorowe</a></li>
+<li><a href="#obliczenia-na-gpu" id="toc-obliczenia-na-gpu">Obliczenia
+na GPU</a></li>
+<li><a href="#technologia-cuda" id="toc-technologia-cuda">Technologia
+CUDA</a></li>
+<li><a href="#biblioteki-do-obliczeń-na-sieciach-neuronowych" id="toc-biblioteki-do-obliczeń-na-sieciach-neuronowych">Biblioteki do
+obliczeń na sieciach neuronowych</a>
+<ul>
+<li><a href="#wspólne-cechy" id="toc-wspólne-cechy">Wspólne
+cechy</a></li>
+<li><a href="#tensorflow" id="toc-tensorflow">TensorFlow</a></li>
+<li><a href="#pytorch" id="toc-pytorch">PyTorch</a></li>
+</ul></li>
+<li><a href="#onnx" id="toc-onnx">ONNX</a></li>
+<li><a href="#praktyczne-kwestie" id="toc-praktyczne-kwestie">Praktyczne
+kwestie</a></li>
+<li><a href="#numba" id="toc-numba">Numba</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

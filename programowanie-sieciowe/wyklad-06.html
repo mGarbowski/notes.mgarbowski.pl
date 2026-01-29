@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-06</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-05.html">Poprzedni: wyklad-05.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Programowanie sieciowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-podstawy-sieci.html">01-podstawy-sieci.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="protokół-http-2024-11-28">Protokół HTTP (2024-11-28)</h1>
+<ul>
+<li>Nie wymaga przechowania informacji o stanie sesji przez komunikujące
+się strony
+<ul>
+<li>bezstanowy</li>
+<li>łatwiejszy w implementacji</li>
+<li>bardziej niezawodny</li>
+</ul></li>
+<li>Uproszczony schemat korzystania przez przeglądarkę
+<ul>
+<li>Użytkownik wpisuje adres URL</li>
+<li>Klient - DNS lookup, określa IP</li>
+<li>K - wysłanie <code>GET / HTTP/1.1 \r\n\r\n</code></li>
+<li>Serwer - decyduje jak obsłużyć żądanie</li>
+<li>S - wysyła nagłówek odpowiedzi i opcjonalnie dane</li>
+<li>K, S - sesja TCP jest zamykana (jest możliwość nie zamykać od
+razu)</li>
+</ul></li>
+</ul>
+<pre><code>mgarbowski@yoga:~$ telnet www.elka.pw.edu.pl 80
+Trying 194.29.160.96...
+Connected to www.elka.pw.edu.pl.
+Escape character is &#39;^]&#39;.
+GET / HTTP/1.1
+
+HTTP/1.1 400 Bad Request
+Server: nginx/1.20.1
+Date: Thu, 28 Nov 2024 07:38:28 GMT
+Content-Type: text/html
+Content-Length: 157
+Connection: close
+
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;nginx/1.20.1&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+Connection closed by foreign host.</code></pre>
+<h2 id="budowa">Budowa</h2>
+<pre><code>Full-Request = 
+    Request-Line
+    * (General-Header | Request-Header | Entity-Header)
+    CRLF
+    [Entity-Body]
+
+Full-Response = 
+    Status-Line
+    * (General-Header | Response-Header | Entity-Header)
+    CRLF
+    [Entity-Body]
+</code></pre>
+<ul>
+<li>Entity-Body - przesyłany dokument
+<ul>
+<li>opcjonalny</li>
+<li>tekstowy lub binarny</li>
+</ul></li>
+<li>Entity-Header
+<ul>
+<li>odnosi się do przesyłanych danych</li>
+<li>ContentType</li>
+<li>ContentLength</li>
+</ul></li>
+</ul>
+<h2 id="url-uri-urn">URL, URI, URN</h2>
+<ul>
+<li>Uniform Resource Identifier
+<ul>
+<li>różne typy zasobów</li>
+<li>dowolny schemat</li>
+<li>dokument, usługa, …</li>
+<li>identyfikator - napis ASCII</li>
+</ul></li>
+<li>Uniform Resource Locator
+<ul>
+<li>podzbiór URI</li>
+<li>identyfikuje i lokalizuje zasób</li>
+<li>określa zasób przez sposób dostępu (np. http)</li>
+<li>używa schematu opisującego protokół dostępu</li>
+<li>np. <code>https://www.w3.org/index.html</code></li>
+<li><code>schemat domena[:port] ścieżka parametry[#kotwica]</code></li>
+</ul></li>
+<li>Uniform Resource Name
+<ul>
+<li>podzbiór URN</li>
+<li>identyfikuje zasób</li>
+<li>nie opisuje lokalizacji i sposobu dostępu</li>
+<li>trwała i unikalna nazwa</li>
+<li>niezależna od lokalizacji</li>
+<li>np. <code>isbn:</code></li>
+</ul></li>
+</ul>
+<h3 id="url-w-http-i-https">URL w HTTP i HTTPS</h3>
+<ul>
+<li>Opcjonalny login
+<ul>
+<li>username i hasło, <code>@</code></li>
+</ul></li>
+<li>Opcjonalne query</li>
+<li>Wybrane znaki ASCII
+<ul>
+<li>znaki bezpieczne</li>
+<li>znaki specjalne ### URL escape</li>
+</ul></li>
+<li><code>escape = "%" HEX HEX</code></li>
+<li>żeby zawrzeć znak, który ma specjalne znaczenie</li>
+<li>spacje, nie ASCII</li>
+</ul>
+<h3 id="przykładowy-url-phishingowy">Przykładowy URL phishingowy</h3>
+<ul>
+<li>Wtkorzystanie logowanie z hasłem w URLu</li>
+</ul>
+<h2 id="polecenia-http-method">Polecenia HTTP (method)</h2>
+<ul>
+<li><code>GET</code> - pobierz dane</li>
+<li><code>HEAD</code> - jak <code>GET</code> ale zwracany tylko nagłówek
+<ul>
+<li>przydatne jeśli dokument jest duży</li>
+<li>zamiast pobierać można użyć dokumentu z cache</li>
+</ul></li>
+<li><code>POST</code> - zgłoś dane do przetworzenia przez URL
+<ul>
+<li>pozwala na przesłanie większej ilości danych</li>
+<li>wysyłanie danych do aplikacji</li>
+<li>mniejsze dane można przesłać prez <code>GET</code> jako query</li>
+</ul></li>
+<li><code>PUT</code> - zmień zawartość URL</li>
+<li><code>DELETE</code> - usuń dane</li>
+<li><code>CONNECT</code> - przełącz proxy w inny tryb
+<ul>
+<li>przełączenie na protokół FTP</li>
+<li>zmiana wersji protokołu z 1.1 na 2</li>
+<li>zmiana na sesję szyfrowaną (TLS)</li>
+</ul></li>
+<li><code>TRACE</code> - nieużywany, zwróć otrzymane żądanie jako
+entity</li>
+<li><code>OPTIONS</code> - nieużywany - zwróć dostępne opcje</li>
+</ul>
+<h2 id="protokół-webdav">Protokół WEBDav</h2>
+<ul>
+<li>Podobne metody do HTTP</li>
+<li>Do modyfikowania dokumentów
+<ul>
+<li>HTTP pierwotnie miał służyć do edytowania dokumentów</li>
+<li>obecnie nieużywane, robi się to pośrednio przez aplikacje webowe
+używające HTTP</li>
+</ul></li>
+</ul>
+<h2 id="wersje">Wersje</h2>
+<ul>
+<li>0.9</li>
+<li>1.0</li>
+<li>1.1</li>
+<li>2</li>
+<li>3 - wersja 2 z transportem QUIC</li>
+<li>Ruch głównie w 1.1 i 2</li>
+</ul>
+<h2 id="kody-odpowiedzi">Kody odpowiedzi</h2>
+<ul>
+<li><code>1xx</code> - Informational
+<ul>
+<li>rzadko używane</li>
+<li>np. zmiana protokołu</li>
+</ul></li>
+<li><code>2xx</code> - Success
+<ul>
+<li>polecenie zrozumiane, wykonanie poprawnie</li>
+<li>200 - OK</li>
+<li>201 - Created</li>
+<li>202 - Accepted</li>
+<li>204 - No content</li>
+<li>206 - Partial Content</li>
+</ul></li>
+<li><code>3xx</code> - Redirection
+<ul>
+<li>należy podjąć dodatkowe czynności w celu realizacji polecenia</li>
+<li>…</li>
+</ul></li>
+<li><code>4xx</code> - Client Error
+<ul>
+<li>błąd polecenia, prawdopodobnie błąd składni po stronie klienta</li>
+<li>400 - Bad request</li>
+<li>401 - Unauthorized</li>
+<li>403 -Forbidden</li>
+<li>404 - Not found</li>
+</ul></li>
+<li><code>5xx</code> - Server Error
+<ul>
+<li>serwer nie jest w stanie obsłużyć połączenia</li>
+<li>jeśli proces serwera padnie to nie odpowie, system operacyjny odeśle
+TCP RST</li>
+<li>w przypadku jeśli inny proces obsługuje żądanie, serwer HTTP może
+wykryć że coś jest nie tak i odesłać <code>5xx</code></li>
+<li>500 - Internal server error</li>
+<li>501 - Not implemented - możliwe że klient wysłał źle sformatowane
+żądanie</li>
+<li>503 - Service unavailable</li>
+</ul></li>
+</ul>
+<h2 id="wybrane-nagłówki">Wybrane nagłówki</h2>
+<h3 id="ogólnego-przeznaczenia">Ogólnego przeznaczenia</h3>
+<ul>
+<li>Date
+<ul>
+<li>znacznik czasowy z dokładnością do sekundy i strefą czasową</li>
+<li>używany do określenia wazności dokumentów</li>
+<li>istotne dla cache i cookies</li>
+</ul></li>
+<li>Transfer-Encoding
+<ul>
+<li>chunked</li>
+<li>nie mylić z Content-Encoding</li>
+<li>serwer odpowiada, że odsyłane dane będą podzielone na części</li>
+<li>długość części zapisana szestnastkowo, porcja danych, CRLF</li>
+<li>na końcu 0</li>
+<li>browser comforting - np. przy długim przetwarzaniu najpierw odeśle
+dane do wygenerowania paska ładowania</li>
+<li>teraz powszechnie używany do streamingu</li>
+</ul></li>
+<li>Cache-control
+<ul>
+<li>zarządzanie</li>
+</ul></li>
+<li><code>Connection: Keep-alive</code>
+<ul>
+<li>zestawianie jednego połączenia dla każdego polecenia HTTP jest
+bardzo niewydajne</li>
+<li>można przesyłać wiele poleceń HTTP jednym połączeniem TCP</li>
+<li>dalej protokół jest bezstanowy, zapytania są niezależne od siebie
+tylko korzystają z tego samego połączenia</li>
+<li>koniec połączenia przez <code>Connection: close</code></li>
+</ul></li>
+</ul>
+<h3 id="nagłówki-żądania">Nagłówki żądania</h3>
+<ul>
+<li>Accept - przyjmowane typy danych
+<ul>
+<li>serwer powinien to weryfikować</li>
+<li><code>Accept: text/*, image/gif, image/jpg</code></li>
+</ul></li>
+<li>Accept-Charset</li>
+<li>Accept-Encoding
+<ul>
+<li>algorytmu kompresji</li>
+<li>dozwolone gzip, compress, deflate</li>
+</ul></li>
+<li>Kodowanie znaków
+<ul>
+<li>zgodne z mime</li>
+<li>np. UTF-8</li>
+</ul></li>
+<li>Accept-Language
+<ul>
+<li>zgodne z kodami ISO639</li>
+<li>wzięte np z ustawień przeglądarki</li>
+<li>np. en, pl</li>
+</ul></li>
+<li>Host
+<ul>
+<li>wymagane</li>
+<li>określenie serwera w przypadku gdy do jednego adresu IP przypisano
+wiele serwerów wirtualnych</li>
+<li><code>Host: www.w3.org</code></li>
+<li>jeśli nie zostanie podane, a serwer obsługuje wiele adresów
+domenowych to serwer odpowie błędem</li>
+</ul></li>
+<li>User-Agent
+<ul>
+<li>nazwa i wersja przeglądarki</li>
+<li>pozwala na dynamiczne dostosowanie zwracanej zawartości do
+przeglądarki</li>
+</ul></li>
+<li>Referer
+<ul>
+<li>poprzedni URL</li>
+<li>przydatne w statystykach</li>
+<li>pozwala na określenie ścieżki klienta</li>
+<li>kluczowe dla e-commerce - jakie hasło googlował użytkownik który
+wszedł na stronę sklepu</li>
+</ul></li>
+</ul>
+<h3 id="nagłówki-odpowiedzi">Nagłówki odpowiedzi</h3>
+<ul>
+<li>Server
+<ul>
+<li>serwer się przedstawia</li>
+<li>często nie chcemy podawać</li>
+</ul></li>
+<li>Location
+<ul>
+<li>przekierowanie</li>
+<li>np. w parze z kodem <code>301</code></li>
+<li>po reorganizacji serwisów</li>
+<li>federacja - wiele serwisów nie w pełni zintegrowanych, użytkownika
+na raz uwierzytelnia się na wielu serwerach</li>
+</ul></li>
+</ul>
+<h3 id="nagłówki-zawartości">Nagłówki zawartości</h3>
+<ul>
+<li>Content-Type
+<ul>
+<li>typ zwracanej treści</li>
+<li>zgodny z MIME</li>
+<li>np. <code>text/html</code></li>
+</ul></li>
+<li>Content-Length
+<ul>
+<li>długość Entity-Body w bajtach</li>
+<li>szczególnie ważne przy keep-alive - klient musi przeczytać dokładnie
+tyle</li>
+<li>bez keep-alive nie ma problemu, klient czyta do skutku</li>
+<li>dla <code>HEAD</code> zwraca to samo co dla <code>GET</code></li>
+<li>serwer musi z góry wiedzieć ile będzie danych - problematyczne przy
+dynamicznie generowanej treści - musi najpierw zbuforować wszystko</li>
+</ul></li>
+<li>Content-Encoding</li>
+<li>Content-Disposition
+<ul>
+<li>np. dla Attachment przeglądarka nie wyświetla go, tylko otwiera
+dialog do pobrania</li>
+</ul></li>
+<li>Content-Language</li>
+<li>Content-MD5</li>
+<li>Expires</li>
+<li>Last-Modified
+<ul>
+<li>dla optymalizacji cache’owania</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#protokół-http-2024-11-28" id="toc-protokół-http-2024-11-28">Protokół HTTP (2024-11-28)</a>
+<ul>
+<li><a href="#budowa" id="toc-budowa">Budowa</a></li>
+<li><a href="#url-uri-urn" id="toc-url-uri-urn">URL, URI, URN</a>
+<ul>
+<li><a href="#url-w-http-i-https" id="toc-url-w-http-i-https">URL w HTTP
+i HTTPS</a></li>
+<li><a href="#przykładowy-url-phishingowy" id="toc-przykładowy-url-phishingowy">Przykładowy URL
+phishingowy</a></li>
+</ul></li>
+<li><a href="#polecenia-http-method" id="toc-polecenia-http-method">Polecenia HTTP (method)</a></li>
+<li><a href="#protokół-webdav" id="toc-protokół-webdav">Protokół
+WEBDav</a></li>
+<li><a href="#wersje" id="toc-wersje">Wersje</a></li>
+<li><a href="#kody-odpowiedzi" id="toc-kody-odpowiedzi">Kody
+odpowiedzi</a></li>
+<li><a href="#wybrane-nagłówki" id="toc-wybrane-nagłówki">Wybrane
+nagłówki</a>
+<ul>
+<li><a href="#ogólnego-przeznaczenia" id="toc-ogólnego-przeznaczenia">Ogólnego przeznaczenia</a></li>
+<li><a href="#nagłówki-żądania" id="toc-nagłówki-żądania">Nagłówki
+żądania</a></li>
+<li><a href="#nagłówki-odpowiedzi" id="toc-nagłówki-odpowiedzi">Nagłówki
+odpowiedzi</a></li>
+<li><a href="#nagłówki-zawartości" id="toc-nagłówki-zawartości">Nagłówki
+zawartości</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

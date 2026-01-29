@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-frontend-frameworki</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-cloud.html">Poprzedni: 10-cloud.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-frontend-architektura.html">Następny: 12-frontend-architektura.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1
+id="frameworki-frontendowe-w-kontekście-budowania-aplikacji-web-2025-01-13">Frameworki
+frontendowe w kontekście budowania aplikacji web (2025-01-13)</h1>
+<h2 id="frameworki">Frameworki</h2>
+<ul>
+<li>Zestaw bibliotek i narzędzi ułatwiających budowę aplikacji
+webowych</li>
+<li>Usprawnia pracę zespołową</li>
+<li>Zarządzanie złożonością dużych projektów</li>
+<li>Gotowe rozwiązania dla typowych problemów
+<ul>
+<li>routing</li>
+<li>stan aplikacji</li>
+</ul></li>
+</ul>
+<h3 id="rodzaje">Rodzaje</h3>
+<ul>
+<li>Komponentowe
+<ul>
+<li>React</li>
+<li>Vue</li>
+</ul></li>
+<li>Kompleksowe
+<ul>
+<li>Angular</li>
+<li>Svelte</li>
+</ul></li>
+<li>Wyspowe
+<ul>
+<li>Astro</li>
+<li>Qwik</li>
+<li>Eleventy</li>
+</ul></li>
+</ul>
+<h3 id="react">React</h3>
+<ul>
+<li>Metaframeworki oparte o React (Next.js)</li>
+<li>Bardziej biblioteka niż framework</li>
+<li>JSX</li>
+<li>Bogaty ekosystem narzędzi</li>
+<li>Stworzony przez Facebook</li>
+<li>Najpopularniejszy z wymienionych ale używany w 4.6% wszystkich stron
+internetowych</li>
+</ul>
+<h3 id="vue">Vue</h3>
+<ul>
+<li>Lekki i łatwy do nauki</li>
+<li>Elastyczny w użyciu
+<ul>
+<li>biblioteka lub pełny framework</li>
+</ul></li>
+<li>Wsparcie społeczności</li>
+</ul>
+<h3 id="angular">Angular</h3>
+<ul>
+<li>W pełni zintegrowane funkcje
+<ul>
+<li>routing</li>
+<li>testy</li>
+<li>dependency injection</li>
+</ul></li>
+<li>Google</li>
+<li>Bardziej stroma krzywa uczenia się niż Vue i React</li>
+<li>Tylko Typescript</li>
+</ul>
+<h3 id="svelte">Svelte</h3>
+<ul>
+<li>Kompilator zamiast runtime</li>
+<li>Generuje czysty kod js
+<ul>
+<li>eliminuje potrzebę dużych bibliotek w czasie działania</li>
+</ul></li>
+<li>Bardzo lekki</li>
+</ul>
+<h3 id="zalety-frameworków">Zalety frameworków</h3>
+<ul>
+<li>Skrócenie czasu pracy</li>
+<li>Standaryzacja kodu</li>
+</ul>
+<h3 id="wady-frameworków">Wady frameworków</h3>
+<ul>
+<li>Krzywa nauki</li>
+<li>Zależności od konkretnych rozwiązań</li>
+<li>Nadmiar kodu w małych projektach</li>
+</ul>
+<h3 id="kierunki-rozwoju">Kierunki rozwoju</h3>
+<ul>
+<li>Server side rendering
+<ul>
+<li>Next</li>
+<li>Nuxt</li>
+</ul></li>
+<li>Static site generation
+<ul>
+<li>Jamstack</li>
+<li>Gatsby</li>
+</ul></li>
+<li>Bezframeworkowe podejście
+<ul>
+<li>rosnące zainteresowanie narzędzami z ograniczonym runtime
+(Svelte)</li>
+</ul></li>
+<li>Microfrontends
+<ul>
+<li>rozdzielenie aplikacji na mniejsze moduły</li>
+</ul></li>
+</ul>
+<h3 id="jak-wybrać-framework">Jak wybrać framework</h3>
+<ul>
+<li>Duże aplikacje
+<ul>
+<li>Angular, React</li>
+</ul></li>
+<li>Małe, średnie
+<ul>
+<li>Vue, Svelte</li>
+</ul></li>
+<li>Pod kątem SEO
+<ul>
+<li>Next, Nuxt</li>
+<li>niekorzystne są SPA</li>
+</ul></li>
+<li>Do rozważenia zasoby zespołu
+<ul>
+<li>doświadczenie</li>
+<li>dostępność programistów</li>
+</ul></li>
+<li>Społeczność i wsparcie
+<ul>
+<li>popularne frameworki mają lepszą dokumentację i więcej
+bibliotek</li>
+</ul></li>
+</ul>
+<h2 id="architektura-komponentowa">Architektura komponentowa</h2>
+<ul>
+<li>Aplikacja dzieli się na mniejsze części - komponenty</li>
+<li>Komponenty mogą być wykorzystywane w wielu aplikacjach</li>
+<li>Skraca czas budowy nowych aplikacja i obniża koszty
+<ul>
+<li>ze względu na reużywanie komponentów</li>
+</ul></li>
+<li>Poszczególne komponenty mogą powstawać równolegle</li>
+<li>Komponent powinien mieć dobrze wyspecyfikowany interfejs</li>
+<li>Wspiera modyfikowalność aplikacji
+<ul>
+<li>funkcjonalność skupia się w dedykowanych komponentach</li>
+</ul></li>
+<li>Spójność (coherence) komponentów wspiera modyfikowalność</li>
+</ul>
+<h2 id="architektura-wyspowa">Architektura wyspowa</h2>
+<ul>
+<li>Część aplikacji jest statyczna, a część dynamiczna</li>
+<li>Wydzielamy, które elementy będą interaktywne (wyspy)
+<ul>
+<li>one będą renderowane niezależnie od elementów statycznych</li>
+</ul></li>
+<li>Główna strona jest wstępnie wygenerowana (jak w SSG)
+<ul>
+<li>zapewnia szybki czas wczytywania</li>
+</ul></li>
+<li>Dynamiczne elementy (formularze, karuzele) są ładowane i renderowane
+indywidualnie po stronie klienta
+<ul>
+<li>renderowane tylko kiedy są widoczne</li>
+</ul></li>
+<li>Hydratacja</li>
+<li>Tylko wyspy potrzebują JS</li>
+</ul>
+<h2 id="mpa">MPA</h2>
+<ul>
+<li>Multi-Page Applications</li>
+<li>Każda podstrona jest osobnym dokumentem HTML ładowanym z
+serwera</li>
+<li>Serwer zwraca widoki na podstawie żądań</li>
+<li>Przydatne tam, gdzie kluczowe jest SEO ale interaktywność jest
+minimalna</li>
+<li>Wolniejsze przełączanie się między podstronami</li>
+</ul>
+<h2 id="spa">SPA</h2>
+<ul>
+<li>Single Page Applications</li>
+<li>Alternatywa dla MPA</li>
+<li>Serwer zwraca tylko prosty plik HTML
+<ul>
+<li>najczęściej pojedynczy div i informacje o stylach i skryptach</li>
+<li>logika budowania aplikacji po stronie klienta</li>
+</ul></li>
+<li>Serwer jest odciążony, szybkie odpowiedzi</li>
+<li>Problematyczne dla SEO
+<ul>
+<li>wyszukiwarki nadal słabo sobie radzą ze stronami bez odpowiedniej
+struktury HTML</li>
+</ul></li>
+<li>Problem z udostępnianiem treści w mediach społecznościowych
+<ul>
+<li>meta tags</li>
+</ul></li>
+<li>Mogą być budowane w sposób modułowy i komponentowy</li>
+<li>Nie ma dużych wymagań od serwera, tylko serwowanie statycznych
+plików html, css, js</li>
+</ul>
+<h2 id="ssr">SSR</h2>
+<ul>
+<li>Server Side Rendering</li>
+<li>Nowe MPA</li>
+<li>Aplikacja jes renderowana po stronie serwera na żądanie
+<ul>
+<li>odpowiedź serwera zawiera częściowo przygotowane widoki</li>
+</ul></li>
+<li>Lepsze dla SEO
+<ul>
+<li>można zarządzać znacznikami meta</li>
+<li>część HTML jest już przygotowana</li>
+</ul></li>
+<li>Pozwala optymalizować widoki z dużą liczbą komponentów</li>
+<li>Nie jest optymalny gdy mamy niewiele komponentów leniwie
+ładowanych</li>
+<li>Nie mają dostępu do obiektów typowo przeglądarkowych (np.
+<code>window</code>)</li>
+<li>Nie mogą być łatwo łączone z PWA</li>
+</ul>
+<h2 id="ssg">SSG</h2>
+<ul>
+<li>Static Site Generation</li>
+<li>Strona budowana tak jak przy podejściu SPA</li>
+<li>opisuje proces kompilacji i renderowania strony</li>
+<li>Powstaje zestaw statycznych plików</li>
+<li>Szybkie i skalowalne</li>
+<li>Next, Gatsby</li>
+<li>Nie jest idealne przy dużych, złożonych aplikacjach
+<ul>
+<li>potencjalnie bardzo długie czasy budowania</li>
+</ul></li>
+</ul>
+<h2 id="podejście-hybrydowe">Podejście hybrydowe</h2>
+<ul>
+<li>Łączą różne podejścia (SPA, SSR, SSG) w jednym projekcie</li>
+<li>Dla maksymalizacji wydajności i elastyczności</li>
+<li>Next</li>
+<li>Korzyści
+<ul>
+<li>optymalizacja SEO</li>
+<li>elastyczność - dostosowanie do ptrzeb konkretnej strony</li>
+<li>szybkość ładowania - SSG daję natychmiastową dostępność, a SSR dba o
+aktualność danych</li>
+</ul></li>
+</ul>
+<h2 id="pwa">PWA</h2>
+<ul>
+<li>Progressive Web Applications</li>
+<li>Pozwala tworzyć aplikacji webowe, które działają jak natywne
+aplikacje mobilne
+<ul>
+<li>offline mode</li>
+<li>powiadomienia push</li>
+<li>szybkie ładowanie</li>
+</ul></li>
+<li>Najczęściej wykorzystuje SPA
+<ul>
+<li>dodatkowe możliwości dzięki Service Workers</li>
+</ul></li>
+<li>Często stosowane w aplikacjach mobilnych</li>
+</ul>
+<h2 id="meta-frameworki-oparte-o-react">Meta-frameworki oparte o
+React</h2>
+<ul>
+<li>Rozszerzają możliwości Reacta dodając dodatkowe funkcje
+<ul>
+<li>SSR</li>
+<li>SSG</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Next</li>
+<li>Remix</li>
+<li>Gatsby</li>
+<li>Expo</li>
+<li>blitz</li>
+</ul></li>
+</ul>
+<h2 id="typescript">Typescript</h2>
+<ul>
+<li>Język programowania</li>
+<li>Nadzbiór Javascript</li>
+<li>Dodaje statyczne i silne typowanie</li>
+<li>Kompiluje się do Javascriptu</li>
+<li>Można go używać z WebAssembly oraz środowiskach takich jak Deno,
+ts-node</li>
+<li>Wprowadzony przez Microsoft w 2012</li>
+</ul>
+<h3 id="zalety">Zalety</h3>
+<ul>
+<li>Wyłapuje błędy w kodzie</li>
+<li>Lepsze podpowiadanie ksładni i współpraca z narzędziami</li>
+<li>Łatwiejsza refaktoryzacja</li>
+<li>Sposób na zapisywanie kontraktów</li>
+</ul>
+<h3 id="wady">Wady</h3>
+<ul>
+<li>Weryfikacja typoów tylko w czasie kompilacji</li>
+<li>Dodatkowa złożoność dla programistów</li>
+<li>Problematyczne przy bardzo generycznych aplikacjach</li>
+<li>Nie rozwiązuje problemów JSa</li>
+<li>Wymaga doinstalowania kompilatora do środowiska
+programistycznego</li>
+</ul>
+<h3 id="dynamiczne-typowanie">Dynamiczne typowanie</h3>
+<ul>
+<li>Nadawanie zmiennym typów w czasie działania programu</li>
+<li>Zmienne nie posiadają typów przypisanych</li>
+<li>Wartość niesie typ, a nie zmienna</li>
+<li>Javascript, Python, Ruby</li>
+</ul>
+<h3 id="statyczne-typowanie">Statyczne typowanie</h3>
+<ul>
+<li>Nadawanie zmiennym typów w czasie kompilacji programu poprzez ich
+deklarację</li>
+<li>Raz badany typ nie może zostać zmieniony</li>
+<li>Wykrywa proste błędy</li>
+</ul>
+<h3 id="duck-typing">Duck typing</h3>
+<ul>
+<li>Typ obiektu sprawdzamy na podstawie zawartych w nim pól, a nie
+deklaracji typu</li>
+<li>Wykorzystywane powszechnie w JS, ale spotykane też w TS</li>
+</ul>
+<h3 id="c-i-java">C# i Java</h3>
+<ul>
+<li>…</li>
+</ul>
+<h3 id="typescript-1">Typescript</h3>
+<ul>
+<li>Wkorzystuje typowanie strukturalne</li>
+<li>Lepiej myśleć o typie jako o zestawie wartości</li>
+<li>Nawet jeśli obiekty nie są jednego typu to obiekt spełniający dany
+interfejs może być użyty nawet tam, gdzie nie było zadeklarowanej
+relacji</li>
+</ul>
+<h3 id="kompilacja-do-javascriptu">Kompilacja do Javascriptu</h3>
+<ul>
+<li>Sprawdzanie typów przed kompilacją</li>
+<li>System typów jest usuwany podczas przekształcenia AST do kodu
+JS</li>
+<li>Prawidłowy kod Javascript jest prawidłowym kodem Typescript</li>
+</ul>
+<h3 id="abstract-syntax-tree">Abstract Syntax Tree</h3>
+<ul>
+<li>Abstrakcyjna reprezentacja struktury kodu źródłowego</li>
+<li>Węzły odpowiadają konstrukcjom języka programowania</li>
+<li>Krawędzie łączą węzły w logiczny sposób odwzorowując strukturę
+kodu</li>
+</ul>
+<h3 id="proces-kompilacji-i-uruchomienia">Proces kompilacji i
+uruchomienia</h3>
+<ul>
+<li>TS source -&gt; TS AST</li>
+<li>AST sprawdzane pod kątem typów</li>
+<li>TS AST -&gt; JS source</li>
+<li>…</li>
+</ul>
+<h3 id="mapowanie-kodu-źródłowego">Mapowanie kodu źródłowego</h3>
+<ul>
+<li>Umożliwia tworzenie plików typu sourceMap</li>
+<li>js.map, jsx.map</li>
+<li>Powiązanie pomiędzy kodem js i ts</li>
+<li>Ułatwiają debuggowanie kodu</li>
+</ul>
+<h3 id="podstawowe-typy">Podstawowe typy</h3>
+<ul>
+<li>boolean</li>
+<li>number
+<ul>
+<li>zmiennopozycyjne</li>
+</ul></li>
+<li>string
+<ul>
+<li>template string - przekazywanie zmiennych, wielolinijkowe</li>
+</ul></li>
+<li>symbol
+<ul>
+<li>gwarantuje unikalność</li>
+<li>nie są enumerowalne</li>
+</ul></li>
+<li>bigint
+<ul>
+<li>dowolnie duże liczby całkowite</li>
+<li>nie można mieszać z number</li>
+</ul></li>
+<li>null i undefined
+<ul>
+<li>nullowalne lub opcjonalne wartości</li>
+</ul></li>
+<li>Array
+<ul>
+<li>typ generyczny</li>
+<li>dwa zapisy <code>Array&lt;T&gt;</code>, <code>T[]</code></li>
+</ul></li>
+<li>tuple
+<ul>
+<li>skończona lista elementów</li>
+</ul></li>
+<li>enum
+<ul>
+<li>zbiór nazwanych wartości</li>
+<li>domyślnie to kolejne liczby od 0</li>
+<li>można przypisać napisy</li>
+</ul></li>
+<li>void
+<ul>
+<li>brak wartości</li>
+<li>dla funkcji które nic nie zwracają</li>
+</ul></li>
+<li>any
+<ul>
+<li>dowolna wartość</li>
+<li>zaprzeczenie statycznego i silnego typowania</li>
+<li>typ nas nie obchodzi (nie oznacza że jest nieznany)</li>
+</ul></li>
+<li>never
+<ul>
+<li>wartość, która nigdy nie wystąpi</li>
+<li>funkcja z nieskończoną pętlą albo zawsze rzucająca wyjątek</li>
+<li>do wyłapywania sytuacji, które nie powinny się zdarzyć</li>
+</ul></li>
+<li>unknown
+<ul>
+<li>nieznany typ</li>
+<li>można przypisać dowolną wartość, ale nie można nic z niego
+odczytać</li>
+</ul></li>
+<li>object
+<ul>
+<li>wszystko, co nie jest typem prymitywnym</li>
+</ul></li>
+<li>Object
+<ul>
+<li>własności i metody, które są wspólne dla wszystkich obiektów w
+JS</li>
+<li>używany głównie do dziedziczenia</li>
+</ul></li>
+</ul>
+<h3 id="type">type</h3>
+<ul>
+<li>Można definiować własne typy</li>
+<li>Też aliasy typów</li>
+</ul>
+<h3 id="interface">interface</h3>
+<ul>
+<li>Alternatywny sposób definiowania typu</li>
+<li>Mozna rozszerzać interfejs</li>
+<li>Klasa może implementować interfejs</li>
+<li>Lepsze przy programowaniu obiektowym</li>
+<li>Podlegają mechanizmowi łączenia deklaracji
+<ul>
+<li>dwa interfejsy o tej samej nazwie zostaną połączone</li>
+<li>przydaje się do rozszerzania interfejsów z zewnętrznych
+bibliotek</li>
+</ul></li>
+</ul>
+<h3 id="typy-generyczne">Typy generyczne</h3>
+<ul>
+<li>Typ generyczny zakłada, że część typu może być sparametryzowana</li>
+<li>Funkcje generyczne, generyczne klasym generyczne interfejsy</li>
+</ul>
+<h3 id="inferencja">Inferencja</h3>
+<ul>
+<li>Mechanizm wnioskowania typów</li>
+<li>TS wnioskuje typy na podstawie przypisania wartości do zmiennej, na
+podstawie ciała funkcji</li>
+<li>Pozwala unikać wszędzie jawnego podawania typów</li>
+</ul>
+<h3 id="narrowing">Narrowing</h3>
+<ul>
+<li>Mechanizm zawężania typów</li>
+<li>type guards - typeof, instanceof</li>
+</ul>
+<h3 id="kontrola-przepływu">Kontrola przepływu</h3>
+<ul>
+<li>Analiza przepływu sterowania</li>
+<li>Kompilator na podstawie analizy wnioskuje typy zmiennych</li>
+<li>Umożliwia zawężenie typów zmiennych w określonych blokach</li>
+</ul>
+<h3 id="typy-nominalne">Typy nominalne</h3>
+<ul>
+<li>TS opiera się o typy strukturalne</li>
+<li>Do tej pory nie ma nominalnych typów w TS</li>
+</ul>
+<h3 id="branding">Branding</h3>
+<ul>
+<li>Pola prefixowane przez <code>__</code></li>
+<li><code>type UserID = number &amp; { __brand: "UserID" };</code></li>
+</ul>
+<h3 id="flavoring">Flavoring</h3>
+<ul>
+<li>Jak branding ale pole <code>__flavor</code> jest opcjonalne</li>
+</ul>
+<h3 id="przyszłość-typescript">Przyszłość Typescript</h3>
+<ul>
+<li>W nowym standardzie JS prawdopodobnie pojawi się statyczne
+typowanie</li>
+<li>Nie jest jedynym systemem typów
+<ul>
+<li>JSDoc, Flow, LiveScript, CoffeScript, Kotlin/JS</li>
+</ul></li>
+</ul>
+<h2 id="nowoczesny-css">Nowoczesny CSS</h2>
+<ul>
+<li>Największym problemem CSS jest enkapsulacja (jej brak)</li>
+<li>Wszystkie style są traktowane jako globalne</li>
+</ul>
+<h3 id="icss">ICSS</h3>
+<ul>
+<li>Interoperable CSS</li>
+<li>Pseudoselektory <code>:import</code> i <code>:export</code></li>
+</ul>
+<h3 id="css-modules">CSS Modules</h3>
+<ul>
+<li>Domyślny sposób deklarowania styli w Create React App</li>
+<li>Pozwala na wykorzystnaie preprocessorów (Sass)</li>
+<li>Pliki ze stylami są traktowane jako moduły</li>
+<li>Każdy komponent posiada swój własny plik moduł ze stylami</li>
+<li>Łatwa enkapsulacja styli
+<ul>
+<li>unikalne id doklejane do nazwy klasy</li>
+</ul></li>
+</ul>
+<h3 id="jss">JSS</h3>
+<ul>
+<li>Nie jest powiązany z żadnym frameworkiem</li>
+<li>Pakiety do łączenia z różnymi frameworkami</li>
+<li>CSS w obiektach JS</li>
+</ul>
+<h3 id="styled-components">Styled components</h3>
+<ul>
+<li>Bazuje na rozwiązaniach JSS</li>
+<li>Tworzenie styli jako komponentów</li>
+<li>Mechanizm tagged templates</li>
+<li>Działają tak jak inne elementy JSX</li>
+<li>Zezwala na rozszerzanie komponentów React poprzez dodawanie styli do
+nich
+<ul>
+<li>wykorzystanie props</li>
+</ul></li>
+<li>Reużywalne</li>
+<li>Emotion, Material UI</li>
+</ul>
+<h3 id="tagged-templates">Tagged templates</h3>
+<p>…</p>
+<h3 id="tailwind-css">Tailwind CSS</h3>
+<ul>
+<li>Stylowanie za pomocą atomowych klas CSS
+<ul>
+<li>utility classes</li>
+</ul></li>
+<li>Szybkie i intuicyjne</li>
+<li>Brak predefiniowanych komponentów</li>
+<li>Podejście utility-first
+<ul>
+<li>nie piszemy własnych klas jeśli nie musimy</li>
+</ul></li>
+<li>Elastyczność</li>
+<li>Łatwość konfiguracji
+<ul>
+<li>wszystko w jednym pliku</li>
+<li>można definiować własne kolory itd</li>
+</ul></li>
+<li>Responsywność
+<ul>
+<li>wbudowane klasy do tego</li>
+</ul></li>
+<li>Brak nadmiarowego kodu</li>
+<li>Integracja z narzędziami</li>
+<li>Ekosystem
+<ul>
+<li>rozbudowana dokumentacja</li>
+<li>społeczność</li>
+<li>rozszerzenia</li>
+</ul></li>
+<li>Zaśmieca kod JSX
+<ul>
+<li>może dzielić komponent na komponenty wizualne i logiczne</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#frameworki-frontendowe-w-kontekście-budowania-aplikacji-web-2025-01-13" id="toc-frameworki-frontendowe-w-kontekście-budowania-aplikacji-web-2025-01-13">Frameworki
+frontendowe w kontekście budowania aplikacji web (2025-01-13)</a>
+<ul>
+<li><a href="#frameworki" id="toc-frameworki">Frameworki</a>
+<ul>
+<li><a href="#rodzaje" id="toc-rodzaje">Rodzaje</a></li>
+<li><a href="#react" id="toc-react">React</a></li>
+<li><a href="#vue" id="toc-vue">Vue</a></li>
+<li><a href="#angular" id="toc-angular">Angular</a></li>
+<li><a href="#svelte" id="toc-svelte">Svelte</a></li>
+<li><a href="#zalety-frameworków" id="toc-zalety-frameworków">Zalety
+frameworków</a></li>
+<li><a href="#wady-frameworków" id="toc-wady-frameworków">Wady
+frameworków</a></li>
+<li><a href="#kierunki-rozwoju" id="toc-kierunki-rozwoju">Kierunki
+rozwoju</a></li>
+<li><a href="#jak-wybrać-framework" id="toc-jak-wybrać-framework">Jak
+wybrać framework</a></li>
+</ul></li>
+<li><a href="#architektura-komponentowa" id="toc-architektura-komponentowa">Architektura komponentowa</a></li>
+<li><a href="#architektura-wyspowa" id="toc-architektura-wyspowa">Architektura wyspowa</a></li>
+<li><a href="#mpa" id="toc-mpa">MPA</a></li>
+<li><a href="#spa" id="toc-spa">SPA</a></li>
+<li><a href="#ssr" id="toc-ssr">SSR</a></li>
+<li><a href="#ssg" id="toc-ssg">SSG</a></li>
+<li><a href="#podejście-hybrydowe" id="toc-podejście-hybrydowe">Podejście hybrydowe</a></li>
+<li><a href="#pwa" id="toc-pwa">PWA</a></li>
+<li><a href="#meta-frameworki-oparte-o-react" id="toc-meta-frameworki-oparte-o-react">Meta-frameworki oparte o
+React</a></li>
+<li><a href="#typescript" id="toc-typescript">Typescript</a>
+<ul>
+<li><a href="#zalety" id="toc-zalety">Zalety</a></li>
+<li><a href="#wady" id="toc-wady">Wady</a></li>
+<li><a href="#dynamiczne-typowanie" id="toc-dynamiczne-typowanie">Dynamiczne typowanie</a></li>
+<li><a href="#statyczne-typowanie" id="toc-statyczne-typowanie">Statyczne typowanie</a></li>
+<li><a href="#duck-typing" id="toc-duck-typing">Duck typing</a></li>
+<li><a href="#c-i-java" id="toc-c-i-java">C# i Java</a></li>
+<li><a href="#typescript-1" id="toc-typescript-1">Typescript</a></li>
+<li><a href="#kompilacja-do-javascriptu" id="toc-kompilacja-do-javascriptu">Kompilacja do Javascriptu</a></li>
+<li><a href="#abstract-syntax-tree" id="toc-abstract-syntax-tree">Abstract Syntax Tree</a></li>
+<li><a href="#proces-kompilacji-i-uruchomienia" id="toc-proces-kompilacji-i-uruchomienia">Proces kompilacji i
+uruchomienia</a></li>
+<li><a href="#mapowanie-kodu-źródłowego" id="toc-mapowanie-kodu-źródłowego">Mapowanie kodu źródłowego</a></li>
+<li><a href="#podstawowe-typy" id="toc-podstawowe-typy">Podstawowe
+typy</a></li>
+<li><a href="#type" id="toc-type">type</a></li>
+<li><a href="#interface" id="toc-interface">interface</a></li>
+<li><a href="#typy-generyczne" id="toc-typy-generyczne">Typy
+generyczne</a></li>
+<li><a href="#inferencja" id="toc-inferencja">Inferencja</a></li>
+<li><a href="#narrowing" id="toc-narrowing">Narrowing</a></li>
+<li><a href="#kontrola-przepływu" id="toc-kontrola-przepływu">Kontrola
+przepływu</a></li>
+<li><a href="#typy-nominalne" id="toc-typy-nominalne">Typy
+nominalne</a></li>
+<li><a href="#branding" id="toc-branding">Branding</a></li>
+<li><a href="#flavoring" id="toc-flavoring">Flavoring</a></li>
+<li><a href="#przyszłość-typescript" id="toc-przyszłość-typescript">Przyszłość Typescript</a></li>
+</ul></li>
+<li><a href="#nowoczesny-css" id="toc-nowoczesny-css">Nowoczesny CSS</a>
+<ul>
+<li><a href="#icss" id="toc-icss">ICSS</a></li>
+<li><a href="#css-modules" id="toc-css-modules">CSS Modules</a></li>
+<li><a href="#jss" id="toc-jss">JSS</a></li>
+<li><a href="#styled-components" id="toc-styled-components">Styled
+components</a></li>
+<li><a href="#tagged-templates" id="toc-tagged-templates">Tagged
+templates</a></li>
+<li><a href="#tailwind-css" id="toc-tailwind-css">Tailwind CSS</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

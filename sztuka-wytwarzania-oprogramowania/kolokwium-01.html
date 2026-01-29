@@ -68,7 +68,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="kolokwium-01">Kolokwium 01</h1>
 <h2 id="cykl-życia-wytwarzania-oprogramowania">Cykl życia wytwarzania
 oprogramowania</h2>
@@ -256,12 +255,12 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#c
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isSpellingCorrect<span class="op">()</span> <span class="at">const</span>  </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        EnglishDictionary dictionary<span class="op">;</span>  </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges<span class="bu">::</span>all_of<span class="op">(</span>words<span class="op">(),</span> <span class="op">[&amp;</span>dictionary<span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">.</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges::all_of<span class="op">(</span>words<span class="op">(),</span> <span class="op">[&amp;</span>dictionary<span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">.</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> save<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op">&amp;</span> fileName<span class="op">)</span>  </span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ofstream<span class="op"> </span>out<span class="op">(</span>fileName<span class="op">);</span>  </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges<span class="bu">::</span>copy<span class="op">(</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>out<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ofstream out<span class="op">(</span>fileName<span class="op">);</span>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges::copy<span class="op">(</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>out<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p>Poprawiony kod</p>
@@ -277,7 +276,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#c
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dictionary <span class="op">{</span>  </span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">bool</span> hasElement<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string<span class="op"> &amp;</span>w<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">virtual</span> <span class="dt">bool</span> hasElement<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>string <span class="op">&amp;</span>w<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  </span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">};</span>  </span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EnglishDictionary <span class="op">:</span> <span class="kw">public</span> Dictionary <span class="op">{</span>  </span>
@@ -289,7 +288,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#c
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    SpellChecker<span class="op">(</span>Dictionary <span class="op">*</span>dict<span class="op">)</span> <span class="op">:</span> dictionary<span class="op">(</span>dict<span class="op">)</span> <span class="op">{}</span>  </span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> isSpellingCorrect<span class="op">(</span>Page <span class="op">&amp;</span>page<span class="op">)</span> <span class="op">{</span>  </span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges<span class="bu">::</span>all_of<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="op">[</span><span class="kw">this</span><span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">-&gt;</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>ranges::all_of<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="op">[</span><span class="kw">this</span><span class="op">](</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> w<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> dictionary<span class="op">-&gt;</span>hasElement<span class="op">(</span>w<span class="op">);</span> <span class="op">});</span>  </span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span>  </span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    Dictionary <span class="op">*</span>dictionary<span class="op">;</span>  </span>
@@ -297,8 +296,8 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#c
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PagePersister <span class="op">{</span>  </span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> save<span class="op">(</span>Page <span class="op">&amp;</span>page<span class="op">,</span> <span class="bu">std::</span>ostream<span class="op"> &amp;</span>outputStream<span class="op">)</span> <span class="op">{</span>  </span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges<span class="bu">::</span>copy<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>outputStream<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> save<span class="op">(</span>Page <span class="op">&amp;</span>page<span class="op">,</span> <span class="bu">std::</span>ostream <span class="op">&amp;</span>outputStream<span class="op">)</span> <span class="op">{</span>  </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ranges::copy<span class="op">(</span>page<span class="op">.</span>words<span class="op">(),</span> <span class="bu">std::</span>ostream_iterator<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>outputStream<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">));</span>  </span>
 <span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <h3 id="przykład-4">Przykład 4</h3>
@@ -322,15 +321,15 @@ zapisuje</li>
 class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Document  </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span>  </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span>  </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> save<span class="op">(</span><span class="bu">std::</span>string_view<span class="op"> </span>fileName<span class="op">)</span>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> save<span class="op">(</span><span class="bu">std::</span>string_view fileName<span class="op">)</span>  </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>ofstream<span class="op"> </span>out<span class="op">(</span>fileName<span class="op">);</span>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="bu">std::</span>ofstream out<span class="op">(</span>fileName<span class="op">);</span>  </span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> title<span class="op">();</span>  </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span>  </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> data<span class="op">();</span> <span class="co">// typ Data poprawnie obsªu»y t¦ operacj¦  </span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      out <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span>  </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>string<span class="op"> </span>title<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>string title<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  </span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  Data data<span class="op">()</span> <span class="at">const</span><span class="op">;</span> <span class="co">// implementacja typu Data jest nieistotna  </span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> combine<span class="op">(</span><span class="at">const</span> Data<span class="op">&amp;</span> other<span class="op">)</span>  </span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>  </span>
@@ -349,7 +348,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#c
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    int execute<span class="op">(</span><span class="dt">int</span> a<span class="op">)</span>  </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>  </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">int</span> result <span class="op">=</span> a <span class="op">*</span> a<span class="op">;</span>  </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">&quot;result is:&quot;</span> <span class="op">&lt;&lt;</span> result<span class="op">;</span>  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;result is:&quot;</span> <span class="op">&lt;&lt;</span> result<span class="op">;</span>  </span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result<span class="op">;</span>  </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
@@ -477,35 +476,35 @@ public:
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#kolokwium-01">Kolokwium 01</a>
+<li><a href="#kolokwium-01" id="toc-kolokwium-01">Kolokwium 01</a>
 <ul>
-<li><a href="#cykl-życia-wytwarzania-oprogramowania">Cykl życia
-wytwarzania oprogramowania</a>
+<li><a href="#cykl-życia-wytwarzania-oprogramowania" id="toc-cykl-życia-wytwarzania-oprogramowania">Cykl życia wytwarzania
+oprogramowania</a>
 <ul>
-<li><a href="#w-którym-momencie-procesu-wytwarzania-oprogramowania-uzyskujemy-gwarancję-poprawności-programu-kiedy-możemy-go-dostarczyć-klientowi">W
+<li><a href="#w-którym-momencie-procesu-wytwarzania-oprogramowania-uzyskujemy-gwarancję-poprawności-programu-kiedy-możemy-go-dostarczyć-klientowi" id="toc-w-którym-momencie-procesu-wytwarzania-oprogramowania-uzyskujemy-gwarancję-poprawności-programu-kiedy-możemy-go-dostarczyć-klientowi">W
 którym momencie procesu wytwarzania oprogramowania uzyskujemy gwarancję
 poprawności programu? Kiedy możemy go dostarczyć klientowi?</a></li>
-<li><a href="#dlaczego-warto-oczekiwać-by-wymaganie-było-między-innymi-weryfikowalne-i-jednoznaczne">Dlaczego
+<li><a href="#dlaczego-warto-oczekiwać-by-wymaganie-było-między-innymi-weryfikowalne-i-jednoznaczne" id="toc-dlaczego-warto-oczekiwać-by-wymaganie-było-między-innymi-weryfikowalne-i-jednoznaczne">Dlaczego
 warto oczekiwać, by wymaganie było, między innymi, weryfikowalne i
 jednoznaczne?</a></li>
-<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-jednoznaczne-podaj-przykład---własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-jednoznaczne-podaj-przykład---własny-wskazujący-na-zrozumienie-tematu." id="toc-kiedy-można-powiedzieć-o-wymaganiu-że-jest-jednoznaczne-podaj-przykład---własny-wskazujący-na-zrozumienie-tematu.">Kiedy
 można powiedzieć o wymaganiu, że jest jednoznaczne? Podaj przykład -
 własny, wskazujący na zrozumienie tematu.</a></li>
-<li><a href="#dlaczego-przyjmuje-się-że-dobry-test-powinien-być-deterministyczny-podaj-przykład-problemu-i-jego-rozwiązania">Dlaczego
+<li><a href="#dlaczego-przyjmuje-się-że-dobry-test-powinien-być-deterministyczny-podaj-przykład-problemu-i-jego-rozwiązania" id="toc-dlaczego-przyjmuje-się-że-dobry-test-powinien-być-deterministyczny-podaj-przykład-problemu-i-jego-rozwiązania">Dlaczego
 przyjmuje się, że dobry test powinien być deterministyczny? Podaj
 przykład problemu i jego rozwiązania</a></li>
-<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-atomowe-podaj-przykład-własny-wskazujący-na-zrozumienie-tematu.">Kiedy
+<li><a href="#kiedy-można-powiedzieć-o-wymaganiu-że-jest-atomowe-podaj-przykład-własny-wskazujący-na-zrozumienie-tematu." id="toc-kiedy-można-powiedzieć-o-wymaganiu-że-jest-atomowe-podaj-przykład-własny-wskazujący-na-zrozumienie-tematu.">Kiedy
 można powiedzieć o wymaganiu, że jest atomowe? Podaj przykład własny,
 wskazujący na zrozumienie tematu.</a></li>
 </ul></li>
-<li><a href="#solid">SOLID</a>
+<li><a href="#solid" id="toc-solid">SOLID</a>
 <ul>
-<li><a href="#przykład-1">Przykład 1</a></li>
-<li><a href="#przykład-3">Przykład 3</a></li>
-<li><a href="#przykład-4">Przykład 4</a></li>
-<li><a href="#przykład-5">Przykład 5</a></li>
-<li><a href="#przykład-6">Przykład 6</a></li>
-<li><a href="#przykład-7">Przykład 7</a></li>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład 1</a></li>
+<li><a href="#przykład-3" id="toc-przykład-3">Przykład 3</a></li>
+<li><a href="#przykład-4" id="toc-przykład-4">Przykład 4</a></li>
+<li><a href="#przykład-5" id="toc-przykład-5">Przykład 5</a></li>
+<li><a href="#przykład-6" id="toc-przykład-6">Przykład 6</a></li>
+<li><a href="#przykład-7" id="toc-przykład-7">Przykład 7</a></li>
 </ul></li>
 </ul></li>
 </ul>

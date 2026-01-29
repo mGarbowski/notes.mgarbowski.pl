@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-odcisk-palca</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-wstep.html">Poprzedni: 01-wstep.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-bezpieczenstwo-odcisku-palca.html">Następny: 03-bezpieczenstwo-odcisku-palca.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="biometria-odcisku-palca">Biometria odcisku palca</h1>
+<h2 id="historia">Historia</h2>
+<ul>
+<li>Sir Francis Galton
+<ul>
+<li>1888</li>
+<li>klasyfikacja punktów osobliwych</li>
+<li>definicja minucji - detale Galtona</li>
+<li>dzieło <em>Fingerprints</em></li>
+<li>podstawa współczesnej biometrii odcisków palca</li>
+</ul></li>
+<li>Alphonse Bertillon
+<ul>
+<li>system Bertillonage</li>
+<li>metoda nieautomatyczna - pomiary długości kości, koloru
+tęczówki</li>
+<li>w końcu znaleziono 2 osoby o identycznych parametrach</li>
+</ul></li>
+<li>Sir Edward Richard Henry
+<ul>
+<li>system klasyfikacji odcisków (system Henry’ego)</li>
+</ul></li>
+<li>Edmond Locard
+<ul>
+<li>określa minimalną liczbę zgodnych cech (12) do podjęcia decyzji o
+dopasowaniu odcisków palca</li>
+<li>zasada wymiany - popełniając przestępstwo zawsze coś zostawiamy i
+coś zabieramy ze sobą</li>
+</ul></li>
+</ul>
+<h2 id="paradygmaty-biometrii-odcisku">Paradygmaty biometrii
+odcisku</h2>
+<ul>
+<li>Cechy muszą być inne dla różnych palców i niezmienne w czasie</li>
+<li>Zmienność w populacji jest na tyle systematyczna, że pozwala
+grupować podobne odciski
+<ul>
+<li>klasyfikacja</li>
+<li>ułatwienie przeszukiwania</li>
+</ul></li>
+</ul>
+<h2 id="poziomy-obserwacji">Poziomy obserwacji</h2>
+<h3 id="elementy-podstawowe">Elementy podstawowe</h3>
+<ul>
+<li>Grzbiety - kolor ciemny</li>
+<li>Doliny - kolor biały</li>
+<li>Kolory na skanach ustandaryzowane przez ISO</li>
+<li>Grzbiety mogą się kończyć albo rozwidlać</li>
+</ul>
+<h3 id="poziom-globalny">Poziom globalny</h3>
+<ul>
+<li>Rdzeń i punkty osobliwe</li>
+<li>Punkty osobliwe - 3 układy
+<ul>
+<li>wir</li>
+<li>pętla</li>
+<li>delta</li>
+</ul></li>
+<li>Punkty osobliwe to podstawa do klasyfikacji</li>
+<li>Rdzeń - najbardziej na północ wysuniętym punktem osobliwym typu wir
+lub pętla
+<ul>
+<li>do wyrównania obrazów przed porównaniem</li>
+</ul></li>
+<li>Klasyfikacja Henry’ego
+<ul>
+<li>8 klas</li>
+<li>większość populacji to wir, pętla prawa, pętla lewa</li>
+</ul></li>
+<li>Lokalizacja punktów osobliwych
+<ul>
+<li>pole gradientu, pole kierunków, obraz kierunkowy i uśrednianie</li>
+<li>dzisiaj używa się sieci neuronowych</li>
+</ul></li>
+</ul>
+<h3 id="poziom-lokalny">Poziom lokalny</h3>
+<ul>
+<li>Minucje (detale Galtona)</li>
+<li>Minucje podstawowe
+<ul>
+<li>zakończenie</li>
+<li>rozwidlenie</li>
+</ul></li>
+<li>Minucje złożone
+<ul>
+<li>z minucji podstawowych</li>
+</ul></li>
+</ul>
+<h3 id="poziom-szczegółów">Poziom szczegółów</h3>
+<ul>
+<li>Przykłady
+<ul>
+<li>pory</li>
+<li>brodawki</li>
+<li>zmarszczki</li>
+<li>blizny</li>
+<li>linie zdegenerowane</li>
+</ul></li>
+<li>Wymaga dużej rozdzielczości (1000 dpi)</li>
+<li>Umożliwia identyfikację z wykorzystaniem fragmentu odcisku</li>
+<li>Pozwalają na stworzenie testów żywotności
+<ul>
+<li>np. trudno podrobić pory</li>
+</ul></li>
+</ul>
+<h2 id="biometria-vs-afis">Biometria vs AFIS</h2>
+<ul>
+<li>Kryminalistyka
+<ul>
+<li><em>Automatic Fingerprint Identification System</em></li>
+<li>ogromne bazy danych (FBI - 200 mln kart daktyloskopijnych)</li>
+<li>różna jakość danych - zbierane np. z miejsc przestępstw</li>
+<li>czas identyfikacji rzędu minut</li>
+</ul></li>
+<li>Biometria
+<ul>
+<li>sensory z kontrolą jakości</li>
+<li>czas identyfikacji rzędu ułamków sekund</li>
+</ul></li>
+</ul>
+<h2 id="pozyskiwanie-obrazu">Pozyskiwanie obrazu</h2>
+<h3 id="metody">Metody</h3>
+<ul>
+<li>Metody off-line
+<ul>
+<li>digitalizacja odcisków z kart</li>
+<li>digitalizacja odcisków utajonych (zbierane z miejsca zbrodni) -
+pędzel, proszek, lampa UV</li>
+</ul></li>
+<li>Metody on-line
+<ul>
+<li>pojemnościowe</li>
+<li>optyczne</li>
+<li>naciskowe</li>
+<li>termiczne</li>
+<li>ultradźwiękowe</li>
+<li>bezdotykowe</li>
+</ul></li>
+</ul>
+<h4 id="technika-pojemnościowa">Technika pojemnościowa</h4>
+<ul>
+<li>Matryca kondensatorów</li>
+<li>Sensor oddzielony od ekranu (np. w laptopach)</li>
+<li>Typowo rozdzielczość 300 dpi</li>
+<li>Ładunek zamieniany w przetworniku AC</li>
+<li>Nie działa z mokrym palcem</li>
+</ul>
+<h4 id="technika-optyczna">Technika optyczna</h4>
+<ul>
+<li>Jak aparat fotograficzny</li>
+<li>Pryzmat albo matryca pryzmatów</li>
+<li>Światło IR</li>
+<li>Rejestracja światła na matrycy CCD</li>
+<li>Rozdzielczość 400-600 dpi</li>
+</ul>
+<h4 id="technika-naciskowa">Technika naciskowa</h4>
+<ul>
+<li>Matryca sensorów nacisku
+<ul>
+<li>sensory piezoelektryczne</li>
+</ul></li>
+<li>Nie spopularyzowała się</li>
+</ul>
+<h4 id="technika-termiczna">Technika termiczna</h4>
+<ul>
+<li>W starych laptopach</li>
+<li>Pasek po których przesuwa się palec
+<ul>
+<li>oszczędność miejsca i kosztu sensorów</li>
+</ul></li>
+<li>Rekonstrukcja obrazu z kilku skanów w trakcie przesuwania palca</li>
+</ul>
+<h4 id="technika-ultradźwiękowa">Technika ultradźwiękowa</h4>
+<ul>
+<li>Sensory podekranowe</li>
+</ul>
+<h4 id="technika-bezdotykowa">Technika bezdotykowa</h4>
+<ul>
+<li>Droga</li>
+<li>Wyparta przez biometrię twarzy</li>
+</ul>
+<h2 id="reprezentacja-obrazu">Reprezentacja obrazu</h2>
+<ul>
+<li>Pełny (surowy obraz)</li>
+<li>Obraz po kompresji
+<ul>
+<li>WSQ (używane przez FBI)</li>
+<li>JPEG, PNG</li>
+</ul></li>
+<li>Dane spektralne
+<ul>
+<li>podział obrazu na regiony</li>
+<li>przekształcenie kosinusowe</li>
+<li>dyskretna transformata Fouriera</li>
+<li>filtry Gabora</li>
+</ul></li>
+<li>Obraz szkieletowy
+<ul>
+<li>reprezentacja symboliczna linii</li>
+</ul></li>
+<li>Obraz cech (np. minucji)</li>
+</ul>
+<h2 id="zakłócenia">Zakłócenia</h2>
+<ul>
+<li>Odcisk palca to obraz trójwymiarowej powierzchni - duża zmienność
+wewnątrzklasowa</li>
+<li>Deformacje liniowe i afiniczne
+<ul>
+<li>przesunięcia i obroty palca</li>
+<li>mniejszy problem</li>
+</ul></li>
+<li>Deformacje nieliniowe
+<ul>
+<li>zniekształcenia elastyczne</li>
+<li>różna siła docisku palca do sensora</li>
+</ul></li>
+<li>Różne obszary pomiarowe
+<ul>
+<li>inny fragment palca na małym sensorze</li>
+</ul></li>
+<li>Własność skóry
+<ul>
+<li>sucha, spocona, chora, zraniona</li>
+<li>grzbiety nie kontaktują się z powierzchnią sensora</li>
+<li>nieciągłość linii</li>
+<li>sklejenia linii</li>
+</ul></li>
+<li>Odciski utajone pozostałe po poprzednich pomiarach</li>
+<li>Niedokładność urządzenia pomiarowego</li>
+</ul>
+<h2 id="przetwarzanie-wstępne">Przetwarzanie wstępne</h2>
+<h3 id="uwypuklane-grzbietów-i-dolin">Uwypuklane grzbietów i dolin</h3>
+<ul>
+<li>Lokalna selektywność kierunkowa i częstotliwościowa</li>
+<li>Transformata Fouriera</li>
+<li>Filtry Gabora
+<ul>
+<li>bank filtrów w różnej skali</li>
+<li>sinusoida spleciona z gaussem</li>
+</ul></li>
+<li>Przekształcenie falkowe</li>
+<li>Odpowiedź filtrów osiąga maksimum na kierunkach ortogonalnych do
+grzbietów</li>
+</ul>
+<h3 id="wyrównanie-jasności-i-ostrości-obrazu">Wyrównanie jasności i
+ostrości obrazu</h3>
+<ul>
+<li>Wyrównanie histogramu</li>
+<li>Filtracja Laplace’a</li>
+</ul>
+<h3 id="segmentacja">Segmentacja</h3>
+<ul>
+<li>Pozbycie się tła</li>
+<li>Wynikiem jest obraz z nałożoną maską
+<ul>
+<li>maska to obraz binarny</li>
+<li>mnożenie wartości piksela przez 0 lub 1</li>
+</ul></li>
+<li>Analiza histogramu poziomów jasności
+<ul>
+<li>średnie poziomy jasności - raczej tło</li>
+</ul></li>
+<li>Średnia wariancja w obszarach</li>
+<li>Lokalne widmo Fouriera do oceny energii</li>
+<li>Filtry Gabora</li>
+<li>Wskaźniki wielowymiarowe
+<ul>
+<li>np. wariancja + jasność + wartość gradientu</li>
+</ul></li>
+</ul>
+<h2 id="klasyfikacja-metod-rozpoznawania">Klasyfikacja metod
+rozpoznawania</h2>
+<ul>
+<li>Porównywanie na poziomie globalnym
+<ul>
+<li><em>level 1 fingerprint matching</em></li>
+<li>traktowanie obrazu jako tekstury</li>
+<li>lokalne własności obrazu kierunkowego</li>
+<li>filtracja obrazu + kwantyzacja wyniku filtracji</li>
+<li>metody korelacyjne</li>
+</ul></li>
+<li>Porównywanie na poziomie lokalnym
+<ul>
+<li><em>level 2 fingerprint matching</em></li>
+<li>mapy minucji</li>
+<li>położenie i orientacja minucji</li>
+<li>podejście wywodzące się z daktyloskopii</li>
+<li>poszukiwanej maksymalnej liczby par pasujących minucji</li>
+<li>najpopularniejsze</li>
+</ul></li>
+<li>Porównywanie na poziomie szczegółów
+<ul>
+<li><em>level 3 fingerprint matching</em></li>
+<li>własności szczegółów</li>
+<li>kształt, położenie, orientacja</li>
+<li>raczej testowanie żywotności niż samo rozpoznawanie</li>
+</ul></li>
+</ul>
+<h3 id="potrzeba-metod-nieminucyjnych">Potrzeba metod
+nieminucyjnych</h3>
+<ul>
+<li>Dodatkowy opis odcisku</li>
+<li>Większa niezawodność dla odcisków słabej jakości</li>
+<li>Możliwość rozpoznawania niepełnych odcisków</li>
+</ul>
+<h2 id="metody-minucyjne">Metody minucyjne</h2>
+<h3 id="rodzaje-obrazów">Rodzaje obrazów</h3>
+<ul>
+<li>Obraz w skali szarości
+<ul>
+<li>bmp z sensora</li>
+</ul></li>
+<li>Obraz binarny
+<ul>
+<li>po progowaniu obrazu w skali szarości</li>
+</ul></li>
+<li>Obraz szkieletowy
+<ul>
+<li>linie o grubości 1px</li>
+</ul></li>
+</ul>
+<h3 id="estymacja-minucji">Estymacja minucji</h3>
+<ul>
+<li>Na obrazie szkieletowym to trzy IF-y na liczbę sąsiadów
+<ul>
+<li>bo linie mają grubość 1 piksela</li>
+</ul></li>
+<li>Zakłócenia powodują zwielokrotnienie minucji</li>
+<li>Końce linii na krawędziach obrazu nie są minucjami</li>
+<li>Filtracja minucji
+<ul>
+<li>reguły heurystyczne</li>
+<li>usuwanie fałszywych minucji na brzegach</li>
+<li>np. za blisko siebie, za krótka przerwa</li>
+</ul></li>
+</ul>
+<h3 id="mapa-minucji">Mapa minucji</h3>
+<ul>
+<li>Norma ISO</li>
+<li>Minucja oznaczona przez <span class="math inline">\((x, y,
+\theta)\)</span>
+<ul>
+<li>położenie wierzchołka</li>
+<li>dla zakończenia - kierunek w stronę grzbietu</li>
+<li>dla rozwidlenia - w stronę rozwidloną</li>
+</ul></li>
+<li>Problem deformacji odcisków</li>
+</ul>
+<h3 id="kroki-dopasowania-map-minucji">Kroki dopasowania map
+minucji</h3>
+<ul>
+<li>Kompensacja deformacji liniowych
+<ul>
+<li>szukamy przekształcenia afinicznego</li>
+</ul></li>
+<li>Kompensacja deformacji nieliniowych
+<ul>
+<li>przyjmujemy tolerancję - obszar dopuszczalnego błędu</li>
+<li>blisko i pasująca orientacja</li>
+</ul></li>
+<li>Wskaźnik dopasowania
+<ul>
+<li>popularny - liczba pasujących / średnia liczba w obu obrazach</li>
+</ul></li>
+<li>Zmodyfikowane wskaźniki
+<ul>
+<li>ważenie minucji jakością - lepsza jakość ma większy wpływ na
+wynik</li>
+<li>mianownik - liczba minucji w części wspólnej obrazów (po
+segmentacji)</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#biometria-odcisku-palca" id="toc-biometria-odcisku-palca">Biometria odcisku palca</a>
+<ul>
+<li><a href="#historia" id="toc-historia">Historia</a></li>
+<li><a href="#paradygmaty-biometrii-odcisku" id="toc-paradygmaty-biometrii-odcisku">Paradygmaty biometrii
+odcisku</a></li>
+<li><a href="#poziomy-obserwacji" id="toc-poziomy-obserwacji">Poziomy
+obserwacji</a>
+<ul>
+<li><a href="#elementy-podstawowe" id="toc-elementy-podstawowe">Elementy
+podstawowe</a></li>
+<li><a href="#poziom-globalny" id="toc-poziom-globalny">Poziom
+globalny</a></li>
+<li><a href="#poziom-lokalny" id="toc-poziom-lokalny">Poziom
+lokalny</a></li>
+<li><a href="#poziom-szczegółów" id="toc-poziom-szczegółów">Poziom
+szczegółów</a></li>
+</ul></li>
+<li><a href="#biometria-vs-afis" id="toc-biometria-vs-afis">Biometria vs
+AFIS</a></li>
+<li><a href="#pozyskiwanie-obrazu" id="toc-pozyskiwanie-obrazu">Pozyskiwanie obrazu</a>
+<ul>
+<li><a href="#metody" id="toc-metody">Metody</a></li>
+</ul></li>
+<li><a href="#reprezentacja-obrazu" id="toc-reprezentacja-obrazu">Reprezentacja obrazu</a></li>
+<li><a href="#zakłócenia" id="toc-zakłócenia">Zakłócenia</a></li>
+<li><a href="#przetwarzanie-wstępne" id="toc-przetwarzanie-wstępne">Przetwarzanie wstępne</a>
+<ul>
+<li><a href="#uwypuklane-grzbietów-i-dolin" id="toc-uwypuklane-grzbietów-i-dolin">Uwypuklane grzbietów i
+dolin</a></li>
+<li><a href="#wyrównanie-jasności-i-ostrości-obrazu" id="toc-wyrównanie-jasności-i-ostrości-obrazu">Wyrównanie jasności i
+ostrości obrazu</a></li>
+<li><a href="#segmentacja" id="toc-segmentacja">Segmentacja</a></li>
+</ul></li>
+<li><a href="#klasyfikacja-metod-rozpoznawania" id="toc-klasyfikacja-metod-rozpoznawania">Klasyfikacja metod
+rozpoznawania</a>
+<ul>
+<li><a href="#potrzeba-metod-nieminucyjnych" id="toc-potrzeba-metod-nieminucyjnych">Potrzeba metod
+nieminucyjnych</a></li>
+</ul></li>
+<li><a href="#metody-minucyjne" id="toc-metody-minucyjne">Metody
+minucyjne</a>
+<ul>
+<li><a href="#rodzaje-obrazów" id="toc-rodzaje-obrazów">Rodzaje
+obrazów</a></li>
+<li><a href="#estymacja-minucji" id="toc-estymacja-minucji">Estymacja
+minucji</a></li>
+<li><a href="#mapa-minucji" id="toc-mapa-minucji">Mapa minucji</a></li>
+<li><a href="#kroki-dopasowania-map-minucji" id="toc-kroki-dopasowania-map-minucji">Kroki dopasowania map
+minucji</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

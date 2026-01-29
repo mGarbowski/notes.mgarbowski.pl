@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>14-image-based-rendering</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="13-cienie.html">Poprzedni: 13-cienie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="15-grafika-wokselowa.html">Następny: 15-grafika-wokselowa.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="image-based-rendering">Image-based rendering</h1>
+<p>Jeśli obiekt jest daleko od obserwatora, ma trudną do zdefiniowania
+powierzchnię, jest takich obiektów bardzo wiele, są małe, to warto
+zamiast modelu obiektu wykorzystać jego obraz</p>
+<h2 id="skybox">Skybox</h2>
+<ul>
+<li>Przykład zastosowania image based rendering</li>
+<li>Tekstura reprezentująca otoczenie
+<ul>
+<li>rozpięta np. na sześcianie okalającym scenę (od wewnątrz)</li>
+</ul></li>
+<li>Rozdzielczość tekstury powinna być zgodna z rozdzielczością obrazu
+<ul>
+<li>piksel <span class="math inline">\(\simeq\)</span> teksel</li>
+</ul></li>
+<li>Nie pojawia się w z-buforze, niczego nie przesłania
+<ul>
+<li>jest za wszystkim innym</li>
+</ul></li>
+<li>Można ją rysować na początku
+<ul>
+<li>ale przezroczystość</li>
+<li>najefektywniej po obiektach nieprzezroczystych, przed
+przezroczystymi</li>
+</ul></li>
+<li>Porusza się razem z obserwatorem</li>
+</ul>
+<h2 id="light-field-rendering">Light Field Rendering</h2>
+<ul>
+<li>Tworzymy i przechowujemy wiele obrazów sceny z różnych położeń
+obserwatora</li>
+<li>Nowy widok sceny uzyskujemy przez interpolację innych widoków
+<ul>
+<li>na podstawie położenia obserwatora</li>
+</ul></li>
+<li>Duża złożoność procesu interpolacji, sporo wad</li>
+</ul>
+<h2 id="duszki-sprites">Duszki (Sprites)</h2>
+<ul>
+<li>Obiekty typu “kursor”</li>
+<li>Wklejane obrazy do ekranu</li>
+<li>Algorytm malarski
+<ul>
+<li>najpierw rysowane to co jest dalej</li>
+</ul></li>
+<li>Większy obiekt można zbudować z wielu duszków
+<ul>
+<li>z przypisaną głębią</li>
+</ul></li>
+</ul>
+<h2 id="billboardy">Billboardy</h2>
+<ul>
+<li>Zorientowany w osi widzenia teksturowany prostokąt</li>
+<li>Zmiana położenia obserwatora skutkuje zmianą orientacji
+billboardu</li>
+<li>Np. chmura
+<ul>
+<li>nie ma dobrze zdefiniowanej powierzchni</li>
+</ul></li>
+<li>Rodzaje
+<ul>
+<li>zorientowane w przestrzeni ekranu - odpowiednik sprite’ów</li>
+<li>zorientowane w przestrzeni świata</li>
+<li>osiowe</li>
+<li>impostory</li>
+</ul></li>
+</ul>
+<h3 id="orientacja">Orientacja</h3>
+<ul>
+<li>Określona przez wektor normalny i wektor “w górę”</li>
+<li>Docelowo billboard powinien być prostopadły do osi widzenia</li>
+<li>Znormalizowane wektory tworzą macierz rotacji
+<ul>
+<li>jedną dla wszystkich billboardów w scenie</li>
+</ul></li>
+<li>Środkiem obrotu jest centralny punkt prostokąta</li>
+</ul>
+<h3 id="billboardy-ekranowe">Billboardy ekranowe</h3>
+<ul>
+<li>Zawsze prostopadłe do ekranu</li>
+<li>Stały rozmiar na ekranie</li>
+<li>Np. tekst</li>
+</ul>
+<h3 id="billboardy-światowe">Billboardy światowe</h3>
+<ul>
+<li>Dobrze jest je wyświetlać w kolejności głębokości
+<ul>
+<li>algorytmem malarskim</li>
+<li>ale powstają problemy jeśli mogą być przezroczyste</li>
+</ul></li>
+<li>Zniekształcenia wynikające z szerokości kąta widzenia
+<ul>
+<li>dla dużych kątów dobrze ustawiać billboardy względem punktu
+obserwatora (a nie równolegle do ekranu)</li>
+</ul></li>
+</ul>
+<h3 id="billboardy-osiowe">Billboardy osiowe</h3>
+<ul>
+<li>Oś pionowa jest zawsze skierowana do góry</li>
+<li>Np. drzewa</li>
+<li>Będzie źle wyglądać od góry</li>
+</ul>
+<h3 id="impostory">Impostory</h3>
+<ul>
+<li>Zastąpienie modelu 3D przez teksturę billboardu</li>
+<li>Obraz nie ma głębokości, to może być problematyczne</li>
+<li>Np. dla małych, często pojawiających się, w dużych ilościach
+obiektów</li>
+</ul>
+<h2 id="systemy-cząstek">Systemy cząstek</h2>
+<ul>
+<li><em>Particle systems</em></li>
+<li>Chmura punktów materialnych</li>
+<li>System kontroluje zachowanie zbioru punktów</li>
+<li>Każda cząstka ma swoje parametry
+<ul>
+<li>położenia, kształt, rozmiar, prędkość, masa, czas życia, itp.</li>
+</ul></li>
+<li>System cząstek
+<ul>
+<li>emituje cząstki</li>
+<li>śledzi ich położenie</li>
+<li>ustala zasady interakcji cząstek (zderzenia, przenikanie)</li>
+<li>likwiduje cząstki (po upływie czasu życia)</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>wybuchy, fajerwerki, rozpryski wody, dym</li>
+</ul></li>
+<li>Cząstki mogą być wyświetlane jako
+<ul>
+<li>punkty na ekranie (piksele)</li>
+<li>odcinki z poprzedniego do obecnego położenia</li>
+<li>billboardy - dla cząstek większych niż piksel</li>
+</ul></li>
+<li>Dla dymu, mgły, tekstura powinna być półprzezroczysta
+<ul>
+<li>sortowanie wg. głębokości może być kosztowne</li>
+<li>różne sposoby na redukcję kosztów (mieszanie alfa itd.)</li>
+</ul></li>
+</ul>
+<h3 id="cieniowanie-cząstek">Cieniowanie cząstek</h3>
+<ul>
+<li>Emitery nie potrzebują cieniowania (np. iskry)</li>
+<li>Można przypisać barwę do wierzchołków
+<ul>
+<li>na billboardzie wszystko będzie płaskie</li>
+</ul></li>
+<li>Można przypisać do cząstki wektory normalne i wykonać pełne
+cieniowanie</li>
+<li>Można obliczyć oświetlenie w jednym wierzchołku i interpolować w
+innych</li>
+</ul>
+<h2 id="chmura-punktów">Chmura punktów</h2>
+<ul>
+<li>Raczej pod kątem wizualizacji a nie modelowania</li>
+<li>Powierzchnie reprezentowane przez punkty</li>
+<li>Np. obraz ze skanera laserowego</li>
+<li>Punkty opisane jako RGB-D (depth)</li>
+<li>Potrzeba bardzo dużo punktów do opisu obiektu</li>
+<li>Niejednorodne położenie</li>
+<li>Mogą być dziury</li>
+<li>Pozwala wizualizować obiekt nie znając jego geometrii</li>
+</ul>
+<h3 id="rendering-chmury-punktów">Rendering chmury punktów</h3>
+<ul>
+<li>Każdy punkt jest renderowany jako syntetyczny obiekt (splat) o
+zadanym promieniu
+<ul>
+<li>kwadrat lub koło</li>
+<li>nieprzezroczyste lub przezroczyste</li>
+</ul></li>
+<li>Przechowywanie punktów w strukturze hierarchicznej tak żeby nie było
+dziur
+<ul>
+<li>surrounding spheres tree</li>
+<li>wyższe poziomy hierarchii są uśrednieniem niższych</li>
+<li>rozmiar splatu zależy od poziomu w hierarchii</li>
+<li>pozwala przyspieszyć render i pokryć dziury</li>
+</ul></li>
+<li>Możliwe progresywne polepszanie obrazu
+<ul>
+<li>najpierw render z poziomu o mniejszej rozdzielczości</li>
+<li>potem zastępowanie dokładniejszymi</li>
+</ul></li>
+</ul>
+<h3 id="splaty">Splaty</h3>
+<ul>
+<li>Może mieć przypisane normalną i promień
+<ul>
+<li>kosztowny preprocessing</li>
+</ul></li>
+<li>Półprzezroczyste wymagają kosztownego mieszania barw i
+sortowania</li>
+<li>Najczęściej stosuje się nieprzezroczyste o stałym rozmiarze</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#image-based-rendering" id="toc-image-based-rendering">Image-based rendering</a>
+<ul>
+<li><a href="#skybox" id="toc-skybox">Skybox</a></li>
+<li><a href="#light-field-rendering" id="toc-light-field-rendering">Light Field Rendering</a></li>
+<li><a href="#duszki-sprites" id="toc-duszki-sprites">Duszki
+(Sprites)</a></li>
+<li><a href="#billboardy" id="toc-billboardy">Billboardy</a>
+<ul>
+<li><a href="#orientacja" id="toc-orientacja">Orientacja</a></li>
+<li><a href="#billboardy-ekranowe" id="toc-billboardy-ekranowe">Billboardy ekranowe</a></li>
+<li><a href="#billboardy-światowe" id="toc-billboardy-światowe">Billboardy światowe</a></li>
+<li><a href="#billboardy-osiowe" id="toc-billboardy-osiowe">Billboardy
+osiowe</a></li>
+<li><a href="#impostory" id="toc-impostory">Impostory</a></li>
+</ul></li>
+<li><a href="#systemy-cząstek" id="toc-systemy-cząstek">Systemy
+cząstek</a>
+<ul>
+<li><a href="#cieniowanie-cząstek" id="toc-cieniowanie-cząstek">Cieniowanie cząstek</a></li>
+</ul></li>
+<li><a href="#chmura-punktów" id="toc-chmura-punktów">Chmura punktów</a>
+<ul>
+<li><a href="#rendering-chmury-punktów" id="toc-rendering-chmury-punktów">Rendering chmury punktów</a></li>
+<li><a href="#splaty" id="toc-splaty">Splaty</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

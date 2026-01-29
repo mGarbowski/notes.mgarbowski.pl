@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-01.html">Poprzedni: wyklad-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wdrażanie i utrzymywanie systemów informatycznych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="lab-00.html">lab-00.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2025-03-13</h1>
+<h2 id="regiony-i-availability-zone">Regiony i availability zone</h2>
+<p>W Europie regiony to przykładowo West Europe - w Amsterdamie North
+Europe - w Dublinie Central Europe - w Warszawie</p>
+<p>W USA przykładowo East US West US</p>
+<p>Odległości między najbliższymi regionami rzędu kilkuset
+kilometrów</p>
+<p>Wybór lokalizacji zależy od lokalizacji klientów round trip pakietu
+USA-Europa to kilkadziesiąt ms</p>
+<p>W ramach jednego regionu (np. West Europe) są availability zones - 3
+centra danych (DC) odległe od siebie o mniej niż 10 mil - niedużo Zapis
+idzie synchronicznie na wszystkie 3 DC</p>
+<p>Osiągnięcie tego samego między regionami - wprowadzałoby bardzo duże
+opóźnienia</p>
+<p>Ryzyko jest dopiero, kiedy cały region ulegnie awarii - trzeba
+zapewnić redundancję między regionami - to wymaga innych mechanizmów niż
+synchroniczne zapisy</p>
+<h2 id="wirtualizacja-c.d.">Wirtualizacja c.d.</h2>
+<p>Narzuty na wirtualizację są małe i coraz mniejsze - stosuje się ją
+powszechnie</p>
+<h2 id="konteneryzacja">Konteneryzacja</h2>
+<ul>
+<li>Sposób pakowania i dystrybucji oprogramowania</li>
+<li>Aplikacja zapakowana w ustandaryzowany pojemnik</li>
+<li>Uruchamiają się na czymś - nie jest jak maszyna wirtualna</li>
+<li>Analogia do kontenerów w transporcie</li>
+</ul>
+<h3 id="wsparcie-os-linux-dla-kontenerów">Wsparcie OS Linux dla
+kontenerów</h3>
+<ul>
+<li>cgroups
+<ul>
+<li>część jądra</li>
+<li>umożliwia przydzielanie i kontrolowanie zasobów</li>
+<li>pamięć, CPU, priorytety</li>
+<li>samodzielnie odpalony proces może zużywać całe zasoby</li>
+<li>cgroups sztywno ogranicza proces</li>
+</ul></li>
+<li>Linux namespaces
+<ul>
+<li>zakres po którym proces może się poruszać</li>
+<li>funkcjonalność jądra</li>
+<li>z punktu widzenia aplikacje otwarcie pliku to wywołanie
+systemowe</li>
+<li>namespace dokłada do wywołania dodatkowy parametr - namespace</li>
+<li>żaden inny proces nie ma dostępu do pliku otwartego w tym namespace
+- gwarantuje system operacyjny</li>
+<li>sieć, ipc, użytkownicy, zegary, pid, system plików</li>
+</ul></li>
+</ul>
+<h2 id="docker">Docker</h2>
+<h3 id="architektura">Architektura</h3>
+<ul>
+<li>Klient
+<ul>
+<li>komunikuje się z demonem przez socket unixowy - wywołanie endpointu
+restowego</li>
+<li>komendy typu <code>docker run</code>, <code>docker build</code></li>
+<li>nie ma autoryzacji, tylko uprawnienia do socketa na tej
+maszynie</li>
+</ul></li>
+<li>Obraz
+<ul>
+<li>plik binarny, który zawiera wszystko co pakujemy do aplikacji</li>
+<li>biblioteki, JVM, jar</li>
+<li>musi być dostępny lokalnie na maszynie, która go uruchamia</li>
+<li>można zbudować</li>
+<li>można pobrać z repozytorium</li>
+<li>można pobrać z repozytorium i coś dodać</li>
+</ul></li>
+<li>Rejestr
+<ul>
+<li>usługa sieciowa</li>
+<li>może być lokalne</li>
+</ul></li>
+<li>Kontener
+<ul>
+<li>na podstawie obrazu</li>
+<li>ma swoje dane</li>
+</ul></li>
+</ul>
+<h3 id="warstwy-abstrakcji">Warstwy abstrakcji</h3>
+<ul>
+<li>Klient</li>
+<li>containerd
+<ul>
+<li>dawniej docker daemon</li>
+<li>to co pobiera obrazy, zarządza sieciami itd.</li>
+</ul></li>
+<li>runc
+<ul>
+<li>uruchamia kontenery</li>
+<li>wykorzystuje natywne funkcje systemu Linux (cgroups, namespace)</li>
+</ul></li>
+</ul>
+<h2 id="po-co-konteneryzować">Po co konteneryzować</h2>
+<ul>
+<li>Obraz można publikować, uruchamiać</li>
+<li>Powtarzalne środowisko, konfiguracja
+<ul>
+<li>robimy to tylko raz i potem działa</li>
+</ul></li>
+</ul>
+<h2 id="przykład">Przykład</h2>
+<ul>
+<li>Obrazy są podzielone na warstwy
+<ul>
+<li>można nimi oddzielnie zarządzać</li>
+</ul></li>
+<li>Można przemapować porty bez modyfikowania aplikacji i konfiguracji
+<ul>
+<li>flaga <code>-p</code> przy uruchamianiu kontenera</li>
+</ul></li>
+<li>Docker daje kontrolę nad uruchomionymi kontenerami
+<ul>
+<li>można podejrzeć statystyki - zużycie CPU, pamięć, IO dyskowe, IO
+sieciowe</li>
+</ul></li>
+<li>Konteneryzacja też daje narzut</li>
+<li>Optymalizacja aplikacji javowej
+<ul>
+<li>do JVM podaje się rozmiar heap początkowy i maksymalny</li>
+<li>docker domyślnie pozyskiwał pamięć gdzieś pomiędzy tymi 2
+wartościami</li>
+<li>jak zaczynało brakować heap’u w JVM - JVM próbował rozszerzyć, a
+docker nie dawał</li>
+<li>brakuje pamięci i częściej odpala się garbage collector - wydajność
+spada</li>
+</ul></li>
+</ul>
+<h2 id="najważniejsze-pojęcia">Najważniejsze pojęcia</h2>
+<ul>
+<li>Image (obraz)
+<ul>
+<li>plik źródłowy zawierający binaria i biblioteki do uruchomienia</li>
+<li>obraz jest niezmienny (immutable)</li>
+</ul></li>
+<li>Container
+<ul>
+<li>uruchomiony w kontenerze proces na podstawie określonego obrazu</li>
+</ul></li>
+<li>Registry
+<ul>
+<li>katalog obrazów</li>
+</ul></li>
+</ul>
+<h2 id="docker---storage">Docker - storage</h2>
+<ul>
+<li>Do danych trwałych, które mają przetrwać wyłączenie kontenera</li>
+<li>Volume
+<ul>
+<li>ścieżka, która zawiera dane dla kontenera</li>
+<li>w odpowiednim katalogu gospodarza</li>
+<li>pliki, które są wirtualnymi systemami plików</li>
+</ul></li>
+<li>Bind mount</li>
+<li>tmpfs
+<ul>
+<li>system plików w pamięci</li>
+<li>ale przetrwa restart</li>
+</ul></li>
+</ul>
+<h2 id="cykl-życia-kontenera">Cykl życia kontenera</h2>
+<ul>
+<li>…diagram stanów…</li>
+</ul>
+<h2 id="docker-daemon-api">Docker daemon API</h2>
+<ul>
+<li>RESTowe API</li>
+<li>Zawiera też endpointy do orkiestracji - swarm
+<ul>
+<li>zamiast tego raczej używa się Kubernetes</li>
+</ul></li>
+</ul>
+<p><code>docker top</code> - tak jak systemowy <code>top</code></p>
+<h2 id="docker---sieci">Docker - sieci</h2>
+<ul>
+<li>Tryb <code>bridge</code> (domyślny)
+<ul>
+<li>host ma dodatkowy interfejs sieciowy o ip <code>172.17.0.1</code> -
+kontener widzi hosta pod tym adresem, niewidoczny na zewnątrz (z puli
+prywatnej)</li>
+<li>każdy uruchomiony kontener dostaje adres z puli
+<code>172.17.0.0/24</code></li>
+<li>kontenery widzą się nawzajem</li>
+<li>kontenery nie są widoczne bezpośredni z zewnątrz hosta</li>
+</ul></li>
+<li>Tryb <code>overlay</code>
+<ul>
+<li>na hoście jest tworzona nowa sieć, do której mogą się podłączać
+kontenery i przez którą mogą być widoczne na zewnątrz</li>
+<li>może być routing z zewnątrz do kontenerów</li>
+</ul></li>
+<li>Tryb <code>host</code>
+<ul>
+<li>kontener korzysta z interfejsu sieciowego gospodarza</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2025-03-13</a>
+<ul>
+<li><a href="#regiony-i-availability-zone" id="toc-regiony-i-availability-zone">Regiony i availability
+zone</a></li>
+<li><a href="#wirtualizacja-c.d." id="toc-wirtualizacja-c.d.">Wirtualizacja c.d.</a></li>
+<li><a href="#konteneryzacja" id="toc-konteneryzacja">Konteneryzacja</a>
+<ul>
+<li><a href="#wsparcie-os-linux-dla-kontenerów" id="toc-wsparcie-os-linux-dla-kontenerów">Wsparcie OS Linux dla
+kontenerów</a></li>
+</ul></li>
+<li><a href="#docker" id="toc-docker">Docker</a>
+<ul>
+<li><a href="#architektura" id="toc-architektura">Architektura</a></li>
+<li><a href="#warstwy-abstrakcji" id="toc-warstwy-abstrakcji">Warstwy
+abstrakcji</a></li>
+</ul></li>
+<li><a href="#po-co-konteneryzować" id="toc-po-co-konteneryzować">Po co
+konteneryzować</a></li>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+<li><a href="#najważniejsze-pojęcia" id="toc-najważniejsze-pojęcia">Najważniejsze pojęcia</a></li>
+<li><a href="#docker---storage" id="toc-docker---storage">Docker -
+storage</a></li>
+<li><a href="#cykl-życia-kontenera" id="toc-cykl-życia-kontenera">Cykl
+życia kontenera</a></li>
+<li><a href="#docker-daemon-api" id="toc-docker-daemon-api">Docker
+daemon API</a></li>
+<li><a href="#docker---sieci" id="toc-docker---sieci">Docker -
+sieci</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

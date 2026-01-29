@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Programowanie sieciowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-podstawy-sieci.html">01-podstawy-sieci.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-10-24</h1>
+<p>Za tydzień może będą prowadzący labów Dobrać się w zespoły projektowe
+Zespoły zgłaszają się do prowadzących</p>
+<h2 id="gniazda-bsd">Gniazda BSD</h2>
+<ul>
+<li>API programowania usług sieciowych (Network API)
+<ul>
+<li>protokoły sieciowe</li>
+<li>system operacyjny</li>
+<li>język programowania</li>
+</ul></li>
+<li>W różnych systemach i językach są w zasadzie warianty gniazd
+BSD</li>
+<li>Interfejs BSD sockets jest bardziej uniwersalny
+<ul>
+<li>protokoły internetowe w warstwie transportowej</li>
+<li>raw sockets - warstwa sieciowa</li>
+<li>protokół bluetooth</li>
+<li>gniazda lokalne (AF_UNIX, AF_NETLINK)</li>
+</ul></li>
+</ul>
+<h3 id="komunikacja-udp">Komunikacja UDP</h3>
+<ul>
+<li>Utworzenie gniazda - <code>socket()</code>
+<ul>
+<li>zwraca deskryptor, podobnie jak <code>open()</code></li>
+</ul></li>
+<li><code>bind()</code></li>
+<li><code>recvfrom()</code>, <code>sendto()</code></li>
+</ul>
+<h3 id="komunikacja-tcp">Komunikacja TCP</h3>
+<ul>
+<li>Trzeba utworzyć połączenie</li>
+<li>Serwer - <code>socket()</code>, <code>bind()</code></li>
+<li>Klient - <code>socket()</code></li>
+<li>Serwer nasłuchuje na porcie <code>listen()</code></li>
+<li>Przyjmowanie połączeń <code>accept()</code>
+<ul>
+<li>najczęściej w pętli</li>
+</ul></li>
+<li>Klient wywołuje <code>connect()</code>
+<ul>
+<li>niejawne wywołanie <code>bind()</code></li>
+</ul></li>
+<li>Komunikacja przez <code>read()</code> i <code>write()</code>
+<ul>
+<li>jak dopisywanie do końca sekwencyjnego pliku</li>
+</ul></li>
+</ul>
+<h3 id="api-c-vs-api-python">API C vs API Python</h3>
+<ul>
+<li>C
+<ul>
+<li>skomplikowana i żmudna obsługa typów adresowych</li>
+</ul></li>
+<li>Python
+<ul>
+<li>można niejawnie używać resolvera</li>
+<li>wygodniejsze w użyciu</li>
+<li>nie rozwiązuje typowych problemów samych protokołów sieciowych (np.
+ograniczona wielkość paczki danych)</li>
+</ul></li>
+<li>Istotne różnice przy bardziej zaawansowanych funkcjach
+<ul>
+<li>np. <code>select()</code></li>
+</ul></li>
+</ul>
+<h3 id="klient-tcp-w-pythonie">Klient TCP w Pythonie</h3>
+<p>…</p>
+<h3 id="serwer-tcp-w-pythonie">Serwer TCP w Pythonie</h3>
+<p>…</p>
+<p>listen nie blokuje accept zwraca parę (gniazdo, adres klienta) to
+inne gniazdo niż to nasłuchujące accept zwraca gniazdo w pełni
+zasocjowane system tworzy nowe gniazdo, gniazdo nasłuchujące nie ulega
+zmianie</p>
+<p>binary_stream - przydatne do serializowania bardziej skomplikowanych
+danych</p>
+<p>recv blokuje</p>
+<h3 id="python-socket">Python <code>socket()</code></h3>
+<ul>
+<li>Rodzina protokołów
+<ul>
+<li><code>AF_INET</code></li>
+</ul></li>
+<li>Typ
+<ul>
+<li><code>SOCK_STREAM</code></li>
+<li><code>SOCK_DGRAM</code></li>
+<li><code>SOCK_RAW</code></li>
+</ul></li>
+<li>Protokół - wyznaczony przez rodzinę i typ</li>
+<li>Deskryptor pliku</li>
+</ul>
+<h3 id="bind"><code>bind</code></h3>
+<ul>
+<li>Przywiązuje lokalny adres do gniazda</li>
+<li>Nie generuje komunikacji sieciowej</li>
+<li>Typowo używane przez serwer do przywiązania numeru portu</li>
+</ul>
+<h3 id="connect"><code>connect</code></h3>
+<ul>
+<li>Powoduje nawiązanie połączenia z serwerem</li>
+<li>Używany dla TCP, może być użyty dla UDP</li>
+<li>Nie wymaga <code>bind</code></li>
+<li>Funkcja powolna, może być przerwana za pomocą sygnału
+<ul>
+<li>ctrl+c jeśli program działa z konsoli</li>
+<li><code>send</code>, <code>recv</code>, <code>read</code>,
+<code>write</code></li>
+<li>użytkownik może zauważyć spowolnienie</li>
+</ul></li>
+</ul>
+<h3 id="accept"><code>accept</code></h3>
+<ul>
+<li>Produkuje zasocjowane (połączone z klientem) gniazdo</li>
+<li>Gniazdo źródłowe nie jest modyfikowane</li>
+</ul>
+<h3 id="inne-funkcje">Inne funkcje</h3>
+<ul>
+<li>socket.listen
+<ul>
+<li>backlog - liczba kolejkowanych klientów</li>
+</ul></li>
+<li>send - wysyła dane przez gniazdo
+<ul>
+<li>może się zablokować</li>
+<li>może przekazać sterowanie do niższych warstw stosu sieciowego</li>
+<li>może wysłać tylko część danych</li>
+</ul></li>
+<li>sendall - wysyła dane przez gniazdo do skutku
+<ul>
+<li>do wystąpienia błędu lub wysłania wszystkich danych</li>
+</ul></li>
+<li>recv</li>
+<li>shutdown - zamknięcie gniazda</li>
+<li>settimeout - timeout dla operacji blokujących
+<ul>
+<li>0 - tryb nieblokujący</li>
+</ul></li>
+</ul>
+<h2 id="dane-binarne-w-pythonie">Dane binarne w Pythonie</h2>
+<ul>
+<li>bytearray</li>
+<li>moduł struct</li>
+</ul>
+<h2 id="api-c">API C</h2>
+<h3 id="nagłówki">Nagłówki</h3>
+<ul>
+<li>Niezwiązane z gniazdami ale zazwyczaj potrzebne
+<ul>
+<li>stdlib.h</li>
+<li>stdio.h</li>
+<li>string.h</li>
+<li>unistd.h</li>
+</ul></li>
+<li>Unix - gniazda
+<ul>
+<li>sys/types.h</li>
+<li>sys/socket.h</li>
+<li>netinet/in.h</li>
+<li>arpa/inet.h</li>
+<li>netdb.h</li>
+</ul></li>
+<li>Windows
+<ul>
+<li>…</li>
+</ul></li>
+<li>API gniazd do Windowsa różni się tylko minimalnie</li>
+</ul>
+<h3 id="adresowanie">Adresowanie</h3>
+<ul>
+<li>adres generyczny - sockaddr - stosowany we wszystkich wywołaniahc
+systemowych
+<ul>
+<li>przekazywany przez wskaźnik</li>
+<li>przekazuje się rozmiar struktury (adresy moga mieć różne
+długości)</li>
+</ul></li>
+<li>sockaddr_in
+<ul>
+<li>adresowanie internetowe</li>
+<li>rodzina</li>
+<li>port</li>
+<li>adres - struktura in_addr</li>
+</ul></li>
+</ul>
+<h3 id="budowanie-adresów">Budowanie adresów</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sock_addr<span class="op">.</span>sin_family <span class="op">=</span> AF_INET<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sock_addr<span class="op">.</span>sin_addr<span class="op">.</span>s_addr <span class="op">=</span> inet_addr<span class="op">(</span><span class="st">&quot;192.168.1.1&quot;</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sock_addr<span class="op">.</span>sin_port <span class="op">=</span> htons<span class="op">(</span><span class="dv">8000</span><span class="op">);</span></span></code></pre></div>
+<ul>
+<li>htons</li>
+<li>htonl</li>
+<li>ntohs</li>
+<li>ntohl host to network / network to host - konwersja z konwencji
+hosta na big-endian short (16b) / long (32b) dla maszyny big-endian nic
+nie robi kod powinien być uniwersalny</li>
+</ul>
+<p>Protokół jest obojętny na dane, to programista zapewnia
+przenośność</p>
+<h3 id="socket"><code>socket()</code></h3>
+<ul>
+<li>rodzina, typ, protokół - jak w pythonie</li>
+<li><code>SOCK_RAW</code>
+<ul>
+<li>IP</li>
+<li>ICMP</li>
+<li>wymaga podania protokołu</li>
+</ul></li>
+<li>zwraca deskryptor, taki sam jak deskryptor plikowy
+<ul>
+<li>jak ten zwracany przez <code>open()</code></li>
+<li>taki sam kod do czytania z gniazd, plików, potoków</li>
+<li>zwraca -1 jeśli błąd</li>
+</ul></li>
+</ul>
+<h3 id="bind-1"><code>bind()</code></h3>
+<ul>
+<li><code>int bind(int sockfd, const struct sockaddr *saddr, socklen_t addrlen);</code></li>
+<li>Przypisuje loklany adres do gniazda</li>
+<li>Trzeba zachować zgodność adresowania</li>
+<li>Do rejestracji serwera lub klienta UDP</li>
+<li>Sukces - 0</li>
+<li>Błąd - 1</li>
+</ul>
+<h3 id="connect-1">connect</h3>
+<ul>
+<li>Zestawia połączenie TCP</li>
+<li>Funkcja blokująca</li>
+<li>three way handhsake</li>
+<li>nie wymaga wywołania bind
+<ul>
+<li>sam przydziela adres i port efemeryczny</li>
+</ul></li>
+<li>errno w wypadku wystąpienia błędu
+<ul>
+<li>ETIMEDOUT - timeout</li>
+<li>ECONNREFUSED - druga strona odmówiła połączenia (np. nie ma
+otwartego portu)</li>
+<li>ENETNOTREACH - otrzymaliśmy komunikat ICMP, że nie da się rutować
+pakietu na poziomie sieciowym</li>
+<li>EISCONN - już jest połączony</li>
+</ul></li>
+<li>ma też sens dla UDP
+<ul>
+<li>zapamiętuje adres serwerwa</li>
+<li>przydatne jeśli ma być wysłane wiele datagramów (send, zamiast
+sendto)</li>
+</ul></li>
+<li>Jeśli wystąpi błąd przy sendto to nie wiadomo co z nim zrobić
+<ul>
+<li>system nie wie gdzie ten błąd dostarczyć</li>
+</ul></li>
+<li>Jeśli połączymy się z gniazdem przez connect to system zapamiętuje
+adres odbiorcy
+<ul>
+<li>błąd po send (nie sendto) - system rozpoznaje</li>
+<li>przy kolejnym wywołaniu send będzie zwrócony komunikat o błędzie
+dotyczący poprzednio wysyłanych danych</li>
+</ul></li>
+</ul>
+<h3 id="listen">listen</h3>
+<ul>
+<li>wywoływana tylko przez serwer TCP</li>
+<li>nie jest blokująca</li>
+<li>zamienia socket niepołączony w socket pasywny (nasłuchujący)</li>
+<li>Pomiędzy wywołaniami accept w pętli
+<ul>
+<li>pojawiają się klienci</li>
+<li>mogą być połączeni na poziomie sieciowym i czekają na accept</li>
+<li>mogą być w trakcie nawiązywania połączenia</li>
+<li>są 2 kolejki</li>
+<li>backlog określa długość kolejki zestawionych połączeń</li>
+<li>długość kolejki niezestawionych połączeń określa parametr
+kernela</li>
+</ul></li>
+<li>backlog
+<ul>
+<li>gniazdo serwerowe jest dużo cięższe</li>
+<li>nie ma co przesadzać, doczytać dokumentację kernela</li>
+</ul></li>
+</ul>
+<h3 id="accept-1">accept</h3>
+<ul>
+<li>Po powrocie może ponownie nasłuchiwać na oryginalnym gnieździe</li>
+<li>Pamiętać o zamykaniu gniazd</li>
+<li>Można nie startować nowego procesu tylko wykorzystać pulę, albo
+przekazać sterowanie do wątku</li>
+<li>Można wywoływać accept w wielu wątkach jednocześnie
+<ul>
+<li>stosowane np. w nginx</li>
+</ul></li>
+<li>Wiele funkcji accept na odrębnych gniazdach w odrębnych
+wątkach/procesach
+<ul>
+<li>dla serwerów o bardzo wysokim obciążeniu</li>
+</ul></li>
+<li>Nalaboratorium …. (ten prostszy wariant)</li>
+</ul>
+<h4 id="serwer-współbieżny">Serwer współbieżny</h4>
+<ul>
+<li>fork</li>
+<li>proces potomny zwalnia gniazdo nasłuchujące i obsługuje socket
+nowego połączenia
+<ul>
+<li>jeśli deskryptor jest nam niepotrzebny to należy go zamknąć</li>
+<li>inny proces nie zobaczy że skończyły się dane(?)</li>
+</ul></li>
+<li>proces rodzic zamyka nowe gniazdo</li>
+</ul>
+<h3 id="close">close</h3>
+<ul>
+<li>Zamyka deskryptor</li>
+<li>Jeśli to jedyny deskryptor to zamyka połączenie</li>
+<li>Jeśli jest więcej deskryptorów to zamknie deskryptor bez zamykania
+gniazda</li>
+<li>TCP najpierw spróbuje dostarczyć niewysłane dane, a następnie
+wynegocjować zamknięcie połączenia</li>
+</ul>
+<h3 id="shutdown">shutdown</h3>
+<ul>
+<li>parametr określa jak chcemy zamknąć gniazdo
+<ul>
+<li>czy do zapisu / odczytu / obu</li>
+</ul></li>
+<li>zamyka gniazdo, robi inne rzeczy niż close</li>
+</ul>
+<p>w unixie jest czas (typowo 30-60s) kiedy gniazdo już zostało
+zamknięte ale nie można go ponownie otworzyć - po restarcie serwera może
+wylecieć błąd jest szansa że do strony zamykającej dotrą zduplikowane
+fragmenty danych - TCP sobie z tym poradzi</p>
+<p>Python concurrent.futures.ThreadPoolExecutor</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-10-24</a>
+<ul>
+<li><a href="#gniazda-bsd" id="toc-gniazda-bsd">Gniazda BSD</a>
+<ul>
+<li><a href="#komunikacja-udp" id="toc-komunikacja-udp">Komunikacja
+UDP</a></li>
+<li><a href="#komunikacja-tcp" id="toc-komunikacja-tcp">Komunikacja
+TCP</a></li>
+<li><a href="#api-c-vs-api-python" id="toc-api-c-vs-api-python">API C vs
+API Python</a></li>
+<li><a href="#klient-tcp-w-pythonie" id="toc-klient-tcp-w-pythonie">Klient TCP w Pythonie</a></li>
+<li><a href="#serwer-tcp-w-pythonie" id="toc-serwer-tcp-w-pythonie">Serwer TCP w Pythonie</a></li>
+<li><a href="#python-socket" id="toc-python-socket">Python
+<code>socket()</code></a></li>
+<li><a href="#bind" id="toc-bind"><code>bind</code></a></li>
+<li><a href="#connect" id="toc-connect"><code>connect</code></a></li>
+<li><a href="#accept" id="toc-accept"><code>accept</code></a></li>
+<li><a href="#inne-funkcje" id="toc-inne-funkcje">Inne funkcje</a></li>
+</ul></li>
+<li><a href="#dane-binarne-w-pythonie" id="toc-dane-binarne-w-pythonie">Dane binarne w Pythonie</a></li>
+<li><a href="#api-c" id="toc-api-c">API C</a>
+<ul>
+<li><a href="#nagłówki" id="toc-nagłówki">Nagłówki</a></li>
+<li><a href="#adresowanie" id="toc-adresowanie">Adresowanie</a></li>
+<li><a href="#budowanie-adresów" id="toc-budowanie-adresów">Budowanie
+adresów</a></li>
+<li><a href="#socket" id="toc-socket"><code>socket()</code></a></li>
+<li><a href="#bind-1" id="toc-bind-1"><code>bind()</code></a></li>
+<li><a href="#connect-1" id="toc-connect-1">connect</a></li>
+<li><a href="#listen" id="toc-listen">listen</a></li>
+<li><a href="#accept-1" id="toc-accept-1">accept</a></li>
+<li><a href="#close" id="toc-close">close</a></li>
+<li><a href="#shutdown" id="toc-shutdown">shutdown</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

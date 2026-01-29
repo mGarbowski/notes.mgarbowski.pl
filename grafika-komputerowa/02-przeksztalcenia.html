@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-przeksztalcenia</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-reprezentacje-obiektow.html">Poprzedni: 01-reprezentacje-obiektow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="03-siatki-trojkatow.html">Następny: 03-siatki-trojkatow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="przekształcenia">Przekształcenia</h1>
+<ul>
+<li>Obiekty znajdują się w przestrzeni i w niej się przemieszczają</li>
+<li>Reprezentacja punktu w przestrzeni <span
+class="math inline">\((x,y,z)\)</span>
+<ul>
+<li>wymaga zdefiniowania układu współrzędnych ## Wektory</li>
+</ul></li>
+<li>Reprezentacja
+<ul>
+<li>ruchu, siły</li>
+<li>przemieszczenia</li>
+</ul></li>
+<li>Operacje
+<ul>
+<li>dodawanie</li>
+<li>odejmowania</li>
+<li>skalowanie</li>
+<li>normalizacja</li>
+<li>iloczyny</li>
+</ul></li>
+</ul>
+<h3 id="iloczyn-skalarny">Iloczyn skalarny</h3>
+<ul>
+<li>Kąt między wektorami</li>
+<li><span class="math inline">\(v \cdot w = \|v\| \|w\|
+\cos(\theta)\)</span></li>
+</ul>
+<h3 id="iloczyn-wektorowy">Iloczyn wektorowy</h3>
+<ul>
+<li>Wynikowy wektor jest prostopadły do dwóch wykorzystanych</li>
+<li>Wyznaczanie wektora normalnego</li>
+<li><span class="math inline">\(\|v \times w \| = \|v\| \|w\|
+\sin(\theta)\)</span></li>
+</ul>
+<h3 id="wektor-normalny">Wektor normalny</h3>
+<ul>
+<li>Wektor prostopadły do powierzchni</li>
+<li>Zwykle długość wektora to 1</li>
+<li>Może być zdefiniowany jako wynik iloczynu wektorowego dwóch wektorów
+stycznych do powierzchni</li>
+<li>Reprezentuje orientację</li>
+</ul>
+<h2 id="system-współrzędnych">System współrzędnych</h2>
+<ul>
+<li>Definiuje początek przestrzeni</li>
+<li>3 niezależne liniowo wektory
+<ul>
+<li>osie x, y, z</li>
+</ul></li>
+<li>Czasem łatwiej definiować rzeczy w lokalnych układach
+współrzędnych</li>
+<li>Ręczność
+<ul>
+<li>lewoskrętny</li>
+<li>prawoskrętny</li>
+</ul></li>
+</ul>
+<h3 id="przestrzeń-świata">Przestrzeń świata</h3>
+<ul>
+<li>Punkt <span class="math inline">\((0,0,0)\)</span></li>
+<li>Wektory
+<ul>
+<li><span class="math inline">\((1,0,0)\)</span></li>
+<li><span class="math inline">\((0,1,0)\)</span></li>
+<li><span class="math inline">\((0,0,1)\)</span></li>
+</ul></li>
+<li>Wszystko inne definiowane w relacji do tego systemu</li>
+</ul>
+<h2 id="transformacje">Transformacje</h2>
+<ul>
+<li>Mapowanie punktów na inne punkty i wektorów na inne wektory
+<ul>
+<li><span class="math inline">\(p&#39; = T(p)\)</span></li>
+<li><span class="math inline">\(v&#39;=T(v)\)</span></li>
+</ul></li>
+<li>Liniowe
+<ul>
+<li><span class="math inline">\(T(sv) = sT(v)\)</span></li>
+<li><span class="math inline">\(T(v_1+v_2) = T(v_1) +
+T(v_2)\)</span></li>
+</ul></li>
+<li>Ciągłe
+<ul>
+<li>sąsiedztwo <span class="math inline">\(p\)</span> lub <span
+class="math inline">\(v\)</span> przekształcane jest na sąsiedztwo <span
+class="math inline">\(p&#39;\)</span> lub <span
+class="math inline">\(v&#39;\)</span></li>
+</ul></li>
+<li>Jeden do jednego i odwracalne
+<ul>
+<li><span class="math inline">\(p = T^{-1}(T(p))\)</span></li>
+</ul></li>
+</ul>
+<h3 id="transformacje-afiniczne">Transformacje afiniczne</h3>
+<ul>
+<li>Transformacje liniowe + translacja
+<ul>
+<li>identyczność</li>
+<li>translacja</li>
+<li>rotacja</li>
+<li>skalowanie</li>
+<li>pochylenie</li>
+</ul></li>
+</ul>
+<h3 id="współrzędne-jednorodne">Współrzędne jednorodne</h3>
+<ul>
+<li>Reprezentacja <span class="math inline">\(N\)</span> wymiarowej
+przestrzeni rzutowej za pomocą układu <span
+class="math inline">\(N+1\)</span> współrzędnych</li>
+<li><span class="math inline">\((x, y, z, w) = (x/w, y/w,
+z/w)\)</span></li>
+<li>Upraszcza przekształcenia - translację też można zapisać jako
+mnożenie macierzy</li>
+</ul>
+<h3 id="identyczność">Identyczność</h3>
+<p>Przekształcenie dające ten sam obiekt</p>
+<p><span class="math display">\[I = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}\]</span></p>
+<h3 id="skalowanie">Skalowanie</h3>
+<ul>
+<li>Proporcjonalna zmiana długości elementu</li>
+<li>Skalowanie może przemieszczać obiekt</li>
+<li>Jeśli obiekt nie zaczyna się w punkcie <span
+class="math inline">\((0,0,0)\)</span> obiekt trzeba przesunąć do 0,
+przeskalować i przesunąć z powrotem</li>
+<li>Kąty nie są zachowane jeśli skalowanie nie jest jednorodne
+<ul>
+<li>kiedy skala jest różna w różnych osiach</li>
+<li><span class="math inline">\(S_x \ne S_y\)</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[S = \begin{bmatrix}
+S_x &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; S_y &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; S_z &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[S \cdot \begin{bmatrix}x \\ y \\ z \\
+1\end{bmatrix} = \begin{bmatrix}S_xx \\ S_yy \\ S_zz\\
+1\end{bmatrix}\]</span></p>
+<h3 id="rotacja">Rotacja</h3>
+<ul>
+<li>Każda rotacja może być przedstawiona jako kompozycja 3 rotacji
+nałożonych przeciwnie do ruchu wskazówek zegara
+<ul>
+<li>kąty Eulera</li>
+</ul></li>
+<li>Oddzielne macierze dla każdej osi</li>
+<li>Zachowuje kąty pomiędzy poszczególnymi częściami obiektu</li>
+<li>Obiekt zmienia położenie jeśli punkt obrotu jest inny niż 0
+<ul>
+<li>można przesunąć do 0, obrócić i cofnąć</li>
+</ul></li>
+<li>Pivot - punkt wokół którego robimy obrót</li>
+</ul>
+<p><span class="math display">\[
+R_x(\theta) = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; \cos \theta &amp; -\sin \theta &amp; 0 \\
+0 &amp; \sin \theta &amp; \cos \theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\quad
+R_y(\theta) = \begin{bmatrix}
+\cos\theta &amp; 0 &amp; \sin\theta &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+-\sin\theta &amp; 0 &amp; \cos\theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\quad
+R_z(\theta) = \begin{bmatrix}
+\cos\theta &amp; -\sin\theta &amp; 0 &amp; 0 \\
+\sin\theta &amp; \cos\theta &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="pochylenie-ścinanie">Pochylenie / ścinanie</h3>
+<ul>
+<li>ang. shear</li>
+<li>Powoduje skośny kształt obiektów w którymś z wymiarów</li>
+<li>Przydatne do augmentacji danych</li>
+</ul>
+<p><span class="math display">\[Sh = \begin{bmatrix}
+1 &amp; sh_x^y &amp; sh_x^z &amp; 0 \\
+sh_y^x &amp; 1 &amp; sh_y^z &amp; 0 \\
+sh_z^x &amp; sh_z^y &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}\]</span></p>
+<h3 id="translacja">Translacja</h3>
+<ul>
+<li>Przesunięcie punktu o wektor</li>
+</ul>
+<p><span class="math display">\[T(\Delta x, \Delta y, \Delta z) =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; \Delta x \\
+0 &amp; 1 &amp; 0 &amp; \Delta y \\
+0 &amp; 0 &amp; 1 &amp; \Delta z \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}\]</span></p>
+<h2 id="składanie-przekształceń">Składanie przekształceń</h2>
+<ul>
+<li>Mnożenie macierzy przez siebie</li>
+<li>Przed wykonywaniem obliczeń lepiej utworzyć pojedynczą macierz
+<ul>
+<li>zwykle poddajemy temu samemu zestawowi transformacji więcej niż
+jeden punkt</li>
+</ul></li>
+<li>Kolejność ma znaczenie
+<ul>
+<li>mnożenie macierzy od prawej do lewej</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przekształcenia" id="toc-przekształcenia">Przekształcenia</a>
+<ul>
+<li><a href="#iloczyn-skalarny" id="toc-iloczyn-skalarny">Iloczyn
+skalarny</a></li>
+<li><a href="#iloczyn-wektorowy" id="toc-iloczyn-wektorowy">Iloczyn
+wektorowy</a></li>
+<li><a href="#wektor-normalny" id="toc-wektor-normalny">Wektor
+normalny</a></li>
+<li><a href="#system-współrzędnych" id="toc-system-współrzędnych">System
+współrzędnych</a>
+<ul>
+<li><a href="#przestrzeń-świata" id="toc-przestrzeń-świata">Przestrzeń
+świata</a></li>
+</ul></li>
+<li><a href="#transformacje" id="toc-transformacje">Transformacje</a>
+<ul>
+<li><a href="#transformacje-afiniczne" id="toc-transformacje-afiniczne">Transformacje afiniczne</a></li>
+<li><a href="#współrzędne-jednorodne" id="toc-współrzędne-jednorodne">Współrzędne jednorodne</a></li>
+<li><a href="#identyczność" id="toc-identyczność">Identyczność</a></li>
+<li><a href="#skalowanie" id="toc-skalowanie">Skalowanie</a></li>
+<li><a href="#rotacja" id="toc-rotacja">Rotacja</a></li>
+<li><a href="#pochylenie-ścinanie" id="toc-pochylenie-ścinanie">Pochylenie / ścinanie</a></li>
+<li><a href="#translacja" id="toc-translacja">Translacja</a></li>
+</ul></li>
+<li><a href="#składanie-przekształceń" id="toc-składanie-przekształceń">Składanie przekształceń</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-konstrukcja-modelu</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-atrybuty.html">Poprzedni: 04-atrybuty.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-wdrozenia.html">Następny: 06-wdrozenia.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="konstrukcja-modelu">Konstrukcja modelu</h1>
+<h2 id="modelowanie">Modelowanie</h2>
+<ul>
+<li>Często nie można mieć modelu który jednocześnie
+<ul>
+<li>jest niezawodny</li>
+<li>daje najlepsze wyniki</li>
+<li>chcemy z nim pracować (np. dobrze go rozumiemy)</li>
+</ul></li>
+<li>Modelowanie jest procesem iteracyjnym</li>
+<li>Składniki modelu
+<ul>
+<li>struktura modelu</li>
+<li>funkcja celu</li>
+<li>metoda optymalizacji</li>
+</ul></li>
+</ul>
+<h2 id="strojenie-hiperparametrów">Strojenie hiperparametrów</h2>
+<ul>
+<li>Czemu nie ma uniwersalnego zestawu hiperparametrów dla ustalonego
+modelu</li>
+<li>No free lunch
+<ul>
+<li>dotyczy optymalizatorów</li>
+<li>dowolne dwa algorytmy jeśli porównujemy je po wszystkich możliwych
+problemach optymalizacji to żaden z nich nie będzie lepszy od drugiego
+ani od błądzenia przypadkowego</li>
+</ul></li>
+<li>Jeśli nie założymy nic o strukturze problemu optymalizacyjnego to
+będziemy w błędzie
+<ul>
+<li>dany algorytm jest dobry tylko dla grupy problemów</li>
+</ul></li>
+<li>Hiperparametry - sterują architekturą i procesem uczenia
+<ul>
+<li>krok uczenia</li>
+<li>liczba warstw w sieci neuronowej</li>
+<li>itp.</li>
+</ul></li>
+<li>Nawet jeśli domyślne wartości hiperparametrów są dobre do i tak
+pewnie da się poprawić działanie modelu bo dostrojeniu</li>
+<li>Jeśli nie ma co więcej zrobić z danymi to zostaje strojenie</li>
+</ul>
+<h3 id="metody-strojenia">Metody strojenia</h3>
+<ul>
+<li>Przeszukiwanie po hipersiatce
+<ul>
+<li>wszystkie kombinacje wartości hiperparametrów</li>
+<li>najprostsza możliwa strategia</li>
+<li>kosztowna obliczeniowo</li>
+</ul></li>
+<li>Przeszukiwanie losowe
+<ul>
+<li>zaskakująco skuteczne</li>
+<li>definiujemy zakresy wartości dla każdego parametru</li>
+<li>w praktyce nie każde parametry mają równie duży wpływ</li>
+<li>hipersiatka marnuje dużo budżetu na testowanie nieistotnych
+parametrów, a dla istotnych testuje mało wartości</li>
+</ul></li>
+<li>Podejścia bayesowskie
+<ul>
+<li>w praktyce rzadko się stosuje</li>
+<li>np. SMBO</li>
+<li>wprowadza się model zastępczy (model regresji)</li>
+<li>obliczamy błąd dla kilku punktów</li>
+<li>dopasowujemy do nich model zastępczy</li>
+<li>optymalizujemy model zastępczy</li>
+<li>powtarzamy</li>
+<li>można szybko przewidywać na podstawie modelu zastępczego bez
+odpalania właściwego modelu</li>
+</ul></li>
+<li>Hyperband
+<ul>
+<li>jak możliwie najszybciej zidentyfikować zestawy złych
+hiperparametrów żeby nie tracić na nie czasu</li>
+<li>na wszystkie zestawy jest określony budżet</li>
+<li>sprawdza się poziom błędu</li>
+<li>odrzuca się połowę najgorszych</li>
+<li>zwiększa się budżet i powtarza</li>
+</ul></li>
+<li>Metaheurystyki
+<ul>
+<li>algorytmy ewolucyjne itp</li>
+</ul></li>
+<li>W praktyce najczęściej hipersiatka i losowe</li>
+</ul>
+<h3 id="kryterium-zatrzymania">Kryterium zatrzymania</h3>
+<ul>
+<li>Skąd wiedzieć kiedy skończyć strojenie</li>
+<li>Np. przetestowałem 1000 zestawów parametrów, czy to wystarczy?
+<ul>
+<li>ile trzeba by dorzucić żeby spodziewać się wyraźnie lepszego
+wyniku</li>
+</ul></li>
+<li>Rysujemy wykres pudełkowy
+<ul>
+<li>losujemy n zestawów parametrów spośród zbadanych</li>
+<li>szacujemy wariancję wyników w zależności od wielkości próby losowej
+(n)</li>
+<li>im więcej tym mniejsza wariancja</li>
+<li>na slajdzie - patrzymy czy już jest wypłaszczenie czy dalej jest
+ostra poprawa</li>
+<li>tak jak na slajdzie - trzeba by dołożyć tysiące prób żeby coś dalej
+poprawić</li>
+</ul></li>
+</ul>
+<h2 id="funkcje-celu-miary-jakości">Funkcje celu / Miary jakości</h2>
+<h3 id="podstawowe-funkcje-celu">Podstawowe funkcje celu</h3>
+<ul>
+<li>Do regresji, klasyfikacji, uczenia nadzorowanego</li>
+<li>MSE, RMSE, MAE, MSLE</li>
+<li>Entropia krzyżowa</li>
+<li>Nie mają żadnych parametrów</li>
+</ul>
+<h3 id="zaawansowane-przypadki">Zaawansowane przypadki</h3>
+<ul>
+<li>Do nietypowych zadań, niesymetrycznych kosztów pomyłek</li>
+<li>Metric learning - funkcja straty triplet loss
+<ul>
+<li>punkty rozważane trójkami - kotwica, pozytywny, negatywny</li>
+<li>parametryzowany margines</li>
+<li>jak definiowana odległość</li>
+</ul></li>
+<li>Przykład z wykładu 2 - edytor tekstu i generowanie dobrej parafrazy
+zdania
+<ul>
+<li>potrzebna ocena ekspertów czy wynik jest <em>dobry</em> - drogie i
+czasochłonne</li>
+<li>ekspertów nie można wpiąć do optymalizacji gradientowej</li>
+<li>przed oddaniem ekspertom korzystamy z modelu pomocniczego /
+analitycznego kryterium</li>
+<li>często modele pomocnicze też się nie nadają do wpięcia do algorytmu
+uczenia</li>
+<li>trenujemy model tak żeby np. minimalizował entropię krzyżową, potem
+model pomocniczy, potem eksperci</li>
+</ul></li>
+<li>Zachowanie modelu - funkcja celu - analityczna miara jakości -
+biznesowa miara jakości - spełnienie celu biznesowego
+<ul>
+<li>liczymy że kolejne miary są do siebie proporcjonalne</li>
+<li>dobrze ze sobą korelują</li>
+<li>od lewej - tanie do wyliczenia i wygodne</li>
+<li>od prawej - istotne dla klienta, długotrwałe i kosztowne</li>
+</ul></li>
+<li>Wnioski z przykładu
+<ul>
+<li>jakość modelu to coś innego dla użytkownika, osoby trenującej model
+i zespołu utrzymującego model online</li>
+<li>różne miary jakości mierzą różne rzeczy</li>
+</ul></li>
+</ul>
+<h3 id="informacje-zwrotne">Informacje zwrotne</h3>
+<ul>
+<li>Bezpośrednie - dla predykcji wiemy czy mieliśmy rację czy nie
+<ul>
+<li>może od razu, może trzeba poczekać</li>
+<li>np. przewidujemy przyszłość i możemy poczekać - notowania giełdowe,
+temperatura</li>
+<li>np. filtr spamowy - użytkownik oznaczy wiadomość jako spam / zwykłą
+pocztę - nie zawsze użytkownik zaznaczy</li>
+<li>np. użytkownicy odrzucają nietrafione rekomendacje</li>
+</ul></li>
+<li>Pośrednie - nigdy nie wiemy jaka była poprawna wartość
+<ul>
+<li>możemy tylko szukać w skorelowanych informacjach</li>
+<li>np. medycyna - monitorowanie działania leku mierząc temperaturę,
+ciśnienie itp.</li>
+<li>np. metody uczenia nienadzorowanego</li>
+</ul></li>
+<li>Brak informacji zwrotnych
+<ul>
+<li>systemy szacujące koszty awarii</li>
+<li>nie wiadomo ile firma by zarobiła gdyby serwerownia nie padła</li>
+</ul></li>
+</ul>
+<h3 id="modele-bazowe">Modele bazowe</h3>
+<ul>
+<li>Względem czego oceniamy model
+<ul>
+<li>MSE=0.7 nic nie znaczy jeśli nie mamy z czym tego porównać</li>
+</ul></li>
+<li>Model bazowy - nie musi być związany z uczeniem maszynowym (spytać
+górala jaka będzie temperatura)</li>
+<li>Nasze rozwiązanie ma być lepsze od modelu bazowego</li>
+<li>Jeśli nie ma nic lepszego to zawsze można odnieść się do modelu
+losowego
+<ul>
+<li>np. przy grupowaniu - raz wysyłamy zniżki do losowych klientów, a
+raz do pogrupowanych algorytmem i patrzymy kiedy był większy zysk</li>
+</ul></li>
+<li>Ważne na projekt!</li>
+<li>Nie musi być skomplikowany</li>
+</ul>
+<h2 id="analiza-wyników">Analiza wyników</h2>
+<h3 id="paradoks-simpsona">Paradoks Simpsona</h3>
+<ul>
+<li>Mamy kilka podgrup w danych</li>
+<li>W każdej grupie jest wyraźny trend</li>
+<li>Uśrednienie po grupach odwraca trend</li>
+<li>Widać na przykładach</li>
+<li>Żeby się obronić
+<ul>
+<li>analizować miary jakości nie tylko w formie zagregowanej ale też z
+podziałem na kluczowe podgrupy</li>
+</ul></li>
+<li>Na kolosie!</li>
+</ul>
+<h3 id="analizowanie-monitorowanych-miar">Analizowanie monitorowanych
+miar</h3>
+<ul>
+<li>Szeregi czasowe</li>
+<li>W szeregu wyróżnia się składowe szeregu
+<ul>
+<li>trend</li>
+<li>wahania okresowe</li>
+<li>szum losowy</li>
+</ul></li>
+<li>Wpływ zdarzeń wewnętrznych
+<ul>
+<li>kalendarz, ważne wydarzenia</li>
+</ul></li>
+<li>Wykres różnicowy
+<ul>
+<li>od metryki dzisiaj odejmujemy wartość tydzień temu</li>
+<li>eliminuje wpływ okresowości tygodniowej</li>
+<li>dobra sztuczka przy analizowaniu szeregów czasowych żeby lepiej
+zrozumieć trendy</li>
+</ul></li>
+<li>Warto oznaczać w narzędziach punkty w czasie
+<ul>
+<li>np. kiedy zaczyna się kampania marketingowa</li>
+<li>w Grafanie można oznaczać punkty</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#konstrukcja-modelu" id="toc-konstrukcja-modelu">Konstrukcja modelu</a>
+<ul>
+<li><a href="#modelowanie" id="toc-modelowanie">Modelowanie</a></li>
+<li><a href="#strojenie-hiperparametrów" id="toc-strojenie-hiperparametrów">Strojenie hiperparametrów</a>
+<ul>
+<li><a href="#metody-strojenia" id="toc-metody-strojenia">Metody
+strojenia</a></li>
+<li><a href="#kryterium-zatrzymania" id="toc-kryterium-zatrzymania">Kryterium zatrzymania</a></li>
+</ul></li>
+<li><a href="#funkcje-celu-miary-jakości" id="toc-funkcje-celu-miary-jakości">Funkcje celu / Miary jakości</a>
+<ul>
+<li><a href="#podstawowe-funkcje-celu" id="toc-podstawowe-funkcje-celu">Podstawowe funkcje celu</a></li>
+<li><a href="#zaawansowane-przypadki" id="toc-zaawansowane-przypadki">Zaawansowane przypadki</a></li>
+<li><a href="#informacje-zwrotne" id="toc-informacje-zwrotne">Informacje
+zwrotne</a></li>
+<li><a href="#modele-bazowe" id="toc-modele-bazowe">Modele
+bazowe</a></li>
+</ul></li>
+<li><a href="#analiza-wyników" id="toc-analiza-wyników">Analiza
+wyników</a>
+<ul>
+<li><a href="#paradoks-simpsona" id="toc-paradoks-simpsona">Paradoks
+Simpsona</a></li>
+<li><a href="#analizowanie-monitorowanych-miar" id="toc-analizowanie-monitorowanych-miar">Analizowanie monitorowanych
+miar</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

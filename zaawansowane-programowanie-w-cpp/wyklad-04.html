@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w05--2020-11-03-obsługa-wyjątków-i-sprytne-wskaźniki">ZPR-
+W05 -2020 11 03 Obsługa wyjątków i sprytne wskaźniki</h1>
+<h2 id="mechanizm-wyjątków">Mechanizm wyjątków</h2>
+<ul>
+<li>Mechanizm niesekwencyjnego przekazania sterowania</li>
+<li>Autor biblioteki może wykryć błąd, ale nie wie co z nim zrobić</li>
+<li>Użytkownik wie co zrobić z błędem, nie potrafi go wykryć</li>
+<li>Warstwa systemowa i warstwa aplikacji</li>
+<li>Błędy zewnętrzne i błędy wewnętrzne
+<ul>
+<li>zewnętrzne - np. brak pamięci</li>
+<li>wewnętrzne nieprawidłowy stan aplikacji, np. dzielenie przez 0</li>
+</ul></li>
+<li>Nieprawidłowe mechanizmy
+<ul>
+<li>ignorowanie błędów</li>
+<li>kończenie działania programu</li>
+<li>komunikaty dla użytkownika</li>
+</ul></li>
+<li>Kłopotliwe mechanizmy
+<ul>
+<li>kod powrotu - wymieszanie logiki z obsługą błędów</li>
+<li>zmienna globalna - problem ze współbieżnością</li>
+<li>specjalny stan obiektu - np. NaN w standardzie dla liczb
+rzeczywistych, nie dla każdego typu daje się zdefiniować (dla liczb
+całkowitych)</li>
+<li>ANSI: longjmp - struktura pamięta stan rejestrów procesora, można
+załadować ją do procesora, nie używa zmiennej globalnej, błąd opisuje
+liczba całkowita, nie zwalnia zasobów</li>
+</ul></li>
+<li>Mechanizm wyjątków nie ma wad wszystkich wymienionych wcześniej</li>
+<li>Wyjątek jest obiektem dowolnego typu
+<ul>
+<li>zwyczajowo powinny dziedziczyć po <code>std::exception</code></li>
+<li>moga mieć składowe</li>
+</ul></li>
+<li>Środowisko zapewnia zwalnianie obiektów automatycznych
+<ul>
+<li>będą wywołane destruktory</li>
+</ul></li>
+<li>Nie ma zarezerwowanej wartości zwracanej</li>
+<li>Bez obiektów globalnych</li>
+<li>Oddziela kod obsługi błędu od innego kodu</li>
+<li>Użytkownik nie może zignorować zgłoszonego błędu</li>
+<li>Wymaga wsparcia przez język
+<ul>
+<li>można wyłączyć w kompilatorze</li>
+<li>łańcuch skoków po końcach bloków</li>
+</ul></li>
+<li>Jest znacznie wolniejszy niż zwykły powrót z funkcji
+<ul>
+<li>zwijanie stosu</li>
+<li>tak samo wolny jak <code>dynamic_cast</code></li>
+</ul></li>
+<li>Klasa wyjątku to inny typ niż klasa-wartość i klasa w hierarchii
+<ul>
+<li>powinny dziedziczyć po <code>std::exception</code></li>
+<li>konstruktor nie może zgłaszać wyjątków</li>
+<li>tworzone w specjalnym miejscu podczas zgłaszania wyjątków</li>
+<li>często implementują wzorzec wizytatora</li>
+<li>mogą tworzyć głębokie hierarchie</li>
+</ul></li>
+<li>Można opisać listę zgłaszanych wyjątków przez funkcję
+<ul>
+<li>nie używa się tego</li>
+</ul></li>
+<li>Ok. 100 razy wolniejszy
+<ul>
+<li>zakładamy że sytuacje błędne nie zdarzają się aż tak często</li>
+<li>zależy nam na poprawności</li>
+</ul></li>
+</ul>
+<h3 id="zasady-stosowania">Zasady stosowania</h3>
+<ul>
+<li>Hierarchie klas
+<ul>
+<li>pozwalają grupować podobne błędy</li>
+</ul></li>
+<li>Nie należy rzucać wyjątków z destruktorach</li>
+<li>Należy rzucać wyjątek przez wartość <code>throw Exception</code>
+<ul>
+<li>nie zajmujemy miejsca na stercie</li>
+</ul></li>
+<li>Wyjątek przechwytywać przez referencję
+<ul>
+<li><code>catch(Exception&amp; e)</code></li>
+<li>nie tworzymy lokalnej kopii</li>
+</ul></li>
+<li>Należy reagować na wszystkie wyjątki
+<ul>
+<li>w przeciwnym wypadku aplikacja się kończy</li>
+<li>należy przynajmniej wypisać komunikat jeśli nie da się go
+obsłużyć</li>
+</ul></li>
+</ul>
+<h2 id="mechanizm-wyjątków-a-zasoby">Mechanizm wyjątków a zasoby</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> f1<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span><span class="op">*</span> tmp <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Kod może rzucić wyjątek</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span> tmp<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li>Rzucenie wyjątku spowoduje wyciek pamięci</li>
+<li>Łapanie wyjątku żeby zwolnić zasoby - niewydajne</li>
+<li>Poprawne zabezpieczenie - użycie sprytnego wskaźnika</li>
+</ul>
+<h2 id="boostscoped_ptr"><code>boost::scoped_ptr</code></h2>
+<ul>
+<li>usunięty konstruktor kopiujący i operator przypisania</li>
+<li>Wielkość normalnego wskaźnika</li>
+<li>Poprawnie obsłuży zwolnienie zasobów przy rzuconym wyjątku</li>
+<li>Jeden obiekt jest właścicielem obiektu na stercie</li>
+</ul>
+<h2 id="stdauto_ptr"><code>std::auto_ptr</code></h2>
+<ul>
+<li>Jeden obiekt jest właścicielem obiektu na stercie</li>
+<li>Wielkość normalnego wskaźnika</li>
+<li>Niezalecane</li>
+<li>Dozwolone kopiowanie - przenosi uprawnienia
+<ul>
+<li>modyfikuje prawą stronę operatora <code>=</code></li>
+</ul></li>
+<li>Niebezpieczny do przekazywania jako argumentu
+<ul>
+<li>przekazanie przez wartość modyfikuje oryginalny obiekt</li>
+</ul></li>
+<li>Niebezpieczny do przechowywania w kolekcji
+<ul>
+<li>na nic nie wskazują</li>
+<li>po pobraniu wartości niczego w nim nie ma</li>
+</ul></li>
+</ul>
+<h2 id="r-value">r-value</h2>
+<ul>
+<li>Od C++11</li>
+<li>Pozwala odróżnić obiekty tymczasowe</li>
+<li>Konstruktor przenoszący i przenoszący operator przypisania
+<ul>
+<li><code>Foo(Foo&amp;&amp; f)</code> - obiekt <code>f</code> będzie
+pusty</li>
+</ul></li>
+</ul>
+<h2 id="stdunique_ptr"><code>std::unique_ptr</code></h2>
+<ul>
+<li>Wielkość zwykłego wskaźnika</li>
+<li>Zastępuje <code>std::auto_ptr</code></li>
+<li>Mogą być przechowywane w kontenerach standardowych</li>
+<li>Automatycznie usuwają obiekt w destruktorze</li>
+<li>Jedyny właściciel obiektu na stercie</li>
+<li>Funkcja <code>std::move</code> przenosi własność ze wskaźnika</li>
+<li>Kopiowanie jest zabronione</li>
+<li>Należy używać zawsze do zarządzania zasobami, tam gdzie mogą
+wystąpić wyjątki</li>
+<li>Warto tak implementować składowe klas
+<ul>
+<li>rozwiązuje problem z częścią zainicjowanych składowych, kiedy
+wystąpi wyjątek w konstruktorze</li>
+</ul></li>
+</ul>
+<h2 id="rule-of-three-rule-of-five">Rule of three, rule of five</h2>
+<ul>
+<li>Dla klasy z niebanalnymi składowymi należy dostarczyć
+<ul>
+<li>destruktor</li>
+<li>konstruktor kopiujący</li>
+<li>operator przypisania</li>
+<li>konstruktor przenoszący</li>
+<li>przenoszący operator przypisania</li>
+</ul></li>
+</ul>
+<h2 id="stdshared_ptr"><code>std::shared_ptr</code></h2>
+<ul>
+<li>Do współdzielonych obiektów</li>
+<li>Płytkie kopie</li>
+<li>Poza obiektem przechowuje licznik</li>
+<li>Dozwolone kopiowanie i przypisanie
+<ul>
+<li>zwiększa licznik o 1</li>
+</ul></li>
+<li>Destruktor zmniejsza licznik
+<ul>
+<li>jeśli spadnie do 0 to usuwa obiekt</li>
+</ul></li>
+<li>Działa poprawnie w aplikacjach współbieżnych</li>
+<li>Trudno znaleźć powód żeby nie używać sprytnych wskaźników
+<ul>
+<li>chyba że kto inny zarządza czasem życia obiektu</li>
+</ul></li>
+<li>Problem z cyklicznymi zależnościami między obiektami
+<ul>
+<li>obiekt wskazuje sam na siebie</li>
+</ul></li>
+</ul>
+<h3 id="jawne-przerywanie-zależności-cyklicznej">Jawne przerywanie
+zależności cyklicznej</h3>
+<ul>
+<li>Destruktor listy cyklicznej wywołuje <code>reset()</code></li>
+</ul>
+<h3 id="stdweak_ptr"><code>std::weak_ptr</code></h3>
+<ul>
+<li>Uzupełnienie <code>std::shared_ptr</code></li>
+<li>Nie zwiększa licznika odniesień</li>
+<li>Rozwiązuje problem z cykliczną zależnością</li>
+<li>Może pokazywać na zniszczony obiekt
+<ul>
+<li>metoda <code>expired</code> - trzeba sprawdzić czy dalej
+istnieje</li>
+</ul></li>
+<li>Można zamienić na <code>shared_ptr</code> wołają metodę
+<code>lock()</code></li>
+<li>Obiekt może wskazywać sam na siebie przez słaby wskaźnik
+<ul>
+<li>używa semantyki sprytnych wskaźników</li>
+</ul></li>
+</ul>
+<h2 id="błędne-użycia-sprytnego-wskaźnika">Błędne użycia sprytnego
+wskaźnika</h2>
+<ul>
+<li>Nie należy inicjować wielu sprytnych wskaźników tym samym zwykłym
+wskaźnikiem</li>
+</ul>
+<h2 id="funkcja-fabryczna-make_shared-i-allocate_shared">Funkcja
+fabryczna <code>make_shared</code> i <code>allocate_shared</code></h2>
+<ul>
+<li>Unikamy wołania operatora <code>new</code>
+<ul>
+<li>symetryczny zapis</li>
+</ul></li>
+<li>Od razu alokuje pamięć na licznik
+<ul>
+<li>problem alokacji małych obiektów</li>
+</ul></li>
+<li><code>allocate_shared</code> - używa dostarczonego alokatora</li>
+</ul>
+<h2 id="boostintrusive_ptr"><code>boost::intrusive_ptr</code></h2>
+<ul>
+<li>Programista implementuje licznik przechowywany w obiekcie</li>
+</ul>
+<h2 id="tworzenie-sprytnego-wskaźnika-na-podstawie-this">Tworzenie
+sprytnego wskaźnika na podstawie <code>this</code></h2>
+<ul>
+<li>Wzorzec RTCP
+<ul>
+<li>typ dziedziczy po szablonie którego parametrem jest on sam</li>
+</ul></li>
+<li><code>boost::shared_from_this'     * zamiast trzymania składowej</code>me`</li>
+</ul>
+<h2 id="rule-of-zero">Rule of zero</h2>
+<ul>
+<li>Zarządzanie zasobami tylko przez sprytne wskaźniki</li>
+<li>Domyślne konstruktor kopiujący i operator przypisania zachowują się
+poprawnie
+<ul>
+<li>zachowanie określa wykorzystany typ sprytnego wskaźnika</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w05--2020-11-03-obsługa-wyjątków-i-sprytne-wskaźniki" id="toc-zpr--w05--2020-11-03-obsługa-wyjątków-i-sprytne-wskaźniki">ZPR-
+W05 -2020 11 03 Obsługa wyjątków i sprytne wskaźniki</a>
+<ul>
+<li><a href="#mechanizm-wyjątków" id="toc-mechanizm-wyjątków">Mechanizm
+wyjątków</a>
+<ul>
+<li><a href="#zasady-stosowania" id="toc-zasady-stosowania">Zasady
+stosowania</a></li>
+</ul></li>
+<li><a href="#mechanizm-wyjątków-a-zasoby" id="toc-mechanizm-wyjątków-a-zasoby">Mechanizm wyjątków a
+zasoby</a></li>
+<li><a href="#boostscoped_ptr" id="toc-boostscoped_ptr"><code>boost::scoped_ptr</code></a></li>
+<li><a href="#stdauto_ptr" id="toc-stdauto_ptr"><code>std::auto_ptr</code></a></li>
+<li><a href="#r-value" id="toc-r-value">r-value</a></li>
+<li><a href="#stdunique_ptr" id="toc-stdunique_ptr"><code>std::unique_ptr</code></a></li>
+<li><a href="#rule-of-three-rule-of-five" id="toc-rule-of-three-rule-of-five">Rule of three, rule of five</a></li>
+<li><a href="#stdshared_ptr" id="toc-stdshared_ptr"><code>std::shared_ptr</code></a>
+<ul>
+<li><a href="#jawne-przerywanie-zależności-cyklicznej" id="toc-jawne-przerywanie-zależności-cyklicznej">Jawne przerywanie
+zależności cyklicznej</a></li>
+<li><a href="#stdweak_ptr" id="toc-stdweak_ptr"><code>std::weak_ptr</code></a></li>
+</ul></li>
+<li><a href="#błędne-użycia-sprytnego-wskaźnika" id="toc-błędne-użycia-sprytnego-wskaźnika">Błędne użycia sprytnego
+wskaźnika</a></li>
+<li><a href="#funkcja-fabryczna-make_shared-i-allocate_shared" id="toc-funkcja-fabryczna-make_shared-i-allocate_shared">Funkcja
+fabryczna <code>make_shared</code> i
+<code>allocate_shared</code></a></li>
+<li><a href="#boostintrusive_ptr" id="toc-boostintrusive_ptr"><code>boost::intrusive_ptr</code></a></li>
+<li><a href="#tworzenie-sprytnego-wskaźnika-na-podstawie-this" id="toc-tworzenie-sprytnego-wskaźnika-na-podstawie-this">Tworzenie
+sprytnego wskaźnika na podstawie <code>this</code></a></li>
+<li><a href="#rule-of-zero" id="toc-rule-of-zero">Rule of zero</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

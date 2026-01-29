@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-rozpoznawanie-mowiacego</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-twarz.html">Poprzedni: 10-twarz.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-paszport-biometryczny.html">Następny: 12-paszport-biometryczny.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Biometryczna identyfikacja tożsamości</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-odcisk-palca.html">02-odcisk-palca.html</a></li>
+                
+                <li><a href="03-bezpieczenstwo-odcisku-palca.html">03-bezpieczenstwo-odcisku-palca.html</a></li>
+                
+                <li><a href="04-teczowka.html">04-teczowka.html</a></li>
+                
+                <li><a href="05-bezpieczenstwo-teczowki.html">05-bezpieczenstwo-teczowki.html</a></li>
+                
+                <li><a href="06-podpis-odreczny.html">06-podpis-odreczny.html</a></li>
+                
+                <li><a href="07-bezpieczenstwo-systemu-biometrycznego.html">07-bezpieczenstwo-systemu-biometrycznego.html</a></li>
+                
+                <li><a href="08-inne-biometrie.html">08-inne-biometrie.html</a></li>
+                
+                <li><a href="09-statystyczna-ocena-systemow-biometrycznych.html">09-statystyczna-ocena-systemow-biometrycznych.html</a></li>
+                
+                <li><a href="10-twarz.html">10-twarz.html</a></li>
+                
+                <li><a href="11-rozpoznawanie-mowiacego.html">11-rozpoznawanie-mowiacego.html</a></li>
+                
+                <li><a href="12-paszport-biometryczny.html">12-paszport-biometryczny.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="rozpoznawanie-mówiącego">Rozpoznawanie mówiącego</h1>
+<ul>
+<li>Rozpoznawanie mówiącego (<em>speaker recognition</em>) to nie to
+samo co rozpoznawanie mowy (<em>speech recognition</em>)</li>
+<li>Warianty
+<ul>
+<li>detekcja (diaryzacja - kto mówi kiedy)</li>
+<li>weryfikacja - 1-1</li>
+<li>identyfikacja - 1-n</li>
+</ul></li>
+</ul>
+<h2 id="przetwarzanie-mowy">Przetwarzanie mowy</h2>
+<ul>
+<li>Analiza i synteza</li>
+<li>Kodowanie
+<ul>
+<li>kompresja</li>
+<li>przekształcenie sygnału na formę cyfrową</li>
+</ul></li>
+<li>Rozpoznawanie
+<ul>
+<li>mowy</li>
+<li>języka</li>
+<li>emocji</li>
+<li>wykrywanie patologii (chorób)</li>
+<li>mówiącego</li>
+</ul></li>
+</ul>
+<h2 id="biometria-głosowa">Biometria głosowa</h2>
+<ul>
+<li>Determinowana przez czynniki
+<ul>
+<li>anatomiczne - kształt i rozmiar organów produkujących głos</li>
+<li>wzorce behawioralne - sposób mówienia</li>
+</ul></li>
+<li>Korzyści
+<ul>
+<li>łatwość użycia</li>
+</ul></li>
+</ul>
+<h2 id="historia">Historia</h2>
+<ul>
+<li>The VODER - 1939</li>
+<li>Pierwszy model procesu wytwarzania mowy - 1960</li>
+<li>Uszczegółowienie modeli - 1970</li>
+</ul>
+<h2 id="warianty-rozpoznawania-mówców">Warianty rozpoznawania
+mówców</h2>
+<ul>
+<li>Ustalonej treści
+<ul>
+<li>fixed-text</li>
+<li>rejestracja i uwierzytelnienie na podstawie tego samego ustalonego
+tekstu (hasła)</li>
+<li>łatwość oszustwa</li>
+</ul></li>
+<li>Zależne od treści
+<ul>
+<li>text-dependent</li>
+<li>uwierzytelnienie na podstawie tekstu podanego przez system</li>
+<li>łatwość oszustwa, np. złożenie całej wypowiedzi z fragmentów</li>
+</ul></li>
+<li>Niezależne od treści
+<ul>
+<li>text-independent</li>
+<li>wybór tekstu pozostawiony użytkownikowi</li>
+</ul></li>
+<li>Konwersacyjne</li>
+</ul>
+<h2 id="cechy-mówców">Cechy mówców</h2>
+<ul>
+<li>Niskopoziomowe
+<ul>
+<li>jak brzmi twoje gardło</li>
+</ul></li>
+<li>Wysokopoziomowe
+<ul>
+<li>jak brzmi twój mózg</li>
+</ul></li>
+</ul>
+<h2 id="fonemy">Fonemy</h2>
+<ul>
+<li>Dla języka polskiego system fonologiczny jest złożony</li>
+</ul>
+<h2 id="formanty">Formanty</h2>
+<ul>
+<li>Częstotliwości charakteryzujące tor akustyczny</li>
+<li>Związane z budową organów</li>
+</ul>
+<h2 id="cechy-audio">Cechy audio</h2>
+<ul>
+<li>Energia</li>
+<li>Ton</li>
+<li>Spektrogram</li>
+<li>Log-Mel spektrogram</li>
+<li>Cepstralne współczynniki częstości Mel</li>
+</ul>
+<h3 id="przebieg-czasowy">Przebieg czasowy</h3>
+<ul>
+<li>Waveform</li>
+<li>Próbkowanie - do dyskretnego czasu
+<ul>
+<li>kluczowe zakres 300-3500 Hz</li>
+<li>twierdzenie Nyquista</li>
+<li>aliasing</li>
+</ul></li>
+</ul>
+<h3 id="kwantyzacja-amplitudy">Kwantyzacja amplitudy</h3>
+<ul>
+<li>Liniowa</li>
+<li>Logarytmiczna</li>
+<li>Adaptacyjna
+<ul>
+<li>np. dla mowy o różnej głośności</li>
+</ul></li>
+</ul>
+<h3 id="spektrogram">Spektrogram</h3>
+<ul>
+<li>Do rozpoznawania człowieka raczej wykorzystuje się zakresy
+0-4kHZ</li>
+<li>Wyższe częstotliwości wykorzystuje szczególnie dla zabezpieczania
+systemów biometrycznych na ataki</li>
+<li>Rozkład na obwiednię i strukturę harmoniczną</li>
+</ul>
+<h3 id="skala-melowa">Skala melowa</h3>
+<ul>
+<li>Nieliniowa</li>
+<li>Lepiej odpowiada ludzkiej percepcji niż skala liniowa</li>
+</ul>
+<h3 id="log-mel-spektrogram">Log-Mel spektrogram</h3>
+<ul>
+<li>Ludzkie ucho ma lepszą rozdzielczość dla niskich zakresów
+częstotliwości</li>
+<li>Filtry trójkątne, więcej w niskich częstotliwościach</li>
+<li>Wzmacnia składowe sygnału bardziej istotne dla człowieka</li>
+</ul>
+<h3 id="cepstralne-współczynniki-częstotliwości-mel-mfcc">Cepstralne
+współczynniki częstotliwości MEL (MFCC)</h3>
+<ul>
+<li>Kroki
+<ul>
+<li>FFT (wyznaczenie widma z próbki audio)</li>
+<li>Filtry mel (przekształcenie widma na log-mel widmo)</li>
+<li>analiza cepstralna</li>
+<li>…</li>
+</ul></li>
+</ul>
+<h2 id="pipeline-systemu-weryfikacji-mówcy">Pipeline systemu weryfikacji
+mówcy</h2>
+<ul>
+<li>Przygotowanie modelu</li>
+<li>Faza rejestracji</li>
+<li>Faza testowania - rozpoznawania</li>
+</ul>
+<h2 id="cechy-zbioru-treningowego-do-rozpoznawania-mówców">Cechy zbioru
+treningowego do rozpoznawania mówców</h2>
+<ul>
+<li>Wiele mówców</li>
+<li>Zróżnicowany i reprezentatywny
+<ul>
+<li>akcenty, tonacje, środowiska nagraniowe, płeć, wiek</li>
+</ul></li>
+<li>Augmentacje danych
+<ul>
+<li>raczej nie można użyć 1 do 1 augmentacji z obrazów do
+spektrogramu</li>
+<li>augmentacja audio i potem wyznaczenie spektrogramu</li>
+</ul></li>
+</ul>
+<h3 id="cechy-akustyczne">Cechy akustyczne</h3>
+<ul>
+<li>Spektrogram</li>
+<li>MFCC</li>
+<li>LFCC</li>
+<li>Embeddingi
+<ul>
+<li>Whisper</li>
+<li>wav2vec2</li>
+<li>HuBERT</li>
+</ul></li>
+</ul>
+<h3 id="przygotowanie-modelu-i-trening">Przygotowanie modelu i
+trening</h3>
+<ul>
+<li>Wybór architektury</li>
+<li>Przygotowanie danych</li>
+<li>Augmentacja</li>
+<li>Trening modelu</li>
+<li>walidacja i optymalizacja</li>
+<li>Testowanie</li>
+</ul>
+<h2 id="cechy-osobnicze---metody-rozpoznawania-mówców">Cechy osobnicze -
+metody rozpoznawania mówców</h2>
+<ul>
+<li>Metody nieparametryczne
+<ul>
+<li>minimalne założenia strukturalne dotyczące danych</li>
+<li>skuteczne gdy jest dużo danych dobrej jakości</li>
+</ul></li>
+<li>Metody parametryczne
+<ul>
+<li>np. SVM</li>
+</ul></li>
+<li>Sieci neuronowe</li>
+</ul>
+<h4 id="embeddingi">Embeddingi</h4>
+<ul>
+<li>Problem z próbkami do przetworzenia
+<ul>
+<li>różna długość</li>
+<li>można usunąć ciszę</li>
+</ul></li>
+</ul>
+<h3 id="x-vectors">X-Vectors</h3>
+<ul>
+<li>3 części</li>
+<li>Część kodowania</li>
+<li>Część grupowania</li>
+<li>Warstwa klasyfikacyjna
+<ul>
+<li>embeddingi wyciągane z pośredniej warstwy</li>
+</ul></li>
+<li>Strata krzyżowa entropii kategorialnej
+<ul>
+<li>nie wymaga trudnego negatywnego próbkowania</li>
+</ul></li>
+</ul>
+<h3 id="tdnn">TDNN</h3>
+<ul>
+<li>1d rozszerzona konwolucja</li>
+<li>agreguje informacje na większym polu recepcyjnym</li>
+</ul>
+<h3 id="resnet">Resnet</h3>
+<ul>
+<li>Też używany do audio</li>
+<li>Res2Net</li>
+</ul>
+<h2 id="wyzwania-w-automatycznym-rozpoznawaniu-mówców">Wyzwania w
+automatycznym rozpoznawaniu mówców</h2>
+<ul>
+<li>Stany patologiczne
+<ul>
+<li>problemy medyczne</li>
+</ul></li>
+<li>Różnica między mową czytaną i swobodną</li>
+<li>Szumy
+<ul>
+<li>można próbować odszumiać próbki przed modelu rozpoznawania</li>
+<li>odszumianie może wpływać na zawartość informacyjną</li>
+</ul></li>
+<li>Zmiana głosu z wiekiem</li>
+</ul>
+<h2 id="ataki-na-systemy">Ataki na systemy</h2>
+<ul>
+<li>Są głosy bardziej generyczne które łatwiej naśladować</li>
+<li>Bezpośredni dostęp do próbki</li>
+<li>Odtworzenie (replay attack)</li>
+<li>Text to speech (TTS)</li>
+<li>Konwersja głosu (STS)
+<ul>
+<li>audio na audio</li>
+</ul></li>
+</ul>
+<h3 id="text-to-speech">Text to speech</h3>
+<ul>
+<li>Na wejściu tekst i cechy mówcy</li>
+<li>Na wyjściu syntetyczny głos mówcy wypowiadający tekst</li>
+<li>Analiza cech lingwistycznych tekstu</li>
+<li>Model akustyczny przekształca cechy lingwistyczne na akustyczne</li>
+<li>Vocoder - analizuje mowę, wyznacza cechy akustyczne</li>
+<li>Modele end to end łączą cały potok w jednym modelu</li>
+</ul>
+<h3 id="konwersja-głosu">Konwersja głosu</h3>
+<ul>
+<li>Źródłowy mówca</li>
+<li>Docelowy mówca</li>
+<li>Nadal występują problemy z przeciekaniem cech mowy docelowego mówcy
+na wyjście</li>
+<li>Do trenowania
+<ul>
+<li>dane równoległe - wiele osób mówi to samo</li>
+<li>dane nierównoległe - bez bezpośrednich odpowiedników</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#rozpoznawanie-mówiącego" id="toc-rozpoznawanie-mówiącego">Rozpoznawanie mówiącego</a>
+<ul>
+<li><a href="#przetwarzanie-mowy" id="toc-przetwarzanie-mowy">Przetwarzanie mowy</a></li>
+<li><a href="#biometria-głosowa" id="toc-biometria-głosowa">Biometria
+głosowa</a></li>
+<li><a href="#historia" id="toc-historia">Historia</a></li>
+<li><a href="#warianty-rozpoznawania-mówców" id="toc-warianty-rozpoznawania-mówców">Warianty rozpoznawania
+mówców</a></li>
+<li><a href="#cechy-mówców" id="toc-cechy-mówców">Cechy mówców</a></li>
+<li><a href="#fonemy" id="toc-fonemy">Fonemy</a></li>
+<li><a href="#formanty" id="toc-formanty">Formanty</a></li>
+<li><a href="#cechy-audio" id="toc-cechy-audio">Cechy audio</a>
+<ul>
+<li><a href="#przebieg-czasowy" id="toc-przebieg-czasowy">Przebieg
+czasowy</a></li>
+<li><a href="#kwantyzacja-amplitudy" id="toc-kwantyzacja-amplitudy">Kwantyzacja amplitudy</a></li>
+<li><a href="#spektrogram" id="toc-spektrogram">Spektrogram</a></li>
+<li><a href="#skala-melowa" id="toc-skala-melowa">Skala melowa</a></li>
+<li><a href="#log-mel-spektrogram" id="toc-log-mel-spektrogram">Log-Mel
+spektrogram</a></li>
+<li><a href="#cepstralne-współczynniki-częstotliwości-mel-mfcc" id="toc-cepstralne-współczynniki-częstotliwości-mel-mfcc">Cepstralne
+współczynniki częstotliwości MEL (MFCC)</a></li>
+</ul></li>
+<li><a href="#pipeline-systemu-weryfikacji-mówcy" id="toc-pipeline-systemu-weryfikacji-mówcy">Pipeline systemu weryfikacji
+mówcy</a></li>
+<li><a href="#cechy-zbioru-treningowego-do-rozpoznawania-mówców" id="toc-cechy-zbioru-treningowego-do-rozpoznawania-mówców">Cechy zbioru
+treningowego do rozpoznawania mówców</a>
+<ul>
+<li><a href="#cechy-akustyczne" id="toc-cechy-akustyczne">Cechy
+akustyczne</a></li>
+<li><a href="#przygotowanie-modelu-i-trening" id="toc-przygotowanie-modelu-i-trening">Przygotowanie modelu i
+trening</a></li>
+</ul></li>
+<li><a href="#cechy-osobnicze---metody-rozpoznawania-mówców" id="toc-cechy-osobnicze---metody-rozpoznawania-mówców">Cechy osobnicze -
+metody rozpoznawania mówców</a>
+<ul>
+<li><a href="#x-vectors" id="toc-x-vectors">X-Vectors</a></li>
+<li><a href="#tdnn" id="toc-tdnn">TDNN</a></li>
+<li><a href="#resnet" id="toc-resnet">Resnet</a></li>
+</ul></li>
+<li><a href="#wyzwania-w-automatycznym-rozpoznawaniu-mówców" id="toc-wyzwania-w-automatycznym-rozpoznawaniu-mówców">Wyzwania w
+automatycznym rozpoznawaniu mówców</a></li>
+<li><a href="#ataki-na-systemy" id="toc-ataki-na-systemy">Ataki na
+systemy</a>
+<ul>
+<li><a href="#text-to-speech" id="toc-text-to-speech">Text to
+speech</a></li>
+<li><a href="#konwersja-głosu" id="toc-konwersja-głosu">Konwersja
+głosu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

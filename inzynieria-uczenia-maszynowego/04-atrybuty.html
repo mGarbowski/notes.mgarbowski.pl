@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-atrybuty</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-ocena-zbiorow-danych.html">Poprzedni: 03-ocena-zbiorow-danych.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-konstrukcja-modelu.html">Następny: 05-konstrukcja-modelu.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="atrybuty">Atrybuty</h1>
+<h2 id="typy-atrybutów">Typy atrybutów</h2>
+<ul>
+<li>Ciągłe
+<ul>
+<li>najwygodniejsze dla nas do pracy</li>
+</ul></li>
+<li>Dyskretne
+<ul>
+<li>porządkowe (S, M, L, XL)</li>
+<li>nominalne (czerwony, zielony, niebieski)</li>
+<li>trzeba je przekształcić żeby zastosować do typowych modeli (operują
+na atrybutach ciągłych)</li>
+</ul></li>
+<li>Sekwencje
+<ul>
+<li>uporządkowane (niekoniecznie w czasie)</li>
+<li>np. kolejne słowa</li>
+</ul></li>
+<li>Szeregi czasowe
+<ul>
+<li>uporządkowane czasowo</li>
+<li>np. dźwięk</li>
+</ul></li>
+<li>Obrazy
+<ul>
+<li>tensor <span class="math inline">\(n \times m \times c\)</span></li>
+</ul></li>
+<li>Znaczniki czasowe</li>
+</ul>
+<h2 id="czemu-to-jest-istotne">Czemu to jest istotne</h2>
+<ul>
+<li>Wartości atrybutów są kodowane za pomocą liczb
+<ul>
+<li>dla atrybutów ciągłych nie ma problemu</li>
+</ul></li>
+<li>Sortowanie lub uśrednianie atrybutów nominalnych jest błędne
+<ul>
+<li>algorytm może to zrobić jak np. ponumerujemy kolory</li>
+<li>to nie ma logicznego sensu</li>
+</ul></li>
+<li>Liczenie korelacji liniowej atrybutów dyskretnych nie ma sensu!
+<ul>
+<li>tylko dla ciągłych</li>
+</ul></li>
+<li>Normalizacja znaczników czasowych</li>
+</ul>
+<h2 id="rozkład-atrybutów">Rozkład atrybutów</h2>
+<ul>
+<li>Pierwsza rzecz którą się robi przy projekcie</li>
+<li>Rozkład prawdopodobieństwa zmiennej losowej</li>
+<li>Inaczej podchodzimy do ciągłych i dyskretnych</li>
+<li>Frameworki liczą dystrybuanty i funkcje gęstości</li>
+<li>Ważne jest żeby mniej więcej rozumieć jak rozkład wygląda
+<ul>
+<li>móc porównać z nowa paczką danych, czy ona istotnie zmienia
+rozkłady</li>
+</ul></li>
+<li>Funkcję gęstości prawdopodobieństwa aproksymujemy za pomocą
+histogramów</li>
+</ul>
+<h2 id="pojęcia">Pojęcia</h2>
+<ul>
+<li>Funkcja gęstości zmiennej losowej
+<ul>
+<li><span class="math inline">\(P(x \in B) = \int_B f(x)dx\)</span></li>
+</ul></li>
+<li>Dystrybuanta
+<ul>
+<li><span class="math inline">\(F(x) = P(X \le x)\)</span></li>
+</ul></li>
+<li>Funkcja masy prawdopodobieństwa
+<ul>
+<li>określa p-stwo że zmienna losowa przyjmie wartość x</li>
+<li>odpowiednik funkcji gęstości dla rozkładów dyskretnych</li>
+</ul></li>
+</ul>
+<h2 id="podstawowe-rodziny-rozkładów">Podstawowe rodziny rozkładów</h2>
+<ul>
+<li>Jednostajny
+<ul>
+<li>zdarzenia mają takie same prawdopodobieństwo wystąpienia</li>
+</ul></li>
+<li>Normalny
+<ul>
+<li>spotykany w wielu miejscach w przyrodzie</li>
+<li>ogony szybko zbiegają do zera</li>
+</ul></li>
+<li>Log-normalny
+<ul>
+<li>zmienna losowa, której logarytm ma rozkład normalny</li>
+<li>np. ilość opadów deszczu</li>
+</ul></li>
+<li>t-Studenta
+<ul>
+<li>gdy szacujemy wartość oczekiwaną rozkładu normalnego za pomocą
+średniej z n-elementowej próby losowej</li>
+<li>średnia jest opisywana rozkładem t-Studenta</li>
+<li>parametr <span class="math inline">\(\nu = n-1\)</span></li>
+</ul></li>
+<li>Chi kwadrat
+<ul>
+<li>suma kwadratów <span class="math inline">\(k\)</span> niezależnych
+zmiennych losowych z rozkładu normalnego standardowego</li>
+<li>wykorzystywany w testach statystycznych</li>
+</ul></li>
+<li>Weibull
+<ul>
+<li>zadania związane z analizą przeżycia</li>
+</ul></li>
+<li>Bernouliego
+<ul>
+<li>prawdopodobieństwo sukcesu eksperymentu binarnego</li>
+</ul></li>
+<li>Beta
+<ul>
+<li>do opisu rozkładu parametru p w rozkładzie Bernouliego</li>
+<li>parametry <span class="math inline">\(\alpha\)</span>, <span
+class="math inline">\(\beta\)</span></li>
+</ul></li>
+<li>Geometryczny
+<ul>
+<li>oczekiwana liczba prób do uzyskania pierwszego sukcesu, gdy każdą
+próbę opisuje rozkład Bernouliego</li>
+</ul></li>
+<li>Dwumianowy
+<ul>
+<li>liczba sukcesów w serii <span class="math inline">\(n\)</span>
+niezależnych eksperymentów</li>
+</ul></li>
+<li>Poissona
+<ul>
+<li>p-stwo wystąpienia n zdarzeń w danym okresie, gdy szansa
+pojedynczego zdarzenia jest znana</li>
+</ul></li>
+<li>Wykładniczy
+<ul>
+<li>czas między zdarzeniami opisywanymi rozkładem Poissona</li>
+</ul></li>
+<li>Zipfa
+<ul>
+<li>związany z prawem zipfa</li>
+<li>jeśli dane da się uszeregować, to p-stwo wystąpienia uszeregowania
+jest proporcjonalne do odwrotności pozycji w rankingu</li>
+<li>słowa w języku naturalnym</li>
+<li>NLP</li>
+</ul></li>
+<li>W praktyce wszystko traktuje się jak rozkład normalny
+<ul>
+<li>w określonych dziedzinach wiemy jakiego rozkładu się
+spodziewamy</li>
+</ul></li>
+</ul>
+<h2 id="dane-niezbalansowane">Dane niezbalansowane</h2>
+<ul>
+<li>W jednej klasie jest mało przykładów w stosunku do innej klasy</li>
+<li>Bez uwzględnienia problemu model może być obciążony w stronę klasy
+większościowej</li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<ul>
+<li>Detekcja rzadkiej choroby na podstawie objawów</li>
+<li>Reprezentatywny zbiór danych
+<ul>
+<li>990 pomiarów od zdrowych</li>
+<li>10 pomiarów od chorych</li>
+</ul></li>
+<li>Naiwny klasyfikator da 99%</li>
+</ul>
+<h3 id="możliwe-strategie">Możliwe strategie</h3>
+<ul>
+<li>Modyfikacja zbioru danych
+<ul>
+<li>undersampling - próbkujemy klasę większościową żeby zmniejszyć jej
+liczność</li>
+<li>oversampling - próbkowanie ze zwracaniem klasy mniejszościowej</li>
+<li>nie jest konieczne uzyskanie idealnego zbalansowania (1:1),
+zazwyczaj 1:10 to już ok</li>
+</ul></li>
+<li>Modyfikacja zadania
+<ul>
+<li>łączenie klas mniejszościowych</li>
+</ul></li>
+<li>Modyfikacja procesu uczenia
+<ul>
+<li>ważenie przykładów</li>
+<li>algorytmy, które biorą pod uwagę niezbalansowanie</li>
+</ul></li>
+<li>Stosując dowolną ze strategii - trzeba pamiętać o poprawnej
+interpretacji uzyskiwanych rezultatów
+<ul>
+<li>metryki ze zmodyfikowanego zbioru treningowego mogą się nie
+przenosić na zbiór testowy</li>
+</ul></li>
+</ul>
+<h2 id="braki-w-danych">Braki w danych</h2>
+<ul>
+<li>Bardzo częsty problem</li>
+<li>Przyczyny
+<ul>
+<li>błędy podczas wprowadzania danych</li>
+<li>awarie podczas wykonywania pomiarów</li>
+<li>błędy techniczne</li>
+<li>sytuacje brzegowe, w których pomiar może być niemożliwy</li>
+</ul></li>
+</ul>
+<h2 id="taksonomia-brakujących-danych">Taksonomia brakujących
+danych</h2>
+<ul>
+<li>Całkowicie losowe braki danych - MCAR</li>
+<li>Losowe braki danych - MAR</li>
+<li>Braki nielosowe - MNAR</li>
+</ul>
+<h3 id="mcar">MCAR</h3>
+<ul>
+<li>Jakby o fakcie wystąpienia braku wartości decydował rzut ważoną
+monetą</li>
+<li>Bardzo rzadka sytuacja</li>
+<li>Możemy takie dane pominąć</li>
+<li>Wyciągane na podstawie tych danych wnioski nie są zaburzone</li>
+<li>Przykład
+<ul>
+<li>ankieta online ma pole recenzja z 10% brakujących wartości</li>
+<li>brak wynika z niedeterministycznych problemów sieciowych serwera -
+MCAR</li>
+<li>części użytkowników w przeglądarce nie działał edytor - nie jest
+MCAR, zależy od ukrytej zmiennej</li>
+</ul></li>
+</ul>
+<h3 id="mar">MAR</h3>
+<ul>
+<li>Niezależny od wszystkich zmiennych ukrytych</li>
+<li>Mogą zależeć od innych atrybutów, które zbieramy</li>
+<li>Nie można ich pominąć bo zaburzymy wyniki modelowania</li>
+<li>Populacja elementów ze zbioru danych mająca te same wartości
+atrybutów zmierzonych, będzie miała ten sam rozkład braków atrybutu
+<span class="math inline">\(x_i\)</span></li>
+<li>Przykład
+<ul>
+<li>braki w wypełnieniu recenzji (poprzedni przykład) jeśli rodzaj
+przeglądarki jest jednym z atrybutów</li>
+</ul></li>
+</ul>
+<h3 id="mnar">MNAR</h3>
+<ul>
+<li>Rozkład jest zależny od zmiennych ukrytych</li>
+<li>Nie jesteśmy w stanie wyeliminować warunkując na atrybutach
+obserwowanych</li>
+<li>Elementy ze zbioru danych mają te same wartości atrybutów
+zmierzonych, będą miały różne rozkłady braków atrybutu <span
+class="math inline">\(x_i\)</span></li>
+<li>Trudna do wykrycia sytuacja</li>
+<li>Przykład
+<ul>
+<li>problem z przykładu wcześniej zależy i od przeglądarki i od wersji
+systemu operacyjnego</li>
+</ul></li>
+</ul>
+<h3 id="w-praktyce">W praktyce</h3>
+<ul>
+<li>Jeśli braków jest mało to nie zaburzy modelowania</li>
+<li>Dodajemy atrybut znacznikowy
+<ul>
+<li>analizujemy zależności z innymi atrybutami</li>
+<li>nie wykryjemy zależności - zakładamy że jest MCAR i możemy
+usunąć</li>
+<li>jeśli wykryjemy - MAR</li>
+</ul></li>
+<li>MNAR będzie trudny do wykrycia
+<ul>
+<li>można usunąć cały atrybut jeśli obawiamy się wpływu</li>
+</ul></li>
+</ul>
+<h2 id="praca-z-niekompletnymi-danymi">Praca z niekompletnymi
+danymi</h2>
+<ul>
+<li>Usuwanie wierszy lub całych atrybutów</li>
+<li>Metody imputacji danych</li>
+<li>Modelowanie z wykorzystaniem zmiennych wskaźnikowych sygnalizujących
+braki</li>
+<li>Użycie algorytmów uczenia, które nie wymagają kompletnych danych
+(np. drzew)</li>
+</ul>
+<h2 id="błędy-w-danych">Błędy w danych</h2>
+<ul>
+<li>Zawsze trzeba się liczyć z błędami</li>
+<li>Niedokładności pomiarów
+<ul>
+<li>naturalne zjawisko związane z pomiarami</li>
+<li>zmniejsza informatywność atrybutu</li>
+</ul></li>
+<li>Niepoprawne wartości dyskretne
+<ul>
+<li>np. literówki</li>
+<li>błąd w procesie zbierania danych lub niekompletność naszej
+wiedzy</li>
+<li>należy ustalić przyczynę</li>
+</ul></li>
+<li>Niespójne wartości zmiennej celu
+<ul>
+<li>duży red flag</li>
+<li>przykłady o identycznych wartościach atrybutu i innej zmiennej
+celu</li>
+<li>potencjalnie do rozwiązania po stronie klienta</li>
+<li>może brakować nam atrybutu, który pozwoliłby na rozróżnienie tych
+przypadków</li>
+<li>mogą być błędy etykietowania</li>
+<li>warto przedyskutować z klientem jakich rozkładów się spodziewa na
+podstawie wiedzy dziedzinowej</li>
+</ul></li>
+</ul>
+<h2 id="elementy-odstające">Elementy odstające</h2>
+<ul>
+<li>Elementy, które znacznie się różnią od reszty obserwacji</li>
+<li>Niejasna granica</li>
+<li>Przyczyny
+<ul>
+<li>naturalne, rzadko pojawiające się w danych obserwacje (wiek
+103)</li>
+<li>błędy (wiek -12)</li>
+<li>sygnał, że mamy nieodpowiednie założenia odnośnie rozkładu danych
+(np. modelujemy złym rozkładem)</li>
+</ul></li>
+</ul>
+<h3 id="wykrywanie-elementów-odstających">Wykrywanie elementów
+odstających</h3>
+<ul>
+<li>Interquartile range
+<ul>
+<li>minimum Q1 - 1.5IQR</li>
+<li>maximum Q3 + 1.5IQR</li>
+<li>wszystko poza jest uznawane za outlier</li>
+<li>często stosowana heurystyka</li>
+</ul></li>
+<li>Q-Q plot
+<ul>
+<li>narzędzie do prównywania 2 rozkładów danych</li>
+<li>w dwóch paczkach porównujemy atrybuty</li>
+<li>paczkę danych porównujemy z założonym rozkładem</li>
+<li>graficzne narzędzie</li>
+<li>można sprawdzić czy nowa paczka danych od klienta ma taki rozkład
+jak to co już mamy</li>
+<li>dla wszystkich rozkładów</li>
+</ul></li>
+<li>Reguła 3 std dla rozkładu normalnego
+<ul>
+<li>oddalenie od więcej niż 3 std od średniej to outlier</li>
+</ul></li>
+<li>Uznanie obserwacji za odstającą jest często arbitralną decyzją
+analityka</li>
+</ul>
+<h3 id="konsekwencje-usuwania-elementów-odstających">Konsekwencje
+usuwania elementów odstających</h3>
+<ul>
+<li>Ignorujemy sygnały, że modelujemy złym rozkładem</li>
+<li>Narażamy się na tzw. czarne łabędzie
+<ul>
+<li>przykład o bardzo dużych konsekwencjach dla systemu</li>
+</ul></li>
+</ul>
+<h2 id="rozkłady-z-grubymi-ogonami">Rozkłady z grubymi ogonami</h2>
+<ul>
+<li>Rozkład normalny jest wygodny, często występuje w przyrodzie
+<ul>
+<li>wygodne własności analityczne</li>
+</ul></li>
+<li>Te właściwości nie dotyczą rozkładów z grubymi ogonami</li>
+<li>Jeśli mamy do czynienia z rozkładami o grubych ogonach, a koszt
+pomyłki w przypadku wystąpienia czarnego łabędzia będzie nieograniczony
+- zrezygnujmy z modelowania</li>
+</ul>
+<h3 id="rozkład-cauchyego">Rozkład Cauchy’ego</h3>
+<ul>
+<li>Nie jest zdefiniowana wartość oczekiwana</li>
+<li>Całkiem prawdopodobne są zdarzenie dużo bardziej oddalone od
+środka</li>
+</ul>
+<h2 id="normalizacja">Normalizacja</h2>
+<ul>
+<li>Problemy ze zróżnicowanymi zakresami wartości
+<ul>
+<li>duże wartości mogą zdominować proces uczenia</li>
+<li>utrudniona interpretacja wyników - jakie wagi będą duże a jakie
+małe</li>
+<li>błędy numeryczne prowadzące do niestabilnego uczenia</li>
+</ul></li>
+</ul>
+<h3 id="metody">Metody</h3>
+<ul>
+<li>Skalowanie do ustalonego przedziału
+<ul>
+<li>problemy jeśli nie znamy z góry zakresów możliwych wartości</li>
+</ul></li>
+<li>Standaryzaja / standardyzacja
+<ul>
+<li>jeśli zmienna losowa miała rozkład normalny to po tym będzie miała
+normalny standardowy</li>
+<li>nie gwarantuje że wartości zachowają jakiś przedział (rozkład
+normalny jest teoretycznie nieograniczony)</li>
+<li>odjęcie średniej i podzielenie przez odchylenie standardowe</li>
+</ul></li>
+<li>Przekształcenie logarytmiczne
+<ul>
+<li>jeśli wartości różnią się znacznie rzędem wielkości</li>
+</ul></li>
+<li>Przeskalowanie wektora tak, żeby miał długość 1
+<ul>
+<li>atrybut nie zawsze będzie 1-wymiarowym skalarem</li>
+<li>podzielenie przez normę wektora</li>
+</ul></li>
+<li>Przekształcenie wartości bezwzględnych na względne (zmiana
+jednostek)</li>
+<li>Czy na produkcji mogą się pojawić wartości z szerszego zakresu niż w
+zbiorze treningowym
+<ul>
+<li>problem ze stałym przedziałem</li>
+<li>przy standaryzacji nie ma problemu</li>
+</ul></li>
+</ul>
+<h2 id="interakcje">Interakcje</h2>
+<ul>
+<li>Przykład
+<ul>
+<li>przewidywanie czynszu</li>
+<li>w jednym mieście kamienice są droższe niż bloki a w drugim na
+odwrót</li>
+<li>model liniowy nie poradzi sobie z niektórymi zależnościami</li>
+</ul></li>
+<li>Sklejenie kilku atrybutów dyskretnych w 1
+<ul>
+<li>każda kombinacja 2 atrybutów</li>
+<li>model liniowy sobie poradzi</li>
+<li>może przyporządkować inną wagę każdej wartości atrybutu
+sklejonego</li>
+<li>nie musi uwzględniać kombinacji które nie występują</li>
+</ul></li>
+<li>Można zachować prosty, łatwy w interpretacji model i zachować dobre
+wyniki
+<ul>
+<li>przez modyfikację atrybutów</li>
+</ul></li>
+<li>Notacja na slajdzie - mnożenie wektora wag przez atrybut
+<ul>
+<li>atrybut dyskretny trzeba odpowiednio zakodować</li>
+</ul></li>
+</ul>
+<h2 id="kodowanie-atrybutów-dyskretnych">Kodowanie atrybutów
+dyskretnych</h2>
+<ul>
+<li>Przypisanie kolejnych liczb całkowitych
+<ul>
+<li>może ok jeśli atrybut jest porządkowy (rozmiar koszulki
+S,M,L,XL)</li>
+<li>czy M jest 2 razy większe niż S?</li>
+<li>nie jest ok jeśli atrybut nie jest porządkowy, wprowadza
+nieistniejącą hierarchię (np. kolor czerwony, zielony, niebieski)</li>
+</ul></li>
+<li>Kodowanie częstotliwościowe / częstościowe
+<ul>
+<li>im częściej występuje wartość atrybutu, tym większą wartość
+dostaje</li>
+<li>ok kiedy to częstość ma dla nas znaczenie, a nie sama wartość</li>
+<li>problem jeśli dwie wartości mają jednakową częstość</li>
+</ul></li>
+<li>Kodowanie wskaźnikowe / one-hot encoding
+<ul>
+<li>kodowanie wartości dyskretnej jako wektor (a nie skalar)</li>
+<li>dużo zer i jedna jedynka</li>
+<li>wektor wag ma wtedy ten sam wymiar</li>
+<li>standard dla atrybutów dyskretnych</li>
+<li>rzadka reprezentacja</li>
+<li>nadmiarowa reprezentacja, mało kompaktowa - w praktyce to nie ma
+kluczowego znaczenia</li>
+</ul></li>
+<li>Zanurzenia</li>
+</ul>
+<h2 id="zanurzenia">Zanurzenia</h2>
+<ul>
+<li>Reprezentacja wektorowa obiektu z jakiejś przestrzeni</li>
+<li>Jest dobra jeśli zachowuje określone właściwości, relacje ze świata
+rzeczywistego
+<ul>
+<li>jak wektor reprezentuje obrazki zwierząt</li>
+<li>dobre zanurzenie - wektory dla 2 psów powinny być mniej oddalone od
+siebie niż wektory dla psa i kota</li>
+<li>przeniesienie semantyki i relacji</li>
+</ul></li>
+<li>Tworzenie zanurzeń
+<ul>
+<li>przez transfer uczenia - fragment gotowego modelu, powszechne w
+wizji komputerowej i przetwarzaniu tekstu</li>
+<li>tworzenie modeli realizujących funkcje zanurzające</li>
+</ul></li>
+</ul>
+<h3 id="autokoder-autoenkoder">Autokoder (autoenkoder)</h3>
+<ul>
+<li>Model który przewiduje swoje wejście
+<ul>
+<li>zadanie jest trywialne <span class="math inline">\(y=x\)</span></li>
+<li>ograniczamy postać funkcji</li>
+</ul></li>
+<li>Przekształcenie zawężające
+<ul>
+<li>np. wejście ma 1000 wymiarów, jakaś pośrednia warstwa 250, a wyjście
+znowu 1000</li>
+<li>wymuszamy wąskie gardło</li>
+</ul></li>
+<li>Jeśli model dobrze przewiduje swoje wejście to ta wąska warstwa
+nauczyła się kompresować tą informację
+<ul>
+<li>wąska reprezentacja musi zawierać potrzebne informacje</li>
+</ul></li>
+<li>Struktura
+<ul>
+<li>enkoder - rzutuje do zawężonej reprezentacji</li>
+<li>dekoder - odtwarza z zawężonej reprezentacji do pełnej
+wymiarowości</li>
+</ul></li>
+<li>Po wytrenowaniu potrzebny jest tylko enkoder
+<ul>
+<li>możemy go użyć do generowania zanurzeń</li>
+</ul></li>
+<li>Ograniczenia
+<ul>
+<li>nie mamy kontroli nad formą tych zanurzeń, nie możemy wymusić
+właściwości</li>
+</ul></li>
+</ul>
+<h3 id="metric-learning">Metric learning</h3>
+<ul>
+<li>Pozwala wymusić, żeby zanurzenia dla grup obiektów były blisko
+siebie, a innych daleko od siebie</li>
+<li>Odległość w przestrzeni zanurzonej
+<ul>
+<li>minimalizowana gdy oba elementy są do siebie podobne w oryginalnej
+przestrzeni</li>
+<li>maksymalizacja w przeciwnym przypadku</li>
+</ul></li>
+<li>Zastosowania - wyszukiwarki wielomodalne
+<ul>
+<li>zdjęcia na podstawie tekstu</li>
+<li>obiekty z różnych przestrzeni rzutujemy do tej samej przestrzeni
+zanurzeń (i tekst i obrazki do <span
+class="math inline">\(\mathbb{R}^n\)</span>)</li>
+<li>można dowolnie dużo modalności zrzutować do takiej przestrzeni</li>
+<li>mogą być oddzielne modele dla różnych modalności ale ich wyjście w
+tej samej przestrzeni (trenowane jednocześnie)</li>
+</ul></li>
+<li>Dane wejściowe do generowania zanurzeń
+<ul>
+<li>dla wyszukiwarki wielomodalnej</li>
+<li>tekst, zdjęcie, czy para jest pozytywna czy negatywna</li>
+<li>pozytywna: tekst: “pies”, zdjęcie: zdjęcie psa</li>
+<li>negatywna: tekst: “kot”, zdjęcie: zdjęcie psa</li>
+</ul></li>
+</ul>
+<p>Zanurzenia to bardzo silna technika, za pomocą metric learning można
+mieć kontrolę, standard jeśli chodzi o pracę z tekstem i obrazami</p>
+<h2 id="selekcja-atrybutów">Selekcja atrybutów</h2>
+<p>Jak wybrać najbardziej informatywny zestaw atrybutów do
+modelowania</p>
+<h3 id="współczynnik-korelacji">Współczynnik korelacji</h3>
+<ul>
+<li>Korelacja liniowa / Pearsona
+<ul>
+<li>znormalizowana kowariancja</li>
+<li><strong>tylko dla atrybutów ciągłych</strong></li>
+</ul></li>
+<li>Korelacja rangowa / Spearmana</li>
+<li>Wykrywają tylko zależności liniowe</li>
+<li>Zerowa korelacja nie mówi, że atrybuty są niezależne</li>
+</ul>
+<h3 id="współczynnik-informacji-wzajemnej">Współczynnik informacji
+wzajemnej</h3>
+<ul>
+<li>Zdefiniowane dla pary zmiennych, na prawdopodobieństwtach
+<ul>
+<li>dla zmiennych dyskretnych</li>
+<li>dla zmiennych ciągłych po kubełkowaniu</li>
+</ul></li>
+<li>Nie pokazuje kierunku zależności, tylko siłę</li>
+<li>Nie jest znormalizowany</li>
+<li>Działa dla przypadków nieliniowych (niektórych)</li>
+</ul>
+<p>Liczymy korelację / współczynnik informacji wzajemnej atrybutu z
+etykietą, chcemy tych atrybutów o jak największej zależności</p>
+<h3 id="regularyzacja-l1">Regularyzacja L1</h3>
+<ul>
+<li>Składnik dodawany do funkcji celu</li>
+<li>Kara za zbyt duże wagi</li>
+<li>Wagi do bezużytecznych atrybutów będą zerowane</li>
+<li>Jeśli procesowi uczenia opłaca się wyzerować wagę to znaczy że
+atrybut nie jest potrzebny</li>
+</ul>
+<h3 id="selekcja-w-przód-wstecz">Selekcja w przód / wstecz</h3>
+<ul>
+<li>W przód (forward selection)
+<ul>
+<li>na początku modele z pojedynczymi atrybutami</li>
+<li>dodajemy te które są dobre</li>
+</ul></li>
+<li>Wstecz (backward selection)
+<ul>
+<li>na początku wszystkie atrybuty</li>
+<li>usuwamy po 1 i patrzymy na którym nic nie traci</li>
+</ul></li>
+<li>Forward-backward dodajemy dwa, usuwamy jeden</li>
+</ul>
+<h3 id="selekcja-za-pomocą-testu-chi2">Selekcja za pomocą testu <span
+class="math inline">\(\chi^2\)</span></h3>
+<ul>
+<li>Test niezależności dwóch zmiennych losowych, których wspólne
+występowanie da się opisać w formie tabelarycznej</li>
+<li>U nas - pogwałcenie zasad statystyki, przyjmujemy że im więcej tym
+silniejszy wpływ</li>
+<li>Wyliczamy wartości dla wszystkich atrybutów, sortujemy od najwyższej
+do najniższej</li>
+<li>Można policzyć też <span class="math inline">\(\chi^2\)</span> dla
+szumu
+<ul>
+<li>wiemy że nie niesie informacji</li>
+<li>każdy atrybut co ma mniejszą wartość nie niesie informacji</li>
+</ul></li>
+<li>Liczba wartości szumu powinna być podobna do liczby unikalnych
+wartości prawdziwych atrybutów</li>
+</ul>
+<h3 id="selekcja-za-pomocą-lasu-losowego">Selekcja za pomocą lasu
+losowego</h3>
+<ul>
+<li>Można wyciągnąć ranking atrybutów z wytrenowanego modelu</li>
+<li>Na podstawie oceny podziałów
+<ul>
+<li>każdy węzeł drzewa dzieli dane korzystając z jednego atrybutu</li>
+<li>im lepszy atrybut tym lepszy podział</li>
+<li>atrybut oceniamy na podstawie sumarycznej oceny podziałów w których
+brał udział</li>
+<li>wyliczany na zbiorze trenującym</li>
+<li>przeszacowuje wagę cech o wielu wartościach</li>
+</ul></li>
+<li>Na podstawie spadku jakości modelu po permutacji atrybutu
+<ul>
+<li>oceniamy jakość modelu na zewnętrznym zbiorze danych</li>
+<li>losowo przetasowujemy wartości atrybutu <span
+class="math inline">\(x_i\)</span></li>
+<li>jeszcze raz oceniamy model</li>
+<li>spadek jakości - ocena atrybutu <span
+class="math inline">\(x_i\)</span></li>
+<li>najlepiej liczyć na osobnym podzbiorze do selekcji atrybutów</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#atrybuty" id="toc-atrybuty">Atrybuty</a>
+<ul>
+<li><a href="#typy-atrybutów" id="toc-typy-atrybutów">Typy
+atrybutów</a></li>
+<li><a href="#czemu-to-jest-istotne" id="toc-czemu-to-jest-istotne">Czemu to jest istotne</a></li>
+<li><a href="#rozkład-atrybutów" id="toc-rozkład-atrybutów">Rozkład
+atrybutów</a></li>
+<li><a href="#pojęcia" id="toc-pojęcia">Pojęcia</a></li>
+<li><a href="#podstawowe-rodziny-rozkładów" id="toc-podstawowe-rodziny-rozkładów">Podstawowe rodziny
+rozkładów</a></li>
+<li><a href="#dane-niezbalansowane" id="toc-dane-niezbalansowane">Dane
+niezbalansowane</a>
+<ul>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+<li><a href="#możliwe-strategie" id="toc-możliwe-strategie">Możliwe
+strategie</a></li>
+</ul></li>
+<li><a href="#braki-w-danych" id="toc-braki-w-danych">Braki w
+danych</a></li>
+<li><a href="#taksonomia-brakujących-danych" id="toc-taksonomia-brakujących-danych">Taksonomia brakujących danych</a>
+<ul>
+<li><a href="#mcar" id="toc-mcar">MCAR</a></li>
+<li><a href="#mar" id="toc-mar">MAR</a></li>
+<li><a href="#mnar" id="toc-mnar">MNAR</a></li>
+<li><a href="#w-praktyce" id="toc-w-praktyce">W praktyce</a></li>
+</ul></li>
+<li><a href="#praca-z-niekompletnymi-danymi" id="toc-praca-z-niekompletnymi-danymi">Praca z niekompletnymi
+danymi</a></li>
+<li><a href="#błędy-w-danych" id="toc-błędy-w-danych">Błędy w
+danych</a></li>
+<li><a href="#elementy-odstające" id="toc-elementy-odstające">Elementy
+odstające</a>
+<ul>
+<li><a href="#wykrywanie-elementów-odstających" id="toc-wykrywanie-elementów-odstających">Wykrywanie elementów
+odstających</a></li>
+<li><a href="#konsekwencje-usuwania-elementów-odstających" id="toc-konsekwencje-usuwania-elementów-odstających">Konsekwencje
+usuwania elementów odstających</a></li>
+</ul></li>
+<li><a href="#rozkłady-z-grubymi-ogonami" id="toc-rozkłady-z-grubymi-ogonami">Rozkłady z grubymi ogonami</a>
+<ul>
+<li><a href="#rozkład-cauchyego" id="toc-rozkład-cauchyego">Rozkład
+Cauchy’ego</a></li>
+</ul></li>
+<li><a href="#normalizacja" id="toc-normalizacja">Normalizacja</a>
+<ul>
+<li><a href="#metody" id="toc-metody">Metody</a></li>
+</ul></li>
+<li><a href="#interakcje" id="toc-interakcje">Interakcje</a></li>
+<li><a href="#kodowanie-atrybutów-dyskretnych" id="toc-kodowanie-atrybutów-dyskretnych">Kodowanie atrybutów
+dyskretnych</a></li>
+<li><a href="#zanurzenia" id="toc-zanurzenia">Zanurzenia</a>
+<ul>
+<li><a href="#autokoder-autoenkoder" id="toc-autokoder-autoenkoder">Autokoder (autoenkoder)</a></li>
+<li><a href="#metric-learning" id="toc-metric-learning">Metric
+learning</a></li>
+</ul></li>
+<li><a href="#selekcja-atrybutów" id="toc-selekcja-atrybutów">Selekcja
+atrybutów</a>
+<ul>
+<li><a href="#współczynnik-korelacji" id="toc-współczynnik-korelacji">Współczynnik korelacji</a></li>
+<li><a href="#współczynnik-informacji-wzajemnej" id="toc-współczynnik-informacji-wzajemnej">Współczynnik informacji
+wzajemnej</a></li>
+<li><a href="#regularyzacja-l1" id="toc-regularyzacja-l1">Regularyzacja
+L1</a></li>
+<li><a href="#selekcja-w-przód-wstecz" id="toc-selekcja-w-przód-wstecz">Selekcja w przód / wstecz</a></li>
+<li><a href="#selekcja-za-pomocą-testu-chi2" id="toc-selekcja-za-pomocą-testu-chi2">Selekcja za pomocą testu <span class="math inline">\(\chi^2\)</span></a></li>
+<li><a href="#selekcja-za-pomocą-lasu-losowego" id="toc-selekcja-za-pomocą-lasu-losowego">Selekcja za pomocą lasu
+losowego</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

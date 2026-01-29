@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-indukcja-elektromagnetyczna</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-pole-magnetyczne.html">Poprzedni: 06-pole-magnetyczne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-mechanika-kwantowa.html">Następny: 08-mechanika-kwantowa.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="indukcja-elektromagnetyczna">Indukcja elektromagnetyczna</h1>
+<h2 id="prawo-faradaya">Prawo Faradaya</h2>
+<ul>
+<li>Jeżeli przez powierzchnię (kontur) przenika zmienny strumień pola
+magnetycznego to w tym konturze wyindukuje się siła
+elektromotoryczna</li>
+<li>Pętla z przewodnika zostaje przesunięta w pola magnetycznym</li>
+<li>Działa siła Lorentza na ładunki w tym przewodniku
+<ul>
+<li>stycznie do pętli</li>
+<li>można policzyć jaką pracę wykonuje pole przepychając elektrony</li>
+</ul></li>
+<li>Pracę można wyrazić jako strumień pola przechodzącego przez
+powierzchnię
+<ul>
+<li>powierzchnię zakreślaną przez ramkę</li>
+</ul></li>
+<li>Gdyby pole magnetyczne było różne z jednej i z drugiej strony pętli
+to pojawi się siła elektromotoryczna</li>
+<li>Praca - pochodna strumienia po czasie
+<ul>
+<li>jak pole jest stałe to 0</li>
+<li>jak pole nie jest jednorodne to nie 0</li>
+<li>jak ramka zacznie się obracać to nie 0</li>
+</ul></li>
+<li>Siła elektromotoryczna <span class="math inline">\(\mathcal{E} =
+-\frac{d\Phi_B}{dt}\)</span>
+<ul>
+<li>wyraża się w woltach</li>
+<li>jaką baterię musimy wstawić do obwodu żeby efekt był ten sam</li>
+<li>minus we wzorze wynika z reguły Lenza - reguły przekory</li>
+</ul></li>
+<li>Reguła Lenza
+<ul>
+<li>wyindukowany prąd będzie w takim kierunku żeby przeciwdziałać
+zmianie strumienia</li>
+</ul></li>
+</ul>
+<h2 id="siła-ekektromotoryczna-indukcji">Siła ekektromotoryczna
+indukcji</h2>
+<p>Rozważamy obwód z przewodnika</p>
+<p>Strumień - <span class="math inline">\(\Phi = \int_S \vec{B}
+\vec{dS}\)</span> Siła eleketromotoryczna <span
+class="math inline">\(\frac{d\Phi}{dt}\)</span> Może się zmieniać pole w
+czasie Może się obracać powierzchnia Może się zmieniać pole</p>
+<p>Siła elektromotoryczna - w obwodzie pojawia się pole elektryczne
+Przewodnik jest okrągły - pole jest wirowe</p>
+<p>pole elektryczne wytwarzane przez ładunki statyczne jest źródłowe i
+bezwirowe pole elektryczne indukowane przez zmienne pole magnetyczne
+jest wirowe</p>
+<p>Prawo Faradaya działa nawet jak nie ma żadnego przewodnika - i tak
+pojawia się pole elektryczne</p>
+<p><span class="math display">\[\mathrm{rot} \vec{E} = - \frac{\partial
+\vec{B}}{\partial t}\]</span> Zmienne pole magnetyczne indukuje pole
+elektryczne - jak jest jedno to jest też drugie Minus we wzorze - reguła
+Lenza (reguła przekory)</p>
+<h2 id="samoindukcja">Samoindukcja</h2>
+<p>Mamy pętlę z przewodnika przez którą przepływa prąd Przepływ prądu -
+jest pole magnetyczne B zależy od geometrii Strumień to <span
+class="math inline">\(L \cdot I\)</span> L - współczynnik samoindukcji -
+zależny od geometrii obwodu</p>
+<p><span class="math display">\[\mathcal{E} = - \frac{\partial
+\Phi}{\partial t} = -L \frac{dI}{dt}\]</span> Przekaźnik z
+elektromagnesem - równolegle do cewki jest dioda - przy wyłączeniu prądu
+spada strumień pola magnetycznego z cewki i indukuje się prąd w drugą
+stronę, dioda wtedy chroni (?)</p>
+<p>Puszczenie prądu przez cewkę - magazynuje się energia</p>
+<h3 id="problem-z-prawem-ampera">Problem z prawem Ampera</h3>
+<ul>
+<li>Złamane prawo zachowania ładunku</li>
+<li>Brakuje prądu przesunięcia</li>
+<li>Do tej pory mówiliśmy o prądzie jako o przemieszczających się
+ładunkach</li>
+<li>Tutaj mamy inny rodzaj prądu
+<ul>
+<li>związany ze zmianą strumienia pola elektrycznego</li>
+</ul></li>
+</ul>
+<h2 id="równania-maxwella">Równania Maxwella</h2>
+<h3 id="prawo-gaussa">Prawo Gaussa</h3>
+<p><span class="math display">\[\oint_S \vec{E} \cdot  d\vec{S} =
+q/\varepsilon_0 \iff \nabla \cdot \vec{E} = \rho/\varepsilon\]</span>
+Źródłem pola elektrostatycznego są ładunki elektryczne</p>
+<h3 id="prawo-faradaya-1">Prawo Faradaya</h3>
+<p><span class="math display">\[\oint_L \vec{E} \cdot d\vec{l} =
+-\frac{\partial \Phi_B}{\partial t} \iff \nabla \times \vec{E} = -
+\frac{\partial \vec{B}}{\partial t}\]</span> Zmienne pole magnetyczne
+indukuje pole elektryczne</p>
+<h2 id="prawo-gaussa-dla-magnetyzmu">Prawo Gaussa dla magnetyzmu</h2>
+<p><span class="math display">\[\oint_S \vec{B} \cdot d\vec{S} = 0 \iff
+\nabla \cdot \vec{B} = 0\]</span> Pole magnetyczne jest bezźródłowe</p>
+<h3 id="prawo-amperea">Prawo Ampere’a</h3>
+<p>Uwzględniające prąd przesunięcia</p>
+<p>Wirowe pole magnetyczne może być indukowane przez prąd elektryczny i
+zmienne pole elektryczne</p>
+<p><span class="math display">\[\oint_L \vec{B} \cdot d\vec{l} = \mu I +
+\varepsilon_0 \mu_0 \frac{\partial \Phi_E}{\partial t} \iff \nabla
+\times \vec{B} = \mu \vec{j} + \mu \varepsilon \frac{\partial
+\vec{E}}{\partial t}\]</span></p>
+<h3 id="równania-materiałowe">Równania materiałowe</h3>
+<p><span class="math display">\[\vec{D} = \varepsilon_r \varepsilon_0
+\vec{E}\]</span> <span class="math display">\[\vec{B} = \mu_r \mu_0
+\vec{H}\]</span> <span class="math display">\[\vec{j} = \sigma
+\vec{E}\]</span></p>
+<h2 id="fale-elektromagnetyczne">Fale elektromagnetyczne</h2>
+<ul>
+<li>Z tych równań wynika równanie falowe
+<ul>
+<li>laplasjan - druga pochodna po położeniu w przestrzeni</li>
+<li>druga pochodna po czasie</li>
+<li>dla pola magnetycznego i dla pola elektrycznego</li>
+</ul></li>
+<li>Więc istnieją fale elektromagnetyczne</li>
+<li><span class="math inline">\(v\)</span> - prędkość fali
+elektromagnetycznej w ośrodku
+<ul>
+<li><span class="math inline">\(v=\frac{1}{\sqrt{\mu_r \mu_0
+\varepsilon_r \varepsilon_0}}\)</span></li>
+</ul></li>
+<li>Fale elektromagnetyczne są falami poprzecznymi</li>
+</ul>
+<h3 id="wektor-pointinga">Wektor Pointinga</h3>
+<p><span class="math display">\[\vec{S} = \vec{E} \times
+\vec{H}\]</span> * W stronę propagacji fali * Określa strumień energii *
+ilość energii na jednostkę powierzchni w jednostce czasu * Duże równanie
+na górze slajdu * bilans energii</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#indukcja-elektromagnetyczna" id="toc-indukcja-elektromagnetyczna">Indukcja elektromagnetyczna</a>
+<ul>
+<li><a href="#prawo-faradaya" id="toc-prawo-faradaya">Prawo
+Faradaya</a></li>
+<li><a href="#siła-ekektromotoryczna-indukcji" id="toc-siła-ekektromotoryczna-indukcji">Siła ekektromotoryczna
+indukcji</a></li>
+<li><a href="#samoindukcja" id="toc-samoindukcja">Samoindukcja</a>
+<ul>
+<li><a href="#problem-z-prawem-ampera" id="toc-problem-z-prawem-ampera">Problem z prawem Ampera</a></li>
+</ul></li>
+<li><a href="#równania-maxwella" id="toc-równania-maxwella">Równania
+Maxwella</a>
+<ul>
+<li><a href="#prawo-gaussa" id="toc-prawo-gaussa">Prawo Gaussa</a></li>
+<li><a href="#prawo-faradaya-1" id="toc-prawo-faradaya-1">Prawo
+Faradaya</a></li>
+</ul></li>
+<li><a href="#prawo-gaussa-dla-magnetyzmu" id="toc-prawo-gaussa-dla-magnetyzmu">Prawo Gaussa dla magnetyzmu</a>
+<ul>
+<li><a href="#prawo-amperea" id="toc-prawo-amperea">Prawo
+Ampere’a</a></li>
+<li><a href="#równania-materiałowe" id="toc-równania-materiałowe">Równania materiałowe</a></li>
+</ul></li>
+<li><a href="#fale-elektromagnetyczne" id="toc-fale-elektromagnetyczne">Fale elektromagnetyczne</a>
+<ul>
+<li><a href="#wektor-pointinga" id="toc-wektor-pointinga">Wektor
+Pointinga</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

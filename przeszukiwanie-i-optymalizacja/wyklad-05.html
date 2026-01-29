@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-11-06</h1>
+<h2 id="mutacyjny-algorytm-ewolucyjny">Mutacyjny algorytm
+ewolucyjny</h2>
+<p>Losowanie ze zwracaniem - nie ma gwarancji do zachowania punktu</p>
+<p>zdolności eksploracyjne przejawiają się tym, że czasami pojawia się
+przejście doliny pojawia się w populacji punkt po drugiej stronie doliny
+może pojawić się więcej niż jedna kopia tego punktu po losowym przeskoku
+zaczyna się samonapędzający proces namnażania punktów po lepszej stronie
+doliny stan gdzie populacja jest rozdzielona jest nietrwała</p>
+<p>charakterystyczne układanie się punktów w chmurki</p>
+<h2 id="inne-rodzaje-mutacji">Inne rodzaje mutacji</h2>
+<ul>
+<li>Mutacja rozkładem jednostajnym w kostce z centrum w punkcie
+mutowanym
+<ul>
+<li>dalej w śladzie algorytmu pojawiają się <em>chmury</em> - wynikają
+bardziej z selekcji</li>
+</ul></li>
+<li>Mutacja bitowa
+<ul>
+<li>jednakowe prawdopodobieństwo dla każdego bitu (raczej mniejszą
+niż 1/2)</li>
+<li>zamienienie bitu na wartość przeciwną</li>
+<li>xor z wektorem maski</li>
+<li><span class="math inline">\(p_m\)</span> - prawdopodobieństwo
+mutacji pojedynczego bitu osobnika</li>
+<li>prawdopodobieństwo że osobnik zmutuje <span class="math inline">\(1
+- (1-p_m)^n\)</span> (<span class="math inline">\(n\)</span> - lizcba
+bitów osobnika)</li>
+<li>prawdopodobieństwo że dokładnie k bitów zostanie zmutowanych <span
+class="math inline">\(\binom{n}{k}p_m^k(1-p_m)^{n-k}\)</span></li>
+<li>analogia do mutacji Gaussa</li>
+</ul></li>
+<li>Inna mutacja bitowa
+<ul>
+<li>zamiana jednego bitu wybranego z rozkładem jednostajnym</li>
+</ul></li>
+<li>Mutacja permutacji
+<ul>
+<li>w przestrzeni permutacji</li>
+<li>zamiana przyległych pozycji</li>
+<li>promień mutacji - uogólnienie z liczbą losowanych punktów(?)</li>
+</ul></li>
+</ul>
+<p>Rozkład <span class="math inline">\(\chi^2\)</span></p>
+<p><span class="math display">\[
+Y = \sum_{i=1}^nx_i^2 \quad X \sim N(0,1)
+\]</span></p>
+<p>Dla 1 stopnia swobody gęstość przyjmuje maksimum z 0 Dla więcej niż 1
+stopni swobody maksimum jest w pewnej charakterystycznej odległości od 0
+mało prawdopodobne że populacja nie będzie się ruszać</p>
+<p>Kształt chmury nie jest wynikiem mutacji zbiór realizacji zmiennej
+losowej, której wartością oczekiwaną jest położenie punktu optymalnego
+populacja jest realizacją zmiennej losowej</p>
+<p>średnie położenie punktów w populacji jest estymatorem punktu
+optymalnego</p>
+<p>punkt środkowy populacji (nie musi być zawarty w populacji) na ogół
+będzie lepszy niż dowolny punkt w populacji</p>
+<h2 id="weryfikacja-jakości-algorytmów">Weryfikacja jakości
+algorytmów</h2>
+<p>Przez rozważania teoretycznie można dowieść, że jak czas dąży do
+nieskończoności do dokładne rozwiązanie jest znajdywane z
+prawdopodobieństwem dążącym do 1 - mało praktyczne</p>
+<p>Nie wiedząc z góry jakie zadanie optymalizacji przyjdzie nam
+rozwiązać, nie możemy dobrać efektywnej metody dla niego (no free lunch
+theorem)</p>
+<p>Testowanie - z założeniem że algorytm jest prawidłowo
+zaimplementowany</p>
+<p>Metoda optymalizacji - generator punktów z przestrzeni przeszukiwań
+Ewaluator (funkcja celu) - zwrotna informacja o jakości punktu</p>
+<p>Optymalizacja typu black box Krzywe <em>zbieżności</em> (nie ściśle
+rozumiana matematycznie zbieżność tylko zmiana znajdowanego rozwiązania)
+czas jest mierzony liczbą wyliczeń funkcji celu</p>
+<p>Ten sam algorytm uruchomiony wielokrotnie (np. z różnym punktem
+startowym, zależy czy algorytm jest deterministyczny) może mieć różne
+krzywe zbieżności</p>
+<p>Nie wystarczy jednokrotne uruchomienie algorytmu do jego oceny</p>
+<p>Porównując dwa algorytmy mamy dwa pęki krzywych zbieżności Jaki jest
+w ogóle najlepszy znaleziony wynik Jaka jest szansa szybkiego uzyskania
+niezłego wyniku niezależnie od punktu startowego</p>
+<p>Krzywa ECDF - empirical cumulative distribution function ustalony
+zakres wartości na osi pionowej (termometr rtęciowy, kwantyzacja) ile
+poziomów z zakresu wartości zostało przebitych przez algorytm / liczba
+poziomów ważne jak ustawi się skalę</p>
+<p>najpierw przerabia się krzywe zbieżności na ECDF, a potem
+uśrednia</p>
+<p>skąd wziąć minimum i maksimum do ECDF możemy znać z definicji
+problemu (objawienie?) można przyjąć min i max ze wszystkich uruchomień
+algorytmu - niedoskonałe</p>
+<p>wygodniejszy sposób prezentacji bo nie zależy od tego czy
+mnimalizujemy czy maksymalizujemy, niezależnie od samych wartości można
+je uśredniać dla różnych problemów i tego samego algorytmu</p>
+<p>na projekt - porównywać krzywe ECDF</p>
+<p>wygodniejsza może być skala logarytmiczna przy ustalaniu barier do
+pokonania</p>
+<h3 id="porównywanie-metod-losowych">Porównywanie metod losowych</h3>
+<p>Dystrybuanta empiryczna rozwiązań uzyskanych po załozonym czasie dla
+dwóch algorytmów (a nie w czasie jak ECDF)</p>
+<p>Żeby wiarygodnie wnioskować analizuje się rozkłady częstości
+wyników</p>
+<p>wyniki posortowane od najgorszego do najlepszego idąc od -inf do +inf
+patrzymy jak często uzyskujemy wartości nie większe niż liczba</p>
+<p>jeśli jedna krzywa leży nad drugą to algorytm radzi sobie lepiej dla
+danego zadania zależy jak duża jest różnica między krzywymi</p>
+<h3 id="hipotezy-statystyczne">Hipotezy statystyczne</h3>
+<ul>
+<li>Testy parametryczne i nieparametryczny</li>
+<li>Stawiamy hipotezę zerową (null hypothesis)</li>
+<li>oblicza się prawdopodobieństwo że hipoteza zerowa jest prawdziwa -
+p-wartość</li>
+<li>wykazanie niewprost</li>
+<li>są implementacje w każdym pakiecie naukowym</li>
+<li>nieparametryczny test Wilcoxona</li>
+<li>parametryczny test t-Studenta</li>
+</ul>
+<p>Mając wiele algorytmów i wiele zadań dla każdego zadanie robi się
+tabelę przewag (wg. statystycznie istotnej różnicy) (-1, 0, 1) Sumuje
+się wartości żeby dostać bilans, a z porównania bilansów ranga uśrednia
+się wartości rang po zadaniach</p>
+<p>Benchmarki CEC i BBOB</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-11-06</a>
+<ul>
+<li><a href="#mutacyjny-algorytm-ewolucyjny" id="toc-mutacyjny-algorytm-ewolucyjny">Mutacyjny algorytm
+ewolucyjny</a></li>
+<li><a href="#inne-rodzaje-mutacji" id="toc-inne-rodzaje-mutacji">Inne
+rodzaje mutacji</a></li>
+<li><a href="#weryfikacja-jakości-algorytmów" id="toc-weryfikacja-jakości-algorytmów">Weryfikacja jakości
+algorytmów</a>
+<ul>
+<li><a href="#porównywanie-metod-losowych" id="toc-porównywanie-metod-losowych">Porównywanie metod
+losowych</a></li>
+<li><a href="#hipotezy-statystyczne" id="toc-hipotezy-statystyczne">Hipotezy statystyczne</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

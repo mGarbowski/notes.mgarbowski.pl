@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-07</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-06.html">Poprzedni: wyklad-06.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-08.html">Następny: wyklad-08.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="algorytmy-ewolucyjne-c.d.-2024-11-27">Algorytmy ewolucyjne c.d.
+(2024-11-27)</h1>
+<h2 id="uporządkowanie-nazewnictwa">Uporządkowanie nazewnictwa</h2>
+<ul>
+<li>Wiele podobnych pomysłów było opisywanych niezależnie w różnych
+ośrodkach</li>
+</ul>
+<h3 id="algorytm-genetyczny">Algorytm genetyczny</h3>
+<ul>
+<li>Sukcesja proporcjonalna</li>
+<li>sukcesja generacyjna lub elitarna</li>
+<li>Reprezentacja binarna</li>
+<li>Krzyżowanie jednopunktowe</li>
+<li>Mutacja bitowa</li>
+<li>Populacje ok. 100 elementów
+<ul>
+<li>prawdopodobieństwo mutacji ok 0.01</li>
+<li>prawdopodobieństwo krzyżowania ok. 0.7</li>
+</ul></li>
+</ul>
+<h3 id="strategia-ewolucyjna">Strategia ewolucyjna</h3>
+<ul>
+<li><span class="math inline">\(\mu\)</span> punktów w populacji
+bazowej</li>
+<li>powstaje <span class="math inline">\(\lambda\)</span> punktów
+potomnych (mutantów)
+<ul>
+<li>raczej <span class="math inline">\(\lambda &gt; \mu\)</span></li>
+</ul></li>
+<li>z nich robi się kolejne <span class="math inline">\(\mu\)</span>
+punktów następnej populacji</li>
+<li>warianty <span class="math inline">\(\mu, \lambda\)</span> i <span
+class="math inline">\(\mu + \lambda\)</span></li>
+<li>równoważne selekcji progowej <span class="math inline">\(\mu,
+\lambda\)</span>
+<ul>
+<li>nie widać tego przy klasycznym przedstawieniu algorytmu</li>
+<li>sukcesja prosta</li>
+</ul></li>
+<li>sukcesja elitarna z elitą wielkości <span
+class="math inline">\(\mu\)</span> - <span class="math inline">\(\mu +
+\lambda\)</span></li>
+<li>wbudowany w algorytm mechanizm adaptacji długości kroku</li>
+<li>Reprezentacja rzeczywistoliczbowa</li>
+<li>Krzyżowanie - brak lub uśredniające</li>
+<li>Populacja ok. 100
+<ul>
+<li>próg około 1/7</li>
+</ul></li>
+</ul>
+<h3 id="programowanie-ewolucyjne">Programowanie ewolucyjne</h3>
+<ul>
+<li>Ewolucja automatu skończonego</li>
+<li>Późniejsze warianty podobne do strategii ewolucyjnych</li>
+<li>Selekcja turniejowa
+<ul>
+<li>2 osobniki</li>
+</ul></li>
+<li>Sukcesja elitarna lub generacyjna</li>
+<li>Reprezentacja rzeczywistoliczbowa</li>
+<li>Bez krzyżowania</li>
+<li>Mutacja Gaussowska z adaptacją</li>
+<li>Populacje około 100</li>
+</ul>
+<h3 id="programowanie-genetyczne">Programowanie genetyczne</h3>
+<ul>
+<li>Oryginalnie - ewoluowanie programów w języku LISP
+<ul>
+<li>drzewiasta przestrzeń danych i przestrzeń kodu (wspólne)</li>
+<li>program może się zapisywac i potem sam się wykonywać</li>
+</ul></li>
+<li>Później regresja lub klasyfikacja modelem drzewiastym</li>
+<li>Jak największe populacje &gt;10000</li>
+<li>główny nacisk na krzyżowanie
+<ul>
+<li>czasami bez mutacji</li>
+</ul></li>
+<li>trudna analiza formalna przestrzeni drzew</li>
+</ul>
+<h3 id="programy-ewolucji">Programy ewolucji</h3>
+<ul>
+<li>Oddzielona warstwa przetwarzania danych od warstwy reprezentacji
+<ul>
+<li>to na co kładziemy nacisk na wykładach</li>
+</ul></li>
+<li>Uwzględnienie ograniczeń dziedzinowych</li>
+</ul>
+<h3 id="poszukiwanie-z-miekką-selekcją">Poszukiwanie z miekką
+selekcją</h3>
+<ul>
+<li>Galar, PWr</li>
+<li>quasi-species
+<ul>
+<li>nasze przykłady z chmurami punktów z małym zróżnicowaniem
+wewnętrznym</li>
+</ul></li>
+<li>Wniosek, że małe populacje też są dobre
+<ul>
+<li>rzędu np. 5</li>
+<li>tym łatwiej przeżyć najgorszemu osobnikowi</li>
+</ul></li>
+<li>Model procesu przekraczania siodeł</li>
+</ul>
+<h2 id="ewolucja-różnicowa">Ewolucja różnicowa</h2>
+<ul>
+<li>inicjuj <span class="math inline">\(P^0\)</span> (populacja, mu
+elementowe)</li>
+<li><span class="math inline">\(H\)</span> (historia) = <span
+class="math inline">\(P^0\)</span></li>
+<li>t$ = 0$</li>
+<li>while !stop
+<ul>
+<li>for <span class="math inline">\(i = 1..\mu\)</span>
+<ul>
+<li><span class="math inline">\(P^t_j = select(P^t)\)</span></li>
+<li><span class="math inline">\(P^t_k, P^t_l = sample(P^t)\)</span> -
+wybór z jednakowym prawdopodobieństwem</li>
+<li><span class="math inline">\(M^t_i = P^t_j + F(P^t_k -
+P^t_l)\)</span></li>
+<li><span class="math inline">\(O^t_i = crossover(P^t_i, M^t_i)\)</span>
+- krzyżowanie wymieniające</li>
+<li><span class="math inline">\(H = H \cup \{ O^t_i\}\)</span></li>
+<li><span class="math inline">\(P^{t+1}_i = tournament(P^t_i,
+O^t_i)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(t = t + 1\)</span></li>
+</ul></li>
+<li>Początkowa populacja punktów</li>
+<li>W kolejnej iteracji powstaje kolejna populacja</li>
+<li>Na koniec iteracji wybór w turnieju punktu z początkowej populacji i
+mutantem
+<ul>
+<li>każdy punkt ma indywidualnie dobranego potomka</li>
+<li>potomek trafi do populacji tylko jeśli będzie lepszy niż stary
+punkt</li>
+</ul></li>
+<li>Szczególny rodzaj sukcesji elitarnej
+<ul>
+<li>możliwe że żaden z nowych punktów potomnych nie trafi do nowej
+populacji</li>
+<li>jak algorytm wspinaczkowy - nie ma działania populacyjnego</li>
+</ul></li>
+<li>Generowanie potomka
+<ul>
+<li>krzyżowanie wymieniające oryginalnego punktu i mutanta</li>
+<li>mutant przez dodanie do punktu różnicy między dwoma punktami z
+populacji bazowej (rekombinacja, sumowanie ważone 3 punktów z populacji
+bazowej)</li>
+<li>nie przypomina mutacji, nie ma generowania sąsiada</li>
+<li>mutacja różnicowa</li>
+</ul></li>
+<li>F to stała
+<ul>
+<li>np. 0.7</li>
+</ul></li>
+<li>Nie ma dodawania szumu</li>
+<li>Jest niedeterministyczny przez wybór <span
+class="math inline">\(P_k\)</span> i <span
+class="math inline">\(P_l\)</span>
+<ul>
+<li>selekcja może ale nie musi być niedeterministyczna</li>
+</ul></li>
+<li>Krzyżowanie wymieniające
+<ul>
+<li>równomierne lub jednopunktowe</li>
+</ul></li>
+<li>Jeden z najlepszych algorytmów do optymalizacji globalnej w
+przestrzeni liczb rzeczywistych</li>
+</ul>
+<h3 id="typy-ewolucji-różnicowej">Typy ewolucji różnicowej</h3>
+<ul>
+<li>Typ selekcji
+<ul>
+<li>wybór losowego (rand)</li>
+<li>wybór nalepszego w populacji (best)</li>
+</ul></li>
+<li>Typ krzyżowania
+<ul>
+<li>dwumianowe (bin)</li>
+<li>wykładnicze (exp)</li>
+</ul></li>
+<li>Liczba par różnicowanych punktów
+<ul>
+<li>1 albo 2</li>
+<li>powyżej przykład z jedną parą</li>
+</ul></li>
+<li>Konwencja oznaczeń
+<ul>
+<li><code>DE/rand/1/bin</code></li>
+</ul></li>
+</ul>
+<h3 id="krzyżowanie-dwumianowe">Krzyżowanie dwumianowe</h3>
+<ul>
+<li><p>for <span class="math inline">\(i = 1..n\)</span></p>
+<ul>
+<li>if <span class="math inline">\(a &lt; c_r\)</span>
+<ul>
+<li><span class="math inline">\(z_i = y_i\)</span></li>
+</ul></li>
+<li>else
+<ul>
+<li><span class="math inline">\(z_i = x_i\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>return <span class="math inline">\(z\)</span></p></li>
+<li><p>x i y to wektory liczb rzeczywistych</p></li>
+<li><p>dla każdej pozycji w wektorze</p>
+<ul>
+<li>losowa decyzja z prawdopodobieństwem <span
+class="math inline">\(c_r\)</span> z którego wektora wybierze się
+współrzędną</li>
+</ul></li>
+<li><p>jak krzyżowanie równomierne</p>
+<ul>
+<li>w równomiernym każda konfiguracja zer i jedynek jest równie
+prawdopodobna</li>
+<li>tak samo dla <span class="math inline">\(c_r = 1/2\)</span></li>
+<li>ale dla innych wartości <span class="math inline">\(c_r\)</span> -
+prawdopodobieństwo pojawienia się k jedynek w masce jest rozkładem
+dwumianowym</li>
+</ul></li>
+</ul>
+<h3 id="krzyżowanie-wykładnicze">Krzyżowanie wykładnicze</h3>
+<ul>
+<li><p><span class="math inline">\(i = 1\)</span></p></li>
+<li><p>while <span class="math inline">\(i \le n\)</span></p>
+<ul>
+<li>if <span class="math inline">\(a &lt; c_r\)</span>
+<ul>
+<li><span class="math inline">\(z_i = y_i\)</span></li>
+</ul></li>
+<li>else break</li>
+</ul></li>
+<li><p>while <span class="math inline">\(i \le n\)</span></p>
+<ul>
+<li><span class="math inline">\(z_i = x_i\)</span></li>
+</ul></li>
+<li><p>return <span class="math inline">\(z\)</span></p></li>
+<li><p>z prawdopodobieństwem <span class="math inline">\(c_r\)</span>
+bierze się do pierwszej porażki z pierwszego przodka</p></li>
+<li><p>po pierwszej porażce dopełnia się drugim</p></li>
+<li><p>jak krzyżowanie jednopunktowe</p>
+<ul>
+<li>w krzyżowaniu jednopunktowym punkt podziału jest wybierany z
+rozkładu jednostajnego</li>
+<li>tutaj z rozkładem wykładniczym</li>
+</ul></li>
+<li><p>Denerwujące dla użytkowników</p>
+<ul>
+<li>czasami dokonuje się losowej permutacji indeksów wektora</li>
+<li>bardziej zbliżone działanie do krzyżowania równomiernego</li>
+</ul></li>
+<li><p>Dla <span class="math inline">\(c_r = 0\)</span> - <span
+class="math inline">\(O_i = P_i\)</span></p></li>
+<li><p>Dla <span class="math inline">\(c_r = 1\)</span> - <span
+class="math inline">\(O_i = M_i\)</span></p>
+<ul>
+<li>wyłączenie krzyżowania</li>
+</ul></li>
+<li><p>Operator krzyżowania jest asymetryczny</p></li>
+<li><p><span class="math inline">\(c_r\)</span> to nie
+prawdopodobieństwo</p></li>
+</ul>
+<h3 id="kształt-chmury-punktów-po-krzyżowaniu">Kształt chmury punktów po
+krzyżowaniu</h3>
+<ul>
+<li>W wariancie rand
+<ul>
+<li><span class="math inline">\(\mu^3\)</span></li>
+<li>nowa chmura rozciągnięta tak samo jak populacja na początku</li>
+<li>adaptacja do kształtu populacji</li>
+<li>symetryczna względem środka geometrycznego (reguła generowania jest
+symetryczna co do kierunku)</li>
+<li>sięga dalej niż sięga populacja</li>
+</ul></li>
+<li>W wariancie best
+<ul>
+<li><span class="math inline">\(\mu^2\)</span> - bo jeden punkt jest
+ustalony</li>
+<li>symetryczna wokół najlepszego punktu</li>
+<li>naśladuje kształt populacji bazowej</li>
+</ul></li>
+<li>Krzyżowanie
+<ul>
+<li>wprowadza szum</li>
+<li>charakterystyczny kształt</li>
+<li>nie w kierunku poprzecznym</li>
+</ul></li>
+<li>Przy rand/1
+<ul>
+<li><span class="math inline">\(E[M^t] = \bar{P_t}\)</span></li>
+<li>środek ciężkości</li>
+<li><span class="math inline">\(C[M^t]\)</span></li>
+<li><span class="math inline">\(P^t_k\)</span> - wartość oczekiwana to
+średnia (środek populacji), macierz kowariancji …</li>
+<li><span class="math inline">\(E[X-Y] = E[X] - E[Y]\)</span></li>
+<li><span class="math inline">\(V[X \pm Y] = V[X] + V[Y]\)</span> -
+jeśli niezależne</li>
+<li><span class="math inline">\(E[aX] = aE[X]\)</span></li>
+<li><span class="math inline">\(V[aX] = a^2 V[X]\)</span></li>
+<li>więc <span class="math inline">\(E[M^t] = E[P^t_j + F(P^t_k -
+P^t_l)]\)</span></li>
+<li>więc <span class="math inline">\(C[M^t] = \sum(P^t) \cdot (1 +
+2F^2)\)</span></li>
+</ul></li>
+<li>Przy best/1
+<ul>
+<li><span class="math inline">\(E[M^t] = P^t_{best}\)</span></li>
+<li><span class="math inline">\(C[M^t] = \sum(P^t)(2F^2)\)</span></li>
+<li>mniejsze rozproszenie mutantów w stosunku do populacji bazowej</li>
+</ul></li>
+<li>Przy best/2
+<ul>
+<li><span class="math inline">\(C[M^t] = \sum(P^t)(4F^2)\)</span></li>
+</ul></li>
+</ul>
+<h3 id="inne-metody-selekcji">Inne metody selekcji</h3>
+<ul>
+<li>rand-to-best
+<ul>
+<li>na odcinku pomiędzy najlepszym punktem a <span
+class="math inline">\(P_j\)</span></li>
+<li>punkt poddawany mutacji</li>
+</ul></li>
+<li>current-to-rand
+<ul>
+<li>na odcinku między <span class="math inline">\(P_i\)</span> a <span
+class="math inline">\(P_j\)</span></li>
+</ul></li>
+<li>pbest
+<ul>
+<li>p% najlepszych</li>
+<li>punkt poddawany mutacji to losowy spośród p% najlepszych</li>
+</ul></li>
+</ul>
+<p>Ślad programu</p>
+<p>pojawia się <em>cień</em> przez dodanie wektora różnicy z dwóch
+optimów do punktu z jenego z nich doadtkowe artefakty z krzyżowania
+punktu z optimum z punktem z cienia</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytmy-ewolucyjne-c.d.-2024-11-27" id="toc-algorytmy-ewolucyjne-c.d.-2024-11-27">Algorytmy ewolucyjne c.d.
+(2024-11-27)</a>
+<ul>
+<li><a href="#uporządkowanie-nazewnictwa" id="toc-uporządkowanie-nazewnictwa">Uporządkowanie nazewnictwa</a>
+<ul>
+<li><a href="#algorytm-genetyczny" id="toc-algorytm-genetyczny">Algorytm
+genetyczny</a></li>
+<li><a href="#strategia-ewolucyjna" id="toc-strategia-ewolucyjna">Strategia ewolucyjna</a></li>
+<li><a href="#programowanie-ewolucyjne" id="toc-programowanie-ewolucyjne">Programowanie ewolucyjne</a></li>
+<li><a href="#programowanie-genetyczne" id="toc-programowanie-genetyczne">Programowanie genetyczne</a></li>
+<li><a href="#programy-ewolucji" id="toc-programy-ewolucji">Programy
+ewolucji</a></li>
+<li><a href="#poszukiwanie-z-miekką-selekcją" id="toc-poszukiwanie-z-miekką-selekcją">Poszukiwanie z miekką
+selekcją</a></li>
+</ul></li>
+<li><a href="#ewolucja-różnicowa" id="toc-ewolucja-różnicowa">Ewolucja
+różnicowa</a>
+<ul>
+<li><a href="#typy-ewolucji-różnicowej" id="toc-typy-ewolucji-różnicowej">Typy ewolucji różnicowej</a></li>
+<li><a href="#krzyżowanie-dwumianowe" id="toc-krzyżowanie-dwumianowe">Krzyżowanie dwumianowe</a></li>
+<li><a href="#krzyżowanie-wykładnicze" id="toc-krzyżowanie-wykładnicze">Krzyżowanie wykładnicze</a></li>
+<li><a href="#kształt-chmury-punktów-po-krzyżowaniu" id="toc-kształt-chmury-punktów-po-krzyżowaniu">Kształt chmury punktów po
+krzyżowaniu</a></li>
+<li><a href="#inne-metody-selekcji" id="toc-inne-metody-selekcji">Inne
+metody selekcji</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

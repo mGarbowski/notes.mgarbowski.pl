@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13-cienie</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="12-stereoskopia.html">Poprzedni: 12-stereoskopia.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="14-image-based-rendering.html">Następny: 14-image-based-rendering.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="cienie">Cienie</h1>
+<ul>
+<li>Każdy obiekt może rzucać cień</li>
+<li>Znacząco podnoszą realizm obrazu</li>
+<li>Pozwalają na lepszą percepcję głębi</li>
+</ul>
+<h2 id="rodzaje-cienia">Rodzaje cienia</h2>
+<ul>
+<li>Cień twardy
+<ul>
+<li>cień</li>
+<li><em>umbra</em></li>
+</ul></li>
+<li>Cień miękki
+<ul>
+<li>półcień</li>
+<li><em>penumbra</em></li>
+</ul></li>
+<li>Przy powierzchniowym źródle światła
+<ul>
+<li>cień twardy tam gdzie w ogóle nie dochodzi światło</li>
+<li>półcień tam gdzie dochodzi światło z fragmentu powierzchni</li>
+</ul></li>
+<li>Istotna jest odległość od obiektu rzucającego cień
+(<em>occluder</em>) od obiektu na który cień pada
+(<em>receiver</em>)</li>
+<li>Półcienie są bardziej kosztowne niż cienie</li>
+<li>Brak półcieni może pomniejszać realizm obrazu
+<ul>
+<li>dla percepcji, ważniejsze jest żeby były jakiekolwiek cienie, nawet
+jak nie ma półcieni</li>
+</ul></li>
+</ul>
+<h2 id="cienie-projekcyjne">Cienie projekcyjne</h2>
+<ul>
+<li><em>Projected shadows</em></li>
+<li>Utworzenie obiektu cienia na rzutni</li>
+<li>Obiekt cienia jest renderowany jak inne obiekty sceny</li>
+<li><span class="math inline">\(P&#39; = M \cdot P\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> - macierz cienia</li>
+<li><span class="math inline">\(P\)</span> - punkt obiektu rzucającego
+cień</li>
+<li><span class="math inline">\(P&#39;\)</span> - odpowiadający punkt
+cienia na rzutni</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-2-przebiegowy">Algorytm 2-przebiegowy</h3>
+<ul>
+<li>Rendering sceny z pełnym oświetleniem
+<ul>
+<li>powstaje obraz bez cieni</li>
+</ul></li>
+<li>Mnożenie macierzy transformacji przez macierz cienia i rendering
+obiektów cienia z wyłączonym oświetleniem</li>
+</ul>
+<h3 id="uwagi">Uwagi</h3>
+<ul>
+<li>Można uzyskać efekt przesłaniania wielokątów cienia przez
+płaszczyznę rzutowania
+<ul>
+<li>warto najpierw narysować rzutnię</li>
+<li>potem narysować wielokąty cienia z wyłączonym z-buforem</li>
+</ul></li>
+<li>Jeśli rzutnia jest ograniczona (prostokąt), można zastosować bufor
+szablonowy (<em>stencil buffer</em>) żeby cień nie wyszedł poza rzutnię
+<ul>
+<li>rzutnia renderowana do bufora szablonowego</li>
+<li>rysowanie cienia tylko na rzutni wg. bufora szablonowego</li>
+</ul></li>
+<li>Obiekt rzucający cień powinien być między źródłem światła a rzutnią
+<ul>
+<li>inaczej może powstać tzw. antycień</li>
+</ul></li>
+<li>Można rysować cienie do bufora tekstury i potem nakładać na rzutnię
+<ul>
+<li>wtedy można rysować cienie na zakrzywionych powierzchniach</li>
+<li>trzeba uważać na zmiany wielkości tekstury</li>
+</ul></li>
+</ul>
+<h2 id="cienie-miękkie">Cienie miękkie</h2>
+<ul>
+<li>Aproksymacja źródła powierzchniowego przez zbiór źródeł punktowych
+<ul>
+<li>akumulacja w buforze</li>
+<li>uśrednienie efektu</li>
+</ul></li>
+<li>Uniwersalne ale kosztowne czasowo</li>
+<li>Rozmycie ostrych krawędzi cienia</li>
+<li>Rozmycie (filtrowanie całego cienia)
+<ul>
+<li>stopień rozmycia zależny od odległości obiektu od rzutni</li>
+<li>artefakty przy bliskiej odległości obiektu i rzutni</li>
+</ul></li>
+</ul>
+<h2 id="bryły-cienia">Bryły cienia</h2>
+<ul>
+<li><em>Shadow volumes</em></li>
+<li>Bryła wyznaczana przez źródło światła i obiekt rzucający cień
+<ul>
+<li>tylko dla wielokątów skierowanych w stronę światła</li>
+<li>dolne ograniczenie (nieskończone) definiuje strefę wpływu
+światła</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-sprawdzenia-punktu">Algorytm sprawdzenia punktu</h3>
+<h3 id="z-pass">z-pass</h3>
+<ul>
+<li>Prowadzimy promień z oka do rozpatrywanego punktu sceny</li>
+<li>Sprawdzamy jakie wielokąty brył cienia przecina promień</li>
+<li>Jeżeli przednia strona wielokąta (wchodzimy w bryłę) to
+inkrementujemy licznik</li>
+<li>Jeżeli tylna (wychodzimy z bryły cienia) to dekrementujemy</li>
+<li>Po dotarciu do punktu sceny sprawdzamy licznik
+<ul>
+<li>jeśli licznik <span class="math inline">\(&gt;0\)</span> to punkt
+jest w cieniu</li>
+<li>jeśli licznik <span class="math inline">\(=0\)</span> to punkt jest
+oświetlony</li>
+</ul></li>
+<li>Jeśli oko jest w cieniu to inicjujemy licznik liczbą brył cienia
+pokrywających oko</li>
+</ul>
+<h4 id="z-fail">z-fail</h4>
+<ul>
+<li>Promień (w osi oko-punkt) prowadzony od punktu do
+nieskończoności</li>
+<li>Jeśli promień przecina tylną ścianę wielokąta to inkrementujemy
+licznik</li>
+<li>Jeśli przednią ścianę to dekrementujemy</li>
+<li>Taka sama interpretacja licznika
+<ul>
+<li>wyjdzie zawsze tyle samo co przy <em>z-pass</em></li>
+</ul></li>
+<li>Musimy pamiętać o ograniczeniu bryły cienia poza sceną</li>
+</ul>
+<h4 id="implementacja-algorytmu-z-buforem-szablonowym">Implementacja
+algorytmu z buforem szablonowym</h4>
+<ul>
+<li>Wcale nie liczy się promieni tylko załatwia to bufor szablonowy</li>
+<li>Zerujemy bufor szablonowy</li>
+<li>Rysuje,y scenę do bufora ramki bez oświetlenia
+<ul>
+<li>wypełniamy z-bufor</li>
+</ul></li>
+<li>Wyłączamy zapis z-bufora i bufora ramki
+<ul>
+<li>ale dalej testujemy głębokość</li>
+</ul></li>
+<li>Rysujemy przednie wielokąty brył cienia do bufora szablonowego
+<ul>
+<li>inkrementacja wartości piksela w buforze szablonowym</li>
+</ul></li>
+<li>Rysujemy do bufora szablonowego tylne wielokąty bryły cienia
+<ul>
+<li>dekrementacja wartości</li>
+<li>rysujemy tylko widoczne piksele - niezakryte przez inne obiekty</li>
+</ul></li>
+<li>Ponownie rysujemy do bufora ramki całą scenę z pełnym oświetleniem,
+tylko dla pikseli o wartości 0 w buforze szablonowym</li>
+</ul>
+<h4 id="wady-algorytmu">Wady algorytmu</h4>
+<ul>
+<li>Wszystkie algorytmy oparte na przekształceniach geometrycznych nie
+są zbyt efektywne
+<ul>
+<li>powstaje wiele dodatkowych obiektów w scenie</li>
+<li>niestabilne czasy obliczeń dla kolejnych ramek nawet przy małych
+zmianach położenia obserwatora</li>
+</ul></li>
+<li>Może wrócą do łask, gdy powstaną skuteczniejsze metody
+akceleracji</li>
+</ul>
+<h2 id="mapy-cieni">Mapy cieni</h2>
+<ul>
+<li>Wykorzystuje z-bufor
+<ul>
+<li>scena jest renderowana z punktu źródła światła</li>
+<li>zawartość z-bufora to mapa cienia - co “widzi” źródło światła</li>
+</ul></li>
+<li>Po utworzeniu mapy cieni, scena jest renderowana z punktu widzenia
+obserwatora</li>
+<li>Dla każdego piksela widzącego renderowany obiekt, położenie obiektu
+jest porównywane z mapą cieni
+<ul>
+<li>jeśli odległość obiektu od źródła światła jest większa niż zapisana
+w mapie cieni to punkt obiektu jest w cieniu</li>
+<li>w przeciwnym wypadku jest oświetlony</li>
+</ul></li>
+</ul>
+<h3 id="usprawnienia-algorytmu">Usprawnienia algorytmu</h3>
+<ul>
+<li>Obiekty nierzucające cienia nie są brane pod uwagę
+<ul>
+<li>np. podłoga w pomieszczeniu</li>
+</ul></li>
+<li>Obiekty rzucające cienie, to tylko te znajdujące się w piramidzie
+widzenia źródła światła
+<ul>
+<li>pozwala to ograniczyć piramidę widzenia światła</li>
+</ul></li>
+</ul>
+<h3 id="zalety">Zalety</h3>
+<ul>
+<li>Implementowany tak jak mapowanie tekstury</li>
+<li>Algorytm jest przewidywalny
+<ul>
+<li>koszt tworzenia mapy zależy liniowo od liczby obiektów</li>
+<li>czas dostępu do mapy jest stały</li>
+</ul></li>
+<li>Dla scen statycznych mapa jest tworzona raz i wykorzystywana
+wielokrotnie
+<ul>
+<li>nie poruszają się obiekty ani źródła światła</li>
+<li>np. CAD</li>
+</ul></li>
+</ul>
+<h3 id="wady">Wady</h3>
+<ul>
+<li>Jakość cieni zależy od rozdzielczości mapy i numerycznej precyzji
+z-bufora</li>
+<li>Wrażliwość na aliasing
+<ul>
+<li>zwłaszcza blisko styku obiektów</li>
+</ul></li>
+<li>Samocieniowanie - trójkąt błędnie rzuca cień sam na siebie
+<ul>
+<li>precyzja numeryczne (porównanie odległości)</li>
+<li>odległość w mapie cieni dla środka piksela pokrywającego większy
+obszar obiektu</li>
+<li>rozwiązanie przez wprowadzenie drobnego przesunięcia (bias) w
+odległościach w mapie cieni</li>
+</ul></li>
+</ul>
+<h3 id="przesunięcie">Przesunięcie</h3>
+<ul>
+<li>Przesunięcie może być stałe</li>
+<li>Najlepiej uzależnić przesunięcia od nachylenia płaszczyzny
+wielokąta</li>
+<li>Przesuwanie krawędzi może powodować “pęknięcia” obiektów</li>
+</ul>
+<h3 id="poprawa-rozdzielczości">Poprawa rozdzielczości</h3>
+<ul>
+<li>Różne położenia obserwatora i źródła światła powodują aliasing
+projekcyjny
+<ul>
+<li>jeden teksel mapy cieni odpowiada wielu pikselom obrazu</li>
+</ul></li>
+<li>Można zwiększyć rozdzielczość mapy cieni</li>
+<li>Można pochylić “ekran” mapy cieni
+<ul>
+<li>lepsze dopasowanie gęstości próbkowania do widoku</li>
+<li>algorytmy typu <em>perspective warping</em></li>
+</ul></li>
+<li>Można utworzyć wiele map cieni o różnych rozdzielczościach dla
+różnych fragmentów sceny
+<ul>
+<li>kaskadowe piramidy cieni</li>
+<li>podział piramidy widzenia na fragmenty</li>
+<li>oddzielne mapy cienia dla tych fragmentów</li>
+</ul></li>
+</ul>
+<h3 id="na-co-wrócić-uwagę">Na co wrócić uwagę</h3>
+<ul>
+<li>W rzeczywistym świecie mogą być miliony źródeł światła tworzących
+cienie</li>
+<li>Tylko nieliczne są zauważalne</li>
+<li>Wyświetlając obraz sceny trzeba zastosować techniki maskowania
+nieistotnych źródeł światła
+<ul>
+<li>np. w funkcji odległości lub jasności</li>
+</ul></li>
+</ul>
+<h3 id="percentage-closer-filtering">Percentage-Closer Filtering</h3>
+<ul>
+<li>Sposób na uzyskanie półcieni</li>
+<li>Próbkowanie mapy cieni, zamiast w jednym punkcie to w kilku
+sąsiednich punktach
+<ul>
+<li>np. czterech</li>
+</ul></li>
+<li>Dla wyświetlanego punktu ustalamy stopień widzialności przez
+interpolację liniową</li>
+<li>W efekcie filtrowania uzyskujemy zmiękczone cienie
+<ul>
+<li>niefizyczne</li>
+</ul></li>
+<li>Obszar próbkowania można uzależnić od odległości obiektu rzucającego
+cień od obiektu zacienionego
+<ul>
+<li>cienie dla obiektów dalszych od rzutni będą bardziej rozmyte od
+bliższych</li>
+</ul></li>
+</ul>
+<h3 id="filtrowanie-mapy-cieni">Filtrowanie mapy cieni</h3>
+<ul>
+<li>Algorytmy stosujące różne techniki filtrowania próbek w mapie cieni
+<ul>
+<li><em>variance shadow map</em></li>
+<li><em>convolution shadow map</em></li>
+<li><em>exponential shadow map</em></li>
+<li><em>moment shadow map</em></li>
+</ul></li>
+</ul>
+<h3 id="cienie-wolumetryczne">Cienie wolumetryczne</h3>
+<ul>
+<li>Obiekty przezroczyste wymagają zapisania w mapie cieni głębokości i
+współczynnika przezroczystości</li>
+<li>Samocieniowanie obiektów wolumetrycznych wymaga wielu próbek na
+różnych głębokościach obiektu z zapisaniem współczynnika
+przezroczystości i wyboru (lub interpolacji) między sąsiednimi próbkami
+dla zadanej głębokości renderowanego punktu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cienie" id="toc-cienie">Cienie</a>
+<ul>
+<li><a href="#rodzaje-cienia" id="toc-rodzaje-cienia">Rodzaje
+cienia</a></li>
+<li><a href="#cienie-projekcyjne" id="toc-cienie-projekcyjne">Cienie
+projekcyjne</a>
+<ul>
+<li><a href="#algorytm-2-przebiegowy" id="toc-algorytm-2-przebiegowy">Algorytm 2-przebiegowy</a></li>
+<li><a href="#uwagi" id="toc-uwagi">Uwagi</a></li>
+</ul></li>
+<li><a href="#cienie-miękkie" id="toc-cienie-miękkie">Cienie
+miękkie</a></li>
+<li><a href="#bryły-cienia" id="toc-bryły-cienia">Bryły cienia</a>
+<ul>
+<li><a href="#algorytm-sprawdzenia-punktu" id="toc-algorytm-sprawdzenia-punktu">Algorytm sprawdzenia
+punktu</a></li>
+<li><a href="#z-pass" id="toc-z-pass">z-pass</a></li>
+</ul></li>
+<li><a href="#mapy-cieni" id="toc-mapy-cieni">Mapy cieni</a>
+<ul>
+<li><a href="#usprawnienia-algorytmu" id="toc-usprawnienia-algorytmu">Usprawnienia algorytmu</a></li>
+<li><a href="#zalety" id="toc-zalety">Zalety</a></li>
+<li><a href="#wady" id="toc-wady">Wady</a></li>
+<li><a href="#przesunięcie" id="toc-przesunięcie">Przesunięcie</a></li>
+<li><a href="#poprawa-rozdzielczości" id="toc-poprawa-rozdzielczości">Poprawa rozdzielczości</a></li>
+<li><a href="#na-co-wrócić-uwagę" id="toc-na-co-wrócić-uwagę">Na co
+wrócić uwagę</a></li>
+<li><a href="#percentage-closer-filtering" id="toc-percentage-closer-filtering">Percentage-Closer
+Filtering</a></li>
+<li><a href="#filtrowanie-mapy-cieni" id="toc-filtrowanie-mapy-cieni">Filtrowanie mapy cieni</a></li>
+<li><a href="#cienie-wolumetryczne" id="toc-cienie-wolumetryczne">Cienie
+wolumetryczne</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

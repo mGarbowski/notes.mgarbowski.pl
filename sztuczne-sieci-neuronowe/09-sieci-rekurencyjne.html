@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09-sieci-rekurencyjne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="08-modele-generatywne.html">Poprzedni: 08-modele-generatywne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="10-przetwarzanie-sekwencji.html">Następny: 10-przetwarzanie-sekwencji.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="sieci-rekurencyjne">Sieci rekurencyjne</h1>
+<h2 id="rozwiązanie-równania-ruchu-kuli-pod-wpływem-sił">Rozwiązanie
+równania ruchu kuli pod wpływem sił</h2>
+<ul>
+<li>Rozwiązanie z oknem czasowym i rozwiązanie ze stanem</li>
+<li>Musimy wiedzieć wszystko na raz</li>
+<li>Ze stanem - z aktualnego stanu wyprowadzamy jakie będzie zachowanie
+<ul>
+<li>stanem jest pęd kuli</li>
+<li>nie musimy pamiętać jaki był pęd od początku historii</li>
+<li>wystarczy wiedzieć jaki jest teraz</li>
+</ul></li>
+</ul>
+<h2 id="zarys-problemu">Zarys problemu</h2>
+<ul>
+<li>Czas dyskretny <span
+class="math inline">\(t=1,2,\ldots\)</span></li>
+<li>Wejścia i wyjścia - wektory liczb rzeczywistych</li>
+<li>Sieć ma nauczyć się <span class="math inline">\(y_t = f(x_t,
+x_{t-1}, \ldots)\)</span></li>
+<li>Zastosowania
+<ul>
+<li>prognozowanie</li>
+<li>szeregi czasowe</li>
+<li>przetwarzanie dźwięku</li>
+<li>przetwarzanie języka naturalnego</li>
+</ul></li>
+</ul>
+<h3 id="przykład---zapotrzebowanie-na-energię-elektryczną">Przykład -
+zapotrzebowanie na energię elektryczną</h3>
+<ul>
+<li>Autoregresja - bierzemy to co było tydzień temu
+<ul>
+<li>można wziąć informacje o pogodzie z tego co było 1 dzień temu</li>
+</ul></li>
+<li>Nie wszystkie dane wejściowe są równie użyteczne
+<ul>
+<li>np. dzień temu i tydzień temu, a pomiędzy nie</li>
+<li>okno historii - nie musi być pełne</li>
+</ul></li>
+<li>Oszustwo przy modelowaniu - zakładamy że wiemy jaka będzie np
+temperatura za 24h i na tej podstawie robimy swoją prognozę</li>
+<li>Pomija się odstęp między momentem wystawienia prognozy i momentem na
+który ma być wystawiona prognoza
+<ul>
+<li>np. prognozę na cały czwartek trzeba znać w środę rano</li>
+<li>nie znamy wartości poprzedzających moment prognozy</li>
+</ul></li>
+<li>Mamy 2 podejścia</li>
+<li>Podejście 1
+<ul>
+<li>model przewiduje na godzinę do przodu, prognozujemy od teraz do
+końca czwartku</li>
+<li>błąd może się kumulować</li>
+<li>gdyby błędy nie były z sobą skorelowane to wartość oczekiwana byłaby
+0</li>
+<li>ale błędy są skorelowane bo kolejny używa poprzedniego</li>
+</ul></li>
+<li>Podejście 2 - zwiększyć krok prognozy
+<ul>
+<li>nie o godzinę do przodu tylko od teraz do momentu na który ma być
+prognoza</li>
+<li>błąd się nie kumuluje</li>
+</ul></li>
+</ul>
+<h2 id="sieć-rekurencyjna">Sieć rekurencyjna</h2>
+<ul>
+<li><span class="math inline">\(m\)</span> - moduł (sieć neuronowa)
+generujący stan
+<ul>
+<li><span class="math inline">\(h_t = m(h_{t-i}, x_t;
+\theta)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(g\)</span> - moduł (sieć neuronowa)
+generujący wyjście
+<ul>
+<li><span class="math inline">\(y_t = g(h_t, x_t; \theta)\)</span></li>
+</ul></li>
+<li>Wartość stanu zostaje zapamiętana (zatrzaśnięta)
+<ul>
+<li>na wejście do kolejnej iteracji wchodzi stan z poprzedniej
+iteracji</li>
+</ul></li>
+<li>Jak interpretować stan, co ma być stanem
+<ul>
+<li>raczej stan powinien mieć nie mniejszą wymiarowość niż wejście</li>
+<li>w sieci rekurencyjnej nie dbamy o interpretację</li>
+</ul></li>
+<li>Mamy źródło generujące sekwencję danych i model generujący sekwencję
+danych</li>
+<li>Jak policzyć gradient względem wag modułów <span
+class="math inline">\(m\)</span> i <span
+class="math inline">\(g\)</span>
+<ul>
+<li>jest zależność czasowa - element zatrzaskujący stan</li>
+<li>musimy policzyć wpływ wszystkich poprzednich modułów -
+rekurencja</li>
+</ul></li>
+<li>Funkcja straty
+<ul>
+<li><span class="math inline">\(q_t(y_t)\)</span> - strata dla
+pojedynczego elementu sekwencji wyjściowej</li>
+<li>w treningu minimalizujemy <span
+class="math inline">\(\bar{q}(\theta) = \sum_t q_t(y_t)\)</span></li>
+</ul></li>
+<li>Częściowy wskaźnik jakości
+<ul>
+<li><span class="math inline">\(\bar{q}_t(h_{t-1}, \theta) = q_t(y_t) +
+\bar{q}_{t+1}(h_t, \theta)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="wsteczna-propagacja-przez-czas">Wsteczna propagacja przez
+czas</h2>
+<ul>
+<li>Pochodna skumulowanej straty bezpośrednio po parametrach -
+regularyzacja</li>
+<li>Sieć musi najpierw działać przez jakiś czas żeby było z czego
+przepropagować gradient</li>
+<li>Przy przejściu w przód są wyliczane <span class="math inline">\(h_0,
+h_1, \ldots h_T\)</span></li>
+<li>Przy propagacji wstecz jest przejście od <span
+class="math inline">\(t=T\)</span> do <span
+class="math inline">\(t=0\)</span></li>
+<li>Po epizodzie - aktualizacja <span
+class="math inline">\(\theta\)</span> na podstawie <span
+class="math inline">\(\frac{\partial \bar{q}(\theta)}{\partial
+\theta}\)</span>
+<ul>
+<li>jeden epizod - jedna aktualizacja</li>
+<li>problem z długimi epizodami</li>
+<li>rozwiązanie - traktować krótsze fragmenty historii jako epizody</li>
+</ul></li>
+</ul>
+<h2 id="uczenie-z-gradientem-obliczanym-w-przód">Uczenie z gradientem
+obliczanym w przód</h2>
+<ul>
+<li>Real-Time Recurrent Learning</li>
+<li>Rekurencja obliczana od <span class="math inline">\(t=0\)</span> do
+<span class="math inline">\(t=T\)</span></li>
+<li>Po każdej chwili <span class="math inline">\(t\)</span> aktualizacja
+wag <span class="math inline">\(\theta\)</span> na podstawie <span
+class="math inline">\(\frac{d q_t}{d \theta}\)</span>
+<ul>
+<li>trzeba aktualizować <span class="math inline">\(\frac{d h_t}{d
+\theta}\)</span></li>
+</ul></li>
+</ul>
+<h2 id="problem-zanikającego-eksplodującego-gradientu">Problem
+zanikającego / eksplodującego gradientu</h2>
+<ul>
+<li>Wpływ wagi na wyjście <span class="math inline">\(y_t\)</span> może
+rosnąć wraz z <span class="math inline">\(t\)</span>
+<ul>
+<li>dla prostego liniowego modelu <span class="math inline">\(y_t =
+\theta^t y_0\)</span></li>
+<li><span class="math inline">\(\frac{dy_t}{d\theta} = t \theta^{t-1}
+y_0\)</span></li>
+<li>bardzo szybko rośnie / zanika wraz z <span
+class="math inline">\(t\)</span></li>
+</ul></li>
+<li>Okno czasowe zawsze będzie używane w całości</li>
+<li>Koncepcja rozwiązania
+<ul>
+<li>podobnie do mechanizmu atencji</li>
+<li>moduł stanu z bramkami</li>
+<li>zawartość pamięci sieci (<span class="math inline">\(h_t\)</span>)
+pozostaje stała, no chyba że coś ją zmienia</li>
+<li>bramka mówi czy stan powinien się zmienić pod wpływem wejścia
+(wykrywa okoliczności do zmiany)</li>
+</ul></li>
+</ul>
+<h2 id="gru">GRU</h2>
+<ul>
+<li>Pomija się niektóre z przeszłych stanów</li>
+<li>Update gate
+<ul>
+<li>model, który na podstawie stanu poprzedniego i wejścia generuje wagę
+<span class="math inline">\(z\)</span></li>
+<li>jeśli <span class="math inline">\(z\)</span> jest bliskie <span
+class="math inline">\(1\)</span> to stan będzie zależał w dużym stopniu
+od wyjścia novum gate</li>
+<li>jeśli <span class="math inline">\(z\)</span> jest bliskie <span
+class="math inline">\(0\)</span> to stan bieżący będzie zbliżony do
+stanu poprzedniego</li>
+</ul></li>
+<li>Novum gate
+<ul>
+<li><span class="math inline">\(\tanh\)</span> - wartość od <span
+class="math inline">\(-1\)</span> do <span
+class="math inline">\(+1\)</span></li>
+<li>zależy od wejścia i od tego czy reset gate przepuszcza stan czy
+nie</li>
+</ul></li>
+<li>Reset gate
+<ul>
+<li>sigmoid - wartość od <span class="math inline">\(0\)</span> do <span
+class="math inline">\(1\)</span></li>
+<li>określa czy stan ma czy nie ma być propagowany dalej</li>
+</ul></li>
+<li>Możliwe działania
+<ul>
+<li>przepuszczenie poprzedniego stanu</li>
+<li>na wyjściu funkcja wejścia</li>
+<li>na wyjściu funkcja wejścia i poprzedniego stanu</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> update(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> reset(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        h[t] <span class="op">=</span> novum(h[t<span class="op">-</span><span class="dv">1</span>], x[t])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        h[t] <span class="op">=</span> novum(<span class="dv">0</span>, x[t])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    h[t] <span class="op">=</span> h[t<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<figure>
+<img src="./obrazy/gru-network.png" alt="GRU network diagram" />
+<figcaption aria-hidden="true">GRU network diagram</figcaption>
+</figure>
+<h2 id="lstm">LSTM</h2>
+<ul>
+<li>Long Short-Term Memory</li>
+<li>Dodatkowo sygnał sterujący <span class="math inline">\(c\)</span> -
+kolejny stan
+<ul>
+<li>stan kontrolny</li>
+</ul></li>
+<li>Forget gate
+<ul>
+<li>steruje stanem kontrolnym</li>
+<li>zerowany</li>
+<li>bez zmian</li>
+<li>wyjście update</li>
+<li>wyjście update + poprzedni stan kontrolny</li>
+</ul></li>
+<li>Output gate
+<ul>
+<li>czy pod stan <span class="math inline">\(h\)</span> podstawiany stan
+kontrolny czy <span class="math inline">\(0\)</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> forget(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">input</span>(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        c[t] <span class="op">=</span> update(h[t<span class="op">-</span><span class="dv">1</span>], x[t]) <span class="op">+</span> c[t<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        c[t] <span class="op">=</span> c[t<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">input</span>(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        c[t] <span class="op">=</span> update(h[t<span class="op">-</span><span class="dv">1</span>], x[t])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        c[t] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> output(h[t<span class="op">-</span><span class="dv">1</span>], x[t]):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    h[t] <span class="op">=</span> c[t]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    h[t] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<figure>
+<img src="./obrazy/lstm-network.png" alt="LSTM network diagram" />
+<figcaption aria-hidden="true">LSTM network diagram</figcaption>
+</figure>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sieci-rekurencyjne" id="toc-sieci-rekurencyjne">Sieci
+rekurencyjne</a>
+<ul>
+<li><a href="#rozwiązanie-równania-ruchu-kuli-pod-wpływem-sił" id="toc-rozwiązanie-równania-ruchu-kuli-pod-wpływem-sił">Rozwiązanie
+równania ruchu kuli pod wpływem sił</a></li>
+<li><a href="#zarys-problemu" id="toc-zarys-problemu">Zarys problemu</a>
+<ul>
+<li><a href="#przykład---zapotrzebowanie-na-energię-elektryczną" id="toc-przykład---zapotrzebowanie-na-energię-elektryczną">Przykład -
+zapotrzebowanie na energię elektryczną</a></li>
+</ul></li>
+<li><a href="#sieć-rekurencyjna" id="toc-sieć-rekurencyjna">Sieć
+rekurencyjna</a></li>
+<li><a href="#wsteczna-propagacja-przez-czas" id="toc-wsteczna-propagacja-przez-czas">Wsteczna propagacja przez
+czas</a></li>
+<li><a href="#uczenie-z-gradientem-obliczanym-w-przód" id="toc-uczenie-z-gradientem-obliczanym-w-przód">Uczenie z gradientem
+obliczanym w przód</a></li>
+<li><a href="#problem-zanikającego-eksplodującego-gradientu" id="toc-problem-zanikającego-eksplodującego-gradientu">Problem
+zanikającego / eksplodującego gradientu</a></li>
+<li><a href="#gru" id="toc-gru">GRU</a></li>
+<li><a href="#lstm" id="toc-lstm">LSTM</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

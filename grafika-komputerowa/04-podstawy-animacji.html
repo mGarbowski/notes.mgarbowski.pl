@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-podstawy-animacji</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-siatki-trojkatow.html">Poprzedni: 03-siatki-trojkatow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-powierzchnie.html">Następny: 05-powierzchnie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="podstawy-animacji">Podstawy animacji</h1>
+<ul>
+<li>Animować - dawać czemuś życie</li>
+<li>Animacja komputerowa - wszelkie obliczenia komputerowe używane do
+wytworzenia obrazów z zamiarem uzyskania wrażenia ruchu</li>
+<li>Animacja
+<ul>
+<li>ożywienie postaci na podstawie ścieżki dźwiękowej, fabuły, scenerii
+i grupowania dostarczonego przez dział rozmieszczenia</li>
+<li>dodanie szczegółów do postaci, które umożliwiają “aktorowi” zagranie
+danej sceny</li>
+</ul></li>
+<li>Najbardziej rozpowszechniona - praca z systemami ścieżkowymi
+<ul>
+<li>ang. track based systems</li>
+<li>możliwość zmiany wyglądu krzywych - operacje na stycznych i na
+punktach kontrolnych</li>
+</ul></li>
+</ul>
+<h2 id="percepcja-ruchu">Percepcja ruchu</h2>
+<ul>
+<li>Ciąg obszarów pokazywanych szybko jeden po drugim jest odbierany
+przez obserwatora jako pojedynczy ruchomy obraz
+<ul>
+<li>działanie układu oko-mózg</li>
+</ul></li>
+<li>Trwanie wrażenia wzrokowego
+<ul>
+<li>ang. persistence of vision</li>
+<li>zachowanie śladu obrazu przez krótką chwilę po usunięciu bodźca
+wzrokowego przez siatkówkę oka</li>
+</ul></li>
+<li>Ruchy beta
+<ul>
+<li>iluzja optyczna, gdzie szybka zmiana statycznych obrazów tworzy
+płynnie zmieniającą się scenę</li>
+<li>zachodzi dla częstotliwości wyświetlania klatek (frame rate)
+&gt;10-12</li>
+<li>podstawa filmu i animacji</li>
+</ul></li>
+<li>Dlaczego to działa
+<ul>
+<li>nerw optyczny odpowiada na zmiany światła ok. 10 razy na
+sekundę</li>
+<li>2 razy więcej klatek rejestrowane jest jako ruch zamiast
+pojedynczych obrazów</li>
+</ul></li>
+</ul>
+<h3 id="frame-rate">Frame rate</h3>
+<ul>
+<li>Liczba klatek wyświetlanych w ciągu sekundy</li>
+<li>Standardowo dla filmu 24 fps</li>
+<li>Aplikacja interaktywna - 12 fps</li>
+</ul>
+<h2 id="pipeline-animacyjny">Pipeline animacyjny</h2>
+<ul>
+<li>Fazy projektu
+<ul>
+<li>tworzenie fabuły</li>
+<li>pre-produkcja - adresacja technicznych możliwości i wyzwań</li>
+<li>produkcja</li>
+<li>post-produkcja - dopracowywanie finalnego efektu i poprawianie
+błędów</li>
+</ul></li>
+<li>Dział pipeline
+<ul>
+<li>dba o poprawne przesyłanie danych między działami</li>
+<li>dostarcza narzędzia ułatwiające pracę artystom</li>
+<li>automatyzuje pracę (np. cache’owanie animacji)</li>
+</ul></li>
+</ul>
+<h2 id="podział-filmu">Podział filmu</h2>
+<ul>
+<li>Klatka - pojedynczy obraz w filmie</li>
+<li>Ujęcie - zbiór klatek, który opisuje akcję z jednego punktu
+widzenia</li>
+<li>Sekwencja - zbiór ujęć, który można wyodrębnić na podstawie obszaru,
+w którym odbywa się akcja</li>
+<li>Produkcja - cała animacja</li>
+</ul>
+<h2 id="rodzaje-klatek">Rodzaje klatek</h2>
+<ul>
+<li>Klatka kluczowa
+<ul>
+<li>nadaje główny ruch</li>
+<li>w przypadku postaci zawiera pozę kluczową</li>
+<li>po obejrzeniu tylko póz kluczowych da się stwierdzić co się dzieje w
+animacji</li>
+<li>w praktyce - zachowany zestaw parametrów ustawiony ręcznie przez
+animatora - zmienne artykulacji</li>
+</ul></li>
+<li>Klatka pośrednia
+<ul>
+<li>występuje pomiędzy klatkami kluczowymi</li>
+<li>zwiera pozy pośrednie - przechodzące od jednej do drugiej pozy
+kluczowej</li>
+<li>zwykle generowane, czasem poprawiane przez animatora</li>
+</ul></li>
+</ul>
+<h2 id="interpolacja-animacji">Interpolacja animacji</h2>
+<ul>
+<li>Wyznaczanie wartości pośrednich między klatkami kluczowymi</li>
+<li>Interpolacja liniowa</li>
+<li>Interpolacja Hermite’a
+<ul>
+<li>krzywe sklejane Camulla-Roma</li>
+</ul></li>
+<li>Wykorzystanie krzywych Beziera</li>
+</ul>
+<h3 id="interpolacja-liniowa">Interpolacja liniowa</h3>
+<ul>
+<li><span class="math inline">\(p(u) = (1-u)p_0 + up_1\)</span>
+<ul>
+<li><span class="math inline">\(p_0,p_1\)</span> - punkty między którymi
+chcemy dokonać interpolacji</li>
+</ul></li>
+</ul>
+<h2 id="interpolacja-hermite">Interpolacja Hermite</h2>
+<p><span class="math display">\[p(u) = U^TMB\]</span> <span
+class="math display">\[U^T = [u^3 \ u^2 \ u \ 1]\]</span> <span
+class="math display">\[M=\begin{bmatrix}
+2 &amp; -2 &amp; 1 &amp; 1 \\
+-3 &amp; 3 &amp; -2 &amp; -1 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 0 \\
+\end{bmatrix}\]</span> <span class="math display">\[B = \begin{bmatrix}
+p_i \\
+p_{i+1} \\
+p&#39;_i \\
+p&#39;_{i+1} \\
+\end{bmatrix}\]</span></p>
+<h3 id="krzywe-sklejane-camulla-roma">Krzywe sklejane Camulla-Roma</h3>
+<ul>
+<li>Krzywa zbudowana z wielomianowych łuków Hermite</li>
+<li>Pochodne w punktach łączenia łuków są przyjmowane na podstawie
+prostej konstrukcji geometrycznej</li>
+<li>Dla każdego punktu łączenia łuków <span
+class="math inline">\(p_i\)</span>, wektor <span
+class="math inline">\(p&#39;_i\)</span> jest równe połowie różnicy
+punktu następnego <span class="math inline">\(p_{i+1}\)</span> i
+poprzedniego <span class="math inline">\(p_{i-1}\)</span></li>
+<li>Zaleta - szybkość obliczeń</li>
+<li>Wada - wektor pochodnej nie zależny od położenia punktu dla którego
+jest liczony</li>
+</ul>
+<h3 id="sterowanie-ruchem-wzdłuż-krzywej">Sterowanie ruchem wzdłuż
+krzywej</h3>
+<ul>
+<li>Przy opisie parametrycznym krzywej
+<ul>
+<li>zmiana parametru <span class="math inline">\(u\)</span> ze stałym
+krokiem nie oznacza, że kolejne punkty leżą w tej samej odległości od
+siebie</li>
+</ul></li>
+<li>Parametryzacja łukowa
+<ul>
+<li><span class="math inline">\(s=S(u)\)</span> - zależność między
+długością łuku <span class="math inline">\(s\)</span>, a parametrem
+krzywej <span class="math inline">\(u\)</span></li>
+<li>stałe przyrosty wartości <span class="math inline">\(s\)</span> -
+ruch ze stałą prędkością</li>
+<li>zmienne przyrosty <span class="math inline">\(s\)</span> - ruch
+przyspieszony i opóźniony</li>
+<li>w ogólnym przypadku nie ma rozwiązania analitycznego</li>
+</ul></li>
+</ul>
+<h2 id="interpolacja-obrotów">Interpolacja obrotów</h2>
+<ul>
+<li>Przekształcenie bryły sztywnej
+<ul>
+<li>wykorzystanie macierzy</li>
+<li>interpolowanie obrotów nie jest oczywiste, bezpośrednie
+interpolowanie macierzy przekształceń może dać bezsensowny wynik</li>
+</ul></li>
+<li>Reprezentacje położeń kątowych
+<ul>
+<li>z ustalonymi osiami</li>
+<li>kąty Eulera</li>
+<li>z użyciem kąta i osi obrotu</li>
+<li>kwaterniony</li>
+</ul></li>
+</ul>
+<h3 id="reprezentacja-z-ustalonymi-osiami">Reprezentacja z ustalonymi
+osiami</h3>
+<ul>
+<li>Obroty wokół osi układu współrzędnych przy ustalonej kolejności
+obracania
+<ul>
+<li>np. x-y-x</li>
+<li>nie mogą być po sobie dwa obroty wokół tej samej osi</li>
+</ul></li>
+<li>Gimbal lock
+<ul>
+<li>dwie osie obrotu mogą się nałożyć</li>
+<li>problem z interpolacją położeń kątowych</li>
+<li>tracony jest jeden stopień swobody</li>
+</ul></li>
+</ul>
+<h3 id="reprezentacja-z-użyciem-kątów-eulera">Reprezentacja z użyciem
+kątów Eulera</h3>
+<ul>
+<li>Osie obrotu są osiami lokalnego układu współrzędnych i obracają się
+razem z obiektem</li>
+<li>Przekształcenie
+<ul>
+<li>sekwencja trzech obrotów</li>
+<li>kolejne obroty są w nowych układach współrzędnych</li>
+</ul></li>
+</ul>
+<h3 id="reprezentacja-z-użyciem-kąta-i-osi-obrotu">Reprezentacja z
+użyciem kąta i osi obrotu</h3>
+<ul>
+<li>Twierdzenie Eulera o obrotach
+<ul>
+<li>do dowolnego położenia kątowego można przejść z innego za pomocą
+jednego obrotu wokół pewnej osi</li>
+</ul></li>
+<li>Interpolacja może być wykonana przez osobną interpolację osi obrotu
+i interpolację położenia kątowego
+<ul>
+<li>składanie obrotów</li>
+</ul></li>
+<li>Rozwiązanie - kwaterniony</li>
+</ul>
+<h2 id="ekstrapolacja-animacji">Ekstrapolacja animacji</h2>
+<ul>
+<li>Określa w jaki sposób krzywa powinna się zachowywać przed pierwszą i
+po ostatniej klatce kluczowej</li>
+<li>Przykładowe typy
+<ul>
+<li>stała</li>
+<li>liniowa</li>
+</ul></li>
+</ul>
+<h2 id="motion-capture">Motion capture</h2>
+<ul>
+<li>Technika przechwytywania ruchów aktora i zapisywania ich w
+przestrzeni 3D</li>
+<li>Wykorzystane specjalne znaczniki śledzone przez szereg kamer
+<ul>
+<li>znaczniki pokryte materiałem odblaskowym</li>
+<li>wykorzystanie triangulacji do określenia pozycji 3D</li>
+<li>precyzyjna pozycja może być estymowana poprzez znalezienie centroidu
+Gaussianu</li>
+</ul></li>
+<li>Systemy posiadają od 2 do 48 kamer</li>
+<li>Wersje z aktywnymi markerami
+<ul>
+<li>każdy z markerów emituje swoje światło</li>
+<li>możliwość zbierania informacji z dalszych odległości</li>
+<li>markery są lepiej identyfikowalne</li>
+</ul></li>
+<li>Estymacja pozycji
+<ul>
+<li>dąży się do estymacji pozy bez wykorzystania znaczników</li>
+<li>sieci neuronowe uczony na danych motion capture</li>
+<li>estymacja szkieletu</li>
+<li>mniejsza precyzja</li>
+<li>OpenPose - biblioteka</li>
+</ul></li>
+<li>Czy motion capture zapewnia idealną animację
+<ul>
+<li>wymaga czyszczenia danych</li>
+<li>animacje potrafią wyglądać sztucznie</li>
+</ul></li>
+<li>Dolina niesamowitości
+<ul>
+<li>ang. uncanny valley</li>
+<li>kiedy coś przypominające i funkcjonujące jak człowiek wywołuje
+nieprzyjemne odczucia i odrazę</li>
+</ul></li>
+<li>Idealne do filmów fabularnych
+<ul>
+<li>realistyczne postacie i żywi aktorzy</li>
+</ul></li>
+</ul>
+<h2 id="morfing">Morfing</h2>
+<ul>
+<li>Jedną z technik animacji jest deformowanie obiektów</li>
+<li>Zmiana kształtu
+<ul>
+<li>transformacje wierzchołków i brył</li>
+<li>transformacje punktów sterujących krzywych</li>
+</ul></li>
+<li>Morfing - płynne przejście z jednego obiektu do drugiego</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#podstawy-animacji" id="toc-podstawy-animacji">Podstawy
+animacji</a>
+<ul>
+<li><a href="#percepcja-ruchu" id="toc-percepcja-ruchu">Percepcja
+ruchu</a>
+<ul>
+<li><a href="#frame-rate" id="toc-frame-rate">Frame rate</a></li>
+</ul></li>
+<li><a href="#pipeline-animacyjny" id="toc-pipeline-animacyjny">Pipeline
+animacyjny</a></li>
+<li><a href="#podział-filmu" id="toc-podział-filmu">Podział
+filmu</a></li>
+<li><a href="#rodzaje-klatek" id="toc-rodzaje-klatek">Rodzaje
+klatek</a></li>
+<li><a href="#interpolacja-animacji" id="toc-interpolacja-animacji">Interpolacja animacji</a>
+<ul>
+<li><a href="#interpolacja-liniowa" id="toc-interpolacja-liniowa">Interpolacja liniowa</a></li>
+</ul></li>
+<li><a href="#interpolacja-hermite" id="toc-interpolacja-hermite">Interpolacja Hermite</a>
+<ul>
+<li><a href="#krzywe-sklejane-camulla-roma" id="toc-krzywe-sklejane-camulla-roma">Krzywe sklejane
+Camulla-Roma</a></li>
+<li><a href="#sterowanie-ruchem-wzdłuż-krzywej" id="toc-sterowanie-ruchem-wzdłuż-krzywej">Sterowanie ruchem wzdłuż
+krzywej</a></li>
+</ul></li>
+<li><a href="#interpolacja-obrotów" id="toc-interpolacja-obrotów">Interpolacja obrotów</a>
+<ul>
+<li><a href="#reprezentacja-z-ustalonymi-osiami" id="toc-reprezentacja-z-ustalonymi-osiami">Reprezentacja z ustalonymi
+osiami</a></li>
+<li><a href="#reprezentacja-z-użyciem-kątów-eulera" id="toc-reprezentacja-z-użyciem-kątów-eulera">Reprezentacja z użyciem
+kątów Eulera</a></li>
+<li><a href="#reprezentacja-z-użyciem-kąta-i-osi-obrotu" id="toc-reprezentacja-z-użyciem-kąta-i-osi-obrotu">Reprezentacja z
+użyciem kąta i osi obrotu</a></li>
+</ul></li>
+<li><a href="#ekstrapolacja-animacji" id="toc-ekstrapolacja-animacji">Ekstrapolacja animacji</a></li>
+<li><a href="#motion-capture" id="toc-motion-capture">Motion
+capture</a></li>
+<li><a href="#morfing" id="toc-morfing">Morfing</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

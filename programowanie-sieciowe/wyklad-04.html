@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Programowanie sieciowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-podstawy-sieci.html">01-podstawy-sieci.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-10-31</h1>
+<h2 id="zapis-na-laboratoria">Zapis na laboratoria</h2>
+<p>Laboratoria/projekt 3-osobowe zespoły Prowadzący: Grzegorz Blinowski
+- mail, najlepiej każdy od lidera zespołu Tomasz Główka Konrad Kamiński
+Paweł Radziszewski z każdym kontakt przez teams</p>
+<p>zgłaszamy zespoły przez maila</p>
+<p>pilnować używania odpowiednich adresów na laboratorium przypis do
+prowadzacych z usosa jest nieistotny</p>
+<h2 id="wysyłanie-i-odbieranie-danych">Wysyłanie i odbieranie
+danych</h2>
+<ul>
+<li>Funkcje standardowe read, write</li>
+<li>Funkcje z API gniazd
+<ul>
+<li>send, recv, sendto, recvfrom</li>
+</ul></li>
+<li>Funkcja zachowują się inaczej niż odpowiedniki dla plików
+<ul>
+<li>odbiór/wysłanie mniejszej liczby danych niż zamierzaliśmy jest
+typowy</li>
+</ul></li>
+<li>Przypadki dla TCP read, recv
+<ul>
+<li>nigdy nie zwróci więcej bajtów niż żądamy, niezależnie od tego ile
+danych jest w buforze</li>
+<li>zwróci maks. tyle bajtów ile aktualnie zostało zbuforowanych</li>
+<li>jeśli nie ma żadnych zbuforowanych danych to blokada</li>
+</ul></li>
+<li>Przypadki TCP write, send
+<ul>
+<li>może wysłać mniej danych niż żądamy, trzeba sprawdzać co zwraca
+funkcja</li>
+<li>blokuje jeśli odbiorca nie nadąża</li>
+</ul></li>
+<li>UDP write, send
+<ul>
+<li>wysyła datagram atomowo</li>
+<li>1 wywołanie to wysłanie jednego datagramu (dla tcp tak nie
+jest)</li>
+</ul></li>
+<li>Czasy blokowania są dużo dłuższe niż dla operacji dyskowych</li>
+</ul>
+<h2 id="send-sendto">send, sendto</h2>
+<ul>
+<li>Argumenty
+<ul>
+<li>deskryptor</li>
+<li>bufor</li>
+<li>wielkość bufora</li>
+<li>flagi</li>
+</ul></li>
+<li>sendto tylko dla udp</li>
+<li>zwraca liczbę wysłanych bajtów</li>
+<li>zwraca -1 w przypadku błędu</li>
+<li>flagi</li>
+</ul>
+<h2 id="recv-recvfrom">recv, recvfrom</h2>
+<ul>
+<li>zadaniem stosu jest pozbycie się zbuforowanych danyhc maksymalnie
+szybko</li>
+<li>MSG_WAITALL - czeka na skompletowanie danych</li>
+<li>SO_RCVBUF - rozmiar bufora</li>
+<li>MSG_PEEK - odczyt bufora bez usuwania z niego danych
+<ul>
+<li>dobre np. w aplikacjach wielowątkowych gdzie dyspozytor rozdziela
+ruch</li>
+</ul></li>
+</ul>
+<h2 id="korzystanie-z-resolvera">Korzystanie z resolvera</h2>
+<ul>
+<li>W pythonie jest używany niejawnie, można podawać normalnie jako
+napisy</li>
+<li>netdb.h</li>
+</ul>
+<h3 id="stary-interfejs">Stary interfejs</h3>
+<ul>
+<li>struct hostnent <em>gethostbyname(char </em>name)
+<ul>
+<li>standardowe zapytanie</li>
+</ul></li>
+<li>struct hostent <em>gethostbyaddr(char </em>addr, int len, int type)
+<ul>
+<li>rekordy PTR, odwrotny DNS</li>
+</ul></li>
+</ul>
+<h3 id="nowy-interfejs">Nowy interfejs</h3>
+<ul>
+<li>int getaddrinfo(…)</li>
+<li>Wyogdne, używa tych samych struktur so sockety</li>
+</ul>
+<h3 id="konwersja-adresów">Konwersja adresów</h3>
+<ul>
+<li>inet_ntoa</li>
+<li>inet_aton</li>
+<li>inet_addr</li>
+<li>inet_ntop
+<ul>
+<li>uniwersalne, też dla IPv6</li>
+</ul></li>
+<li>inet_pton</li>
+</ul>
+<h2 id="przykłady">Przykłady</h2>
+<ul>
+<li>kod na studia3</li>
+<li>serwer
+<ul>
+<li>jako adres można ustawić INADDR_ANY - nasłuchuje na wszystkich
+adresach</li>
+<li>serwer może mieć wiele adresów</li>
+<li>port = 0 - system przydzieli port efemeryczny</li>
+</ul></li>
+</ul>
+<h2 id="getservbyname">getservbyname</h2>
+<ul>
+<li>Kiedy posługujemy się standardowymi protokołami</li>
+<li>Nie hardkoduje się dobrze znanych portów (np. 80)</li>
+<li>Funkcja odpytuje systemową bazę znnaych adresów po nazwie
+<ul>
+<li><code>/etc/services</code></li>
+</ul></li>
+</ul>
+<h2 id="gniazda-w-domenie-unix">Gniazda w domenie Unix</h2>
+<ul>
+<li>Gniazda do komunikacji między procesami</li>
+<li>Datagramowe lub strumieniowe
+<ul>
+<li>ale to nie jest TCP/UDP przez interfejs loopback</li>
+</ul></li>
+<li>Rolę adresu pełnią ścieżka systemu plików
+<ul>
+<li>bez numeru portu</li>
+</ul></li>
+<li>Adres jest zmiennej długości</li>
+</ul>
+<h2 id="gniazda-w-innych-domenach">Gniazda w innych domenach</h2>
+<ul>
+<li>Wygodnie posługiwać się socket API</li>
+<li>….</li>
+</ul>
+<h2 id="gniazda-z-ipv6">Gniazda z IPv6</h2>
+<ul>
+<li>Są bardziej uniwersalne funkcje do obsługi resolwera i konwersji
+adresów które wspierają obie wersje IPv4 i IPv6</li>
+</ul>
+<h2 id="multipleksowanie-gniazd">Multipleksowanie gniazd</h2>
+<ul>
+<li>Blokujące są
+<ul>
+<li>connect, accpet, read, write</li>
+</ul></li>
+<li>Możemy mieć kilka gniazd, dylemat na której powinniśmy się zawiesić
+<ul>
+<li>nie wiadomo które odwiesi się jako pierwsze</li>
+<li>można mieć każde gniazdo w osobnym wątku / procesie - nie zawsze
+dobre</li>
+<li>deskryptory nieblokujące + aktywne oczekiwanie - marnowanie CPU</li>
+<li>timeout + przerwania - nieefektywne czasowo</li>
+</ul></li>
+<li>select
+<ul>
+<li>działa na zbiorze deskryptorów</li>
+<li>zbiory obsługiwane przez makra</li>
+<li>liczba deskryptorów - indeksy od 0 do nfds-1</li>
+<li>timeout</li>
+<li>funkcja powolna - może być przerwana przez sygnał</li>
+</ul></li>
+<li>asynchroniczny connect</li>
+<li>Można też użyć select do obsługi gniazd połączeń (TCP)
+<ul>
+<li>bez wielu wątków</li>
+</ul></li>
+</ul>
+<h3 id="poll">poll</h3>
+<ul>
+<li>lepszy select</li>
+<li>przekazuje się tablicę struktur z deskryptorami</li>
+<li>bardziej precyzyjna obsługa</li>
+</ul>
+<h2 id="nieblokujące-wejście-wyjście">Nieblokujące wejście /
+wyjście</h2>
+<ul>
+<li>Operacja która by blokowała, nie blokuje
+<ul>
+<li>np. read write, accept, select</li>
+</ul></li>
+<li>Zamiast blokowania zwraca błąd</li>
+</ul>
+<h2 id="rozgłaszanie-broadcast">Rozgłaszanie (broadcast)</h2>
+<ul>
+<li>Działa w takim zakresie jak umożliwia sieć lokalna
+<ul>
+<li>w podsieci ethernet</li>
+</ul></li>
+<li>Tylko dla UDP</li>
+<li>Co innego niż multicast (rozsiewanie)
+<ul>
+<li>grupa hostów, może być rozproszona</li>
+<li>wymaga protokołu, który zrobi tunelowanie i lokalne
+rozgłoszenie</li>
+</ul></li>
+<li>Adres IP z adresem sieci i samymi 1 w miejscu adresu hosta
+<ul>
+<li>można użyć adresu złożonego z samych 1 - nie wyjdzie poza sieć
+lokalną (wycinane przez router)</li>
+<li>adres INADDR_BROADCAST</li>
+</ul></li>
+<li>setsockopt(…, SO_BROADCAST, …)</li>
+<li>Poprawnie należałoby sprawdzić jakie mamy interfejsy sieciowe i
+które z nich obsługują broadcastowanie</li>
+</ul>
+<h2 id="transmisja-danych">Transmisja danych</h2>
+<ul>
+<li>Przydatne przy projekcie</li>
+<li>Protokoły L3 i L4 nie interpretują i nie modyfikują danych
+użytkownika
+<ul>
+<li>TCP zapewnia poprawność przesłania</li>
+<li>UDP nie zapewnia, warto używać sum kontrolnych w protokole</li>
+</ul></li>
+<li>Struktura przesyłanych danych (int, float) zależy od architektury,
+języka programowania i użytych bibliotek</li>
+<li>Format tekstowy (XML, JSON)
+<ul>
+<li>dobre, zapewniają przenośność, ale ma bardzo duży narzut</li>
+<li>pola w strukturze C są wyrównane, pomiędzy nimi mogą być śmieci</li>
+</ul></li>
+<li>Warto zobaczyć jak realizowane są istniejące protokoły</li>
+<li>Protokół powinien być deterministyczny
+<ul>
+<li>daje się opisać przez maszynę stanów</li>
+<li>definiujemy wszystkie przejścia</li>
+</ul></li>
+<li>Może protokół powinien być czytelny dla człowieka</li>
+<li>Przy przesyłaniu liczb zawsze należy stosować network order</li>
+<li>Polecenia powinne być spójne (np. wszystko wielkimi literami, po
+angielsku)</li>
+<li>Dobrze żeby protokół zostawiał miejsce na rozbudowę
+<ul>
+<li>mniej istotne na projekt</li>
+</ul></li>
+<li>Protokół powinien być udokumentowany</li>
+<li>Protokół powinien być solidny (robust)
+<ul>
+<li>konserwatywny w tym co wysyła</li>
+<li>liberalny w tym co akceptuje - nie ufa ślepo, że są zgodne ze
+specyfikacją</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-10-31</a>
+<ul>
+<li><a href="#zapis-na-laboratoria" id="toc-zapis-na-laboratoria">Zapis
+na laboratoria</a></li>
+<li><a href="#wysyłanie-i-odbieranie-danych" id="toc-wysyłanie-i-odbieranie-danych">Wysyłanie i odbieranie
+danych</a></li>
+<li><a href="#send-sendto" id="toc-send-sendto">send, sendto</a></li>
+<li><a href="#recv-recvfrom" id="toc-recv-recvfrom">recv,
+recvfrom</a></li>
+<li><a href="#korzystanie-z-resolvera" id="toc-korzystanie-z-resolvera">Korzystanie z resolvera</a>
+<ul>
+<li><a href="#stary-interfejs" id="toc-stary-interfejs">Stary
+interfejs</a></li>
+<li><a href="#nowy-interfejs" id="toc-nowy-interfejs">Nowy
+interfejs</a></li>
+<li><a href="#konwersja-adresów" id="toc-konwersja-adresów">Konwersja
+adresów</a></li>
+</ul></li>
+<li><a href="#przykłady" id="toc-przykłady">Przykłady</a></li>
+<li><a href="#getservbyname" id="toc-getservbyname">getservbyname</a></li>
+<li><a href="#gniazda-w-domenie-unix" id="toc-gniazda-w-domenie-unix">Gniazda w domenie Unix</a></li>
+<li><a href="#gniazda-w-innych-domenach" id="toc-gniazda-w-innych-domenach">Gniazda w innych domenach</a></li>
+<li><a href="#gniazda-z-ipv6" id="toc-gniazda-z-ipv6">Gniazda z
+IPv6</a></li>
+<li><a href="#multipleksowanie-gniazd" id="toc-multipleksowanie-gniazd">Multipleksowanie gniazd</a>
+<ul>
+<li><a href="#poll" id="toc-poll">poll</a></li>
+</ul></li>
+<li><a href="#nieblokujące-wejście-wyjście" id="toc-nieblokujące-wejście-wyjście">Nieblokujące wejście /
+wyjście</a></li>
+<li><a href="#rozgłaszanie-broadcast" id="toc-rozgłaszanie-broadcast">Rozgłaszanie (broadcast)</a></li>
+<li><a href="#transmisja-danych" id="toc-transmisja-danych">Transmisja
+danych</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

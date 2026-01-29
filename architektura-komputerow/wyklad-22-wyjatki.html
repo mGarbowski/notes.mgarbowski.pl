@@ -84,7 +84,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="wyjątki-2023-05-15">Wyjątki (2023-05-15)</h1>
 <p>Zdarzenie w systemie komputerowym wymagające przerwania wykonania
 bieżącego strumienia instrukcji i przekazania sterowania do systemu
@@ -372,42 +371,46 @@ najpierw zapisać ją na dysk</li>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#wyjątki-2023-05-15">Wyjątki (2023-05-15)</a>
+<li><a href="#wyjątki-2023-05-15" id="toc-wyjątki-2023-05-15">Wyjątki
+(2023-05-15)</a>
 <ul>
-<li><a href="#przerwania">Przerwania</a></li>
-<li><a href="#pułapki">Pułapki</a></li>
-<li><a href="#błędy">Błędy</a></li>
-<li><a href="#obsługa-wyjątków">Obsługa wyjątków</a>
+<li><a href="#przerwania" id="toc-przerwania">Przerwania</a></li>
+<li><a href="#pułapki" id="toc-pułapki">Pułapki</a></li>
+<li><a href="#błędy" id="toc-błędy">Błędy</a></li>
+<li><a href="#obsługa-wyjątków" id="toc-obsługa-wyjątków">Obsługa
+wyjątków</a>
 <ul>
-<li><a href="#fazy">Fazy</a></li>
+<li><a href="#fazy" id="toc-fazy">Fazy</a></li>
 </ul></li>
-<li><a href="#priorytet-procesora">Priorytet procesora</a></li>
-<li><a href="#zapamiętanie-kontekstu">Zapamiętanie kontekstu</a></li>
-<li><a href="#zmiany-kontekstu-systemowego-w-czasie-obsługi-sprzętowej-wyjątku">Zmiany
+<li><a href="#priorytet-procesora" id="toc-priorytet-procesora">Priorytet procesora</a></li>
+<li><a href="#zapamiętanie-kontekstu" id="toc-zapamiętanie-kontekstu">Zapamiętanie kontekstu</a></li>
+<li><a href="#zmiany-kontekstu-systemowego-w-czasie-obsługi-sprzętowej-wyjątku" id="toc-zmiany-kontekstu-systemowego-w-czasie-obsługi-sprzętowej-wyjątku">Zmiany
 kontekstu systemowego w czasie obsługi sprzętowej wyjątku</a></li>
-<li><a href="#sekwencja-czynności">Sekwencja czynności</a></li>
-<li><a href="#przełączanie-stosów">Przełączanie stosów</a></li>
-<li><a href="#priorytety-przerwań">Priorytety przerwań</a></li>
-<li><a href="#ładowanie-nowego-kontekstu">Ładowanie nowego
-kontekstu</a></li>
-<li><a href="#wyjątki-w-x86">Wyjątki w x86</a></li>
-<li><a href="#asynchroniczne-przerwanie-programowe">Asynchroniczne
-przerwanie programowe</a></li>
-<li><a href="#błąd-podwójny">Błąd podwójny</a></li>
-<li><a href="#inicjowanie-działania-procesora---reset">Inicjowanie
-działania procesora - Reset</a></li>
-<li><a href="#priorytety-typów-wyjątków">Priorytety typów
-wyjątków</a></li>
-<li><a href="#wymagania-czasowe">Wymagania czasowe</a></li>
-<li><a href="#późne-nadejście-late-arrival">Późne nadejście (late
+<li><a href="#sekwencja-czynności" id="toc-sekwencja-czynności">Sekwencja czynności</a></li>
+<li><a href="#przełączanie-stosów" id="toc-przełączanie-stosów">Przełączanie stosów</a></li>
+<li><a href="#priorytety-przerwań" id="toc-priorytety-przerwań">Priorytety przerwań</a></li>
+<li><a href="#ładowanie-nowego-kontekstu" id="toc-ładowanie-nowego-kontekstu">Ładowanie nowego kontekstu</a></li>
+<li><a href="#wyjątki-w-x86" id="toc-wyjątki-w-x86">Wyjątki w
+x86</a></li>
+<li><a href="#asynchroniczne-przerwanie-programowe" id="toc-asynchroniczne-przerwanie-programowe">Asynchroniczne przerwanie
+programowe</a></li>
+<li><a href="#błąd-podwójny" id="toc-błąd-podwójny">Błąd
+podwójny</a></li>
+<li><a href="#inicjowanie-działania-procesora---reset" id="toc-inicjowanie-działania-procesora---reset">Inicjowanie działania
+procesora - Reset</a></li>
+<li><a href="#priorytety-typów-wyjątków" id="toc-priorytety-typów-wyjątków">Priorytety typów wyjątków</a></li>
+<li><a href="#wymagania-czasowe" id="toc-wymagania-czasowe">Wymagania
+czasowe</a></li>
+<li><a href="#późne-nadejście-late-arrival" id="toc-późne-nadejście-late-arrival">Późne nadejście (late
 arrival)</a></li>
-<li><a href="#łańczuchowanie-przerwań-chaining">Łańczuchowanie przerwań
+<li><a href="#łańczuchowanie-przerwań-chaining" id="toc-łańczuchowanie-przerwań-chaining">Łańczuchowanie przerwań
 (chaining)</a></li>
-<li><a href="#determinizm-czasu-odpowiedzi">Determinizm czasu
+<li><a href="#determinizm-czasu-odpowiedzi" id="toc-determinizm-czasu-odpowiedzi">Determinizm czasu
 odpowiedzi</a></li>
-<li><a href="#pamięć-wirtualna">Pamięć wirtualna</a>
+<li><a href="#pamięć-wirtualna" id="toc-pamięć-wirtualna">Pamięć
+wirtualna</a>
 <ul>
-<li><a href="#implementacja">Implementacja</a></li>
+<li><a href="#implementacja" id="toc-implementacja">Implementacja</a></li>
 </ul></li>
 </ul></li>
 </ul>

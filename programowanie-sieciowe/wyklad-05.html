@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-05</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-04.html">Poprzedni: wyklad-04.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-06.html">Następny: wyklad-06.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Programowanie sieciowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-podstawy-sieci.html">01-podstawy-sieci.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-11-07</h1>
+<h2 id="wskazówki-do-kodu-laboratoriów">Wskazówki do kodu
+laboratoriów</h2>
+<ul>
+<li>read może zwrócić niepełne dane (w TCP)</li>
+<li>Pilnować zamykania gniazd
+<ul>
+<li>zwłaszcza przy wielu wątkach</li>
+</ul></li>
+<li>Kontrolować czy procesy/wątki się zakończyły</li>
+<li>Pilnować odzyskiwania pamięci</li>
+<li>W modelu wielowątkowym C
+<ul>
+<li>wszystko jest wspólne poza stosem</li>
+</ul></li>
+<li>Będą materiały dot wątków w C</li>
+<li>Rozważyć Google protobuf jeśli serializacja/deserializacja jest
+niebanalna</li>
+<li>Ważna decyzja projektowa - czy serializacja binarna czy do tekstu
+<ul>
+<li>binarna - bardziej oszczędna jeśli wykonana dobrze</li>
+<li>tekstowa - wygodniejsza do debugowania</li>
+</ul></li>
+</ul>
+<h2 id="protokoły-konwersacyjne">Protokoły konwersacyjne</h2>
+<h3 id="telnet">Telnet</h3>
+<ul>
+<li>Teletype over network</li>
+<li>Sesja zdalna, pozwala na zalogowanie do zdalnej maszyny</li>
+<li>Sewer jest bardzo często domyślnie włączony w unixo-podobnych</li>
+<li>Zastosowanie w internecie rzeczy
+<ul>
+<li>zbyt słaby hardware do obsługi kryptografii</li>
+</ul></li>
+<li>Wykorzystuje TCP, port 23</li>
+<li>Duża przenośność</li>
+<li>Można go używać do testowania innych protokołów tekstowych
+<ul>
+<li>połączenie narzędziem telnet do serwera SMTP, HTTP, FTP, …</li>
+</ul></li>
+<li>Minimalny poziom bezpieczeństwa</li>
+<li>Bazuje o mechanizmie pseudoterminali z Unixa
+<ul>
+<li>mechanizm wykorzystywany też przez SSH</li>
+<li>poza samym przesyłaniem znaków to można skasować znak przez
+Backspace, przerwać proces przez ctrl+c, …</li>
+</ul></li>
+<li>Trzy podstawowe serwisy
+<ul>
+<li>moduł transmisji - symetryczne traktowanie obu stron połączenia</li>
+<li>network virtual terminal - obsługa mechanizmów terminalowych</li>
+<li>mechanizm negocjacji opcji (np. rozmiar okna, identyfikator
+terminala z Unixa, bardzo wiele różnych)</li>
+</ul></li>
+<li>Pozwala na negocjowanie bardzo dużej liczby opcji</li>
+<li>Każdy znak podróżuje zazwyczaj w osobnym pakiecie (tinygram), a echo
+jest zazwyczaj zdalne
+<ul>
+<li>użytkownik naciska ‘a’ na klawiaturze</li>
+<li>wysyła się pakiet na zdalny serwer</li>
+<li>zdalny serwer odsyła ‘a’</li>
+<li>pakietów jest 2 razy więcej ze względu na echo</li>
+<li>to nie jest wielki problem przy pisaniu na klawiaturze</li>
+</ul></li>
+</ul>
+<h4 id="pseudoterminal">Pseudoterminal</h4>
+<ul>
+<li>Użytkownik przy terminalu prowadzi interakcję ze sterownikiem
+terminala
+<ul>
+<li>systemowy sterownik zapewniający obsługę znaków specjalnych, pracy
+pełnoekranowej, …</li>
+</ul></li>
+<li>Klient telnet używa terminala jako urządzenia wejścia/wyjścia</li>
+<li>Klient telnet zestawia sesję TCP z innym serwerem</li>
+<li>Po drugiej stronie sesji stoi serwer telnet</li>
+<li>Serwer telnet rozmawia ze sterownikiem pseudoterminala
+<ul>
+<li>obsługuje np to że okienko tekstowe ma określoną liczbę wierszy i
+kolumn</li>
+</ul></li>
+<li>Ze sterownikiem pseudoterminala rozmawia najpierw login, a potem
+shell</li>
+</ul>
+<h4 id="algorytm-naglea-i-opóźnionego-potwierdzania">Algorytm Nagle’a i
+opóźnionego potwierdzania</h4>
+<ul>
+<li>Ma optymalizować pracę zdalną - konwersacyjną i
+niekonwersacyjną</li>
+<li>Chcemy unikać przesyłania małych pakietów
+<ul>
+<li>mały czyli rozmiar mniejszy od maximum segment size</li>
+</ul></li>
+<li>Algorytm Nagle’a
+<ul>
+<li>nie wysyłaj pakietu małego jeśli poprzednie nie zostały
+potwierdzone</li>
+<li>lokalny stos buforuje dane i wysyła jak skompletuje duży pakiet</li>
+</ul></li>
+<li>Algorytm delayed ACK
+<ul>
+<li>nie wysyłaj potwierdzenia od razu po otrzymaniu danych</li>
+<li>stos wstrzymuje się, żeby razem z potwierdzeniem odesłać dane</li>
+<li>dobre dla protokołu konwersacyjnego</li>
+<li>dla niekonwersacyjnego (bez echa) będą długie oczekiwania przed
+odesłaniem ACK</li>
+</ul></li>
+<li>Bez echa działa np. zdalny pulpit - nie działałby dobrze z delayed
+ACK</li>
+<li>Jeśli wiemy że porotkół będzie przesyłał małe pakiety bez
+potwierdzeń
+<ul>
+<li>trzeba wyłączyć algorytm Nagle’a - TCP_NODELAY</li>
+<li><code>setsockopt</code></li>
+</ul></li>
+<li>na kolokwium</li>
+</ul>
+<h4 id="przekazywanie-danych-pilnych">Przekazywanie danych pilnych</h4>
+<ul>
+<li>Pilne - pomijają buforowanie</li>
+<li>Out of Bound, urgent</li>
+<li>Powoduje wysłanie sygnału SIGURG</li>
+<li>np. zdalny serwer odsyła bardzo dużo danych i użytkownik przerywa
+przez ctrl+c
+<ul>
+<li>ctrl+c przesyłane jako pilne</li>
+</ul></li>
+<li>Dane pilne mogą mieć 1 bajt
+<ul>
+<li>zimplementowane w stosie sieciowym</li>
+<li>mogą być umieszczone razem ze zwykłymi danymi w buforze odbiorczym
+(tryb inline)</li>
+<li>mogą być umieszczone w odrębnym buforze - odczyt przez recv z flagą
+MSG_OOB</li>
+</ul></li>
+<li>Odbiorca rejestruje procedurę obsługi sygnału
+<ul>
+<li>zazwyczaj tylko ustawienie flagi</li>
+<li>ryzykowne bo są wykonywane asynchronicznie</li>
+<li>w głównej pętli sprawdzenie flagi</li>
+</ul></li>
+<li>ioctl - sprawdzenie czy doszliśmy do znacznika</li>
+<li>trzeba wywalić dane z bufora przed znacznikiem</li>
+<li>na kolokwium</li>
+</ul>
+<h3 id="ssh">SSH</h3>
+<ul>
+<li>Secure Shell</li>
+<li>De facto standard dla terminalowej pracy zdalnej</li>
+<li>Przewidziany jako następca telnet i usług <code>r</code> (remote) z
+BSD</li>
+<li>Port 22</li>
+<li>Umożliwia tunelowanie innych protokołów (port-forward)</li>
+<li>5 dokumentów RFC</li>
+<li>Zapewnia
+<ul>
+<li>poufność</li>
+<li>integralność</li>
+<li>autoryzację</li>
+</ul></li>
+<li>Odporny na podsłuchiwanie, spoofing IP/DNS, ataki MITM, przejmowanie
+połączeń</li>
+<li>Nie jest odporny na
+<ul>
+<li>łamanie hasła</li>
+<li>ataki na poziomie IP i TCP</li>
+<li>statystyczną analizę ruchu</li>
+</ul></li>
+<li>Wersje SSH-1 i SSH-2</li>
+<li>Tryb konwersacyjny
+<ul>
+<li><code>ssh user@server-name</code> - uwierzytelnienie na poziomie
+systemowym</li>
+<li><code>ssh -i keyfile.pem user@server-name</code> - uwierzytelnienie
+na poziomie protokołu</li>
+</ul></li>
+<li>W telnet uwierzytelnianie nie jest wbudowane w protokół</li>
+<li>Wygodny do zdalnego wykonywania poleceń
+<ul>
+<li>zdalne uruchomineie skryptu</li>
+<li>zdalne skrypty na wielu maszynach (Ansible)</li>
+<li><code>cmd &lt;lokalne parametry&gt; | ssh user@host command</code> -
+dostanie stdout z cmd na stdin command</li>
+</ul></li>
+<li>Może działać z lub bez pseudoterminala</li>
+<li>Zdalne wykonywanie poleceń
+<ul>
+<li><code>ssh user@host ls -l &gt; local_file.txt</code></li>
+<li><code>ssh user@host 'ls &gt; remote_file.txt'</code></li>
+<li><code>ssh user@host ls -l &gt; local_file.txt 2&gt; local-error.txt</code></li>
+<li><code>ls -l | ssh user@host grep pattern</code> - mało sensowne,
+tylko ilustracja</li>
+</ul></li>
+<li>Warstwowa budowa protokołu</li>
+<li>Transmisja danych
+<ul>
+<li>dane podlegają kompresji</li>
+<li>może wystąpić padding</li>
+<li>dodawane nagłówki</li>
+<li>szyfrowanie i suma kontrolna (MAC)</li>
+</ul></li>
+<li>Protokół autoryzacji (rozpoczęcia sesji)
+<ul>
+<li>uzgodnienie wersji</li>
+<li>uzgodnienie algorytmów szyfrowania</li>
+<li>wymiana kluczy</li>
+<li>…</li>
+</ul></li>
+<li>Jest tryb debugowy - flaga <code>-v</code>
+<ul>
+<li>najpierw jest uwierzytelniany serwer, potem użytkownik</li>
+<li>ochrona przed podmianą serwera</li>
+</ul></li>
+<li>Osobne klucze szyfrujęce od klienta do serwera i od serwera do
+klienta</li>
+<li>Osobne klucze podpisujące</li>
+<li>Klucze sesji zmienane co pewien czas
+<ul>
+<li>np. co przesłany GB</li>
+<li>utrudnia ataki statystyczne</li>
+</ul></li>
+<li>Autoryzacja użytkownika
+<ul>
+<li>publickey</li>
+<li>password</li>
+<li>keyboard-interactive</li>
+<li>Kerberos, NTLM</li>
+<li>host based - ok do sieci lokalnej</li>
+</ul></li>
+</ul>
+<h2 id="kolokwium">Kolokwium</h2>
+<ul>
+<li>21 XI</li>
+<li>8:30 - 10:00</li>
+<li>2 grupy, podział alfabetyczny</li>
+<li>Test</li>
+<li>Pytania wielokrotnego wyboru</li>
+<li>20 pkt</li>
+<li>bez notatek</li>
+<li>będą wysłane wymagania na maila</li>
+</ul>
+<h3 id="ftp">FTP</h3>
+<ul>
+<li>File Transfer Protocol</li>
+<li>Porty 21 i 20
+<ul>
+<li>polecenia - 21</li>
+<li>dane - 20</li>
+</ul></li>
+<li>Protokół interaktywny
+<ul>
+<li>często stosowany z nakładką (np. przeglądarki internetowe)</li>
+</ul></li>
+<li>Przesyła dane bez narzutu</li>
+<li>Proste narzędzie do testowania przepustowości łącza</li>
+<li>3 cyfrowe kody
+<ul>
+<li>1xx - ok, i will</li>
+<li>2xx - ok, done</li>
+<li>3xx - ok, so far</li>
+<li>4xx - no, tetmp</li>
+<li>5xx - action required</li>
+<li>x0x - syntax</li>
+<li>…</li>
+</ul></li>
+<li>Polecenia
+<ul>
+<li>USER</li>
+<li>PASS</li>
+<li>LIST</li>
+<li>RETR</li>
+<li>STOR</li>
+</ul></li>
+<li>Kiedy dochodzi do transferu danych
+<ul>
+<li>klient otwiera port</li>
+<li>serwer inicjuje do niego połączenie ze swojego portu 20</li>
+<li><em>oddzwonienie</em></li>
+<li>nie da sie stosować w rozległych sieciach z firewallami itp</li>
+<li>można to wyłączyć w trybie PASV (passive) - tak jest teraz
+domyślnie</li>
+<li>serwer podaje port efemeryczny, do którego ma się połączyć
+klient</li>
+</ul></li>
+<li>Odpowiedź jednolinijkowa kod + opis dla człowieka</li>
+<li>Odpowiedź wielolinijkowa</li>
+<li>Protokół stanowy
+<ul>
+<li>opisuje się grafem (maszyna stanów)</li>
+<li>wszystkie możliwości są dokładnie określone</li>
+</ul></li>
+<li>Serwer przełącza port, nie używa obu na raz
+<ul>
+<li>nie mnoży się liczby sesji przez 2, może być wielu klientów</li>
+</ul></li>
+<li>Przełączenie portu
+<ul>
+<li>na gnieździe można wyusić przez setsockopt zmianę adresu
+(SO_REUSEADDR)</li>
+<li>wywołanie bind zmienia numer portu</li>
+</ul></li>
+</ul>
+<p>FTP ma konwencję dostępu anonimowego jako nazwe użytkownika podaje
+się anonymous jako hasło podaje się email (nie weryfikowane)
+repozytorium udostępnia pliki do pobrania</p>
+<h3 id="protokoły-konwersacyjne---podsumowanie">Protokoły konwersacyjne
+- podsumowanie</h3>
+<ul>
+<li>Cechy protokołów interaktywnych
+<ul>
+<li>tinygram</li>
+<li>alg Nagle’a</li>
+<li>alg opóźnionego potwierdzenia</li>
+</ul></li>
+<li>Praca terminalowa
+<ul>
+<li>na czym polega obsługa różnych typów terminali</li>
+<li>NVT</li>
+<li>co robi protokół, a co robi system (np telnet - uweierzytelnienie po
+stronie systemu, ssh - zależy</li>
+</ul></li>
+<li>Bezpieczeństwo
+<ul>
+<li>jaki protokół jaki poziom zapewnia, w jakich okolicznościach</li>
+<li>nie wystawia się publicznie usługi telnet</li>
+</ul></li>
+<li>Dodatkowe cechy
+<ul>
+<li>możliwość zdalnego oskryptowania</li>
+<li>tunelowanie innych protokołów</li>
+<li>wykorzystanie telnet do testowania protokołów</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-11-07</a>
+<ul>
+<li><a href="#wskazówki-do-kodu-laboratoriów" id="toc-wskazówki-do-kodu-laboratoriów">Wskazówki do kodu
+laboratoriów</a></li>
+<li><a href="#protokoły-konwersacyjne" id="toc-protokoły-konwersacyjne">Protokoły konwersacyjne</a>
+<ul>
+<li><a href="#telnet" id="toc-telnet">Telnet</a></li>
+<li><a href="#ssh" id="toc-ssh">SSH</a></li>
+</ul></li>
+<li><a href="#kolokwium" id="toc-kolokwium">Kolokwium</a>
+<ul>
+<li><a href="#ftp" id="toc-ftp">FTP</a></li>
+<li><a href="#protokoły-konwersacyjne---podsumowanie" id="toc-protokoły-konwersacyjne---podsumowanie">Protokoły konwersacyjne
+- podsumowanie</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

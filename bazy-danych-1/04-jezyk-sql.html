@@ -64,7 +64,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="język-sql">Język SQL</h1>
 <p>Transformacja do postaci normalnej poza uniemożliwianiem anomalii
 pozbywa się też redundancji i zapewnia bardziej efektywne przechowywanie
@@ -398,40 +397,51 @@ class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#c
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#język-sql">Język SQL</a>
+<li><a href="#język-sql" id="toc-język-sql">Język SQL</a>
 <ul>
-<li><a href="#język-sql-1">Język SQL</a></li>
-<li><a href="#kategorie-instrukcji">Kategorie instrukcji</a></li>
-<li><a href="#budowa-języka">Budowa języka</a></li>
-<li><a href="#instrukcja-select">Instrukcja <code>SELECT</code></a>
+<li><a href="#język-sql-1" id="toc-język-sql-1">Język SQL</a></li>
+<li><a href="#kategorie-instrukcji" id="toc-kategorie-instrukcji">Kategorie instrukcji</a></li>
+<li><a href="#budowa-języka" id="toc-budowa-języka">Budowa
+języka</a></li>
+<li><a href="#instrukcja-select" id="toc-instrukcja-select">Instrukcja
+<code>SELECT</code></a>
 <ul>
-<li><a href="#budowa">Budowa</a></li>
-<li><a href="#kolejność-przetwarzania-instrukcji">Kolejność
-przetwarzania instrukcji</a></li>
-<li><a href="#klauzula-select">Klauzula <code>SELECT</code></a></li>
-<li><a href="#klauzula-from">Klauzula <code>FROM</code></a></li>
-<li><a href="#klauzula-where">Klauzula WHERE</a></li>
+<li><a href="#budowa" id="toc-budowa">Budowa</a></li>
+<li><a href="#kolejność-przetwarzania-instrukcji" id="toc-kolejność-przetwarzania-instrukcji">Kolejność przetwarzania
+instrukcji</a></li>
+<li><a href="#klauzula-select" id="toc-klauzula-select">Klauzula
+<code>SELECT</code></a></li>
+<li><a href="#klauzula-from" id="toc-klauzula-from">Klauzula
+<code>FROM</code></a></li>
+<li><a href="#klauzula-where" id="toc-klauzula-where">Klauzula
+WHERE</a></li>
 </ul></li>
-<li><a href="#podzapytania">Podzapytania</a></li>
-<li><a href="#instrukcje-dml">Instrukcje DML</a></li>
-<li><a href="#instrukcje-dcl">Instrukcje DCL</a></li>
-<li><a href="#logika-trójwartościowa-null">Logika trójwartościowa,
+<li><a href="#podzapytania" id="toc-podzapytania">Podzapytania</a></li>
+<li><a href="#instrukcje-dml" id="toc-instrukcje-dml">Instrukcje
+DML</a></li>
+<li><a href="#instrukcje-dcl" id="toc-instrukcje-dcl">Instrukcje
+DCL</a></li>
+<li><a href="#logika-trójwartościowa-null" id="toc-logika-trójwartościowa-null">Logika trójwartościowa,
 <code>NULL</code></a></li>
-<li><a href="#instrukcje-ddl">Instrukcje DDL</a></li>
-<li><a href="#łączenie">Łączenie</a></li>
-<li><a href="#operacje-na-zbiorach">Operacje na zbiorach</a></li>
-<li><a href="#operatory-exists-all-any">Operatory <code>EXISTS</code>,
+<li><a href="#instrukcje-ddl" id="toc-instrukcje-ddl">Instrukcje
+DDL</a></li>
+<li><a href="#łączenie" id="toc-łączenie">Łączenie</a></li>
+<li><a href="#operacje-na-zbiorach" id="toc-operacje-na-zbiorach">Operacje na zbiorach</a></li>
+<li><a href="#operatory-exists-all-any" id="toc-operatory-exists-all-any">Operatory <code>EXISTS</code>,
 <code>ALL</code>, <code>ANY</code></a></li>
-<li><a href="#integralność">Integralność</a>
+<li><a href="#integralność" id="toc-integralność">Integralność</a>
 <ul>
-<li><a href="#operacje-kaskadowe">Operacje kaskadowe</a></li>
+<li><a href="#operacje-kaskadowe" id="toc-operacje-kaskadowe">Operacje
+kaskadowe</a></li>
 </ul></li>
-<li><a href="#wyzwalacze">Wyzwalacze</a></li>
-<li><a href="#widok-perspektywa">Widok (perspektywa)</a>
+<li><a href="#wyzwalacze" id="toc-wyzwalacze">Wyzwalacze</a></li>
+<li><a href="#widok-perspektywa" id="toc-widok-perspektywa">Widok
+(perspektywa)</a>
 <ul>
-<li><a href="#mogą-być-aktualizowane">Mogą być aktualizowane</a></li>
+<li><a href="#mogą-być-aktualizowane" id="toc-mogą-być-aktualizowane">Mogą być aktualizowane</a></li>
 </ul></li>
-<li><a href="#tablica-tymczasowa">Tablica tymczasowa</a></li>
+<li><a href="#tablica-tymczasowa" id="toc-tablica-tymczasowa">Tablica
+tymczasowa</a></li>
 </ul></li>
 </ul>
 </nav>

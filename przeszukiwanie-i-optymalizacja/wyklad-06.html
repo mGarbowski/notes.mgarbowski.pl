@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-06</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-05.html">Poprzedni: wyklad-05.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-07.html">Następny: wyklad-07.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="algorytm-ewolucyjny-c.d.-2024-11-20">Algorytm ewolucyjny c.d.
+(2024-11-20)</h1>
+<p>Tylko selekcja (w klasycznym algorymtie) wykorzystuje informację o
+wartościach funkcji celu - tylko ona sprawia że algorytm działa tzn
+wybiera coraz lepsze punkty</p>
+<p>Metafora 2 sprężyn (Galar) selekcja - populacja ulega ściskaniu - po
+selekcji pewne punkty będą pominięte (z większym prawdopodobieństwem
+lepsze zostaną), zubaża populację mutacja - przywraca różnorodność w
+populacji, wnosi nową jakość do populacji, ślepe próbkowanie</p>
+<p>algorytm działa dzięki skojarzeniu selekcji i mutacji</p>
+<p>mutacja co do zasady nie korzysta z wartości funkcji celu (jest
+ślepa) są wariacje algorytmu, które to uwzględniają</p>
+<p>czemu alagorytm ma szansę odnaleźć optimum globalne makromutacje -
+jeśli każdy punkt dziedziny można wygenerować z jednakowym
+prawdopodobieństwem - dobrze bo można trafić na optimum globalne
+prawdopodobieństwo że i-ty punkt populacji będzie w otoczeniu opt
+globalnego jest ograniczone z dołu (gęstość prawdopodobieństwa większa
+lub równa epsilon) schemat bernouliego - większe prawdopodobieństwo
+trafienia jeśli więcej prób największe prawdopodobieństwo dla rozkładu
+jednostajnego - największa wartość epsilona</p>
+<p>takie samo rozumowanie dla błądzenia przypadkowego</p>
+<p>selekcja może spowolnić dojście do opt globalnego (jeśli prowadzi
+algorytm do lokalnego optimum)</p>
+<p>w praktyce - generowanie rozkładu normalnego - gęstość
+prawdopodobieństwa w końcu schodzi dokładnie do 0 ze względu na
+ograniczenia numeryczne z powyższym argumentem - rozkład normalny ma
+prawdopodobieństwo 0 trafienia w otoczenie optimum globalnego</p>
+<p>trzeba dać luzu algorytmowi żeby nie robił optymalizacji globalnej -
+niezerowe prawdopodobieństwo selekcji każdego punktu selekcja turniejowa
+jest miękka (niezerowe prawdopodobieństwo do każdego) proporcjonalna
+może być (jeśli odpowiednie wartości funkcji celu) progowa jest
+twarda</p>
+<p>jeśli odległość punktu populacji od opt globalnego jest skończona to
+nawet przy ograniczonym zasięgu mutacji, ze względu że punkt ma zawsze
+niezerowe prawdopodobieństwo selekcji to może w skończonej liczbie
+kroków dojść do optimum globalnego</p>
+<h2 id="krzyżowanie">Krzyżowanie</h2>
+<p>Z punktu widzenia przestrzeni przeszukiwań to uśrednianie</p>
+<p>metafora - wymieszanie materiału genetycznego z rodziców</p>
+<p>Prawdopodobieństwo krzyżowania</p>
+<p>najpierw krzyżowania, potem mutacja (można bez mutacji jeśli
+krzyżowanie ale…) potomek z prawdopodobieństwem <span
+class="math inline">\(p_c\)</span> będzie wygenerowany przez najpierw
+krzyżowanie, potem mutację</p>
+<p>część punktów w populacji potomnej jest wynikiem mutacji, a część
+wynikiem krzyżowania i mutacji ze względu na losowanie ze zwracaniem ten
+sam punkt może być oboma rodzicami w krzyżowaniu</p>
+<p>ine podejście - prawdopodobieństwo określa ile osobników z populacji
+bazowej podlega krzyżowaniu - różnica jeśli z krzyżowania wychodzi
+więcej niż 1 osobnik</p>
+<p>można implementować algorytm macierzowo - wtedy inne podejście za
+jednym zamachem generujemy reprodukowaną populację trzeba mieć
+nadmiarową liczbę punktów żeby zrealizowac krzyżowanie lub jego brak do
+przetwarzania SIMD dobre</p>
+<h3 id="jak-rozumiemy-uśrednianie">Jak rozumiemy uśrednianie</h3>
+<p>Dla R^n można standardowo uśrednić współrzędne ale co z wektorami
+binarnymi</p>
+<p>wypadkowa to taki punkt, który od każdego z rodziców jest oddalony
+nie więcej niż rodzice między sobą - rysunek z przecinającymi się
+okręgami</p>
+<h3 id="krzyżowanie-jako-operator-liniowy">Krzyżowanie jako operator
+liniowy</h3>
+<p><span class="math inline">\(y = w \cdot x_1 + (1-w) \cdot
+x_2\)</span> mnożenie element po elemencie (nie iloczyn skalarny)</p>
+<p>jednopunktowe <code>w = [0,0,..0,1,1..,1]</code> część od jednego
+rodzica, część od drugiego, punkt odcięcia rozkładem równomiernym
+wybieramy punkt odcięcia zer i jedynek potomkowie w narożnikach
+hiperkostki (ale nie 101 i 010)</p>
+<p>równomierne <code>w = [0,1,1,0,0,1,0,1,...]</code> jednakowe
+prawdopodobieństwo zera i jedynki potomkowie we wszystkich narożnikach
+hiperkostki (łącznie z samymi rodzicami)</p>
+<p>arytmetyczne <code>w = [0.1, 0.25, 0.9, ...]</code> ważone
+uśrednianie z losowymi współczynnikami tylko dla liczb rzeczywistych</p>
+<p>brak obciążenia ze względu na obrót / translację bp. środek odcinka
+dalej będzie na środku odcinka) <span
+class="math inline">\(o(t(x_1),t(x_2)) = t(o(x_1, x_2))\)</span> które
+są, a które nie są obciążone?</p>
+<p>w R^n można stosować i wymieniające i uśredniające krzyżowanie</p>
+<p>wyłączenie mutacji nie pozwala osiągnąć optimum globalnego jeśli nie
+znajduje się ono w powłoce wypukłej początkowej populacji</p>
+<p>krzyżowanie uśredniające powoduje większe ściśnięcie populacji
+bazowej ale zachowanie kształtu (przykład dla wartości 1/2) macierz
+kowariancji przeskalowana razy 2</p>
+<p>krzyżowanie wymieniające chmury przed i po krzyżowaniu różnią się
+kształtem ale nie skalą z punnktów (a1, a2) i (b1,b2) mogą wyjść punkty
+(a1,a2) (b1,b2) (a1,b2) (b1,a2) - każdy równie prawdopodobny takie same
+wariancje i mniejsze o połowę kowariancje bardziej równomierne
+rozłożenie populacji macierz kowariancji bardziej zbliżona do
+diagonalnej</p>
+<p>przy krzyżowaniu uśredniającym większej liczby osobników będzie
+jeszcze bardziej ściśnięta chmura (skrzyżowanie wszystkich osobników
+daje środek geometryczny) krzyżowanie jest estymatorem środka populacji
+estymujemy środek żeby dookoła rozrzucić punkty po mutacji nie zawsze
+krzyżowanie jest potrzebne</p>
+<h2 id="typy-sukcesji">Typy sukcesji</h2>
+<ul>
+<li>Generacyjna
+<ul>
+<li>populacja potomna (po mutacji)</li>
+</ul></li>
+<li>Elitarne
+<ul>
+<li>k najlepszych z populacji bazowej i populacja potomna</li>
+<li>po to żeby nie oddalić się od najlepszego punktu - pozostaniemy w
+jego otoczeniu</li>
+<li>może bardziej zakotwiczyć populację w otoczeniu optimum
+lokalnego</li>
+</ul></li>
+<li>Steady-state
+<ul>
+<li>generuje sie jeden nowy punkt</li>
+<li>z populacji bazowej wyrzucamy jeden (np najgorszy)</li>
+<li>zastępujemy tym nowym</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytm-ewolucyjny-c.d.-2024-11-20" id="toc-algorytm-ewolucyjny-c.d.-2024-11-20">Algorytm ewolucyjny c.d.
+(2024-11-20)</a>
+<ul>
+<li><a href="#krzyżowanie" id="toc-krzyżowanie">Krzyżowanie</a>
+<ul>
+<li><a href="#jak-rozumiemy-uśrednianie" id="toc-jak-rozumiemy-uśrednianie">Jak rozumiemy uśrednianie</a></li>
+<li><a href="#krzyżowanie-jako-operator-liniowy" id="toc-krzyżowanie-jako-operator-liniowy">Krzyżowanie jako operator
+liniowy</a></li>
+</ul></li>
+<li><a href="#typy-sukcesji" id="toc-typy-sukcesji">Typy
+sukcesji</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

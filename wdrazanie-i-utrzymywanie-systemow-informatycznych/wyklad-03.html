@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Wdrażanie i utrzymywanie systemów informatycznych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+                <li><a href="lab-00.html">lab-00.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2025-03-27</h1>
+<h2
+id="automatyzacja-konfiguracji---infrastructure-as-a-code">Automatyzacja
+konfiguracji - Infrastructure as a Code</h2>
+<ul>
+<li>Stare podejście - źródłem prawdy o infrastrukturze jest sama
+infrastruktura
+<ul>
+<li>serwer i to co na nim chodzi</li>
+</ul></li>
+<li>Podejście infrastructure as a code
+<ul>
+<li>źródłem prawdy jest opis deklaratywny</li>
+<li>mówi jak infrastruktura powinna wyglądać</li>
+<li>jeśli coś się nie zgadza z oczekiwanym stanem, to automatyczne
+narzędzie może to poprawić</li>
+</ul></li>
+<li>Z konfiguracją pracuje się tak jak z kodem źródłowym
+<ul>
+<li>repozytorium</li>
+<li>modularność, reużywalne fragmenty</li>
+</ul></li>
+<li>Konfiguracja aplikowana przez
+<ul>
+<li>centralny węzeł konfiguracyjny - konfiguracja bezagentowa</li>
+<li>agenty uruchomione na konfigurowanych elementach - konfiguracja
+agentowa</li>
+</ul></li>
+<li>Można konfigurować
+<ul>
+<li>sieć, interfejsy, routing, firewalle</li>
+<li>oprogramowanie systemowe ## Przykładowe narzędzia</li>
+</ul></li>
+<li>Puppet (agentowy)</li>
+<li>Chef (agentowy)</li>
+<li>Ansible (bezagentowy)</li>
+<li>Terraform (agentowy)</li>
+</ul>
+<h2 id="ansible">Ansible</h2>
+<h3 id="architektura-ansible">Architektura Ansible</h3>
+<ul>
+<li>Węzeł centralny
+<ul>
+<li>inventory - lista węzłów</li>
+</ul></li>
+<li>Łączy się z węzłami przez SSH</li>
+<li>Wymaga połączenia sieciowego do węzłów</li>
+<li>Inventory
+<ul>
+<li>plik yaml</li>
+<li>struktura drzewiasta</li>
+<li>można definiować zmienne</li>
+</ul></li>
+</ul>
+<h3 id="ansible-playbook">Ansible playbook</h3>
+<ul>
+<li>Wbudowane moduły (ok, 1000)
+<ul>
+<li>ping</li>
+<li>command/shell - wykonanie polecenia shella</li>
+<li>apt/npm/pip/pkg - managery pakietów</li>
+<li>git - operacje na repozytorium</li>
+<li>mysql_db/postgres_db - zarządzanie bazą danych</li>
+<li>cron - sterowanie zadaniami crona</li>
+<li>moduły do zarządzanie interfejsami sieciowymi, firewallem,
+routingiem</li>
+<li>azure/gcp/aws - operacja na infrastrukturze chmury publicznej</li>
+</ul></li>
+<li><code>become</code> - polecenia są wykonywane jako root</li>
+<li>Zadania
+<ul>
+<li>nazwa</li>
+<li>komenda i parametry</li>
+</ul></li>
+<li><code>reset_connection</code>
+<ul>
+<li>można w ten sposób załadować informację o zmianie grupy</li>
+<li>można nadpisać <code>become</code></li>
+</ul></li>
+<li>Domyślne działanie
+<ul>
+<li>zadania wykonują się po kolei, dopiero jak poprzednie się skończy
+(można wykonywać równolegle)</li>
+<li>playbook jest wykonywany równolegle na wszystkich węzłach</li>
+</ul></li>
+</ul>
+<h2 id="terraform">Terraform</h2>
+<ul>
+<li>Narzędzie IaC</li>
+<li>Do konfigurowania infrastruktury usług chmurowych</li>
+<li>Agentowy, za faktycznych agentów odpowiadają dostawcy chmury
+<ul>
+<li>udostępniają biblioteki rozszerzające <code>providers</code></li>
+</ul></li>
+</ul>
+<h3 id="architektura">Architektura</h3>
+<ul>
+<li>Proces terraform</li>
+<li>Dostarczamy plik konfiguracyjny opisujący porządany stan</li>
+<li>Proces zachowuje lokalnie stan infrastruktury
+<ul>
+<li>plik .tfstate</li>
+</ul></li>
+<li>AWS, Azure itp dostarczają providerów, z którymi komunikuje się
+proces Terraform</li>
+</ul>
+<h3 id="proces-zarządzania-infrastrukturą">Proces zarządzania
+infrastrukturą</h3>
+<ul>
+<li>Administrator przygotowuje pliki</li>
+<li>Plan
+<ul>
+<li>powstanie planu - szeregu poleceń potrzebnego do dostosowania
+infrastruktury do opisu</li>
+<li>plan też jest plikiem</li>
+</ul></li>
+<li>Aplikacja planu</li>
+<li>Rozdzielenie planowania od aplikowania
+<ul>
+<li>odpowiedzialności mogą być rozdzielone</li>
+</ul></li>
+</ul>
+<h3 id="pliki">Pliki</h3>
+<ul>
+<li><code>providers.tf</code>
+<ul>
+<li>plik konfiguracji biblioteki rozszerzającej do Azure</li>
+</ul></li>
+<li><code>variables.tf</code>
+<ul>
+<li>zmienne konfiguracyjne</li>
+</ul></li>
+<li><code>output.tf</code>
+<ul>
+<li>zmienne wyjściowe</li>
+<li>niektóre wartości są zwrócone w kroku apply</li>
+<li>np. adres IP utworzonej maszyny wirtualnej</li>
+</ul></li>
+<li><code>main.tf</code>
+<ul>
+<li>zasadniczy plik konfiguracyjny</li>
+<li>można w ramach tego pliku nazywać zasoby i odwoływać się do ich
+atrybutów</li>
+</ul></li>
+<li><code>*.tfstate</code>
+<ul>
+<li>plik modyfikowany automatycznie przez terraform</li>
+<li>stan infrastruktury po zaaplikowaniu</li>
+<li>zawiera poufne dane - plik musi być chroniony</li>
+<li>nie dodawać do gita</li>
+</ul></li>
+<li><code>*.tfplan</code>
+<ul>
+<li>plan wykonania</li>
+<li>można go udostępniać, wielokrotnie wykonywać</li>
+</ul></li>
+</ul>
+<p>Za tydzień jeszcze Ratkowski, a potem Zalewski</p>
+<h1 id="dostępność-wydajność-bezpieczeństwo-i-monitoring">Dostępność,
+wydajność, bezpieczeństwo i monitoring</h1>
+<h2 id="jakość-oprogramowania-zgodnie-z-isoiec-25010">Jakość
+oprogramowania zgodnie z ISO/IEC 25010</h2>
+<ul>
+<li>Oprogramowanie dobrze działa jeśli spełnia normy jakości</li>
+<li>Jakość - poziom z jakim system może być użyty przez określonych
+użytkowników, aby spełnić ich potrzeby w osiągnięciu okreśłonych celów w
+określonym kontekście użycia</li>
+</ul>
+<h3 id="kategorie-jakości">Kategorie jakości</h3>
+<ul>
+<li>Stosowność funkcjonalna
+<ul>
+<li>na ile system spełnia wymagania funkcjonalne</li>
+<li>kompletne</li>
+<li>poprawne</li>
+<li>właściwe</li>
+</ul></li>
+<li>Efektywność wydajnościowa
+<ul>
+<li>czasowa charakterystyka</li>
+<li>wykorzystanie zasobów</li>
+<li>pojemności</li>
+</ul></li>
+<li>Kompatybilność
+<ul>
+<li>umiejętność współpracy z innymi systemami</li>
+<li>kompatybilność ze standardami</li>
+</ul></li>
+<li>Użytkowalność, ergonomia
+<ul>
+<li>możliwość uczenia się przez użytkownika</li>
+<li>ochrona przez błędami czynionymi przez użytkowników</li>
+<li>dostępność</li>
+</ul></li>
+<li>Niezawodność
+<ul>
+<li>dojrzałość - przetestowanie na różne sytuacje</li>
+<li>dostępność</li>
+<li>odporność na błędy</li>
+<li>odtwarzalność (po krytycznych błędach)</li>
+</ul></li>
+<li>Bezpieczeństwo
+<ul>
+<li>poufność</li>
+<li>integralnośc danych</li>
+<li>możliwość audytowania</li>
+</ul></li>
+<li>Utrzymywalność
+<ul>
+<li>modularność</li>
+<li>reużywalność</li>
+<li>analizowalność</li>
+<li>modyfikowalność</li>
+<li>testowalność</li>
+</ul></li>
+<li>Przenośność
+<ul>
+<li>możliwość instalowania w różnych środowiskach, systemach
+operacyjnych, frameworkach</li>
+</ul></li>
+</ul>
+<p>Niektóre są bardziej w sferze projektowania W sferze utrzymania
+najbardziej na niezawodność, wydajność i bezpieczeństwo</p>
+<h3 id="miary-niezawodności">Miary niezawodności</h3>
+<ul>
+<li>Procent czasu działania (rocznie/miesięcznie/dziennie)
+<ul>
+<li>99%</li>
+<li>99.99% - 52 minuty w skali roku, w ciągu dnia - lipa</li>
+<li>może być zliczany przez próbkowanie</li>
+<li>negocjacja między tym kto to zapewnia, a tym kto za to płaci</li>
+<li>może wynikać z awarii</li>
+<li>może wynikać z nieuniknionych czynności utrzymaniowych</li>
+<li>gwarancja polega na tym, że dostawca płaci jeśli przekroczy ten
+procent</li>
+</ul></li>
+<li>Liczba zgłoszonych awarii
+<ul>
+<li>odczuwalna przez użytkownika</li>
+</ul></li>
+<li>Liczba wykrytych defektów w określonym czasie
+<ul>
+<li>nie musi być odczuwalna przez użytkownika</li>
+<li>może doprowadzić do awarii ale nie musi</li>
+</ul></li>
+<li>Czas odtworzenia po krytycznej awarii</li>
+</ul>
+<h3 id="miary-wydajności">Miary wydajności</h3>
+<ul>
+<li>Średni czas odpowiedzi
+<ul>
+<li>co to dokładnie znaczy</li>
+</ul></li>
+<li>maksymalny czas odpowiedzi dla określonego percentyla
+<ul>
+<li>np. nie więcej niż 5s dla percentyla 95%</li>
+<li>centralne twierdzenie graniczne - zmienna losowa, która jest sumą
+wielu zmiennych losowych to rozkład dąży do rozkładu normalnego</li>
+<li>rozkład log-normalny</li>
+<li>nie jest normalny bo jest ograniczony od 0</li>
+<li>długi ogon - trzeba uważać, 95% będzie sporo większy od średniej,
+średnia będzie mniejsza od mediany</li>
+</ul></li>
+<li>Maksymalna przepustowość
+<ul>
+<li>liczba obsługiwanych klientów, zdarzeń itp.</li>
+<li>krzywa średniego czasu odpowiedzi od ruchu - rośnie aż do momentu
+załamania</li>
+<li>średni czas odpowiedzi określa się przy określonym ruchu</li>
+</ul></li>
+<li>Zasoby obliczeniowe potrzebne do obsłużenia określonego ruchu
+<ul>
+<li>liczba CPU</li>
+<li>pamięć</li>
+<li>zasoby z publicznej chmury</li>
+<li>wydatki na publiczną chmurę</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2025-03-27</a>
+<ul>
+<li><a href="#automatyzacja-konfiguracji---infrastructure-as-a-code" id="toc-automatyzacja-konfiguracji---infrastructure-as-a-code">Automatyzacja
+konfiguracji - Infrastructure as a Code</a></li>
+<li><a href="#ansible" id="toc-ansible">Ansible</a>
+<ul>
+<li><a href="#architektura-ansible" id="toc-architektura-ansible">Architektura Ansible</a></li>
+<li><a href="#ansible-playbook" id="toc-ansible-playbook">Ansible
+playbook</a></li>
+</ul></li>
+<li><a href="#terraform" id="toc-terraform">Terraform</a>
+<ul>
+<li><a href="#architektura" id="toc-architektura">Architektura</a></li>
+<li><a href="#proces-zarządzania-infrastrukturą" id="toc-proces-zarządzania-infrastrukturą">Proces zarządzania
+infrastrukturą</a></li>
+<li><a href="#pliki" id="toc-pliki">Pliki</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#dostępność-wydajność-bezpieczeństwo-i-monitoring" id="toc-dostępność-wydajność-bezpieczeństwo-i-monitoring">Dostępność,
+wydajność, bezpieczeństwo i monitoring</a>
+<ul>
+<li><a href="#jakość-oprogramowania-zgodnie-z-isoiec-25010" id="toc-jakość-oprogramowania-zgodnie-z-isoiec-25010">Jakość
+oprogramowania zgodnie z ISO/IEC 25010</a>
+<ul>
+<li><a href="#kategorie-jakości" id="toc-kategorie-jakości">Kategorie
+jakości</a></li>
+<li><a href="#miary-niezawodności" id="toc-miary-niezawodności">Miary
+niezawodności</a></li>
+<li><a href="#miary-wydajności" id="toc-miary-wydajności">Miary
+wydajności</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

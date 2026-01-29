@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-mechanika-statystyczna</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-modele-atomu.html">Poprzedni: 09-modele-atomu.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="egzamin.html">Następny: egzamin.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="mechanika-statystyczna">Mechanika statystyczna</h1>
+<ul>
+<li>Badanie układów wielu cząstek</li>
+<li>Nie jest możliwe rozwiązanie równań ruchu dla wszystkich cząstek ze
+względu na ich dużą liczbę i możliwe wzajemne oddziaływania</li>
+<li>Mechanika statystyczna używa opisu statystycznego</li>
+<li>To bardziej zbiór metod, modeli do opisywania dużych układów
+<ul>
+<li>nie kolejny dział fizyki jak optyka, mechanika itp.</li>
+</ul></li>
+</ul>
+<h2 id="zasady-termodynamiki">Zasady termodynamiki</h2>
+<ul>
+<li>0
+<ul>
+<li>są układy A, B, C</li>
+<li>jeśli A i B są w równowadze termodynamicznej i B i C są w stanie
+równowagi to A i C też</li>
+<li>do określenia czy układy są w równowadze służy temperatura</li>
+</ul></li>
+<li>1
+<ul>
+<li>zasada zachowania energii wewnętrznej</li>
+<li>ciepło przepływa z układu o wyższej do układu o niższej
+temperaturze</li>
+<li>może być zmieniona przez wykonanie pracy</li>
+</ul></li>
+<li>2
+<ul>
+<li>entropia</li>
+<li>jeśli układ jest izolowany to entropia rośnie</li>
+</ul></li>
+<li>3
+<ul>
+<li>minimum energii w temperaturze zera bezwzględnego</li>
+</ul></li>
+</ul>
+<h3 id="stan-równowagi">Stan równowagi</h3>
+<ul>
+<li>Wielkość, którą można zmierzyć</li>
+<li>Układy fizyczne dążą do stanu równowagi</li>
+<li>W stanie równowagi występują fluktuacje wokół wartości średnich</li>
+</ul>
+<h2 id="mikrostan">Mikrostan</h2>
+<ul>
+<li>Mikrostan oznacza pełną informację na temat układu
+<ul>
+<li>np. dla układu <span class="math inline">\(n\)</span> cząstek mamy
+dla każdej cząstki 3 wymiarowy wektor położenia i 3 wymiarowy wektor
+pędu</li>
+</ul></li>
+<li>Przestrzeń fazowa - dla <span class="math inline">\(n\)</span>
+cząstek to przestrzeń <span class="math inline">\(6n\)</span>
+wymiarowa</li>
+<li>Mikrostan to punkt w przestrzeni fazowej</li>
+<li>Trajektoria fazowa
+<ul>
+<li>krzywa z punktów odpowiadających mikrostanów w kolejnych
+chwilach</li>
+</ul></li>
+<li>W mechanice kwantowej stan - liczby kwantowe</li>
+</ul>
+<h2 id="makrostan">Makrostan</h2>
+<ul>
+<li>Stan układu fizycznego jako całości określony przez wielkości
+makroskopowe
+<ul>
+<li>objętość</li>
+<li>temperatura</li>
+<li>entropia</li>
+<li>magnetyzacja</li>
+<li>ciśnienie</li>
+</ul></li>
+<li>Makrostan jest funkcją mikrostanu</li>
+<li>Pojedynczy makrostan może być realizowany przez wiele różnych
+mikrostanów
+<ul>
+<li>np. zamienienie dwóch cząstek miejscami - inny mikrostan ale ta sama
+średnia energia</li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<ul>
+<li>Mamy 5 cząstek charakteryzowanych spinem (wartość binarna <span
+class="math inline">\(-1\)</span> lub <span
+class="math inline">\(1\)</span>)</li>
+<li>Magnetyzacja
+<ul>
+<li>wielkość makro</li>
+<li>suma spinów podzielona przez liczbę cząstek</li>
+</ul></li>
+<li>Jeden makrostan może być realizowany przez wiele mikrostanów
+<ul>
+<li><span class="math inline">\(2^5\)</span> możliwych mikrostanów</li>
+</ul></li>
+</ul>
+<h2 id="hipoteza-ergodyczna">Hipoteza ergodyczna</h2>
+<ul>
+<li>Twierdzenie matematyczne</li>
+<li>Zespół statystyczny - wiele kopii tego samego układu
+<ul>
+<li>każda kopia jest w innym mikrostanie</li>
+</ul></li>
+<li>Można policzyć średnią w tym zespole statystycznym
+<ul>
+<li>średnia ważona prawdopodobieństwem wystąpienia danego
+mikrostanu</li>
+<li>problem: jak wyliczyć to prawdopodobieństwo?</li>
+<li><span class="math inline">\(\langle x \rangle = \sum_Q P(Q)
+x(Q)\)</span></li>
+</ul></li>
+<li>Można zastąpić całkę po czasie średnią w zespole statystycznym
+<ul>
+<li>intuicja - jeśli będziemy obserwować układ nieskończenie długo to
+trajektoria odwiedzi każdy dostępny stan w przestrzeni fazowej</li>
+</ul></li>
+</ul>
+<h2 id="entropia">Entropia</h2>
+<p><span class="math display">\[S(X) = k_B \ln W(X)\]</span></p>
+<ul>
+<li>Logarytm liczby mikrostanów</li>
+<li><span class="math inline">\(k_B\)</span> - stała Boltzmanna
+<ul>
+<li>konwersja jednostek z <span class="math inline">\(K\)</span> na
+<span class="math inline">\(J\)</span></li>
+</ul></li>
+<li>Miara nieuporządkowania</li>
+</ul>
+<h2 id="rozkład-mikrokanoniczny">Rozkład mikrokanoniczny</h2>
+<ul>
+<li>Opisuje układ odizolowany
+<ul>
+<li>energia nie może dopływać ani odpływać (energia jest zachowana)</li>
+<li>liczba cząstek jest zachowana</li>
+</ul></li>
+<li>Każdy mikrostan jest równie prawdopodobny
+<ul>
+<li><span class="math inline">\(P(\Omega) = 1/W\)</span> jeśli <span
+class="math inline">\(\Omega \in \Gamma\)</span></li>
+<li>wszystkie mikrostany mają jednakową energię</li>
+<li><span class="math inline">\(\Omega\)</span> - mikrostan</li>
+<li><span class="math inline">\(\Gamma\)</span> - dostępna dla układu
+część przestrzeni fazowej</li>
+</ul></li>
+</ul>
+<h3 id="przykład-1">Przykład</h3>
+<ul>
+<li>2 odizolowane części układu
+<ul>
+<li>w obu po 2 rozróżnialne cząstki</li>
+<li>w A 5 kwantów energii, w B 1 kwant energii</li>
+</ul></li>
+<li>Mamy <span class="math inline">\(E\)</span> kwantów energii do
+rozmieszczenia w <span class="math inline">\(N\)</span> pudełkach
+<ul>
+<li>do zakodowania przez E symboli rozdzielonych <span
+class="math inline">\(N-1\)</span> kreskami <span
+class="math display">\[W = \binom{E+N-1}{E}\]</span></li>
+</ul></li>
+<li>Liczba mikrostanów dla układu składającego się z dwóch izolowanych
+układów mamy <span class="math inline">\(W = W_A \cdot W_B\)</span></li>
+<li>Entropia powinna być addytywna - stąd <span
+class="math inline">\(\ln(W)\)</span> we wzorze
+<ul>
+<li><span class="math inline">\(S = S_A + S_B\)</span></li>
+</ul></li>
+<li>Ile będzie możliwych mikrostanów jak umożliwimy przepływ kwantów
+przez barierę
+<ul>
+<li><span class="math inline">\(E=6, N=4 \rightarrow W=84 \rightarrow S
+= k\ln 84\)</span></li>
+<li>entropia jest miarą rozproszenia energii</li>
+</ul></li>
+<li>Jakie jest prawdopodobieństwo że po usunięciu bariery energia części
+A wzrośnie
+<ul>
+<li>ile mikrostanów realizuje taki makrostan</li>
+<li><span class="math inline">\(\binom{6+2-1}{6} / \binom{6+4-1}{6} =
+7/84\)</span></li>
+<li>termodynamika mówi że coś takiego jest niemożliwe - przepływ ciepła
+od zimniejszego do cieplejszego obiektu</li>
+</ul></li>
+<li>Jaki jest najbardziej prawdopodobny podział energii między układami
+<ul>
+<li>po równo, można policzyć</li>
+<li>ten, dla którego jest największa wartość entropii</li>
+</ul></li>
+</ul>
+<h2 id="rozkład-kanoniczny">Rozkład kanoniczny</h2>
+<ul>
+<li>Jak mikrokanoniczny ale może wymieniać energię z otoczeniem
+(termostatem)
+<ul>
+<li>termostat jest znacznie większy niż badany układ czyli energia
+termostatu jest praktycznie stała</li>
+</ul></li>
+<li>Rozkład kanoniczny (Boltzmanna)
+<ul>
+<li>prawdopodobieństwo wystąpienia mikrostanu realizującego makrostan
+<span class="math inline">\(E\)</span> (konkretna energia)</li>
+<li><span class="math inline">\(P(Q(E)) = \frac{1}{Z}
+\exp(-\frac{E(Q)}{k_BT})\)</span> - to zapamiętać</li>
+<li>im większa energia tym mniejsze prawdopodobieństwo</li>
+<li>przy większej temperaturze - stany o wyższej energii są bardziej
+prawdopodobne</li>
+<li><span class="math inline">\(Z\)</span> - czynnik normujący, suma
+statystyczna</li>
+<li><span class="math inline">\(Z = \sum_Q
+\exp(-\frac{E(Q)}{k_BT})\)</span></li>
+<li><span class="math inline">\(Z\)</span> pozwala na obliczenie
+średniej energii, ciśnienia itp.</li>
+<li>jak funkcja softmax</li>
+</ul></li>
+</ul>
+<h2 id="klasyczny-gaz-doskonały">Klasyczny gaz doskonały</h2>
+<ul>
+<li>Cząstki zderzające się sprężyście</li>
+<li>Bez oddziaływania (energii potencjalnej), tylko energia
+kinetyczna</li>
+<li>Opisywany rozkładem kanonicznym</li>
+</ul>
+<h2 id="rozkład-maxwella">Rozkład Maxwella</h2>
+<ul>
+<li>Rozkład Boltzmanna dla wartości pędu</li>
+<li>Większa temperatura - większe odchylenie standardowe i większa
+średnia</li>
+</ul>
+<h2 id="średnia-energia-cząstek">Średnia energia cząstek</h2>
+<p><span class="math display">\[\langle E \rangle = \frac{m}{w} \langle
+v^2 \rangle = \frac{3}{2} k_BT\]</span> * Zasada ekwipartycji energii *
+energia rozkłada się średnio po równo na wszystkie stopnie swobody *
+<span class="math inline">\(k_BT/2\)</span> to średnia energia na
+cząsteczkę na stopień swobody * więcej stopni swobody - np. drgania</p>
+<h2 id="rozkłady-kwantowe">Rozkłady kwantowe</h2>
+<ul>
+<li>Różnią się brakiem rozróżnialności cząstek
+<ul>
+<li>żeby określić czy są rozróżnialne - porównać odległość między
+cząstkami do długości fali materii</li>
+</ul></li>
+<li>Wcześniej mówiliśmy o rozróżnialnych cząstkach
+<ul>
+<li>zamiana cząstek miejscami to już inny mikrostan</li>
+</ul></li>
+<li>Jeżeli cząstki są zlokalizowane to są rozróżnialne
+<ul>
+<li>można wyliczyć ich położenie</li>
+</ul></li>
+<li>Funkcja falowa nie mówi jakie jest położenie cząstki
+<ul>
+<li>hipoteza de Broglie’a o falach materii</li>
+<li>jak chmury są mocno oddalone od siebie to można w przybliżeniu
+określić do której cząstki można przypisać daną chmurę</li>
+<li>jeśli są blisko to fale się nakładają (długość fali jest rzędu
+odległości) to chmury się rozmywają i nie można rozróżnić cząstek</li>
+</ul></li>
+<li>Jak się podgrzeje przewodnik to zachodzi zjawisko termoemisji
+<ul>
+<li>elektron dostaje tyle energii że uwalnia się z przewodnika</li>
+</ul></li>
+<li>Różnicę robi gęstość cząstek, nie wielkość</li>
+<li>Mechanika klasyczna jest przybliżeniem mechaniki kwantowej
+<ul>
+<li>cząstka klasyczna to taka, dla której przybliżenie jest
+wystarczająco dobre</li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Właściwość</th>
+<th>Cząstki klasyczne</th>
+<th>Fermiony</th>
+<th>Bozony</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Statystyka</td>
+<td>Maxwell-Boltzmann</td>
+<td>Fermi-Dirac</td>
+<td>Bose-Einstein</td>
+</tr>
+<tr class="even">
+<td>Rozróżnialne cząstki</td>
+<td>Tak</td>
+<td>Nie</td>
+<td>Nie</td>
+</tr>
+<tr class="odd">
+<td>Zakaz Pauliego</td>
+<td>Nie</td>
+<td>Tak</td>
+<td>Nie</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fermiony-i-bozony">Fermiony i bozony</h3>
+<ul>
+<li>Cząstki kwantowe dzielą się na dwa rodzaje</li>
+<li>Fermiony
+<ul>
+<li>cząstki o spinie połówkowym</li>
+<li>elektrony, protony, neutrony</li>
+</ul></li>
+<li>Bozony
+<ul>
+<li>cząstki o spinie całkowitym</li>
+<li>fotony, atomy helu-4, bozony Higgsa</li>
+</ul></li>
+<li>Tylko fermiony podlegają zasadzie Pauliego
+<ul>
+<li>w danym stanie kwantowym może znajdować się maksymalnie jedna
+cząstka</li>
+<li>na poziomie <span class="math inline">\(n=1\)</span> mogą być 2
+elektrony o różnych spinach (<span
+class="math inline">\(1s^2\)</span>)</li>
+</ul></li>
+</ul>
+<h2 id="dwie-studnie-potencjału">Dwie studnie potencjału</h2>
+<ul>
+<li>Model atomu wodoru</li>
+<li>Jak studnie zbliżają się do siebie to poziomy energetyczne
+rozszczepiają się
+<ul>
+<li>tyle dodatkowych poziomów ile studni (atomów)</li>
+<li>jak jest więcej atomów to rozszczepiane poziomy tworzą pasmo (tak
+jak w ciele stałym)</li>
+</ul></li>
+<li>Przypadek z dwiema studniami
+<ul>
+<li>jak są 2 niewzbudzone elektrony to będą na najniższym poziomie</li>
+<li>gdyby pojawił się kolejny to wskoczyłby na kolejny poziom</li>
+</ul></li>
+</ul>
+<h2 id="poziom-fermiego">Poziom Fermiego</h2>
+<ul>
+<li>Wszystkie poziomy poniżej poziomu Fermiego są zapełnione
+<ul>
+<li>tworzą pasmo walencyjne</li>
+</ul></li>
+<li>Wszystkie powyżej tworzą pasmo przewodzenia</li>
+<li>Jeśli układ jest powyżej temperatury zera bezwzględnego
+<ul>
+<li>elektrony z pasma walencyjnego zaabsorbują energię i przeskoczą na
+jeden z wyższych poziomów - z pasma przewodzenia</li>
+</ul></li>
+<li>Jeśli są elektrony w paśmie przewodzenia i przyłoży się napięcie to
+jest przepływ prądu</li>
+</ul>
+<h3 id="rozkład-fermiego-diraca">Rozkład Fermiego-Diraca</h3>
+<p><span class="math display">\[P(E) = \frac{1}{e^{\frac{E-E_F}{k_BT}} +
+1}\]</span></p>
+<ul>
+<li>Dla <span class="math inline">\(T=0\)</span>
+<ul>
+<li>wszystkie stany poniżej poziomu Fermiego <span
+class="math inline">\(E_F\)</span> są zajęte</li>
+<li>powyżej są puste</li>
+<li>na wykresie - schodek</li>
+</ul></li>
+<li>Dla <span class="math inline">\(T&gt;0\)</span>
+<ul>
+<li>elektrony mogą być wzbudzane do stanów o energii wyższej niż <span
+class="math inline">\(E_F\)</span></li>
+<li>na wykresie - coraz bardziej wygładzony schodek</li>
+</ul></li>
+</ul>
+<h3 id="rozkład-bosego-einsteina">Rozkład Bosego-Einsteina</h3>
+<p><span class="math display">\[P(E) = \frac{1}{e^{\frac{E-\mu}{k_BT}} -
+1}\]</span></p>
+<ul>
+<li><span class="math inline">\(\mu\)</span> - potencjał chemiczny</li>
+<li>Bozony nie podlegają zakazowi Pauliego
+<ul>
+<li>wiele cząstek może zajmować ten sam stan kwantowy</li>
+</ul></li>
+<li>Jak obniżymy temperaturę to wszystkie cząstki mogą być na najniższym
+poziomie
+<ul>
+<li>kondensat Bosego-Einsteina</li>
+</ul></li>
+<li>Nadciekłość helu
+<ul>
+<li>jak się bardzo schłodzi hel w pojemniku to zaczyna się wspinać po
+ściankach</li>
+</ul></li>
+<li>Nadprzewodnictwo
+<ul>
+<li>elektrony są fermionami</li>
+<li>w nadprzewodnikach elektrony łączą się w pary, taka para jest
+bozonem</li>
+</ul></li>
+</ul>
+<h3 id="potencjał-chemiczny">Potencjał chemiczny</h3>
+<ul>
+<li>Odpowiednik ciśnienia albo temperatury ale chemiczny</li>
+<li>Układ składa się z dwóch części</li>
+<li>Jeśli dwie części mają różną temperaturę
+<ul>
+<li>ciepło będzie przepływać od tego o wyższej do tego o niższej</li>
+<li>entropia będzie się zmieniać</li>
+</ul></li>
+<li>Jeśli dwie części mają różne ciśnienie a są oddzielone ruchomą
+przegrodą (tłokiem)
+<ul>
+<li>będzie się tak przesuwać żeby się wyrównały</li>
+<li>zmienia się objętość</li>
+</ul></li>
+<li>Jeśli dwie części mają różny potencjał chemiczny to cząstki
+przepływają między dwiema częściami
+<ul>
+<li>zmienia się liczba cząstek</li>
+</ul></li>
+<li>Energia wewnętrzna układu <span class="math inline">\(U\)</span>
+jest funkcją stanu
+<ul>
+<li><span class="math inline">\(U = TS - pV + \mu N\)</span></li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#mechanika-statystyczna" id="toc-mechanika-statystyczna">Mechanika statystyczna</a>
+<ul>
+<li><a href="#zasady-termodynamiki" id="toc-zasady-termodynamiki">Zasady
+termodynamiki</a>
+<ul>
+<li><a href="#stan-równowagi" id="toc-stan-równowagi">Stan
+równowagi</a></li>
+</ul></li>
+<li><a href="#mikrostan" id="toc-mikrostan">Mikrostan</a></li>
+<li><a href="#makrostan" id="toc-makrostan">Makrostan</a>
+<ul>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+</ul></li>
+<li><a href="#hipoteza-ergodyczna" id="toc-hipoteza-ergodyczna">Hipoteza
+ergodyczna</a></li>
+<li><a href="#entropia" id="toc-entropia">Entropia</a></li>
+<li><a href="#rozkład-mikrokanoniczny" id="toc-rozkład-mikrokanoniczny">Rozkład mikrokanoniczny</a>
+<ul>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład</a></li>
+</ul></li>
+<li><a href="#rozkład-kanoniczny" id="toc-rozkład-kanoniczny">Rozkład
+kanoniczny</a></li>
+<li><a href="#klasyczny-gaz-doskonały" id="toc-klasyczny-gaz-doskonały">Klasyczny gaz doskonały</a></li>
+<li><a href="#rozkład-maxwella" id="toc-rozkład-maxwella">Rozkład
+Maxwella</a></li>
+<li><a href="#średnia-energia-cząstek" id="toc-średnia-energia-cząstek">Średnia energia cząstek</a></li>
+<li><a href="#rozkłady-kwantowe" id="toc-rozkłady-kwantowe">Rozkłady
+kwantowe</a>
+<ul>
+<li><a href="#fermiony-i-bozony" id="toc-fermiony-i-bozony">Fermiony i
+bozony</a></li>
+</ul></li>
+<li><a href="#dwie-studnie-potencjału" id="toc-dwie-studnie-potencjału">Dwie studnie potencjału</a></li>
+<li><a href="#poziom-fermiego" id="toc-poziom-fermiego">Poziom
+Fermiego</a>
+<ul>
+<li><a href="#rozkład-fermiego-diraca" id="toc-rozkład-fermiego-diraca">Rozkład Fermiego-Diraca</a></li>
+<li><a href="#rozkład-bosego-einsteina" id="toc-rozkład-bosego-einsteina">Rozkład Bosego-Einsteina</a></li>
+<li><a href="#potencjał-chemiczny" id="toc-potencjał-chemiczny">Potencjał chemiczny</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

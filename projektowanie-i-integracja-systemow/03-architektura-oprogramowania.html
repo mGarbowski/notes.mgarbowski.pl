@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-architektura-oprogramowania</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-narzedzia-iac.html">Poprzedni: 02-narzedzia-iac.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-test-driven-development.html">Następny: 04-test-driven-development.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="architektura-oprogramowania">Architektura oprogramowania</h1>
+<h2 id="architektura">Architektura</h2>
+<ul>
+<li>Zbiór decyzji projektowych</li>
+<li>Zestaw decyzji na odpowiednim poziomie abstrakcji dotyczących
+struktury systemu, które mają kluczowy wpływ na jego zachowanie, rozwój
+i utrzymanie</li>
+<li>Nie ma jednej definicji</li>
+</ul>
+<h2 id="zbiór-decyzji-projektowych">Zbiór decyzji projektowych</h2>
+<ul>
+<li>Jak podzielić system na zarządzalne fragmenty, jak duże powinny
+być</li>
+<li>Czy i gdzie konieczna jest spójność danych</li>
+<li>Jakie protokoły i kanały komunikacji zostaną użyte</li>
+<li>Jakie technologie zostaną użyte</li>
+<li>Jak zapewnić trwałość danych</li>
+<li>Jakie będzie środowisko wdrożeniowe</li>
+<li>Jak zapewnione będzie bezpieczeństwo systemu</li>
+</ul>
+<h2 id="ogólny-widok-systemu">Ogólny widok systemu</h2>
+<ul>
+<li>Jak system jest podzielony na części</li>
+<li>Abstrakcyjna reprezentacja systemu, która pozwala zobaczyć jego
+główne komponenty i sposób ich interakcji bez wnikania w szczegóły
+implementacyjne</li>
+<li>Różne rodzaje widoków ze względu na perspektywę</li>
+</ul>
+<h2 id="widok-techniczny">Widok techniczny</h2>
+<ul>
+<li>Komponenty i komunikacja między nimi</li>
+<li>Jak system jest wdrożony</li>
+<li>Definiuje wzorce projektowe i technologiczne wykorzystywane do
+budowy systemu
+<ul>
+<li>np. styl architektoniczny (monolit, mokroserwisy, SOA)</li>
+</ul></li>
+</ul>
+<h2 id="kiedy-powstaje-architektura">Kiedy powstaje architektura</h2>
+<ul>
+<li>Każdy system ma jakąś architekturę
+<ul>
+<li>czasami przypadkową</li>
+</ul></li>
+<li>Architektura up-front vs architektura zwinna
+<ul>
+<li>ustalenie wymagań z góry nie jest dobrym pomysłem</li>
+<li>wymaga poprawek, zmian</li>
+<li>wymagania zmieniają się w czasie</li>
+<li>zwinna - zakładamy tylko tyle ile potrzebujemy na danych etapie</li>
+</ul></li>
+<li>Architektura ewolucyjna
+<ul>
+<li>minimalne założenia</li>
+<li>z czasem dokładamy kolejne decyzje</li>
+</ul></li>
+</ul>
+<h2 id="poziomy-definiowania-architektury">Poziomy definiowania
+architektury</h2>
+<ul>
+<li>Poziom organizacji</li>
+<li>Poziom systemu (domeny biznesowej)</li>
+<li>Poziom aplikacji</li>
+</ul>
+<h3 id="architektura-organizacji-enterprise">Architektura organizacji
+(enterprise)</h3>
+<ul>
+<li>Polityka organizacji</li>
+<li>Polityka bezpieczeństwa danych</li>
+<li>Działania na poziomie strategicznym</li>
+<li>Mało technikaliów</li>
+<li>Cel
+<ul>
+<li>powiązanie procesów biznesowych z technologią</li>
+<li>definiowanie interfejsów i protokołów komunikacji</li>
+<li>Zapewnienie skalowalności, niezawodności i dostępności całego
+systemu</li>
+<li>Zarządzanie przekrojowymi aspektami - integracja, wydajność,
+bezpieczeństwo</li>
+</ul></li>
+</ul>
+<h3 id="architektura-systemu">Architektura systemu</h3>
+<ul>
+<li>Zakres - grupa systemów / podsystemów</li>
+<li>Decyzje i struktura zintegrowanej grupy aplikacji lub usług, które
+realizują określone funkcje</li>
+<li>Pomost pomiędzy planowaniem na poziomie przedsiębiorstwa, a
+poszczególnymi aplikacjami</li>
+<li>Cel
+<ul>
+<li>projektowanie podsystemów, które współpracują ze sobą w celu
+realizacji celów biznesowych</li>
+<li>definiowanie interfejsów i protokołów komunikacji</li>
+<li>zapewnienie skalowalności, niezawodności, kompatybilności i
+dostępności całego systemu</li>
+<li>zarządzanie przekrojowymi aspektami - integracja, wydajność,
+bezpieczeństwo</li>
+</ul></li>
+</ul>
+<h3 id="architektura-aplikacji">Architektura aplikacji</h3>
+<ul>
+<li>Zakres - pojedyncza aplikacja</li>
+<li>Zapewnienie zgodności z wymaganiami</li>
+<li>Jakie wzorce projektowe</li>
+<li>Zapewnienie łatwości utrzymania</li>
+<li>Odpowiedzialność programistów</li>
+<li>Na tym poziomie definiuje się wymagania funkcjonalne i częściowo
+niefunkcjonalne</li>
+<li>Cele
+<ul>
+<li>definiowanie wewnętrznej struktury (podział na warstwy,
+komponenty)</li>
+<li>realizacja wymagań funkcjonalnych i niefunkcjonalnych</li>
+<li>wybór wzorców i fizycznej struktury aplikacji</li>
+<li>zarządzanie cyklem rozwoju, wdrożeń, zapewnienie jakości</li>
+</ul></li>
+</ul>
+<h2 id="wymagania-funkcjonalne">Wymagania funkcjonalne</h2>
+<ul>
+<li>Jakie funkcje ma udostępniać dany system</li>
+<li>Jakie problemy biznesowe ma rozwiązywać</li>
+</ul>
+<h2 id="ograniczenia-projektowe">Ograniczenia projektowe</h2>
+<ul>
+<li>Jakie są ograniczenia środowiska, w którym system będzie
+działał</li>
+<li>Technologiczne</li>
+<li>Biznesowe</li>
+<li>Prawne (RODO)</li>
+<li>Czasowe</li>
+<li>Czy to ma być dostarczone użytkownikowi, czy budujemy prototyp</li>
+</ul>
+<h2 id="wymagania-niefunkcjonalnejakościowe">Wymagania
+niefunkcjonalne/jakościowe</h2>
+<ul>
+<li>Cechy architektoniczne</li>
+<li>Dostępność, skalowalność, bezpieczeństwo itd.</li>
+</ul>
+<h2 id="architektura-zawsze-jest-kompromisem">Architektura zawsze jest
+kompromisem</h2>
+<ul>
+<li>Nie ma uniwersalnej architektury</li>
+<li>Optymalizacja jednej cechy może osłabiać inną</li>
+<li>Dopasowujemy architekturę do danego kontekstu</li>
+<li>Przykładowe kompromisy
+<ul>
+<li>dostępność vs koszt</li>
+<li>wydajność, elastycnzość vs wymagana spójność danych</li>
+<li>bezpieczeństwo vs wygoda</li>
+<li>time to market vs jakość</li>
+<li>utrzymywalność vs wysoka wydajność</li>
+</ul></li>
+</ul>
+<h2 id="popularne-architektury">Popularne architektury</h2>
+<ul>
+<li>Monolityczne
+<ul>
+<li>warstwowe</li>
+<li>modularne</li>
+<li>mikrokernel</li>
+</ul></li>
+<li>Rozproszone
+<ul>
+<li>mikroserwisy</li>
+<li>service-based</li>
+<li>service-oriented</li>
+<li>event-driven</li>
+<li>space-based</li>
+</ul></li>
+</ul>
+<p>Mark Richards - youtube, software monday</p>
+<p>Architecture styles worksheet - ściąga</p>
+<h3 id="architektura-warstwowa">Architektura warstwowa</h3>
+<ul>
+<li>Zalezności tylko w dół
+<ul>
+<li>warstwa wyżej zależy tylko od warstwy niżej</li>
+</ul></li>
+<li>MVC</li>
+<li>Warstwy
+<ul>
+<li>prezentacji</li>
+<li>biznesowa</li>
+<li>serwisów</li>
+<li>trwałości</li>
+<li>bazy danych</li>
+</ul></li>
+<li>Pominięcie warstwy serwisów - architektura otwarta</li>
+<li>Mało skomplikowana, przejrzysta</li>
+<li>Łatwo testowalna</li>
+<li>Stosunkowo szybka w implementacji</li>
+<li>Pasuje do zespołów wyspecjalizowanych technicznie
+<ul>
+<li>zespół dzieli się na wyspecjalizowanych w bazach danych,
+frontendzie, domenie biznesowej</li>
+</ul></li>
+<li>Gorzej się sprawdza przy skomplikowanych zmianach biznesowych
+<ul>
+<li>wszystkie reguły biznesowe są w ramach jednej warstwy</li>
+</ul></li>
+<li>Nie ułatwia izolacji modułów
+<ul>
+<li>podział poziomy</li>
+</ul></li>
+<li>Trudna skalowalność</li>
+</ul>
+<h3 id="mikroserwisy">Mikroserwisy</h3>
+<ul>
+<li>Wiele osobnych aplikacji współpracujących ze sobą
+<ul>
+<li>gęsta sieć zależności</li>
+</ul></li>
+<li>Każda funkcja biznesowa jest zamknięta jako osobna aplikacja</li>
+<li>Użytkownik nie wie z którym serwisem rozmawia</li>
+<li>Użytkownik komunikuje się z API gateway</li>
+<li>Różne poziomy granulacji</li>
+<li>Bardzo skomplikowane wdrożenie
+<ul>
+<li>trzeba zapewnić wiele serwerów</li>
+<li>połączenia sieciowe między komponentami</li>
+<li>dane nie zawsze dojdą do innego serwisu</li>
+<li>problem ze spójnością danych</li>
+</ul></li>
+<li>Niezależne wdrożenia przez niezależne zespoły
+<ul>
+<li>np. każdy serwis należy do innego zespołu</li>
+</ul></li>
+<li>Lokalna skalowalność
+<ul>
+<li>pojedynczy serwis jest częściej używany</li>
+<li>można przeskalować jeden serwis bez skalowania reszty</li>
+</ul></li>
+<li>Ograniczone pole rażenia w przypadku awarii
+<ul>
+<li>padnięcie jednego serwisu nie powinno być odczute przez inne</li>
+<li>zależności powinny być tak asynchronicznie jak to możliwe</li>
+<li>zakolejkowanie zdarzenia na później</li>
+<li>obejście niedziałającego serwisu</li>
+</ul></li>
+<li>Małe konteksty, łatwość utrzymania i rozwoju</li>
+<li><em>Right tool for the job</em>
+<ul>
+<li>używamy tej technologii która jest dobra dla danego problemu</li>
+<li>w praktyce nie stosowane, trudne do utrzymania</li>
+</ul></li>
+<li>Gigantyczna złożonośc infrastruktury</li>
+<li>Spójnośc danych, komunikacja, problemy systemów rozproszonych</li>
+<li>Testowalność, zapewnienie zgodności usług między sobą
+<ul>
+<li>nie ma jednej aplikacji którą możemy sobie postawić i przetestować w
+izolacji</li>
+</ul></li>
+<li>Serwisy nie powinny współdzielić baz danych</li>
+</ul>
+<h3 id="architektura-zdarzeniowa">Architektura zdarzeniowa</h3>
+<ul>
+<li>Zdarzenie w systemie jest faktem, system musi na niego
+zareagować</li>
+<li>Wiele luźno połączonych systemów
+<ul>
+<li>seriwsy nie komunikują się bezpośrednio</li>
+<li>wysyłają zdarzenia na medium komunikacji</li>
+<li>inny system obsłuży zdarzenie kiedy będzie w stanie</li>
+</ul></li>
+<li>Skalowalność (odbiorców zdarzeń) i elastyczność</li>
+<li>Asynchroniczne przetwarzanie ułatwia budowanie wydajnych
+systemów</li>
+<li>Asynchroniczne przetwarzanie izoluje ryzyko zmniejszonej
+dostępności</li>
+<li>Utrudniona testowalność, problemy z rozwojem
+<ul>
+<li>pośredniczy message broker</li>
+<li>przebieg zdarzeń jest niedeterministyczny, nie ma modelu
+request-response</li>
+</ul></li>
+<li>Nie ma prostego API, bardzo złożona</li>
+<li>Asynchroniczność nie pozwala na model request-response</li>
+<li>Wyzwanie z projektowaniem granulacji zdarzeń</li>
+</ul>
+<h2 id="soa-esb---architektury-w-aplikacjach">SOA, ESB - architektury w
+aplikacjach</h2>
+<ul>
+<li>Podobna koncepcja do mikroserwisów
+<ul>
+<li>z czasów przed możliwościami technologicznymi dla mikroserwisów</li>
+</ul></li>
+<li>Enterprise service bus
+<ul>
+<li>szyna danych z którą rozmawiają wszystkie serwisy</li>
+<li>wiele odpowiedzialności szyny</li>
+</ul></li>
+<li>Bardzo drogie we wdrożeniu i utrzymaniu</li>
+<li>Charakterystyczne dla dużych korporacji</li>
+<li>Bez izolacji baz danych</li>
+<li>Trudne w utrzymaniu i ewolucji</li>
+<li>Często systemy zastane</li>
+<li>Centraliza zarządznia komunikacją</li>
+<li>Single point of failure - awaria szyny zabija system</li>
+<li>Zmniejszenie powiązań - systemy nie wiedzą o sobie</li>
+<li>Złożone wdrożenie ze względu na generyczność ESB</li>
+<li>Standaryzowana transformacja danych</li>
+<li>Orkiestracja usług</li>
+<li>Vendor lock-in</li>
+</ul>
+<h3 id="modularny-monolit">Modularny monolit</h3>
+<ul>
+<li>Monolit podzielony na dobrze odizolowane fragmenty wewnątrz
+<ul>
+<li>podział domenowy</li>
+</ul></li>
+<li>Pojedyncze wdrożenie</li>
+<li>Łączy architekturę monolityczną z mikroserwisami</li>
+<li>Rozdzielenie funkcji biznesowych</li>
+<li>Nieskomplikowana infrastruktura wdrożeniowa</li>
+<li>Komunikacja w ramach jednego procesu na serwerze</li>
+<li>Bez problemów systemów rozproszonych</li>
+<li>Łatwość rozwoju kodu w miarę odkrywania domeny</li>
+<li>Otwarta droga do potencjalnej migracji na osobne usługi</li>
+<li>Problematyczna skalowalność - wszystko albo nic</li>
+<li>Mała izolacja błędów</li>
+<li>Dłuższe wdrożenie</li>
+<li>Konflikt przy pracy dużych zespołów</li>
+</ul>
+<h2 id="jak-wybrać-architekturę">Jak wybrać architekturę</h2>
+<h3 id="techniki-odkrywania-driverów">Techniki odkrywania driverów</h3>
+<ul>
+<li>Analiza wymagań funkcjonalnych i niefunkcjonalnych</li>
+<li>Metody warsztatowe
+<ul>
+<li>spotkania z klientami, którzy wiedzą co chcą uzyskać</li>
+<li>event storming</li>
+<li>event modelling</li>
+<li>domain storytelling</li>
+</ul></li>
+<li>Heurystyki</li>
+<li>Wardley maps - narzędzie do <em>modelowania strategicznego</em>
+<ul>
+<li>ewolucja systemu w kontekście potrzeb biznesowych</li>
+</ul></li>
+<li>Cokolwiek co się sprawdza</li>
+</ul>
+<p>Charakterystykę zespołu też bierze się pod uwagę przy wyborze
+architektury Czy istnieją komponenty krytyczne pod kątem dostępności
+Gdzie są krytyczne dane</p>
+<h2 id="dokumentowanie-architektury">Dokumentowanie architektury</h2>
+<ul>
+<li>Model C4 dokumentacji architektury
+<ul>
+<li>c4model.com</li>
+<li>metajęzyk</li>
+<li>opisywany w kodzie</li>
+</ul></li>
+<li>Rejestr decyzji architektonicznych - ADR
+<ul>
+<li>architecture decision record</li>
+</ul></li>
+<li>Dyskusje dotyczące ważnych aspektów architektury - RFC</li>
+<li>Narzędzia
+<ul>
+<li>Enterprise Architect</li>
+<li>diagramy UML</li>
+</ul></li>
+</ul>
+<h3 id="c4">C4</h3>
+<ul>
+<li>Context
+<ul>
+<li>środowisko w jakim działa system</li>
+<li>jak ma się system do użytkownika</li>
+</ul></li>
+<li>Containers
+<ul>
+<li>aplikacje, komponenty wysokopoziomowe</li>
+<li>z punktu widzenia logicznego / wdrożenia</li>
+<li>jednostki wdrożeniowe</li>
+</ul></li>
+<li>Components
+<ul>
+<li>komunikacja między częściami serwisu</li>
+<li>co rozmawia z bazą danych</li>
+</ul></li>
+<li>Code
+<ul>
+<li>rzadko używany</li>
+<li>kod za szybko się zmienia</li>
+</ul></li>
+</ul>
+<h3 id="adr">ADR</h3>
+<ul>
+<li>Bardziej znaczące decyzje dokumentujemy</li>
+<li>Ustalony szablon</li>
+<li>Status - wdrożona / odrzucona</li>
+<li>Kontekst</li>
+<li>Konsekwencje</li>
+</ul>
+<h3 id="jak-pilnować-architektury">Jak pilnować architektury</h3>
+<ul>
+<li>ArchUnit do Javy
+<ul>
+<li>nakłada się reguły na architekturę traktowane jako testy</li>
+<li>np. zależności między pakietami</li>
+</ul></li>
+</ul>
+<h2 id="dwa-i-pół-prawa-architektury">Dwa i pół prawa architektury</h2>
+<ul>
+<li>Wszystko w architekturze oprogramowania to kompromis</li>
+<li>*<strong>Dlaczego</strong> jest ważniejsze niż
+<strong>jak</strong></li>
+<li>Nie istnieją najlepsze praktyki</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#architektura-oprogramowania" id="toc-architektura-oprogramowania">Architektura oprogramowania</a>
+<ul>
+<li><a href="#architektura" id="toc-architektura">Architektura</a></li>
+<li><a href="#zbiór-decyzji-projektowych" id="toc-zbiór-decyzji-projektowych">Zbiór decyzji projektowych</a></li>
+<li><a href="#ogólny-widok-systemu" id="toc-ogólny-widok-systemu">Ogólny
+widok systemu</a></li>
+<li><a href="#widok-techniczny" id="toc-widok-techniczny">Widok
+techniczny</a></li>
+<li><a href="#kiedy-powstaje-architektura" id="toc-kiedy-powstaje-architektura">Kiedy powstaje
+architektura</a></li>
+<li><a href="#poziomy-definiowania-architektury" id="toc-poziomy-definiowania-architektury">Poziomy definiowania
+architektury</a>
+<ul>
+<li><a href="#architektura-organizacji-enterprise" id="toc-architektura-organizacji-enterprise">Architektura organizacji
+(enterprise)</a></li>
+<li><a href="#architektura-systemu" id="toc-architektura-systemu">Architektura systemu</a></li>
+<li><a href="#architektura-aplikacji" id="toc-architektura-aplikacji">Architektura aplikacji</a></li>
+</ul></li>
+<li><a href="#wymagania-funkcjonalne" id="toc-wymagania-funkcjonalne">Wymagania funkcjonalne</a></li>
+<li><a href="#ograniczenia-projektowe" id="toc-ograniczenia-projektowe">Ograniczenia projektowe</a></li>
+<li><a href="#wymagania-niefunkcjonalnejakościowe" id="toc-wymagania-niefunkcjonalnejakościowe">Wymagania
+niefunkcjonalne/jakościowe</a></li>
+<li><a href="#architektura-zawsze-jest-kompromisem" id="toc-architektura-zawsze-jest-kompromisem">Architektura zawsze jest
+kompromisem</a></li>
+<li><a href="#popularne-architektury" id="toc-popularne-architektury">Popularne architektury</a>
+<ul>
+<li><a href="#architektura-warstwowa" id="toc-architektura-warstwowa">Architektura warstwowa</a></li>
+<li><a href="#mikroserwisy" id="toc-mikroserwisy">Mikroserwisy</a></li>
+<li><a href="#architektura-zdarzeniowa" id="toc-architektura-zdarzeniowa">Architektura zdarzeniowa</a></li>
+</ul></li>
+<li><a href="#soa-esb---architektury-w-aplikacjach" id="toc-soa-esb---architektury-w-aplikacjach">SOA, ESB - architektury w
+aplikacjach</a>
+<ul>
+<li><a href="#modularny-monolit" id="toc-modularny-monolit">Modularny
+monolit</a></li>
+</ul></li>
+<li><a href="#jak-wybrać-architekturę" id="toc-jak-wybrać-architekturę">Jak wybrać architekturę</a>
+<ul>
+<li><a href="#techniki-odkrywania-driverów" id="toc-techniki-odkrywania-driverów">Techniki odkrywania
+driverów</a></li>
+</ul></li>
+<li><a href="#dokumentowanie-architektury" id="toc-dokumentowanie-architektury">Dokumentowanie architektury</a>
+<ul>
+<li><a href="#c4" id="toc-c4">C4</a></li>
+<li><a href="#adr" id="toc-adr">ADR</a></li>
+<li><a href="#jak-pilnować-architektury" id="toc-jak-pilnować-architektury">Jak pilnować architektury</a></li>
+</ul></li>
+<li><a href="#dwa-i-pół-prawa-architektury" id="toc-dwa-i-pół-prawa-architektury">Dwa i pół prawa
+architektury</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

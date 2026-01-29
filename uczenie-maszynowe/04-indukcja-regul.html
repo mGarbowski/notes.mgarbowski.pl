@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-indukcja-regul</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-uczenie-sie-przestrzeni-wersji.html">Poprzedni: 03-uczenie-sie-przestrzeni-wersji.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-drzewa-decyzyjne.html">Następny: 05-drzewa-decyzyjne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="indukcja-reguł">Indukcja reguł</h1>
+<h2 id="reguły">Reguły</h2>
+<ul>
+<li>Rozszerzenie kompleksów
+<ul>
+<li>zamiast ubogiej reprezentacji koniunkcyjnej bogata reprezentacja
+DNF</li>
+<li>alternatywa koniunkcji</li>
+</ul></li>
+<li>Reguła <span class="math inline">\(k \rightarrow d\)</span>
+<ul>
+<li>część warunkowa - kompleks <span
+class="math inline">\(k\)</span></li>
+<li>część decyzyjna - klasa <span class="math inline">\(d\)</span></li>
+</ul></li>
+<li>Pokrywanie
+<ul>
+<li>reguła <span class="math inline">\(k \rightarrow d\)</span> pokrywa
+przykład <span class="math inline">\(x\)</span> gdy jej część warunkowa
+pokrywa <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(k \rhd x\)</span></li>
+</ul></li>
+<li>Zbiór przykładów pokrywanych
+<ul>
+<li>dla dowolnego <span class="math inline">\(D \subseteq X\)</span> i
+kompleksu <span class="math inline">\(k\)</span> i zbioru kompleksów
+<span class="math inline">\(K\)</span></li>
+<li><span class="math inline">\(D_k = \{ x \in D | k \rhd x
+\}\)</span></li>
+<li><span class="math inline">\(D_K = \{ x \in D | (\exists k \in K) k
+\rhd x \}\)</span></li>
+</ul></li>
+</ul>
+<h2 id="zbiór-reguł">Zbiór reguł</h2>
+<ul>
+<li>Model - zbiór reguł, który może zawierać wiele reguł dla tej samej
+klasy
+<ul>
+<li>koniunkcyjne części warunkowe traktuje się jak połączone
+alternatywą</li>
+</ul></li>
+<li>Nieuporządkowany
+<ul>
+<li>każda reguła stosowana niezależnie od pozostałych</li>
+<li>wymaga rozstrzygnięcia sposób wyznaczania przewidywanej klasy dl
+aprzykładów niepokrywanych przez żadną regułę lub pokrytych przez więcej
+niż jedną regułę o różnych klasach</li>
+<li>to wiele reguł dla tej samej klasy działa jak alternatywa</li>
+</ul></li>
+<li>Uporządkowany
+<ul>
+<li>każda reguła stosowana tylko dla przykładów niepokrytych przez
+wcześniejsze reguły</li>
+<li>ostatnia reguła określa klasę domyślną</li>
+<li>brak możliwości konfliktu reguł o różnych klasach</li>
+<li>działanie jak <code>if ... else if ... else ...</code></li>
+</ul></li>
+<li>Są algorytmy, które mogą być stosowane dla obu wariantów
+<ul>
+<li>decyzję trzeba podjąć na początku</li>
+<li>proces tworzenia reguł powinien uwzględniać sposób ich użycia</li>
+</ul></li>
+<li>Wymiar <span class="math inline">\(VC\)</span> równy liczbie
+wszystkich możliwych różnych wektorów wartości atrybutów dla atrybutów
+dyskretnych
+<ul>
+<li>ryzyko nadmiernego dopasowania</li>
+</ul></li>
+</ul>
+<h2 id="schemat-sekwencyjnego-pokrywania">Schemat sekwencyjnego
+pokrywania</h2>
+<pre><code>Reguły := zbiór pusty
+Reszta := zbiór trenujący (T) // zbiór przykładów nie pokrytych do tej pory
+
+dopóki rezta != zbiór pusty
+    k := kompleks(Reszta, T)  // nie każdy algorytm używa obu
+    d := klasa(k, Reszta, T) // klasa większościowa, dla jakich przykładów?
+    Reguły := Reguły unia {k -&gt; d}
+    Reszta := Reszta - {przykłady z reszty pokryte przez k}</code></pre>
+<ul>
+<li>Wysokopoziomowy schemat algorytmu
+<ul>
+<li>różne konkretyzacje dla <code>kompleks</code> i
+<code>klasa</code></li>
+</ul></li>
+<li><code>kompleks</code> - znalezienie kompleksu pokrywającego możliwie
+wiele przykładów z Reszty z możliwie dużą dokładnością
+<ul>
+<li>jednolita lub wyraźnie dominująca klasa</li>
+</ul></li>
+<li><code>klasa</code> - wybór klasy dla przykładów pokrywanych przez
+znaleziony kompleks
+<ul>
+<li>klasa dominująca</li>
+</ul></li>
+<li>Znajdowanie kompleksu zwykle przez specjalizację
+<ul>
+<li>przeszukiwanie od maksymalnie ogólnych do maksymalnie
+szczegółowych</li>
+</ul></li>
+<li>Generuje reguły pokrywające jakąś część danych</li>
+<li>Kompleks powinien być możliwie ogólny i możliwie jednoznaczy co do
+klasy</li>
+<li>Chcemy żeby kolejne reguły pokrywały nowe przykłady</li>
+<li>Dla uporządkowanych reguł chcemy żeby klasa dominowała w
+niepokrytych wczesniej przykładach</li>
+</ul>
+<h3 id="specjalizacja-kompleksów">Specjalizacja kompleksów</h3>
+<ul>
+<li>Podobna operacja do wyznaczania przestrzeni wersji w algorytmie CAE
+<ul>
+<li>wprowadzone obciążenie - preferencja dla maksymalnie ogólnych
+kompleksów</li>
+<li>wyznaczane tylko ograniczenie ogólne (zbiór <span
+class="math inline">\(G\)</span>)</li>
+<li>poszukiwane maksymalnie ogólne kompleksy pokrywające wyłącznie lub w
+większości przykłady jednej klasy</li>
+<li>eliminowanie pokrywania przykładów innych klas przez stosowanie
+operacji specjalizacji</li>
+</ul></li>
+<li>Zwykle zbiór <span class="math inline">\(G\)</span> przycinany do
+ograniczonego podzbioru najlepszych kompleksów
+<ul>
+<li>w celu ograniczenia złożoności</li>
+</ul></li>
+<li>Najlepszy znaleziony kompleks wykorzystywany do utworzenia
+reguły</li>
+<li>Potrzebna funkcja oceny jakości</li>
+<li>Różne szczegółowe algorytmy</li>
+</ul>
+<h2 id="specjalizacja-aq-uporządkowany-zbiór-reguł">Specjalizacja AQ
+(uporządkowany zbiór reguł)</h2>
+<ul>
+<li><p><span class="math inline">\(G := \{ \langle ? \rangle
+\}\)</span></p></li>
+<li><p>wybierz <span class="math inline">\(x_s \in R\)</span>
+(ziarno)</p></li>
+<li><p><span class="math inline">\(R^{(1)} := R_{c=c(x_s)}\)</span>
+(zbiór przykładów o tej samej klasie co <span
+class="math inline">\(x_s\)</span>)</p></li>
+<li><p><span class="math inline">\(R^{(0)} := R_{c \neq c(x_s)}\)</span>
+(zbiór przykładów o innej klasie niż <span
+class="math inline">\(x_s\)</span>)</p></li>
+<li><p>dopóki <span class="math inline">\(R^{(0)}_G \neq
+\varnothing\)</span> (chcemy wykluczyć ich pokrywanie)</p>
+<ul>
+<li>wybierz <span class="math inline">\(x_n \in R^{(0)}_G\)</span>
+(ziarno negatywne)</li>
+<li>dla wszystkich <span class="math inline">\(k\)</span> z <span
+class="math inline">\(G\)</span>, które pokrywają <span
+class="math inline">\(x_n\)</span>
+<ul>
+<li><span class="math inline">\(G := G - \{k\} \cup specjalizacja(k,
+x_n, x_s)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(G := G - \{k \in G| (\exists k&#39; \in
+G) k\ \succ k \}\)</span> (tylko maksymalnie ogólne)</li>
+<li><span class="math inline">\(G :=\)</span> <span
+class="math inline">\(m\)</span> najlepszych kompleksów z <span
+class="math inline">\(G\)</span> według miary jakości <span
+class="math inline">\(v_{R^{(0)}, R^{(1)}}(k)\)</span></li>
+</ul></li>
+<li><p>zwróc najlepszy kompleks z <span class="math inline">\(G\)</span>
+według miary jakości <span class="math inline">\(v\)</span></p></li>
+<li><p>Ocena jakości kompleksów <span
+class="math inline">\(v\)</span></p>
+<ul>
+<li>dobre są te kompleksy, które pokrywają dużo przykładów z klasy,
+którą chcemy pokrywać i niepokrywają tych, których nie chcemy</li>
+<li>np. suma liczby przykładów pokrytych z <span
+class="math inline">\(R^{(1)}\)</span> i niepokrytych z <span
+class="math inline">\(R^{(0)}\)</span></li>
+</ul></li>
+<li><p>Specjalizacja - zbiór maksymalnie ogólnych kompleksów <span
+class="math inline">\(k&#39;\)</span> takich że</p>
+<ul>
+<li><span class="math inline">\(k&#39; \prec k\)</span> - mniej
+ogólne</li>
+<li><span class="math inline">\(\neg(k&#39; \rhd x_n)\)</span></li>
+<li><span class="math inline">\(k&#39; \rhd x_s\)</span> (zamiast
+warunku z <span class="math inline">\(S\)</span> jak w CAE)</li>
+</ul></li>
+<li><p>Uporządkowanie zbioru reguł</p>
+<ul>
+<li>eliminacja pokrywania przykładów klas innych niż <span
+class="math inline">\(c(x_s)\)</span></li>
+<li>wyłącznie w zbiorze <span class="math inline">\(R\)</span> -
+przykłady niepokryte przez wcześniejsze reguły</li>
+</ul></li>
+<li><p>Dla uporządkowanego zbioru danych algorytm musi zadbać o to, żeby
+reguła poprawnie klasyfikowała przykład pokrywany przez nią, a
+niepokrywany przez wcześniejsze reguły</p></li>
+<li><p>Decyzja o uporządkowaniu - czy reguła ma być dokładna na
+wszystkich przykładach, czy na tych niepokrytych przez wcześniejsze
+reguły</p>
+<ul>
+<li>dla algorytmu z nieuporządkowanym zbiorem używalibyśmy <span
+class="math inline">\(T\)</span> - zbioru uczącego zamiast <span
+class="math inline">\(R\)</span></li>
+</ul></li>
+</ul>
+<h3 id="alternatywny-zapis">Alternatywny zapis</h3>
+<ul>
+<li>dopóki <span class="math inline">\(R^{(0)}_G \neq
+\varnothing\)</span>
+<ul>
+<li>wybierz <span class="math inline">\(x_n \in R^{(0)}_G\)</span></li>
+<li><span class="math inline">\(G&#39; := dyskryminacja(x_n,
+x_s)\)</span></li>
+<li><span class="math inline">\(G := G \wedge G&#39;\)</span></li>
+</ul></li>
+<li>Dyksryminacja - zbiór maksymalnie ogólnych kompleksów <span
+class="math inline">\(k&#39;\)</span> takich, że
+<ul>
+<li><span class="math inline">\(\neg(k&#39; \rhd x_n)\)</span></li>
+<li><span class="math inline">\(k&#39; \rhd x_s\)</span></li>
+<li>jak specjalizowanie kompleksu ogólnego żeby pokrywał <span
+class="math inline">\(x_s\)</span>, a nie <span
+class="math inline">\(x_n\)</span></li>
+</ul></li>
+<li>Koniunkcja zbiorów kompleksów
+<ul>
+<li><span class="math inline">\(G \wedge G&#39; = \{ k \wedge k&#39; | k
+\in G, k&#39; \in G&#39; \}\)</span></li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>outlook</th>
+<th>temperature</th>
+<th>humidity</th>
+<th>wind</th>
+<th>play</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>normal</td>
+<td>no</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>high</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>overcast</td>
+<td>hot</td>
+<td>high</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>rainy</td>
+<td>cold</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>rainy</td>
+<td>cold</td>
+<td>normal</td>
+<td>high</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>overcast</td>
+<td>cold</td>
+<td>normal</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>sunny</td>
+<td>mild</td>
+<td>high</td>
+<td>normal</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>sunny</td>
+<td>cold</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>rainy</td>
+<td>mild</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>sunny</td>
+<td>mild</td>
+<td>normal</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>overcast</td>
+<td>mild</td>
+<td>high</td>
+<td>high</td>
+<td>yes</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>overcast</td>
+<td>hot</td>
+<td>normal</td>
+<td>normal</td>
+<td>yes</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>high</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><span class="math inline">\(x_s = x_1\)</span> (shhn|n)</p></li>
+<li><p><code>G = {&lt;?&gt;}</code></p></li>
+<li><p>R = T</p></li>
+<li><p>R1 - przykłady klasy no</p></li>
+<li><p>R0 - przykłady klasy yes</p></li>
+<li><p><span class="math inline">\(x_n = x_3\)</span> (ohhn|y) -
+przykład klasy yes</p></li>
+<li><p>jedyny kompleks w G pokrywa <span
+class="math inline">\(x_n\)</span> a ma nie pokrywać -
+specjalizacja</p></li>
+<li><p><code>G = {&lt;s|r, ?, ?, ?&gt;}</code></p></li>
+<li><p>można zmienić warunek tylko dla pierwszego atrybutu bo reszta
+jest jednakowa</p></li>
+<li><p>tyle wyników specjalizaji ile różniących się atrybutów</p></li>
+<li><p><span class="math inline">\(R^0_G = \{4, 5, 9, 10,
+11\}\)</span></p></li>
+<li><p><span class="math inline">\(x_n = x_4\)</span> (rmhn|y)</p></li>
+<li><p><code>G = {&lt;s, ?, ?, ?&gt;, &lt;s|r, h|c, ?, ?&gt;}</code></p></li>
+<li><p><span class="math inline">\(R^0_G = \{5, 9, 10,
+11\}\)</span></p></li>
+<li><p><span class="math inline">\(x_n = x_5\)</span> (rcnn|y)</p></li>
+<li><p>pokrywany przez drugi kompleks z <span
+class="math inline">\(G\)</span>, specjalizacja</p></li>
+<li><p>pierwszego kompleksu nie ruszamy bo nie pokrywa <span
+class="math inline">\(x_n\)</span></p></li>
+</ul>
+<pre><code>G = {
+&lt;s, ?, ?, ?&gt;, 
+&lt;s, h|c, ?, ?&gt;, - bardziej szczegółowy niż pierszy, usunięty w kroku czyszczącym
+&lt;s|r, h, ?, ?&gt;, 
+&lt;s|r, h|c, h, ?&gt;,
+}</code></pre>
+<ul>
+<li>Trzeba ustalić wartość <span class="math inline">\(m\)</span> - do
+ilu kompleksów ograniczamy <span class="math inline">\(G\)</span>
+<ul>
+<li>i kryterium jakości ### Przykład</li>
+</ul></li>
+<li>Dyskryminacja przy alternatywnym zapisie</li>
+<li><span class="math inline">\(dyskryminacja(x_s=x_1, x_n=x_5)\)</span>
+<ul>
+<li><span class="math inline">\(x_1\)</span> (shhn|n)</li>
+<li><span class="math inline">\(x_5\)</span> (rcnn|y)</li>
+</ul></li>
+<li>Na początku
+<code>G = {&lt;s, ?, ?, ?&gt;, &lt;s|r, h|c, ?, ?&gt;}</code></li>
+<li>Wyznaczamy
+<code>G' = {&lt;s|o, ?, ?, ?&gt;, &lt;?, h|m, ?, ?&gt;, &lt;?, ?, h, ?&gt;}</code></li>
+</ul>
+<pre><code>G&#39; &amp; G = {
+&lt;s, ?, ?, ?&gt; 1 z 1
+&lt;s, h|c, ?, ?&gt; 1 z 2 bardziej szczegółowy niż 1
+&lt;s, h|m, ?, ?&gt; 2 z 1 bardziej szczegółowy niż 1
+&lt;s|r, h, ?, ?&gt; 2 z 2
+&lt;s, ?, h, ?&gt; 3 z 1 bardziej szczegółowy niż 1
+&lt;s|r, h|c, h, ?&gt; 3 z 2 
+}</code></pre>
+<p>Po kroku czyszczącym wychodzi to samo co w poprzednim przykładzie</p>
+<h2 id="specjalizacja-cn2">Specjalizacja CN2</h2>
+<ul>
+<li>Clark-Niblett</li>
+<li>Nie używa konkretnych przykładów jako ziaren</li>
+<li>Każdy kompleks specjalizowany na wszystkie możliwe sposoby
+modyfikujące jeden selektor
+<ul>
+<li>jako nowe zbiory wartości dozwolonych brane pod uwagę wszystkie
+podzbiory obecnego zbioru wartości dozwolonych selektora</li>
+</ul></li>
+<li>Kompleksy nie muszą być dokładne</li>
+<li>Ocena jakości na podstawie rozkładu klas w zbiorze <span
+class="math inline">\(R_k\)</span>
+<ul>
+<li>premiowana dominacja jednej klasy</li>
+</ul></li>
+<li>Przechowywany i aktualizowany najlepszy dotychczas statystycznie
+istotny kompleks
+<ul>
+<li>testy statystycznej istotności między pokryciem / niepokryciem przez
+kompleks a klasą przykładu</li>
+<li>np. test <span class="math inline">\(\chi^2\)</span>, test <span
+class="math inline">\(G\)</span></li>
+<li>statystyczna istotność wymaga wyraźne różnego rozkładu klas wśród
+przykładów pokrywanych i niepokrywanych oraz wystarczająco dużej liczby
+przykładów pokrywanych</li>
+</ul></li>
+<li>Do dalszej specjalizacji przechodzi <span
+class="math inline">\(m\)</span> najlepszych kompleksów</li>
+<li>Specjalizacja do oporu
+<ul>
+<li>tak długo jak da się specjalizować - po drodze jest filtrowanie</li>
+</ul></li>
+<li>Zwraca się wynik najlepszej jakości</li>
+</ul>
+<h3 id="przykład-1">Przykład</h3>
+<ul>
+<li>Specjalizacja kompleksu <code>&lt;ma|sr, ?, ko|kw&gt;</code> (figury
+geometryczne)</li>
+<li><code>&lt;sr, ?, ko|kw&gt;</code></li>
+<li><code>&lt;ma, ?, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, cze|nie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, nie|zie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, cze|zie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, cze, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, nie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, zie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, ?, ko&gt;</code></li>
+<li><code>&lt;ma|sr, ?, kw&gt;</code></li>
+</ul>
+<h2 id="specjalizacja-foil">Specjalizacja FOIL</h2>
+<ul>
+<li>First Order Inductive Logic</li>
+<li>Najbardziej praktyczny z omawianych do tej pory
+<ul>
+<li>raczej historyczne podejście do algorytmów</li>
+<li>bardziej rozbudowane algorytmy oparte na tym pomyśle - IREP,
+RIPPER</li>
+</ul></li>
+<li>Algorytm do indukcji reguł w rachunku predykatów, ale tutaj
+dostosowany do zwykłych (zdaniowych) reguł
+<ul>
+<li>przycięty algorytm jest użyteczny do prostszego zadania</li>
+</ul></li>
+<li>Specjalizacja bez użycia wybranych pojedynczych przykładów
+(ziaren)</li>
+<li>Każdy kompleks specjalizowany na wszystkie możliwe sposoby
+modyfikujące dokładnie jeden selektor uniwersalny
+<ul>
+<li>jako nowe zbiory wartości dozwolonych brane pod uwagę wszystkie
+podzbiory zbioru wartości odpowiedniego atrybutu</li>
+</ul></li>
+<li>Ocena jakości na podstawie rozkładu klas w zbiorze <span
+class="math inline">\(R_k\)</span>
+<ul>
+<li>premiowana dominacja jednej klasy</li>
+<li>z uwzględnieniem pokrycia - premiowane pokrywanie wielu
+przykładów</li>
+</ul></li>
+<li>W każdje iteracji pozostawiany jeden najlepszy kompleks</li>
+<li>Koniec specjalizacji gdy nie poprawia się jakość</li>
+<li>Nie ma testów istotności jak w CN2</li>
+</ul>
+<h3 id="przykład-2">Przykład</h3>
+<ul>
+<li>Specjalizacja kompleksu <code>&lt;ma|sr, ?, ko|kw&gt;</code>
+<ul>
+<li>bierzemy pod uwagę tylko drugi selektor - <code>?</code></li>
+</ul></li>
+<li><code>&lt;ma|sr, cze|nie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, nie|zie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, cze|zie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, cze, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, nie, ko|kw&gt;</code></li>
+<li><code>&lt;ma|sr, zie, ko|kw&gt;</code></li>
+</ul>
+<h2 id="ocena-jakości-kompleksów">Ocena jakości kompleksów</h2>
+<ul>
+<li>Poniżej tylko przykłady
+<ul>
+<li>zagadnienie jest rozbudowane, jest wiele możliwości</li>
+</ul></li>
+<li>Uproszczona notacja, charakterystyczna tylko dla algorytmu AQ</li>
+<li>Dla nieuporządkowanego zbioru reguł - ocena jakości na <span
+class="math inline">\(T_k\)</span>
+<ul>
+<li>ta postać ma sens dla uporządkowanego zbioru reguł</li>
+</ul></li>
+</ul>
+<h3 id="pokrycie">Pokrycie</h3>
+<p><span class="math display">\[ v_{R^{(1)}, R^{(0)}}(k) = |R^1_k| +
+|R^0 - R^0_k| \]</span></p>
+<ul>
+<li>Na podstawie liczby pokrywanych/niepokrywanych przykładów
+właściwej/niewłaściwej klasy</li>
+<li>Liczba poprawnie pokrytych i poprawnie niepokrytych</li>
+</ul>
+<h3 id="dokładność">Dokładność</h3>
+<p><span class="math display">\[ v_{R^{(1)}, R^{(0)}}(k) = \frac{|R^1_k|
++ 1}{|R^1_k \cup R^0_k| + |C|} \]</span></p>
+<ul>
+<li>Na podstawie ilorazu liczby pokrywanych przykładów właściwej i
+liczby wszystkich pokrywanych przykładów</li>
+<li>Kompensowana niemiarodajność kompleksu pokrywającego małą liczbę
+przykładów</li>
+<li><span class="math inline">\(+1\)</span> - załóżmy że jest jeszcze
+jeden przykład</li>
+<li><span class="math inline">\(+|C|\)</span> - tyle ile jest klas</li>
+<li>Dodajemy fikcyjne przykłady, takie w których wszystkie klasy są
+jednakowo prawdopodobne</li>
+<li>Wygładzanie prawdopodobieństwa</li>
+<li>Większa różnica jak jest mało przykładów, mniejsza jeśli jest
+wiele</li>
+</ul>
+<h3 id="dominacja-klasy-z-uwzględnieniem-pokrycia">Dominacja klasy z
+uwzględnieniem pokrycia</h3>
+<p><span class="math display">\[ v_{R^{(1)}, R^{(0)}}(k) = |R^1_k| \log
+\frac{|R^1_k|}{|R^1_k \cup R^0_k|} \]</span></p>
+<ul>
+<li>Z algorytmu FOIL</li>
+</ul>
+<h2 id="przycinanie-zbiorów-reguł">Przycinanie zbiorów reguł</h2>
+<ul>
+<li>Motywacja
+<ul>
+<li>zbiór reguł dokładnie dopasowany do zbioru trenującego może być
+nadmiernie dopasowany</li>
+<li>trudno określić odpowiednie kryterium stopu specjalizacji</li>
+</ul></li>
+<li>Operatory
+<ul>
+<li>generalizacja reguły - zamiana wybranego selektora na uniwersalny
+(<span class="math inline">\(?\)</span>)</li>
+<li>eliminacja reguły - usunięcie wybranej reguły ze zbioru reguł</li>
+</ul></li>
+<li>Kryteria
+<ul>
+<li>ocena wpływu zostosowania operatora przycinania na błąd rzeczywisty
+zbioru reguł</li>
+<li>np. estymowany na oddzielnym zbiorze przykładów</li>
+<li>patrzymy czy klasyfikacja się poprawi jeśli usunie się jakąś
+regułę</li>
+</ul></li>
+<li>W algorytmach IREP, RIPPER</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#indukcja-reguł" id="toc-indukcja-reguł">Indukcja reguł</a>
+<ul>
+<li><a href="#reguły" id="toc-reguły">Reguły</a></li>
+<li><a href="#zbiór-reguł" id="toc-zbiór-reguł">Zbiór reguł</a></li>
+<li><a href="#schemat-sekwencyjnego-pokrywania" id="toc-schemat-sekwencyjnego-pokrywania">Schemat sekwencyjnego
+pokrywania</a>
+<ul>
+<li><a href="#specjalizacja-kompleksów" id="toc-specjalizacja-kompleksów">Specjalizacja kompleksów</a></li>
+</ul></li>
+<li><a href="#specjalizacja-aq-uporządkowany-zbiór-reguł" id="toc-specjalizacja-aq-uporządkowany-zbiór-reguł">Specjalizacja AQ
+(uporządkowany zbiór reguł)</a>
+<ul>
+<li><a href="#alternatywny-zapis" id="toc-alternatywny-zapis">Alternatywny zapis</a></li>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+</ul></li>
+<li><a href="#specjalizacja-cn2" id="toc-specjalizacja-cn2">Specjalizacja CN2</a>
+<ul>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład</a></li>
+</ul></li>
+<li><a href="#specjalizacja-foil" id="toc-specjalizacja-foil">Specjalizacja FOIL</a>
+<ul>
+<li><a href="#przykład-2" id="toc-przykład-2">Przykład</a></li>
+</ul></li>
+<li><a href="#ocena-jakości-kompleksów" id="toc-ocena-jakości-kompleksów">Ocena jakości kompleksów</a>
+<ul>
+<li><a href="#pokrycie" id="toc-pokrycie">Pokrycie</a></li>
+<li><a href="#dokładność" id="toc-dokładność">Dokładność</a></li>
+<li><a href="#dominacja-klasy-z-uwzględnieniem-pokrycia" id="toc-dominacja-klasy-z-uwzględnieniem-pokrycia">Dominacja klasy z
+uwzględnieniem pokrycia</a></li>
+</ul></li>
+<li><a href="#przycinanie-zbiorów-reguł" id="toc-przycinanie-zbiorów-reguł">Przycinanie zbiorów reguł</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

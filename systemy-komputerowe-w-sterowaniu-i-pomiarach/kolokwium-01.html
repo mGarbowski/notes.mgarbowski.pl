@@ -64,7 +64,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="kolokwium-1">Kolokwium 1</h1>
 <h2
 id="różnice-między-systemami-wbudowanymi-a-zwykłymi-systemami-komputerowymi">Różnice
@@ -954,97 +953,100 @@ niszczy zupełnie</li>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#kolokwium-1">Kolokwium 1</a>
+<li><a href="#kolokwium-1" id="toc-kolokwium-1">Kolokwium 1</a>
 <ul>
-<li><a href="#różnice-między-systemami-wbudowanymi-a-zwykłymi-systemami-komputerowymi">Różnice
+<li><a href="#różnice-między-systemami-wbudowanymi-a-zwykłymi-systemami-komputerowymi" id="toc-różnice-między-systemami-wbudowanymi-a-zwykłymi-systemami-komputerowymi">Różnice
 między systemami wbudowanymi, a zwykłymi systemami
 komputerowymi</a></li>
-<li><a href="#różne-podejścia-do-tworzenia-oprogramowania-dla-systemów-wbudowanych">Różne
+<li><a href="#różne-podejścia-do-tworzenia-oprogramowania-dla-systemów-wbudowanych" id="toc-różne-podejścia-do-tworzenia-oprogramowania-dla-systemów-wbudowanych">Różne
 podejścia do tworzenia oprogramowania dla systemów wbudowanych</a>
 <ul>
-<li><a href="#bez-os-bare-metal">Bez OS (bare metal)</a></li>
-<li><a href="#z-systemem-operacyjnym">Z systemem operacyjnym</a></li>
+<li><a href="#bez-os-bare-metal" id="toc-bez-os-bare-metal">Bez OS (bare
+metal)</a></li>
+<li><a href="#z-systemem-operacyjnym" id="toc-z-systemem-operacyjnym">Z
+systemem operacyjnym</a></li>
 </ul></li>
-<li><a href="#przykłady-platform-sprzętowych-nadających-się-do-realizacji-systemów-wbudowanych-pracujących-pod-kontrolą-systemu-linux">Przykłady
+<li><a href="#przykłady-platform-sprzętowych-nadających-się-do-realizacji-systemów-wbudowanych-pracujących-pod-kontrolą-systemu-linux" id="toc-przykłady-platform-sprzętowych-nadających-się-do-realizacji-systemów-wbudowanych-pracujących-pod-kontrolą-systemu-linux">Przykłady
 platform sprzętowych nadających się do realizacji systemów wbudowanych,
 pracujących pod kontrolą systemu Linux</a></li>
-<li><a href="#powody-dla-których-w-przemysłowych-systemach-wbudowanych-chętnie-stosujemy-specjalizowane-wersje-systemu-linux-a-nie-zwykłe-dystrybucje">Powody,
+<li><a href="#powody-dla-których-w-przemysłowych-systemach-wbudowanych-chętnie-stosujemy-specjalizowane-wersje-systemu-linux-a-nie-zwykłe-dystrybucje" id="toc-powody-dla-których-w-przemysłowych-systemach-wbudowanych-chętnie-stosujemy-specjalizowane-wersje-systemu-linux-a-nie-zwykłe-dystrybucje">Powody,
 dla których w przemysłowych systemach wbudowanych chętnie stosujemy
 specjalizowane wersje systemu Linux (a nie zwykłe dystrybucje)</a></li>
-<li><a href="#środowiska-pozwalające-na-stworzenie-obrazu-systemu-linux-dedykowanego-dla-systemu-wbudowanego">Środowiska
+<li><a href="#środowiska-pozwalające-na-stworzenie-obrazu-systemu-linux-dedykowanego-dla-systemu-wbudowanego" id="toc-środowiska-pozwalające-na-stworzenie-obrazu-systemu-linux-dedykowanego-dla-systemu-wbudowanego">Środowiska
 pozwalające na stworzenie obrazu systemu Linux dedykowanego dla systemu
 wbudowanego</a></li>
-<li><a href="#środowisko-buildroot---podstawy-użytkowania-wybór-konfiguracji-składników-systemu-wybór-konfiguracji-jądra">Środowisko
+<li><a href="#środowisko-buildroot---podstawy-użytkowania-wybór-konfiguracji-składników-systemu-wybór-konfiguracji-jądra" id="toc-środowisko-buildroot---podstawy-użytkowania-wybór-konfiguracji-składników-systemu-wybór-konfiguracji-jądra">Środowisko
 Buildroot - podstawy użytkowania, wybór konfiguracji, składników
 systemu, wybór konfiguracji jądra</a></li>
-<li><a href="#możliwe-sposoby-rekompilacji-linuxa-w-systemie-buildroot-ich-wady-i-zalety-wybór-właściwego-sposobu-rekompilacji-w-różnych-warunkach">Możliwe
+<li><a href="#możliwe-sposoby-rekompilacji-linuxa-w-systemie-buildroot-ich-wady-i-zalety-wybór-właściwego-sposobu-rekompilacji-w-różnych-warunkach" id="toc-możliwe-sposoby-rekompilacji-linuxa-w-systemie-buildroot-ich-wady-i-zalety-wybór-właściwego-sposobu-rekompilacji-w-różnych-warunkach">Możliwe
 sposoby rekompilacji Linuxa w systemie Buildroot, ich wady i zalety,
 wybór właściwego sposobu rekompilacji w różnych warunkach</a></li>
-<li><a href="#emulator-qemu---właściwości-i-możliwości-wykorzystania-do-uruchamiania-i-testowania-linuxa-dla-systemów-wbudowanych">Emulator
+<li><a href="#emulator-qemu---właściwości-i-możliwości-wykorzystania-do-uruchamiania-i-testowania-linuxa-dla-systemów-wbudowanych" id="toc-emulator-qemu---właściwości-i-możliwości-wykorzystania-do-uruchamiania-i-testowania-linuxa-dla-systemów-wbudowanych">Emulator
 QEMU - właściwości i możliwości wykorzystania do uruchamiania i
 testowania Linuxa dla systemów wbudowanych</a></li>
-<li><a href="#wybór-systemu-plików-dla-linuxa-używanego-w-systemie-wbudowanym.-różnice-między-pracą-z-rzeczywistym-systemem-plików-a-ramdyskiem-startowym-initramfs">Wybór
+<li><a href="#wybór-systemu-plików-dla-linuxa-używanego-w-systemie-wbudowanym.-różnice-między-pracą-z-rzeczywistym-systemem-plików-a-ramdyskiem-startowym-initramfs" id="toc-wybór-systemu-plików-dla-linuxa-używanego-w-systemie-wbudowanym.-różnice-między-pracą-z-rzeczywistym-systemem-plików-a-ramdyskiem-startowym-initramfs">Wybór
 systemu plików dla Linuxa używanego w systemie wbudowanym. Różnice
 między pracą z rzeczywistym systemem plików, a “ramdyskiem startowym”
 (initramfs)</a></li>
-<li><a href="#zagrożenia-związane-z-wgraniem-błędnego-np.-błędnie-skonfigurowanego-lub-błędnie-zbudowanego-systemu-operacyjnego-do-systemu-wbudowanego.-sposoby-zapobiegania-ryzyku-nieodwracalnego-lub-trudno-odwracalnego-zablokowania-systemu.-sposoby-realizacji-i-uruchamiania-systemów-ratunkowych">Zagrożenia
+<li><a href="#zagrożenia-związane-z-wgraniem-błędnego-np.-błędnie-skonfigurowanego-lub-błędnie-zbudowanego-systemu-operacyjnego-do-systemu-wbudowanego.-sposoby-zapobiegania-ryzyku-nieodwracalnego-lub-trudno-odwracalnego-zablokowania-systemu.-sposoby-realizacji-i-uruchamiania-systemów-ratunkowych" id="toc-zagrożenia-związane-z-wgraniem-błędnego-np.-błędnie-skonfigurowanego-lub-błędnie-zbudowanego-systemu-operacyjnego-do-systemu-wbudowanego.-sposoby-zapobiegania-ryzyku-nieodwracalnego-lub-trudno-odwracalnego-zablokowania-systemu.-sposoby-realizacji-i-uruchamiania-systemów-ratunkowych">Zagrożenia
 związane z wgraniem błędnego (np. błędnie skonfigurowanego lub błędnie
 zbudowanego) systemu operacyjnego do systemu wbudowanego. Sposoby
 zapobiegania ryzyku nieodwracalnego, lub trudno odwracalnego
 zablokowania systemu. Sposoby realizacji i uruchamiania “systemów
 ratunkowych”</a></li>
-<li><a href="#typowe-interfejsy-do-podłączania-urządzeń-peryferyjnych-do-systemów-wbudowanych.-możliwości-ich-obsługi-z-przestrzeni-użytkownika-czyli-bez-tworzenia-dedykowanych-sterowników-działających-w-przestrzeni-jądra">Typowe
+<li><a href="#typowe-interfejsy-do-podłączania-urządzeń-peryferyjnych-do-systemów-wbudowanych.-możliwości-ich-obsługi-z-przestrzeni-użytkownika-czyli-bez-tworzenia-dedykowanych-sterowników-działających-w-przestrzeni-jądra" id="toc-typowe-interfejsy-do-podłączania-urządzeń-peryferyjnych-do-systemów-wbudowanych.-możliwości-ich-obsługi-z-przestrzeni-użytkownika-czyli-bez-tworzenia-dedykowanych-sterowników-działających-w-przestrzeni-jądra">Typowe
 interfejsy do podłączania urządzeń peryferyjnych do systemów
 wbudowanych. Możliwości ich obsługi “z przestrzeni użytkownika” (czyli
 bez tworzenia dedykowanych sterowników działających w przestrzeni
 jądra)</a>
 <ul>
-<li><a href="#gpio">GPIO</a></li>
+<li><a href="#gpio" id="toc-gpio">GPIO</a></li>
 </ul></li>
-<li><a href="#możliwości-obsługi-interfejsu-gpio---dedykowane-dla-rpi-i-przenośne-między-różnymi-systemami-wbudowanymi.-cechy-starego-systemu-opartego-na-sysfs-i-nowego-wykorzystującego-libgpiod">Możliwości
+<li><a href="#możliwości-obsługi-interfejsu-gpio---dedykowane-dla-rpi-i-przenośne-między-różnymi-systemami-wbudowanymi.-cechy-starego-systemu-opartego-na-sysfs-i-nowego-wykorzystującego-libgpiod" id="toc-możliwości-obsługi-interfejsu-gpio---dedykowane-dla-rpi-i-przenośne-między-różnymi-systemami-wbudowanymi.-cechy-starego-systemu-opartego-na-sysfs-i-nowego-wykorzystującego-libgpiod">Możliwości
 obsługi interfejsu GPIO - dedykowane dla RPi i przenośne między różnymi
 systemami wbudowanymi. Cechy “starego” systemu opartego na sysfs i
 “nowego”, wykorzystującego libgpiod</a>
 <ul>
-<li><a href="#obsługa-przez-sysf">Obsługa przez sysf</a></li>
-<li><a href="#obsługa-przez-libgpiod">Obsługa przez libgpiod</a></li>
+<li><a href="#obsługa-przez-sysf" id="toc-obsługa-przez-sysf">Obsługa
+przez sysf</a></li>
+<li><a href="#obsługa-przez-libgpiod" id="toc-obsługa-przez-libgpiod">Obsługa przez libgpiod</a></li>
 </ul></li>
-<li><a href="#środowisko-openwrt---cechy-szczególne-różnice-w-stosunku-do-buildroota">Środowisko
+<li><a href="#środowisko-openwrt---cechy-szczególne-różnice-w-stosunku-do-buildroota" id="toc-środowisko-openwrt---cechy-szczególne-różnice-w-stosunku-do-buildroota">Środowisko
 OpenWRT - cechy szczególne, różnice w stosunku do Buildroota</a></li>
-<li><a href="#obsługa-instalowalnych-pakietów-w-openwrt---podstawowe-operacje">Obsługa
+<li><a href="#obsługa-instalowalnych-pakietów-w-openwrt---podstawowe-operacje" id="toc-obsługa-instalowalnych-pakietów-w-openwrt---podstawowe-operacje">Obsługa
 instalowalnych pakietów w OpenWRT - podstawowe operacje</a></li>
-<li><a href="#różnice-między-pakietami-w-buildroocie-i-w-openwrt">Różnice
+<li><a href="#różnice-między-pakietami-w-buildroocie-i-w-openwrt" id="toc-różnice-między-pakietami-w-buildroocie-i-w-openwrt">Różnice
 między pakietami w Buildroocie i w OpenWRT</a></li>
-<li><a href="#sposoby-modyfikacji-konfiguracji-openwrt">Sposoby
-modyfikacji konfiguracji OpenWRT</a></li>
-<li><a href="#różnice-między-dostępnymi-trybami-rekompilacji-w-buildroocie-i-w-openwrt">Różnice
+<li><a href="#sposoby-modyfikacji-konfiguracji-openwrt" id="toc-sposoby-modyfikacji-konfiguracji-openwrt">Sposoby modyfikacji
+konfiguracji OpenWRT</a></li>
+<li><a href="#różnice-między-dostępnymi-trybami-rekompilacji-w-buildroocie-i-w-openwrt" id="toc-różnice-między-dostępnymi-trybami-rekompilacji-w-buildroocie-i-w-openwrt">Różnice
 między dostępnymi trybami rekompilacji w Buildroocie i w
 OpenWRT</a></li>
-<li><a href="#praca-z-sdk-w-środowisku-openwrt">Praca z SDK w środowisku
+<li><a href="#praca-z-sdk-w-środowisku-openwrt" id="toc-praca-z-sdk-w-środowisku-openwrt">Praca z SDK w środowisku
 OpenWRT</a></li>
-<li><a href="#czy-w-typowym-systemie-wbudowanym-pracującym-pod-kontrolą-systemu-linux-możemy-użyć-partycji-lub-pliku-wymiany-aby-wirtualnie-zwiększyć-pojemność-pamięci-ram-proszę-uzasadnić-odpowiedź.-ewentualnie-proszę-uwzględnić-możliwe-warianty">Czy
+<li><a href="#czy-w-typowym-systemie-wbudowanym-pracującym-pod-kontrolą-systemu-linux-możemy-użyć-partycji-lub-pliku-wymiany-aby-wirtualnie-zwiększyć-pojemność-pamięci-ram-proszę-uzasadnić-odpowiedź.-ewentualnie-proszę-uwzględnić-możliwe-warianty" id="toc-czy-w-typowym-systemie-wbudowanym-pracującym-pod-kontrolą-systemu-linux-możemy-użyć-partycji-lub-pliku-wymiany-aby-wirtualnie-zwiększyć-pojemność-pamięci-ram-proszę-uzasadnić-odpowiedź.-ewentualnie-proszę-uwzględnić-możliwe-warianty">Czy
 w typowym systemie wbudowanym pracującym pod kontrolą systemu Linux
 możemy użyć partycji lub pliku wymiany aby wirtualnie zwiększyć
 pojemność pamięci RAM? Proszę uzasadnić odpowiedź. Ewentualnie proszę
 uwzględnić możliwe warianty</a></li>
-<li><a href="#jakie-jest-zastosowanie-systemu-ratunkowego-w-systemie-wbudowanym-działającym-pod-kontrolą-systemu-linux-jak-możemy-taki-system-zaimplementować-proszę-opisać-przykładową-implementację-na-wybranej-przez-siebie-platformie-sprzętowej">Jakie
+<li><a href="#jakie-jest-zastosowanie-systemu-ratunkowego-w-systemie-wbudowanym-działającym-pod-kontrolą-systemu-linux-jak-możemy-taki-system-zaimplementować-proszę-opisać-przykładową-implementację-na-wybranej-przez-siebie-platformie-sprzętowej" id="toc-jakie-jest-zastosowanie-systemu-ratunkowego-w-systemie-wbudowanym-działającym-pod-kontrolą-systemu-linux-jak-możemy-taki-system-zaimplementować-proszę-opisać-przykładową-implementację-na-wybranej-przez-siebie-platformie-sprzętowej">Jakie
 jest zastosowanie “systemu ratunkowego” w systemie wbudowanym
 działającym pod kontrolą systemu Linux? Jak możemy taki system
 zaimplementować? Proszę opisać przykładową implementację na wybranej
 przez siebie platformie sprzętowej</a></li>
-<li><a href="#czy-możemy-stworzyć-instalowalny-pakiet-z-naszą-aplikacją-dla-openwrt-bez-pobierania-i-rekompilacji-pełnych-źródeł-openwrt-jeśli-tak-to-jak-możemy-to-zrobić-proszę-opisać-podstawowe-etapy-przygotowania-środowiska-pracy-i-budowania-takiego-pakietu">Czy
+<li><a href="#czy-możemy-stworzyć-instalowalny-pakiet-z-naszą-aplikacją-dla-openwrt-bez-pobierania-i-rekompilacji-pełnych-źródeł-openwrt-jeśli-tak-to-jak-możemy-to-zrobić-proszę-opisać-podstawowe-etapy-przygotowania-środowiska-pracy-i-budowania-takiego-pakietu" id="toc-czy-możemy-stworzyć-instalowalny-pakiet-z-naszą-aplikacją-dla-openwrt-bez-pobierania-i-rekompilacji-pełnych-źródeł-openwrt-jeśli-tak-to-jak-możemy-to-zrobić-proszę-opisać-podstawowe-etapy-przygotowania-środowiska-pracy-i-budowania-takiego-pakietu">Czy
 możemy stworzyć instalowalny pakiet z naszą aplikacją dla OpenWRT bez
 pobierania i rekompilacji pełnych źródeł OpenWRT? Jeśli tak, to jak
 możemy to zrobić? Proszę opisać podstawowe etapy przygotowania
 środowiska pracy i budowania takiego pakietu</a></li>
-<li><a href="#opracowujemy-w-buildroocie-oprogramowanie-dla-systemu-wbudowanego-korzystającego-z-nieulotnej-pamięci-masowej-dla-której-nie-jest-dostępny-jeszcze-sterownik-dla-systemu-linux.-system-jest-wyposażony-w-firmowy-bootloader-o-zamkniętym-kodzie-źródłowym-będący-w-stanie-załadować-i-uruchomić-jądro-linuxa.-proszę-opisać-uzasadniając-jak-powinniśmy-skonfigurować-br-w-takim-przypadku">Opracowujemy
+<li><a href="#opracowujemy-w-buildroocie-oprogramowanie-dla-systemu-wbudowanego-korzystającego-z-nieulotnej-pamięci-masowej-dla-której-nie-jest-dostępny-jeszcze-sterownik-dla-systemu-linux.-system-jest-wyposażony-w-firmowy-bootloader-o-zamkniętym-kodzie-źródłowym-będący-w-stanie-załadować-i-uruchomić-jądro-linuxa.-proszę-opisać-uzasadniając-jak-powinniśmy-skonfigurować-br-w-takim-przypadku" id="toc-opracowujemy-w-buildroocie-oprogramowanie-dla-systemu-wbudowanego-korzystającego-z-nieulotnej-pamięci-masowej-dla-której-nie-jest-dostępny-jeszcze-sterownik-dla-systemu-linux.-system-jest-wyposażony-w-firmowy-bootloader-o-zamkniętym-kodzie-źródłowym-będący-w-stanie-załadować-i-uruchomić-jądro-linuxa.-proszę-opisać-uzasadniając-jak-powinniśmy-skonfigurować-br-w-takim-przypadku">Opracowujemy
 w Buildroocie oprogramowanie dla systemu wbudowanego, korzystającego z
 nieulotnej pamięci masowej, dla której nie jest dostępny (jeszcze?)
 sterownik dla systemu Linux. System jest wyposażony w firmowy bootloader
 (o zamkniętym kodzie źródłowym), będący w stanie załadować i uruchomić
 jądro Linuxa. Proszę opisać (uzasadniając), jak powinniśmy skonfigurować
 BR w takim przypadku</a></li>
-<li><a href="#oprogramowanie-dla-systemu-wbudowanego-tworzone-za-pomocą-środowiska-buildroot-jest-testowane-za-pomocą-emulatora-qemu.-zależy-nam-na-tym-żeby-kolejne-wersje-naszej-aplikacji-napisanej-w-języku-c-przetestować-bez-restartowania-emulowanej-maszyny.-jak-możemy-to-zrealizować-proszę-podać-trzy-różne-scenariusze-przekazania-nowej-wersji-aplikacji-do-emulowanego-systemu.-w-jakim-przypadku-nie-da-się-przetestować-kolejnej-wersji-bez-restartu-tego-systemu">Oprogramowanie
+<li><a href="#oprogramowanie-dla-systemu-wbudowanego-tworzone-za-pomocą-środowiska-buildroot-jest-testowane-za-pomocą-emulatora-qemu.-zależy-nam-na-tym-żeby-kolejne-wersje-naszej-aplikacji-napisanej-w-języku-c-przetestować-bez-restartowania-emulowanej-maszyny.-jak-możemy-to-zrealizować-proszę-podać-trzy-różne-scenariusze-przekazania-nowej-wersji-aplikacji-do-emulowanego-systemu.-w-jakim-przypadku-nie-da-się-przetestować-kolejnej-wersji-bez-restartu-tego-systemu" id="toc-oprogramowanie-dla-systemu-wbudowanego-tworzone-za-pomocą-środowiska-buildroot-jest-testowane-za-pomocą-emulatora-qemu.-zależy-nam-na-tym-żeby-kolejne-wersje-naszej-aplikacji-napisanej-w-języku-c-przetestować-bez-restartowania-emulowanej-maszyny.-jak-możemy-to-zrealizować-proszę-podać-trzy-różne-scenariusze-przekazania-nowej-wersji-aplikacji-do-emulowanego-systemu.-w-jakim-przypadku-nie-da-się-przetestować-kolejnej-wersji-bez-restartu-tego-systemu">Oprogramowanie
 dla systemu wbudowanego, tworzone za pomocą środowiska Buildroot, jest
 testowane za pomocą emulatora QEMU. Zależy nam na tym żeby kolejne
 wersje naszej aplikacji, napisanej w języku C przetestować bez
@@ -1052,103 +1054,103 @@ restartowania emulowanej maszyny. Jak możemy to zrealizować? Proszę
 podać trzy różne scenariusze przekazania nowej wersji aplikacji do
 emulowanego systemu. W jakim przypadku nie da się przetestować kolejnej
 wersji bez restartu tego systemu?</a></li>
-<li><a href="#pakiet-aplikacji-w-buildroot-używa-publicznego-repozytorium-git-do-przechowywania-kodu-źródłowego.-chcemy-wprowadzić-modyfikacje-dostosowujące-tę-aplikację-do-naszych-potrzeb.-jak-możemy-to-przeprowadzić">Pakiet
+<li><a href="#pakiet-aplikacji-w-buildroot-używa-publicznego-repozytorium-git-do-przechowywania-kodu-źródłowego.-chcemy-wprowadzić-modyfikacje-dostosowujące-tę-aplikację-do-naszych-potrzeb.-jak-możemy-to-przeprowadzić" id="toc-pakiet-aplikacji-w-buildroot-używa-publicznego-repozytorium-git-do-przechowywania-kodu-źródłowego.-chcemy-wprowadzić-modyfikacje-dostosowujące-tę-aplikację-do-naszych-potrzeb.-jak-możemy-to-przeprowadzić">Pakiet
 aplikacji w Buildroot używa publicznego repozytorium git do
 przechowywania kodu źródłowego. Chcemy wprowadzić modyfikacje,
 dostosowujące tę aplikację do naszych potrzeb. Jak możemy to
 przeprowadzić?</a></li>
-<li><a href="#proszę-wymienić-cztery-wybrane-powody-dla-których-standardowa-dystrybucja-linuksa-nie-nadaje-się-do-wykorzystania-w-przemysłowym-systemie-wbudowanym">Proszę
+<li><a href="#proszę-wymienić-cztery-wybrane-powody-dla-których-standardowa-dystrybucja-linuksa-nie-nadaje-się-do-wykorzystania-w-przemysłowym-systemie-wbudowanym" id="toc-proszę-wymienić-cztery-wybrane-powody-dla-których-standardowa-dystrybucja-linuksa-nie-nadaje-się-do-wykorzystania-w-przemysłowym-systemie-wbudowanym">Proszę
 wymienić cztery wybrane powody, dla których standardowa dystrybucja
 Linuksa nie nadaje się do wykorzystania w przemysłowym systemie
 wbudowanym</a></li>
-<li><a href="#do-zbudowanego-w-środowisku-br-linuksa-działającego-na-przemysłowym-systemie-wbudowanym-chcemy-dodać-naszą-nową-aplikację-napisaną-w-języku-c.-czym-będzie-się-to-różnić-od-uruchomienia-tej-aplikacji-na-naszym-pc">Do
+<li><a href="#do-zbudowanego-w-środowisku-br-linuksa-działającego-na-przemysłowym-systemie-wbudowanym-chcemy-dodać-naszą-nową-aplikację-napisaną-w-języku-c.-czym-będzie-się-to-różnić-od-uruchomienia-tej-aplikacji-na-naszym-pc" id="toc-do-zbudowanego-w-środowisku-br-linuksa-działającego-na-przemysłowym-systemie-wbudowanym-chcemy-dodać-naszą-nową-aplikację-napisaną-w-języku-c.-czym-będzie-się-to-różnić-od-uruchomienia-tej-aplikacji-na-naszym-pc">Do
 zbudowanego w środowisku BR Linuksa działającego na przemysłowym
 systemie wbudowanym chcemy dodać naszą nową aplikację napisaną w języku
 C. Czym będzie się to różnić od uruchomienia tej aplikacji na naszym
 PC?</a></li>
-<li><a href="#jakiej-funkcji-niedostępnej-z-poziomu-powłoki-systemu-wymaga-pełna-obsługa-urządzeń-podłączonych-do-interfejsów-i2c-i-spi-proszę-wymienić-przynajmniej-trzy-działania-łącznie-dla-i2c-i-spi-do-których-konieczne-jest-użycie-tej-funkcji">Jakiej
+<li><a href="#jakiej-funkcji-niedostępnej-z-poziomu-powłoki-systemu-wymaga-pełna-obsługa-urządzeń-podłączonych-do-interfejsów-i2c-i-spi-proszę-wymienić-przynajmniej-trzy-działania-łącznie-dla-i2c-i-spi-do-których-konieczne-jest-użycie-tej-funkcji" id="toc-jakiej-funkcji-niedostępnej-z-poziomu-powłoki-systemu-wymaga-pełna-obsługa-urządzeń-podłączonych-do-interfejsów-i2c-i-spi-proszę-wymienić-przynajmniej-trzy-działania-łącznie-dla-i2c-i-spi-do-których-konieczne-jest-użycie-tej-funkcji">Jakiej
 funkcji niedostępnej z poziomu powłoki systemu wymaga pełna obsługa
 urządzeń podłączonych do interfejsów I2C i SPI? Proszę wymienić
 przynajmniej trzy działania (łącznie dla I2C i SPI) do których konieczne
 jest użycie tej funkcji</a></li>
-<li><a href="#dlaczego-projekt-openwrt-może-udostępniać-prekompilowane-obrazy-linuksa-dla-typowych-platform-sprzętowych-a-w-przypadku-środowiska-buildroot-nie-jest-to-stosowane">Dlaczego
+<li><a href="#dlaczego-projekt-openwrt-może-udostępniać-prekompilowane-obrazy-linuksa-dla-typowych-platform-sprzętowych-a-w-przypadku-środowiska-buildroot-nie-jest-to-stosowane" id="toc-dlaczego-projekt-openwrt-może-udostępniać-prekompilowane-obrazy-linuksa-dla-typowych-platform-sprzętowych-a-w-przypadku-środowiska-buildroot-nie-jest-to-stosowane">Dlaczego
 projekt OpenWRT może udostępniać prekompilowane obrazy Linuksa dla
 typowych platform sprzętowych, a w przypadku środowiska Buildroot nie
 jest to stosowane?</a></li>
-<li><a href="#proszę-podać-cztery-wybrane-powody-dla-których-może-być-przydatne-testowanie-w-emulatorze-qemu-systemu-linux-przygotowywanego-dla-systemu-wbudowanego">Proszę
+<li><a href="#proszę-podać-cztery-wybrane-powody-dla-których-może-być-przydatne-testowanie-w-emulatorze-qemu-systemu-linux-przygotowywanego-dla-systemu-wbudowanego" id="toc-proszę-podać-cztery-wybrane-powody-dla-których-może-być-przydatne-testowanie-w-emulatorze-qemu-systemu-linux-przygotowywanego-dla-systemu-wbudowanego">Proszę
 podać cztery wybrane powody, dla których może być przydatne testowanie w
 emulatorze QEMU systemu Linux, przygotowywanego dla systemu
 wbudowanego</a></li>
-<li><a href="#po-zbudowaniu-w-środowisku-buildroot-linuksa-dla-naszego-systemu-wbudowanego-okazało-się-że-nie-jest-w-nim-dostępny-sterownik-dla-używanej-w-nim-kamery-usb-mimo-że-jest-dostępny-w-źródłach-jądra.-proszę-opisać-szczegółowo-w-punktach-jak-rozwiążecie-ten-problem-uwzględniając-dodatkowe-problemy-związane-ze-specyfiką-br">Po
+<li><a href="#po-zbudowaniu-w-środowisku-buildroot-linuksa-dla-naszego-systemu-wbudowanego-okazało-się-że-nie-jest-w-nim-dostępny-sterownik-dla-używanej-w-nim-kamery-usb-mimo-że-jest-dostępny-w-źródłach-jądra.-proszę-opisać-szczegółowo-w-punktach-jak-rozwiążecie-ten-problem-uwzględniając-dodatkowe-problemy-związane-ze-specyfiką-br" id="toc-po-zbudowaniu-w-środowisku-buildroot-linuksa-dla-naszego-systemu-wbudowanego-okazało-się-że-nie-jest-w-nim-dostępny-sterownik-dla-używanej-w-nim-kamery-usb-mimo-że-jest-dostępny-w-źródłach-jądra.-proszę-opisać-szczegółowo-w-punktach-jak-rozwiążecie-ten-problem-uwzględniając-dodatkowe-problemy-związane-ze-specyfiką-br">Po
 zbudowaniu w środowisku Buildroot Linuksa dla naszego systemu
 wbudowanego, okazało się, że nie jest w nim dostępny sterownik dla
 używanej w nim kamery USB (mimo że jest dostępny w źródłach jądra).
 Proszę opisać szczegółowo w punktach jak rozwiążecie ten problem
 (uwzględniając dodatkowe problemy związane ze specyfiką BR)</a></li>
-<li><a href="#stworzyliśmy-specjalizowaną-aplikację-do-przetwarzania-danych-napisaną-w-języku-c-którą-pomyślnie-przetestowaliśmy-w-systemie-linux-na-komputerze-pc-z-procesorem-intel-lub-amd.-co-musimy-zrobić-aby-móc-jej-używać-w-systemie-linux-zbudowanym-przy-pomocy-środowiska-buildroot-pracującym-na-systemie-wbudowanym-z-procesorem-arm">Stworzyliśmy
+<li><a href="#stworzyliśmy-specjalizowaną-aplikację-do-przetwarzania-danych-napisaną-w-języku-c-którą-pomyślnie-przetestowaliśmy-w-systemie-linux-na-komputerze-pc-z-procesorem-intel-lub-amd.-co-musimy-zrobić-aby-móc-jej-używać-w-systemie-linux-zbudowanym-przy-pomocy-środowiska-buildroot-pracującym-na-systemie-wbudowanym-z-procesorem-arm" id="toc-stworzyliśmy-specjalizowaną-aplikację-do-przetwarzania-danych-napisaną-w-języku-c-którą-pomyślnie-przetestowaliśmy-w-systemie-linux-na-komputerze-pc-z-procesorem-intel-lub-amd.-co-musimy-zrobić-aby-móc-jej-używać-w-systemie-linux-zbudowanym-przy-pomocy-środowiska-buildroot-pracującym-na-systemie-wbudowanym-z-procesorem-arm">Stworzyliśmy
 specjalizowaną aplikację do przetwarzania danych, napisaną w języku C,
 którą pomyślnie przetestowaliśmy w systemie Linux na komputerze PC (z
 procesorem Intel lub AMD). Co musimy zrobić, aby móc jej używać w
 systemie Linux zbudowanym przy pomocy środowiska Buildroot pracującym na
 systemie wbudowanym z procesorem ARM?</a></li>
-<li><a href="#oprogramowanie-dla-systemów-wbudowanych-czasami-realizujemy-bez-stosowania-systemu-operacyjnego-podejście-bare-metal-a-czasami-z-wykorzystaniem-takiego-systemu-na-przykład-linuxa.-wybór-właściwego-rozwiązania-zależy-od-wymagań-realizowanego-projektu.-proszę-podać-dwa-przykłady-wymagań-preferujących-podejście-bare-metal-i-dwa-przykłady-wymagań-skłaniających-do-wykorzystania-systemu-operacyjnego">Oprogramowanie
+<li><a href="#oprogramowanie-dla-systemów-wbudowanych-czasami-realizujemy-bez-stosowania-systemu-operacyjnego-podejście-bare-metal-a-czasami-z-wykorzystaniem-takiego-systemu-na-przykład-linuxa.-wybór-właściwego-rozwiązania-zależy-od-wymagań-realizowanego-projektu.-proszę-podać-dwa-przykłady-wymagań-preferujących-podejście-bare-metal-i-dwa-przykłady-wymagań-skłaniających-do-wykorzystania-systemu-operacyjnego" id="toc-oprogramowanie-dla-systemów-wbudowanych-czasami-realizujemy-bez-stosowania-systemu-operacyjnego-podejście-bare-metal-a-czasami-z-wykorzystaniem-takiego-systemu-na-przykład-linuxa.-wybór-właściwego-rozwiązania-zależy-od-wymagań-realizowanego-projektu.-proszę-podać-dwa-przykłady-wymagań-preferujących-podejście-bare-metal-i-dwa-przykłady-wymagań-skłaniających-do-wykorzystania-systemu-operacyjnego">Oprogramowanie
 dla systemów wbudowanych czasami realizujemy bez stosowania systemu
 operacyjnego (podejście “bare metal”), a czasami z wykorzystaniem
 takiego systemu (na przykład Linuxa). Wybór właściwego rozwiązania
 zależy od wymagań realizowanego projektu. Proszę podać dwa przykłady
 wymagań preferujących podejście “bare metal” i dwa przykłady wymagań
 skłaniających do wykorzystania systemu operacyjnego</a></li>
-<li><a href="#proszę-wyjaśnić-znaczenie-skrótów-gpio-spi-i2c-i-pwm-oraz-proszę-krótko-opisać-funkcję-związanych-z-nimi-elementów-systemu-wbudowanego">Proszę
+<li><a href="#proszę-wyjaśnić-znaczenie-skrótów-gpio-spi-i2c-i-pwm-oraz-proszę-krótko-opisać-funkcję-związanych-z-nimi-elementów-systemu-wbudowanego" id="toc-proszę-wyjaśnić-znaczenie-skrótów-gpio-spi-i2c-i-pwm-oraz-proszę-krótko-opisać-funkcję-związanych-z-nimi-elementów-systemu-wbudowanego">Proszę
 wyjaśnić znaczenie skrótów GPIO, SPI, I2C i PWM oraz proszę krótko
 opisać funkcję związanych z nimi elementów systemu wbudowanego</a></li>
-<li><a href="#jaka-jest-relacja-między-systemem-wbudowanym-a-systemem-czasu-rzeczywistego">Jaka
+<li><a href="#jaka-jest-relacja-między-systemem-wbudowanym-a-systemem-czasu-rzeczywistego" id="toc-jaka-jest-relacja-między-systemem-wbudowanym-a-systemem-czasu-rzeczywistego">Jaka
 jest relacja między systemem wbudowanym a systemem czasu
 rzeczywistego?</a></li>
-<li><a href="#co-to-jest-i-jaką-rolę-pełni-sprzęg-procesowy">Co to jest
-i jaką rolę pełni sprzęg procesowy</a></li>
-<li><a href="#proszę-omówić-sposób-realizacji-odczytów-z-przetworników-ac">Proszę
+<li><a href="#co-to-jest-i-jaką-rolę-pełni-sprzęg-procesowy" id="toc-co-to-jest-i-jaką-rolę-pełni-sprzęg-procesowy">Co to jest i jaką
+rolę pełni sprzęg procesowy</a></li>
+<li><a href="#proszę-omówić-sposób-realizacji-odczytów-z-przetworników-ac" id="toc-proszę-omówić-sposób-realizacji-odczytów-z-przetworników-ac">Proszę
 omówić sposób realizacji odczytów z przetworników AC</a></li>
-<li><a href="#dlaczego-w-środowsiku-buildroot-do-rekompilacji-poprawnego-obrazu-systemu-czasami-wystarczy-wydać-polecenie-make-a-czasami-konieczne-jest-posłużenie-się-kombinacją-poleceń-make-clean-make-lub-co-równoważne-poleceniem-make-clean-all.-proszę-podać-przykład-sytuacji-w-której-na-pewno-wystarczy-samo-make-oraz-takiej-w-której-potrzebne-będzie-make-clean-all">Dlaczego
+<li><a href="#dlaczego-w-środowsiku-buildroot-do-rekompilacji-poprawnego-obrazu-systemu-czasami-wystarczy-wydać-polecenie-make-a-czasami-konieczne-jest-posłużenie-się-kombinacją-poleceń-make-clean-make-lub-co-równoważne-poleceniem-make-clean-all.-proszę-podać-przykład-sytuacji-w-której-na-pewno-wystarczy-samo-make-oraz-takiej-w-której-potrzebne-będzie-make-clean-all" id="toc-dlaczego-w-środowsiku-buildroot-do-rekompilacji-poprawnego-obrazu-systemu-czasami-wystarczy-wydać-polecenie-make-a-czasami-konieczne-jest-posłużenie-się-kombinacją-poleceń-make-clean-make-lub-co-równoważne-poleceniem-make-clean-all.-proszę-podać-przykład-sytuacji-w-której-na-pewno-wystarczy-samo-make-oraz-takiej-w-której-potrzebne-będzie-make-clean-all">Dlaczego
 w środowsiku Buildroot do rekompilacji poprawnego obrazu systemu czasami
 wystarczy wydać polecenie make, a czasami konieczne jest posłużenie się
 kombinacją poleceń “make clean; make” (lub, co równoważne, poleceniem
 “make clean all”). Proszę podać przykład sytuacji , w której na pewno
 wystarczy samo “make” oraz takiej, w której potrzebne będzie “make clean
 all”</a></li>
-<li><a href="#do-naszego-systemu-wbudowanego-chcemy-podłączyć-urządzenie-zewnętrzne-z-interfejsem-i2c.-program-je-obsługujący-ma-działać-w-przestrzeni-użytkownika.-jak-powinniśmy-skonfigurować-nasz-system-aby-było-to-możliwe-jakie-funkcje-musimy-wykorzystać-w-naszym-programie-aby-zapewnić-komunikację-z-naszym-urządzeniem">Do
+<li><a href="#do-naszego-systemu-wbudowanego-chcemy-podłączyć-urządzenie-zewnętrzne-z-interfejsem-i2c.-program-je-obsługujący-ma-działać-w-przestrzeni-użytkownika.-jak-powinniśmy-skonfigurować-nasz-system-aby-było-to-możliwe-jakie-funkcje-musimy-wykorzystać-w-naszym-programie-aby-zapewnić-komunikację-z-naszym-urządzeniem" id="toc-do-naszego-systemu-wbudowanego-chcemy-podłączyć-urządzenie-zewnętrzne-z-interfejsem-i2c.-program-je-obsługujący-ma-działać-w-przestrzeni-użytkownika.-jak-powinniśmy-skonfigurować-nasz-system-aby-było-to-możliwe-jakie-funkcje-musimy-wykorzystać-w-naszym-programie-aby-zapewnić-komunikację-z-naszym-urządzeniem">Do
 naszego systemu wbudowanego chcemy podłączyć urządzenie zewnętrzne z
 interfejsem I2C. Program je obsługujący ma działać w przestrzeni
 użytkownika. Jak powinniśmy skonfigurować nasz system, aby było to
 możliwe? Jakie funkcje musimy wykorzystać w naszym programie, aby
 zapewnić komunikację z naszym urządzeniem?</a></li>
-<li><a href="#jakie-właściwości-ma-interfejs-gpio-w-systemie-wbudowanym-proszę-wymienić-dwa-typowe-sposoby-obsługi-tego-interfejsu.-proszę-szczegółowo-opisać-jeden-z-tych-sposobów.">Jakie
+<li><a href="#jakie-właściwości-ma-interfejs-gpio-w-systemie-wbudowanym-proszę-wymienić-dwa-typowe-sposoby-obsługi-tego-interfejsu.-proszę-szczegółowo-opisać-jeden-z-tych-sposobów." id="toc-jakie-właściwości-ma-interfejs-gpio-w-systemie-wbudowanym-proszę-wymienić-dwa-typowe-sposoby-obsługi-tego-interfejsu.-proszę-szczegółowo-opisać-jeden-z-tych-sposobów.">Jakie
 właściwości ma interfejs GPIO w systemie wbudowanym? Proszę wymienić dwa
 typowe sposoby obsługi tego interfejsu. Proszę szczegółowo opisać jeden
 z tych sposobów.</a></li>
-<li><a href="#scharakteryzuj-systemy-czasu-rzeczywistego.-opisz-czym-różni-się-od-pozostałych-systemów">Scharakteryzuj
+<li><a href="#scharakteryzuj-systemy-czasu-rzeczywistego.-opisz-czym-różni-się-od-pozostałych-systemów" id="toc-scharakteryzuj-systemy-czasu-rzeczywistego.-opisz-czym-różni-się-od-pozostałych-systemów">Scharakteryzuj
 systemy czasu rzeczywistego. Opisz czym różni się od pozostałych
 systemów</a></li>
-<li><a href="#opisz-krótko-realizację-sprzętową-systemów-wbudowanych">Opisz
+<li><a href="#opisz-krótko-realizację-sprzętową-systemów-wbudowanych" id="toc-opisz-krótko-realizację-sprzętową-systemów-wbudowanych">Opisz
 krótko realizację sprzętową systemów wbudowanych</a></li>
-<li><a href="#po-co-w-systemach-wbudowanych-stosuje-się-przerwania-i-jak-one-zachodzą">Po
+<li><a href="#po-co-w-systemach-wbudowanych-stosuje-się-przerwania-i-jak-one-zachodzą" id="toc-po-co-w-systemach-wbudowanych-stosuje-się-przerwania-i-jak-one-zachodzą">Po
 co w systemach wbudowanych stosuje się przerwania i jak one
 zachodzą</a></li>
-<li><a href="#co-to-jest-initramfs-jakie-ma-funkcjonalności-i-jak-można-go-wykorzystać-w-systemach-wbudowanych">Co
+<li><a href="#co-to-jest-initramfs-jakie-ma-funkcjonalności-i-jak-można-go-wykorzystać-w-systemach-wbudowanych" id="toc-co-to-jest-initramfs-jakie-ma-funkcjonalności-i-jak-można-go-wykorzystać-w-systemach-wbudowanych">Co
 to jest initramfs, jakie ma funkcjonalności i jak można go wykorzystać w
 systemach wbudowanych</a></li>
-<li><a href="#do-pinu-23-gpio-podpięta-jest-dioda-led-do-pinu-21-gpio-podpięty-jest-przycisk.-w-jaki-sposób-używając-sysfs-można-przetestować-połączenia">Do
+<li><a href="#do-pinu-23-gpio-podpięta-jest-dioda-led-do-pinu-21-gpio-podpięty-jest-przycisk.-w-jaki-sposób-używając-sysfs-można-przetestować-połączenia" id="toc-do-pinu-23-gpio-podpięta-jest-dioda-led-do-pinu-21-gpio-podpięty-jest-przycisk.-w-jaki-sposób-używając-sysfs-można-przetestować-połączenia">Do
 pinu 23 GPIO podpięta jest dioda Led, do pinu 21 GPIO podpięty jest
 przycisk. W jaki sposób używając sysfs można przetestować
 połączenia</a></li>
-<li><a href="#opisz-wady-i-zalety-korzystania-z-pakietów-instalowalnych.-podaj-jeden-przykład-środowiska-do-konfiguracji-linuxa-dla-systemów-wbudowanych-obsługujących-takie-pakiety-i-jeden-który-nie-obsługuje">Opisz
+<li><a href="#opisz-wady-i-zalety-korzystania-z-pakietów-instalowalnych.-podaj-jeden-przykład-środowiska-do-konfiguracji-linuxa-dla-systemów-wbudowanych-obsługujących-takie-pakiety-i-jeden-który-nie-obsługuje" id="toc-opisz-wady-i-zalety-korzystania-z-pakietów-instalowalnych.-podaj-jeden-przykład-środowiska-do-konfiguracji-linuxa-dla-systemów-wbudowanych-obsługujących-takie-pakiety-i-jeden-który-nie-obsługuje">Opisz
 wady i zalety korzystania z pakietów instalowalnych. Podaj jeden
 przykład środowiska do konfiguracji linuxa dla systemów wbudowanych
 obsługujących takie pakiety i jeden który nie obsługuje</a></li>
-<li><a href="#linux-jako-system-operacyjny-dla-systemu-wbudowanego">Linux jako
+<li><a href="#linux-jako-system-operacyjny-dla-systemu-wbudowanego" id="toc-linux-jako-system-operacyjny-dla-systemu-wbudowanego">Linux jako
 system operacyjny dla systemu wbudowanego</a></li>
-<li><a href="#organizacja-oprogramowania-systemów-wbudowanych">Organizacja
+<li><a href="#organizacja-oprogramowania-systemów-wbudowanych" id="toc-organizacja-oprogramowania-systemów-wbudowanych">Organizacja
 oprogramowania systemów wbudowanych</a></li>
-<li><a href="#ograniczenia-czsowe-w-systemach-czasu-rzeczywistego">Ograniczenia
+<li><a href="#ograniczenia-czsowe-w-systemach-czasu-rzeczywistego" id="toc-ograniczenia-czsowe-w-systemach-czasu-rzeczywistego">Ograniczenia
 czsowe w systemach czasu rzeczywistego</a></li>
 </ul></li>
 </ul>

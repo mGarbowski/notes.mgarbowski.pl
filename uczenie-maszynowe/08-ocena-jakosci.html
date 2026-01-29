@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-ocena-jakosci</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-regresja.html">Poprzedni: 07-regresja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-las-losowy.html">Następny: 09-las-losowy.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="ocena-jakości">Ocena jakości</h1>
+<h2 id="macierz-pomyłek">Macierz pomyłek</h2>
+<ul>
+<li>Confusion matrix</li>
+<li>Dla klasyfikacji</li>
+<li>W wierszach prawdziwe klasy <span class="math inline">\(c\)</span>,
+w kolumnach przewidywane klasy <span
+class="math inline">\(h\)</span></li>
+<li>W komórce liczba przypadków na zbiorze <span
+class="math inline">\(S\)</span>
+<ul>
+<li><span class="math inline">\(|S_{c=d_1,h=d_2}|\)</span></li>
+</ul></li>
+<li>Na przekątnej poprawne predykcje</li>
+<li>Macierz pomyłek 2x2 - dla klasyfikacji binarnej
+<ul>
+<li>wiele miar jakości definiuje się dla tej postaci</li>
+<li>uzasadnia się ich uogólnienia dla <em>dużej</em> macierzy
+pomyłek</li>
+</ul></li>
+<li>Praktyka
+<ul>
+<li><span class="math inline">\(1\)</span> określa coś czego wykrywanie
+jest naszym priorytetem</li>
+<li>nazwanie klasy (pozytywna/negatywna) jest umowne</li>
+<li>np. jeśli wykrywamy awarie to awarię oznaczymy jako klasę
+pozytywną</li>
+<li>czasem powtarza się wyliczanie wskaźników odwracając klasy (wzory są
+asymetryczne)</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>c 0</th>
+<th>1</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>TN</td>
+<td>FP</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>FN</td>
+<td>TP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="miary-jakości">Miary jakości</h2>
+<h3 id="błąd">Błąd</h3>
+<p><span class="math display">\[ \frac{FP + FN}{TP + TN + FP +
+FN}\]</span></p>
+<h3 id="dokładność">Dokładność</h3>
+<p><span class="math display">\[ \frac{TP + TN}{TP + TN + FP + FN}
+\]</span></p>
+<h3 id="recall">Recall</h3>
+<ul>
+<li>Inne nazwy
+<ul>
+<li>odzysk</li>
+<li>true positive rate</li>
+<li>sensitivity</li>
+<li>czułość, wrażliwość</li>
+</ul></li>
+<li>Jaką część przypadków klasy <span class="math inline">\(1\)</span>
+model wykrył jako należące do tej klasy</li>
+<li>Chcemy maksymalizować</li>
+<li>Maksymalizowany przez model, który zawsze daje klasę <span
+class="math inline">\(1\)</span>
+<ul>
+<li>nie można używać tylko tego wskaźnika</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[ TPrate = \frac{TP}{FN + TP}
+\]</span></p>
+<h3 id="fp-rate">FP rate</h3>
+<ul>
+<li>Jaką część przykładów klasy <span class="math inline">\(0\)</span>
+stanowią zaklasyfikowane jako <span
+class="math inline">\(1\)</span></li>
+<li>Chcemy minimalizować
+<ul>
+<li>szukamy poziomu równowagi między TP rate i FP rate</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[ FPrate = \frac{FP}{TN + FP} \]</span>
+### Precision * Precyzja * Jaką część stanowią prawdziwie pozytywne
+predykcje spośród wszystkich pozytywnych predykcji modelu * Chcemy
+maksymalizować * komplementarne do odzysku * maksymalizacja obu naraz
+wymaga równowagi</p>
+<p><span class="math display">\[ Precision = \frac{TP}{FP + TP}
+\]</span></p>
+<h3 id="f-measure-f1">F-measure (F1)</h3>
+<ul>
+<li>Średnia harmoniczna precyzji i odzysku
+<ul>
+<li>średnia harmoniczna jest bliższa mniejszej z wartości</li>
+</ul></li>
+<li>Można wprowadzić parametr określający względną ważność precyzji i
+odzysku
+<ul>
+<li>tutaj jednakowo ważne - współczynnik równy <span
+class="math inline">\(1\)</span></li>
+<li>rzadko stosowane</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+F1
+= \frac{1}{(\frac{1}{prec} + \frac{1}{recall})/2}
+= \frac{2 \cdot prec \cdot recall}{prec + recall}
+\]</span></p>
+<h3 id="specificity">Specificity</h3>
+<ul>
+<li>Specyficzność</li>
+</ul>
+<p><span class="math display">\[ 1 - FPrate \]</span></p>
+<h3 id="pary">Pary</h3>
+<ul>
+<li>Stosowane pary wskaźników
+<ul>
+<li>TP rate, FP rate</li>
+<li>Recall, Precision</li>
+<li>Sensitivity, Specificity</li>
+</ul></li>
+</ul>
+<h2 id="analiza-roc">Analiza ROC</h2>
+<ul>
+<li>Receiver operating characteristic</li>
+<li>Metodologia przeszczepiona z oceny jakości radarów</li>
+<li>Dwa wskaźniki
+<ul>
+<li>maskymalizowany (TP rate) na osi pionowej</li>
+<li>minimalizowany (FP rate) na osi poziomej</li>
+</ul></li>
+<li>Użyteczne jeśli porównujemy wiele modeli lub jeden model, który może
+dawać różne odpowiedzi
+<ul>
+<li>modele oparte na prawdopodobieństwie</li>
+<li>możemy przewidywać klasę na podstawie progu i prawdopodobieństwa
+(<span class="math inline">\(P(1|x) \ge \delta\)</span>)</li>
+<li>może być model, który nie daje prawdopodobieństw ale bazuje na
+funkcji decyzyjnej</li>
+<li>coś liczbowego co określa przewidywaną klasę</li>
+<li>wszystkie powszechnie używane modele mają taką właściwość</li>
+</ul></li>
+<li>Krzywa ROC
+<ul>
+<li>połączenie wielu punktów pracy przy różnych wartościach progu
+decyzyjnego</li>
+<li>początek w <span class="math inline">\((0,0)\)</span>, koniec w
+<span class="math inline">\((1,1)\)</span></li>
+<li>punkt domyślny (dla progu prawdopodobieństwa <span
+class="math inline">\(1/2\)</span>, dla funkcji decyzyjnej <span
+class="math inline">\(0\)</span>)</li>
+<li>na podstawie krzywej możemy wybrać lepszy punkt niż domyślny (dobrać
+próg)</li>
+<li>zależy od zastosowanie jak będziemy wybierać najlepszy punkt
+roboczy</li>
+<li>heurystyka - punkt najbliżej narożnika <span
+class="math inline">\((0,1)\)</span></li>
+</ul></li>
+<li>Można na podstawie krzywej ocenić, nie konkretny punkt, a cały model
+<ul>
+<li>pole pod krzywą ROC</li>
+<li>AUC - area under curve</li>
+<li>interpretowane jako prawdopodobieństwo, że losowo wybrany przykład
+klasy 1 dostanie większą wartość prawdopodobieństwa przewidywania klasy
+1</li>
+<li>im więcej tym lepiej</li>
+<li>wartość <span class="math inline">\(1/2\)</span> oznacza model,
+który nie rozróżnia klas</li>
+</ul></li>
+<li>Punktów na krzywej jest tyle, ile progów prawdopodobieństwa / funkci
+decyzyjnej można postawić + 2 skrajne</li>
+<li>Można porównywać krzywe dla różnych modeli
+<ul>
+<li>jeśli jedna krzywa jest w całości nad drugą, to ten model jest
+lepszy</li>
+</ul></li>
+<li>Też dla pary precision/recall</li>
+</ul>
+<h3 id="rysowanie-krzywej-roc">Rysowanie krzywej ROC</h3>
+<ul>
+<li>Być może na kolokwium</li>
+<li>Tabela z prawdopodobieństwem klasy 1 i prawdziwą klasą</li>
+<li>Posortowana niemalejąco po prawdopodobieństwach</li>
+<li>Skalujemy osie na podstawie liczby przypadków</li>
+<li>Zaczynamy z takim progiem, że wszystkie wartości P są powyżej
+<ul>
+<li>same przewidywane jedynki</li>
+<li>zaczynamy od punktu <span class="math inline">\((1,1)\)</span></li>
+</ul></li>
+<li>Przesuwamy próg przed kolejną unikalną wartość</li>
+<li>Krzywa będzie się składać z widocznych odcinków jeśli będzie mało
+różnych wartości prawdopodobieństwa
+<ul>
+<li>np. jeśli zbiór danych jest mały</li>
+<li>ale może model przewiduje mało różnych wartości</li>
+</ul></li>
+<li>Krzywa poniżej przekątnej - najprawdopodobniej złe przypisanie
+etykiet
+<ul>
+<li>inne do budowy modelu i inne do oceny</li>
+<li>można spreparować taki złośliwy, sztuczny zbiór danych (ale wtedy
+zbiór uczący i testowy nie pochodzą z tego samego rozkładu)</li>
+</ul></li>
+</ul>
+<h2 id="miary-jakości-klasyfikacji-wieloklasowej">Miary jakości
+klasyfikacji wieloklasowej</h2>
+<ul>
+<li>Analogiczne podejścia do OvR i OvO
+<ul>
+<li>OvO nie omawiamy szczegółowo</li>
+</ul></li>
+<li>OvR
+<ul>
+<li>jedna klasa traktowana jako pozytywna, reszta jako negatywne</li>
+<li>tylko podczas oceny jakości</li>
+</ul></li>
+<li>Mikro-uśrednianie
+<ul>
+<li>predykcje i prawdziwe wartości dla każdego zadania binarnego
+scalane</li>
+<li>na ich podstawie wyznaczane wskaźniki jakości</li>
+<li>każda klasa jest ważna proporcjonalnie do jej częstości</li>
+</ul></li>
+<li>Makro-uśrednianie
+<ul>
+<li>wskaźniki jakości wyznaczane niezależnie dla każdego zadania
+binarnego</li>
+<li>uśrednianie</li>
+<li>każda klasa jest jednakowo ważna</li>
+</ul></li>
+<li>Do krzywej ROC
+<ul>
+<li>w lewej kolumnie prawdopodobieństwo klasy <span
+class="math inline">\(d_1\)</span></li>
+<li>w prawej kolumnie <span class="math inline">\(1\)</span> dla klasy
+<span class="math inline">\(d_1\)</span>, <span
+class="math inline">\(0\)</span> w przeciwnym przypadku</li>
+<li>to samo dla kolejnych klas i potem scalamy (długie wektory)</li>
+<li>tyle wierszy ile przykładów trenujących x liczba klas</li>
+<li>OvR w wariancie mikrouśredniania</li>
+</ul></li>
+<li>Nie ma dobrej odpowiedzi którego należy użyć</li>
+<li>Różnica
+<ul>
+<li>w wariancie mikro klasy rzadko występujące wpływają w mniejszym
+stopniu na uśrendioną ocenę</li>
+<li>w wariancie makro wszystkie klasy mają jednakowy wpływ niezależnie
+od częstości występowania w zbiorze</li>
+</ul></li>
+<li>Sprawdzać co domyślnie robią używane biblioteki jeśli z nich
+korzystamy</li>
+</ul>
+<h2 id="jakość-regresji">Jakość regresji</h2>
+<h3 id="błąd-średniokwadratowy-mse">Błąd średniokwadratowy (MSE)</h3>
+<p><span class="math display">\[ MSE = \frac{1}{|S|} \sum_{x \in
+A}(f(x)-h(x))^2 \]</span></p>
+<h3 id="mean-absolute-error">Mean Absolute Error</h3>
+<ul>
+<li>Gorsze własności analityczne</li>
+</ul>
+<p><span class="math display">\[ MAE = \frac{1}{|S|} \sum_{x \in
+S}|f(x)-h(x)| \]</span> ### RMSE * Root Mean Squared Error * Pierwotny
+zakres wartości * Ułatwia interpretację</p>
+<p><span class="math display">\[ RMSE = \sqrt{MSE} \]</span></p>
+<h3 id="relateive-absolute-error">Relateive Absolute Error</h3>
+<ul>
+<li>Blisko 1 to bardzo źle</li>
+<li>Ułatwia interpretację (mało czy dużo)</li>
+<li><span class="math inline">\(m_S(f)\)</span> - średnia wartość <span
+class="math inline">\(f\)</span> na zbiorze <span
+class="math inline">\(S\)</span></li>
+</ul>
+<p><span class="math display">\[ \frac{\sum_{x \in S}
+|f(x)-h(x)|}{\sum_{x \in S} |f(x) -m_S(f)|} \]</span></p>
+<h3 id="współczynnik-determinacji">Współczynnik determinacji</h3>
+<ul>
+<li>Dobry model - wartości bliskie 1</li>
+<li>W ogólności może dać wartości ujemne</li>
+</ul>
+<p><span class="math display">\[ R^2 = 1 -\frac{\sum_{x \in
+S}(f(x)-h(x))^2}{\sum_{x \in S}(f(x)-m_S(f)^2} \]</span> ### Korelacja *
+Współczynnik korelacji liniowej lub rangowej między wartościami <span
+class="math inline">\(f\)</span> i <span
+class="math inline">\(h\)</span></p>
+<h2 id="procedury-oceny">Procedury oceny</h2>
+<ul>
+<li>Jak postępujemy z danymi licząc miary jakości tak, żeby miary były
+wiarygodne</li>
+<li>Celem oceny jest dostarczenie estymacji prawdziwych wartości
+wskaźników jakości modelu na nowych danych, do których będzie stosowany
+w trakcie eksploatacji</li>
+<li>Ocena procedury modelowania
+<ul>
+<li>oceniany nie konkretny model, a sposób jego tworzenia</li>
+</ul></li>
+<li>Ocenia się model zbudowany na części danych
+<ul>
+<li>model produkcyjny należy trenować na całym zbiorze danych</li>
+</ul></li>
+<li>Obciążenie kontra wariancja
+<ul>
+<li>zbyt mały zbiór do oceny nie zapewnia wiarygodnej estymacji ze
+względy na wysoką wariancję (ocena bardziej podatna na losowość wyboru
+podzbiorów)</li>
+<li>odłożenie dużej części danych do oceny wprowadza pesymistyczne
+obciążenie związane z obniżeniem jakości ocenianego modelu</li>
+</ul></li>
+</ul>
+<h3 id="osobny-zbiór-trenujący-t-i-testowy-q">Osobny zbiór trenujący
+<span class="math inline">\(T\)</span> i testowy <span
+class="math inline">\(Q\)</span></h3>
+<ul>
+<li>Holdout, train-test split</li>
+<li>Model tworzymy w oparciu o <span
+class="math inline">\(T\)</span></li>
+<li>Oceniamy na zbiorze <span class="math inline">\(Q\)</span></li>
+<li>Odkładamy dane na potrzeby oceny jakości</li>
+<li>Jest wystarczająco dobry jeśli w sumie mamy nadmiar danych
+<ul>
+<li>więcej danych niż możemy przetworzyć w sensownym czasie przy
+budowaniu modelu</li>
+<li>produkcyjny model to ten sam co oceniany</li>
+</ul></li>
+<li>Możliwa redukcja wariancji przez wielokrotne powtarzanie</li>
+</ul>
+<h3 id="k-krotna-walidacja-krzyżowa">k-krotna walidacja krzyżowa</h3>
+<ul>
+<li>k-fold cross-validation, k-CV</li>
+<li>Cały zbiór danych <span class="math inline">\(D\)</span> dzielimy na
+losowe podzbiory <span class="math inline">\(D_1, \ldots D_k\)</span>
+<ul>
+<li>rozłączne i równoliczne</li>
+</ul></li>
+<li>Iteracyjnie przechodzi się przez wszystki podzbiory
+<ul>
+<li>jak ozbiór trenujący bierzemy sumę wszystkich podzbiorów poza <span
+class="math inline">\(D_i\)</span></li>
+<li>jako zbiór testowy bierzemy <span
+class="math inline">\(D_i\)</span></li>
+</ul></li>
+<li>Każdy podzbiór będzie użyty raz jako testowy i <span
+class="math inline">\(k-1\)</span> razy jako trenujący</li>
+<li>Niewielka wariancja oceny</li>
+<li>Typowe wartości $k = 5, 10</li>
+<li>Można powtórzyć kilka razy
+<ul>
+<li>n<span class="math inline">\(\times\)</span>k-CV</li>
+</ul></li>
+<li>Makro-uśrednianie
+<ul>
+<li>obliczenie średniej i odchylenia z ocen ze wszystkich iteracji</li>
+<li>najczęściej stosowane</li>
+</ul></li>
+<li>Mikro-uśrednianie
+<ul>
+<li>w każdym obiegu nie generujemy oceny tylko predykcje</li>
+<li>scalenie predykcji i wyliczenie oceny</li>
+<li>rzadziej stosowane</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ocena-jakości" id="toc-ocena-jakości">Ocena jakości</a>
+<ul>
+<li><a href="#macierz-pomyłek" id="toc-macierz-pomyłek">Macierz
+pomyłek</a></li>
+<li><a href="#miary-jakości" id="toc-miary-jakości">Miary jakości</a>
+<ul>
+<li><a href="#błąd" id="toc-błąd">Błąd</a></li>
+<li><a href="#dokładność" id="toc-dokładność">Dokładność</a></li>
+<li><a href="#recall" id="toc-recall">Recall</a></li>
+<li><a href="#fp-rate" id="toc-fp-rate">FP rate</a></li>
+<li><a href="#f-measure-f1" id="toc-f-measure-f1">F-measure
+(F1)</a></li>
+<li><a href="#specificity" id="toc-specificity">Specificity</a></li>
+<li><a href="#pary" id="toc-pary">Pary</a></li>
+</ul></li>
+<li><a href="#analiza-roc" id="toc-analiza-roc">Analiza ROC</a>
+<ul>
+<li><a href="#rysowanie-krzywej-roc" id="toc-rysowanie-krzywej-roc">Rysowanie krzywej ROC</a></li>
+</ul></li>
+<li><a href="#miary-jakości-klasyfikacji-wieloklasowej" id="toc-miary-jakości-klasyfikacji-wieloklasowej">Miary jakości
+klasyfikacji wieloklasowej</a></li>
+<li><a href="#jakość-regresji" id="toc-jakość-regresji">Jakość
+regresji</a>
+<ul>
+<li><a href="#błąd-średniokwadratowy-mse" id="toc-błąd-średniokwadratowy-mse">Błąd średniokwadratowy
+(MSE)</a></li>
+<li><a href="#mean-absolute-error" id="toc-mean-absolute-error">Mean
+Absolute Error</a></li>
+<li><a href="#relateive-absolute-error" id="toc-relateive-absolute-error">Relateive Absolute Error</a></li>
+<li><a href="#współczynnik-determinacji" id="toc-współczynnik-determinacji">Współczynnik determinacji</a></li>
+</ul></li>
+<li><a href="#procedury-oceny" id="toc-procedury-oceny">Procedury
+oceny</a>
+<ul>
+<li><a href="#osobny-zbiór-trenujący-t-i-testowy-q" id="toc-osobny-zbiór-trenujący-t-i-testowy-q">Osobny zbiór trenujący
+<span class="math inline">\(T\)</span> i testowy <span class="math inline">\(Q\)</span></a></li>
+<li><a href="#k-krotna-walidacja-krzyżowa" id="toc-k-krotna-walidacja-krzyżowa">k-krotna walidacja
+krzyżowa</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

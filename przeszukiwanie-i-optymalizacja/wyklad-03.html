@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2024-10-23</h1>
+<ul>
+<li>Algorytm wspinaczkowy - w sąsiedztwie punktu wybieramy
+najlepszy</li>
+<li>Algorytm gradientowy - dla różniczkowalnej funkcji celu, najlepszy
+punkt jest jednoznacznie określony - nieskończenie mały krok w stronę
+gradientu lub przeciwnym (minimalizacja albo maksymalizacja)</li>
+<li>W praktyce - gradient przemnożony przez współczynnik kroku
+<ul>
+<li>nie daje gwarancji że kolejny punkt jest najlepszy (może przeskoczyć
+optimum)</li>
+</ul></li>
+</ul>
+<p>Co jeśli funkcja ma wiele optimów lokalnych, a dysponujemy
+algorytmem, który znajduje optimum lokalne? * Można wystartować
+wielokrotnie z różnych punktów startowych * Wprowadzić element losowości
+* w wyborze sąsiada - losowy wybór (stochastyczny algorytm wspinaczkowy)
+* w podejmowanej decyzji - akceptacja niekoniecznie lepszego punktu
+(błądzenie przypadkowe) * akcpetacja gorszego punktu z określonym
+prawdopodobieństwem (symulowane wyżarzanie) * Dostosowanie współczynnika
+kroku * np. większy w okolicy optimum żeby z niego wyskoczyć * wprowadza
+szum do algorytmu * Zwiększenie promienia sąsiedztwa * analogicznie do
+zwiększenia parametru kroku * optima lokalne przestaną być optimami
+lokalnymi - bo w szerszym sąsiedztwie jest lepszy</p>
+<p>Stochastyczny algorytm wspinaczkowy - dalej zmierza do optimum
+lokalnych ale mniej konsekwentnie</p>
+<h2 id="algorytm-wspinaczkowy-ze-zmiennym-sąsiedztwem-vns">Algorytm
+wspinaczkowy ze zmiennym sąsiedztwem (VNS)</h2>
+<pre><code>init(x)
+H = {x}
+while !stop
+    k = 1
+    repeat
+        Y = N_k(x)
+        H.add(Y)
+        y = selectBest(Y)
+        k += 1
+    until q(y) &gt; q(x) or k &gt; K
+    if k &gt; K
+        exit
+    x = y</code></pre>
+<ul>
+<li>Najpierw szukamy sąsiadów w mniejszym promieniu
+<ul>
+<li>jeśli się nie uda to zwiększamy promień i szukamy w większym
+sąsiedztwie</li>
+</ul></li>
+<li>Jeśli przy największym dopuszczalnym promieniu nie da się znaleźć
+lepszego to kończymy algorytm</li>
+<li>Algorytm do dyskretnej przestrzeni przeszukiwań</li>
+<li>Zależy jaka jest liczba sąsiadów
+<ul>
+<li>może się bardziej opłacać spróbkować wiele razy przy mniejszym
+promieniu niż raz z większym</li>
+</ul></li>
+<li>VNS i algorytm wspinaczkowy o promieniu K nie zawsze dojdą do tego
+samego punktu końcowego wystartowane z tego samego punktu</li>
+</ul>
+<p>Zastosowanie idei VNS do przestrzeni ciągłych</p>
+<ul>
+<li>Zwiększanie współczynnika kroku w algorytmie gradientowym
+<ul>
+<li>większy sens przy algorytmie stochastycznym</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-prawie-wspinaczkowy">Algorytm prawie wspinaczkowy</h2>
+<pre><code>initialize(x)
+H = {x}
+while !stop
+    Y = N(x)
+    x = selectBest(Y)
+    H = H union Y</code></pre>
+<ul>
+<li>Może oscylować między dwoma punktami</li>
+<li>Nie ma sensu wracać do już odwiedzonego punktu</li>
+<li>Wyjmujemy krawędzie z przestrzeni przeszukiwań</li>
+</ul>
+<h2 id="przeszukiwanie-z-tabu">Przeszukiwanie z Tabu</h2>
+<pre><code>T = empty
+init(x)
+H = {x}
+while !stop
+    Y = N(x) \ T
+    x = selBest(Y)
+    T_j = define_for_deletion()
+    T = T union {x} \ T_j
+    H = H union Y</code></pre>
+<p>dekoracja do algorytmu, niekoniecznie do algorytmu prawie
+wspinaczkowego</p>
+<ul>
+<li>Optimum lokalne trafia do tabu</li>
+<li>Najpierw podchodzi pod górę, potem próbuje jak najmniej schodzić w
+dół</li>
+<li>Po osiągnięciu oiptimum lokalnego punkty są wypychane</li>
+<li>Tabu - np. kolejka FIFO</li>
+<li>Dobra wielkość tabu zależy od
+<ul>
+<li>liczebności sąsiedztwa</li>
+<li>odległości między optimami</li>
+<li>potęgowanie</li>
+</ul></li>
+<li>Kolejka priorytetowa
+<ul>
+<li>według funkcji celu</li>
+<li>według szacowanej funkcji celu</li>
+<li>według podobieńśtwa</li>
+<li>według wiedzy dziedzinowej</li>
+</ul></li>
+<li>Można zastosować jako dekorację do innych algorytmów
+<ul>
+<li>do symulowanego wyżarzania</li>
+<li>do przestrzeni ciągłych - z sąsiedztwa punktu roboczego usuwa się
+sąsiedztwa wzsystkich punktów z tabu (sam punkt jest miary 0)</li>
+</ul></li>
+</ul>
+<p>dodawanie krawędzi - VNS usuwanie krawędzi - tabu</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2024-10-23</a>
+<ul>
+<li><a href="#algorytm-wspinaczkowy-ze-zmiennym-sąsiedztwem-vns" id="toc-algorytm-wspinaczkowy-ze-zmiennym-sąsiedztwem-vns">Algorytm
+wspinaczkowy ze zmiennym sąsiedztwem (VNS)</a></li>
+<li><a href="#algorytm-prawie-wspinaczkowy" id="toc-algorytm-prawie-wspinaczkowy">Algorytm prawie
+wspinaczkowy</a></li>
+<li><a href="#przeszukiwanie-z-tabu" id="toc-przeszukiwanie-z-tabu">Przeszukiwanie z Tabu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

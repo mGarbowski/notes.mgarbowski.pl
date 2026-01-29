@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-uczenie-sie-ze-wzmocnieniem</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-svm.html">Poprzedni: 10-svm.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="uczenie-się-ze-wzmocnieniem">Uczenie się ze wzmocnieniem</h1>
+<h2 id="scenariusz">Scenariusz</h2>
+<ul>
+<li>Uczeń i środowisko</li>
+<li>W chwili <span class="math inline">\(t\)</span>
+<ul>
+<li>obserwacja stanu środowiska <span
+class="math inline">\(x_t\)</span></li>
+<li>wybór akcji <span class="math inline">\(a_t\)</span> dla stanu <span
+class="math inline">\(x_t\)</span></li>
+<li>wykonanie akcji <span class="math inline">\(a_t\)</span></li>
+<li>obserwacja nagrody <span class="math inline">\(r_t\)</span> i
+następnego stanu <span class="math inline">\(x_{t+1}\)</span></li>
+<li>uczenie z wykorzystaniem danych <span class="math inline">\((a_t,
+a_t, r_t, x_{t+1})\)</span></li>
+</ul></li>
+</ul>
+<h2 id="zadanie-ucznia">Zadanie ucznia</h2>
+<p>Długookresowa maksymalizacja nagród</p>
+<p><span class="math display">\[ E[\sum_{t=0}^\infty \gamma^t r_t]
+\]</span> * Współczynnik dyskontowania <span
+class="math inline">\(\gamma\)</span> * <span class="math inline">\(0
+&lt; \gamma \le 1\)</span> * Wymaga uwzględnienia opóźnionych efektów
+wykonanych akcji</p>
+<h3 id="zadania-epizodyczne">Zadania epizodyczne</h3>
+<ul>
+<li>Seria prób (epizodów) o skończonej liczbie kroków
+<ul>
+<li>w każdym epizodzie jakość działania jest oceniana niezależnie</li>
+</ul></li>
+<li>Do-sukcesu
+<ul>
+<li>próby kończy się po osiągnięciu sukcesu</li>
+<li>należy jak najszybciej dążyć do sukcesu</li>
+<li>wartość nagrody na końcu próby dodatnia (lub 0)</li>
+<li>wartość nagrody we wcześniejszych krokach 0 (lub ujemna)</li>
+</ul></li>
+<li>Do-porażki
+<ul>
+<li>próba kończy się po odniesieniu porażki</li>
+<li>należy ją opóźniać jak najdłużej</li>
+<li>wartość nagrody na końcu próby ujemna (lub 0)</li>
+<li>wartość nagrody we wcześniejszych krokach 0 (lub dodatnia)</li>
+</ul></li>
+</ul>
+<h2 id="proces-decyzyjny-markowa">Proces decyzyjny Markowa</h2>
+<p><span class="math display">\[\langle X, A, \delta, \rho \rangle
+\]</span></p>
+<ul>
+<li><span class="math inline">\(X\)</span> - skończony zbiór stanów</li>
+<li><span class="math inline">\(A\)</span> - skończony zbiór akcji</li>
+<li><span class="math inline">\(\delta\)</span> - funkcja przejść</li>
+<li><span class="math inline">\(\rho\)</span> - funkcja nagród</li>
+</ul>
+<h3 id="funkcja-przejść">Funkcja przejść</h3>
+<ul>
+<li><span class="math inline">\(\delta(x, a)\)</span></li>
+<li>Zmienna losowa oznaczająca stan osiągany po wykonaniu akcji <span
+class="math inline">\(a\)</span> w stanie <span
+class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(P_{xy}(a) = P(\delta(x,a) =
+y)\)</span></li>
+</ul>
+<h3 id="funkcja-nagród">Funkcja nagród</h3>
+<ul>
+<li><span class="math inline">\(\rho(x,a)\)</span></li>
+<li>Zmienna losowa oznaczająca nagrodę po wykonaniu akcji <span
+class="math inline">\(a\)</span> w stanie <span
+class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(R(x,a) = E[\rho(x,a)]\)</span></li>
+</ul>
+<h3 id="własność-markowa">Własność Markowa</h3>
+<p>Nagrody i przejścia zależą tylko od aktualnego stanu i akcji, a nie
+od historii</p>
+<h2 id="strategie-i-funkcje-wartości">Strategie i funkcje wartości</h2>
+<h3 id="strategia">Strategia</h3>
+<p>Stacjonarna, deterministyczna <span class="math display">\[ \pi: X
+\rightarrow A \]</span></p>
+<h3 id="funkcja-wartości-ze-względu-na-strategię-pi">Funkcja wartości ze
+względu na strategię <span class="math inline">\(\pi\)</span></h3>
+<p><span class="math display">\[ V^\pi(x) = E_\pi[\sum_{t=0}^\infty
+\gamma^t r_t | x_0=x] \]</span> * <span
+class="math inline">\(E_\pi\)</span> - wartość oczekiwana pod warunkiem
+posługiwania się strategią <span class="math inline">\(\pi\)</span></p>
+<h3 id="funkcja-wartości-akcji-ze-względu-na-strategię-pi">Funkcja
+wartości akcji ze względu na strategię <span
+class="math inline">\(\pi\)</span></h3>
+<p><span class="math display">\[ Q^\pi(x,a) = E_\pi[\rho(x,a) +
+\sum_{t=0}^\infty \gamma^t r_t | x_0=x, a_0=a ] \]</span> * <span
+class="math inline">\(V^\pi(x) = Q^\pi(x, \pi(x))\)</span></p>
+<h2 id="optymalność">Optymalność</h2>
+<ul>
+<li>Strategia <span class="math inline">\(\pi_1\)</span> jest lepsza niż
+strategia <span class="math inline">\(\pi_2\)</span> jeśli
+<ul>
+<li><span class="math inline">\((\forall x \in X) V^{\pi_1}(x) \ge
+V^{\pi_2}(x)\)</span></li>
+<li><span class="math inline">\((\exists x \in X) V^{\pi_1}(x) &gt;
+V^{\pi_2}(x)\)</span></li>
+</ul></li>
+<li>Strategia jest optymalna jeśli nie istnieje lepsza</li>
+<li>Istnieje co najmniej jedna strategia optymalna
+<ul>
+<li>może być więcej</li>
+<li>Wszystkie strategie optymalne mają tę samą optymalną funkcję
+wartości <span class="math inline">\(V^*\)</span> i optymalną funkcję
+wartości akcji <span class="math inline">\(Q^*\)</span></li>
+</ul></li>
+</ul>
+<h2 id="równania-bellmana">Równania Bellmana</h2>
+<p>Rekurencyjne zależności dla funkcji wartości i wartości akcji,
+umożliwiają wyznacznie przez rozwiązanie układu równań.</p>
+<p><span class="math display">\[ V^\pi(x) = R(x, \pi(x)) + \gamma \sum_y
+P_{xy}(\pi(x)) V^\pi(y) \]</span> <span class="math display">\[ Q^\pi(x,
+a) = R(x, a) + \gamma \sum_y P_{xy}(a) Q^\pi(y, \pi(y)) \]</span> <span
+class="math display">\[ V^*\pi*(x) = \max_a[ R(x, a) + \gamma \sum_y
+P_{xy}(a) V^*(y) ] \]</span> <span class="math display">\[ Q^*\pi*(x, a)
+= R(x, a) + \gamma \sum_y P_{xy}(a) \max_{a&#39;} Q^*(y, a&#39;)
+\]</span></p>
+<h2 id="algorytmy-programowania-dynamicznego">Algorytmy programowania
+dynamicznego</h2>
+<ul>
+<li>Optymalizacja dyskretna</li>
+<li>Rozwiązanie konstruowane przez sekwencję decyzji</li>
+<li>Rozwiązanie całościowe jest złożeniem początkowej decyzji i reszty
+decyzji</li>
+<li>Podjęcie pierwszej decyzji i rozwiązanie podproblemu tej samej
+natury, skróconego o pierwszą decyzję</li>
+<li>Jakość całego rozwiązania można wyrazić jako sumę jakości pierwszej
+decyzji i jakości rozwiązania podproblemu</li>
+</ul>
+<h3 id="strategia-zachłanna">Strategia zachłanna</h3>
+<p>Zakładamy że mamy jakąś wcześniejszą strategię <span
+class="math inline">\(\pi\)</span> dla której znamy funkcję wartości
+<span class="math inline">\(V^\pi\)</span> (lub <span
+class="math inline">\(Q^\pi\)</span>)</p>
+<p><span class="math display">\[ \pi&#39;(x) = \arg \max_a [R(x,a) +
+\gamma \sum_y P_{xy}(a) \cdot V^\pi(y)] \]</span> Alternatywna
+postać</p>
+<p><span class="math display">\[ \pi&#39;(x) = \arg \max_a Q^\pi(x,a)
+\]</span></p>
+<ul>
+<li>Nagroda z pierwszego kroku + to co będzie dalej</li>
+<li>Może wybrać inną akcję niż <span
+class="math inline">\(\pi\)</span></li>
+<li>Strategia zachłanna względem <span
+class="math inline">\(\pi\)</span></li>
+<li>Strategia <span class="math inline">\(\pi&#39;\)</span> jest lepsza
+niż <span class="math inline">\(\pi\)</span> albo obie są optymalne</li>
+</ul>
+<h3 id="iteracja-strategii">Iteracja strategii</h3>
+<p>Jeśli na początek znajdziemy dowolną strategię, a potem będziemy
+wyznaczać coraz lepsze tym sposobem, dla skończonego zbioru strategii
+znaleziemy strategię optymalną</p>
+<ul>
+<li><span class="math inline">\(\pi_0\)</span> - strategia
+początkowa</li>
+<li>dla <span class="math inline">\(k = 0, 1, \ldots\)</span>
+<ul>
+<li>wyznacz <span class="math inline">\(V^{\pi_k}\)</span> (lub <span
+class="math inline">\(Q^{\pi_k}\)</span>)</li>
+<li>wyznacz <span class="math inline">\(\pi_{k+1}\)</span> jako
+strategię zachłanną względem <span
+class="math inline">\(V^{\pi_k}\)</span></li>
+</ul></li>
+<li>stop kiedy <span class="math inline">\(V^{\pi_{k+1}} =
+V^{\pi_k}\)</span></li>
+</ul>
+<h3 id="iteracja-wartości">Iteracja wartości</h3>
+<p>Sekwencja funkcji wartości</p>
+<ul>
+<li><span class="math inline">\(V^*_0\)</span> - dowolna funkcja
+wartości</li>
+<li>dla <span class="math inline">\(k = 0, 1, \ldots\)</span>
+<ul>
+<li><span class="math inline">\(V^*_{k+1}(x) := \max_a [R(x,a) + \gamma
+\sum_y P_{xy}(a) V^*_k(y)]\)</span></li>
+<li>(iteracyjne stosowanie równania Bellmana)</li>
+</ul></li>
+<li>stop: <span class="math inline">\(V^*_{k+1} \simeq
+V^*_k\)</span></li>
+</ul>
+<p>Dla funkcji <span class="math inline">\(Q\)</span></p>
+<ul>
+<li><p><span class="math inline">\(Q^*_0\)</span> - dowolna funkcja
+wartości</p></li>
+<li><p>dla <span class="math inline">\(k = 0, 1, \ldots\)</span></p>
+<ul>
+<li><span class="math inline">\(Q^*_{k+1}(x, a) := R(x,a) + \gamma
+\sum_y P_{xy}(a) \max_{a&#39;} Q^*_k(y,a&#39;)\)</span></li>
+<li>(iteracyjne stosowanie równania Bellmana)</li>
+</ul></li>
+<li><p>stop: <span class="math inline">\(Q^*_{k+1} \simeq
+Q^*_k\)</span></p></li>
+<li><p>Wyznaczana jest funkcja wartości dla optymalnej
+strategii</p></li>
+<li><p>Wyznaczanie strategii optymalnej - wyznaczenie strategii
+zachłannej względem wyznaczonego <span
+class="math inline">\(V^*\)</span></p></li>
+</ul>
+<h3 id="różnica-między-programowaniem-dynamicznym-a-rl">Różnica między
+programowaniem dynamicznym a RL</h3>
+<ul>
+<li>To jeszcze nie jest uczenie się ze wzmocnieniem (ani żadne uczenie)
+<ul>
+<li>to tylko przepis na znalezienie strategii optymalnej</li>
+<li>zakładamy że <span class="math inline">\(R\)</span> i <span
+class="math inline">\(P_{xy}\)</span> są znane - środowisko jest w pełni
+znane</li>
+<li>nie wymaga kontaktu ze środowiskiem ani wykonywania żadnych
+akcji</li>
+</ul></li>
+<li>W uczeniu się - środowisko nie jest w pełni znane
+<ul>
+<li>uczeń wykonuje akcję i wtedy dowiaduje się o nagrodzie i następnym
+stanie</li>
+<li>nie są znane oczekiwane wartości i prawdopodobieństwa przejść</li>
+</ul></li>
+<li>W uczeniu ze wzmocnieniem wystarczy, że uczeń będzie zachowywał się
+optymalnie
+<ul>
+<li>wybierze najlepszą akcję w tych stanach, które spotyka</li>
+<li>mogą istnieć stany, których uczeń nie spotka - nie wie co w nich
+zrobić ale to nie szkodzi</li>
+<li>więc w uczeniu się wyznaczamy trochę mniej niż strategię
+optymalną</li>
+</ul></li>
+<li>W uczeniu się ze wzmocnieniem
+<ul>
+<li>sbiór stanów może nie być skończony</li>
+<li>można stosować aproksymację dla stanów nieznanych wcześniej, ale
+podobnych do już znanych</li>
+</ul></li>
+</ul>
+<h2 id="q-learning">Q-learning</h2>
+<p><span class="math display">\[ t: \quad x_t, a_t, r_t, x_{t+1}
+\]</span> <span class="math display">\[ Q_{t+1}(x_t, a_t) :=
+(1-\beta)Q_t(x_t,a_t) + \beta[r_t + \gamma \max_a Q_t(x_{t+1}, a)]
+\]</span></p>
+<ul>
+<li>Z wagą <span class="math inline">\(\beta\)</span> czynnik
+odpowiadający prawej stronie równania Bellmana (jak w algorytmie
+iteracji wartości wyżej)</li>
+<li>Parametr <span class="math inline">\(\beta\)</span> - współczynnik
+uczenia się / rozmiar kroku
+<ul>
+<li><span class="math inline">\(0 &lt; \beta &lt; 1\)</span></li>
+<li>nie zastępujemy starej wartości, bo dopuszczamy że środowisko nie
+jest deterministyczne</li>
+<li>następny stan nie musi być jedynym możliwym</li>
+<li>nie ufamy w pełni pojedynczej obserwacji</li>
+</ul></li>
+<li>Zamiast oczekiwanej wartości nagrody <span
+class="math inline">\(R(x,a)\)</span> jest faktyczna wartość <span
+class="math inline">\(r_t\)</span></li>
+<li>Symlacja Monte-Carlo równania Bellmana dla <span
+class="math inline">\(Q^*\)</span></li>
+</ul>
+<h3 id="warunki-zbieżności">Warunki zbieżności</h3>
+<p><span class="math inline">\(Q\)</span> zbiega do <span
+class="math inline">\(Q^*\)</span> pod warunkiem, że</p>
+<ul>
+<li>Możliwa jest tablicowa reprezentacja funkcji <span
+class="math inline">\(Q\)</span>
+<ul>
+<li>nie wykorzystujemy żadnego podobieństwa między stanami itp.</li>
+</ul></li>
+<li>W każdym stanie, każda akcja ma prawdopodobieństwo wyboru większe od
+<span class="math inline">\(0\)</span>
+<ul>
+<li>nie wybieramy zawsze akcji o maksymalnej wartości <span
+class="math inline">\(Q\)</span></li>
+</ul></li>
+<li>Do <span class="math inline">\(i\)</span>-tej aktualizacji stosujemy
+<span class="math inline">\(\beta_i(x,a)\)</span> takie że <span
+class="math inline">\(\sum_{i=1}^\infty \beta_i(x,a) = \infty\)</span>
+ale <span class="math inline">\(\sum_{i=1}^\infty \beta_i^2(x,a) &lt;
+\infty\)</span>
+<ul>
+<li>zależy np. który raz spotykmay taką parę</li>
+<li>może być ważniejsze, żeby system szybko znajdował wystarczająco
+dobrą wartość</li>
+</ul></li>
+</ul>
+<p>Warunki nie muszą być spełnione żeby w praktyce algorytm dawał
+zadowalające rezultaty</p>
+<h3 id="wybór-akcji">Wybór akcji</h3>
+<ul>
+<li>Z punktu widzenia zbieżności algorytmu w ogóle nie trzeba posługiwać
+się <span class="math inline">\(Q\)</span> przy wyborze akcji</li>
+<li>Algorytmy off-policy (niezależne od strategii)
+<ul>
+<li>nie musi posługiwać się tą strategią, której się uczy</li>
+</ul></li>
+<li>Balans między eksploracją a eksploatacją
+<ul>
+<li>różne podejścia</li>
+<li>w symulacji gdzie błędne decyzje nie bolą można ustawić wysoką
+losowość</li>
+<li>można zmniejszać losowość w miarę uczenia się</li>
+</ul></li>
+</ul>
+<h4 id="strategia-epsilon-zachłanna">Strategia <span
+class="math inline">\(\epsilon\)</span>-zachłanna</h4>
+<ul>
+<li>Wybór <span class="math inline">\(a_t\)</span>
+<ul>
+<li>akcja jednostajnie losowana z prawdopodobieńśtwem <span
+class="math inline">\(\epsilon\)</span></li>
+<li>akcja maksymalizująca <span class="math inline">\(Q(x_t,
+\ldots)\)</span> z prawdopodobieństwem <span
+class="math inline">\(1-\epsilon\)</span></li>
+</ul></li>
+</ul>
+<h4 id="strategia-boltzmanna-soft-max">Strategia Boltzmanna
+(soft-max)</h4>
+<ul>
+<li>Prawdopodobieństwo wyboru akcji</li>
+<li>Dla dużego <span class="math inline">\(T\)</span> - mniej ważna
+wartość <span class="math inline">\(Q\)</span> - bardziej zlbiżony do
+rozkładu jendostajnego</li>
+<li>Małe <span class="math inline">\(T\)</span> - większa preferencja
+dla największych wartości <span class="math inline">\(Q\)</span> -
+bliżej strategii zachłannej</li>
+</ul>
+<p><span class="math display">\[P(x, a) =
+\frac{\exp(Q(x,a)/T}{\sum_{a&#39;} \exp(x, a&#39;)/T} \]</span></p>
+<h2 id="aproksymator-funkcji">Aproksymator funkcji</h2>
+<ul>
+<li>Coś w rodzaju modelu regresji</li>
+<li>Na wejściu stan (i może akcja)</li>
+<li>Na wyjściu produkuje liczbę</li>
+<li>Stan to wektor wartości atrybutów</li>
+<li>Zakładamy że akcji jest niewiele (kilka)
+<ul>
+<li>będzie osobny model dla każdej akcji</li>
+<li>nie dajemy akcji na wejście</li>
+</ul></li>
+<li>Stosujemy model regresji, który przetwarza po jednym przykładzie na
+raz
+<ul>
+<li>np. alternatywna postać regresji liniowej</li>
+<li><span class="math inline">\(Q_{t+1}(x_t,a_t) = Q_t(x_t,a_t) +
+\beta(r_t + \gamma \max_a Q_t(x_{t+1},a) - Q_t(x_t,a_t))\)</span></li>
+<li>wartość dotychczasowa + poprawka</li>
+<li>to można podstawić w miejsce <span
+class="math inline">\((f-h)\)</span> wzoru regresji</li>
+<li><span class="math inline">\(f = r_t + \gamma \max_a
+Q_t(x_{t+1},a)\)</span></li>
+<li><span class="math inline">\(h = Q_t(x_t,a_t)\)</span></li>
+</ul></li>
+<li>Powszechnie stosuje się inne, bardziej złożone modele
+<ul>
+<li>np. sieci neuronowe głębokie</li>
+<li>deep Q-network</li>
+</ul></li>
+<li>Umożliwia generalizację uczenia i możliwość stosowania kiedy nie ma
+tablicowej reprezentacji funkcji <span
+class="math inline">\(Q\)</span></li>
+</ul>
+<h2 id="sarsa">Sarsa</h2>
+<p>State-action-reward-state-action</p>
+<p><span class="math display">\[ Q_{t+1}(x_t,a_t) =
+(1-\beta)Q_t(x_t,a_t) + \beta[r_t + \gamma Q_t(x_{t+1},a_{t+1})]
+\]</span></p>
+<ul>
+<li>Opóźniona aktualizacja do wyboru następnej akcji</li>
+<li>Uczy się wartości Q względem aktualnej strategii, a nie strategii
+optymalnej</li>
+<li>Chociaż nie ma jawnego zachłannego wyboru</li>
+<li>Nie ma teoretycznych gwarancji zbieżności jak w Q-learning
+<ul>
+<li>w praktyce Sarsa uczy się szybciej</li>
+</ul></li>
+</ul>
+<h2 id="co-dalej">Co dalej</h2>
+<ul>
+<li>Aktualnie mamy okres renesansu uczenia ze wzmocnieniem - można
+obsługiwać bardziej złożone stany na wejściu (obraz z kamery, tekst w
+języku naturalnym) wykorzystując głębokie sieci neuronowe</li>
+<li>Duże modele językowe wykorzystują mechanizm RLHF (uczenie ze
+wzmocnieniem z oceną użytkownika)</li>
+<li>Badania zastosowania dla problemów bez własności Markowa</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uczenie-się-ze-wzmocnieniem" id="toc-uczenie-się-ze-wzmocnieniem">Uczenie się ze wzmocnieniem</a>
+<ul>
+<li><a href="#scenariusz" id="toc-scenariusz">Scenariusz</a></li>
+<li><a href="#zadanie-ucznia" id="toc-zadanie-ucznia">Zadanie ucznia</a>
+<ul>
+<li><a href="#zadania-epizodyczne" id="toc-zadania-epizodyczne">Zadania
+epizodyczne</a></li>
+</ul></li>
+<li><a href="#proces-decyzyjny-markowa" id="toc-proces-decyzyjny-markowa">Proces decyzyjny Markowa</a>
+<ul>
+<li><a href="#funkcja-przejść" id="toc-funkcja-przejść">Funkcja
+przejść</a></li>
+<li><a href="#funkcja-nagród" id="toc-funkcja-nagród">Funkcja
+nagród</a></li>
+<li><a href="#własność-markowa" id="toc-własność-markowa">Własność
+Markowa</a></li>
+</ul></li>
+<li><a href="#strategie-i-funkcje-wartości" id="toc-strategie-i-funkcje-wartości">Strategie i funkcje wartości</a>
+<ul>
+<li><a href="#strategia" id="toc-strategia">Strategia</a></li>
+<li><a href="#funkcja-wartości-ze-względu-na-strategię-pi" id="toc-funkcja-wartości-ze-względu-na-strategię-pi">Funkcja wartości ze
+względu na strategię <span class="math inline">\(\pi\)</span></a></li>
+<li><a href="#funkcja-wartości-akcji-ze-względu-na-strategię-pi" id="toc-funkcja-wartości-akcji-ze-względu-na-strategię-pi">Funkcja
+wartości akcji ze względu na strategię <span class="math inline">\(\pi\)</span></a></li>
+</ul></li>
+<li><a href="#optymalność" id="toc-optymalność">Optymalność</a></li>
+<li><a href="#równania-bellmana" id="toc-równania-bellmana">Równania
+Bellmana</a></li>
+<li><a href="#algorytmy-programowania-dynamicznego" id="toc-algorytmy-programowania-dynamicznego">Algorytmy programowania
+dynamicznego</a>
+<ul>
+<li><a href="#strategia-zachłanna" id="toc-strategia-zachłanna">Strategia zachłanna</a></li>
+<li><a href="#iteracja-strategii" id="toc-iteracja-strategii">Iteracja
+strategii</a></li>
+<li><a href="#iteracja-wartości" id="toc-iteracja-wartości">Iteracja
+wartości</a></li>
+<li><a href="#różnica-między-programowaniem-dynamicznym-a-rl" id="toc-różnica-między-programowaniem-dynamicznym-a-rl">Różnica między
+programowaniem dynamicznym a RL</a></li>
+</ul></li>
+<li><a href="#q-learning" id="toc-q-learning">Q-learning</a>
+<ul>
+<li><a href="#warunki-zbieżności" id="toc-warunki-zbieżności">Warunki
+zbieżności</a></li>
+<li><a href="#wybór-akcji" id="toc-wybór-akcji">Wybór akcji</a></li>
+</ul></li>
+<li><a href="#aproksymator-funkcji" id="toc-aproksymator-funkcji">Aproksymator funkcji</a></li>
+<li><a href="#sarsa" id="toc-sarsa">Sarsa</a></li>
+<li><a href="#co-dalej" id="toc-co-dalej">Co dalej</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

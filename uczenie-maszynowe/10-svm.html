@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-svm</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-las-losowy.html">Poprzedni: 09-las-losowy.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-uczenie-sie-ze-wzmocnieniem.html">Następny: 11-uczenie-sie-ze-wzmocnieniem.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="svm">SVM</h1>
+<h2 id="svm-z-twardym-marginesem">SVM z twardym marginesem</h2>
+<ul>
+<li>Reprezentacja liniowo-progowa</li>
+<li>Funkcja liniowa <span class="math inline">\(g(x) = w \cdot
+a(x)\)</span> - hiperpłaszczyzna
+<ul>
+<li>dla uproszczenia zapisu przyjmujemy <span
+class="math inline">\(a_{n+1}(x)=1\)</span></li>
+</ul></li>
+<li>Predykcja <span class="math inline">\(1\)</span> jeśli <span
+class="math inline">\(g(x) \ge0\)</span>, <span
+class="math inline">\(0\)</span> jeśli <span class="math inline">\(g(x)
+&lt; 0\)</span></li>
+<li>Szuka liniowej granicy decyzyjnej między klasami
+<ul>
+<li>dąży do separacji z jak największym zapasem</li>
+</ul></li>
+<li><span class="math inline">\(\gamma_w(x) = \frac{c_-(x) w \cdot
+a(x)}{\|w_{1:n}\|}\)</span>
+<ul>
+<li>margines geometryczny</li>
+<li>odległość od hiperpłaszczyzny ze znakiem</li>
+<li>dodatni jeśli przykład klasyfikowany poprawnie</li>
+<li><span class="math inline">\(c_-(x)\)</span> - <span
+class="math inline">\(1\)</span> dla klasy <span
+class="math inline">\(1\)</span>, <span
+class="math inline">\(-1\)</span> dla klasy <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\hat{\gamma}_w(x) = c_-(x) w \cdot
+a(x)\)</span>
+<ul>
+<li>margines funkcyjny</li>
+<li>nieznormalizowany</li>
+</ul></li>
+<li><span class="math inline">\(\gamma(T) = \min_{x \in T}
+\gamma_w(x)\)</span>
+<ul>
+<li>dążymy do maksymalizacji</li>
+<li>dla poprawnie klasyfikowanych jest dodatni - chcemy jak największy
+zapas</li>
+<li>dla niepoprawnie klasyfikowanych jest ujemny - chcemy jak
+najmniejszego błędu</li>
+</ul></li>
+<li>Mnożenie <span class="math inline">\(w\)</span> przez stałą nie
+zmieni położenia granicy decyzyjnej, ani jej orientacji
+<ul>
+<li>porównujemy iloczyn skalarny z zerem</li>
+<li>żeby pozbyć się niejednoznaczności wprowadzamy postulat <span
+class="math inline">\(\hat{\gamma}(T) = 1\)</span></li>
+<li>z tym założeniem maksymalizacja <span
+class="math inline">\(\gamma_w(T)\)</span> to minimalizacja <span
+class="math inline">\(\frac{1}{2}\|w\|^2\)</span></li>
+</ul></li>
+<li>Minimalizacja <span
+class="math inline">\(\frac{1}{2}\|w\|^2\)</span> przy ograniczeniu
+<ul>
+<li><span class="math inline">\((\forall x \in T) c_-(x) w \cdot a(x)
+\ge 1\)</span></li>
+<li>niemożliwe do spełnienia jeśli klasy nie są liniowo separowalne</li>
+<li>to jest równoważne z postulatem <span
+class="math inline">\(\hat{\gamma}(T) = 1\)</span></li>
+</ul></li>
+<li>To wszystko przy założeniu że istnieje liniowa granica decyzyjna
+między klasami
+<ul>
+<li>SVM z twardym marginesem (hard margin)</li>
+</ul></li>
+<li><span class="math inline">\((\forall x \in T) c_-(x) w \cdot a(x)
+\ge 1\)</span>
+<ul>
+<li>dla najbliższych punktów do granicy wartość jest dokładnie równa
+1</li>
+<li>będą co najmniej 2 (po 1 z każdej strony) - wektory
+nośne/podpierające</li>
+<li>one determinują przebieg granicy</li>
+</ul></li>
+</ul>
+<h2 id="svm-z-miękkim-marginesem">SVM z miękkim marginesem</h2>
+<ul>
+<li>Zbiór trenujące niekoniecznie liniowo separowalny
+<ul>
+<li>granica decyzyjna nie musi separować wszystkich przykładów</li>
+</ul></li>
+<li>Minimalizacja
+<ul>
+<li><span class="math inline">\(\frac{1}{2} \|w_{1:n}\|^2 + \mathcal{C}
+\cdot \sum_{x \in T} \xi_x\)</span></li>
+</ul></li>
+<li>Przy ograniczeniach
+<ul>
+<li><span class="math inline">\((\forall x \in T) c_-(x) w \cdot a(x)
+\ge 1 - \xi_x\)</span></li>
+<li><span class="math inline">\(\xi_x\)</span> - zmienna luzująca (slack
+variable)</li>
+<li><span class="math inline">\((\forall x \in T) \xi_x \ge
+0\)</span></li>
+</ul></li>
+<li>Margines wyznaczany przez przykłady o <span
+class="math inline">\(\xi_x = 0\)</span></li>
+<li>Są przykłady poprawnie klasyfikowane o <span
+class="math inline">\(\xi_x &gt; 0\)</span></li>
+<li>Są przykłady niepoprawnie klasyfikowane o <span
+class="math inline">\(\xi_x &gt; 1\)</span></li>
+<li>Jako wektory podpierające traktujemy te o <span
+class="math inline">\(c_-(x)w \cdot a(x) \le 1\)</span></li>
+</ul>
+<h3 id="co-daje-parametr-mathcalc">Co daje parametr <span
+class="math inline">\(\mathcal{C}\)</span></h3>
+<ul>
+<li>Wysoka wartość <span class="math inline">\(\mathcal{C}\)</span>
+<ul>
+<li>niechętne luzowanie</li>
+<li>wąski margines</li>
+<li>dążenie do liniowej separacji za wszelką cenę</li>
+<li>większa podatność na nadmierne dopasowanie</li>
+<li>wrażliwe na pojedyncze przykłady trudne do separacji</li>
+</ul></li>
+<li>Mała wartość <span class="math inline">\(\mathcal{C}\)</span>
+<ul>
+<li>ignorowanie niektórych przykładów, żeby dla wielu przykładów uzyskać
+szeroki margines</li>
+</ul></li>
+<li>Warto dostroić
+<ul>
+<li>nie bardzo da się polegać na wartości domyślnej (<span
+class="math inline">\(1\)</span>)</li>
+</ul></li>
+</ul>
+<h2 id="svm-z-funkcjami-jądrowymi">SVM z funkcjami jądrowymi</h2>
+<ul>
+<li>To co jest stosowane w praktyce</li>
+<li>Mnożniki Lagrange’a</li>
+<li>Dualne zadanie optymalizacji
+<ul>
+<li>wynikiem jest tyle współczynników ile jest przykładów</li>
+</ul></li>
+<li>W nowej postaci używa się iloczynów skalarnych par przykładów
+trenujących
+<ul>
+<li>to umożliwa zastosowanie bardziej efektywnego algorytmu
+optymalizacji</li>
+<li>iloczyn skalarny można zastąpić funkcją jądrową</li>
+<li>funkcja, która jest iloczynem skalarnym od jakichś innych
+atrybutów</li>
+<li>niejawny sposób na przekształcenie przykładów do innej przestrzeni
+atrybutów</li>
+<li>nowe atrybuty zależą nieliniowo od pierwotnych</li>
+<li>algorytm zdobywa większą zdolność do separacji klas</li>
+</ul></li>
+</ul>
+<h2 id="svr">SVR</h2>
+<ul>
+<li>SVM do regresji</li>
+<li>Minimalizacja kwadratu normy wektora parametrów
+<ul>
+<li>dla ograniczenia ryzyka nadmiernego dopasowania</li>
+</ul></li>
+<li>Ograniczenia wymuszające dokładnośc predykcji</li>
+<li>Szczegóły poza zakresem wykładu</li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Bardzo powszechnie używany algorytm
+<ul>
+<li>trudniejszy do użycia</li>
+<li>wrażliwy na wybór parametrów, wybór funkcji jądrowych</li>
+<li>konkurencyjny do lasu losowego</li>
+<li>odporny na nadmierne dopasowanie nawet przy dużej liczbie
+atrybutów</li>
+<li>możliwość reprezentowania nieliniowych zależności</li>
+</ul></li>
+<li>Wymaga starannego doboru parametrów</li>
+<li>Brak możliwości prostej interpretacji modelu</li>
+<li>Skalowanie Platta
+<ul>
+<li>mechanizm przewidywania prawdopodobieństw klas</li>
+<li>nakładka na model</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#svm" id="toc-svm">SVM</a>
+<ul>
+<li><a href="#svm-z-twardym-marginesem" id="toc-svm-z-twardym-marginesem">SVM z twardym marginesem</a></li>
+<li><a href="#svm-z-miękkim-marginesem" id="toc-svm-z-miękkim-marginesem">SVM z miękkim marginesem</a>
+<ul>
+<li><a href="#co-daje-parametr-mathcalc" id="toc-co-daje-parametr-mathcalc">Co daje parametr <span class="math inline">\(\mathcal{C}\)</span></a></li>
+</ul></li>
+<li><a href="#svm-z-funkcjami-jądrowymi" id="toc-svm-z-funkcjami-jądrowymi">SVM z funkcjami jądrowymi</a></li>
+<li><a href="#svr" id="toc-svr">SVR</a></li>
+<li><a href="#podsumowanie" id="toc-podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

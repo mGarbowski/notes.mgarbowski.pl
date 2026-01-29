@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="kolokwium-01.html">Poprzedni: kolokwium-01.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h2 id="kolokwium-2">Kolokwium 2</h2>
+<p>Wykłady 8-14</p>
+<h2 id="pytania-ze-slajdów">Pytania ze slajdów</h2>
+<h3
+id="czy-tworząc-model-w-środowisku-statycznym-zakładamy-że-projekt-nie-jest-realizowany-iteracyjnie">Czy
+tworząc model w “środowisku statycznym” zakładamy, że projekt nie jest
+realizowany iteracyjnie?</h3>
+<p>Niekoniecznie, nadal możemy pracować w sposób iteracyjny aż do np.
+wykonania finalnej predykcji (jednorazowego) opracowanym modelem.
+Wcześniej powtarzamy iteracyjnie np. analizę domeny biznesowej, analizę
+danych i konstrukcję modelu.</p>
+<h3
+id="o-czym-powinniśmy-pamiętać-gdy-chcemy-korzystać-z-predykcji-generowanych-przez-inny-zespół-do-realizacji-naszego-modelu">O
+czym powinniśmy pamiętać, gdy chcemy korzystać z predykcji generowanych
+przez inny zespół do realizacji naszego modelu?</h3>
+<ul>
+<li>O rozkładzie danych wyjściowych z tego modelu</li>
+<li>O komunikacji z zespołem co do zmian w modelu, wdrożeń itd.
+<ul>
+<li>komunikacji że w ogóle korzystamy z tego modelu</li>
+</ul></li>
+</ul>
+<h3
+id="czy-problem-zanikających-korelacji-może-dotyczyć-również-atrybutów-dyskretnych">Czy
+problem zanikających korelacji może dotyczyć również atrybutów
+dyskretnych?</h3>
+<ul>
+<li>Współczynnik korelacji (Pearsona) jest zdefiniowany dla zmiennych
+ciągłych, a nie dyskretnych</li>
+<li>Ale może być analogiczny problem dla zmiennych dyskretnych
+<ul>
+<li>przyjmując odpowiednią miarę <em>korelacji</em></li>
+</ul></li>
+<li>Np.
+<ul>
+<li><span class="math inline">\(x_1\)</span> - pora dnia</li>
+<li><span class="math inline">\(x_2\)</span> - typ urządzenia</li>
+<li><span class="math inline">\(y\)</span> - czy klient dokona
+zakupu</li>
+</ul></li>
+</ul>
+<h3
+id="czy-przygotowując-system-rekomendacji-jesteśmy-w-stanie-ocenić-jego-skuteczność-na-podstawie-danych-offline">Czy
+przygotowując system rekomendacji jesteśmy w stanie ocenić jego
+skuteczność na podstawie danych “offline”?</h3>
+<ul>
+<li>Jak rozumiemy skuteczność</li>
+<li>Na danych offline możemy obliczyć analityczne miary jakości</li>
+<li>Jako skuteczność może interesować nas cel biznesowy np. wzrost czasu
+spędzonego przez użytkowników na platformie streamingowej
+<ul>
+<li>biznesowa miara jakości</li>
+<li>nie możemy obliczyć wpływu na zachowanie użytkowników mając tylko
+dane offline</li>
+</ul></li>
+<li>Chcemy dobrać takie miary analityczne, które będą jak najlepiej
+przekładać się na miary biznesowe (a te na spełnienie celów
+biznesowych)</li>
+</ul>
+<h3
+id="przeprowadzamy-eksperyment-rct-i-informujemy-uczestników-do-których-grup-należą-jakie-będą-tego-konsekwencje">Przeprowadzamy
+eksperyment RCT i informujemy uczestników, do których grup należą –
+jakie będą tego konsekwencje?</h3>
+<ul>
+<li>Może zaburzyć wyniki eksperymentu - efekt placebo/nocebo</li>
+<li>Świadomość przynależności do grupy może wpłynąć na efekt
+<ul>
+<li>np. kiedy osoba wie, że przyjmuje placebo, a nie prawdziwy lek</li>
+</ul></li>
+</ul>
+<h3
+id="dlaczego-podczas-przeprowadzania-eksperymentu-musimy-znać-dokładny-moment-wystąpienia-interwencji">Dlaczego
+podczas przeprowadzania eksperymentu musimy znać dokładny moment
+wystąpienia interwencji?</h3>
+<ul>
+<li>Jeśli mówimy o eksperymencie A/B w kontekście uczenia
+maszynowego</li>
+<li>Musimy wiedzieć kiedy zbierać logi</li>
+<li>Musimy znać moment żeby eksperymenty się nie pokrywały
+<ul>
+<li>2 eksperymenty jednocześnie wpływają na to samo mierzone
+zjawisko</li>
+<li>nie wiemy która zmiana przyczyniła się do poprawy / pogorszenia
+metryk ### Jaki rozkład w przybliżeniu opisuje zachowanie wartości
+statystyki w teście z?</li>
+</ul></li>
+</ul>
+<p>Normalny standardowy</p>
+<h3
+id="jakie-będą-konsekwencje-pozwolenia-użytkownikom-na-wybór-do-której-z-grup-chcieliby-należeć">Jakie
+będą konsekwencje pozwolenia użytkownikom na wybór, do której z grup
+chcieliby należeć?</h3>
+<ul>
+<li>To zaburza wyniki eksperymentu</li>
+<li>W eksperymencie chcemy badać jaki wpływ ma zmiana jednej zmiennej
+<ul>
+<li>np. wykorzystany model predykcyjny</li>
+</ul></li>
+<li>Na decyzję użytkownika mogą mieć wpływ inne czynniki i to od nich
+może zależeć wynik eksperymentu
+<ul>
+<li>nie zmierzymy wtedy wpływu podmiany modelu ### Czy na ataki z
+użyciem złośliwych danych podatne są również modele drzewiaste?</li>
+</ul></li>
+<li>Co do zasady tak, np. boundary attack - metoda dla czarnych
+skrzynek, nie korzysta z gradientu
+<ul>
+<li>da radę zastosować na drzewie</li>
+</ul></li>
+<li>Ze względu na nieliniowy charakter modeli drzewiastych są mniej
+podatne</li>
+</ul>
+<h3
+id="w-jaki-sposób-złośliwie-wygenerowane-przykłady-dałoby-się-zastosować-do-diagnostyki-modelu">W
+jaki sposób złośliwie wygenerowane przykłady dałoby się zastosować do
+diagnostyki modelu?</h3>
+<ul>
+<li>Jak w przykładzie z wnioskami kredytowymi</li>
+<li>Chodzi o znalezienie najmniejszej modyfikacji przykładu wejściowego,
+która zmieni wynik klasyfikacji</li>
+<li>To tak samo postawione zadanie optymalizacyjne</li>
+<li>Do zastosowań XAI możemy mieć dodatkowe ograniczenia na perturbacje
+<ul>
+<li>powinny być możliwe do zrealizowania (zmniejszenie wieku) ### Jakie
+konsekwencje będzie miało stosowanie w prywatności różnicowej rozkładów
+“z grubymi ogonami”?</li>
+</ul></li>
+<li>Dodawanie do danych szumu z rozkładu z grubym ogonem</li>
+<li>Mocniej maskuje przykłady, nawet odstające
+<ul>
+<li>większa ochrona prywatności</li>
+</ul></li>
+<li>Mocno zaburza dane
+<ul>
+<li>bardzo mocne szumy są nadal całkiem prawdopodobne</li>
+<li>tak zaburzone dane mogą być mało użyteczne</li>
+</ul></li>
+</ul>
+<h3
+id="jaki-będzie-koszt-obliczeniowy-trenowania-odpornego-robust-learning-w-porównaniu-do-klasycznego-podejścia">Jaki
+będzie koszt obliczeniowy trenowania odpornego (robust learning) w
+porównaniu do “klasycznego” podejścia?</h3>
+<ul>
+<li>Dużo większy, bo wplatamy w trening zaburzone przykłady</li>
+<li>Przykładów jest więcej
+<ul>
+<li>np. wiele zaburzeń dla jednego przykładu ### W jakiej przestrzeni
+rozwiązywane jest zadanie optymalizacji podczas generowania przykładu
+złośliwego? Czy definiuje się w niej jakieś ograniczenia?</li>
+</ul></li>
+<li>W przestrzeni danych wejściowych modelu
+<ul>
+<li>szukamy modyfikacji tych atrybutów</li>
+<li>opcjonalnie podzbiór atrybutów, ale to bardziej do zastosowań XAI
+niż do ataku</li>
+</ul></li>
+<li>Ograniczenie w boundary attack - przykład znajduje się po właściwej
+stronie granicy decyzyjnej</li>
+<li>Minimalizacja wielkości perturbacji (np. norma L2) przy ograniczeniu
+- dodanie perturbacji zmienia odpowiedź modelu</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kolokwium-2" id="toc-kolokwium-2">Kolokwium 2</a></li>
+<li><a href="#pytania-ze-slajdów" id="toc-pytania-ze-slajdów">Pytania ze
+slajdów</a>
+<ul>
+<li><a href="#czy-tworząc-model-w-środowisku-statycznym-zakładamy-że-projekt-nie-jest-realizowany-iteracyjnie" id="toc-czy-tworząc-model-w-środowisku-statycznym-zakładamy-że-projekt-nie-jest-realizowany-iteracyjnie">Czy
+tworząc model w “środowisku statycznym” zakładamy, że projekt nie jest
+realizowany iteracyjnie?</a></li>
+<li><a href="#o-czym-powinniśmy-pamiętać-gdy-chcemy-korzystać-z-predykcji-generowanych-przez-inny-zespół-do-realizacji-naszego-modelu" id="toc-o-czym-powinniśmy-pamiętać-gdy-chcemy-korzystać-z-predykcji-generowanych-przez-inny-zespół-do-realizacji-naszego-modelu">O
+czym powinniśmy pamiętać, gdy chcemy korzystać z predykcji generowanych
+przez inny zespół do realizacji naszego modelu?</a></li>
+<li><a href="#czy-problem-zanikających-korelacji-może-dotyczyć-również-atrybutów-dyskretnych" id="toc-czy-problem-zanikających-korelacji-może-dotyczyć-również-atrybutów-dyskretnych">Czy
+problem zanikających korelacji może dotyczyć również atrybutów
+dyskretnych?</a></li>
+<li><a href="#czy-przygotowując-system-rekomendacji-jesteśmy-w-stanie-ocenić-jego-skuteczność-na-podstawie-danych-offline" id="toc-czy-przygotowując-system-rekomendacji-jesteśmy-w-stanie-ocenić-jego-skuteczność-na-podstawie-danych-offline">Czy
+przygotowując system rekomendacji jesteśmy w stanie ocenić jego
+skuteczność na podstawie danych “offline”?</a></li>
+<li><a href="#przeprowadzamy-eksperyment-rct-i-informujemy-uczestników-do-których-grup-należą-jakie-będą-tego-konsekwencje" id="toc-przeprowadzamy-eksperyment-rct-i-informujemy-uczestników-do-których-grup-należą-jakie-będą-tego-konsekwencje">Przeprowadzamy
+eksperyment RCT i informujemy uczestników, do których grup należą –
+jakie będą tego konsekwencje?</a></li>
+<li><a href="#dlaczego-podczas-przeprowadzania-eksperymentu-musimy-znać-dokładny-moment-wystąpienia-interwencji" id="toc-dlaczego-podczas-przeprowadzania-eksperymentu-musimy-znać-dokładny-moment-wystąpienia-interwencji">Dlaczego
+podczas przeprowadzania eksperymentu musimy znać dokładny moment
+wystąpienia interwencji?</a></li>
+<li><a href="#jakie-będą-konsekwencje-pozwolenia-użytkownikom-na-wybór-do-której-z-grup-chcieliby-należeć" id="toc-jakie-będą-konsekwencje-pozwolenia-użytkownikom-na-wybór-do-której-z-grup-chcieliby-należeć">Jakie
+będą konsekwencje pozwolenia użytkownikom na wybór, do której z grup
+chcieliby należeć?</a></li>
+<li><a href="#w-jaki-sposób-złośliwie-wygenerowane-przykłady-dałoby-się-zastosować-do-diagnostyki-modelu" id="toc-w-jaki-sposób-złośliwie-wygenerowane-przykłady-dałoby-się-zastosować-do-diagnostyki-modelu">W
+jaki sposób złośliwie wygenerowane przykłady dałoby się zastosować do
+diagnostyki modelu?</a></li>
+<li><a href="#jaki-będzie-koszt-obliczeniowy-trenowania-odpornego-robust-learning-w-porównaniu-do-klasycznego-podejścia" id="toc-jaki-będzie-koszt-obliczeniowy-trenowania-odpornego-robust-learning-w-porównaniu-do-klasycznego-podejścia">Jaki
+będzie koszt obliczeniowy trenowania odpornego (robust learning) w
+porównaniu do “klasycznego” podejścia?</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

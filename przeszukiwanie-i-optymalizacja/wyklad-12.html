@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-12</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-11.html">Poprzedni: wyklad-11.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="section">2025-01-22</h1>
+<h2 id="adaptacja-mutacji">Adaptacja mutacji</h2>
+<ul>
+<li>Sterowanie zaprogramowane</li>
+<li>Reguła 1/5 liczby sukcesów</li>
+<li>Samoczynna adaptacja
+<ul>
+<li>Schwefel Rechenberg</li>
+</ul></li>
+<li>Adaptacja parametrów</li>
+</ul>
+<h3 id="samoczynna-adaptacja">Samoczynna adaptacja</h3>
+<ul>
+<li>Przyjmijmy że prowadzimy optymalizacje w przestrzeni <span
+class="math inline">\(\mathbb{R}^{100}\)</span>
+<ul>
+<li>żeby scharakteryzować 100 rozkładów normlanych potrzeba wektora 100
+wartości oczekiwanych i symetryczna macierz kowariancji 100x100</li>
+<li>można zredukować liczbę wymiarów przyjmując że zawsze używamy
+rozkładu standardowego i mnożemy go przez siłę mutacji - tylko 1
+parametr zamiast 5000</li>
+<li>można przyjac diagonalna macierz kowariancji - 100 parametrów -
+lepiej dopasuje się do poziomic funkcji celu</li>
+</ul></li>
+<li>Rozważamy mutację z diagonalną macierzą kowariancji - jak 100
+niezależnych rozkładów standardowych</li>
+<li>Genom stanowią 2 wektory
+<ul>
+<li>100-wymiarowy wektor x - zmienne podlegające optymalizacji</li>
+<li>100-wymiarowy wektor <span class="math inline">\(\sigma\)</span> -
+parametrów</li>
+</ul></li>
+<li>Selekcja jest oparta na wartościach <span
+class="math inline">\(q(x)\)</span>
+<ul>
+<li>parametry nie wpływają na jakość</li>
+</ul></li>
+<li>Mutacja
+<ul>
+<li>dla każdego wymiaru osobno modyfikuje się parametr <span
+class="math inline">\(\sigma\)</span> - losowo bez związku z funkcją
+celu</li>
+<li>x jest mutowany z użyciem nowej wartości parametru <span
+class="math inline">\(\sigma\)</span></li>
+</ul></li>
+<li>Selekcja przyczynia się do adaptacji
+<ul>
+<li>większą szansę na rozmnożenie się mają te punkty które są
+lepsze</li>
+<li>lepsze będą punkty, które są mutantami punktów lepszych z dobrymi
+parametrami</li>
+</ul></li>
+</ul>
+<p>suma pod exp ma wartość oczekiwaną równą 0 (tak dobrane parametry
+<span class="math inline">\(\tau\)</span>)</p>
+<p><span class="math display">\[ \sigma_j = \sigma_j \exp(\tau a +
+\tau&#39; a_j) \]</span> <span class="math display">\[ \tau =
+\frac{1}{\sqrt{2n}} \quad \tau&#39; = \frac{1}{\sqrt{2\sqrt{n}}}
+\]</span> <span class="math display">\[ a, a_j \sim N(0,1) \]</span>
+<span class="math inline">\(a\)</span> jednakowe dla wszystkich
+skladowych, <span class="math inline">\(a_j\)</span> losowane per
+składowa</p>
+<p>Metoda jest obciążona w stronę zmniejszania zasięgu mutacji jak
+jesteśmy w minimum lokalnym, to największy współczynnik sukcesów da
+zmniejszanie zasięgu mutacji do 0</p>
+<p>jak to naprawić? może reguła 1/5</p>
+<h2 id="mutacja-wariantowa-z-wyborem-zależnym-od-poprawy">Mutacja
+wariantowa z wyborem zależnym od poprawy</h2>
+<ul>
+<li>Jest wiele wariantow np ewolucji różnicowej
+<ul>
+<li>nie wiemy który jest najlepszy, każdy jest potencjalnie dobry</li>
+</ul></li>
+<li>Mamy k wariantów mutacji</li>
+<li>Na początku każdy ma prawdopodobieńśtwo wyboru jednakowe</li>
+<li>Prawdopodobieństwo wyboru zależne od tego ile mutantów było lepsze
+od ich rodziców</li>
+<li>Dla każdego punktu wybieramy losowo schemat mutacji
+<ul>
+<li>jeśli nowy jest lepszy niż stary to podmiana, jak nie to
+odrzucenie</li>
+<li>jeśli punkt był lepszy to schemat mutacji był dobry więc zwiększamy
+prawdopodobieństwo wyboru</li>
+</ul></li>
+</ul>
+<p>Można by zastosować jakieś podejście oparte o opóźnione nagrody
+Algorytm nie powinien szukać poprawy na już tylko w dłuższej
+perspektywie</p>
+<p>Można zmienić regułę korekty prawdopodobieństwa wyboru wariantu o
+inne kryteria np. o rozproszenie populacji</p>
+<p>na slajdzie mutaja wariantowa z wyborem zależnym od poprawy <span
+class="math inline">\(n_s\)</span> - zdyskontowany współczynnik sukcesu
+będą wygaszane te schematy które były wybierane ale przestały już
+przynosić sukcesy parametry <span class="math inline">\(\alpha\)</span>,
+<span class="math inline">\(\beta\)</span> regulują czy wolniej czy
+szybciej zapomina</p>
+<h2 id="sade">SADE</h2>
+<ul>
+<li>Komitet operatorów
+<ul>
+<li>rand/1</li>
+<li>best/1</li>
+<li>current-to-bet/1</li>
+<li>best/2</li>
+<li>rand/2</li>
+</ul></li>
+<li>Krzyżowanie bin</li>
+<li>Każdy punkt przetwarzany z indywidualnymi wartościami F i CR
+<ul>
+<li>to nie jest adaptacja, są losowe</li>
+</ul></li>
+<li><span class="math inline">\(F \sim N(0.5, 0.09)\)</span> obcięte do
+<span class="math inline">\((0,2]\)</span></li>
+<li><span class="math inline">\(CR \sim N(CRm, 0.01)\)</span> obcięte do
+<span class="math inline">\([0,1]\)</span></li>
+<li><span class="math inline">\(CRm\)</span> podlega adaptacji
+proporcjonalnie do sukcesów na poziomie populacji</li>
+<li>Ograniczenia kostkowe i reinicjacja</li>
+<li>Jeśli krzyżowanie poprawia jakość to jest sukces, jak nie to
+porażka</li>
+<li>Okresowe uruchomienie metody quasi-Newtona
+<ul>
+<li>do optymalizacji lokalnej, zwiększa precyzję</li>
+<li>“brudny chwyt”</li>
+</ul></li>
+<li>W benchmarkach działa lepiej niż którykolwiek ze składowych
+schematów</li>
+</ul>
+<h2 id="po-co-to-wszystko">Po co to wszystko</h2>
+<ul>
+<li>Zagadnienia dla których nie ma dokładnych algorytmów</li>
+<li>Metody optymalizacji są używane w uczeniu sieciach neuronowych
+<ul>
+<li>w storjeniu modeli maszynowego uczenia</li>
+</ul></li>
+<li>mamy dane
+<ul>
+<li>modelujemy je modelem z katalogu</li>
+<li>dopasować model to zminimalizować funkcję straty</li>
+</ul></li>
+<li>Dwa nurty
+<ul>
+<li>np. modele z połączeniami między warstwami daje łatwiejsze w
+optymalizacji funkcje celu</li>
+<li>pytanie czy iść w bardziej rozdmuchane modele i prostsze metody
+optymalizacji</li>
+<li>czy komplikować metody optymalizacji żeby lepiej sobie radziły z
+trudnymi funkcjami straty</li>
+</ul></li>
+<li>nadzieja w przeskalowaniu w górę najefektywniejszych metod (DE,
+CMAES) optymalizacji - szybko osiągają niezłe rozwiązania
+<ul>
+<li>czy da się je przeskalować do milionów parametrów</li>
+</ul></li>
+<li>Maszynowe uczenie to tylko jeden z przykładów zadań</li>
+<li>Projektowanie wspomagane komputerem (CAD)
+<ul>
+<li>np. chcemy konkretnych wartości fizycznych dla jakiejś
+konstrukcji</li>
+<li>optymalizuje się parametry dla najmniejszego kosztu i spełnienia
+ograniczeń fizycznych</li>
+<li>optymalizator i symulator</li>
+</ul></li>
+<li>Zagadnienia odwrotne
+<ul>
+<li>identyfikacja parametrów na podstawie modelu</li>
+<li>polega na dopasowaniu do krzywej</li>
+<li>krzywa zmierzona i krzywe z symulatora</li>
+<li>nie chodzi o jak najlepsze charakterystyki</li>
+<li>jakie parametry trzeba dać do symulatora żeby dostać taką krzywą jak
+zmierzyliśmy</li>
+</ul></li>
+<li>Sterowanie predykcyjne
+<ul>
+<li>elektrownia, którą można sterować (nie wiatraki)</li>
+<li>trzeba bilansować obciążenie sieci energetycznej</li>
+<li>np. elektrownie wodne, atomowe, węglowe - możemy sterować ile
+energii wytworzy</li>
+<li>w kotle elektrowni węglowej</li>
+<li>jak jest za dużo tlenu to spada sprawność bo chłodzenie</li>
+<li>jak za mało to niepełne spalanie, powstaje CO</li>
+<li>optymalizator na bieżąco na podstawie modelu znajduje
+optymalną ilość powietrza do kotła</li>
+</ul></li>
+</ul>
+<p>Nie omawialiśmy metod optymalizacji których stanem są rozkłady
+prawdopodobieństwa (CMAES) Dualizm miedzy reprezentacją z rozkładem
+prawdopodobieństwa, a reprezentacją ze zbiorem punktów</p>
+<p>więcej teorii na przedmiocie algorytmy heurystyczne na studiach
+magisterskich</p>
+<p>Zadania optymalizacji wielokryterialnej</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">2025-01-22</a>
+<ul>
+<li><a href="#adaptacja-mutacji" id="toc-adaptacja-mutacji">Adaptacja
+mutacji</a>
+<ul>
+<li><a href="#samoczynna-adaptacja" id="toc-samoczynna-adaptacja">Samoczynna adaptacja</a></li>
+</ul></li>
+<li><a href="#mutacja-wariantowa-z-wyborem-zależnym-od-poprawy" id="toc-mutacja-wariantowa-z-wyborem-zależnym-od-poprawy">Mutacja
+wariantowa z wyborem zależnym od poprawy</a></li>
+<li><a href="#sade" id="toc-sade">SADE</a></li>
+<li><a href="#po-co-to-wszystko" id="toc-po-co-to-wszystko">Po co to
+wszystko</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

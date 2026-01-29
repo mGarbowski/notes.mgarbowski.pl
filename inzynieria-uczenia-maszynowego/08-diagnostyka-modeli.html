@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-diagnostyka-modeli</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-sukcesja.html">Poprzedni: 07-sukcesja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-prywatnosc-i-bezpieczenstwo.html">Następny: 09-prywatnosc-i-bezpieczenstwo.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="diagnostyka-modeli">Diagnostyka modeli</h1>
+<h2 id="architektura-środowiska-produkcyjnego">Architektura środowiska
+produkcyjnego</h2>
+<ul>
+<li>Wybór wariantu modelu powinien być przezroczysty dla klienta</li>
+<li>Dane online
+<ul>
+<li>model może dociągać atrybuty</li>
+<li>podejścia continual learning - dotrenowywanie modelu na bieżąco,
+rzadziej stosowane</li>
+</ul></li>
+</ul>
+<h2 id="typowe-pytania-diagnostyczne">Typowe pytania diagnostyczne</h2>
+<ul>
+<li>Czy model został wywołany dla danego x</li>
+<li>Co zwrócił model dla danego x</li>
+<li>Które atrybuty mają największy wpływ na predykcję dla danego x</li>
+<li>Jaki wpływ mają na predykcję poszczególne atrybuty</li>
+<li>Jak zmieniłaby się predykcja na skutek modyfikacji atrybutu <span
+class="math inline">\(x_i\)</span></li>
+</ul>
+<h2 id="logi">Logi</h2>
+<ul>
+<li>Mogą udzielić odpowiedzi na pytania
+<ul>
+<li>czy model został wywołany</li>
+<li>jakie otrzymał dane wejściowe</li>
+<li>jaka była jego odpowiedź</li>
+</ul></li>
+<li>Wygodne jeśli log zawiera zrzut danych, które faktycznie model
+wykorzystał
+<ul>
+<li>ogranicza konieczność cofania się w czasie żeby odtworzyć stan
+atrybutów</li>
+</ul></li>
+<li>Co jak logów jest dużo
+<ul>
+<li>próbkowanie</li>
+<li>skrócenie retencji - trzymać krócej</li>
+</ul></li>
+</ul>
+<h2 id="wyjaśnianie-predykcji-xai">Wyjaśnianie predykcji (XAI)</h2>
+<ul>
+<li>Regulacje wymuszają w niektórych przypadkach, żeby dostawca mógł
+wyjaśnić decyzje modelu</li>
+<li>Cel - dostarczenie danej grupie odbiorców szczegółowych
+informacji/wyjaśnień, dzięki którym zachowanie modelu staje się
+jasne</li>
+</ul>
+<h3 id="grupy-odbiorców">Grupy odbiorców</h3>
+<ul>
+<li>Osoby rozwijające modele
+<ul>
+<li>czy model działa</li>
+<li>jak poprawić działanie</li>
+</ul></li>
+<li>Użytkownicy
+<ul>
+<li>zrozumienie swojej sytuacji</li>
+<li>weryfikacja uczciwości decyzji modelu</li>
+<li>co muszą zmienić aby dostać inną odpowiedź</li>
+</ul></li>
+<li>Użytkownicy - eksperci domenowi (np. lekarze)
+<ul>
+<li>czy modelowi można zaufać</li>
+<li>przekonanie eksperta</li>
+</ul></li>
+<li>Regulatorzy, prawodawca
+<ul>
+<li>certyfikacja modeli</li>
+<li>upewnienie się, że model nie narusza jakichś reguł</li>
+</ul></li>
+<li>Kadra kierownicza
+<ul>
+<li>ocena zgodności z regulacjami</li>
+<li>ocena biznesowa</li>
+</ul></li>
+</ul>
+<h3 id="główne-wątki-i-cele">Główne wątki i cele</h3>
+<ul>
+<li>Budowa zaufania ekspertów domenowych do modeli</li>
+<li>Wykrywanie problemów z generalizacją
+<ul>
+<li>czy model bazuje na artefaktach z danych treningowych?</li>
+</ul></li>
+<li>Zwiększenie informatywności predykcji modelu</li>
+<li>Uchwycenie zależności przyczynowo-skutkowych przez modele</li>
+<li>Kwestie etyczne związane z ryzykiem dyskryminacji</li>
+</ul>
+<h2 id="białe-i-czarne-skrzynki-w-xai">Białe i czarne skrzynki w
+XAI</h2>
+<ul>
+<li>Czarna skrzynka
+<ul>
+<li>model, którego struktury nie znamy / nie mamy dostępu</li>
+</ul></li>
+<li>Skomplikowany model z wieloma atrybutami efektywnie jest dla
+człowieka czarną skrzynką</li>
+<li>Jeśli chcemy coś nazwać białą skrzynką
+<ul>
+<li>interpretowalna, prosta struktura</li>
+<li>nie za dużo atrybutów</li>
+</ul></li>
+<li>Jeśli konieczna jest możliwość wyjaśniania predykcji
+<ul>
+<li>użycie modelu o interpretowalnej strukturze, nie za dużo
+wymiarów</li>
+<li>metody wyjaśniania post-hoc dla czarnych skrzynek</li>
+</ul></li>
+</ul>
+<h3 id="białe-skrzynki">Białe skrzynki</h3>
+<ul>
+<li>Znamy kompletną postać modelu, mamy do niej nieograniczony
+dostęp</li>
+<li>Struktura modelu (nie ma zbyt wielu)
+<ul>
+<li>modele liniowe</li>
+<li>reguły decyzyjne / drzewa</li>
+<li>naiwny klasyfikator bayesowski</li>
+<li>kNN</li>
+<li>EBM</li>
+</ul></li>
+<li>Dobór atrybutów
+<ul>
+<li>rozsądna wymiarowość</li>
+<li>człowiek jest w stanie ogarnąć ok. 7 zmiennych</li>
+<li>zrozumiałe, wysokopoziomowe atrybuty</li>
+<li>odpowiednie nazewnictwo</li>
+</ul></li>
+<li>Nie wszystkie są tak samo łatwo interpretowalne</li>
+</ul>
+<h3 id="klasyfikacja-białych-skrzynek">Klasyfikacja białych
+skrzynek</h3>
+<ul>
+<li>Poziom 1
+<ul>
+<li>człowiek jest w stanie zasymulować / odtworzyć działanie modelu bez
+pomocy narzędzi zewnętrznych</li>
+<li>np. proste i zrozumiałe atrybuty, mało interakcji między
+atrybutami</li>
+</ul></li>
+<li>Poziom 2
+<ul>
+<li>człowiek jest w stanie dokonać dekompozycji modelu</li>
+<li>zrozumienie danych wejściowych, parametrów, procesu obliczeniowego
+bez korzystania z zewnętrznych narzędzi</li>
+<li>można prześledzić odpowiedź</li>
+<li>np. proste i zrozumiałe atrybuty ale za duża liczba, dużo
+interakcji</li>
+</ul></li>
+<li>Poziom 3
+<ul>
+<li>można przeanalizować od strony algorytmicznej</li>
+<li>jesteśmy w stanie dokonać dokładnej analizy matematycznej
+pozwalającej odpowiedzieć na pytanie, w jaki sposób została wygenerowana
+odpowiedź</li>
+<li>np. liczba i skomplikowanie zmiennych powoduje, że nie jesteśmy w
+stanie przeanalizować modelu ręcznie</li>
+</ul></li>
+</ul>
+<h2 id="jakość-a-interpretowalność">Jakość a interpretowalność</h2>
+<ul>
+<li>To generalnie przeciwstawne cele</li>
+<li>XAI dąży do poprawy interpretowalności przy zachowaniu jakości</li>
+<li>Glass box
+<ul>
+<li>wyjaśnialność wpisana w założenia architektury</li>
+</ul></li>
+</ul>
+<h2 id="explainable-boosting-machine">Explainable Boosting Machine</h2>
+<ul>
+<li>Model typu glass box</li>
+<li>Uogólniony model liniowy</li>
+<li>Iteracyjne tworzone małe drzewa korzystające tylko z 1 atrybutu</li>
+<li>Każda iteracja uruchamiana jest niezależnie i w losowej kolejności
+<ul>
+<li>wykorzystuje wszystkie atrybuty do utworzenia drzew</li>
+</ul></li>
+<li>Drzewa dla atrybutu x są agregowane do wygenerowania wykresów</li>
+<li>Dla każdego atrybutu generuje się wykres - profil
+<ul>
+<li>uśrednienie ze wszystkich iteracji</li>
+<li>jak zmienia się predykcja modelu w zależności od atrybutu</li>
+</ul></li>
+<li>Predykcja modelu jest sumą wykresów
+<ul>
+<li>można zobaczyć wpływ każdego atrybutu</li>
+<li>łatwe do interpretacji - jednowymiarowy wykres</li>
+<li>wykresy działają niezależnie od siebie</li>
+<li>eksperci są w stanie łatwo interpretować</li>
+</ul></li>
+</ul>
+<h2 id="metody-agnostyczne-względem-struktury-modelu">Metody agnostyczne
+względem struktury modelu</h2>
+<h3 id="współczynnik-shapleya">Współczynnik Shapleya</h3>
+<ul>
+<li>Pojęcie z teorii gier kooperacyjnych</li>
+<li>Scenariusz
+<ul>
+<li><span class="math inline">\(n\)</span> zawodników w drużynie</li>
+<li>wszyscy dążą do osiągnięcia wspólnego celu</li>
+<li>sukces jest mierzalny - jesteśmy w stanie przydzielić mu wartość
+liczbową</li>
+<li>zadanie - ustalić udział poszczególnych graczy w sukcesie</li>
+</ul></li>
+<li><span class="math inline">\(\phi_i(v) = \frac{1}{n!} \sum_\pi
+v(P_i^\pi \cup \{i\}) - v(P_i^\pi\)</span>)
+<ul>
+<li><span class="math inline">\(n\)</span> - liczba graczy</li>
+<li><span class="math inline">\(v(S) \in \mathbb{R}\)</span> - funkcja
+oceniająca sukces z gry koalicji graczy <span
+class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(\pi\)</span> - permutacja kolejności
+dołączania graczy do gry</li>
+<li><span class="math inline">\(P_i^\pi\)</span> - podzbiór graczy,
+którzy wejdą przed graczem <span class="math inline">\(i\)</span>, dla
+permutacji <span class="math inline">\(\pi\)</span></li>
+<li><span class="math inline">\(\phi_i(v)\)</span> - kontrybucja <span
+class="math inline">\(i\)</span>-tego gracza w sukcesie</li>
+</ul></li>
+<li>Zysk z dodania gracza uśredniony po wszystkich permutacjach</li>
+<li>Właściwości
+<ul>
+<li>rozdzielanie całego zysku pomiędzy n graczy</li>
+<li>symetria - tak samo skuteczni gracze otrzymują takie same
+współczynniki</li>
+<li>liniowość</li>
+<li>gracz zerowy (neutralny) otrzymuje zerową wartość</li>
+</ul></li>
+</ul>
+<h3 id="shap">SHAP</h3>
+<ul>
+<li>Pakiet, podejście bazujące na współczynniku Shapleya</li>
+<li>Ocena jak dany atrybut wpływa na wartość predykcji
+<ul>
+<li>atrybuty - zawodnicy</li>
+<li>zestaw atrybutów - koalicja</li>
+<li>wartość modelu - zysk, który chcemy podzielić między graczy</li>
+</ul></li>
+<li>Pokazuje wpływ atrybutów na różnicę względem średniej predykcji
+<ul>
+<li>dla konkretnego wiersza</li>
+</ul></li>
+<li>Ciężkie obliczeniowo - wszystkie permutacje atrybutów</li>
+<li>Zalety
+<ul>
+<li>solidne podstawy teoretyczne (z gier wieloosobowych)</li>
+<li>działa dla potencjalnie dowolnych modeli uczących</li>
+<li>dostępne wydajne implementacje w Python i R</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>zakłada addytywny wpływ poszczególnych cech, może być błędne dla
+nieaddytywnych modeli</li>
+<li>w przypadku dużych modeli, kosztowne obliczenia</li>
+</ul></li>
+</ul>
+<h3 id="wykresy-break-down">Wykresy break-down</h3>
+<ul>
+<li>Koncepcyjnie zbliżona do SHAP</li>
+<li>Kontrybucja <span class="math inline">\(i\)</span>-tej zmiennej do
+wyjaśnienia predykcji dla wektora <span class="math inline">\(x\)</span>
+<ul>
+<li>jak w SHAP</li>
+</ul></li>
+<li>Arbitralnie wybrana jedna kolejność atrybutów
+<ul>
+<li>a nie wszystkie permutacje jak w SHAP</li>
+<li>szybciej się liczy</li>
+<li>zakłada addytywny wpływ poszczególnych cech</li>
+<li>gorzej jeśli są interakcje między atrybutami</li>
+<li>współczynnik Shapleya zakłamuje wyniki jeśli są interakcje -
+atrybutów nie można rozważać w oderwaniu od siebie (nieprawdziwa jest
+addytywna dekompozycja)</li>
+<li>wpływ bardziej przypisuje się atrybutowi, który arbitralnie został
+wybrany jako pierwszy</li>
+</ul></li>
+<li>Wizualizacja dla pojedynczego wektora
+<ul>
+<li>intercept - model stały - średnia</li>
+<li>na zielono co zwiększa predykcję względem średniej</li>
+<li>na czerwono co zmniejsza</li>
+<li>na dole wartość predykcji</li>
+<li>wyjaśnienie dla konkretnego wektora</li>
+</ul></li>
+<li>Wizualizacja dla całej populacji
+<ul>
+<li>wykresy violin dla każdego atrybutu</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>podejście dla potencjalnie dowolnych modeli uczących</li>
+<li>liniowa złożoność obliczeń względem liczby atrybutów</li>
+<li>dostępne wydajne implementacje w R z dobrymi wizualizacjami</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>istotna jest kolejność, w jakiej uwzględniane są atrybuty -
+arbitralna</li>
+<li>zakłada addytywny wpływ poszczególnych cech (jak SHAP)</li>
+</ul></li>
+</ul>
+<h3 id="wykresy-ceteris-paribus">Wykresy ceteris-paribus</h3>
+<ul>
+<li>Oddzielnie oblicza się wpływ każdego czynnika traktowanego
+pojedynczo</li>
+<li>Wykres dla konkretnego przykładu
+<ul>
+<li>zamrażamy wszystkie atrybuty poza tym, który nas interesuje</li>
+<li>robimy wykres odpowiedzi modelu od tego jednego atrybutu</li>
+</ul></li>
+<li>Analogicznie dla zmiennych kategorycznych - wszystkie kategorie i
+wykres słupkowy zamiast ciągłego
+<ul>
+<li>odchylenia od odpowiedzi modelu dla x</li>
+</ul></li>
+<li>Podobne - metoda Individual Conditional Expectation</li>
+<li>Dobra do porównywania zachowań różnych modeli
+<ul>
+<li>możemy ocenić, który model będzie lepszy do wdrożenia</li>
+<li>gładki vs postrzępiony - może być istotne dla
+użytkownika-eksperta</li>
+</ul></li>
+<li>Szczególnie dobre jak analizujemy źle sklasyfikowane atrybuty</li>
+<li>Zalety
+<ul>
+<li>łatwa w komunikacji, graficzna reprezentacji</li>
+<li>porównywanie różnych modeli, różnych wektorów wejściowych</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>problematyczne są zmienne skorelowane</li>
+<li>trudna interpretacja, gdy jest zbyt wiele zmiennych</li>
+<li>niewygodne dla zmiennych dyskretnych o znacznej liczbie
+wartości</li>
+</ul></li>
+</ul>
+<h3 id="local-interpretable-model-agnostic-explanations-lime">Local
+Interpretable Model-agnostic Explanations (LIME)</h3>
+<ul>
+<li>Model ma złożoną granicę decyzyjną</li>
+<li>W pobliżu konkretnego x, granicę może da się przybliżyć prostą
+(modelem liniowym)</li>
+<li>Lokalna aproksymacja</li>
+<li>Zakładamy że dane jest przekształcenie h, które rzutuje problem do
+przestrzeni wygodniejszej do interpretacji, o niższej wymiarowości</li>
+<li>Dopasowujemy model interpretowalny <span
+class="math inline">\(f^*(h(x))\)</span> na danych wylosowanych z
+sąsiedztwa</li>
+<li>Przekształcenia
+<ul>
+<li>opracowywane dla poszczególnych domen</li>
+<li>zamiast ciągłych można kubełkować</li>
+<li>kombinacje zmiennych dyskretnych</li>
+<li>pojedyncze słowa zamiast całego tekstu (słowa kluczowe)</li>
+<li>zastosowanie super-pikseli dla obrazków - grupowanie spójnych
+fragmentów obrazka</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>nie zakłada struktury klasyfikatora</li>
+<li>dzięki odpowiednio dobranej przestrzeni, model jest łatwy w
+interpretacji</li>
+<li>dobrze opisuje lokalne zachowanie wyjaśnianego modelu</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>dobranie przekształcenia</li>
+<li>im większa wymiarowość tym trudniejsze losowanie punktów z
+sąsiedztwa do trenowania modelu interpretowalnego</li>
+</ul></li>
+</ul>
+<h2 id="metody-dla-sieci-neuronowych">Metody dla sieci neuronowych</h2>
+<h3 id="mapy-istotności">Mapy istotności</h3>
+<ul>
+<li>Saliency maps</li>
+<li>Np. dla klasyfikatora</li>
+<li>Liczymy gradient wyjścia neurona dla danej klasy po wejściu</li>
+<li>Wymaga dostępu do modelu i wyliczania pochodnych</li>
+<li>Przedstawia się rezultat jako mapę nakładaną na obraz</li>
+</ul>
+<h3 id="algorytm-rise">Algorytm RISE</h3>
+<ul>
+<li>Podobne do map istotności ale nie wymaga dostępu do modelu i
+liczenia pochodnych
+<ul>
+<li>też dla modeli bez dostępnych wag (tylko przez API)</li>
+</ul></li>
+<li>Za pomocą losowego maskowania</li>
+<li>Jak maskowanie regionu nie zmienia predykcji to znaczy, że nie był
+istotny</li>
+<li>Ważona suma masek i predykcji daje mapę istotności</li>
+<li>Wymaga wielokrotnego wywołania modelu - kosztowne</li>
+</ul>
+<h3 id="propagacja-istotności-lrp">Propagacja istotności (LRP)</h3>
+<ul>
+<li>Layer-wise Relevance Propagation</li>
+<li>Rozsmarowanie sygnału wyjściowego na poprzednią warstwę
+<ul>
+<li>propagacja aż do wejścia</li>
+</ul></li>
+<li>Szereg reguł określających jak propaguje się istotność
+<ul>
+<li>inne dla kombinacji typów warstw i funkcji aktywacji</li>
+</ul></li>
+<li>Różne algorytmy sprowadzają się do mniej lub bardziej przekonujących
+wizualizacji
+<ul>
+<li>w praktyce</li>
+</ul></li>
+</ul>
+<h2 id="jak-zmienić-decyzję-modelu">Jak zmienić decyzję modelu</h2>
+<ul>
+<li>Przykładowy scenariusz - scoring kredytowy
+<ul>
+<li>wnioskujemy o kredyt hipoteczny</li>
+<li>wstępny etap związany jest z automatyczną oceną ryzyka</li>
+<li>wprowadzamy nasze dane do systemu</li>
+<li>system ocenia ja negatywnie</li>
+</ul></li>
+<li>Co musielibyśmy zmienić, aby nasz wniosek został zaakceptowany
+<ul>
+<li>ceteris-paribus może się nadawać jeśli nie ma zbyt wielu
+atrybutów</li>
+</ul></li>
+<li>Żeby zmienić predykcję, trzeba przepchnąć x na drugą stronę granicy
+decyzyjnej</li>
+<li>Znalezienie takiego przekształcenia x - zadanie optymalizacyjne
+<ul>
+<li>raczej chcemy znaleźć najmniejszą możliwą różnicę wektora</li>
+<li>standardowe metody optymalizacji (gradientowe, metaheurystyki)</li>
+</ul></li>
+<li>Ograniczenie do zmian możliwych do wykonania
+<ul>
+<li>np. zmniejszenie wieku</li>
+</ul></li>
+<li>Metoda DICE
+<ul>
+<li>chcemy jak najmniejsze modyfikacje</li>
+<li>chcemy dużo różnorodnych modyfikacji</li>
+</ul></li>
+<li>Raczej chcemy ograniczyć znajdowane przekształcenia, który trzymają
+się takiego wycinka przestrzeni jak w zbiorze treningowym (przykład z
+czasem pracy)
+<ul>
+<li>optymalizacja z ograniczeniami</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#diagnostyka-modeli" id="toc-diagnostyka-modeli">Diagnostyka modeli</a>
+<ul>
+<li><a href="#architektura-środowiska-produkcyjnego" id="toc-architektura-środowiska-produkcyjnego">Architektura środowiska
+produkcyjnego</a></li>
+<li><a href="#typowe-pytania-diagnostyczne" id="toc-typowe-pytania-diagnostyczne">Typowe pytania
+diagnostyczne</a></li>
+<li><a href="#logi" id="toc-logi">Logi</a></li>
+<li><a href="#wyjaśnianie-predykcji-xai" id="toc-wyjaśnianie-predykcji-xai">Wyjaśnianie predykcji (XAI)</a>
+<ul>
+<li><a href="#grupy-odbiorców" id="toc-grupy-odbiorców">Grupy
+odbiorców</a></li>
+<li><a href="#główne-wątki-i-cele" id="toc-główne-wątki-i-cele">Główne
+wątki i cele</a></li>
+</ul></li>
+<li><a href="#białe-i-czarne-skrzynki-w-xai" id="toc-białe-i-czarne-skrzynki-w-xai">Białe i czarne skrzynki w XAI</a>
+<ul>
+<li><a href="#białe-skrzynki" id="toc-białe-skrzynki">Białe
+skrzynki</a></li>
+<li><a href="#klasyfikacja-białych-skrzynek" id="toc-klasyfikacja-białych-skrzynek">Klasyfikacja białych
+skrzynek</a></li>
+</ul></li>
+<li><a href="#jakość-a-interpretowalność" id="toc-jakość-a-interpretowalność">Jakość a interpretowalność</a></li>
+<li><a href="#explainable-boosting-machine" id="toc-explainable-boosting-machine">Explainable Boosting
+Machine</a></li>
+<li><a href="#metody-agnostyczne-względem-struktury-modelu" id="toc-metody-agnostyczne-względem-struktury-modelu">Metody agnostyczne
+względem struktury modelu</a>
+<ul>
+<li><a href="#współczynnik-shapleya" id="toc-współczynnik-shapleya">Współczynnik Shapleya</a></li>
+<li><a href="#shap" id="toc-shap">SHAP</a></li>
+<li><a href="#wykresy-break-down" id="toc-wykresy-break-down">Wykresy
+break-down</a></li>
+<li><a href="#wykresy-ceteris-paribus" id="toc-wykresy-ceteris-paribus">Wykresy ceteris-paribus</a></li>
+<li><a href="#local-interpretable-model-agnostic-explanations-lime" id="toc-local-interpretable-model-agnostic-explanations-lime">Local
+Interpretable Model-agnostic Explanations (LIME)</a></li>
+</ul></li>
+<li><a href="#metody-dla-sieci-neuronowych" id="toc-metody-dla-sieci-neuronowych">Metody dla sieci neuronowych</a>
+<ul>
+<li><a href="#mapy-istotności" id="toc-mapy-istotności">Mapy
+istotności</a></li>
+<li><a href="#algorytm-rise" id="toc-algorytm-rise">Algorytm
+RISE</a></li>
+<li><a href="#propagacja-istotności-lrp" id="toc-propagacja-istotności-lrp">Propagacja istotności (LRP)</a></li>
+</ul></li>
+<li><a href="#jak-zmienić-decyzję-modelu" id="toc-jak-zmienić-decyzję-modelu">Jak zmienić decyzję modelu</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

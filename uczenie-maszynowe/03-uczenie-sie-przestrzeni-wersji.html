@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-uczenie-sie-przestrzeni-wersji</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-teoria-uczenia-sie.html">Poprzedni: 02-teoria-uczenia-sie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-indukcja-regul.html">Następny: 04-indukcja-regul.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Uczenie maszynowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-indukcyjne-uczenie-sie.html">01-indukcyjne-uczenie-sie.html</a></li>
+                
+                <li><a href="02-teoria-uczenia-sie.html">02-teoria-uczenia-sie.html</a></li>
+                
+                <li><a href="03-uczenie-sie-przestrzeni-wersji.html">03-uczenie-sie-przestrzeni-wersji.html</a></li>
+                
+                <li><a href="04-indukcja-regul.html">04-indukcja-regul.html</a></li>
+                
+                <li><a href="05-drzewa-decyzyjne.html">05-drzewa-decyzyjne.html</a></li>
+                
+                <li><a href="06-naiwny-klasyfikator-bayesowski.html">06-naiwny-klasyfikator-bayesowski.html</a></li>
+                
+                <li><a href="07-regresja.html">07-regresja.html</a></li>
+                
+                <li><a href="08-ocena-jakosci.html">08-ocena-jakosci.html</a></li>
+                
+                <li><a href="09-las-losowy.html">09-las-losowy.html</a></li>
+                
+                <li><a href="10-svm.html">10-svm.html</a></li>
+                
+                <li><a href="11-uczenie-sie-ze-wzmocnieniem.html">11-uczenie-sie-ze-wzmocnieniem.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="uczenie-się-przestrzeni-wersji">Uczenie się przestrzeni
+wersji</h1>
+<h2 id="kompleks">Kompleks</h2>
+<ul>
+<li>Rozszerzenie koniunkcji boolowskich</li>
+<li>Atrybuty dyskretne (niekoniecznie binarne)</li>
+<li>Kompleks - historyczna nazwa (rozszerzona koniunkcja boolowska)</li>
+<li><span class="math inline">\(\langle v_1, v_2 \vee v_3, ? \rangle
+\equiv a_1 = v_1 \wedge a_2 \in \{v_2, v_3\}\)</span>
+<ul>
+<li>atrybut 1 ma wartość <span class="math inline">\(v_1\)</span></li>
+<li>atrybut 2 ma wartość <span class="math inline">\(v_2\)</span> lub
+<span class="math inline">\(v_3\)</span></li>
+<li>atrybut 3 ma dowolną wartość</li>
+</ul></li>
+<li>Określa warunek (spełniony/niespełniony, klasa 0/1)
+<ul>
+<li>warunki - selektory (pojedynczy, dysjunkcyjny, uniwersalny,
+pusty)</li>
+<li>kolejne selektory dotyczą kolejnych atrybutów</li>
+</ul></li>
+<li><span class="math inline">\(\langle v_1, \varnothing, ? \rangle
+\equiv \langle \varnothing \rangle\)</span>
+<ul>
+<li>warunek nigdy nie spełniony</li>
+<li>0 logiczne</li>
+<li>kompleks pusty</li>
+</ul></li>
+<li><span class="math inline">\(\langle ?, ?, ? \rangle \equiv \langle ?
+\rangle\)</span>
+<ul>
+<li>warunek zawsze spełniony</li>
+<li>1 logiczne</li>
+<li>kompleks uniwersalny</li>
+</ul></li>
+<li>Kompleks jako model
+<ul>
+<li><span class="math inline">\(h(x)=1\)</span> wtedy i tylko wtedy, gdy
+kompleks reprezenetujący <span class="math inline">\(h\)</span> jest
+<em>spełniony</em> dla przykładu <span
+class="math inline">\(x\)</span></li>
+<li>kompleks <em>pokrywa</em> <span
+class="math inline">\(x\)</span></li>
+</ul></li>
+</ul>
+<h2 id="porównywanie-modeli-ze-względu-na-ogólność">Porównywanie modeli
+ze względu na ogólność</h2>
+<p>Model <span class="math inline">\(h_1\)</span> jest bardziej ogólny
+niż <span class="math inline">\(h_2\)</span> (<span
+class="math inline">\(h_1 \succ h_2\)</span>) jeśli</p>
+<p><span class="math display">\[\{x \in X | \quad h_2(x)=1 \} \subset \{
+x\in X | \quad h_1(x) =1\}\]</span></p>
+<ul>
+<li>Relacja częściowego porządku
+<ul>
+<li>niektóre pary modeli nie są porównywalne</li>
+</ul></li>
+<li>Definicja odwołuje się do relacji zawierania podzbiorów dziedziny
+<ul>
+<li>dla przestrzeni modeli o ustalonej reprezentacji porównywanie jest
+możliwe bez ich jawnego wyznaczania</li>
+</ul></li>
+</ul>
+<h3 id="przykład">Przykład</h3>
+<ul>
+<li>Model - prostokąt</li>
+<li><span class="math inline">\(h_1 \succ h_2\)</span> jeśli prostokąt
+<span class="math inline">\(h_2\)</span> jes zawarty w prostokącie <span
+class="math inline">\(h_1\)</span></li>
+<li>Modele nie są porównywalne jeśli żaden nie jest zawarty w
+drugim</li>
+</ul>
+<h3 id="przykład-1">Przykład</h3>
+<ul>
+<li>Model - koniunkcja boolowska</li>
+<li><span class="math inline">\(h_1 \succ h_2\)</span> jeśli zbiór
+literałów koniunkcji reprezentujących <span
+class="math inline">\(h_1\)</span> jest zawarty w zbiorze literałów
+koniunkcji reprezentującej <span class="math inline">\(h_2\)</span></li>
+<li>Jeśli zbiór literałów jednego nie jest zawarty w drugim to nie są
+porównywalne</li>
+</ul>
+<h3 id="przykład-2">Przykład</h3>
+<ul>
+<li>Kompleksy</li>
+<li><span class="math inline">\(X\)</span> - zbiór figur geometrycznych
+o atrybutach rozmiar, kolor, kształt
+<ul>
+<li>rozmiar: mały, średni, duży</li>
+<li>kolor: czerwony, zielony, niebieski</li>
+<li>kształt: koło, kwadrat, trójkąt</li>
+</ul></li>
+<li><span class="math inline">\(\langle ma \vee śr, ?, kw \rangle \succ
+\langle ma, cz, kw \rangle\)</span></li>
+<li><span class="math inline">\(\langle ma \vee śr, ?, kw
+\rangle\)</span> i <span class="math inline">\(\langle ma, ?, ?
+\rangle\)</span> nieporównywalne</li>
+<li>W ogólności <span class="math inline">\(h_1 \succ h_2\)</span> dla
+<span class="math inline">\(h_1 = \langle s_1&#39;, s_2&#39;, \ldots
+s_n&#39; \rangle\)</span>, <span class="math inline">\(h_2 = \langle
+s_1&#39;&#39;, s_2&#39;&#39;, \ldots s_n&#39;&#39; \rangle\)</span>
+jeśli
+<ul>
+<li><span class="math inline">\(\forall i \quad V_{s_i&#39;&#39;}
+\subseteq V_{s_i&#39;}\)</span></li>
+<li><span class="math inline">\(\exists i \quad V_{s_i&#39;&#39;}
+\subsetneq V_{s_i&#39;}\)</span></li>
+</ul></li>
+</ul>
+<h2 id="uczenie-się-przestrzeni-wersji-1">Uczenie się przestrzeni
+wersji</h2>
+<ul>
+<li>Relacja większej ogólności może prowadzić nas w procesie uczenia się
+zgodnie z porządkiem
+<ul>
+<li>w stornę bardziej ogólnych modeli lub bardziej szczegółowych
+modeli</li>
+</ul></li>
+<li>Przestrzeń wersji <span class="math inline">\(VS\)</span> - modele
+idealnie pasujące do danych trenujących
+<ul>
+<li>zależna od przestrzeni modeli, zbioru trenującego i pojęcia</li>
+</ul></li>
+<li>Korzystając z relacji mniejszej/większej ogólności, możemy trzymać
+tylko reprezentantów przestrzeni wersji, którzy pozwoliliby odtworzyć
+całą przestrzeń
+<ul>
+<li>najbardziej ogólne i najbardziej szczegółowe modele</li>
+</ul></li>
+<li>Dwie skrajne strony <span class="math inline">\(VS\)</span>
+<ul>
+<li><span class="math inline">\(G\)</span> - general</li>
+<li><span class="math inline">\(S\)</span> - specific</li>
+<li><span class="math inline">\(G = \{h \in \mathbb{H} | \quad
+\neg(\exists h&#39; \in VS) \quad h&#39; \succ h \}\)</span></li>
+<li><span class="math inline">\(S = \{h \in \mathbb{H} | \quad
+\neg(\exists h&#39; \in VS) \quad h&#39; \prec h \}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(h \in G \vee (\exists h&#39; \in G)
+\quad h \prec h&#39;\)</span>
+<ul>
+<li>skrótowo <span class="math inline">\(h \preceq G\)</span></li>
+</ul></li>
+<li><span class="math inline">\(h \in S \vee (\exists h&#39; \in S)
+\quad h \succ h&#39;\)</span>
+<ul>
+<li>skrótowo <span class="math inline">\(h \succeq S\)</span></li>
+</ul></li>
+<li>Wszystkie modele przestrzeni wersji mieszczą się między jakimś
+modelem z <span class="math inline">\(G\)</span>, a jakimś modelem z
+<span class="math inline">\(S\)</span> lub należą do <span
+class="math inline">\(G\)</span> albo <span
+class="math inline">\(S\)</span></li>
+<li>Nie ma modeli, które byłyby nieporównywalne z żadnym z modeli z
+<span class="math inline">\(G\)</span> i <span
+class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(G\)</span> i <span
+class="math inline">\(S\)</span> wyznaczają całą przestrzeń wersji
+<ul>
+<li>jeśli algorytm wyznacza <span class="math inline">\(VS\)</span> to
+wystarczy że znajdzie <span class="math inline">\(G\)</span> i <span
+class="math inline">\(S\)</span></li>
+</ul></li>
+</ul>
+<h2 id="algorytm-eliminacji-kandydatów-cae">Algorytm eliminacji
+kandydatów (CAE)</h2>
+<ul>
+<li>Znajduje przestrzeń wersji</li>
+<li>Dobry tylko dla ubogich modeli
+<ul>
+<li>wartość dydaktyczna</li>
+</ul></li>
+<li>Na początku, przed przejrzeniem zbioru danych trenujących - cała
+przestrzeń modeli to przestrzeń wersji
+<ul>
+<li>nie ma jeszcze żadnego elementu który przeszkadza</li>
+<li>np. dla koniunkcji boolowskich G - stałe 1, S - stałe 0</li>
+<li>dla kompleksów G - kompleks uniwersalny, S - kompleks pusty</li>
+</ul></li>
+<li>Pojawia się przykład klasy 1
+<ul>
+<li>trzeba zmienić S żeby dopasować się do danych</li>
+<li>zastępujemy szczegółowe bardziej ogólnymi</li>
+</ul></li>
+<li>Pojawia się przykład klasy 0
+<ul>
+<li>trzeba zmienić G żeby dopasować się do danych</li>
+<li>zastępujemy ogólne, bardziej szczegółowymi</li>
+</ul></li>
+<li>Zaciska się przestrzeń z obu stron</li>
+<li>Modele, które zostaną na końcu - przestrzeń wersji - modele pasujące
+do danych</li>
+</ul>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Inicjalizacja
+<ul>
+<li><span class="math inline">\(G :=\)</span> zbiór modeli maksymalnie
+ogólnych w przestrzeni modeli</li>
+<li><span class="math inline">\(S :=\)</span> zbiór modeli maksymalnie
+szczegółowych w przestrzeni modeli</li>
+</ul></li>
+<li>Dla każdego <span class="math inline">\(x \in T\)</span></li>
+<li>Jeśli <span class="math inline">\(c(x)=1\)</span>
+<ul>
+<li><span class="math inline">\(G := G - \{h\in G | h(x)=0 \}\)</span> -
+wyrzucamy z G te modele które nie pasują (nie można bardziej
+uogólnić)</li>
+<li>dla każdego <span class="math inline">\(h \in \{h&#39; \in S |
+h&#39;(x)=0 \}\)</span>
+<ul>
+<li><span class="math inline">\(S := S - \{h\} \cup
+generalizacje(h,x,G)\)</span> - nie bardziej ogólne niż modele z G</li>
+</ul></li>
+<li><span class="math inline">\(S := S - \{ h \in S | (\exists h&#39;
+\in S) h&#39; \prec h\}\)</span> - weryfikacja że spełniona jest
+własność zbioru S</li>
+</ul></li>
+<li>Jeśli <span class="math inline">\(c(x) = 0\)</span>
+<ul>
+<li><span class="math inline">\(S := S - \{h\in S | h(x)=1
+\}\)</span></li>
+<li>dla każdego <span class="math inline">\(h \in \{h&#39; \in G |
+h&#39;(x)=1 \}\)</span>
+<ul>
+<li><span class="math inline">\(G := G - \{ h \} \cup
+specjalizacje(h,x,S)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(G := G - \{ h \in G | (\exists h&#39;
+\in G) h&#39; \succ h\}\)</span></li>
+</ul></li>
+<li>Zwróć <span class="math inline">\((G,S)\)</span></li>
+</ul>
+<h3 id="generalizacja">Generalizacja</h3>
+<ul>
+<li><span class="math inline">\(generalizacja(h, x, G)\)</span></li>
+<li><span class="math inline">\(h\)</span> - model który mamy
+zgeneralizować</li>
+<li><span class="math inline">\(x\)</span> - przykład, który nie
+pasuje</li>
+<li><span class="math inline">\(G\)</span> - ograniczenie jak bardzo
+generalny może być model</li>
+<li>Wynik - zbiór maksymalnie szczegółowych modeli <span
+class="math inline">\(h&#39;\)</span> spełniających warunki
+<ul>
+<li>maksymalnie szczegółowych bo chcemy krok minimalny,
+wystarczający</li>
+<li><span class="math inline">\(h&#39; \succ h\)</span></li>
+<li><span class="math inline">\(h&#39;(x)=1\)</span> (problemem jest że
+<span class="math inline">\(h(x)=0\)</span>)</li>
+<li><span class="math inline">\(h&#39; \preceq G \equiv h&#39; \in G
+\vee (\exists h&#39;&#39; \in G) h&#39; \prec h&#39;&#39;\)</span> (nie
+może być bardziej ogólny niż modele z <span
+class="math inline">\(G\)</span>)</li>
+</ul></li>
+<li>Wynikiem generalizacje są modele wystarczająco ogólne, żeby pokryć
+<span class="math inline">\(x\)</span>, ale poza tym maksymalnie
+szczegółowe i niewykraczające poza ograniczenia <span
+class="math inline">\(G\)</span>
+<ul>
+<li>minimalna generalizacja</li>
+</ul></li>
+<li>Realizacja jest zależna od reprezentacji modeli</li>
+</ul>
+<h3 id="specjalizacja">Specjalizacja</h3>
+<ul>
+<li><span class="math inline">\(specjalizacja(h, x, S)\)</span></li>
+<li>Wynik - zbiór maksymlanie ogólnych modeli <span
+class="math inline">\(h&#39;\)</span> spełniających warunki
+<ul>
+<li><span class="math inline">\(h&#39; \prec h\)</span></li>
+<li><span class="math inline">\(h&#39;(x)=0\)</span></li>
+<li><span class="math inline">\(h&#39; \succeq S\)</span></li>
+</ul></li>
+<li>Wynikiem są modele wystarczająco szczegółowe żeby wykluczyć
+pokrywanie <span class="math inline">\(x\)</span>, ale poza tym
+maksymalnie ogólne i niewykraczające poza ograniczenie <span
+class="math inline">\(S\)</span></li>
+</ul>
+<h3 id="przykład-3">Przykład</h3>
+<ul>
+<li>Generalizacja prostokąta
+<ul>
+<li>jednoznaczna</li>
+<li>trzeba rozciągnąć prostokąt tak, żeby zawierał nowy przykład</li>
+<li>konieczna weryfikacja, czy zawiera się w prostokącie reprezentującym
+jakiś model z <span class="math inline">\(G\)</span></li>
+</ul></li>
+<li>Specjalizacja prostokąta
+<ul>
+<li>minimalne zawężenie prostokąta reprezentującego <span
+class="math inline">\(h\)</span> wystarczające do wykluczenia przykładu
+<span class="math inline">\(x\)</span></li>
+<li>wynikiem jest zbiór wszystkich modeli reprezentowanych przez
+prostokąty uzyskane przez minimalne przesunięcie jednego z boków do
+wewnątrz</li>
+<li>nie jest jednoznaczne, można wybrać dowolny bok to zawężenia</li>
+<li>dla każdego nowego prostokąta trzeba sprawdzić czy zawiera jakiś
+prostokąt z <span class="math inline">\(S\)</span></li>
+</ul></li>
+<li>Model prostokątów ma charakter koniunkcyjny
+<ul>
+<li>4 warunki</li>
+<li>generalizacja daje 1 nowy model</li>
+<li>specjalizacja może dawać więcej</li>
+</ul></li>
+<li>Generalizacja koniunkcji boolowskich
+<ul>
+<li>usunięcie tych i tylko tych literałów, które nie są spełnione dla
+przykładu <span class="math inline">\(x\)</span></li>
+<li>konieczna weryfikacja czy zbiór literałów zawiera się w zbiorze
+literałów jakiejś koniunkcji reprezentującej model z <span
+class="math inline">\(G\)</span></li>
+</ul></li>
+<li>Specjalizacja koniunkcji boolowskich
+<ul>
+<li>dodanie jednego literału niespełnionego dla przykładu <span
+class="math inline">\(x\)</span></li>
+<li>wynikiem jest zbiór wszystkich koniunkcji uzyskanych przez dodanie
+literału</li>
+<li><span class="math inline">\(a_i\)</span> jeśli <span
+class="math inline">\(a_i(x) = 0\)</span></li>
+<li><span class="math inline">\(\neg a_i\)</span> jeśli <span
+class="math inline">\(a_i(x)=1\)</span></li>
+<li>konieczna weryfikacja czy zbiór literałów zawiera zbiór literałów
+jakiejś koniunkcji z <span class="math inline">\(S\)</span></li>
+<li>nie jest jednoznaczne który literał dodać</li>
+</ul></li>
+<li>Generalizacja kompleksu
+<ul>
+<li>minimalne wystarczające rozszerzenie zbiorów wartości dozwolonych
+selektorów</li>
+<li>do każdego zbioru selektora dającego <span
+class="math inline">\(0\)</span> dokładamy wartość atrybutu
+przykładu</li>
+<li><span class="math inline">\(V_{s_i} := V_{s_i} \cup \{
+a_i(x)\}\)</span></li>
+<li>musi być spełniony warunek <span class="math inline">\(h&#39;
+\preceq G\)</span> albo generalizacja da pusty wynik</li>
+</ul></li>
+<li>Specjalizacja kompleksu
+<ul>
+<li>minimalne wystarczające zawężenie zbioru wartości dozwolonych
+jednego selektora</li>
+<li>wynikiem jest zbiór wszystkich modeli różniących się od <span
+class="math inline">\(h\)</span> wyłącznie jednym selektorem <span
+class="math inline">\(s_i&#39;\)</span></li>
+<li><span class="math inline">\(V_{s_i&#39;} = V_{s_i} - \{ a_i(x)
+\}\)</span></li>
+<li>tylko jeśli <span class="math inline">\(h&#39; \succ S\)</span></li>
+</ul></li>
+</ul>
+<h3 id="przykład-4">Przykład</h3>
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th><span class="math inline">\(a_1\)</span></th>
+<th><span class="math inline">\(a_2\)</span></th>
+<th><span class="math inline">\(a_3\)</span></th>
+<th>klasa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>du</td>
+<td>cze</td>
+<td>ko</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>ma</td>
+<td>cze</td>
+<td>kw</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>ma</td>
+<td>cze</td>
+<td>ko</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>du</td>
+<td>nie</td>
+<td>ko</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>CAE dla figur geometrycznych</li>
+<li>Na początku
+<ul>
+<li><span class="math inline">\(G = \{ \langle ? \rangle
+\}\)</span></li>
+<li><span class="math inline">\(S = \{ \langle \varnothing \rangle
+\}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(x=1\)</span>
+<ul>
+<li><span class="math inline">\(G = \{ \langle ? \rangle
+\}\)</span></li>
+<li><span class="math inline">\(S = \{ \langle du, cze, ko \rangle
+\}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(x=2\)</span>
+<ul>
+<li>Nie można wykluczyć koloru czerwonego bo model będzie mniej ogólny
+niż model z <span class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(G = \{ \langle sr \vee du, ?, ?
+\rangle,\langle ?, ?, ko \vee tr \rangle\}\)</span></li>
+<li><span class="math inline">\(S = \{ \langle du, cze, ko \rangle
+\}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(x=3\)</span>
+<ul>
+<li><span class="math inline">\(G\)</span> - pierwszy daje <span
+class="math inline">\(0\)</span>, trzeba usunąć</li>
+<li><span class="math inline">\(S\)</span> - trzeba uogólnić</li>
+<li><span class="math inline">\(G = \{ \langle ?, ?, ko \vee tr
+\rangle\}\)</span></li>
+<li><span class="math inline">\(S = \{ \langle du \vee ma, cze, ko
+\rangle \}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(x=4\)</span>
+<ul>
+<li>w <span class="math inline">\(G\)</span> jedna możliwość
+specjalizacji, która jest bardziej ogólna niż <span
+class="math inline">\(S\)</span></li>
+<li><span class="math inline">\(G = \{ \langle ?, cze \vee zie, ko \vee
+tr \rangle\}\)</span></li>
+<li><span class="math inline">\(S = \{ \langle du \vee ma, cze, ko
+\rangle \}\)</span></li>
+</ul></li>
+<li>Przestrzeń wersji między <span class="math inline">\(G\)</span> i
+<span class="math inline">\(S\)</span></li>
+<li>Wybieramy kierunek (z góry albo z dołu)
+<ul>
+<li>np. wykonujemy wszystkie dopuszczone specjalizacje <span
+class="math inline">\(G\)</span></li>
+</ul></li>
+</ul>
+<h3 id="zastosowanie-przestrzeni-wersji-do-predykcji">Zastosowanie
+przestrzeni wersji do predykcji</h3>
+<ul>
+<li>Algorytm nie ma obciążanie, nie preferuje żadnego modelu o ile
+pasuje do danych</li>
+<li>Na końcu można wprowadzić obciążenie przez wybór jednego modelu z
+<span class="math inline">\(VS\)</span>
+<ul>
+<li>najbardziej ogólny</li>
+<li>najbardziej szczegółowy</li>
+<li><em>ze środka</em></li>
+<li>wymagający sprawdzenia najmniejszej liczby atrybutów</li>
+</ul></li>
+<li>Wiele modeli może głosować nad predykcją
+<ul>
+<li>model komitetowy może dać coś nie do osiągnięcia przez żaden
+pojedynczy kompleks</li>
+</ul></li>
+<li>Możliwość aktywnego uczenia się
+<ul>
+<li>chcemy jak najmniej porównań</li>
+<li>trzeba zawęzić przestrzeń modeli</li>
+<li>uczeń pyta o przykład</li>
+<li>najlepiej podać taki, które przez połowę modeli będzie, a przez
+połowę nie będzie pokrywany</li>
+<li>poznanie klasy przykładu zmniejszy przestrzeń wersji o połowę</li>
+</ul></li>
+</ul>
+<h2 id="podsumowanie">Podsumowanie</h2>
+<ul>
+<li>Sformułowanie uczenia jako przeszukiwania
+<ul>
+<li>kamień milowy w uczeniu maszynowym</li>
+</ul></li>
+<li>Dwukierunkowe przeszukiwanie przestrzeni modeli
+<ul>
+<li>od maksymalnie ogólnych do maksymalnie szczegółowych i na
+odwrót</li>
+<li>bez pomijania żadnego modelu spójnego</li>
+</ul></li>
+<li>Przyrostowy tryb uczenia się z użyciem jednego przykładu trenującego
+na raz</li>
+<li>Zbyt duża złożoność dla bogatych przestrzeni modeli
+<ul>
+<li>eksplozja zbiorów <span class="math inline">\(G\)</span> i <span
+class="math inline">\(S\)</span></li>
+</ul></li>
+<li>Brak modeli spójnych dla ubogich przestrzeni modeli
+<ul>
+<li>pusty wynik</li>
+</ul></li>
+<li>Konieczne dostosowanie do wymogów praktycznych
+<ul>
+<li>zawężenie zakresu przeszukiwania</li>
+<li>tolerowanie niespójności</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#uczenie-się-przestrzeni-wersji" id="toc-uczenie-się-przestrzeni-wersji">Uczenie się przestrzeni
+wersji</a>
+<ul>
+<li><a href="#kompleks" id="toc-kompleks">Kompleks</a></li>
+<li><a href="#porównywanie-modeli-ze-względu-na-ogólność" id="toc-porównywanie-modeli-ze-względu-na-ogólność">Porównywanie modeli
+ze względu na ogólność</a>
+<ul>
+<li><a href="#przykład" id="toc-przykład">Przykład</a></li>
+<li><a href="#przykład-1" id="toc-przykład-1">Przykład</a></li>
+<li><a href="#przykład-2" id="toc-przykład-2">Przykład</a></li>
+</ul></li>
+<li><a href="#uczenie-się-przestrzeni-wersji-1" id="toc-uczenie-się-przestrzeni-wersji-1">Uczenie się przestrzeni
+wersji</a></li>
+<li><a href="#algorytm-eliminacji-kandydatów-cae" id="toc-algorytm-eliminacji-kandydatów-cae">Algorytm eliminacji
+kandydatów (CAE)</a>
+<ul>
+<li><a href="#działanie" id="toc-działanie">Działanie</a></li>
+<li><a href="#generalizacja" id="toc-generalizacja">Generalizacja</a></li>
+<li><a href="#specjalizacja" id="toc-specjalizacja">Specjalizacja</a></li>
+<li><a href="#przykład-3" id="toc-przykład-3">Przykład</a></li>
+<li><a href="#przykład-4" id="toc-przykład-4">Przykład</a></li>
+<li><a href="#zastosowanie-przestrzeni-wersji-do-predykcji" id="toc-zastosowanie-przestrzeni-wersji-do-predykcji">Zastosowanie
+przestrzeni wersji do predykcji</a></li>
+</ul></li>
+<li><a href="#podsumowanie" id="toc-podsumowanie">Podsumowanie</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

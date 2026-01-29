@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>przed-kolokwium-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="przed-kolokwium-01.html">Poprzedni: przed-kolokwium-01.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-00.html">Następny: wyklad-00.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="konsultacje-2025-01-24">Konsultacje 2025-01-24</h1>
+<p>Można notatki 3 do 4 zadań Raczej będą wydrukowane rysunki i coś na
+nich pozaznaczać i napisać krótkie uzasadnienie</p>
+<h2 id="materiał">Materiał</h2>
+<p>To co omawiane po kolosie 1 Termin poprawkowy w 1 tygodniu sesji
+(pn/wt/śr)</p>
+<ul>
+<li>Algorytm ewolucyjny z krzyżowaniem</li>
+<li>Ewolucja różnicowa</li>
+<li>EDA</li>
+<li>Rój cząstek</li>
+<li>Ograniczenia</li>
+<li>Hybrydyzacja z metodami optymalizacji lokalnej</li>
+<li>Wyprowadzenie funkcji gęstości rozkładu próbkowania algorytmu
+ewolucyjnego</li>
+</ul>
+<p>Być może ograniczenia w innym kontekście (symulowanego
+wyżarzania)</p>
+<h2 id="zadanief">Zadanief</h2>
+<p>Algorytm ewolucyjny z krzyżowaniem, naprawa</p>
+<p>[[Pasted image 20250124180803.png]]</p>
+<p>nie wiemy jaka jest funkcja celu</p>
+<p>a - kolejna populacja skupiona wokół tych skupisk punktów co widać
+głównie kropki położone nie dalej niż 1</p>
+<p>b - wszytkie są rezultatem krzyżowania i mutacji krzyżowanie w parach
+albo z tego samego skupiska albo z różnych skupisk waga 1/2 - punkt
+krzyżowany będzie na środku pomiędzy skupiskami 3 chmury punktów gdzie
+będzie więcej punktów - zależałoby od funkcji celu ale nie znamy</p>
+<p>c - krzyżowanie równomierne chmury punktów mogą być na wierzchołkach
+prostokąta rozpiętego przez 2 chmury punktów gęstość chmur zależy od
+wartości funkcji celu</p>
+<p>d- nie ma krzyżowania, ograniczenia kostkowe -3,3, uwzględnienie
+ograniczeń przez rzutowanie widoczne dla algorytmu (lamarcowskie) będą
+punkty leżące dokładnie na granicach, nie będzie żadnego punktu za
+granicą</p>
+<p>jak jest reinicjacja i ograniczenia kostkowe to reinicjuje się z
+rozkładem jednostajnym w kostce</p>
+<h2 id="zadanie">Zadanie</h2>
+<p>Ewolucja różnicowa</p>
+<p>[[Pasted image 20250124182233.png]] a - krzyżowanie nie zachodzi
+(CR=1)</p>
+<p>skupiska te co są - wektor różnicowy z jednego skupiska 2 cienie - na
+linii pomiędzy skupiskami w 0.2 i 0.8 odległości 2 cienie na zewnątrz -
+na linii łączącej skupiska, 0.8 odległości pomiędzy skupiskami ale na
+zewnątrz</p>
+<p>prawdopodobienstwo 1/2 że punkt zostanie w chmurce (2 skupiska)
+prawdopodobieństwo 1/2 że punkt wyrzucony do jednego z 4 cieni (4
+skupiska) - 2 razy mniej gęste</p>
+<p>b CR=0.5 mutant krzyżowany z punktem poddawanym mutacji</p>
+<p>takie skupiska jak ostatnio + dodatkowe wyznaczone przez
+“krzyżykowanie” ale pamiętać że krzyżowany jest mutant z punktem przed
+mutacją</p>
+<p>w sumie grup 2 oryginalne skupiska [[Pasted image
+20250124183551.png]]</p>
+<p>c CR=1 (wyłączone krzyżowanie) i uwzględnienie ograniczeń kostkowych
+przez odbijanie</p>
+<p>jak w punkcie a ale te cienie ktore wychodzą poza kostkę odbite do
+środka</p>
+<p>w DE naprawa po krzyżowaniu</p>
+<h2 id="zadanie-1">Zadanie</h2>
+<p>[[Pasted image 20250124184408.png]][[Pasted image
+20250124184457.png]]</p>
+<p>Krzyżowanie może doprowadzić do Xa - CR powinien być 0&lt;CR&lt;1,
+najlepiej 1/2 F ok 1 pozwoli od razu wstrzelić się do Xa, inaczej punkt
+po krzyżowaniu może zostać odrzucony bo bedzie mial niższą jakość</p>
+<p>wylądowanie na zboczu może nic nie dać bo punkt po krzyżowaniu
+musiałby być lepszy od tego przed mutacją</p>
+<p>może być bardzo duże F - wektor między punktami z jednego skupiska
+akurat tak się ułoży że przeskoczy do X - mniej prawdopodobne ale
+możliwe</p>
+<h2 id="zadanie-2">Zadanie</h2>
+<p>[[Pasted image 20250124190503.png]]</p>
+<p>Tabela</p>
+<p>q wyliczamy - tu są liczby z dupy żeby zademonstrować co dalej</p>
+<p><span class="math inline">\(p_s\)</span> - ze wzoru na selekcję
+turniejową</p>
+<table>
+<thead>
+<tr class="header">
+<th>i</th>
+<th><span class="math inline">\(x_i\)</span></th>
+<th><span class="math inline">\(q_i\)</span></th>
+<th><span class="math inline">\(p_s\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>7/25</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>9/25</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>6</td>
+<td>4</td>
+<td>5/25</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>6</td>
+<td>4</td>
+<td>3/25</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>7</td>
+<td>2</td>
+<td>1/25</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>dla punktów w położeniu na osi liczbowej (redukujemy i=3 z i=4)</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x_i\)</span></th>
+<th><span class="math inline">\(p_s\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>7/25</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>9/25</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>8/25</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>1/25</td>
+</tr>
+</tbody>
+</table>
+<p>z mutacji z rozkładem jednostajnym wychodzą prostokąty z
+wysokością przeskalowaną przez <span class="math inline">\(p_s\)</span>
+prostokąt nad każdym punktem z populacji bazowej</p>
+<p>sumujemy prostokąty ze sobą</p>
+<p>Pamietac wzory (numeracja od 1)</p>
+<p>[[Pasted image 20250124192401.png]]</p>
+<h2 id="zadanie-3">Zadanie</h2>
+<p>[[Pasted image 20250124193133.png]] w chmurze prawdopodobnie są 2
+optima lokalne</p>
+<p>b - odbijanie c - wariant z funkcją kary, reszta jest lamarcowska d
+to rzutowanie bo jest ramka e to zawijanie - są dodatkowe 2 zagęszczenia
+punktów tam gdzie wcześniej ich nie było</p>
+<h2 id="zadanie-4">Zadanie</h2>
+<p>[[Pasted image 20250124193535.png]] Trzeba by zamienić na wykres
+schodkowy i porównać dystrybuanty empiryczne</p>
+<p>jeśli jedna krzywa jest cała nad drugą to wiadomo ktora lepsza a jak
+sie przecinaja to nie wiadomo</p>
+<p>[[Pasted image 20250128161738.png]]</p>
+<h2 id="zadanie-5">Zadanie</h2>
+<p>[[Pasted image 20250124193800.png]]zacznie q w przedziale -36, -25 a
+dojdzie do poziomu troche mniejszego niż 0 bo mowimy o średniej a punkty
+będą rozproszone</p>
+<ol start="2" type="a">
+<li><p>dla pc=0 na końcu będzie jeszcze niżej niż dla pc=1/2 algorytm
+może robić większe kroki bo populacja nie jest ściskana na początku
+lepiej, na końcu gorzej</p></li>
+<li><p>std mutacji 0.1 (10 razy mniejsze) wolniej idzie do 0 ale
+dochodzi bardzo blisko 0</p></li>
+<li><p>turniej z 5 elementami w szrankach bardziej zachłanne działanie -
+idzie szybciej dojdzie troche wyżej niż bazowy</p></li>
+<li><p>selekcja elitarna szybszy wzrost średnia troche bliżej 0 niż
+bazowo podobny przebieg do e)</p></li>
+<li><p>populacja zawiera 10 elementów bardziej poszarpana krzywa wolniej
+idzie w góre względem numeru iteracji dochodzi niżej</p></li>
+</ol>
+<h2 id="jeszcze">Jeszcze</h2>
+<p>Co by było gdyby w roju cząstek wszystkie punkty miały taką samą
+wartość początkową Co jak się sprzęgnie z metodą optymalizajci lokalnej
+(lamarcowskie/darwinowskie)</p>
+<p>[[Pasted image 20250128225002.png]] [[Pasted image
+20250128225028.png]][[Pasted image 20250128225136.png]]</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#konsultacje-2025-01-24" id="toc-konsultacje-2025-01-24">Konsultacje 2025-01-24</a>
+<ul>
+<li><a href="#materiał" id="toc-materiał">Materiał</a></li>
+<li><a href="#zadanief" id="toc-zadanief">Zadanief</a></li>
+<li><a href="#zadanie" id="toc-zadanie">Zadanie</a></li>
+<li><a href="#zadanie-1" id="toc-zadanie-1">Zadanie</a></li>
+<li><a href="#zadanie-2" id="toc-zadanie-2">Zadanie</a></li>
+<li><a href="#zadanie-3" id="toc-zadanie-3">Zadanie</a></li>
+<li><a href="#zadanie-4" id="toc-zadanie-4">Zadanie</a></li>
+<li><a href="#zadanie-5" id="toc-zadanie-5">Zadanie</a></li>
+<li><a href="#jeszcze" id="toc-jeszcze">Jeszcze</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

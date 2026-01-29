@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-04</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-03.html">Poprzedni: wyklad-03.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-05.html">Następny: wyklad-05.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="algorytmy-ewolucyjne-2024-10-30">Algorytmy ewolucyjne
+(2024-10-30)</h1>
+<h2 id="rozszerzony-algorytm-błądzenia-przypadkowego">Rozszerzony
+algorytm błądzenia przypadkowego</h2>
+<pre><code>x = x_0
+log.append(x_0)
+while !stop
+    x = select(H)
+    y = selectRandom(N(x))
+    log.append(y)</code></pre>
+<ul>
+<li>select ma rozkład prawdopodobieństwa inny niż jednostajny, ale wybór
+nadal jest losowy</li>
+</ul>
+<h3
+id="prawdopodobieństwo-selekcji-w-algorytmie-proto-ewolucyjnym">Prawdopodobieństwo
+selekcji w algorytmie proto-ewolucyjnym</h3>
+<ul>
+<li>coś pośredniego między stochastycznym wzrostem, a błądzeniem
+przypadkowym</li>
+<li>stochastyczny wzrost - najlepszy wybierany z P=1</li>
+<li>błądzenie przypadkowe - niezależnie od jakości takie same
+prawdopodobieństwo</li>
+<li>proto-ewolucyjny
+<ul>
+<li>największe prawdopodobieństwo dla najlepszego</li>
+<li>dla gorszych coraz niższe</li>
+</ul></li>
+</ul>
+<h2 id="algorytm-ewolucyjny">Algorytm ewolucyjny</h2>
+<ul>
+<li>Reprodukcja</li>
+<li>Mutacja</li>
+<li>Selekcja</li>
+<li>historia populacji</li>
+</ul>
+<h2 id="idea-mutacji">Idea mutacji</h2>
+<ul>
+<li>Wybór losowego sąsiada</li>
+<li>Wraz z oddalaniem się od punktu przed mutacją, funkcja gęstości
+prawdopodobieństwa powinna nierosnąć
+<ul>
+<li>otoczenia punktów oddalonych bardziej będą osiągane z mniejszym
+prawdopodobieństwem niż otoczenia punktów bliskich</li>
+</ul></li>
+<li>Typy mutacji
+<ul>
+<li>gaussowska (typowa)</li>
+<li>gaussowska o różnych odchyleniach standardowych w wymiarach</li>
+<li>gaussowska o niediagonalnej macierzy kowariancji (skrzywiona chmura
+punktów)</li>
+</ul></li>
+</ul>
+<h2 id="typy-selekcji">Typy selekcji</h2>
+<ul>
+<li>Proporcjonalna (ruletkowa)
+<ul>
+<li>prawdopodobieństwo proporcjonalne do wartości funkcji celu</li>
+<li>dodaje się czynnik stały żeby osiągać wartości z przedziału <span
+class="math inline">\([0,1]\)</span> (jeśli funkcja celu osiąga ujemne
+wartości)</li>
+</ul></li>
+<li>Progowa
+<ul>
+<li>wszystkie powyżej progu mają jednakowe prawdopodobieństwo
+wyboru</li>
+<li>wszystkie poniżej progu mają prawdopodobieństwo <span
+class="math inline">\(0\)</span></li>
+<li>nieproporcjonalna - ma znaczenie tylko po której stronie progu
+znajduje się osobnik, nie ważna jest proporcja wartości funkcji
+celu</li>
+</ul></li>
+<li>Turniejowa
+<ul>
+<li>losowanie ze zwracaniem z populacji bazowej <span
+class="math inline">\(s\)</span> punktów</li>
+<li>z <span class="math inline">\(s\)</span> punktów selekcję przechodzi
+najlepszy</li>
+<li>podobny do progowej bo istotna jest relacja między wartościami</li>
+<li>podobny to proporcjonalnej bo wraz z wartością rośnie
+prawdopodobieństwo przejścia</li>
+<li>daje się się wyrazić wzorem (<span class="math inline">\(i\)</span>
+- indeks w posortowanej liście punktów)</li>
+</ul></li>
+<li>Selekcja rangowa
+<ul>
+<li>arbitralne przypisanie prawdopodobieństwa selekcji na podstawie
+rangi (ułożenia w posortowanej liście)</li>
+</ul></li>
+</ul>
+<h2
+id="realizacja-losowanie-z-założonym-rozkładem-prawdopodobieństwa">Realizacja
+losowanie z założonym rozkładem prawdopodobieństwa</h2>
+<ul>
+<li>Dystrybuanta zmiennej losowej <span class="math inline">\(F(x) = P(X
+\le x)\)</span>
+<ul>
+<li>funkcja niemalejąca</li>
+</ul></li>
+<li>Jeśli realizujemy zmienną losową o danym rozkładzie, to wartości
+dystrybuanty będą miały rozkład jednostajny <span
+class="math inline">\(U(0,1)\)</span>
+<ul>
+<li><span class="math inline">\(x = F^{-1}(y)\)</span></li>
+<li><span class="math inline">\(y \sim U(0,1)\)</span></li>
+</ul></li>
+<li>Można wygenerować dowolny rozkład licząc odwrotność dystrybuanty
+tego rozkładu na rozkładzie jednostajnym
+<ul>
+<li>nie zawsze da się wyznaczyć w ramach funkcji elementarnych (np. dla
+Gaussa)</li>
+</ul></li>
+</ul>
+<h2 id="dystrybuanta-empiryczna">Dystrybuanta empiryczna</h2>
+<ul>
+<li>Dla zbioru wartości <span class="math inline">\(A\)</span></li>
+</ul>
+<p><span class="math display">\[
+F_{emp} =  \frac{|\{ y \in A, y \le x \}|}{|A|}
+\]</span></p>
+<h2 id="mutacyjny-algorytm-ewolucyjny">Mutacyjny algorytm
+ewolucyjny</h2>
+<ul>
+<li>W kolejnych iterajcjach będą pojawiać się zagęszczenia punktów w
+pobliżu najlepszych punktów i tam gdzie punkty są bliskie sobie</li>
+</ul>
+<p>Kolos 13 albo 20 z algorytmów lokalnych, mutacyjnego ewolucyjnego,
+empirycznej oceny algorytmu będzie spotkanie dla chętnych na teams z
+zadaniami</p>
+<h3 id="typy-mutacji">Typy mutacji</h3>
+<ul>
+<li>Mutacja gaussowska
+<ul>
+<li>typowa</li>
+<li>dla wektorów liczb rzeczywistych, do każdej współrzędnej dodaje się
+niezależnie wylosowaną wartość opisaną rozkładem normalnym <span
+class="math inline">\(\Delta_i \sim \sigma \cdot N(0,1)\)</span></li>
+<li><span class="math inline">\(\sigma\)</span> - siła mutacji</li>
+<li>równomierna chmura punktów - poziomice funkcji gęstości
+prawdopodobieństwa są okręgami (hipersferami)</li>
+<li>kiedy nie ma wyróżnionego kierunku</li>
+<li>czynniki wpływają na wartość funkcji celu niezależnie od siebie</li>
+<li>(zmienne są jednakowej siły, niezależne)</li>
+</ul></li>
+<li>Gaussowska o różnych odchyleniach standardowych w wymiarach
+<ul>
+<li>czynniki wpływają w różnym stopniu na funkcję celu</li>
+<li>dla każdego wymiaru oddzielna siła mutacji</li>
+<li>diagonalna macierz kowariancji</li>
+</ul></li>
+<li>Gaussowska o niediagonalnej macierzy kowariancji
+<ul>
+<li>kierunki nie są niezależne od siebie</li>
+<li>kolejna <span class="math inline">\(\Delta_i\)</span> powinna
+uwzględnić wpływ wartości skorelowanych wartości zrealizowanych
+wcześniej</li>
+<li>problematyczne do implementacji</li>
+<li>dekomponuje się macierz kowariancji na dwa trójkąty <span
+class="math inline">\(LL^T\)</span> - złożone obliczeniowo</li>
+<li>generujemy wektor <span class="math inline">\(\Delta\)</span>
+niezależnych zmiennych losowych rozkładu normalnego standardowego</li>
+<li>mnożenie <span class="math inline">\(L \Delta\)</span></li>
+</ul></li>
+</ul>
+<p>Macierz kowariancji kowariancja - miara współzależności zmiennych
+stopień odchylenia od wartości oczekiwanej - wartości poza diagonalą
+wariancja na diagonali macierz symetryczna</p>
+<p>dla wariantu mutacji z oddzielnymi siłami mutacji (<span
+class="math inline">\(\sigma_i\)</span>), macierz kowariancji będzie
+macierzą diagonalną z <span class="math inline">\(\sigma_i^2\)</span> na
+diagonali</p>
+<p>macierz kowariancji opisuje jak realizuje się poszukiwanie sąsiada w
+oryginalnej przestrzeni poszukiwań równoważnie, mówi o tym jak
+przetransformować oryginalną przestrzeń przeszukiwań do innej, w której
+sąsiedzi są generowani rozkładem normalnym standardowym, a funkcja celu
+ma jednakową dynamikę we wszystkich wymiarach</p>
+<h2 id="dynamika-mutacyjnego-ae">Dynamika mutacyjnego AE</h2>
+<ul>
+<li>mała siła mutacji - ogon komety (krótki okres wspinaczki) i długa
+stagnacja bez znaczącej poprawy (gruba chmura punktów w pobliżu optimum
+lokalnego)
+<ul>
+<li>najlepiej wyznaczyć optimum lokalne przez średnią położenia punktów
+w chmurze</li>
+</ul></li>
+<li>duża siła mutacji
+<ul>
+<li>nieidealna eksploatacja - większy szum</li>
+<li>silniejsza eksploracja</li>
+<li>szybsze podejście pod górę</li>
+<li>większe zróżnicowanie (wariancja) osiąganych średnich wartości
+funkcji celu w populacji w kolejnych iteracjach</li>
+<li>przeskoki między otoczeniami optimów lokalnych (przekroczenie
+doliny)</li>
+<li>populacja nie przechodzi w całości, są nietrwałe stany</li>
+<li>wspinaczka</li>
+<li>równowaga dynamiczna</li>
+<li>przekraczanie doliny / siodła</li>
+</ul></li>
+<li>bardzo duża siła mutacji</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algorytmy-ewolucyjne-2024-10-30" id="toc-algorytmy-ewolucyjne-2024-10-30">Algorytmy ewolucyjne
+(2024-10-30)</a>
+<ul>
+<li><a href="#rozszerzony-algorytm-błądzenia-przypadkowego" id="toc-rozszerzony-algorytm-błądzenia-przypadkowego">Rozszerzony
+algorytm błądzenia przypadkowego</a>
+<ul>
+<li><a href="#prawdopodobieństwo-selekcji-w-algorytmie-proto-ewolucyjnym" id="toc-prawdopodobieństwo-selekcji-w-algorytmie-proto-ewolucyjnym">Prawdopodobieństwo
+selekcji w algorytmie proto-ewolucyjnym</a></li>
+</ul></li>
+<li><a href="#algorytm-ewolucyjny" id="toc-algorytm-ewolucyjny">Algorytm
+ewolucyjny</a></li>
+<li><a href="#idea-mutacji" id="toc-idea-mutacji">Idea mutacji</a></li>
+<li><a href="#typy-selekcji" id="toc-typy-selekcji">Typy
+selekcji</a></li>
+<li><a href="#realizacja-losowanie-z-założonym-rozkładem-prawdopodobieństwa" id="toc-realizacja-losowanie-z-założonym-rozkładem-prawdopodobieństwa">Realizacja
+losowanie z założonym rozkładem prawdopodobieństwa</a></li>
+<li><a href="#dystrybuanta-empiryczna" id="toc-dystrybuanta-empiryczna">Dystrybuanta empiryczna</a></li>
+<li><a href="#mutacyjny-algorytm-ewolucyjny" id="toc-mutacyjny-algorytm-ewolucyjny">Mutacyjny algorytm ewolucyjny</a>
+<ul>
+<li><a href="#typy-mutacji" id="toc-typy-mutacji">Typy mutacji</a></li>
+</ul></li>
+<li><a href="#dynamika-mutacyjnego-ae" id="toc-dynamika-mutacyjnego-ae">Dynamika mutacyjnego AE</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

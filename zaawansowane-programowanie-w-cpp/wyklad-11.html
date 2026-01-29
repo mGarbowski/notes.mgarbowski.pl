@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-11</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-10.html">Poprzedni: wyklad-10.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-12.html">Następny: wyklad-12.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="kontenery-z-boost-zpr--w12--2020-12-22">Kontenery z boost (ZPR-
+W12 -2020 12 22)</h1>
+<ul>
+<li>Naturalne rozszerzenie STL</li>
+<li>Większosć wymienionych jest już elementem standardu</li>
+</ul>
+<h2 id="stdpair"><code>std::pair</code></h2>
+<ul>
+<li>W implementacji tablic asocjacyjnych (klucz-wartość)</li>
+<li>Grupuje dwie składowe</li>
+<li><code>std::make_pair</code></li>
+</ul>
+<h2 id="stdtuple"><code>std::tuple</code></h2>
+<ul>
+<li><code>std::make_tuple</code></li>
+<li><code>auto element = tuple.get&lt;0&gt;()</code></li>
+<li><code>auto element = get&lt;0&gt;(tuple)</code></li>
+<li>Operatory porównania</li>
+<li><code>tie</code> - tworzy krotkę zawierającą referencje (kopiowanie
+płytkie)</li>
+</ul>
+<h2 id="stdfunction"><code>std::function</code></h2>
+<ul>
+<li>Pozwala przechowywać funkcje i funktory</li>
+<li>Klasa-wartość
+<ul>
+<li>można przechowywać w kolekcjach</li>
+</ul></li>
+<li>Można inicjować na podstawie
+<ul>
+<li>funkcji</li>
+<li>metody</li>
+<li>funktora</li>
+<li>lambdy</li>
+<li>wyniku bind</li>
+</ul></li>
+<li>Operator wołania funkcyjnego</li>
+<li>Te same zastosowania co wzorzec komendy
+<ul>
+<li>separacja tworzenia akcji od wołania</li>
+<li>kolekcjonowanie poleceń</li>
+</ul></li>
+</ul>
+<h2 id="stdvariant"><code>std::variant</code></h2>
+<ul>
+<li>Unia z wyróżnikiem bieżącego typu</li>
+<li>Typy nie muszą dziedziczyć po wspólnej klasie bazowej</li>
+<li>Normalne <code>union</code> mogą przechowywać tylko typy wbudowane i
+POD
+<ul>
+<li>nie wymagające wołania konstruktora</li>
+</ul></li>
+<li>Dowolna liczba parametrów</li>
+<li>PObranie obiektu danego typu przez
+<code>get&lt;typ&gt;(variant)</code></li>
+<li>Konstruktor bezparametrowy - obiekt pierwszego typu</li>
+<li>Konstruktor z jednym argumentem lub przypisanie - przechowuje
+argument podanego typu</li>
+<li>Poprawny dostęp przez wzorzec wizytatora
+<ul>
+<li>wykrywa brak typu na etapie kompilacji</li>
+<li><code>boost:static_visitor</code> - klasa bazowa</li>
+<li><code>apply_visitor</code></li>
+</ul></li>
+</ul>
+<h2 id="stdoptional"><code>std::optional</code></h2>
+<ul>
+<li>Przechowuje wartość lub jest pusty</li>
+<li>Zamiast używania specjalnej wartości / pary / wariantu
+<ul>
+<li><code>string::npos</code></li>
+<li><code>nullptr</code></li>
+</ul></li>
+<li>Zamiast rzucaniu wyjątku</li>
+<li>Wygodne do użycia w instrukcjach warunkowych
+<ul>
+<li>operator rzutowania na <code>bool</code></li>
+</ul></li>
+<li>Konstruktor bezparametrowy - pusty</li>
+<li><code>value_or(default)</code></li>
+<li>Zamiast <code>optional&lt;bool&gt;</code> wrato używać
+<code>boost::tribool</code>
+<ul>
+<li>ma przeciążone operatory logiczne zgodne z logiką
+trójwartościową</li>
+</ul></li>
+</ul>
+<h2 id="stdany"><code>std::any</code></h2>
+<ul>
+<li>Kontener na wartość dowolnego typu</li>
+<li>Wartość przechowywana na stercie</li>
+<li>Zamiast <code>void*</code></li>
+<li>Metody
+<ul>
+<li><code>empty</code></li>
+<li><code>type</code> zwraca <code>typeid</code></li>
+</ul></li>
+<li>Dostęp do wartości przez <code>any_cast&lt;T&gt;(any)</code>
+<ul>
+<li>rzuca wyjątek jeśli niezgodne typy</li>
+<li>albo zwraca <code>nullptr</code> jeśli pointer</li>
+</ul></li>
+</ul>
+<h2 id="boostmulti_array"><code>boost::multi_array</code></h2>
+<ul>
+<li>Tablice wielowymiarowe</li>
+<li>Właściwie kontener jednowymiarowy z przeciążonym operatorem
+dostępu</li>
+<li>Kształt jako parametr konstruktora</li>
+<li>Nie wyróżnia żadnego z wymiarów przy dostępie</li>
+</ul>
+<h2 id="boost-graph-library">Boost Graph Library</h2>
+<ul>
+<li>Generyczna reprezentacja grafów</li>
+<li>Bardzo wydajna pamięciowo</li>
+<li>Kilkadziesiąt wydajnych implementacji algorytmów grafowych</li>
+<li>Reprezentacje
+<ul>
+<li>lista sąsiedztwa</li>
+<li>macierz sąsiedztwa</li>
+<li>graf skompresowany - bez możliwości zmiany topologii</li>
+</ul></li>
+</ul>
+<h3 id="lista-sąsiedztwa">Lista sąsiedztwa</h3>
+<ul>
+<li><code>adjacency_list</code></li>
+<li>Parametry szablonu
+<ul>
+<li>kolekcja na wierzchołki</li>
+<li>kolekcja na krawędzie wychodzące</li>
+<li>czy graf skierowany</li>
+<li>typ użytkownika związany z wierzchołkiem</li>
+<li>typ użytkownika związany z krawędzią</li>
+<li>typ użytkownika związany z grafem</li>
+</ul></li>
+</ul>
+<h3 id="macierz-sąsiedztwa">Macierz sąsiedztwa</h3>
+<ul>
+<li>Dwuwymiarowa tablica</li>
+<li>Krawędzie w komórkach macierzy</li>
+<li>Parametry szablonu
+<ul>
+<li>czy skierowany</li>
+<li>typy użytkownika dla wierzchołków, krawędzi, grafu</li>
+</ul></li>
+</ul>
+<h3 id="parametry-szablonów">Parametry szablonów</h3>
+<ul>
+<li>Kontener przechowujący wierzchołki
+<ul>
+<li>vecS</li>
+<li>listS</li>
+<li>setS</li>
+<li>multisetS</li>
+</ul></li>
+<li>Kontener przechowujący krawędzie</li>
+<li>Typ grafu
+<ul>
+<li>directedS - dostęp do krawędzi wychodzących</li>
+<li>bidirectionalS - przechowuje krawędzie wychodzące i wchodzące</li>
+<li>unidirectedS</li>
+</ul></li>
+</ul>
+<h3 id="przeglądanie-grafu">Przeglądanie grafu</h3>
+<ul>
+<li>Dostęp do wierzchołków
+<ul>
+<li><code>vertices(g)</code> - para iteratorów - do pierwszego i
+ostatniego</li>
+<li><code>num_vertixes(g)</code></li>
+</ul></li>
+<li>Dostęp do krawędzi
+<ul>
+<li><code>edges(g)</code> - para iteratorów</li>
+<li><code>num_edges(g)</code></li>
+</ul></li>
+<li>Krawędzie dla danego wierzchołka
+<ul>
+<li><code>out_edges(v, g)</code></li>
+</ul></li>
+<li>Wierzchołki dla danej krawędzi
+<ul>
+<li><code>source(e,g)</code></li>
+<li><code>target(e,g)</code></li>
+</ul></li>
+<li>Iterator może się unieważnić jeśli używany jest wektor</li>
+</ul>
+<h3 id="związanie-własnych-danych">Związanie własnych danych</h3>
+<ul>
+<li>Można związać własne dane z wierzchołkiem i z krawędzią
+<ul>
+<li>wewnątrz struktur - dodatkowe parametry szablonu</li>
+</ul></li>
+</ul>
+<h3 id="modyfikacja-grafu">Modyfikacja grafu</h3>
+<ul>
+<li>Niedostępne dla grafu skompresowanego</li>
+<li><code>add_vertex(g)</code></li>
+<li><code>clear_vertex(v, g)</code> - usuwa krawędzie związane z
+wierzchołkiem</li>
+<li><code>remove_vertex(v,g)</code> - usuwa, może zostawić wiszące
+krawędzie</li>
+<li><code>add_edge(u,v,g)</code> - zwraca false jeśli krawędź już
+istnieje i graf nie pozwala na wiele krawędzi między tymi samymi
+wierzchołkami</li>
+<li><code>remove_edge(u,v,g)</code></li>
+<li><code>remove_edge(e,g)</code></li>
+</ul>
+<h3 id="algorytmy-grafowe">Algorytmy grafowe</h3>
+<ul>
+<li>Kopia</li>
+<li>Transpozycja</li>
+<li>BFS</li>
+<li>DFS</li>
+<li>A*</li>
+<li>Topologiczne sortowanie</li>
+<li>Dijkstra</li>
+<li>Bellman Ford</li>
+<li>Kruskal</li>
+<li>Badanie maksymalnych przepływów</li>
+<li>wiele więcej</li>
+</ul>
+<h3 id="użycie-algorytmów">Użycie algorytmów</h3>
+<ul>
+<li>Dostarcza się klasy wizytatora, dziedzicząc po bazowym wizytatorze
+dla danego algorytmu
+<ul>
+<li>np. <code>default_bfs_visitor</code></li>
+<li>nadpisuje się metody</li>
+</ul></li>
+<li>Metody wizytatora przy przeglądaniu grafu
+<ul>
+<li><code>initialize_vertex(v,g)</code></li>
+<li><code>discover_vertex(v,g)</code></li>
+<li><code>examine_vertex(v,g)</code></li>
+<li><code>examine_edge(e,g)</code></li>
+<li><code>finish_vertex(v,g)</code></li>
+</ul></li>
+</ul>
+<h3 id="podsumowanie">Podsumowanie</h3>
+<ul>
+<li>Reprezentacja grafów skierowanych i nieskierowanych</li>
+<li>Jest port do Pythona</li>
+<li>Przeglądanie i modyfikacja grafów</li>
+<li>Można związać własne dane z krawędziami, wierzchołkami lub całym
+grafem</li>
+<li>Wiele algorytmów</li>
+</ul>
+<h2 id="trwałość-danych">Trwałość danych</h2>
+<ul>
+<li>Możliwość zapisu i odtwarzania stanu obiektów
+<ul>
+<li>system plików</li>
+<li>system zarządzania bazą danych</li>
+</ul></li>
+<li>Niezgodność interfesów wymaga tworzenia pośredniej warstwy
+<ul>
+<li>biblioteki do serializacji</li>
+<li>biblioteki upraszczające ręczne tworzenie warstwy pośredniej
+(embedded SQL)</li>
+<li>biblioteki mapowania relacyjno-obiektowego (ORM)</li>
+</ul></li>
+</ul>
+<h3 id="embedded-sql">Embedded SQL</h3>
+<ul>
+<li>Przykład - biblioteka SOCI</li>
+<li>Mechanizm kursora</li>
+</ul>
+<h3 id="serializacja">Serializacja</h3>
+<ul>
+<li>Dane binarne
+<ul>
+<li>zależne od architektury</li>
+<li>problem z big-endian, little-endian</li>
+<li>mniejsze narzuty</li>
+</ul></li>
+<li>Napis</li>
+<li>JSON</li>
+<li>XML</li>
+<li>Biblioteka Boost.Serialization
+<ul>
+<li>poprawna obsługa wskaźników, kolekcji standardowych</li>
+</ul></li>
+<li>Google protocol buffers</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#kontenery-z-boost-zpr--w12--2020-12-22" id="toc-kontenery-z-boost-zpr--w12--2020-12-22">Kontenery z boost (ZPR-
+W12 -2020 12 22)</a>
+<ul>
+<li><a href="#stdpair" id="toc-stdpair"><code>std::pair</code></a></li>
+<li><a href="#stdtuple" id="toc-stdtuple"><code>std::tuple</code></a></li>
+<li><a href="#stdfunction" id="toc-stdfunction"><code>std::function</code></a></li>
+<li><a href="#stdvariant" id="toc-stdvariant"><code>std::variant</code></a></li>
+<li><a href="#stdoptional" id="toc-stdoptional"><code>std::optional</code></a></li>
+<li><a href="#stdany" id="toc-stdany"><code>std::any</code></a></li>
+<li><a href="#boostmulti_array" id="toc-boostmulti_array"><code>boost::multi_array</code></a></li>
+<li><a href="#boost-graph-library" id="toc-boost-graph-library">Boost
+Graph Library</a>
+<ul>
+<li><a href="#lista-sąsiedztwa" id="toc-lista-sąsiedztwa">Lista
+sąsiedztwa</a></li>
+<li><a href="#macierz-sąsiedztwa" id="toc-macierz-sąsiedztwa">Macierz
+sąsiedztwa</a></li>
+<li><a href="#parametry-szablonów" id="toc-parametry-szablonów">Parametry szablonów</a></li>
+<li><a href="#przeglądanie-grafu" id="toc-przeglądanie-grafu">Przeglądanie grafu</a></li>
+<li><a href="#związanie-własnych-danych" id="toc-związanie-własnych-danych">Związanie własnych danych</a></li>
+<li><a href="#modyfikacja-grafu" id="toc-modyfikacja-grafu">Modyfikacja
+grafu</a></li>
+<li><a href="#algorytmy-grafowe" id="toc-algorytmy-grafowe">Algorytmy
+grafowe</a></li>
+<li><a href="#użycie-algorytmów" id="toc-użycie-algorytmów">Użycie
+algorytmów</a></li>
+<li><a href="#podsumowanie" id="toc-podsumowanie">Podsumowanie</a></li>
+</ul></li>
+<li><a href="#trwałość-danych" id="toc-trwałość-danych">Trwałość
+danych</a>
+<ul>
+<li><a href="#embedded-sql" id="toc-embedded-sql">Embedded SQL</a></li>
+<li><a href="#serializacja" id="toc-serializacja">Serializacja</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

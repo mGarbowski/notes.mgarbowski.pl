@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>17-opengl</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="16-raytracing.html">Poprzedni: 16-raytracing.html</a>
+    </div>
+    
+
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wprowadzenie-do-opengl">Wprowadzenie do OpenGL</h1>
+<ul>
+<li>Slajdy i kod na LeOnie</li>
+<li>Open Graphics Library</li>
+<li>Pierwsze popularne API do wykorzystania akceleracji sprzętowej (GPU)
+do renderowania grafiki w czasie rzeczywistym</li>
+<li>Nie jest biblioteką, tylko API</li>
+<li>OpenGL działa jak maszyna stanu
+<ul>
+<li>ustawienie koloru czerwonego - zostanie dopóki go nie zmienimy</li>
+</ul></li>
+<li>Wieloplatformowy
+<ul>
+<li>to samo API do windowsa, maca, linuxa, androida</li>
+</ul></li>
+<li>Względnie łatwy</li>
+<li>Konkurencyjne
+<ul>
+<li>DirectX - Windows, Xbox</li>
+<li>Vulkan - wieloplatformowy ale trudny</li>
+</ul></li>
+<li>Nie obejmuje obsługi wejścia i integracji z systemem operacyjnym
+(dźwięk, klawiatura, wyświetlanie)</li>
+</ul>
+<h2 id="biblioteki">Biblioteki</h2>
+<ul>
+<li>Opakowują OpenGL, ułatwiają wykorzystanie</li>
+<li>GLFW
+<ul>
+<li>tworzenie okna</li>
+<li>obsługa urządzeń wejścia</li>
+</ul></li>
+<li>GLEW
+<ul>
+<li>wspomaganie obsługi OpenGL i rozszerzeń</li>
+</ul></li>
+<li>Assimp
+<ul>
+<li>wczytywanie modeli 3D</li>
+</ul></li>
+<li>GLM
+<ul>
+<li>operacje wektorowe i macierzowe</li>
+</ul></li>
+<li>STB Image
+<ul>
+<li>wczytywanie plików graficznych do teksturowania obiektów</li>
+</ul></li>
+</ul>
+<h2 id="przykład-kodu-opengl">Przykład kodu OpenGL</h2>
+<ul>
+<li>Prefixy w nazwach funkcji
+<ul>
+<li>był tworzony zanim istniał C++ i przestrzenie nazw</li>
+</ul></li>
+</ul>
+<h2 id="wersje-opengl">Wersje OpenGL</h2>
+<ul>
+<li>Omawiamy wersję 3.0
+<ul>
+<li>obecnie standard</li>
+</ul></li>
+<li>W początkach grafiki czasu rzeczywistego
+<ul>
+<li>OpenGL implementował fixed pipeline - przekształcenie sceny 3D do 2D
+(rasteryzacja) - szybsze niż raytracing</li>
+<li>immediate mode - dane o wierzchołkach trzymane w RAM ale co klatkę
+przysyłane do VRAM</li>
+</ul></li>
+<li>Vulkan wyparł OpenGL
+<ul>
+<li>OpenGL był dostosowany do rasteryzacji</li>
+<li>GPU stały się na tyle szybkie żeby używać raytracing w czasie
+rzeczywistym</li>
+<li>konstrukcja OpenGL nie pasuje do raytracingu</li>
+<li>Vulkan wspiera i rasteryzację i raytracing</li>
+</ul></li>
+</ul>
+<h2 id="vertex-buffer-object">Vertex Buffer Object</h2>
+<ul>
+<li>Bufor w karcie graficznej</li>
+<li>Zawiera przygotowane przez programistę dane</li>
+<li>Wierzchołki mają parametry
+<ul>
+<li>pozycja</li>
+<li>kolor</li>
+<li>wektor normalny</li>
+<li>współrzędne tekstury</li>
+</ul></li>
+<li>Dwa podejścia
+<ul>
+<li>osobne bufory na każdy atrybut</li>
+<li>wszystkie atrybuty w jednym buforze i informacja jak je czytać</li>
+</ul></li>
+</ul>
+<h2 id="vertex-array-object">Vertex Array Object</h2>
+<ul>
+<li>Zawiera wszystkie dane o wierzchołkach</li>
+<li>Zawiera referencje do kilku VBO</li>
+<li>VBO to wskaźnik do pamięci GPU
+<ul>
+<li>karta zwraca id typu glInt</li>
+</ul></li>
+<li>glVertexAttribPointer
+<ul>
+<li>identyfikator atrybutu - taki będzie w shaderze</li>
+<li>ilość danych dla pojedynczego wierzchołka</li>
+<li>typ danych</li>
+<li>czy normalizować dane - to chyba już jest deprecated</li>
+<li>wielkość struktury danych dla wierzchołka (najczęściej sizeof
+struktury)</li>
+<li>offset - atrybutu w strukturze danych</li>
+<li>trzeba to wołać dla każdego atrybutu wierzchołka</li>
+</ul></li>
+<li>każdy atrybut trzeba włączyć
+<ul>
+<li>glEnableVertexAttrib…</li>
+</ul></li>
+</ul>
+<p>Mamy rozwiązany problem immediate mode</p>
+<h2 id="programy-cieniujące">Programy cieniujące</h2>
+<ul>
+<li>Program cieniujący (shader program) składa się z minimum dwóch
+shaderów
+<ul>
+<li>vertex shader - wyliczenie danych dla wierzchołka</li>
+<li>fragment shader - wyliczanie danych dla fragmentu utożsamianego z
+pikselem</li>
+</ul></li>
+<li>Przepływ danych
+<ul>
+<li>Atrybuty - mamy trójkąt z 3 wierzchołkami</li>
+<li>Dla każdego wierzchołka jest odpalany Vertex Shader</li>
+<li>Rasteryzaja - wyliczenie na które fragmenty przypada trójkąt</li>
+<li>Dla każdego z tych fragmentów uruchamia się Fragment Shader</li>
+<li>shadery uruchamiają się równolegle</li>
+</ul></li>
+<li>Shadery w programie GLSL</li>
+<li>zmienne wejściowe
+<ul>
+<li>layout (location = x) - x ustawiony w glVerteAttribPointer</li>
+</ul></li>
+<li>zmienne uniform
+<ul>
+<li>ustawiane z poiomu CPU</li>
+<li>stałe dla każdego shadera</li>
+</ul></li>
+<li>zmienne wyjściowe
+<ul>
+<li>zmienne wyjściowa vertex shadera - są poddawane interpolacji i
+trafiają jako wejście do fragment shadera</li>
+<li>interpolację robi karta graficzna</li>
+<li>zmienne są linkowane ze sobą po nazwie</li>
+<li>trzeba uważać na zgodność typów</li>
+</ul></li>
+<li>main
+<ul>
+<li>operacje</li>
+<li>vertex shader wylicza pozycję</li>
+</ul></li>
+<li>fragment shader
+<ul>
+<li>wyjście - zawsze kolor</li>
+<li>może być więcej wyjść, o tym potem</li>
+</ul></li>
+</ul>
+<h2 id="glsl">GLSL</h2>
+<ul>
+<li>Swizzling - dowolny dostęp do pól wektora
+<ul>
+<li>v.x</li>
+<li>v.xy</li>
+<li>v.yx</li>
+<li>v.xx</li>
+</ul></li>
+</ul>
+<h2 id="rysowanie-trójkąta">Rysowanie trójkąta</h2>
+<ul>
+<li>OpenGL jest maszyną stanów - frame buffer trzeba wyczyścić</li>
+<li>W OpenGL jest 10 wbudowanych prymitywów</li>
+<li>Do GPU przesyła się listę wierzchoków, trzeba dodatkowo podać
+informację czym są te wierzchołki</li>
+</ul>
+<h2 id="podwójne-buforowanie">Podwójne buforowanie</h2>
+<ul>
+<li>Dwa bufory front i back</li>
+<li>Jeden zawiera wyświetlaną klatkę</li>
+<li>Do drugiego zapisuje się wyliczaną kolejną klatkę</li>
+<li>Po narysowaniu podmienia się te bufory</li>
+</ul>
+<h2 id="macierz-modelu">Macierz modelu</h2>
+<ul>
+<li>manipulacja modelem w przestrzeni 3D</li>
+</ul>
+<h2 id="element-array-buffer">Element Array Buffer</h2>
+<ul>
+<li>Wskazuje GPU kolejność rysowania wierzchołków</li>
+</ul>
+<h2 id="back-face-culling">Back-face culling</h2>
+<ul>
+<li>Renderowane są tylko te ściany które trzeba wyświetlić</li>
+<li>Trójkąt ma ścianę przednią i tylną
+<ul>
+<li>podwójny nakład obliczeniowy</li>
+</ul></li>
+<li>Trzeba zdefiniować która ściana ma być rysowana</li>
+<li>Wektor normalny ściany jest dostępny na poziomie fragmentu - we
+fragment shaderze</li>
+<li>Back-face culling jest na etapie rasteryzacji - pomiędzy VS i
+FS</li>
+<li>Trójkąt można rysować zgodnie ze wskazówkami zegara lub przeciwnie
+<ul>
+<li>dwie ściany trójkąta można tak rozróżnić</li>
+</ul></li>
+<li>Standard w grafice komputerowej - ściana przeciwna do ruchu
+wskazówek zegara to ściana przednia
+<ul>
+<li>można to przełączyć w OpenGL</li>
+</ul></li>
+<li><code>glEnable(GL_CULL_FACE)</code></li>
+<li>W każdym środowisku do modelowania 3D jest możliwość konfiguracji
+kolejności wierzchołków przy eksporcie</li>
+</ul>
+<h2 id="tekstura">Tekstura</h2>
+<ul>
+<li>Tekstura to funkcja wielowaymiarowa
+<ul>
+<li>najczęściej 2D</li>
+<li>najczęściej tożsama z bitmapą</li>
+<li>ale też tekstury 3D</li>
+<li>też tekstury proceduralne</li>
+</ul></li>
+<li><code>texture(u,v) -&gt; (R,G,B)</code>
+<ul>
+<li>współrzędne uv zawierają się w przedziałach <span
+class="math inline">\([0,1]\)</span></li>
+<li>dla bitmapy robi się interpolację</li>
+<li>funkcja wbudowana w GLSL</li>
+<li>podajemy sampler jako argument</li>
+</ul></li>
+<li>Obiekt 3D musi mieć UV mapę</li>
+<li>Praktycznie nigdy nie zdarza się sytuacja, gdzie tekstura nie
+zostaje pomniejszona/powiększona</li>
+</ul>
+<h3 id="mipmapping">Mipmapping</h3>
+<ul>
+<li>Oszczędzenie czasu na skalowanie tekstur kosztem zajęcia pamięci na
+GPU na trzymanie przeskalowanych tekstur</li>
+</ul>
+<h3 id="filtrowanie-tekstury">Filtrowanie tekstury</h3>
+<ul>
+<li>Można skonfigurować filtrowanie tekstury przy skalowaniu
+<ul>
+<li>najbliższy sąsiad</li>
+<li>interpolacja liniowa</li>
+</ul></li>
+</ul>
+<h2 id="teksturowanie-we-fragment-shader">Teksturowanie we fragment
+shader</h2>
+<ul>
+<li>Sampler podaje się do shadera jako uniform</li>
+<li>Przełączanie się między teksturami jest drogie
+<ul>
+<li>nie wrzuca się do uniformu całej tekstury</li>
+<li>wrzuca się pośredni element - sampler</li>
+<li>sampler jest stały</li>
+<li>żeby zmienić teksturę - zmienia się teksturę w samplerze</li>
+</ul></li>
+<li>Do bindowania używamy id samplera a nie id tekstury</li>
+</ul>
+<h2 id="frame-buffer">Frame buffer</h2>
+<ul>
+<li>Możena używać wielu frame bufferów, oddzielnie na pozycje,
+oddzielnie na wektory normalne, mapy oświetlenia</li>
+<li>Potem zawartość trafia do front/back buffera</li>
+<li>Każde przejście do frame buffera to kompletny pipeline z vertex
+shaderem i fragment shaderem</li>
+<li>Fragment shader może zapisywać dane wyjściowe do wielu różnych
+bufferów</li>
+</ul>
+<h2 id="bufor-głębi">Bufor głębi</h2>
+<p>…</p>
+<p>pierwszy framebuffer jest traktowany jako tekstura jest nakładana na
+fullscreen quad w celu wyswietlenia na ekran</p>
+<h2 id="tesselation-shader">Tesselation shader</h2>
+<ul>
+<li>opcjonalny</li>
+<li>podział prymitywów na mniejsze</li>
+<li>składa się z dwóch shaderów</li>
+<li>operuje na prymitywach <code>GL_PATCHERS</code> - łaty</li>
+<li>tesselation control shader
+<ul>
+<li>ustawia jaki ma być podział siatki</li>
+</ul></li>
+<li>tesselation evaluation shader
+<ul>
+<li>wyliczenie wartości</li>
+</ul></li>
+</ul>
+<h2 id="współrzędne-barycentryczne">Współrzędne barycentryczne</h2>
+<ul>
+<li>Opisanie pozycji wewnątrz trójkąta jako proporcje wierzchołków
+trójkąta</li>
+<li>Sumują się do 1</li>
+<li>Poza trójkątem - jeden z parametrów jest ujemny</li>
+</ul>
+<h2 id="geometry-shader">Geometry shader</h2>
+<ul>
+<li>Pozwala na tworzenie własnych prymitywów</li>
+</ul>
+<h2 id="compute-shader">Compute shader</h2>
+<ul>
+<li>Nie jest połączony z pipelinem renderowania</li>
+<li>Analogiczne przeznaczenie do CUDA
+<ul>
+<li>CUDA jest bardziej rozwijana</li>
+</ul></li>
+</ul>
+<p>Unika się IFów w shaderach problem wydajnościowy jeśli shadery mają
+różny czas wykonywania</p>
+<h2 id="anti-aliasing">Anti-aliasing</h2>
+<ul>
+<li>supersampling - wiele próbek dla jednego piksela</li>
+<li>OpenGL ma zaimplementowany MSAA
+<ul>
+<li>więcej wywołań fragment shadera na krawędziach</li>
+<li>sam jakoś wykrywa krawędzie</li>
+<li>wykonywany we fragment shaderze w dodatkowym przejściu przez
+potok</li>
+</ul></li>
+<li>temporal antyaliasing</li>
+<li>oparte o sieci neuronowe</li>
+</ul>
+<h2 id="blending">Blending</h2>
+<ul>
+<li><code>glEnable(GL_BLEND)</code></li>
+<li>domyślny w OpenGL działa na podstawie kanau alfa</li>
+<li>przy losowej kolejności wychodzą artefakty</li>
+<li>do poprawnego wyrenderowania trzeba posortować obiekty
+<ul>
+<li>najpierw wszystkie nieprzezroczyste</li>
+<li>przezroczyste renderujemy od najdalszych do najbliższych kamery -
+drogie do robienia co klatke</li>
+</ul></li>
+</ul>
+<h2 id="efekty-cząsteczkowe">Efekty cząsteczkowe</h2>
+<ul>
+<li>Symulowanie efektów takich jak ogień czy dym</li>
+<li>Cząsteczki mają cykl życia, wielkośc, kształt, teksturę</li>
+<li>częstotliwosć generowania nowych cząsteczek</li>
+<li>trajektorie ruchu</li>
+<li>dobre zastosowanie dla compute shader</li>
+<li>można użyć instancjonowanego renderowania
+<ul>
+<li>w renderze najdroższe jest <code>glDrawArrays</code></li>
+<li>zamiast wywoływania wiele razy można raz wołać
+<code>glDrawArraysInstanced</code></li>
+</ul></li>
+</ul>
+<h2 id="post-processing">Post processing</h2>
+<ul>
+<li>Przetwarzanie obrazu po renderingu</li>
+</ul>
+<p>lepiej używać <code>clamp</code> zamiast if</p>
+<h2 id="bloom">Bloom</h2>
+<ul>
+<li>Oddzielny render dla wszystkich obiektów i tylko dla źródeł
+światła</li>
+<li>na źródłach światła zrobiony blur</li>
+<li>sumowanie obu obrazów</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wprowadzenie-do-opengl" id="toc-wprowadzenie-do-opengl">Wprowadzenie do OpenGL</a>
+<ul>
+<li><a href="#biblioteki" id="toc-biblioteki">Biblioteki</a></li>
+<li><a href="#przykład-kodu-opengl" id="toc-przykład-kodu-opengl">Przykład kodu OpenGL</a></li>
+<li><a href="#wersje-opengl" id="toc-wersje-opengl">Wersje
+OpenGL</a></li>
+<li><a href="#vertex-buffer-object" id="toc-vertex-buffer-object">Vertex
+Buffer Object</a></li>
+<li><a href="#vertex-array-object" id="toc-vertex-array-object">Vertex
+Array Object</a></li>
+<li><a href="#programy-cieniujące" id="toc-programy-cieniujące">Programy
+cieniujące</a></li>
+<li><a href="#glsl" id="toc-glsl">GLSL</a></li>
+<li><a href="#rysowanie-trójkąta" id="toc-rysowanie-trójkąta">Rysowanie
+trójkąta</a></li>
+<li><a href="#podwójne-buforowanie" id="toc-podwójne-buforowanie">Podwójne buforowanie</a></li>
+<li><a href="#macierz-modelu" id="toc-macierz-modelu">Macierz
+modelu</a></li>
+<li><a href="#element-array-buffer" id="toc-element-array-buffer">Element Array Buffer</a></li>
+<li><a href="#back-face-culling" id="toc-back-face-culling">Back-face
+culling</a></li>
+<li><a href="#tekstura" id="toc-tekstura">Tekstura</a>
+<ul>
+<li><a href="#mipmapping" id="toc-mipmapping">Mipmapping</a></li>
+<li><a href="#filtrowanie-tekstury" id="toc-filtrowanie-tekstury">Filtrowanie tekstury</a></li>
+</ul></li>
+<li><a href="#teksturowanie-we-fragment-shader" id="toc-teksturowanie-we-fragment-shader">Teksturowanie we fragment
+shader</a></li>
+<li><a href="#frame-buffer" id="toc-frame-buffer">Frame buffer</a></li>
+<li><a href="#bufor-głębi" id="toc-bufor-głębi">Bufor głębi</a></li>
+<li><a href="#tesselation-shader" id="toc-tesselation-shader">Tesselation shader</a></li>
+<li><a href="#współrzędne-barycentryczne" id="toc-współrzędne-barycentryczne">Współrzędne barycentryczne</a></li>
+<li><a href="#geometry-shader" id="toc-geometry-shader">Geometry
+shader</a></li>
+<li><a href="#compute-shader" id="toc-compute-shader">Compute
+shader</a></li>
+<li><a href="#anti-aliasing" id="toc-anti-aliasing">Anti-aliasing</a></li>
+<li><a href="#blending" id="toc-blending">Blending</a></li>
+<li><a href="#efekty-cząsteczkowe" id="toc-efekty-cząsteczkowe">Efekty
+cząsteczkowe</a></li>
+<li><a href="#post-processing" id="toc-post-processing">Post
+processing</a></li>
+<li><a href="#bloom" id="toc-bloom">Bloom</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

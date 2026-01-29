@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-modele-wizyjno-jezykowe</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-tylko-koder.html">Poprzedni: 09-tylko-koder.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-retrieval-augmented-generation.html">Następny: 11-retrieval-augmented-generation.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="modele-wizyjno-językowe">Modele wizyjno-językowe</h1>
+<ul>
+<li>Modele wyznaczające wspólną reprezentację wizyjno-językową
+<ul>
+<li>modele z rodziny CLIP</li>
+<li>uczone w sposób kontrastywny</li>
+</ul></li>
+<li>Generatywne modele wizyjno-językowe
+<ul>
+<li>na wejściu tekst w języku naturalnym i obrazy, na wyjściu generowany
+tekst</li>
+<li>na wejściu tekst w języku naturalnym i obrazy, na wyjściu generowane
+obrazy</li>
+</ul></li>
+</ul>
+<h2 id="contrastive-language-image-pre-training-clip">Contrastive
+Language-Image Pre-training (CLIP)</h2>
+<ul>
+<li>Motywacja
+<ul>
+<li>w NLP standardem jest trening samonadzorowany na ogromnych zbiorach
+danych</li>
+<li>modele językowe wymagają minimalnego dostrojenia do docelowego
+problemu</li>
+<li>klasyczne modele wizyjne są uczone rozpoznawania ograniczonego
+zbioru obiektów</li>
+<li>zastosowanie do innego zadania wymaga ręcznego oznaczenia danych i
+trenowania od nowa lub dostrojenia</li>
+</ul></li>
+<li>Sygnał uczący - podpis obrazu w języku naturalnym
+<ul>
+<li>nieograniczone zasoby w internecie</li>
+<li>łatwiejsze do pozyskania niż ręczne etykietowanie</li>
+</ul></li>
+<li>Model wyznacza reprezentacje obrazów i ich opisów we wspólnej
+przestrzeni reprezentacji</li>
+<li>Cel uczenia - maksymalizacja podobieństwa między reprezentacjami
+obrazu i związanego z nim podpisu
+<ul>
+<li>maksymalizacja podobieństwa między odpowiadającymi sobie parami
+tekst-obraz</li>
+<li>minimalizacja podobieństwa między reprezentacjami nie
+odpowiadających sobie par tekst-obraz</li>
+<li>podobieństwo cosinusowe</li>
+<li>jednoczesne uczenie kodera obrazowego i tekstowego</li>
+<li>dla wsadu zawierającego wiele par, model uczy się przewidywać który
+obraz odpowiada któremu tekstowi</li>
+</ul></li>
+</ul>
+<h3 id="koder-obrazu">Koder obrazu</h3>
+<ul>
+<li>Dwie rodziny modeli
+<ul>
+<li>ResNet i pochodne (sieci splotowe)</li>
+<li>Vision Transformer (ViT)</li>
+</ul></li>
+<li>Biblioteka <code>timm</code>
+<ul>
+<li>PyTorch Image Models</li>
+<li>od HuggingFace</li>
+<li>implementacje wielu architektur sieci wizyjnych (splotowe i
+transformery)</li>
+</ul></li>
+</ul>
+<h3 id="koder-tekstu">Koder tekstu</h3>
+<ul>
+<li>Transformer
+<ul>
+<li>architektura tylko-dekoder</li>
+<li>reprezentacja ostatniego tokenu <code>[EOS]</code> jako
+reprezentacja całej sekwencji</li>
+</ul></li>
+</ul>
+<h3 id="funkcja-straty">Funkcja straty</h3>
+<ul>
+<li>Bardzo duże wsady treningowe rzędu 32k par obraz-tekst</li>
+<li>Wyznacza się reprezentacje wszystkich tekstów i wszystkich obrazów
+odpowiednimi koderami
+<ul>
+<li>macierze <span class="math inline">\(I\)</span> dla reprezentacji
+obrazów i <span class="math inline">\(T\)</span> dla reprezentacji
+tekstów</li>
+</ul></li>
+<li>Podobieństwo obrazu <span class="math inline">\(i\)</span> i tekstu
+<span class="math inline">\(j\)</span> wyznaczane jako iloczyn skalarny
+<span class="math inline">\(I_i \cdot T_j\)</span> i normalizacja</li>
+<li>Wymnożenie macierzy <span class="math inline">\(I \cdot T^T\)</span>
+<ul>
+<li>dodatkowo skalowanie temperaturą</li>
+<li>macierz <span class="math inline">\(n \times n\)</span> (<span
+class="math inline">\(n\)</span> - rozmiar wsadu)</li>
+<li>elementy na diagonali - odpowiadające sobie pary - <span
+class="math inline">\((I_1, T_1)\)</span> itd.</li>
+<li>elementy poza diagonalą - nie odpowiadające sobie pary - <span
+class="math inline">\((I_5, T_3)\)</span> itd.</li>
+<li>wartości macierzy - logity</li>
+</ul></li>
+<li>Liczy się entropię krzyżową po wierszach i po kolumnach
+<ul>
+<li>docelowa etykieta - numer wiersza/kolumny</li>
+</ul></li>
+<li>Strata - średnia strata po wierszach i po kolumnach</li>
+</ul>
+<h3 id="zastosowania">Zastosowania</h3>
+<ul>
+<li>Klasyfikacja bez oznaczonych przykładów
+<ul>
+<li><em>zero-shot image classification</em></li>
+<li>porównanie reprezentacji obrazu z reprezentacjami tekstów z nazwami
+klas</li>
+<li><code>a photo of cat</code>, <code>a photo of dog</code>, itd.</li>
+<li>wybór tekstowego opisu (klasy) o najbardziej zbliżonej
+reprezentacji</li>
+</ul></li>
+<li>Wyszukiwanie obrazów
+<ul>
+<li><em>semantic image search</em></li>
+<li>na podstawie zapytania w języku naturalnym</li>
+<li>na podstawie innego obrazu</li>
+</ul></li>
+<li>Modele generatywne
+<ul>
+<li>DALL-E, Stable Diffusion</li>
+</ul></li>
+</ul>
+<h3 id="rozszerzenia">Rozszerzenia</h3>
+<ul>
+<li>SigLIP
+<ul>
+<li><em>Sigmoid loss for Language-Image Pre-training</em></li>
+<li>funkcja straty binarnej entropii krzyżowej wyznaczana dla każdego
+wiersza macierzy podobieństwa</li>
+<li>większa efektywność obliczeniowa</li>
+<li>lepsza skuteczność dla mniejszych rozmiarów wsadu</li>
+</ul></li>
+</ul>
+<h2 id="generatywne-modele-wizyjno-językowe">Generatywne modele
+wizyjno-językowe</h2>
+<ul>
+<li>Koder wizyjny
+<ul>
+<li>wyznacza sekwencję embeddingów dla obrazu</li>
+</ul></li>
+<li>LLM (tylko-dekoder)
+<ul>
+<li>na wejściu embeddingi dla obrazu i dla tokenów tekstowego
+prompta</li>
+</ul></li>
+</ul>
+<h3 id="llava">LlaVa</h3>
+<ul>
+<li><em>Large Language and Vision Assistant</em></li>
+<li>Interaktywny model dialogowy (asystent) akceptujący polecenia w
+języku naturalnym i dane obrazowe
+<ul>
+<li>publicznie dostępny</li>
+</ul></li>
+<li>Autoregresyjny model językowy warunkowany wizyjnie
+<ul>
+<li>wejście - sekwencja tokenów tekstowych i danych wizyjnych</li>
+<li>wyjście - sekwencja tokenów tekstowych</li>
+</ul></li>
+<li>Relatywnie prosta architektura
+<ul>
+<li>koder wizyjny - z metody CLIP</li>
+<li>dekoder językowy - model dialogowy Vicuna (dostrojona LLaMA)</li>
+</ul></li>
+<li>Dostrojony do wykonywania instrukcji zawierających dane
+obrazowe</li>
+<li>Trening
+<ul>
+<li>nadzorowane dostrajanie</li>
+<li>cel - predykcja kolejnego tokenu</li>
+<li>funkcja straty -entropia krzyżowa</li>
+<li>zamrożone wagi kodera wizyjnego</li>
+</ul></li>
+</ul>
+<h3 id="phi-3-vision">Phi-3 vision</h3>
+<ul>
+<li>Mały model wizyjno językowy z rodziny Phi-3
+<ul>
+<li>4B parametrów</li>
+</ul></li>
+<li>Elementy składowe
+<ul>
+<li>koder wizyjny - ViT</li>
+<li>LLM tylko-dekoder z rodziny Phi-3</li>
+<li>warstwa projekcyjna wizyjno-językowa - MLP</li>
+</ul></li>
+<li>Da się uruchomić na colabie</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#modele-wizyjno-językowe" id="toc-modele-wizyjno-językowe">Modele wizyjno-językowe</a>
+<ul>
+<li><a href="#contrastive-language-image-pre-training-clip" id="toc-contrastive-language-image-pre-training-clip">Contrastive
+Language-Image Pre-training (CLIP)</a>
+<ul>
+<li><a href="#koder-obrazu" id="toc-koder-obrazu">Koder obrazu</a></li>
+<li><a href="#koder-tekstu" id="toc-koder-tekstu">Koder tekstu</a></li>
+<li><a href="#funkcja-straty" id="toc-funkcja-straty">Funkcja
+straty</a></li>
+<li><a href="#zastosowania" id="toc-zastosowania">Zastosowania</a></li>
+<li><a href="#rozszerzenia" id="toc-rozszerzenia">Rozszerzenia</a></li>
+</ul></li>
+<li><a href="#generatywne-modele-wizyjno-językowe" id="toc-generatywne-modele-wizyjno-językowe">Generatywne modele
+wizyjno-językowe</a>
+<ul>
+<li><a href="#llava" id="toc-llava">LlaVa</a></li>
+<li><a href="#phi-3-vision" id="toc-phi-3-vision">Phi-3 vision</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

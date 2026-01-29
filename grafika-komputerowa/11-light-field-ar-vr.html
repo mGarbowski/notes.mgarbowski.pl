@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-light-field-ar-vr</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-teksturowanie.html">Poprzedni: 10-teksturowanie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="12-stereoskopia.html">Następny: 12-stereoskopia.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="light-field-ar-i-vr">Light field, AR i VR</h1>
+<h2 id="jak-opisać-światło-w-świecie">Jak opisać światło w świecie</h2>
+<ul>
+<li>Plenoptic function</li>
+<li>Z którego punktu <span class="math inline">\((x,y,z)\)</span></li>
+<li>Z jakiego kąta <span class="math inline">\((\varphi,
+\theta)\)</span></li>
+<li>Z jaką częstotliwością <span
+class="math inline">\(\lambda\)</span></li>
+<li>W jakim czasie <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(L(x,y,z,\varphi, \theta, \lambda,
+t)\)</span></li>
+</ul>
+<h2 id="light-field">Light field</h2>
+<ul>
+<li>Uproszczenie funkcji plenoptycznej</li>
+<li>Wszystkie promienie przechodzą przez powierzchnię jak przez
+okno</li>
+<li>Promienie światła parametryzowane przez 4-wymiarową funkcję
+<ul>
+<li>pozycja otworka z kamery otworkowej na płaszczyźnie 2D <span
+class="math inline">\((u,v)\)</span></li>
+<li>pozycja piksela na 2D sensorze <span
+class="math inline">\((s,t)\)</span></li>
+</ul></li>
+<li>Uproszczenie funkcji plenoptycznej - <span
+class="math inline">\(L(u,v,s,t)\)</span></li>
+<li>Kamera light field
+<ul>
+<li>synchronizowane zdjęcie z wielu pozycji</li>
+<li>każda pozycja widzi odrobinę inny obraz</li>
+<li>możliwość tworzenia wirtualnej kamery - inny zakres widzenia</li>
+</ul></li>
+</ul>
+<h3 id="urządzenia">Urządzenia</h3>
+<ul>
+<li>Kamery plenoptyczne - Raytrix
+<ul>
+<li>specjalna soczewka - wiele soczewek przesuniętych względem
+siebie</li>
+<li>nie ma problemu z synchronizacją</li>
+</ul></li>
+<li>Macierz kamer
+<ul>
+<li>problem synchronizacji</li>
+</ul></li>
+<li>Optyka z wieloma aperturami
+<ul>
+<li>pelican imaging</li>
+</ul></li>
+</ul>
+<h3 id="nowe-możliwości-produkcji">Nowe możliwości produkcji</h3>
+<ul>
+<li>Poruszanie wirtualną kamerą</li>
+<li>Kompozycje oparte na głębi
+<ul>
+<li>przez nałożenie kilku obrazów</li>
+</ul></li>
+</ul>
+<h3 id="macierze-kamer">Macierze kamer</h3>
+<ul>
+<li>Różne możliwości - inny trade-off</li>
+<li>Rzadka macierz
+<ul>
+<li>elastyczny widok</li>
+<li>mniej miejsca i zasobów</li>
+<li>gorsza jakość</li>
+</ul></li>
+<li>Duża, gęsta macierz
+<ul>
+<li>elastyczny widok</li>
+<li>dobra jakość</li>
+<li>dużo miejsca i zasobów</li>
+</ul></li>
+<li>Mała macierz
+<ul>
+<li>dobra jakość</li>
+<li>mało miejsca i zasobów</li>
+<li>słaba elastyczność widoku</li>
+</ul></li>
+</ul>
+<h2 id="ar">AR</h2>
+<ul>
+<li>Augmented reality</li>
+<li>Wzbogacenie rzeczywistości o informacje generowane komputerowo
+<ul>
+<li>wizualne</li>
+<li>dźwiękowe</li>
+<li>dotykowe</li>
+</ul></li>
+<li>Źródła danych
+<ul>
+<li>kamera</li>
+<li>gps</li>
+<li>żyroskop</li>
+<li>akcelerometr</li>
+<li>wszystko co mamy pod ręką np. w smartfonie</li>
+</ul></li>
+</ul>
+<h3 id="zastosowania">Zastosowania</h3>
+<ul>
+<li>Rozrywka
+<ul>
+<li>np. pokemony</li>
+</ul></li>
+<li>Turystyka
+<ul>
+<li>wyświetlanie dodatkowych informacji o obiektach</li>
+<li>lokalizacja z wykorzystaniem obrazu</li>
+</ul></li>
+<li>Medycyna
+<ul>
+<li>informacje o stanie pacjenta</li>
+<li>podgląd różnych źródeł danych</li>
+</ul></li>
+<li>Przemysł
+<ul>
+<li>informacje o urządzeniach</li>
+</ul></li>
+</ul>
+<h3 id="wymagane-funkcje">Wymagane funkcje</h3>
+<ul>
+<li>Wykrywanie punktów / płaszczyzn</li>
+<li>Estymacja oświetlenia</li>
+<li>Śledzenie obrazów</li>
+<li>Śledzenie twarzy</li>
+<li>Cloud anchors
+<ul>
+<li>multiplayer</li>
+</ul></li>
+</ul>
+<h3 id="technologia">Technologia</h3>
+<ul>
+<li>ARKit - Apple</li>
+<li>ArCore - Google</li>
+<li>Vuforia</li>
+</ul>
+<h3 id="qr-code">QR code</h3>
+<ul>
+<li>Kod graficzny</li>
+<li>Umożliwia kodowanie różnego typu informacji
+<ul>
+<li>linków</li>
+<li>tekstu</li>
+</ul></li>
+<li>Szybkie znalezienie dzięki 3 kwadratom w rogach
+<ul>
+<li>wzory pozycjonowania</li>
+</ul></li>
+<li>Informacja o formacie
+<ul>
+<li>poziom korekcji błędów</li>
+<li>wersja kodu</li>
+</ul></li>
+</ul>
+<h2 id="analiza-obrazu">Analiza obrazu</h2>
+<ul>
+<li>Wykorzystanie klasycznych algorytmów w celu szybkiej analizy obrazu
+<ul>
+<li>wyznaczanie krawędzi</li>
+<li>przechodzenie między przestrzeniami barw</li>
+<li>progowanie</li>
+<li>porównanie ze wzorcem</li>
+<li>itd.</li>
+</ul></li>
+</ul>
+<h3 id="punkty-charakterystyczne">Punkty charakterystyczne</h3>
+<ul>
+<li>Cecha w kontekście wizji komputerowej
+<ul>
+<li>pewien zbiór informacji na temat zawartości obrazu, który zwykle
+dotyczy jakiegoś jego fragmentu i umożliwia identyfikację</li>
+</ul></li>
+<li>Punkty charakterystyczne
+<ul>
+<li>punkty pozwalające dobrze określać obiekty/obrazy</li>
+<li>np. narożniki, krawędzie</li>
+</ul></li>
+</ul>
+<h3 id="detektor">Detektor</h3>
+<ul>
+<li>Wykrywanie punktów charakterystycznych</li>
+<li>Klasyczne, zaimplementowane w OpenCV
+<ul>
+<li>SIFT</li>
+<li>Harris</li>
+<li>SURF</li>
+<li>FAST</li>
+</ul></li>
+<li>Też rozwiązania oparte o sieci neuronowe</li>
+</ul>
+<h4 id="harris">Harris</h4>
+<ul>
+<li>Wykrywanie narożników
+<ul>
+<li>sąsiedztwo zawiera dwie dominujące i różne krawędzie</li>
+<li>krawędź to nagła zmiana jasności</li>
+</ul></li>
+<li>Badanie funkcji dla każdego piksela
+<ul>
+<li><span class="math inline">\(c(u,v) = \sum_{x,y} w(x,y) |I(x+u,y+v) -
+I(x,y)|^2\)</span></li>
+<li><span class="math inline">\(w(x,y)\)</span> - waga piksela</li>
+<li><span class="math inline">\(I(x,y)\)</span> - wartość piksela</li>
+</ul></li>
+<li>Maksymalizacja funkcji <span class="math inline">\(c\)</span>
+<ul>
+<li><span class="math inline">\(c(u,v) = \begin{bmatrix}u \
+v\end{bmatrix} M \begin{bmatrix}u \\ v \end{bmatrix}\)</span></li>
+<li><span class="math inline">\(M = \sum_{x,y} w(x,y) \begin{bmatrix}
+I_x^2 &amp; I_xI_y \\ I_xI_y &amp; I_y^2 \\ \end{bmatrix}\)</span></li>
+</ul></li>
+<li>Wyznaczamy <span class="math inline">\(R = \det M -
+\kappa(\mathrm{tr} M)^2\)</span>
+<ul>
+<li><span class="math inline">\(\mathrm{tr}\)</span> - ślad macierzy -
+suma elementów na głównej przekątnej</li>
+</ul></li>
+<li>Wybieramy maksima o wartości <span class="math inline">\(R\)</span>
+powyżej ustalonego progu</li>
+</ul>
+<h3 id="deskryptor">Deskryptor</h3>
+<ul>
+<li>Skrócony opis cechy</li>
+<li>Rozpatrywane pod względem konstrukcji i szybkości obliczeń</li>
+<li>Typy
+<ul>
+<li>rzeczywiste</li>
+<li>binarne</li>
+</ul></li>
+<li>Przykładowy deskryptor - SIFT</li>
+</ul>
+<h4 id="census-transform">Census Transform</h4>
+<ul>
+<li>Deskryptor binarny</li>
+<li>Sprawdzamy sąsiedztwo piksela
+<ul>
+<li>1 jeśli piksel z sąsiedztwa jest większy niż piksel, 0 jeśli
+mniejszy</li>
+</ul></li>
+<li>Deskryptor - złożenie wartości bitów z okna</li>
+<li>Dopasowanie - dystans Hamminga</li>
+</ul>
+<h4 id="inne-deskryptory-binarne">Inne deskryptory binarne</h4>
+<ul>
+<li>FREAK</li>
+<li>ORB</li>
+<li>BRISK</li>
+<li>AKAZE</li>
+<li>LBP #### SIFT</li>
+<li>Scale invariant feature transform</li>
+<li>Wyznaczanie punktów charakterystycznych, niekoniecznie
+krawędziowych</li>
+<li>Algorytm
+<ul>
+<li>utworzenie piramidy obrazów</li>
+<li>na każdym poziomie piramidy filtr Gaussa <span
+class="math inline">\(k\sigma\)</span></li>
+<li>obliczenie różnicy gaussianów</li>
+</ul></li>
+<li>Wyszukiwanie ekstremów</li>
+<li>Lokalne ekstrema są potencjalnymi punktami charakterystycznymi</li>
+<li>Jeżeli intensywność kandydata jest mniejsza niż pewien próg to jest
+odrzucany</li>
+<li>Analiza Hesjanu w celu odrzucenia punktów leżących na krawędziach
+<ul>
+<li>sprawdzenie stosunku wartości własnych macierzy</li>
+<li>jeśli stosunek max do min większy niż pewien próg to punkt jest
+odrzucany</li>
+</ul></li>
+<li>Deskryptor - domyślnie 128 wymiarów
+<ul>
+<li>sąsiedztwo punktu charakterystycznego 16x16</li>
+<li>podział sąsiedztwa na bloki 4x4</li>
+<li>dla każdego bloku tworzony jest histogram orientacji ze skokiem co
+45 stopni</li>
+</ul></li>
+</ul>
+<h3 id="dopasowanie">Dopasowanie</h3>
+<ul>
+<li>Chcemy znaleźć punkty z takimi samymi (podobnymi) deskryptorami</li>
+<li>Najprościej - porównanie ze wszystkimi</li>
+<li>FLANN matcher
+<ul>
+<li>partycjonowanie przestrzeni na kratki w celu szybszego
+przeszukiwania</li>
+<li>wykorzystanie kd-drzew</li>
+</ul></li>
+<li>Problemy z dopasowaniem
+<ul>
+<li>problemy typu dopasowanie wielu do 1, 1 do wielu</li>
+</ul></li>
+</ul>
+<h3 id="wykorzystanie-sieci-neuronowych">Wykorzystanie sieci
+neuronowych</h3>
+<ul>
+<li>Zwykle rozwiązania end-to-end
+<ul>
+<li>detektor i deskryptor</li>
+</ul></li>
+<li>Przykłady
+<ul>
+<li>Superpoint</li>
+<li>LIFT</li>
+</ul></li>
+</ul>
+<h2 id="slam">SLAM</h2>
+<ul>
+<li>Symultaniczna lokalizacja i mapowanie</li>
+<li>Mapowanie
+<ul>
+<li>budowanie reprezentacji świata</li>
+</ul></li>
+<li>Lokalizacja
+<ul>
+<li>znalezienie miejsca danej kamery w odtworzonym świecie</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>drift</li>
+<li>akumulacja błędu w czasie</li>
+</ul></li>
+</ul>
+<h2 id="vr">VR</h2>
+<ul>
+<li>Doświadczenie
+<ul>
+<li>imersja</li>
+<li>śledzenie 6DoF</li>
+<li>kontrolery ruchowe</li>
+</ul></li>
+<li>Wymagany specjalny sprzęt
+<ul>
+<li>gogle, kontrolery</li>
+</ul></li>
+<li>Ostatnio gogle posiadają też tryby mixed reality</li>
+</ul>
+<h3 id="problemy">Problemy</h3>
+<ul>
+<li>Motion sickness
+<ul>
+<li>problemy z błędnikiem - oczy widzą ruch a ciało stoi</li>
+</ul></li>
+<li>Zmęczenie oczu
+<ul>
+<li>problem konwergencja-akomodacja jak przy stereo</li>
+</ul></li>
+<li>Ciężar</li>
+<li>FoV
+<ul>
+<li>technologia nie pokrywa całego pola widzenia - widać ramki</li>
+</ul></li>
+<li>Izolacja od otoczenia</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#light-field-ar-i-vr" id="toc-light-field-ar-i-vr">Light
+field, AR i VR</a>
+<ul>
+<li><a href="#jak-opisać-światło-w-świecie" id="toc-jak-opisać-światło-w-świecie">Jak opisać światło w
+świecie</a></li>
+<li><a href="#light-field" id="toc-light-field">Light field</a>
+<ul>
+<li><a href="#urządzenia" id="toc-urządzenia">Urządzenia</a></li>
+<li><a href="#nowe-możliwości-produkcji" id="toc-nowe-możliwości-produkcji">Nowe możliwości produkcji</a></li>
+<li><a href="#macierze-kamer" id="toc-macierze-kamer">Macierze
+kamer</a></li>
+</ul></li>
+<li><a href="#ar" id="toc-ar">AR</a>
+<ul>
+<li><a href="#zastosowania" id="toc-zastosowania">Zastosowania</a></li>
+<li><a href="#wymagane-funkcje" id="toc-wymagane-funkcje">Wymagane
+funkcje</a></li>
+<li><a href="#technologia" id="toc-technologia">Technologia</a></li>
+<li><a href="#qr-code" id="toc-qr-code">QR code</a></li>
+</ul></li>
+<li><a href="#analiza-obrazu" id="toc-analiza-obrazu">Analiza obrazu</a>
+<ul>
+<li><a href="#punkty-charakterystyczne" id="toc-punkty-charakterystyczne">Punkty charakterystyczne</a></li>
+<li><a href="#detektor" id="toc-detektor">Detektor</a></li>
+<li><a href="#deskryptor" id="toc-deskryptor">Deskryptor</a></li>
+<li><a href="#dopasowanie" id="toc-dopasowanie">Dopasowanie</a></li>
+<li><a href="#wykorzystanie-sieci-neuronowych" id="toc-wykorzystanie-sieci-neuronowych">Wykorzystanie sieci
+neuronowych</a></li>
+</ul></li>
+<li><a href="#slam" id="toc-slam">SLAM</a></li>
+<li><a href="#vr" id="toc-vr">VR</a>
+<ul>
+<li><a href="#problemy" id="toc-problemy">Problemy</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

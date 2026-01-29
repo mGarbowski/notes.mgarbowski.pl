@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05-transformer</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="04-tokenizacja.html">Poprzedni: 04-tokenizacja.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="06-tylko-dekoder.html">Następny: 06-tylko-dekoder.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1
+id="transformator-cech-głębokich-z-atencją-transformer">Transformator
+cech głębokich z atencją (<em>Transformer</em>)</h1>
+<h2 id="typy-architektur-transformer">Typy architektur Transformer</h2>
+<h3 id="tylko-koder">Tylko koder</h3>
+<ul>
+<li>Inne maskowanie atencji niż w tylko-dekoder</li>
+<li>BERT, RoBERTa</li>
+<li>Rzadziej stosowane ale nadal użyteczne</li>
+<li>Wyznaczanie kontekstowych reprezentacji sekwencji
+<ul>
+<li>np. na potrzeby RAG</li>
+<li>klasyfikacja tekstu</li>
+<li>analiza sentymentu</li>
+<li>klasyfikacja tematu</li>
+<li>detekcja spamu</li>
+</ul></li>
+</ul>
+<h3 id="tylko-dekoder">Tylko dekoder</h3>
+<ul>
+<li>Architektura wielkich modeli językowych</li>
+<li>GPT i podobne</li>
+</ul>
+<h3 id="koder-dekoder">Koder-dekoder</h3>
+<ul>
+<li>W oryginalnym artykule Attention is all you need</li>
+<li>Obecnie rzadko wykorzystywana</li>
+<li>Zaproponowana do zadania tłumaczenia maszynowego</li>
+<li>Obecnie stosowana w przekształceniach multimodalnych
+<ul>
+<li>np. audio na tekst</li>
+</ul></li>
+</ul>
+<h2 id="budowa-architektury-tylko-dekoder">Budowa architektury
+tylko-dekoder</h2>
+<ul>
+<li>Warstwa osadzeń (słownik)
+<ul>
+<li>macierz (rozmiar słownika, rozmiar zanurzenia)</li>
+</ul></li>
+<li>Kodowanie pozycyjne
+<ul>
+<li>dodaje informację o pozycjach tokenów w sekwencji</li>
+<li>dalsza część modelu nie bierze pod uwagę kolejności tokenów w
+sekwencji</li>
+<li>kolejność słów w zdaniu jest istotna</li>
+</ul></li>
+<li>Bloki dekodera
+<ul>
+<li>kontekstowe reprezentacje tokenów na wyjściu z bloków dekodera</li>
+<li>wielogłowicowa atencja</li>
+<li>warstwa w pełni połączona</li>
+<li>połączenia rezydualne - współcześnie inaczej niż na rysunku</li>
+</ul></li>
+<li>Warstwa liniowa i softmax
+<ul>
+<li>zwraca rozkład prawdopodobieństwa</li>
+<li>w trybie inferencji tylko dla ostatniego zanurzenia w sekwencji</li>
+<li>w trybie treningu liczymy stratę dla każdego zanurzenia w
+sekwencji</li>
+</ul></li>
+</ul>
+<h2 id="blok-kodera-i-dekodera">Blok kodera i dekodera</h2>
+<ul>
+<li>W koderze i dekoderze różni się tylko maską atencji
+<ul>
+<li>w dekoderze brane są tylko tokeny występujące wcześniej w
+sekwencji</li>
+<li>w koderze brana jest cała sekwencja</li>
+</ul></li>
+<li>Przekształca wejściową sekwencję wektorów cech w wyjściową sekwencję
+wektorów cech o tej samej długości biorąc pod uwagę kontekst</li>
+</ul>
+<h2 id="atencja-qkv">Atencja QKV</h2>
+<ul>
+<li>Mechanizm atencji tworzy kontekstową reprezentację wektorów w
+sekwencji wejściowej poprzez skupienie uwagi i uwzględnienie informacji
+z innych elementów</li>
+<li>Reprezentacja kontekstowa w warstwie <span
+class="math inline">\(k\)</span> jest uaktualniana na podstawie
+reprezentacji wyznaczonej w warstwie <span
+class="math inline">\(k-1\)</span></li>
+<li>Dla wektora osadzeń w sekwencji wejściowej wyznaczane są trzy
+wektory
+<ul>
+<li>wektor zapytania</li>
+<li>wektor klucza</li>
+<li>wektor wartości</li>
+</ul></li>
+<li>Wagi optymalizowane w procesie uczenia</li>
+<li>Wektory tworzone przez pomnożenie wektora zanurzenia przez macierz
+wag</li>
+<li>Współczynniki atencji wyznaczane jako iloczyn skalarny wektorów
+klucza i zapytania (znormalizowany)
+<ul>
+<li>tworzy się macierz współczynników atencji dla wszystkich par
+klucz-wartość</li>
+<li>wektory i iloczyn nie są znormalizowane! - zakres wartości <span
+class="math inline">\((-\infty, +\infty)\)</span></li>
+</ul></li>
+<li>Maska atencji przyczynowej - współczynniki atencji odpowiadające
+wpływowi późniejszego tokenu na wcześniejszy są maskowane
+<ul>
+<li>powyżej diagonali zamienia się wszystkie elementy na <span
+class="math inline">\(-\infty\)</span></li>
+</ul></li>
+<li>Softmax po wierszach macierzy współczynników atencji
+<ul>
+<li><span class="math inline">\(-\infty\)</span> z maski odpowiada
+prawdopodobieństwu <span class="math inline">\(0\)</span></li>
+<li>wiersz macierzy zamienia się na rozkład prawdopodobieństwa - sumuje
+się do 1</li>
+</ul></li>
+<li>Macierz wektorów wartości
+<ul>
+<li>i-ty wektor wyjściowy to suma ważona wektorów wartości, ważona
+współczynnikami atencji</li>
+</ul></li>
+<li>Całość wyraża się wzorem <span class="math inline">\(H =
+\mathrm{softmax}(\frac{QK^T}{\sqrt{d}} + M)V\)</span>
+<ul>
+<li><span class="math inline">\(M\)</span> - maska atencji
+przyczynowej</li>
+<li><span class="math inline">\(Q, K, V\)</span> - wiersze to wektory
+zapytań/kluczy/wartości</li>
+<li><span class="math inline">\(d\)</span> - wymiar wektora
+znaurzenia</li>
+</ul></li>
+</ul>
+<h2 id="atencja-wielogłowicowa">Atencja wielogłowicowa</h2>
+<ul>
+<li>Równoległe, niezależne bloki</li>
+<li>Ogranicza się wymiar wyjść z pojedynczej głowicy do <span
+class="math inline">\(d/h\)</span>
+<ul>
+<li><span class="math inline">\(d\)</span> - rozmiar embeddingu</li>
+<li><span class="math inline">\(h\)</span> - liczba głowic</li>
+</ul></li>
+<li>Potem wektory wyjściowe są konkatenowane
+<ul>
+<li>do wejściowego wymiaru</li>
+</ul></li>
+<li>Połączone embeddingi są wymnożone przez macierz projekcyjną <span
+class="math inline">\(W_O\)</span></li>
+<li>W jednogłowicowej atencji
+<ul>
+<li><span class="math inline">\(W_K\)</span> ma wymiar <span
+class="math inline">\((d,d)\)</span></li>
+</ul></li>
+<li>Tutaj <span class="math inline">\(W_K^i, W_Q^i, W_V^i\)</span> mają
+wymiar <span class="math inline">\((d, d/h)\)</span></li>
+<li><span class="math inline">\(SA_i(X) =
+\mathrm{softmax}(\frac{Q_iK_i^T}{\sqrt{d}} + M)V_i\)</span></li>
+<li><span class="math inline">\(MHA(X) =
+[SA_1(X)|\ldots|SA_h(X)]W_O\)</span>
+<ul>
+<li>konkatenacja i mnożenie macierzy</li>
+</ul></li>
+</ul>
+<h3 id="liczba-trenowalnych-parametrów">Liczba trenowalnych
+parametrów</h3>
+<ul>
+<li>Każda głowica ma trzy trenowalne macierze wag
+<ul>
+<li><span class="math inline">\(W_k, W_q, W_v\)</span></li>
+</ul></li>
+<li>Najczęściej wymiar <span class="math inline">\(Q\)</span>, <span
+class="math inline">\(K\)</span> i wymiar <span
+class="math inline">\(V\)</span> są równe
+<ul>
+<li><span class="math inline">\(d \cdot d/h\)</span></li>
+<li><span class="math inline">\(d\)</span> to wymiar embeddingu</li>
+</ul></li>
+<li>Dodatkowo macierz projekcji
+<ul>
+<li>na wejściu liczba głowic <span class="math inline">\(\times\)</span>
+wymiar wektora wartości</li>
+<li>na wyjściu wymiar embeddingu</li>
+<li><span class="math inline">\(h \cdot d_v \times d = d \times
+d\)</span></li>
+</ul></li>
+<li>Dla pojedynczej głowicy
+<ul>
+<li><span class="math inline">\(3 \cdot d \cdot d/h\)</span></li>
+</ul></li>
+<li>W sumie dla <span class="math inline">\(h\)</span> głowic będzie
+<span class="math inline">\(3 \cdot d \cdot d\)</span></li>
+<li>Wszystkie głowice i macierz projekcji dają w sumie <span
+class="math inline">\(4d^2\)</span></li>
+<li>Liczba parametrów warstwy atencji wielogłowicowej nie zależy od
+długości przetwarzanych sekwencji</li>
+</ul>
+<h3 id="warstwa-mh-w-torch">Warstwa MH w torch</h3>
+<ul>
+<li>Na wejściu oddzielnie podawany X do query, key i value
+<ul>
+<li>w architekturze tylko dekoder podaje się to samo</li>
+<li>w innych niekoniecznie</li>
+</ul></li>
+</ul>
+<h2 id="elementy-składowe-bloku-transformera">Elementy składowe bloku
+transformera</h2>
+<ul>
+<li>Atencja wielogłowicowa</li>
+<li>Blok w pełni połączony
+<ul>
+<li>przetwarza każdy token osobno</li>
+<li>dwuwarstwowy perceptron</li>
+<li>GELU</li>
+<li>pierwsza warstwa ma zwykle większy wymiar wyjścia (np <span
+class="math inline">\(4d\)</span>)</li>
+</ul></li>
+<li>Połączenie rezydualne i normalizacja warstwy
+<ul>
+<li>normalizacja po wymiarze embeddingu (LayerNorm)</li>
+<li>połączenie rezydualne obok bloku MHA</li>
+<li>połączenie rezydualne obok bloku FF</li>
+</ul></li>
+<li>Opcjonalnie dropout</li>
+</ul>
+<h3 id="liczba-trenowalnych-parametrów-bloku-liniowego">Liczba
+trenowalnych parametrów bloku liniowego</h3>
+<ul>
+<li>Zwykle więcej wag niż w bloku atencji</li>
+<li>Rozmiar warstwy ukrytej zwykle <span
+class="math inline">\(H=4d\)</span></li>
+<li><span class="math inline">\((d \cdot H + H) + (H \cdot d +
+d)\)</span></li>
+<li>Dla <span class="math inline">\(d=4096\)</span> jest ponad <span
+class="math inline">\(130\)</span> mln parametrów</li>
+</ul>
+<h2 id="warianty-architektury">Warianty architektury</h2>
+<ul>
+<li>W oryginalnym artykule o transformerze normalizacja warstwy była po
+połączeniu rezydualnym
+<ul>
+<li>post-normalized</li>
+</ul></li>
+<li>W najczęściej obecnie stosowanej architekturze normalizacja jest
+robione bezpośrednio przed warstwami MHA i FF
+<ul>
+<li>oryginalny <span class="math inline">\(x\)</span> bez normalizacji
+też przepływa przez strumień połączeń rezydualnych</li>
+<li>pre-normalized</li>
+</ul></li>
+</ul>
+<h2 id="kodowanie-pozycyjne">Kodowanie pozycyjne</h2>
+<ul>
+<li>Wielogłowicowa atencja nie bierze pod uwagę kolejności zanurzeń</li>
+<li>Kolejność trzeba wstrzyknąć do samych zanurzeń</li>
+<li>Bezwzględne kodowanie pozycyjne
+<ul>
+<li>stosowane raz</li>
+<li>do zanurzenia każdego tokenu dodawany jest wektor kodujący jego
+pozycję w sekwencji</li>
+<li>ten sam token w różnych pozycjach w sekwencji dostanie inny wektor
+zanurzenia</li>
+</ul></li>
+<li>Względne kodowanie pozycyjne
+<ul>
+<li>w każdej warstwie atencji</li>
+<li>przekształcenie wektorów zapytań i kluczy</li>
+<li>wynikowe wartości atencji zależne od względnej pozycji elementów w
+sekwencji</li>
+<li>obecnie to jest standard</li>
+</ul></li>
+</ul>
+<h3 id="bezwzględne-kodowanie-pozycyjne">Bezwzględne kodowanie
+pozycyjne</h3>
+<ul>
+<li>Uczona warstwa słownikowa
+<ul>
+<li>Ogranicza maksymalny rozmiar okna kontekstu podczas inferencji</li>
+</ul></li>
+<li>Deterministyczna funkcja, np. sinusowe kodowanie
+<ul>
+<li>dla <span class="math inline">\(k\)</span>-tego elementu w
+sekwencji</li>
+<li><span class="math inline">\(i\)</span>-ty element wektora
+pozycyjnego <span class="math inline">\(sin(k/10000^{2i/d})\)</span>
+albo <span class="math inline">\(cos(k/10000^{2i/d})\)</span></li>
+</ul></li>
+<li>To samo słowo na różnych pozycjach jest różnie reprezentowane</li>
+</ul>
+<h3 id="względne-kodowanie-pozycyjne">Względne kodowanie pozycyjne</h3>
+<ul>
+<li>Rotacyjne kodowanie pozycyjne (RoPE)
+<ul>
+<li>Llama, Mistral, Microsoft Phi</li>
+</ul></li>
+<li>W każdej warstwie atencji</li>
+<li>Żeby iloczyn skalarny wektora <span class="math inline">\(q\)</span>
+i <span class="math inline">\(k\)</span> zależał dodatkowo od odległości
+tokenów w sekwencji wejściowej</li>
+<li>Wyznaczenie <span class="math inline">\(q\)</span> i <span
+class="math inline">\(k\)</span>
+<ul>
+<li><span class="math inline">\(q_m = R_mW_Qx_m\)</span></li>
+<li><span class="math inline">\(k_n=R_nW_Kx_n\)</span></li>
+</ul></li>
+<li><span class="math inline">\(R_i\)</span> - macierz rotacji zależna
+od pozycji <span class="math inline">\(i\)</span>
+<ul>
+<li>własność <span class="math inline">\(R_m^TR_n =
+R_{n-m}\)</span></li>
+</ul></li>
+<li>Wtedy <span class="math inline">\(q_m^Tk_n = x^T_m W_q^T R_{n-m} W_k
+x_n\)</span></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#transformator-cech-głębokich-z-atencją-transformer" id="toc-transformator-cech-głębokich-z-atencją-transformer">Transformator
+cech głębokich z atencją (<em>Transformer</em>)</a>
+<ul>
+<li><a href="#typy-architektur-transformer" id="toc-typy-architektur-transformer">Typy architektur Transformer</a>
+<ul>
+<li><a href="#tylko-koder" id="toc-tylko-koder">Tylko koder</a></li>
+<li><a href="#tylko-dekoder" id="toc-tylko-dekoder">Tylko
+dekoder</a></li>
+<li><a href="#koder-dekoder" id="toc-koder-dekoder">Koder-dekoder</a></li>
+</ul></li>
+<li><a href="#budowa-architektury-tylko-dekoder" id="toc-budowa-architektury-tylko-dekoder">Budowa architektury
+tylko-dekoder</a></li>
+<li><a href="#blok-kodera-i-dekodera" id="toc-blok-kodera-i-dekodera">Blok kodera i dekodera</a></li>
+<li><a href="#atencja-qkv" id="toc-atencja-qkv">Atencja QKV</a></li>
+<li><a href="#atencja-wielogłowicowa" id="toc-atencja-wielogłowicowa">Atencja wielogłowicowa</a>
+<ul>
+<li><a href="#liczba-trenowalnych-parametrów" id="toc-liczba-trenowalnych-parametrów">Liczba trenowalnych
+parametrów</a></li>
+<li><a href="#warstwa-mh-w-torch" id="toc-warstwa-mh-w-torch">Warstwa MH
+w torch</a></li>
+</ul></li>
+<li><a href="#elementy-składowe-bloku-transformera" id="toc-elementy-składowe-bloku-transformera">Elementy składowe bloku
+transformera</a>
+<ul>
+<li><a href="#liczba-trenowalnych-parametrów-bloku-liniowego" id="toc-liczba-trenowalnych-parametrów-bloku-liniowego">Liczba
+trenowalnych parametrów bloku liniowego</a></li>
+</ul></li>
+<li><a href="#warianty-architektury" id="toc-warianty-architektury">Warianty architektury</a></li>
+<li><a href="#kodowanie-pozycyjne" id="toc-kodowanie-pozycyjne">Kodowanie pozycyjne</a>
+<ul>
+<li><a href="#bezwzględne-kodowanie-pozycyjne" id="toc-bezwzględne-kodowanie-pozycyjne">Bezwzględne kodowanie
+pozycyjne</a></li>
+<li><a href="#względne-kodowanie-pozycyjne" id="toc-względne-kodowanie-pozycyjne">Względne kodowanie
+pozycyjne</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

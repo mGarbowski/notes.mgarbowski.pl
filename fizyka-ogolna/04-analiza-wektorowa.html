@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-analiza-wektorowa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-fale.html">Poprzedni: 03-fale.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-pole-elektryczne.html">Następny: 05-pole-elektryczne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Fizyka ogólna</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-oscylator-harmoniczny.html">02-oscylator-harmoniczny.html</a></li>
+                
+                <li><a href="03-fale.html">03-fale.html</a></li>
+                
+                <li><a href="04-analiza-wektorowa.html">04-analiza-wektorowa.html</a></li>
+                
+                <li><a href="05-pole-elektryczne.html">05-pole-elektryczne.html</a></li>
+                
+                <li><a href="06-pole-magnetyczne.html">06-pole-magnetyczne.html</a></li>
+                
+                <li><a href="07-indukcja-elektromagnetyczna.html">07-indukcja-elektromagnetyczna.html</a></li>
+                
+                <li><a href="08-mechanika-kwantowa.html">08-mechanika-kwantowa.html</a></li>
+                
+                <li><a href="09-modele-atomu.html">09-modele-atomu.html</a></li>
+                
+                <li><a href="10-mechanika-statystyczna.html">10-mechanika-statystyczna.html</a></li>
+                
+                <li><a href="egzamin.html">egzamin.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="analiza-wektorowa-teoria-pola">Analiza wektorowa, teoria
+pola</h1>
+<h2 id="pole-skalarne">Pole skalarne</h2>
+<p><span class="math display">\[\phi = \phi(x,y,z)\]</span></p>
+<ul>
+<li>Przykłady
+<ul>
+<li>ciśnienie atmosferyczne, pole 2D</li>
+<li>wizualizacja przez wykres poziomicowy</li>
+</ul></li>
+</ul>
+<h2 id="pole-wektorowe">Pole wektorowe</h2>
+<p><span class="math display">\[\vec{A} = A_x(x,y,z) \vec{i_x} +
+A_y(x,y,z) \vec{i_y} + A_z(x,y,z) \vec{i_z}\]</span></p>
+<ul>
+<li>Jak wektor pól skalarnych</li>
+<li>Do każdego punktu w przestrzeni jest przyporządkowany wektor</li>
+<li>Przykłady
+<ul>
+<li>prędkość przepływu cieczy</li>
+</ul></li>
+<li>Linie pola
+<ul>
+<li>styczne do pola</li>
+<li>opcjonalnie pokazany zwrot</li>
+<li>natężenie wektorów pokazuje wizualizuje się przez zagęszczenie
+linii</li>
+</ul></li>
+<li>Wizualizacja przez siatkę próbkowanych wektorów
+<ul>
+<li>problematyczna skala jeśli istotnie różnią się natężeniem (długości
+wektorów)</li>
+<li>problem np. jak wartość maleje z kwadratem odległości</li>
+</ul></li>
+</ul>
+<h2 id="gradient">Gradient</h2>
+<p><span class="math display">\[\mathrm{grad} \: \phi = \frac{\partial
+\phi}{\partial x} \vec{i_x} + \frac{\partial \phi}{\partial y} \vec{i_y}
++ \frac{\partial \phi}{\partial z} \vec{i_z}\]</span></p>
+<ul>
+<li>W punkcie to wektor pochodnych cząstkowych</li>
+<li>Jest polem wektorowym</li>
+<li>Zdefiniowany dla pola skalarnego
+<ul>
+<li>przekształca pole skalarne w pole wektorowe</li>
+</ul></li>
+<li>W jednym wymiarze to zwykła pochodna</li>
+<li>Gradient jest zawsze prostopadły do poziomic</li>
+<li>Różniczka pola <span class="math inline">\(d \phi\)</span>
+<ul>
+<li>po przesunięciu o wektor <span
+class="math inline">\(d\vec{l}\)</span></li>
+<li>jak zmieni się pole</li>
+</ul></li>
+<li>Przykład - energia potencjalna
+<ul>
+<li><span class="math inline">\(\vec{F} = - grad \: U\)</span></li>
+</ul></li>
+</ul>
+<h3 id="operator-nabla">Operator nabla</h3>
+<ul>
+<li>Operator Hamiltona</li>
+<li>Wprowadzamy wektorowy operator różniczkowy <em>nabla</em></li>
+<li>Gradient pola skalarnego możemy zapisać jako działanie operatora
+nabla na funkcję</li>
+</ul>
+<p><span class="math display">\[\mathrm{grad} \: \phi(x,y,z) \equiv
+\nabla \phi(x,y,z)\]</span> * Różniczka * przyrost pola przy
+przesunięciu o <span class="math inline">\(d\vec{l}\)</span> * <span
+class="math inline">\(d\varphi = \nabla \varphi \cdot
+d\vec{l}\)</span></p>
+<h2 id="strumień-wektora">Strumień wektora</h2>
+<ul>
+<li>Jakby wstawić jakąś powierzchnię do pola wektorowego i zliczyć ile
+linii pola przechodzi przez powierzchnię</li>
+<li>Zależy od
+<ul>
+<li>gęstości linii pola</li>
+<li>wielkości powierzchni</li>
+<li>kąta powierzchni</li>
+</ul></li>
+<li>Oznaczany literą <span class="math inline">\(\Phi\)</span></li>
+</ul>
+<p><span class="math display">\[d \Phi = v \cos \alpha \cdot
+dS\]</span></p>
+<ul>
+<li><span class="math inline">\(v\)</span> - pole wektorowe</li>
+<li><span class="math inline">\(\alpha\)</span> - kąt pomiędzy wektorem
+pola <span class="math inline">\(\vec{v}\)</span>, a wektorem normalnym
+powierzchni <span class="math inline">\(\vec{n}\)</span></li>
+</ul>
+<p>Elementy powierzchni opisujemy jako wektory</p>
+<p><span class="math display">\[d\vec{S} = ds \cdot \vec{n}\]</span> *
+Element powierzchni (wyrażony w <span
+class="math inline">\(m^2\)</span>) * Jak powierzchnia jest zamknięta to
+<span class="math inline">\(\vec{n}\)</span> jest skierowany na zewnątrz
+* Element strumienia można wtedy zapisać jako</p>
+<p><span class="math display">\[d \Phi = \vec{v} \cdot d
+\vec{S}\]</span></p>
+<p>Całkowity strumień przez powierzchnię S otrzymujemy sumując elementy
+<span class="math inline">\(\Delta \Phi\)</span></p>
+<p><span class="math display">\[\Phi_v = \int_S \vec{v} \cdot d \vec{S}
+= \iint \limits_S \vec{v} \cdot d \vec{S}\]</span></p>
+<ul>
+<li>Całka dwuwymiarowa (różne notacje)</li>
+<li>Iloczyn skalarny - znak się zmienia w zależności od kierunku</li>
+</ul>
+<h3 id="dywergencja">Dywergencja</h3>
+<ul>
+<li>Strumień jest własnością makro</li>
+<li>Jeśli strumień przez zamkniętą powierzchnię nie jest zerowy, to
+wewnątrz powierzchni znajdują się źródła lub dreny
+<ul>
+<li>źródło - punkt, w którym zaczynają się linie pola</li>
+<li>dren / ściek / zlew (ang. <em>sink</em>) - punkt, w którym kończą
+się linie pola</li>
+</ul></li>
+<li>Od liczby wychodzących linii pola zależy gęstość źródeł/drenów</li>
+<li>Dywergencja / źródłowość opisuje gęstość tych punktów
+<ul>
+<li>liczymy całkowity strumień przez powierzchnię</li>
+<li>dzielimy przez objętość</li>
+</ul></li>
+<li><span class="math inline">\(S\)</span> jest brzegiem objętości <span
+class="math inline">\(V\)</span></li>
+<li>Dywergencja jest polem skalarnym</li>
+</ul>
+<p><span class="math display">\[\mathrm{div} \: \vec{a} = \lim_{V
+\rightarrow 0} \frac{1}{V} \oint \limits_S \vec{a} \cdot
+d\vec{S}\]</span> <span class="math display">\[\mathrm{div} \: \vec{a} =
+\frac{\partial a_x}{\partial x} + \frac{\partial a_y}{\partial y} +
+\frac{\partial a_z}{\partial z}\]</span></p>
+<p>Oznaczenie <span class="math display">\[\mathrm{div} \: \vec{a}
+\equiv \nabla \cdot \vec{a} \equiv \nabla \vec{a}\]</span></p>
+<ul>
+<li>Symbol całki - podwójna, kółko oznacza powierzchnię zamkniętą</li>
+<li>Ładunek dodatni jest źródłem pola, ładunek ujemny jest drenem
+pola</li>
+<li>Pole magnetyczne nie ma źródeł
+<ul>
+<li>z każdej zamkniętej powierzchni będzie wchodzić tyle samo linii pola
+co wychodzić</li>
+</ul></li>
+<li>Źródło - dywergencja dodatnia</li>
+<li>Dren - dywergencja ujemna</li>
+<li>Dla pola magnetycznego dywergencja jest 0
+<ul>
+<li>nie ma ładunku magnetycznego</li>
+<li>jedno z równań maxwella</li>
+</ul></li>
+</ul>
+<h2 id="twierdzenie-ostrogradskiego-gaussa">Twierdzenie
+Ostrogradskiego-Gaussa</h2>
+<p><span class="math display">\[\oint \limits_S \vec{a} \cdot d\vec{S} =
+\int \limits_V \mathrm{div} \: \vec{a} \cdot dV\]</span></p>
+<ul>
+<li>Równań Maxwella nie trzeba się uczyć na pamięć jak się zrozumie to
+twierdzenia, w prosty sposób z niego wynika</li>
+<li>Nie omawiamy dowodu</li>
+<li>Lewa całka
+<ul>
+<li>po powierzchni <span class="math inline">\(S\)</span>
+zamkniętej</li>
+<li>strumień - element powierzchni wymnożony przez pole wektorowe</li>
+<li>tak naprawdę całka podwójna</li>
+</ul></li>
+<li>Powierzchnia zamknięta <span class="math inline">\(S\)</span> jest
+brzegiem objętości <span class="math inline">\(V\)</span>
+<ul>
+<li>tak naprawdę całka potrójna</li>
+</ul></li>
+<li>Prawa całka
+<ul>
+<li>masa źródeł pola</li>
+</ul></li>
+<li>Prawdziwe dla dowolnej powierzchni</li>
+</ul>
+<p>Strumień pola <span class="math inline">\(a\)</span> przez zamkniętą
+powierzchnię <span class="math inline">\(S\)</span> jest równy sumie
+źródeł pola zawartych w objętości <span class="math inline">\(V\)</span>
+ograniczonej powierzchnią <span class="math inline">\(S\)</span></p>
+<h2 id="cyrkulacja-krążenie">Cyrkulacja (krążenie)</h2>
+<ul>
+<li>Chcemy możliwości określenia jak pole krąży</li>
+<li>Dla cienkiego kanaliku wzdłuż konturu <span
+class="math inline">\(\Gamma\)</span>
+<ul>
+<li>ile pola przepływa wzdłuż kanalika</li>
+</ul></li>
+<li>Cyrkulacja jest miarą przepływu
+<ul>
+<li>iloczyn prędkości cieczy i długości konturu</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[C = \oint \limits_\Gamma \vec{a} \cdot
+d\vec{l}\]</span></p>
+<ul>
+<li><span class="math inline">\(d\vec{l}\)</span> - element kanalika
+(wzdłuż, skierowany)</li>
+<li><span class="math inline">\(\vec{a}\)</span> - wektor pola</li>
+<li>Jakby linie pola były równoległe
+<ul>
+<li>cyrkulacja byłaby <span class="math inline">\(0\)</span> - składniki
+sumy znoszą się (znak w iloczynie skalarnym)</li>
+</ul></li>
+<li>Jak linie pola są zakręcone to wychodzi nie <span
+class="math inline">\(0\)</span></li>
+<li>Dla przepływu laminarnego
+<ul>
+<li>linie pola równoległe, bez wirów</li>
+<li>bliżej powierzchni rzeki woda płynie szybciej niż przy dnie</li>
+<li>cyrkulacja jest niezerowa</li>
+</ul></li>
+</ul>
+<h2 id="rotacja-wirowość">Rotacja (wirowość)</h2>
+<p>Rotacja - stosunek cyrkulacji <span class="math inline">\(C\)</span>
+do powierzchni <span class="math inline">\(S\)</span> “obmywanej” przez
+cyrkulację</p>
+<ul>
+<li>Jak byśmy mieli wiatraczek o łopatkach prostopadłych z licznikiem
+prędkości obrotów
+<ul>
+<li>można go przesuwać i obracać, patrzeć jak szybko się obraca</li>
+<li>możemy znaleźć jakieś ustawienie, przy którym najszybciej się
+kręci</li>
+<li>to znaczy że w tym miejscu pole krąży</li>
+<li>opisujemy kierunek najszybszego krążenia i jego szybkość</li>
+<li>wektor (pseudowektor) na osi obrotu wiatraczka - wektor prędkości
+kątowej</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[| \mathrm{rot} \vec{a}| = \lim_{s
+\rightarrow 0} \frac{C_a}{S} = \lim_{S \rightarrow 0} \frac{1}{S}
+\oint_{\Gamma} \vec{a} \cdot d\vec{l}\]</span></p>
+<ul>
+<li>Pole magnetyczne jest polem wirowym (nie ma źródeł)</li>
+</ul>
+<p>W układzie kartezjańskim</p>
+<p><span class="math display">\[
+\mathrm{rot} \vec{a} = \nabla \times \vec{a} =
+\begin{bmatrix}
+    \vec{i_x} &amp; \vec{i_x} &amp; \vec{i_x} \\
+    \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp;
+\frac{\partial}{\partial z} \\
+    a_x &amp; a_y &amp; a_z \\
+\end{bmatrix}
+\]</span></p>
+<h2 id="twierdzenie-stokesa">Twierdzenie Stokesa</h2>
+<p><span class="math display">\[\oint \limits_\Gamma \vec{a} \cdot
+d\vec{l} = \int \limits_S \mathrm{rot} \vec{a} \cdot
+d\vec{S}\]</span></p>
+<ul>
+<li>Lewa całka
+<ul>
+<li>cyrkulacja</li>
+<li>jednowymiarowa</li>
+<li>po zamkniętej krzywej</li>
+</ul></li>
+<li>Prawa całka
+<ul>
+<li>dwuwymiarowa</li>
+<li>całka pola wektorowego, po powierzchni</li>
+<li>strumień rotacji</li>
+<li>powierzchnia nie jest zamknięta</li>
+</ul></li>
+<li><span class="math inline">\(\Gamma\)</span> jest brzegiem
+powierzchni</li>
+<li>Przykład
+<ul>
+<li>praca siły zachowawczej <span class="math inline">\(F\)</span> po
+zamkniętym konturze <span class="math inline">\(\Gamma\)</span></li>
+<li>pole zachowawcze (potencjalne) jest polem bezwirowym</li>
+<li><span class="math inline">\(W = \oint \limits_\Gamma \vec{F} \cdot
+d\vec{l} = 0 \iff \nabla \times \vec{F} = 0\)</span></li>
+</ul></li>
+<li>Rotacja równa 0 - pole jest bezwirowe</li>
+</ul>
+<h2 id="laplasjan">Laplasjan</h2>
+<p><span class="math display">\[
+\nabla^2 =
+\nabla \cdot \nabla =
+\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} +
+\frac{\partial^2}{\partial z^2}
+\]</span></p>
+<ul>
+<li>Operator Laplace’a</li>
+<li>Dywergencja gradientu</li>
+<li>Operator drugiej pochodnej
+<ul>
+<li>pojawia się w równaniu falowym</li>
+</ul></li>
+<li>W maksimach ujemny, w minimach dodatni
+<ul>
+<li>poza optimami jakieś wartości pomiędzy</li>
+</ul></li>
+<li>Laplasjan jest polem skalarnym
+<ul>
+<li>zamienia pole skalarne w pole skalarne</li>
+</ul></li>
+</ul>
+<h2 id="tożsamości">Tożsamości</h2>
+<p>Pole wirowe jest polem bezźródłowym</p>
+<p><span class="math display">\[\nabla \cdot (\nabla \times \vec{A}) =
+0\]</span></p>
+<p>Pole potencjalne jest polem bezwirowym</p>
+<p><span class="math display">\[\nabla \times \nabla \varphi =
+0\]</span></p>
+<p>Rotacja rotacji</p>
+<p><span class="math display">\[\nabla \times (\nabla \times \vec{A}) =
+\nabla(\nabla \cdot \vec{A}) - \nabla^2 \vec{A}\]</span></p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#analiza-wektorowa-teoria-pola" id="toc-analiza-wektorowa-teoria-pola">Analiza wektorowa, teoria
+pola</a>
+<ul>
+<li><a href="#pole-skalarne" id="toc-pole-skalarne">Pole
+skalarne</a></li>
+<li><a href="#pole-wektorowe" id="toc-pole-wektorowe">Pole
+wektorowe</a></li>
+<li><a href="#gradient" id="toc-gradient">Gradient</a>
+<ul>
+<li><a href="#operator-nabla" id="toc-operator-nabla">Operator
+nabla</a></li>
+</ul></li>
+<li><a href="#strumień-wektora" id="toc-strumień-wektora">Strumień
+wektora</a>
+<ul>
+<li><a href="#dywergencja" id="toc-dywergencja">Dywergencja</a></li>
+</ul></li>
+<li><a href="#twierdzenie-ostrogradskiego-gaussa" id="toc-twierdzenie-ostrogradskiego-gaussa">Twierdzenie
+Ostrogradskiego-Gaussa</a></li>
+<li><a href="#cyrkulacja-krążenie" id="toc-cyrkulacja-krążenie">Cyrkulacja (krążenie)</a></li>
+<li><a href="#rotacja-wirowość" id="toc-rotacja-wirowość">Rotacja
+(wirowość)</a></li>
+<li><a href="#twierdzenie-stokesa" id="toc-twierdzenie-stokesa">Twierdzenie Stokesa</a></li>
+<li><a href="#laplasjan" id="toc-laplasjan">Laplasjan</a></li>
+<li><a href="#tożsamości" id="toc-tożsamości">Tożsamości</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

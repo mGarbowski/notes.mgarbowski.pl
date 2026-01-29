@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10-cloud</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="09-integracja-systemow.html">Poprzedni: 09-integracja-systemow.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="11-frontend-frameworki.html">Następny: 11-frontend-frameworki.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="infrastruktura">Infrastruktura</h1>
+<h2 id="typy-chmur">Typy chmur</h2>
+<ul>
+<li>Kolokacja</li>
+<li>IaaS (infrastructure)</li>
+<li>Paas (platform)</li>
+<li>Saas (software)</li>
+</ul>
+<h3 id="kolokacja">Kolokacja</h3>
+<ul>
+<li>Sprzęt firmy włożony do czyjejś lokalizacji
+<ul>
+<li>nie martwimy się systemem przeciwpożarowym, prądem, chłodzeniem</li>
+</ul></li>
+</ul>
+<h3 id="iaas">IaaS</h3>
+<ul>
+<li>Sprzęt jest dostarczany przez operatora</li>
+<li>Nasza odpowiedzialność zaczyna się na etapie instalacji systemu
+operacyjnego</li>
+<li>Nasza decyzja - bare metal / wirtualizacja</li>
+<li>Awaria dysku - problem dostawcy</li>
+</ul>
+<h3 id="paas">PaaS</h3>
+<ul>
+<li>np AWS</li>
+<li>np. dostarcza maszyny wirtualne</li>
+<li>działy w dużych organizacjach świadczą usługi innym działom</li>
+</ul>
+<h3 id="saas">SaaS</h3>
+<ul>
+<li>Pojedyncza aplikacja</li>
+<li>Konfiguracja w ramach aplikacji</li>
+<li>Warianty typu
+<ul>
+<li>baza danych jako serwis</li>
+<li>kolejka jako serwis</li>
+<li>streaming wideo jako serwis</li>
+</ul></li>
+</ul>
+<h3 id="aspekty-praktyczne">Aspekty praktyczne</h3>
+<ul>
+<li>…</li>
+</ul>
+<h2 id="prywatna-vs-publiczna">Prywatna vs publiczna</h2>
+<ul>
+<li>Narzędzia prywatnej chmury
+<ul>
+<li>vmware</li>
+<li>openstack</li>
+<li>proxmox</li>
+</ul></li>
+<li>Chmury publiczne
+<ul>
+<li>AWS</li>
+<li>GCP</li>
+<li>Azure</li>
+</ul></li>
+<li>Kwestie prawne są istotne przy wyborze platformy
+<ul>
+<li>RODO ogranicza gdzie geograficznie mogą być przechowywane dane</li>
+</ul></li>
+<li>Rozwiązania hybrydowe</li>
+<li>Nie najważniejsze jest co się wybierze, a jak się tym zarządza
+<ul>
+<li>IaC - dokumentuje infrastrukturę</li>
+</ul></li>
+</ul>
+<h2 id="infrastructure-as-code">Infrastructure as Code</h2>
+<ul>
+<li>Dokumentuje architekturę</li>
+<li>Jest powtarzalne
+<ul>
+<li>np. daje możliwość zestawienia środowiska testowego analogicznego do
+produkcji</li>
+</ul></li>
+<li>Terraform
+<ul>
+<li>działa między operatorami</li>
+<li>darmowe ale closed source</li>
+<li>OpenTofu - port open source</li>
+</ul></li>
+<li>Każdy dostawca ma swoje rozwiązanie typu template</li>
+</ul>
+<h2 id="configuration-as-code">Configuration as Code</h2>
+<ul>
+<li>Wszelkie zmiany konfiguracyjne dokumentowane w kodzie</li>
+<li>Ansible
+<ul>
+<li>open source</li>
+</ul></li>
+<li>Puppet
+<ul>
+<li>darmowy, nie do końca open source?</li>
+</ul></li>
+<li>Chef
+<ul>
+<li>zamknięty</li>
+</ul></li>
+<li>Wszelkie zmiany w systemie operacyjnym
+<ul>
+<li>użytkownicy</li>
+<li>firewall</li>
+<li>uruchamianie aplikacji</li>
+</ul></li>
+</ul>
+<h2 id="abstrakcja-zasobów">Abstrakcja zasobów</h2>
+<ul>
+<li>Aplikacje które my wytwarzamy</li>
+<li>Kubernetes</li>
+<li>Apache Mesos
+<ul>
+<li>system operacyjny serwerowni</li>
+<li>konfiguracje per serwerownie, a nie per serwer</li>
+</ul></li>
+</ul>
+<h2 id="przykład-opentofu">Przykład opentofu</h2>
+<ul>
+<li>Zasób
+<ul>
+<li>coś co powołujemy do życia</li>
+<li>np. maszyna wirtualna</li>
+<li>provisioner - wykonuje operacje (np. na AWS), konektor do środowiska
+które wykonuje polecenia</li>
+</ul></li>
+<li>tofu plan
+<ul>
+<li>plan wykonania</li>
+</ul></li>
+<li>tofu apply
+<ul>
+<li>można coś napsuć</li>
+</ul></li>
+<li>tfstate
+<ul>
+<li>bieżący stan</li>
+<li>nie monitoruje tego co się dzieje na bieżąco</li>
+</ul></li>
+<li>terraform.lock
+<ul>
+<li>hashe pobranych z rejestru pakietów (?)</li>
+</ul></li>
+<li>pluginy do konkretnych platform chmurowych (AWS, GCP) ale też do
+usług (rabbitmq)
+<ul>
+<li>zaciera się podział do czego używa się ansible a do czego
+terraform/opentofu</li>
+</ul></li>
+<li>jest opcja testowania tego co zostało wykonane
+<ul>
+<li>np. chcemy dowiedzieć się jakie adresy IP mają utworzone hosty</li>
+</ul></li>
+</ul>
+<h2 id="przykład-ansible">Przykład Ansible</h2>
+<ul>
+<li>Nie na Windowsie!</li>
+<li>ansible-playbook</li>
+<li>Na ogół dzieli się na wiele plików</li>
+<li>zmienne można mieć w oddzielnych plikach a można mieć zaszyte w
+playbooku</li>
+<li>inventory
+<ul>
+<li>format ini</li>
+<li>format yml</li>
+</ul></li>
+<li>zwyczajowo - dzieli się na role
+<ul>
+<li>to co się wykonuje - tasks</li>
+<li>główny task - main</li>
+<li>handlers - wywoływany przez instrukcję notify</li>
+<li>templates - format jininja</li>
+<li>defaults - jeśli zmienne nie zostały gdzie indziej nadpisane</li>
+</ul></li>
+<li>inlude_tasks - łączenie poleceń z różnych plików</li>
+<li>dekompozycja problemu na małe zadania</li>
+<li>ansible łącząc się do hosta zbiera o nim informacje</li>
+<li>można definiować zmienne per host
+<ul>
+<li>mogą być zaszyfrowane - możemy je trzymać w repozytorium</li>
+</ul></li>
+<li>można korzystać z gotowych ról</li>
+</ul>
+<h2 id="przykład-kubernetes">Przykład Kubernetes</h2>
+<ul>
+<li>Nasza aplikacja została spakowana w kontener</li>
+<li>Minikube - klaster na jednym hoście</li>
+<li>node - maszyny (wirtualne lub fizyczne)</li>
+<li>pod - instancja</li>
+<li>zajmuje się balansowaniem ruchu</li>
+<li>umożliwia autoskalowanie
+<ul>
+<li>w godzinach szczytu uruchamia się więcej maszyn</li>
+<li>kiedy ruch spada wyłącza się nadmiarowe maszyny</li>
+</ul></li>
+<li>Do obsługi poważnych obciążeń kładzie się na hardwarze
+<ul>
+<li>bez wirtualizacji</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#infrastruktura" id="toc-infrastruktura">Infrastruktura</a>
+<ul>
+<li><a href="#typy-chmur" id="toc-typy-chmur">Typy chmur</a>
+<ul>
+<li><a href="#kolokacja" id="toc-kolokacja">Kolokacja</a></li>
+<li><a href="#iaas" id="toc-iaas">IaaS</a></li>
+<li><a href="#paas" id="toc-paas">PaaS</a></li>
+<li><a href="#saas" id="toc-saas">SaaS</a></li>
+<li><a href="#aspekty-praktyczne" id="toc-aspekty-praktyczne">Aspekty
+praktyczne</a></li>
+</ul></li>
+<li><a href="#prywatna-vs-publiczna" id="toc-prywatna-vs-publiczna">Prywatna vs publiczna</a></li>
+<li><a href="#infrastructure-as-code" id="toc-infrastructure-as-code">Infrastructure as Code</a></li>
+<li><a href="#configuration-as-code" id="toc-configuration-as-code">Configuration as Code</a></li>
+<li><a href="#abstrakcja-zasobów" id="toc-abstrakcja-zasobów">Abstrakcja
+zasobów</a></li>
+<li><a href="#przykład-opentofu" id="toc-przykład-opentofu">Przykład
+opentofu</a></li>
+<li><a href="#przykład-ansible" id="toc-przykład-ansible">Przykład
+Ansible</a></li>
+<li><a href="#przykład-kubernetes" id="toc-przykład-kubernetes">Przykład
+Kubernetes</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

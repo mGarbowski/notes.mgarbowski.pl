@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>przed-kolokwium-01</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+
+    
+    <div class="index-links-next">
+        <a href="przed-kolokwium-02.html">Następny: przed-kolokwium-02.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Przeszukiwanie i optymalizacja</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="przed-kolokwium-01.html">przed-kolokwium-01.html</a></li>
+                
+                <li><a href="przed-kolokwium-02.html">przed-kolokwium-02.html</a></li>
+                
+                <li><a href="wyklad-00.html">wyklad-00.html</a></li>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <p>Zadanie 1 nie chodzi o rozwiązanie zadania chodzi o zdefiniowanie
+problemu i opisanie go samo rozwiązanie jest wtórne</p>
+<p>reprezentacja rozwiązania funkcja celu / zysku funkcja heurystyczna
+definicja sąsiedztwa (przy symulowanym wyżarzaniu) operator
+przekształcający (np. mutacja w algorytmie ewolucyjnym, generowanie
+losowego sąsiada w stochastycznym wzroście)</p>
+<p>algorytmy są wymuszone</p>
+<p>reprezentacja rozwiązania - zbiór decyzji, które trzeba podjąć A*
+częściowo podjęte decyzje czyli np wektory zer, jedynek i znaków
+zapytania</p>
+<p>przykład koncentratora podgraf będzie zawierał wsystkie węzły
+analogiczne do problemu komiwojażera</p>
+<p>krawędzi musi być o 1 mniej niż węzłów jak w grafie jest k
+krawędzi</p>
+<p>mamy wektor k elementowy, gdzie element jest 0,1,? (dla każdej
+krawędzi bierzemy, nie bierzemy albo jeszcze nie wiadomo)</p>
+<p>w symulowanym wyżarzaniu w wektorze są tylko 0 i 1, długość k ma być
+n-1 wybranych krawędzi, gdzie n jest liczbą węzłów każda reprezentacja
+ma szansę być reprezentacją koncentratora ale nie musi</p>
+<p>reprezentacje w symulowanym wyżarzaniu to węzły terminalne z drzewa
+do A*</p>
+<p>minimalizujemy sumę wag - funkcja kosztu sumujemy wagi tam gdzie są
+jedynki w wektorze jeśli w wektorze jest więcej niż n-1 jedynek to
+rozwiązanie niedopuszczalne</p>
+<p>funkcja heurystyczna - suma wag tylu niewybranych krawędzi ile
+brakuje do n-1 to najlepszy możliwy przypadek, monotoniczna i
+dopuszczalna</p>
+<p>zamieniając znak zapytania na jedynke - … zamieniając znak zapytania
+na zero - …</p>
+<p>wzrost kosztu większy lub równy spadkowi funkcji heurystycznej
+szukamy w miare ciasnego oszacowania optymistycznego (dla minimalizacji
+oszacowania z dołu)</p>
+<p>w symulowanym wyżarzaniu - losowy sąsiad - zamiana losowego 0 z
+losową 1 ale nie każdy wektor reprezentuje koncentrator blokujemy takie
+zamiany które prowadzą do nie bycia koncentratorem - poprawne ale
+niedobre możemy dopuścić, żeby wektor nie reprezentował koncentratora -
+można wprowadzić karę np. suma wag wszystkich krawędzi w grafie - każdy
+punkt dopuszczalny będzie lepszy niż niedopuszczalny</p>
+<p>możemy wybrać reprezentację, gdzie liczba jedynek jest dowolna i
+dolicza się karę</p>
+<h3 id="przykład---bąbelki">Przykład - bąbelki</h3>
+<p>Taka sama reprezentacja jak ostatnio do A* - k krawędzi w grafie,
+wybieramy mniejszą liczbę z nich</p>
+<p>dopiero po dostawieniu ostatniej jedynki wiemy czy rozwiązanie jest
+dopuszczalne (wiemy czy są cykle)</p>
+<p>wybieramy tyle krawędzi co wierzchołków w grafie (cykl ma tyle samo
+krawędzi co wierzchołków)</p>
+<p>funkcja kosztu - suma krawędzi wchodzących w skład bąbelków</p>
+<p>w symulowanym wyżarzaniu też tak jak poprzednio ma być n jedynek
+najprostsza modyfikacja (sąsiedztwo) to zamiana losowego zera z losową
+jedynką</p>
+<p>nie każdy wybór krawędzi daje bąbelki - dokładamy funkcję kary
+minimum globalne będzie tam gdzie optymalne rozwiązanie - minimalna suma
+wag i zerowa kara</p>
+<h3 id="przykład-vns">Przykład VNS</h3>
+<p>po m_1 iteracji znajdzie się w optimum lokalnym gorszym bo różni się
+o m_1 bitów potem zacznie zwiększać promień sąsiedztwa</p>
+<p>2 możliwości K=3 pozwala przejść do zbioru przyciągania jeśli m_2
+&lt;= 3 bo to lepsze optimum lokalne jest otoczone słabymi punktami da
+się dojśc do lepszego optimum lokalnego tylko jeśli wygeneruje się je
+jako sąsiada</p>
+<p>podczas podchodzenia do pierwszego optimum lokalnego w każdej z m_1
+iteracji generuje się n zmian bitowych n * m_1 obliczeń funkcji celu
+potem jest rozszerzanie do promienia 2 i 3 <span
+class="math inline">\(m_1 \cdot n \cdot \binom{n}{3}\)</span></p>
+<p>jeżeli m_2 &gt; 3 to algorytm zatrzyma się w optimum lokalnym
+gorszym</p>
+<p>jeśli m_2 == 3 będzie generowanie sąsiadów lepszego optimum lokalnego
+(algorytm dochodzi do lepszego optimum i potem znowu rozszerza się do
+promienia 3 kiedy już nie znajdzie lepszego punktu)</p>
+<h3 id="przykład-tabu">Przykład tabu</h3>
+<p>jak na wykładzie - algorytm prawie wspinaczkowy z tabu zorganizowanym
+jako fifo jeśli wielkość tabu jest równa rozmiarowi większego zbioru
+przyciągania</p>
+<p>startuje w zbiorze przyciągania gorszego optimum generuje wszystkich
+sąsiadów, znajduje lepszego i do niego przechodzi na początku wspina się
+do optimum lokalnego gorszego w najgorszym przypadku będzie jak
+najwolniej schodził z optimum lokalnego może w najgorszym wypadku
+sprawdzić wszystkie punkty z gorszego zbioru przyciągania zanim dojdzie
+do lepszego zbioru przyciągania cały zbiór przyciągania gorszego zbioru
+przyciągania wejdzi do tabu potem będzie sprawne wejście do lepszego
+optimum - będzie w najgorszym razie m_2 iteracji</p>
+<p>będzie v1 + m2 * n obliczeń funkcji celu - górne oszacowanie mnożymy
+przez n bo punkt ma n sąsiadów w początkowej fazie nie będzie * n bo
+wszystkich punktów jest v1 i nie będą sprawdzane jeśli już są w tabu</p>
+<h3 id="przykład---zadanie-3">Przykład - zadanie 3</h3>
+<p>dla q_1 - po wstawieniu do wzoru wychodzi inny rozkład
+prawdopodobieństwa q_2 - będzie tak samo bo się upraszcza we wzorze</p>
+<p><span class="math display">\[
+p_a = \exp(-\frac{|q(y) - q(x)|}{T})
+\]</span></p>
+<p><span class="math display">\[
+p_a = \exp(-a\frac{|q(y) - q(x)|}{T})
+\]</span></p>
+<h3 id="przykład---algorytm-ewolucyjny">Przykład - algorytm
+ewolucyjny</h3>
+<p>Dla selekcji proporcjonalnej aq(x) - nie zmienia q(x) + b</p>
+<p>Można mieć notatki na kolosie!!!</p>
+<p>może być pytanie typu co by było gdyby zmienić algorytm (np. wyłączyć
+mutację w algorytmie ewolucyjnym) jak rozszerzyć tabu do R^n</p>
+<p>jak rozszerzyć VNS do przestrzeni ciągłej - może dla algorytmu
+stochastycznego wzrostu można by sterować odchyleniem modyfikacji
+gaussowskiej przez promień sąsiedztwa VNS np. dla algorytmu mutacyjnego
+jeśli grzęźnie w optimum to zwiększamy standardowe odchylenie</p>
+<p>konkretna odpowiedź, 1-2 zdania odpowiedzi</p>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#przykład---bąbelki" id="toc-przykład---bąbelki">Przykład -
+bąbelki</a></li>
+<li><a href="#przykład-vns" id="toc-przykład-vns">Przykład VNS</a></li>
+<li><a href="#przykład-tabu" id="toc-przykład-tabu">Przykład
+tabu</a></li>
+<li><a href="#przykład---zadanie-3" id="toc-przykład---zadanie-3">Przykład - zadanie 3</a></li>
+<li><a href="#przykład---algorytm-ewolucyjny" id="toc-przykład---algorytm-ewolucyjny">Przykład - algorytm
+ewolucyjny</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

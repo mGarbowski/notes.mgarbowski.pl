@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-spring</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-logika-biznesowa.html">Poprzedni: 07-logika-biznesowa.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-integracja-systemow.html">Następny: 09-integracja-systemow.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="spring-framework">Spring Framework</h1>
+<p>Dependency injection, inversion of control</p>
+<p>time to market i koszty utrzymania - czynniki brane pod uwagę przy
+wyborze technologii do zbudowania nowej funkcji systemu</p>
+<p>Wysiłki standaryzacyjne w Javie dla aplikacji biznesowych (standardy
+połączenia z bazą danych, kolejkami, współbieżność) - J2EE, JEE, Jakarte
+EE, Enterprise Java Beans</p>
+<p>dążenie do tego, żeby deweloperzy pisali tylko logikę biznesową, a
+możliwie wiele rzeczy miało dostarczone implementacje standardowych
+api</p>
+<p>Spring powstał w odpowiedzi na drogie licencje na serwery aplikacyjne
+J2EE Spring jest Open Source</p>
+<h2 id="odwrócenie-sterowania-i-wstrzykiwanie-zależności">Odwrócenie
+sterowania i wstrzykiwanie zależności</h2>
+<ul>
+<li>Na w pełni skonfigurowany, gotowy do użycia system składają się
+<ul>
+<li>kontener Springa</li>
+<li>metadane konfiguracyjne</li>
+<li>obiekty biznesowe dostarczone przez programistę aplikacji
+(POJO)</li>
+</ul></li>
+<li>Odwrócenie sterowania
+<ul>
+<li>to nie programista aplikacji zarządza cyklem życia obiektów (nie
+pisze funkcji main itd)</li>
+<li>framework wykonuje kod programisty w odpowiedzi na jakieś zdarzenia
+w systemie</li>
+<li>programista dostarcza kodu logiki biznesowej, który obsługuje
+zdarzenia</li>
+</ul></li>
+<li>Wstrzykiwanie zależności
+<ul>
+<li>moduły zależą od siebie</li>
+<li>wzorzec projektowy do definiowania zależności między modułami</li>
+<li>zapewnia wymienialność modułów</li>
+</ul></li>
+<li>POJO
+<ul>
+<li>plain old java object</li>
+<li>elastyczne, framework nie narzuca struktury klas</li>
+</ul></li>
+<li>Metadane
+<ul>
+<li>np. dotyczące cyklu życia obieków</li>
+</ul></li>
+</ul>
+<h2 id="moduły-springa">Moduły Springa</h2>
+<ul>
+<li>Ma architekturę modułową</li>
+<li>Nie trzeba używać wszystkich
+<ul>
+<li>tylko te których potrzebujemy</li>
+</ul></li>
+<li>Core Container
+<ul>
+<li>bazowe funkcjonalności</li>
+<li>Beans - zarządzanie obiektami</li>
+<li>Core, Context - logika odpalania aplikacji</li>
+</ul></li>
+<li>Wsparcie testów</li>
+<li>Dostęp do danych</li>
+<li>Web</li>
+<li>Aspect Oriented Programming</li>
+</ul>
+<h2 id="demo">Demo</h2>
+<ul>
+<li>gradle.lockfile
+<ul>
+<li>wszystkie zależności i ich wersje</li>
+</ul></li>
+<li><code>SpringApplication.run()</code>
+<ul>
+<li>zwraca kontekst aplikacji</li>
+<li>kontekst zawiera wszystkie beany w aplikacji</li>
+</ul></li>
+<li>Anotacja <code>@Slf4j</code> z lomboka</li>
+<li>Warto korzystać z biblioteki standardowej wszędzie gdzie się da
+zamiast dodawać więcej zależności
+<ul>
+<li>łatwiejszy w utrzymaniu kod</li>
+</ul></li>
+<li>Dwa podejścia do zarejestrowania Beanów
+<ul>
+<li>anotacje na samej klasie <code>@Service</code></li>
+<li>klasa z anotacją <code>@Configuration</code> (fabryka) z metodą
+zwracającą bean z anotacją <code>@Bean</code></li>
+</ul></li>
+<li>Kod korzystający z wzorca wstrzykiwania zależności daje się łatwo
+testować jednostkowo</li>
+<li>Zaleta wstrzykiwania zależności
+<ul>
+<li>można zmienić wstrzykiwany obiekt np. w trakcie testów</li>
+</ul></li>
+<li>Anotacja <code>@SneakyThrows</code> z lomboka
+<ul>
+<li>do pominięcia checked exceptions</li>
+</ul></li>
+<li>Wzorzec z przerywaniem wątku z zewnątrz</li>
+<li><code>jps</code>
+<ul>
+<li><code>ps</code> ale dla wystartowanych instancji JVM w systemie</li>
+</ul></li>
+<li>Przy programowaniu wielowątkowym
+<ul>
+<li>poprawna obsługa sygnału SIGTERM (15)</li>
+<li>graceful shutdown</li>
+</ul></li>
+<li>Realizacja feature flags w springu
+<ul>
+<li><code>@ConfigurationProperties</code></li>
+<li><code>@ConditionalOnProperty</code></li>
+<li>rejestruje beana tylko jeśli jest ustawiona flaga w
+application.yml</li>
+<li>np. inna konfiuracja dla produkcji, inna dla testów</li>
+</ul></li>
+</ul>
+<h2 id="dostęp-do-danych">Dostęp do danych</h2>
+<ul>
+<li>Zarządzanie transakcjami
+<ul>
+<li>Java Transactions Api i inne możliwości</li>
+<li>zarządzanie przez anotacje</li>
+<li>która metoda ma się wykonywać jako transakcja</li>
+</ul></li>
+<li>Wsparcie dla DAO</li>
+<li>JDBC</li>
+<li>Spring Data</li>
+</ul>
+<h3 id="dwufazowy-commit">Dwufazowy commit</h3>
+<ul>
+<li>Kolejki JMS też mogą być transakcyjne</li>
+<li>Przykładowo
+<ul>
+<li>aplikacja odczytuje zdarzenie z kolejki</li>
+<li>przetwarza zdarzenie</li>
+<li>zapisuje coś do bazy</li>
+</ul></li>
+<li>Dwufazowy commit
+<ul>
+<li>nie chcemy żeby zdarzenie zostało zdjęte z kolejki jeśli nie uda się
+zapis do bazy</li>
+<li>obie transakcje muszą się udać</li>
+<li>skomplikowany rollback</li>
+<li>spring tym zarządza</li>
+</ul></li>
+</ul>
+<h3 id="dao">DAO</h3>
+<ul>
+<li>Transalcja między językiem źródła danych a modelem obiektowym</li>
+<li>np rekordy z SQLa na obiekty w Javie</li>
+<li>w testach zastępuje się mockiem</li>
+<li>Implementacja np. korzystając ze sterowników JDBC</li>
+</ul>
+<h3 id="dostęp-przez-jdbc">Dostęp przez JDBC</h3>
+<ul>
+<li>Bezpośrednie użycie JDBC wymaga pisania dużo boilerplate</li>
+<li>jdbc tempates bardzo skracają zapis</li>
+<li>podaje się SQL w stringach</li>
+<li>toole od springa</li>
+<li>tabelka co musi programista a co robi spring przy spring-jdbc</li>
+</ul>
+<h3 id="dostęp-za-pomocą-orm">Dostęp za pomocą ORM</h3>
+<ul>
+<li>JPA</li>
+<li>Integracja springa z JPA</li>
+<li>Entity Manager oznaczony jako Persistence Context</li>
+</ul>
+<h3 id="spring-data">Spring Data</h3>
+<ul>
+<li>Nie tylko do SQLa
+<ul>
+<li>Mongo</li>
+<li>ldap</li>
+</ul></li>
+<li>pod spodem JDBC, JPA, …</li>
+<li>Dostarcza wielu gotowych rozwiązań
+<ul>
+<li>CrudRepository</li>
+<li>wszystkie standardowe operacje CRUD</li>
+</ul></li>
+</ul>
+<h2 id="serwlet">Serwlet</h2>
+<ul>
+<li>Interfejs HttpServlet z czystej Javy
+<ul>
+<li>metoda inicjalizująca</li>
+<li>metody do obsługi get i post</li>
+<li>argumenty request i response</li>
+</ul></li>
+<li>deployowany do serwera aplikacyjnego, kontenera serwletów
+<ul>
+<li>np. tomcat</li>
+</ul></li>
+<li>spring opakowuje serwlety</li>
+</ul>
+<h2 id="wzorzec-mvc">Wzorzec MVC</h2>
+<ul>
+<li>Model
+<ul>
+<li>model domenowy danych</li>
+</ul></li>
+<li>View
+<ul>
+<li>wyświetlany użytkownikowi</li>
+</ul></li>
+<li>Controller
+<ul>
+<li>manipuluje danymi opartymi o model</li>
+</ul></li>
+<li>wzorzec do tworzenia aplikacji z interfejsem użytkownika</li>
+<li>użytkownik używa kontrolera</li>
+<li>kontroler modyfikuje model</li>
+<li>model uaktualnia widok</li>
+</ul>
+<h3 id="spring-web-mvc">Spring web mvc</h3>
+<ul>
+<li>Do aplikacji webowych lub rest api</li>
+<li>do sever side rendering (np z użyciem thymeleaf) są devtoole z
+wsparciem hot module reload</li>
+<li>spring actuator - monitoring</li>
+<li>biblioteka która z automatu generuje strone ze specyfikacją api
+<ul>
+<li>swagger, openapi</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#spring-framework" id="toc-spring-framework">Spring
+Framework</a>
+<ul>
+<li><a href="#odwrócenie-sterowania-i-wstrzykiwanie-zależności" id="toc-odwrócenie-sterowania-i-wstrzykiwanie-zależności">Odwrócenie
+sterowania i wstrzykiwanie zależności</a></li>
+<li><a href="#moduły-springa" id="toc-moduły-springa">Moduły
+Springa</a></li>
+<li><a href="#demo" id="toc-demo">Demo</a></li>
+<li><a href="#dostęp-do-danych" id="toc-dostęp-do-danych">Dostęp do
+danych</a>
+<ul>
+<li><a href="#dwufazowy-commit" id="toc-dwufazowy-commit">Dwufazowy
+commit</a></li>
+<li><a href="#dao" id="toc-dao">DAO</a></li>
+<li><a href="#dostęp-przez-jdbc" id="toc-dostęp-przez-jdbc">Dostęp przez
+JDBC</a></li>
+<li><a href="#dostęp-za-pomocą-orm" id="toc-dostęp-za-pomocą-orm">Dostęp
+za pomocą ORM</a></li>
+<li><a href="#spring-data" id="toc-spring-data">Spring Data</a></li>
+</ul></li>
+<li><a href="#serwlet" id="toc-serwlet">Serwlet</a></li>
+<li><a href="#wzorzec-mvc" id="toc-wzorzec-mvc">Wzorzec MVC</a>
+<ul>
+<li><a href="#spring-web-mvc" id="toc-spring-web-mvc">Spring web
+mvc</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

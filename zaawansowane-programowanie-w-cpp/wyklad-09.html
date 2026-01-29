@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-09</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-08.html">Poprzedni: wyklad-08.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-10.html">Następny: wyklad-10.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="programowanie-generyczne-zpr--w10--2020-12-08">Programowanie
+generyczne (ZPR- W10 -2020 12 08)</h1>
+<h2 id="kolekcje-i-algorytmy">Kolekcje i algorytmy</h2>
+<ul>
+<li>Pojęcia niezależne od typu
+<ul>
+<li>kolekcje (np. lista)</li>
+<li>algorytmy (np. znajdowanie największego elementu)</li>
+</ul></li>
+<li>Mechanizmy eliminujące redundancję kodu
+<ul>
+<li>wspólna klasa bazowa (polimorfizm czasu wykonania)</li>
+<li>wykorzystanie szablonów (polimorfizm czasu kompilacji)</li>
+</ul></li>
+<li>Wady polimorfizmu czasu wykonania
+<ul>
+<li>narzuty na wołanie funkcji wirtualnych</li>
+<li>rzutowanie dynamiczne</li>
+<li>problem typów wbudowanych (nie ma <code>Object</code> jak w
+Javie)</li>
+</ul></li>
+<li>Szablony
+<ul>
+<li>mechanizm generowania kodu</li>
+<li>rozumie składnię języka (w przeciwieństwie do dyrektyw
+preprocesora)</li>
+<li>konkretyzacja - dla każdego typu powstaje binarna implementacja np.
+dla wektora</li>
+</ul></li>
+</ul>
+<h2 id="składnia-szablonów">Składnia szablonów</h2>
+<ul>
+<li>Parametrem może być typ lub liczba całkowita</li>
+<li>Parametr może mieć wartość domyślną</li>
+</ul>
+<h2 id="szablon-jako-mechanizm-czasu-kompilacji">Szablon jako mechanizm
+czasu kompilacji</h2>
+<ul>
+<li>Jeśli kod nie został użyty to nie jest kompilowany
+<ul>
+<li>można nie wyłapać błędu</li>
+<li>pozwala bardzo ograniczyć kod binarny</li>
+</ul></li>
+<li>Brak narzutów czasowych w czasie wykonania</li>
+<li>W nagłówkach (miejscu użycia) musi znajdować się definicja (a nie
+sama deklaracja)
+<ul>
+<li>nagłówki stają się nieczytelne, bo zawierają implementację</li>
+</ul></li>
+</ul>
+<h2 id="organizacja-modułu">Organizacja modułu</h2>
+<p>Nagłówek <code>x.hpp</code> - czytany przez użytkownika modułu</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> <span class="kw">class</span> Foo <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Definicja klasy i metod inline</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&quot;x.tpp&quot;</span></span></code></pre></div>
+<p>Implementacja metod wzorca <code>x.tpp</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> T<span class="op">&amp;</span> Foo<span class="op">&lt;</span>T<span class="op">&gt;::</span>get<span class="op">(</span><span class="dt">int</span> index<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// kod szablonu</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Implementacja metod niezależnych od parametrów szablonu - plik
+<code>x.cpp</code></p>
+<h2 id="listy-inicjujące">Listy inicjujące</h2>
+<ul>
+<li>Dostarczanie kolekcji stałych</li>
+<li>Jako parametr (np. konstruktora)
+<ul>
+<li>uproszczenie zapisu</li>
+</ul></li>
+</ul>
+<h2 id="szablony-funkcji">Szablony funkcji</h2>
+<ul>
+<li>Algorytmy niezależne od typu</li>
+<li>Podobne działanie jak do szablonu klas</li>
+<li>Można jawnie skonkretyzować szablon funkcji
+<ul>
+<li>np. jeśli nie wynika z typów argumentów</li>
+</ul></li>
+</ul>
+<h2 id="typename"><code>typename</code></h2>
+<ul>
+<li>Jawne wskazanie, że identyfikator jest typem</li>
+<li>W szablonie można stosować wymiennie z <code>class</code></li>
+<li>Odróżnienie sięgnięcia do typu (<code>using</code>) od sięgnięcia do
+składowej</li>
+</ul>
+<h2 id="specjalizacje-szablonu">Specjalizacje szablonu</h2>
+<ul>
+<li>Dostarczanie różnych wersji dla tego samego szablonu
+<ul>
+<li>kompilator rozstrzyga której wersji użyć</li>
+</ul></li>
+<li>Dla określonych typów można dostarczyć pewnych optymalizacji</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Szablon klasy</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> <span class="kw">class</span> Foo <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">};</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Częściowa specjalizacja dla wskaźników</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> <span class="kw">class</span> Foo<span class="op">&lt;</span>T<span class="op">*&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">};</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Pełna specjalizacja dla typu int</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;&gt;</span> <span class="kw">class</span> Foo<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">};</span></span></code></pre></div>
+<h2 id="template-metaprogramming">Template metaprogramming</h2>
+<ul>
+<li>Szablony (konkretyzacja i specjalizacja) są równoważne maszynie
+Turinga
+<ul>
+<li>szablony są odrębnym, funkcyjnym językiem programowania</li>
+</ul></li>
+<li>Można zapisać cały program przy użyciu szablonów
+<ul>
+<li>używając konkretyzacji i specjalizacji</li>
+</ul></li>
+<li>Może znacznie zwiększyć wydajność kosztem zwiększenia czasu
+kompilacji</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="dt">unsigned</span> n<span class="op">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Silnia <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">enum</span> <span class="op">{</span> value <span class="op">=</span> n<span class="op">*</span>Silnia<span class="op">&lt;</span>n<span class="op">-</span><span class="dv">1</span><span class="op">&gt;::</span>value <span class="op">};</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;&gt;</span> <span class="kw">struct</span> Silnia<span class="op">&lt;</span><span class="dv">0</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">enum</span> <span class="op">{</span> value <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>cout <span class="op">&lt;&lt;</span> Silnia<span class="op">&lt;</span><span class="dv">5</span><span class="op">&gt;::</span>value<span class="op">;</span></span></code></pre></div>
+<h2 id="szablony-vs-hierarchia-klas">Szablony vs hierarchia klas</h2>
+<ul>
+<li>Preferujemy hierarchię klas kiedy chcemy wyrażać jakieś wspólne
+elementy</li>
+<li>Używamy szablonów gdy
+<ul>
+<li>nie można utworzyć klasy bazowej</li>
+<li>ważne są typy wbudowane</li>
+<li>bardzo ważna jest efektywność</li>
+<li>akceptowalne jest wydłużenie kompilacji</li>
+</ul></li>
+<li>Prosta reguła
+<ul>
+<li>szablony - gdy typ obiekty nie modyfikuje działania algorytmu (np.
+kolekcja)</li>
+<li>funkcje wirtualne - gdy typ obiektu modyfikuje działanie klasy</li>
+</ul></li>
+</ul>
+<h2 id="problemy-przy-stosowaniu-szablonów">Problemy przy stosowaniu
+szablonów</h2>
+<ul>
+<li>Generuje kod, który następnie będzie kompilowany
+<ul>
+<li>typowo najpierw tworzy się testowy kontener/algorytm dla konkretnego
+typu</li>
+<li>dostarcza się testy jednostkowe testujące działanie dla konkretnego
+typu</li>
+<li>przekształcenie zapisu w szablon i poprawienie testów</li>
+<li>dodanie testów dla innych typów</li>
+<li>inne sposoby mogą prowadzić do powstania błędów trudnych do
+wykrycia</li>
+</ul></li>
+<li>Język szablonów jest funkcyjny
+<ul>
+<li>nie ma mechanizmu rozróżniania typów</li>
+</ul></li>
+<li>Nadmiernie rozrasta się kod binarny</li>
+<li>Nieczytelne komunikaty o błędach
+<ul>
+<li>nie w tym miejscu gdzie właściwie występuje błąd</li>
+</ul></li>
+</ul>
+<h2 id="iterator">Iterator</h2>
+<ul>
+<li>Pozwala dostarczyć tych samych algorytmów niezależnie od typu
+kolekcji</li>
+<li>Niektóre kolekcje pozwalają na przesuwanie iteratora (wydajnie) o
+wiele elementów do przodu</li>
+<li>Kategorie iteratora
+<ul>
+<li>input_iterator - jednokrotny odczyt wskazywanego elementu,
+inkrementacja</li>
+<li>output_iterator - jednokrotny zapis elementu, inkrementacja</li>
+<li>forward_iterator - wielokrotny odczyt/zapis, inkrementacja (lista
+jednokierunkowa)</li>
+<li>bidirectional_iterator - j.w. + przesunięcie o jedne element do tyłu
+(lista dwukierunkowa)</li>
+<li>random_access_iterator - j.w. + przesuwanie do przodu i do tyłu o n
+elementów (tablica)</li>
+</ul></li>
+<li>Ogólny algorytm do przesunięcie iteratora o n kroków do przodu
+<ul>
+<li>wykorzystuje operator ++</li>
+<li>działa niewydajnie dla random_access_iterator</li>
+</ul></li>
+</ul>
+<h2 id="trejty">Trejty</h2>
+<ul>
+<li>Klasa bez składowych</li>
+<li>Nie służy do tworzenia obiektów</li>
+<li>Tylko do rozróżniania typów</li>
+<li>Definiowane jako <code>struct</code></li>
+<li>Mogą być powiązane relacją dziedziczenia</li>
+<li>Iteratory mają typ składowy iterator_category</li>
+<li>Przeciążenie szablonu z parametrem służącym tylko do rozróżnienia
+algorytmu na podstawie typu</li>
+<li>Pomocniczy szablon <code>iterator_traits</code></li>
+<li>Nie są tworzone obiekty, nie następuje skok, kod jest inline’owany
+<ul>
+<li>rozróżnienie jest w czasie kompilacji</li>
+</ul></li>
+</ul>
+<h3 id="trejty-w-bibliotece-standardowej">Trejty w bibliotece
+standardowej</h3>
+<ul>
+<li>iterator_traits</li>
+<li>char_traits</li>
+<li>numeric_limits
+<ul>
+<li><code>!(x==x)</code> - badanie czy jest NaN</li>
+</ul></li>
+<li>type_traits
+<ul>
+<li>sprawdzanie właściwości typu</li>
+<li>czy liczba całkowita, czy funkcja, czy klasa, czy const</li>
+<li>czy powiązane relacją dziedziczenia</li>
+<li>czy ma konstruktor</li>
+</ul></li>
+</ul>
+<h2 id="nadmierne-rozrastanie-się-kodu-binarnego">Nadmierne rozrastanie
+się kodu binarnego</h2>
+<ul>
+<li>Konkretyzacja sprawia, że generuje się oddzielne kody binarne na
+podstawie tego samego szablonu</li>
+<li>Wzorzec adaptera
+<ul>
+<li>współdzielenie implementacji dla typów o takiej samej reprezentacji
+binarnej</li>
+<li>np. pełna specjalizacja dla <code>void*</code>, specjalizacja dla
+dowolnego wskaźnika dziedziczy po <code>Kolekcja&lt;void&gt;</code></li>
+</ul></li>
+</ul>
+<h3 id="eliminacja-parametrów-szablonu-które-nie-są-typami">Eliminacja
+parametrów szablonu, które nie są typami</h3>
+<ul>
+<li>Przechowywanie liczby jako składowa w bazowym szablonie</li>
+<li>Przykład macierzy</li>
+</ul>
+<h2 id="nieczytelne-komunikaty-o-błędach">Nieczytelne komunikaty o
+błędach</h2>
+<ul>
+<li><code>static_assert</code> - asercja czasu kompilacji
+<ul>
+<li>nie było w starszych standardach języka</li>
+<li>generuje błąd jeśli parametr szablonu jest niepoprawny</li>
+</ul></li>
+</ul>
+<h2 id="koncepcje-c20">Koncepcje (C++20)</h2>
+<ul>
+<li>…</li>
+</ul>
+<h2 id="crtp">CRTP</h2>
+<ul>
+<li>Curiously Recurring Template Pattern</li>
+<li>Klasa dziedziczy po szablonie, którego jest parametrem</li>
+<li>W czasie kompilacji rozsztrzyga się jaki kod ma być wołany</li>
+<li>Efekt podobny do funkcji wirtualnych
+<ul>
+<li>bez VTBL i kosztów późnego wiązania</li>
+</ul></li>
+<li>Można np. dziedziczyć po szablonie żeby automatycznie wygenerować
+operatory porównania</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span> <span class="kw">struct</span> base <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> calculate<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">static_cast</span><span class="op">&lt;</span>T<span class="op">*&gt;(</span><span class="kw">this</span><span class="op">)-&gt;</span>doCalculate<span class="op">();</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> derived <span class="op">:</span> base<span class="op">&lt;</span>derived<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> doCalculate<span class="op">()</span> <span class="op">{</span> <span class="co">/*...*/</span><span class="op">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="szablony-jako-parametry-szablonów">Szablony jako parametry
+szablonów</h2>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#programowanie-generyczne-zpr--w10--2020-12-08" id="toc-programowanie-generyczne-zpr--w10--2020-12-08">Programowanie
+generyczne (ZPR- W10 -2020 12 08)</a>
+<ul>
+<li><a href="#kolekcje-i-algorytmy" id="toc-kolekcje-i-algorytmy">Kolekcje i algorytmy</a></li>
+<li><a href="#składnia-szablonów" id="toc-składnia-szablonów">Składnia
+szablonów</a></li>
+<li><a href="#szablon-jako-mechanizm-czasu-kompilacji" id="toc-szablon-jako-mechanizm-czasu-kompilacji">Szablon jako mechanizm
+czasu kompilacji</a></li>
+<li><a href="#organizacja-modułu" id="toc-organizacja-modułu">Organizacja modułu</a></li>
+<li><a href="#listy-inicjujące" id="toc-listy-inicjujące">Listy
+inicjujące</a></li>
+<li><a href="#szablony-funkcji" id="toc-szablony-funkcji">Szablony
+funkcji</a></li>
+<li><a href="#typename" id="toc-typename"><code>typename</code></a></li>
+<li><a href="#specjalizacje-szablonu" id="toc-specjalizacje-szablonu">Specjalizacje szablonu</a></li>
+<li><a href="#template-metaprogramming" id="toc-template-metaprogramming">Template metaprogramming</a></li>
+<li><a href="#szablony-vs-hierarchia-klas" id="toc-szablony-vs-hierarchia-klas">Szablony vs hierarchia
+klas</a></li>
+<li><a href="#problemy-przy-stosowaniu-szablonów" id="toc-problemy-przy-stosowaniu-szablonów">Problemy przy stosowaniu
+szablonów</a></li>
+<li><a href="#iterator" id="toc-iterator">Iterator</a></li>
+<li><a href="#trejty" id="toc-trejty">Trejty</a>
+<ul>
+<li><a href="#trejty-w-bibliotece-standardowej" id="toc-trejty-w-bibliotece-standardowej">Trejty w bibliotece
+standardowej</a></li>
+</ul></li>
+<li><a href="#nadmierne-rozrastanie-się-kodu-binarnego" id="toc-nadmierne-rozrastanie-się-kodu-binarnego">Nadmierne rozrastanie
+się kodu binarnego</a>
+<ul>
+<li><a href="#eliminacja-parametrów-szablonu-które-nie-są-typami" id="toc-eliminacja-parametrów-szablonu-które-nie-są-typami">Eliminacja
+parametrów szablonu, które nie są typami</a></li>
+</ul></li>
+<li><a href="#nieczytelne-komunikaty-o-błędach" id="toc-nieczytelne-komunikaty-o-błędach">Nieczytelne komunikaty o
+błędach</a></li>
+<li><a href="#koncepcje-c20" id="toc-koncepcje-c20">Koncepcje
+(C++20)</a></li>
+<li><a href="#crtp" id="toc-crtp">CRTP</a></li>
+<li><a href="#szablony-jako-parametry-szablonów" id="toc-szablony-jako-parametry-szablonów">Szablony jako parametry
+szablonów</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

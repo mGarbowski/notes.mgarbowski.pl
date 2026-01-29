@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-efektywne-obliczeniowo-dostrajanie-modeli</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-fezy-trenowania.html">Poprzedni: 07-fezy-trenowania.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-tylko-koder.html">Następny: 09-tylko-koder.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="efektywne-obliczeniowo-dostrajanie-modeli-peft">Efektywne
+obliczeniowo dostrajanie modeli (PEFT)</h1>
+<h2 id="dostrajanie-llm-w-naiwny-sposób">Dostrajanie LLM w naiwny
+sposób</h2>
+<ul>
+<li>Pamięć GPU potrzebna do dostrajania modelu jest wielokrotnie większa
+niż pamięć potrzebna na przechowanie wag modelu
+<ul>
+<li>12-20x więcej niż wagi</li>
+</ul></li>
+<li>Poza wagami trzeba przechowywać
+<ul>
+<li>stan optymalizatora</li>
+<li>gradienty</li>
+<li>aktywacje</li>
+</ul></li>
+</ul>
+<h2 id="reprezentacje-liczb-zmiennoprzecinkowych">Reprezentacje liczb
+zmiennoprzecinkowych</h2>
+<ul>
+<li>Żeby model zajmował mniej pamięci można zmienić reprezentację
+<ul>
+<li>niższa precyzja</li>
+</ul></li>
+<li><code>float16</code> ma dużo mniejszy zakres niż
+<code>float32</code>
+<ul>
+<li>5 bitów wykładnika vs 8 bitów wykładnika</li>
+</ul></li>
+<li><code>bfloat16</code> - Brain Float 16
+<ul>
+<li>8 bitów wykładnika</li>
+<li>7 bitów mantysy</li>
+<li>zakres wartości (wykładnik) taki sam jak dla float 32 przy mniejszej
+precyzji</li>
+<li>nie każde GPU wspiera ten typ</li>
+<li>nie jest wspierany przez T4 dostępne na collabie</li>
+<li>RTX 30XX wspierają</li>
+</ul></li>
+<li>Tensor float 32
+<ul>
+<li>8 bitów wykładnika - tyle co float 32</li>
+<li>10 bitów mantysy - tyle co float 16</li>
+<li>zajmuje tyle pamięci co float 32</li>
+<li>wykorzystywany niejawnie w wybranych architekturach GPU (Ampere
+A100)</li>
+<li>GPU wykonuje mnożenie macierzy przy zmniejszonej precyzji</li>
+<li>potem reprezentacja w standardowych f32</li>
+<li>pozwala na nawet dwukrotne przyspieszenie obliczeń</li>
+</ul></li>
+</ul>
+<h2 id="parameter-efficient-fine-tuning-peft">Parameter-Efficient
+Fine-Tuning (PEFT)</h2>
+<ul>
+<li>Rodzina metod pozwalająca na efektywne dostrajanie relatywnie dużych
+modeli
+<ul>
+<li>2-4B parametrów można trenować na średniej klasy GPU</li>
+</ul></li>
+<li>Typowe podejścia
+<ul>
+<li>optymalizacja tylko niektórych parametrów, a pozostałe zostają
+zamrożone</li>
+<li>dodatkowe warstwy optymalizowane podczas uczenia, a wszystkie wagi
+modelu bazowego zamrożone</li>
+</ul></li>
+<li>Często łączone z kwantyzacją modelu
+<ul>
+<li>np. do 8 lub 4 bitów</li>
+</ul></li>
+<li>Mniej podatne na amnezję niż pełne dostrajanie
+<ul>
+<li><em>catastrophic forgetting</em></li>
+</ul></li>
+</ul>
+<h2 id="klasy-metod-peft">Klasy metod PEFT</h2>
+<ul>
+<li>Selektywny trening
+<ul>
+<li>dostrojenie podzbioru parametrów modelu</li>
+<li>np. wybrane warstwy lub części warstw</li>
+</ul></li>
+<li>Metody oparte o reparametryzację
+<ul>
+<li>wykorzystanie rozkładu na macierze niskiego rzędu do przybliżonej
+reprezentacji wag sieci (lub zmiany wag)</li>
+<li>optymalizowane są wyznaczone macierze niskiego rzędu</li>
+<li>np. metody LoRA, Q-LoRA, DoRA</li>
+</ul></li>
+<li>Metody addytywne
+<ul>
+<li>dodatkowe warstwy dodane do modelu</li>
+<li>wagi pretrenowanej sieci pozostają zamrożone, a optymalizowane są
+tylko dodatkowe warstwy</li>
+</ul></li>
+<li>Uczenie promptu
+<ul>
+<li>wagi modelu zostają zamrożone</li>
+<li>hard prompting - prompt w języku naturalnym lub w przestrzeni
+tokenów</li>
+<li>soft prompting - wirtualny prompt w przestrzeni embeddingów</li>
+</ul></li>
+<li>Dostrajanie modelu (fine tuning)
+<ul>
+<li>nadzorowane dostrajanie wag w oparciu o relatywnie nieduży zbiór
+treningowy</li>
+<li>pary treningowe - prompt i oczekiwane wyjście z modelu</li>
+</ul></li>
+</ul>
+<h3 id="prompting">Prompting</h3>
+<ul>
+<li>Zalety
+<ul>
+<li>ograniczone zapotrzebowanie na zasoby obliczeniowe</li>
+<li>wagi modelu zostają zamrożone</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>skuteczne głównie dla dużych modeli językowych</li>
+<li>gorzej działa dla mniejszych</li>
+<li>długi prompt zajmuje miejsce w oknie kontekstu</li>
+</ul></li>
+</ul>
+<h4 id="soft-prompts">Soft prompts</h4>
+<ul>
+<li>Wirtualny prompt w przestrzeni embeddingów, dołączany do promptu
+użytkownika
+<ul>
+<li>zwykle 20-100 elementów</li>
+<li>może być losowo zainicjowany</li>
+</ul></li>
+<li>Optymalizujemy wirtualny prompt w procesie uczenia
+<ul>
+<li>przy zamrożonych wagach modelu</li>
+</ul></li>
+<li>Działa tym lepiej im bardziej złożony jest sam model</li>
+<li>Prompt raczej nie ma interpretacji w języku naturalnym
+<ul>
+<li>zoptymalizowany prompt po zdekodowaniu (najbliżsi sąsiedzi w
+słowniku) raczej będzie bełkotem</li>
+</ul></li>
+<li>Bardzo efektywne</li>
+<li>Uniwersalne - można przygotować różne prompty do różnych zadań</li>
+<li>P-tuning
+<ul>
+<li>dodatkowa warstwa prompt encodera (np. MLP) optymalizowana w
+procesie uczenia</li>
+<li>wirtualny prompt może zostać dołączony w dowolnym miejscu wejściowej
+sekwencji</li>
+</ul></li>
+</ul>
+<h4 id="hard-prompts">Hard prompts</h4>
+<ul>
+<li>Prompt w języku naturalnym</li>
+<li>Dla dużych modeli językowych dobrze działa zademonstrowanie w
+wejściowym prompcie kilku oczekiwanych odpowiedzi modelu
+<ul>
+<li>in-context learning: one-shot few-shot learning</li>
+</ul></li>
+<li>Ręczne tworzenie promptów w języku naturalnym metodą prób i błędów
+<ul>
+<li>może być trudne/czasochłonne</li>
+</ul></li>
+<li>Niewielka zmiana promptu może znacząco zmienić uzyskane wyniki</li>
+<li>Rozmiar promptu ograniczony rozmiarem okna kontekstu</li>
+</ul>
+<h2 id="lora">LoRA</h2>
+<ul>
+<li><em>Low-rank adaptation of Large Language Models</em></li>
+<li>Zamrożenie oryginalnych wag modelu</li>
+<li>Optymalizowane są macierze, które są dodawane do oryginalnych
+wag</li>
+<li>Dostrajane macierze po dekompozycji na macierze niższego rzędu</li>
+<li>Zamiast jednej dużej macierzy, np. 512x64, dwie mniejsze macierze
+np. 8x64 i 512x8
+<ul>
+<li>po wymnożeniu będzie taki sam wymiar</li>
+<li>ale do optymalizacji jest znacznie mniej parametrów (4k vs 32k)</li>
+</ul></li>
+<li>Na koniec treningu scala się iloczyn dwóch mniejszych macierzy z
+oryginalną i używa bez żadnego narzutu</li>
+<li>Q-LoRA - kwantyzacja modelu do wersji 4 lub 8-bitowej</li>
+</ul>
+<h2 id="optymalizacja-treningu-na-jednym-gpu">Optymalizacja treningu na
+jednym GPU</h2>
+<ul>
+<li>Kwantyzacja modelu z fp32 do fp15, bfloat16 lub int8</li>
+<li>Wybór odpowiedniego optymlalizatora
+<ul>
+<li>standardowy AdamW zużywa 8 bajtów na parametr</li>
+<li>AdaFactor - 4 bajty na parametr</li>
+<li>8-bitowy AdamW (adamw_bnb_8bit) - 2 bajty na parametr</li>
+</ul></li>
+<li>Akumulacja gradientu
+<ul>
+<li>pozwala na zwiększenie efektywnego rozmiaru wsadu</li>
+</ul></li>
+</ul>
+<h2 id="kwantyzacja-modeli-w-huggingface">Kwantyzacja modeli w
+HuggingFace</h2>
+<ul>
+<li>Biblioteka <code>bitsandbytes</code>
+<ul>
+<li>wspiera kwantyzację modeli językowych</li>
+</ul></li>
+<li>Kwantyzacja 8-bitowa (int8) i 4-bitowa</li>
+<li>Post Training Quantization (PTQ)
+<ul>
+<li>zmniejsza wykorzystanie pamięci bez potrzeby re-trenowania
+modelu</li>
+<li>niejednorodna kwantyzacja</li>
+<li>obliczenia w mieszanej precyzji - wagi przechowywane w 4-bitach, a
+obliczenia wykonywane w wyższej precyzji</li>
+</ul></li>
+<li>Efektywne optymalizatory
+<ul>
+<li>np. 8-bitowy Adam</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#efektywne-obliczeniowo-dostrajanie-modeli-peft" id="toc-efektywne-obliczeniowo-dostrajanie-modeli-peft">Efektywne
+obliczeniowo dostrajanie modeli (PEFT)</a>
+<ul>
+<li><a href="#dostrajanie-llm-w-naiwny-sposób" id="toc-dostrajanie-llm-w-naiwny-sposób">Dostrajanie LLM w naiwny
+sposób</a></li>
+<li><a href="#reprezentacje-liczb-zmiennoprzecinkowych" id="toc-reprezentacje-liczb-zmiennoprzecinkowych">Reprezentacje liczb
+zmiennoprzecinkowych</a></li>
+<li><a href="#parameter-efficient-fine-tuning-peft" id="toc-parameter-efficient-fine-tuning-peft">Parameter-Efficient
+Fine-Tuning (PEFT)</a></li>
+<li><a href="#klasy-metod-peft" id="toc-klasy-metod-peft">Klasy metod
+PEFT</a>
+<ul>
+<li><a href="#prompting" id="toc-prompting">Prompting</a></li>
+</ul></li>
+<li><a href="#lora" id="toc-lora">LoRA</a></li>
+<li><a href="#optymalizacja-treningu-na-jednym-gpu" id="toc-optymalizacja-treningu-na-jednym-gpu">Optymalizacja treningu na
+jednym GPU</a></li>
+<li><a href="#kwantyzacja-modeli-w-huggingface" id="toc-kwantyzacja-modeli-w-huggingface">Kwantyzacja modeli w
+HuggingFace</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -66,7 +66,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h2 id="definicje-podstawowe-i-obowiązkowe">Definicje podstawowe i
 obowiązkowe:</h2>
 <h3 id="system-operacyjny">System operacyjny</h3>
@@ -656,9 +655,9 @@ znajdujący się poza sekcją krytyczną (P1 już nie ustawi
 <code>enter_region</code>, a po wyjściu <code>leave_region</code>,
 podaje swój numer jako argument</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FALSE 0 </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRUE 1 </span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 2 </span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FALSE </span><span class="dv">0</span><span class="pp"> </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRUE </span><span class="dv">1</span><span class="pp"> </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N </span><span class="dv">2</span><span class="pp"> </span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> turn<span class="op">;</span> </span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> interested<span class="op">[</span>N<span class="op">];</span> <span class="co">/* initially 0 */</span> </span>
@@ -738,7 +737,7 @@ id</li>
 nastąpić przełączenie kontekstu i sygnał <code>wakeup</code> zostanie
 wysłany zanim drugi proces zaśnie czyli jest gubiony - bloada</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 100</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N </span><span class="dv">100</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> producer<span class="op">()</span> <span class="op">{</span></span>
@@ -825,7 +824,7 @@ działanie</li>
 <h3
 id="producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami">Producent-konsument
 - poprawna realizacja z synchronizacją semaforami</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N 100</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N </span><span class="dv">100</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>semaphore mutex <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>semaphore empty <span class="op">=</span> N<span class="op">;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>semaphore full <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -1104,101 +1103,105 @@ done</code></pre>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#definicje-podstawowe-i-obowiązkowe">Definicje podstawowe i
+<li><a href="#definicje-podstawowe-i-obowiązkowe" id="toc-definicje-podstawowe-i-obowiązkowe">Definicje podstawowe i
 obowiązkowe:</a>
 <ul>
-<li><a href="#system-operacyjny">System operacyjny</a></li>
-<li><a href="#zasób-systemu">Zasób systemu</a></li>
-<li><a href="#proces">Proces</a></li>
-<li><a href="#powłoka-interpreter-poleceń">Powłoka (interpreter
+<li><a href="#system-operacyjny" id="toc-system-operacyjny">System
+operacyjny</a></li>
+<li><a href="#zasób-systemu" id="toc-zasób-systemu">Zasób
+systemu</a></li>
+<li><a href="#proces" id="toc-proces">Proces</a></li>
+<li><a href="#powłoka-interpreter-poleceń" id="toc-powłoka-interpreter-poleceń">Powłoka (interpreter
 poleceń)</a></li>
-<li><a href="#sekcja-krytyczna">Sekcja krytyczna</a></li>
-<li><a href="#semafor">Semafor</a></li>
+<li><a href="#sekcja-krytyczna" id="toc-sekcja-krytyczna">Sekcja
+krytyczna</a></li>
+<li><a href="#semafor" id="toc-semafor">Semafor</a></li>
 </ul></li>
-<li><a href="#wstęp">Wstęp</a>
+<li><a href="#wstęp" id="toc-wstęp">Wstęp</a>
 <ul>
-<li><a href="#tryby-przetwarzania-systemu-komputerowego">Tryby
-przetwarzania systemu komputerowego</a></li>
-<li><a href="#rola-przerwania-w-systemie-komputerowym">Rola przerwania w
+<li><a href="#tryby-przetwarzania-systemu-komputerowego" id="toc-tryby-przetwarzania-systemu-komputerowego">Tryby przetwarzania
+systemu komputerowego</a></li>
+<li><a href="#rola-przerwania-w-systemie-komputerowym" id="toc-rola-przerwania-w-systemie-komputerowym">Rola przerwania w
 systemie komputerowym</a></li>
-<li><a href="#pojęcie-blokady-w-systemie-operacyjnym">Pojęcie blokady w
+<li><a href="#pojęcie-blokady-w-systemie-operacyjnym" id="toc-pojęcie-blokady-w-systemie-operacyjnym">Pojęcie blokady w
 systemie operacyjnym</a></li>
-<li><a href="#przeznaczenie-montowania-systemu-plików">Przeznaczenie
+<li><a href="#przeznaczenie-montowania-systemu-plików" id="toc-przeznaczenie-montowania-systemu-plików">Przeznaczenie
 montowania systemu plików</a></li>
 </ul></li>
-<li><a href="#programowanie-w-języku-powłoki">Programowanie w języku
+<li><a href="#programowanie-w-języku-powłoki" id="toc-programowanie-w-języku-powłoki">Programowanie w języku
 powłoki:</a>
 <ul>
-<li><a href="#użytkownicy-w-systemie-unix">Użytkownicy w systemie
+<li><a href="#użytkownicy-w-systemie-unix" id="toc-użytkownicy-w-systemie-unix">Użytkownicy w systemie
 Unix</a></li>
-<li><a href="#prawa-dostępu-do-plików">Prawa dostępu do plików</a></li>
-<li><a href="#znaczenie-bitów-suid-sgid">Znaczenie bitów SUID,
-SGID</a></li>
-<li><a href="#główne-zmienne-powłoki">Główne zmienne powłoki</a></li>
-<li><a href="#parametry-powłoki">Parametry powłoki</a></li>
-<li><a href="#polecenia-zewnętrzne-a-wbudowane-uzasadnienie-rozróżnienia">Polecenia
+<li><a href="#prawa-dostępu-do-plików" id="toc-prawa-dostępu-do-plików">Prawa dostępu do plików</a></li>
+<li><a href="#znaczenie-bitów-suid-sgid" id="toc-znaczenie-bitów-suid-sgid">Znaczenie bitów SUID, SGID</a></li>
+<li><a href="#główne-zmienne-powłoki" id="toc-główne-zmienne-powłoki">Główne zmienne powłoki</a></li>
+<li><a href="#parametry-powłoki" id="toc-parametry-powłoki">Parametry
+powłoki</a></li>
+<li><a href="#polecenia-zewnętrzne-a-wbudowane-uzasadnienie-rozróżnienia" id="toc-polecenia-zewnętrzne-a-wbudowane-uzasadnienie-rozróżnienia">Polecenia
 zewnętrzne a wbudowane – uzasadnienie rozróżnienia</a></li>
-<li><a href="#polecenia-powłoki-read-set-export">Polecenia powłoki:
-read, set, export</a></li>
-<li><a href="#pętle-forwhiledo-w-programowaniu-powłoki">Pętle
-for/while/do w programowaniu powłoki</a></li>
-<li><a href="#odczyt-pliku-etcpasswd-z-wykorzystaniem-readsetifs">Odczyt
-pliku /etc/passwd z wykorzystaniem read/set/IFS</a></li>
-<li><a href="#definiowanie-i-wywołania-funkcji">Definiowanie i wywołania
+<li><a href="#polecenia-powłoki-read-set-export" id="toc-polecenia-powłoki-read-set-export">Polecenia powłoki: read, set,
+export</a></li>
+<li><a href="#pętle-forwhiledo-w-programowaniu-powłoki" id="toc-pętle-forwhiledo-w-programowaniu-powłoki">Pętle for/while/do w
+programowaniu powłoki</a></li>
+<li><a href="#odczyt-pliku-etcpasswd-z-wykorzystaniem-readsetifs" id="toc-odczyt-pliku-etcpasswd-z-wykorzystaniem-readsetifs">Odczyt pliku
+/etc/passwd z wykorzystaniem read/set/IFS</a></li>
+<li><a href="#definiowanie-i-wywołania-funkcji" id="toc-definiowanie-i-wywołania-funkcji">Definiowanie i wywołania
 funkcji</a></li>
 </ul></li>
-<li><a href="#procesy-i-wątki">Procesy i wątki:</a>
+<li><a href="#procesy-i-wątki" id="toc-procesy-i-wątki">Procesy i
+wątki:</a>
 <ul>
-<li><a href="#pojęcia-procesów-współbieżnychrównoległychrozproszonych">Pojęcia
+<li><a href="#pojęcia-procesów-współbieżnychrównoległychrozproszonych" id="toc-pojęcia-procesów-współbieżnychrównoległychrozproszonych">Pojęcia
 procesów współbieżnych/równoległych/rozproszonych</a></li>
-<li><a href="#graf-przejść-stanów-procesów-w-systemie-unix---prosty-i-złożony-system-v">Graf
+<li><a href="#graf-przejść-stanów-procesów-w-systemie-unix---prosty-i-złożony-system-v" id="toc-graf-przejść-stanów-procesów-w-systemie-unix---prosty-i-złożony-system-v">Graf
 przejść stanów procesów w systemie Unix - prosty i złożony (System
 V)</a></li>
-<li><a href="#przeznaczenie-i-budowa-wektora-przerwań">Przeznaczenie i
-budowa wektora przerwań</a></li>
-<li><a href="#porównanie-własności-procesów-i-wątków">Porównanie
-własności procesów i wątków</a></li>
-<li><a href="#porównanie-wątków-poziomu-jądra-i-wątków-poziomu-użytkownika">Porównanie
+<li><a href="#przeznaczenie-i-budowa-wektora-przerwań" id="toc-przeznaczenie-i-budowa-wektora-przerwań">Przeznaczenie i budowa
+wektora przerwań</a></li>
+<li><a href="#porównanie-własności-procesów-i-wątków" id="toc-porównanie-własności-procesów-i-wątków">Porównanie własności
+procesów i wątków</a></li>
+<li><a href="#porównanie-wątków-poziomu-jądra-i-wątków-poziomu-użytkownika" id="toc-porównanie-wątków-poziomu-jądra-i-wątków-poziomu-użytkownika">Porównanie
 wątków poziomu jądra i wątków poziomu użytkownika</a></li>
-<li><a href="#architektura-wielowątkowa-w-systemie-solaris">Architektura
+<li><a href="#architektura-wielowątkowa-w-systemie-solaris" id="toc-architektura-wielowątkowa-w-systemie-solaris">Architektura
 wielowątkowa w systemie Solaris</a></li>
-<li><a href="#metody-konstrukcji-serwerów-usług">Metody konstrukcji
-serwerów usług</a></li>
-<li><a href="#szeregowanie-z-wywłaszczaniem-i-bez-wywłaszczania">Szeregowanie z
-wywłaszczaniem i bez wywłaszczania</a></li>
-<li><a href="#szeregowanie-procesów---wskaźniki-jakości-szeregowania-dla-różnych-trybów-przetwarzania">Szeregowanie
+<li><a href="#metody-konstrukcji-serwerów-usług" id="toc-metody-konstrukcji-serwerów-usług">Metody konstrukcji serwerów
+usług</a></li>
+<li><a href="#szeregowanie-z-wywłaszczaniem-i-bez-wywłaszczania" id="toc-szeregowanie-z-wywłaszczaniem-i-bez-wywłaszczania">Szeregowanie
+z wywłaszczaniem i bez wywłaszczania</a></li>
+<li><a href="#szeregowanie-procesów---wskaźniki-jakości-szeregowania-dla-różnych-trybów-przetwarzania" id="toc-szeregowanie-procesów---wskaźniki-jakości-szeregowania-dla-różnych-trybów-przetwarzania">Szeregowanie
 procesów - wskaźniki jakości szeregowania dla różnych trybów
 przetwarzania</a></li>
 </ul></li>
-<li><a href="#wzajemne-wykluczanie-i-synchronizacja">Wzajemne
-wykluczanie i synchronizacja:</a>
+<li><a href="#wzajemne-wykluczanie-i-synchronizacja" id="toc-wzajemne-wykluczanie-i-synchronizacja">Wzajemne wykluczanie i
+synchronizacja:</a>
 <ul>
-<li><a href="#wyścig-i-warunki-wyścigu-race-conditions">Wyścig i warunki
+<li><a href="#wyścig-i-warunki-wyścigu-race-conditions" id="toc-wyścig-i-warunki-wyścigu-race-conditions">Wyścig i warunki
 wyścigu (race conditions)</a></li>
-<li><a href="#warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
+<li><a href="#warunki-konieczne-implementacji-sekcji-krytycznej" id="toc-warunki-konieczne-implementacji-sekcji-krytycznej">Warunki
 konieczne implementacji sekcji krytycznej</a></li>
-<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-aktywnym-oczekiwaniem-opis-i-porównanie">Mechanizmy
+<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-aktywnym-oczekiwaniem-opis-i-porównanie" id="toc-mechanizmy-realizacji-wzajemnego-wykluczania-z-aktywnym-oczekiwaniem-opis-i-porównanie">Mechanizmy
 realizacji wzajemnego wykluczania z aktywnym oczekiwaniem – opis i
 porównanie</a></li>
-<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-wstrzymywaniem-procesu---opis-i-porównanie">Mechanizmy
+<li><a href="#mechanizmy-realizacji-wzajemnego-wykluczania-z-wstrzymywaniem-procesu---opis-i-porównanie" id="toc-mechanizmy-realizacji-wzajemnego-wykluczania-z-wstrzymywaniem-procesu---opis-i-porównanie">Mechanizmy
 realizacji wzajemnego wykluczania z wstrzymywaniem procesu - opis i
 porównanie</a></li>
-<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami">Producent-konsument
+<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami" id="toc-producent-konsument---poprawna-realizacja-z-synchronizacją-semaforami">Producent-konsument
 - poprawna realizacja z synchronizacją semaforami</a></li>
-<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-monitorami">Producent-konsument
+<li><a href="#producent-konsument---poprawna-realizacja-z-synchronizacją-monitorami" id="toc-producent-konsument---poprawna-realizacja-z-synchronizacją-monitorami">Producent-konsument
 - poprawna realizacja z synchronizacją monitorami</a></li>
 </ul></li>
-<li><a href="#przykładowe-zadania-projektowe">Przykładowe zadania
+<li><a href="#przykładowe-zadania-projektowe" id="toc-przykładowe-zadania-projektowe">Przykładowe zadania
 projektowe:</a>
 <ul>
-<li><a href="#proste-skrypty-sh-bez-rozszerzeń-bash">Proste skrypty sh
-(bez rozszerzeń bash)</a></li>
-<li><a href="#opisz-rezultat-wykonania-poleceń-i-grup-poleceń">Opisz
-rezultat wykonania poleceń i grup poleceń:</a></li>
-<li><a href="#opisz-precyzyjnie-działanie-poniższych-komend-ile-i-dokładnie-kiedy-tworzonych-jest-procesów">Opisz
+<li><a href="#proste-skrypty-sh-bez-rozszerzeń-bash" id="toc-proste-skrypty-sh-bez-rozszerzeń-bash">Proste skrypty sh (bez
+rozszerzeń bash)</a></li>
+<li><a href="#opisz-rezultat-wykonania-poleceń-i-grup-poleceń" id="toc-opisz-rezultat-wykonania-poleceń-i-grup-poleceń">Opisz rezultat
+wykonania poleceń i grup poleceń:</a></li>
+<li><a href="#opisz-precyzyjnie-działanie-poniższych-komend-ile-i-dokładnie-kiedy-tworzonych-jest-procesów" id="toc-opisz-precyzyjnie-działanie-poniższych-komend-ile-i-dokładnie-kiedy-tworzonych-jest-procesów">Opisz
 precyzyjnie działanie poniższych komend, ile i dokładnie kiedy
 tworzonych jest procesów?</a></li>
-<li><a href="#zadanie">Zadanie</a></li>
+<li><a href="#zadanie" id="toc-zadanie">Zadanie</a></li>
 </ul></li>
 </ul>
 </nav>

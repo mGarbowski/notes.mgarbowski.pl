@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06-barwy</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="05-powierzchnie.html">Poprzedni: 05-powierzchnie.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="07-cieniowanie.html">Następny: 07-cieniowanie.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="barwy">Barwy</h1>
+<h2 id="radiometria-i-fotometria">Radiometria i fotometria</h2>
+<ul>
+<li>Radiometria
+<ul>
+<li>zajmuje się badaniem promieniowania elektromagnetycznego</li>
+<li>czysto fizyczne właściwości</li>
+</ul></li>
+<li>Fotometria
+<ul>
+<li>pomiary dotyczące interakcji światła z ludzkim systemem
+wzrokowym</li>
+</ul></li>
+<li>Konwersja radiometrycznych jednostek do jednostek fotometrycznych
+<ul>
+<li>mnożenie przez krzywą fotometryczną</li>
+<li>reakcja oka na różne długości fali</li>
+</ul></li>
+</ul>
+<h3 id="kolor">Kolor</h3>
+<ul>
+<li>Nie jest cechą fizycznego obiektu</li>
+<li>Doznania wzrokowe zależą od wielu czynników
+<ul>
+<li>rodzaj źródła światła</li>
+<li>materiały obiektów (ich właściwości, odbicie, załamanie)</li>
+<li>wrażliwość obserwatora na poszczególne długości fali widmowej</li>
+</ul></li>
+<li>Interpretacji koloru odbywa się w mózgu</li>
+<li>Teoria kolorów obejmuje
+<ul>
+<li>fizykę - propagacja światła</li>
+<li>chemię - oddziaływanie z materią</li>
+<li>neurobiologię itd - percepcja i poznawanie koloru</li>
+</ul></li>
+</ul>
+<h3 id="światło">Światło</h3>
+<ul>
+<li>Fala elektromagnetyczna (radiometria)</li>
+<li>Zakres światła widzialnego ok. 380-780 nm</li>
+<li>Z fizycznego punktu widzenia kolor odpowiada długości fali</li>
+<li>Kolory monochromatyczne - pojedyncza długość fali</li>
+</ul>
+<h2 id="budowa-oka">Budowa oka</h2>
+<ul>
+<li>Soczewka - skupienie światła
+<ul>
+<li>ruch przód-tył dzięki mięśniom</li>
+<li>zmiana ogniskowej - pogrubienie / pocienienie</li>
+</ul></li>
+<li>Siatkówka
+<ul>
+<li>powierzchnia wnętrza oka pokryta komórkami receptorowymi</li>
+</ul></li>
+<li>Pręciki
+<ul>
+<li>wrażliwe na słabe światło</li>
+<li>przydatne w widzeniu nocnym</li>
+<li>reagują głównie na kolor zielony</li>
+<li>w ciągu dnia raczej nie wpływają na widzenie</li>
+</ul></li>
+<li>Czopki
+<ul>
+<li>działają w jaśniejszym świetle (słoneczne, sztuczne)</li>
+<li>rodzaje S, M, L</li>
+<li>S - głównie kolor niebieski</li>
+<li>M - głównie kolor zielony</li>
+<li>L - głównie kolory zielony i żółty</li>
+<li>w wyświetlaczach używamy więcej diod zielonych niż pozostałych</li>
+</ul></li>
+</ul>
+<h2 id="spd">SPD</h2>
+<ul>
+<li>Spectral Power Distribution
+<ul>
+<li>jak energia jest rozkładana pomiędzy długościami fali</li>
+</ul></li>
+<li>Większość fal zawiera mieszaninę różnych długości fali</li>
+</ul>
+<h2 id="kolorymetria">Kolorymetria</h2>
+<p><img src="./obrazy/spd-mixing.png" /></p>
+<ul>
+<li>Ludzie są w stanie odróżnić około 10 milionów kolorów</li>
+<li>Kolorymetria bada relację między SPD a postrzeganiem koloru</li>
+<li>Dla danego SPD jesteśmy w stanie wybrać trzy wartości (mieszanie
+światła) w celu reprezentacji danego bodźca kolorystycznego</li>
+<li>Różne SPD mogą mieć takie same wartości wag - metamery</li>
+<li>Badania empiryczne
+<ul>
+<li>sterowanie składowymi w celu odtworzenia wrażenie
+kolorystycznego</li>
+</ul></li>
+<li>Krzywe
+<ul>
+<li>ujemna wartość - dodanie odpowiedniego światła do patcha
+testowego</li>
+<li>nie da się w ogólności odjąć energii</li>
+</ul></li>
+</ul>
+<h3 id="cie-xyz">CIE XYZ</h3>
+<p><img src="./obrazy/cie-xyz.png" /></p>
+<ul>
+<li>Poprzednie krzywe nie mogą reprezentować wszystkich widzialnych
+kolorów
+<ul>
+<li>ze względu na ujemne wagi</li>
+</ul></li>
+<li>Trzy abstrakcyjne krzywe
+<ul>
+<li><span class="math inline">\(X = \int_{380}^{780}
+s(\lambda)\bar{x}(\lambda) \ d\lambda\)</span></li>
+<li><span class="math inline">\(Y = \int_{380}^{780}
+s(\lambda)\bar{y}(\lambda) \ d\lambda\)</span></li>
+<li><span class="math inline">\(Z = \int_{380}^{780}
+s(\lambda)\bar{z}(\lambda) \ d\lambda\)</span></li>
+</ul></li>
+<li>Przestrzeń wykreśla wszystko co jesteśmy w stanie zobaczyć</li>
+<li>Mało wygodne do korzystania
+<ul>
+<li>można podzielić każdą współrzędną przez sumaryczną energię
+światła</li>
+<li><span class="math inline">\(x = \frac{X}{X+Y+Z}\)</span> itd.</li>
+<li><span class="math inline">\(x+y+z=1\)</span></li>
+</ul></li>
+<li>Można pozbyć się współrzędnej z - można ją wyznaczyć z <span
+class="math inline">\(z=1-x-y\)</span></li>
+<li><span class="math inline">\(Y\)</span> - luminancja</li>
+</ul>
+<h3 id="wykres-chromatyczności">Wykres chromatyczności</h3>
+<p><img src="./obrazy/wykres-chromatycznosci.png" /></p>
+<ul>
+<li>Zbiór punktów reprezentujących barwy z widma widzialnego</li>
+<li>Nie ma wartości luminancji na tym wykresie
+<ul>
+<li>różne luminancje i te same xy odwzorowują się na ten sam punkt</li>
+</ul></li>
+<li>Część krzywoliniowa - barwy widmowe nasycone</li>
+<li>Dolna część - purpury</li>
+<li>W środku kolor biały</li>
+<li>Wszystkie widzialne barwy z dokładnością do luminancji</li>
+</ul>
+<h3 id="gamut">Gamut</h3>
+<ul>
+<li>Zakres kolorów, który może być przestawiony w danej przestrzeni barw
+lub przez konkretne urządzenie
+<ul>
+<li>monitor, drukarka</li>
+</ul></li>
+<li>Wycinek wykresu chromatyczności</li>
+</ul>
+<h3 id="własność-wykresu-chromatyczności">Własność wykresu
+chromatyczności</h3>
+<ul>
+<li>Mieszanie barw
+<ul>
+<li>wynik mieszania dwóch barw leży na odcinku łączącym składowe</li>
+<li>wynik mieszania trzech barw leży wewnątrz trójkąta</li>
+</ul></li>
+<li>Reprezentacja koloru <span class="math inline">\(x,y,Y\)</span>
+<ul>
+<li><span class="math inline">\(X=\frac{x}{y}Y\)</span></li>
+<li><span class="math inline">\(Z=\frac{1-x-y}{y}Y\)</span></li>
+</ul></li>
+</ul>
+<h3 id="biel">Biel</h3>
+<ul>
+<li>Barwa biała nie jest jednoznacznie zdefiniowana</li>
+<li>Przykłady definicji
+<ul>
+<li>biel 6500 - kolor ciała doskonale czarnego rozgrzanego do 6500K</li>
+<li>biel równoenergetyczna</li>
+<li>biel C - światło słoneczne obserwowane w południe</li>
+<li>odpowiadają im różne wartości <span
+class="math inline">\((x,y)\)</span></li>
+</ul></li>
+</ul>
+<h3 id="skala-szarości">Skala szarości</h3>
+<ul>
+<li>Obejmuje poziomy szarości między czernią i bielą</li>
+<li>Najczęściej 8 bitów
+<ul>
+<li>256 poziomów</li>
+</ul></li>
+<li>Przeciętnie człowiek rozróżnia około 100 poziomów</li>
+</ul>
+<h3 id="rgb">RGB</h3>
+<ul>
+<li>Trzy kolory podstawowe</li>
+<li>Czerwony, zielony, niebieski</li>
+<li>Ułożenie na kostce</li>
+<li>Mieszanie kolorów podstawowych - wewnątrz kostki w układzie
+współrzędnych RGB</li>
+<li>Model dyskretny
+<ul>
+<li>zazwyczaj 8 bitów na kolor podstawowy</li>
+<li>24 bity - ok 16 mln kolorów - więcej niż przeciętny człowiek może
+rozróżnić</li>
+</ul></li>
+<li>Model addytywnego mieszania barw</li>
+<li>Nie można uwzględnić wszystkich możliwych barw z przestrzeni
+XYZ</li>
+</ul>
+<h3 id="cmyk">CMYK</h3>
+<ul>
+<li>Sześcian umieszczony w układzie współrzędnych CMY</li>
+<li>Model dyskretny</li>
+<li>Nie reprezentuje całej przestrzeni widocznych kolorów (XYZ)</li>
+<li>Oddzielnie kolor czarny (K)
+<ul>
+<li>łatwiej uzyskać czerń dodając dodatkowy kolor niż mieszając CMY</li>
+</ul></li>
+<li>Model subtraktywny
+<ul>
+<li>kolor obserwowany wynika z odjęcia od światła białego części widma
+zaabsorbowanego przez nałożoną farbę</li>
+<li>stosowany w poligrafii</li>
+</ul></li>
+</ul>
+<h3 id="hsv">HSV</h3>
+<ul>
+<li>Kształt stożka</li>
+<li>Barwa (hue)
+<ul>
+<li>nazwy kolorów</li>
+<li>kąt na podstawie stożka</li>
+</ul></li>
+<li>Jasność (value)
+<ul>
+<li>wysokość stożka</li>
+<li>percepcyjne natężenie światła o danej barwie</li>
+</ul></li>
+<li>Nasycenie (saturation)
+<ul>
+<li>promień przekroju stożka</li>
+<li>określa gdzie znajduje się barwa w stosunku do koloru białego</li>
+<li>0 - biały</li>
+<li>1 - barwa monochromatyczna</li>
+</ul></li>
+<li>Na osi pionowej stożka są poziomy szarości</li>
+<li>HSL - analogiczna przestrzeń mapowana na walec</li>
+</ul>
+<h3 id="cie-lab">CIE Lab</h3>
+<ul>
+<li>W założeniu równomierna przestrzeń barw
+<ul>
+<li>barwy oddalone od siebie o <span class="math inline">\(\Delta
+E\)</span> będą postrzegane jako jednakowo różniące się od siebie</li>
+</ul></li>
+<li><span class="math inline">\(L\)</span> - jasność</li>
+<li><span class="math inline">\(a\)</span> - odchylenie od równowagi
+między zielenią a czerwienią</li>
+<li><span class="math inline">\(b\)</span> - odchylenie od równowagi
+między niebieskim a żółtym</li>
+<li>Różnica między dwiema barwami
+<ul>
+<li><span class="math inline">\(\Delta E = \sqrt{(\Delta L)^2 + (\Delta
+a)^2 + (\Delta b)^2}\)</span></li>
+</ul></li>
+<li>Just noticable difference - <span class="math inline">\(\Delta E =
+2.3\)</span></li>
+<li>Przydatne w wizji komputerowej, badaniach nad percepcją</li>
+</ul>
+<h3 id="srgb">sRGB</h3>
+<ul>
+<li>Standard dla renderingu</li>
+<li>Związana z wyświetlaniem</li>
+<li>Większość monitorów</li>
+<li>Podobna przestrzeń barw - Rec. 709</li>
+</ul>
+<h3 id="acescg">ACEScg</h3>
+<ul>
+<li>Większy zakres niż RGB</li>
+<li>Żeby rzeczywiście zobaczyć te kolory trzeba mieć określone warunki
+wyświetlania
+<ul>
+<li>np. bardzo ciemny pokój i bardzo jasny ekran</li>
+</ul></li>
+<li>Przeznaczone dla filmowej grafiki komputerowej
+<ul>
+<li>potem konwertowane do sRGB</li>
+</ul></li>
+<li>Wykorzystywane jako przestrzeń robocza do renderingu</li>
+</ul>
+<h3 id="dci-p3">DCI-P3</h3>
+<ul>
+<li>Najpierw przeznaczone do produkcji filmów</li>
+<li>Produkty Apple</li>
+<li>Często wykorzystywane w UHD</li>
+</ul>
+<h3 id="davinci-wide-gamut">DaVinci Wide Gamut</h3>
+<ul>
+<li>Rejestrowany przez kamery Blackmagic</li>
+<li>Zakres wychodzi poza zakres barw widzialnych przez ludzkie oko</li>
+</ul>
+<h3 id="konwersja-rgb-hsv">Konwersja RGB-HSV</h3>
+<p><span class="math display">\[R&#39; = \frac{R}{255},\; G&#39; =
+\frac{G}{255},\; B&#39; = \frac{B}{255}\]</span> <span
+class="math display">\[C_{\max} = \max(R&#39;, G&#39;, B&#39;)\]</span>
+<span class="math display">\[C_{\min} = \min(R&#39;, G&#39;,
+B&#39;)\]</span> <span class="math display">\[\Delta = C_{\max} -
+C_{\min}\]</span> <span class="math display">\[
+H =
+\begin{cases}
+0^\circ \\
+60^\circ \times \left(\frac{G&#39; - B&#39;}{\Delta}\right), &amp;
+C_{\max} = R&#39; \\
+60^\circ \times \left(\frac{B&#39; - R&#39;}{\Delta} + 2\right), &amp;
+C_{\max} = G&#39; \\
+60^\circ \times \left(\frac{R&#39; - G&#39;}{\Delta} + 4\right), &amp;
+C_{\max} = B&#39; \\
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+S =
+\begin{cases}
+0, &amp; C_{\max} = 0 \\
+\frac{\Delta}{C_{\max}}, &amp; C_{\max} \neq 0
+\end{cases}
+\]</span> <span class="math display">\[V = C_{\max}\]</span> <span
+class="math display">\[C = V \times S\]</span> <span
+class="math display">\[X = C \times \left(1 - \left|
+\left(\frac{H}{60^\circ}\right) \bmod 2 - 1 \right|\right)\]</span>
+<span class="math display">\[m = V - C\]</span></p>
+<p><span class="math display">\[
+(R_1, G_1, B_1) =
+\begin{cases}
+(C, X, 0), &amp; 0^\circ \le H &lt; 60^\circ \\
+(X, C, 0), &amp; 60^\circ \le H &lt; 120^\circ \\
+(0, C, X), &amp; 120^\circ \le H &lt; 180^\circ \\
+(0, X, C), &amp; 180^\circ \le H &lt; 240^\circ \\
+(X, 0, C), &amp; 240^\circ \le H &lt; 300^\circ \\
+(C, 0, X), &amp; 300^\circ \le H &lt; 360^\circ
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+(R, G, B) =
+\left(
+(R_1 + m) \times 255,\;
+(G_1 + m) \times 255,\;
+(B_1 + m) \times 255
+\right)
+\]</span></p>
+<h2 id="opencolorio">OpenColorIO</h2>
+<ul>
+<li>Narzędzie służące do zarządzania kolorem w trakcie produkcji
+animacji czy efektów wizualnych</li>
+<li>Ma na celu zapewnienie spójnego środowisko jednocześnie umożliwiając
+wiele możliwości konfiguracji</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#barwy" id="toc-barwy">Barwy</a>
+<ul>
+<li><a href="#radiometria-i-fotometria" id="toc-radiometria-i-fotometria">Radiometria i fotometria</a>
+<ul>
+<li><a href="#kolor" id="toc-kolor">Kolor</a></li>
+<li><a href="#światło" id="toc-światło">Światło</a></li>
+</ul></li>
+<li><a href="#budowa-oka" id="toc-budowa-oka">Budowa oka</a></li>
+<li><a href="#spd" id="toc-spd">SPD</a></li>
+<li><a href="#kolorymetria" id="toc-kolorymetria">Kolorymetria</a>
+<ul>
+<li><a href="#cie-xyz" id="toc-cie-xyz">CIE XYZ</a></li>
+<li><a href="#wykres-chromatyczności" id="toc-wykres-chromatyczności">Wykres chromatyczności</a></li>
+<li><a href="#gamut" id="toc-gamut">Gamut</a></li>
+<li><a href="#własność-wykresu-chromatyczności" id="toc-własność-wykresu-chromatyczności">Własność wykresu
+chromatyczności</a></li>
+<li><a href="#biel" id="toc-biel">Biel</a></li>
+<li><a href="#skala-szarości" id="toc-skala-szarości">Skala
+szarości</a></li>
+<li><a href="#rgb" id="toc-rgb">RGB</a></li>
+<li><a href="#cmyk" id="toc-cmyk">CMYK</a></li>
+<li><a href="#hsv" id="toc-hsv">HSV</a></li>
+<li><a href="#cie-lab" id="toc-cie-lab">CIE Lab</a></li>
+<li><a href="#srgb" id="toc-srgb">sRGB</a></li>
+<li><a href="#acescg" id="toc-acescg">ACEScg</a></li>
+<li><a href="#dci-p3" id="toc-dci-p3">DCI-P3</a></li>
+<li><a href="#davinci-wide-gamut" id="toc-davinci-wide-gamut">DaVinci
+Wide Gamut</a></li>
+<li><a href="#konwersja-rgb-hsv" id="toc-konwersja-rgb-hsv">Konwersja
+RGB-HSV</a></li>
+</ul></li>
+<li><a href="#opencolorio" id="toc-opencolorio">OpenColorIO</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

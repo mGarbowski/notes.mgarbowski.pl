@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07-sukcesja</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="06-wdrozenia.html">Poprzedni: 06-wdrozenia.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="08-diagnostyka-modeli.html">Następny: 08-diagnostyka-modeli.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Inżynieria uczenia maszynowego</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wprowadzenie.html">01-wprowadzenie.html</a></li>
+                
+                <li><a href="02-zadania-modelowania.html">02-zadania-modelowania.html</a></li>
+                
+                <li><a href="03-ocena-zbiorow-danych.html">03-ocena-zbiorow-danych.html</a></li>
+                
+                <li><a href="04-atrybuty.html">04-atrybuty.html</a></li>
+                
+                <li><a href="05-konstrukcja-modelu.html">05-konstrukcja-modelu.html</a></li>
+                
+                <li><a href="06-wdrozenia.html">06-wdrozenia.html</a></li>
+                
+                <li><a href="07-sukcesja.html">07-sukcesja.html</a></li>
+                
+                <li><a href="08-diagnostyka-modeli.html">08-diagnostyka-modeli.html</a></li>
+                
+                <li><a href="09-prywatnosc-i-bezpieczenstwo.html">09-prywatnosc-i-bezpieczenstwo.html</a></li>
+                
+                <li><a href="10-kwestie-spoleczne.html">10-kwestie-spoleczne.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="sukcesja">Sukcesja</h1>
+<ul>
+<li>Jak wiedzieć czy to co wdrażamy jest lepsze od tego co było
+wcześniej</li>
+<li>Zadanie jest trywialne jeśli jesteśmy w stanie ocenić model dla
+pojedynczego, statycznego zadania modelowania
+<ul>
+<li>np. miary jakości na zbiorze testowym</li>
+</ul></li>
+<li>W rzeczywistości miary jakości są tylko przybliżeniem tego o co nam
+naprawdę chodzi</li>
+<li>Im bardziej dojrzały system tym kolejne iteracje zazwyczaj dają
+coraz mniejszą poprawę jakości</li>
+<li>Chcemy oszacować wpływ przyczynowo-skutkowy wyboru modelu na to jak
+spełniany jest cel biznesowy
+<ul>
+<li>nie tylko korelację</li>
+<li>bezpośrednie zbadanie wpływu jest trudne</li>
+<li>badamy biznesowe miary jakości, zakładamy że są dobrze powiązane z
+celem biznesowym</li>
+</ul></li>
+</ul>
+<h2 id="analiza-przyczynowo-skutkowa">Analiza przyczynowo-skutkowa</h2>
+<ul>
+<li>Pearla - strukturalne modele przyczynowo-skutkowe
+<ul>
+<li>rozwinięcie sieci bayesowskich</li>
+</ul></li>
+<li>Rubina-Neymana - koncepcja potencjalnych wyników
+<ul>
+<li>podstawa dla prób kontrolowanych, eksperymentów A/B</li>
+</ul></li>
+</ul>
+<h3 id="strukturalny-model-przyczynowo-skutkowy">Strukturalny model
+przyczynowo-skutkowy</h3>
+<ul>
+<li>Graf opisuje relacje przyczynowo-skutkowe wiedzy zmiennymi
+losowymi</li>
+<li>Krawędź od przyczyny do skutku
+<ul>
+<li>przy sieciach bayesa nie zakładamy przyczynowości</li>
+<li>założenie - wiemy co jest przyczyną, a co skutkiem</li>
+</ul></li>
+<li>Operator oznaczających wykonywanie akcji
+<ul>
+<li><span class="math inline">\(P(X | do(Y))\)</span></li>
+</ul></li>
+<li>Musimy być w stanie opisać cały graf
+<ul>
+<li>graf jest kompletny i uwzględnia wszystkie zmienne</li>
+</ul></li>
+<li>The book of why - dobry podręcznik wprowadzający</li>
+</ul>
+<h3 id="model-rubina-neymana">Model Rubina-Neymana</h3>
+<ul>
+<li>Bazuje na koncepcji potencjalnych wyników
+<ul>
+<li>porównuje się alternatywne rzeczywistości</li>
+<li>jeśli 2 rzeczywistości różnią się tylko jednym parametrem to zmiana
+jakości wynika ze zmiany tego parametru</li>
+</ul></li>
+<li>Próby RCT - losowe próby kontrolowane
+<ul>
+<li>w informatyce to eksperymenty A/B</li>
+<li>reprezentatywną populację dzieli się na 2 grupy</li>
+<li>w jednej prowadzi się interwencję, coś się zmienia (np. podaje
+lek)</li>
+<li>w grupie kontrolnej nic się nie zmienia (np. podaje placebo)</li>
+<li>po jakimś czasie wykonujemy pomiary w obu grupach</li>
+</ul></li>
+<li>Kluczowe elementy
+<ul>
+<li>losowy przydział osób do grupy, osoba nie może zmienić grupy</li>
+<li>grupy muszą być reprezentatywne dla populacji - duże i
+zróżnicowane</li>
+<li>konieczna jest interwencja - jakaś zmiana pomiędzy grupami</li>
+<li>wynik obserwowany dla danej osoby nie powinien wpływać ani zależeć
+od sposobu przydziału innych osób do grup (SUTVA)</li>
+</ul></li>
+</ul>
+<h2 id="eksperymenty-ab">Eksperymenty A/B</h2>
+<h3 id="nomenklatura">Nomenklatura</h3>
+<ul>
+<li>Użytkownicy - osobne jednostki korzystające z naszego modelu
+<ul>
+<li>nie zawsze osoby fizyczne</li>
+<li>odpowiednik populacji</li>
+</ul></li>
+<li>Warianty - porównywane wersje naszego modelu uczenia
+maszynowego</li>
+<li>Grupy kontrolne
+<ul>
+<li>grupy użytkowników, dla których nic się nie zmienia</li>
+<li>jest im serwowana poprzednia wersja modelu</li>
+<li>bez interwencji</li>
+</ul></li>
+<li>Interwencje - momenty wdrożenia produkcyjnego</li>
+</ul>
+<h3 id="przeprowadzanie-eksperymentu">Przeprowadzanie eksperymentu</h3>
+<ul>
+<li>Środowisko produkcyjne musi umożliwiać równoległe korzystanie z obu
+modeli</li>
+<li>Są zbierane miary jakości z podziałem na A i B</li>
+<li>Procedura
+<ul>
+<li>ustalamy adekwatną wielkość próby i czas trwania eksperymentu</li>
+<li>dzielimy ruch na niezależne części odpowiedniej wielkości</li>
+<li>czekamy, aż uzbiera się do analizy próbka danych pożądanej
+wielkości</li>
+</ul></li>
+</ul>
+<h3 id="podział-ruchu">Podział ruchu</h3>
+<ul>
+<li>Próbka ruchu musi być reprezentatywna</li>
+<li>Im mniejsza różnica pomiędzy jakością modeli, tym większa próba jest
+potrzebna do jej wykrycia</li>
+<li>Raz przydzielony użytkownik nie może zmieniać wariantu</li>
+<li>Może występować efekt świeżości
+<ul>
+<li>nowy wariant wydaje się lepszy tylko dlatego że jest nowy</li>
+</ul></li>
+<li>Żeby użytkownicy nie przeskakiwali między grupami
+<ul>
+<li>musimy przechowywać informację gdzie trafia użytkownik</li>
+<li>można zapisywać przypisanie do grup w bazie danych</li>
+<li>można użyć funkcji mieszających (consistent hashing) i
+identyfikatory użytkowników</li>
+</ul></li>
+<li>Naruszenie SUTVA
+<ul>
+<li>kiedy oba modele współdzielą zasoby</li>
+<li>np. wspólny budżet, jeden model wyczerpie, drugiemu już nic nie
+zostanie</li>
+</ul></li>
+</ul>
+<h3 id="jak-długo-powinien-trwać-eksperyment">Jak długo powinien trwać
+eksperyment</h3>
+<ul>
+<li>Na tyle długo żeby dostać reprezentatywną próbę w obu grupach</li>
+<li>Na tyle długo żeby być w stanie wykryć różnicę między
+wariantami</li>
+<li>Istotna jest sezonowość, duża próbka ale z jednego dnia może nie
+być reprezentatywna
+<ul>
+<li>zazwyczaj wielokrotność całych tygodni</li>
+</ul></li>
+</ul>
+<h2 id="testy-statystyczne">Testy statystyczne</h2>
+<ul>
+<li>Statystycznie istotne <span class="math inline">\(\simeq\)</span>
+chyba nieprzypadkowe</li>
+</ul>
+<h3 id="przykład---fabryka-monet">Przykład - fabryka monet</h3>
+<ul>
+<li>Chcemy mieć monety symetryczne</li>
+<li>Rzucamy jedną monetą 100 razy
+<ul>
+<li>jeśli jest symetryczna to oczekujemy ok 0.5 orłów</li>
+<li>jeśli jest asymetryczna to będzie wyraźna przewaga jednej ze
+stron</li>
+</ul></li>
+<li>Jeśli odsetek orłów zbyt odbiega od symetryczności
+<ul>
+<li><span class="math inline">\(|\mu - 0.5| &gt; m_\alpha\)</span></li>
+</ul></li>
+<li>Jak ustalić próg <span class="math inline">\(m_\alpha\)</span> -
+wartość krytyczną</li>
+</ul>
+<h3 id="wartość-krytyczna-i-statystyka">Wartość krytyczna i
+statystyka</h3>
+<ul>
+<li>Wartość krytyczna to punkt odcięcia, który rozdziela eksperymenty
+prowadzące do odrzucenia hipotezy eksperymentalnej od tych które nie
+dają do tego podstaw
+<ul>
+<li>odrzucenie hipotezy zerowej na rzecz hipotezy alternatywnej</li>
+</ul></li>
+<li>Z wartością krytyczną porównujemy określony wskaźnik liczbowy
+obliczany na podstawie danych z naszego eksperymentu</li>
+<li>Funkcja wyliczająca wartość tego wskaźnika - statystyka testowa
+<ul>
+<li><span class="math inline">\(|\mu - 0.5|\)</span> z przykładu to
+statystyka</li>
+</ul></li>
+<li>Test dwustronny i jednostronny
+<ul>
+<li>dwustronny - odrzucamy hipotezę zerową jeśli dostaniemy wartość za
+dużą lub za małą</li>
+<li>jednostronny - odrzucamy hipotezę zerową jeśli dostaniemy wartość za
+dużą (albo oddzielnie za małą)</li>
+</ul></li>
+</ul>
+<h3 id="przykład---formalny-opis">Przykład - formalny opis</h3>
+<ul>
+<li>Wykonujemy <span class="math inline">\(N\)</span> rzutów monetą</li>
+<li>Odsetek wyrzuconych orłów <span
+class="math inline">\(\mu\)</span></li>
+<li>hipoteza zerowa - moneta jest symetryczna,
+<ul>
+<li><span class="math inline">\(H_0: \mu = 0.5\)</span></li>
+</ul></li>
+<li>Hipoteza alternatywna - moneta jest asymetryczna
+<ul>
+<li><span class="math inline">\(H_1: \mu \ne 0.5\)</span></li>
+</ul></li>
+<li>W przypadku dużego N rozkład zmiennej <span
+class="math inline">\(\mu\)</span> będzie dawał się przybliżać rozkładem
+normalnym
+<ul>
+<li>możemy zastosować statystykę testową testu z</li>
+</ul></li>
+</ul>
+<h3 id="test-z">Test z</h3>
+<ul>
+<li><span class="math inline">\(n\)</span> - liczba prób</li>
+<li><span class="math inline">\(k\)</span> - liczba sukcesów</li>
+<li><span class="math inline">\(z\)</span> - ma rozkład standardowy
+normalny kiedy hipoteza jest prawdziwa
+<ul>
+<li>ogony są mało prawdopodobne</li>
+</ul></li>
+<li>Próg istotności <span class="math inline">\(\alpha\)</span>, np. 5%
+<ul>
+<li>na co to wpływa - widać jak testujemy nie jedną monetę, tylko
+wiele</li>
+</ul></li>
+<li>Nie daje nam pewności</li>
+</ul>
+<h3 id="błędy-typu-1-i-typu-2---intuicja">Błędy typu 1 i typu 2 -
+intuicja</h3>
+<ul>
+<li>Błąd typu 1
+<ul>
+<li>niepoprawne odrzucenie hipotezy zerowej <span
+class="math inline">\(H_0\)</span></li>
+<li>jeśli <span class="math inline">\(\alpha=0.05\)</span></li>
+<li>testując 100 symetrycznych monet, test niepoprawnie odrzuci jako
+asymetryczne 5 z nich</li>
+<li>uznajemy rezultaty mało prawdopodobne jako podstawę do odrzucenia
+hipotezy</li>
+</ul></li>
+<li>Błąd typu 2
+<ul>
+<li>jeśli <span class="math inline">\(\beta = 0.8\)</span></li>
+<li>testując 100 asymetrycznych monet, test nie będzie w stanie wykryć
+20 z nich</li>
+<li>przeoczenia odrzucenia <span class="math inline">\(H_0\)</span> na
+rzecz <span class="math inline">\(H_a\)</span></li>
+</ul></li>
+<li>Błędy typu 1 występują z prawdopodobieństwem <span
+class="math inline">\(\alpha\)</span></li>
+<li>Błędy typu 2 występują z prawdopodobieństwem <span
+class="math inline">\(\beta\)</span></li>
+</ul>
+<h3 id="moc-testu-statystycznego">Moc testu statystycznego</h3>
+<ul>
+<li><span class="math inline">\((1-\beta)\)</span></li>
+<li>Prawdopodobieństwo niepopełnienia błędu typu 2</li>
+<li>Zależy od <span class="math inline">\(\alpha\)</span> i od wielkości
+próby <span class="math inline">\(N\)</span> i od siły efektu</li>
+<li><span class="math inline">\(\beta\)</span> wylicza się
+eksperymentalnie, np. przez symulację</li>
+<li>Większa wielkość próby - większa moc
+<ul>
+<li>mniejszy błąd, test jest bardziej czuły</li>
+</ul></li>
+<li>Większe <span class="math inline">\(\alpha\)</span> - większe ryzyko
+błędu I rodzaju, mniejsze II rodzaju
+<ul>
+<li>mniejsze <span class="math inline">\(\beta\)</span>, większa
+moc</li>
+</ul></li>
+</ul>
+<h3 id="ogólna-procedura-stosowania-testów-statystycznych">Ogólna
+procedura stosowania testów statystycznych</h3>
+<ul>
+<li>W uczeniu maszynowym testy z jednym ogonem (jakość wzrosła / błąd
+spadł)</li>
+<li>Ustalamy hipotezy testowe</li>
+<li>Wybieramy odpowiedni do hipotez test statystyczny
+<ul>
+<li>każdy test ma określone założenia</li>
+<li>np. test z jest do wyników binarnych, odpowiedniej liczby prób,
+itd.</li>
+<li>test z, test t-studenta</li>
+</ul></li>
+<li>Ustalamy poziom istotności, obliczamy wartość krytyczną</li>
+<li>Wyliczamy wartość statystyki testowej i porównujemy ją z wartością
+krytyczną
+<ul>
+<li>w zależności od porównania odrzucamy / nie odrzucamy hipotezę
+zerową</li>
+</ul></li>
+<li>Użycie testów statystycznych pozwala kontrolować liczbę i charakter
+popełnianych błędów</li>
+</ul>
+<h2 id="testy-statystyczna-w-testach-ab">Testy statystyczna w testach
+A/B</h2>
+<ul>
+<li>W serwisie wydzielamy 2 warianty
+<ul>
+<li>może być więcej ale dzielimy ruch (dostępne próbki danych) na
+mniejsze porcje</li>
+</ul></li>
+<li>Procedura
+<ul>
+<li>ustalamy wielkość próby i czas trwania eksperymentu</li>
+<li>dzielimy ruch na niezależne części i uruchamiamy oba warianty</li>
+<li>czekamy aż uzbiera się próbka danych do analizy pożądanej
+wielkości</li>
+<li>analizujemy wyniki ustalając, który wariant działa lepiej</li>
+</ul></li>
+<li>Ważne jest stałe przypisanie użytkowników do grup</li>
+<li>W dojrzałych systemach różnice w metrykach będą bardziej
+subtelne</li>
+<li>Hipoteza zerowa <span class="math inline">\(H_0: q_A \le
+q_B\)</span>
+<ul>
+<li>nowy model jest gorszy (niższa jakość)</li>
+<li>chcielibyśmy odrzucić hipotezę zerową</li>
+</ul></li>
+</ul>
+<h3 id="analiza-wyników">Analiza wyników</h3>
+<ul>
+<li>Jakości wariantów <span class="math inline">\(q_A\)</span>, <span
+class="math inline">\(q_B\)</span></li>
+<li>Hipoteza zerowa - wariant A nie jest lepszy niż B - mamy nadziej
+odrzucić hipotezę</li>
+<li>Hipoteza alternatywna - wariant A jest lepszy niż B</li>
+<li>Testy
+<ul>
+<li>t-Studenta</li>
+<li>z</li>
+</ul></li>
+</ul>
+<h3 id="test-t-studenta">Test t-Studenta</h3>
+<ul>
+<li>Założenia
+<ul>
+<li>miarę jakości możemy opisać rozkładem normalnym</li>
+<li>mamy podobną wariancję miar jakości obu wariantów</li>
+<li>próby dla wariantów A i B są różnoliczne</li>
+</ul></li>
+<li>Jest wiele sformułowań wzoru w zależności od założeń</li>
+<li>Wartość która wychodzi ze wzoru porównujemy z wartością
+krytyczną</li>
+<li>Liczba stopni swobody
+<ul>
+<li>związane z nieobciążonym oszacowaniem wariancji</li>
+<li>istotne dla małych próbek (odejmowanie 1 od liczby próbek)</li>
+</ul></li>
+</ul>
+<h3 id="minimal-detectable-effect-mde">Minimal Detectable Effect
+(MDE)</h3>
+<ul>
+<li>Minimalna wielkość efektu potrzebna do uzyskania założonego poziomu
+mocy przy ustalonym <span class="math inline">\(\alpha\)</span> i
+wielkości próby</li>
+<li>Prawdopodobieństwo odrzucenia <span
+class="math inline">\(H_0\)</span> pod warunkiem że <span
+class="math inline">\(H_1\)</span> jest prawdziwa</li>
+<li>Żeby ustalić wielkość próby
+<ul>
+<li>ustalamy jaki najmniejszy efekt chcemy wykryć</li>
+</ul></li>
+</ul>
+<h3 id="p-wartość">p-wartość</h3>
+<ul>
+<li>Test odpowiada na pytanie - czy możemy odrzucić hipotezę <span
+class="math inline">\(H_0\)</span> mówiącą, że wariant A nie jest lepszy
+od wariantu B
+<ul>
+<li>na przyjętym poziomie istotności</li>
+</ul></li>
+<li>p-wartość to prawdopodobieństwa zaobserwowania wartości statystyki,
+jeśli hipoteza <span class="math inline">\(H_0\)</span> jest prawdziwa
+<ul>
+<li>wartość statystyki, która wyszła z eksperymentu</li>
+</ul></li>
+<li>p-wartość <strong>nie</strong> jest prawdopodobieństwem prawdziwości
+<span class="math inline">\(H_1\)</span>
+<ul>
+<li>nieuprawnione stwierdzenie</li>
+<li>nie w podejściu częstościowym - na nim bazują testy</li>
+<li>szukamy stałej, której wartości nie znamy</li>
+</ul></li>
+<li>Dla różnych statystyk wartości są w różnych skalach</li>
+<li>Pakiety statystyczne podają p-wartość</li>
+</ul>
+<h2 id="podejście-bayesowskie-do-eksperymentów-ab">Podejście bayesowskie
+do eksperymentów A/B</h2>
+<h3 id="twierdzenie-bayesa">Twierdzenie Bayesa</h3>
+<p><span class="math display">\[P(h|d) =
+\frac{P(d|h)P(h)}{P(d)}\]</span></p>
+<ul>
+<li><span class="math inline">\(P(h|d)\)</span> - prawdopodobieństwo
+prawdziwości hipotezy, kiedy zaobserwowaliśmy dane</li>
+<li><span class="math inline">\(P(d|h)\)</span> - prawdopodobieństwo
+zaobserwowanych danych pod warunkiem że hipoteza jest prawdziwa</li>
+<li><span class="math inline">\(P(h)\)</span> - wstępne przekonanie, że
+hipoteza jest prawdziwa</li>
+<li><span class="math inline">\(P(d)\)</span> - nasze wstępne
+przekonanie odnośnie zaobserwowania danych</li>
+</ul>
+<h3 id="wnioskowanie-bayesowskie">Wnioskowanie bayesowskie</h3>
+<ul>
+<li>Chcemy poznać parametr rozkładu zmiennej losowej</li>
+<li>Ustalamy wiedzę pierwotną</li>
+<li>Wykonujemy eksperyment, zbieramy obserwacje</li>
+<li>Aktualizujemy nasze przekonania odnośnie rozkładu tego
+parametru</li>
+</ul>
+<h3 id="analiza-eksperymentu-ab-w-podejściu-bayesowskim">Analiza
+eksperymentu A/B w podejściu bayesowskim</h3>
+<ul>
+<li>Miary jakości traktujemy jako zmienne losowe, chcemy znaleźć ich
+rozkłady - <span class="math inline">\(\mu_A\)</span>, <span
+class="math inline">\(\mu_B\)</span>
+<ul>
+<li>wcześniej traktowaliśmy je jako nieznane stałe</li>
+</ul></li>
+<li>Potrzebujemy przyjętych a priori rozkładów tych zmiennych</li>
+<li>Po przeprowadzeniu eksperymentu i zebraniu danych aktualizujemy
+rozkłady</li>
+<li>Skąd brać założenia a priori
+<ul>
+<li>wiedza ekspercka</li>
+<li>poprzednie eksperymenty</li>
+</ul></li>
+</ul>
+<h3 id="funkcja-straty">Funkcja straty</h3>
+<ul>
+<li>Mając rozkłady możemy policzyć prawdopodobieństwo, że wariant A jest
+lepszy od B</li>
+<li>Strata związana z wdrożeniem gorszego modelu
+<ul>
+<li>język biznesu</li>
+</ul></li>
+<li>Wartość oczekiwaną straty jako funkcję wybranego wariantu liczymy
+używając rozkładu łącznego zmiennych <span class="math inline">\(\mu_A,
+\mu_B\)</span></li>
+<li>Jak dużą stratę poniesiemy jeśli popełniliśmy błąd</li>
+<li>Możemy założyć maksymalną stratę <span
+class="math inline">\(\epsilon\)</span></li>
+<li>Procedura
+<ul>
+<li>uruchamiamy eksperyment</li>
+<li>zbieramy dane do oszacowania miar jakości</li>
+<li>wyliczamy wartość oczekiwanej straty dla obu wariantów</li>
+<li>jeśli dla któregoś z wariantów <span class="math inline">\(E_L(v)
+&lt; \epsilon\)</span> - możemy ten wariant uznać za lepszy</li>
+</ul></li>
+</ul>
+<h3 id="czas-trwania-eksperymentu">Czas trwania eksperymentu</h3>
+<ul>
+<li>Nie ma prostego wzoru</li>
+<li>W praktyce - symulacja Monte Carlo do określenia ile trzeba zebrać
+danych, żeby prawdopodobieństwo wyboru lepszego wariantu było np.
+&gt;90%</li>
+<li>Zwykle wymaga mniej danych niż analiza częstościowa</li>
+</ul>
+<h2 id="analiza-częstościowa-a-bayesowska">Analiza częstościowa a
+bayesowska</h2>
+<ul>
+<li>Częstościowa
+<ul>
+<li>bardziej restrykcyjne założenia odnośnie rozkładów
+prawdopodobieństw</li>
+<li>p-wartości są trudne w interpretacji</li>
+<li>zazwyczaj potrzeba więcej danych</li>
+<li>bardziej popularne</li>
+</ul></li>
+<li>Bayesowska
+<ul>
+<li>łatwiejsze w interpretacji</li>
+<li>potrzebują mniej danych do udzielenia odpowiedzi</li>
+<li>bardziej kosztowne obliczeniowo</li>
+<li>mniej popularne</li>
+</ul></li>
+</ul>
+<h2 id="eksperymenty-ab---problemy">Eksperymenty A/B - problemy</h2>
+<ul>
+<li>Ukryte zmienne wpływające na wynik</li>
+<li>Obciążone próbki</li>
+<li>Sprzężenia zwrotne</li>
+<li>Nakładające się eksperymenty</li>
+<li>Brak niezależności między grupami (SUTVA)</li>
+<li>Problemy z interpretacją metryk</li>
+</ul>
+<p>Bardzo dobra podlinkowana publikacja o eksperymentach A/B, The book
+of why</p>
+<h3 id="problemy-z-interpretacją-wyników">Problemy z interpretacją
+wyników</h3>
+<ul>
+<li>Wykorzystanie testów statystycznych o zbyt małej mocy</li>
+<li>Odrzucanie hipotezy zerowej tuż po przekroczeniu wartości
+krytycznej</li>
+<li>Przedwczesne zatrzymywanie eksperymentów</li>
+<li>Analizowanie tylko agregowanych wyników, bez sprawdzania podgrup
+<ul>
+<li>paradoks Simpsona</li>
+</ul></li>
+<li>Wpływ wartości odstających na uzyskane wyniki</li>
+<li>Efekt świeżości</li>
+</ul>
+<h2 id="inne-metody-porównywania-modeli">Inne metody porównywania
+modeli</h2>
+<h3 id="eksperymenty-ab-nie-zawsze-są-możliwe">Eksperymenty A/B nie
+zawsze są możliwe</h3>
+<ul>
+<li>Za mało użytkowników</li>
+<li>Użytkownicy nie mają stałych identyfikatorów</li>
+<li>System nie wspiera podziału ruchu</li>
+<li>Bardzo dynamiczna sytuacja</li>
+</ul>
+<h3 id="causal-impact">Causal Impact</h3>
+<ul>
+<li>Wywodzi się z teorii analiz przyczynowo-skutkowych</li>
+<li>Bazuje na koncepcji syntetycznej grupy kontrolnej
+<ul>
+<li>zachowanie syntetycznej grupy kontrolnej jest estymowane (szereg
+czasowy)</li>
+</ul></li>
+<li>Przydatny w szerszym kontekście niż sukcesja modeli</li>
+</ul>
+<h4 id="założenia">Założenia</h4>
+<ul>
+<li>To co mierzymy fluktuuje w czasie - szereg czasowy</li>
+<li>Interwencja wpływa na przebieg tego szeregu (wdrożenie nowego
+modelu)</li>
+<li>Porównujemy dwie rzeczywistości na podstawie
+<ul>
+<li>zmierzonego zachowania szeregu</li>
+<li>zachowania szeregu estymującego <span
+class="math inline">\(y_t\)</span> korzystając tylko ze zmiennych na
+które interwencja nie może wpływać</li>
+</ul></li>
+<li>W okresie przygotowawczym trenujemy model, a po interwencji używamy
+modelu do predykcji
+<ul>
+<li>model nie wie o interwencji</li>
+<li>nie ma założeń co do użytego modelu</li>
+<li>implementacja wykorzystuje bayesowski model w przestrzeni stanów -
+bardzo dobry do szeregów czasowych</li>
+</ul></li>
+<li>Bierzemy różnicę między rzeczywistym szeregiem (wpływ interwencji),
+a estymowanym szeregiem (model prognozuje co by było, na podstawie
+danych sprzed interwencji)</li>
+</ul>
+<h4 id="syntetyczna-grupa-kontrolna">Syntetyczna grupa kontrolna</h4>
+<ul>
+<li>Przykłady zmiennych, na które nie wpływa interwencja
+<ul>
+<li>kalendarz</li>
+<li>wskaźniki makroekonomiczne</li>
+<li>pogoda</li>
+<li>pomiary z innego, niepowiązanego obszaru naszej domeny</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sukcesja" id="toc-sukcesja">Sukcesja</a>
+<ul>
+<li><a href="#analiza-przyczynowo-skutkowa" id="toc-analiza-przyczynowo-skutkowa">Analiza przyczynowo-skutkowa</a>
+<ul>
+<li><a href="#strukturalny-model-przyczynowo-skutkowy" id="toc-strukturalny-model-przyczynowo-skutkowy">Strukturalny model
+przyczynowo-skutkowy</a></li>
+<li><a href="#model-rubina-neymana" id="toc-model-rubina-neymana">Model
+Rubina-Neymana</a></li>
+</ul></li>
+<li><a href="#eksperymenty-ab" id="toc-eksperymenty-ab">Eksperymenty
+A/B</a>
+<ul>
+<li><a href="#nomenklatura" id="toc-nomenklatura">Nomenklatura</a></li>
+<li><a href="#przeprowadzanie-eksperymentu" id="toc-przeprowadzanie-eksperymentu">Przeprowadzanie
+eksperymentu</a></li>
+<li><a href="#podział-ruchu" id="toc-podział-ruchu">Podział
+ruchu</a></li>
+<li><a href="#jak-długo-powinien-trwać-eksperyment" id="toc-jak-długo-powinien-trwać-eksperyment">Jak długo powinien trwać
+eksperyment</a></li>
+</ul></li>
+<li><a href="#testy-statystyczne" id="toc-testy-statystyczne">Testy
+statystyczne</a>
+<ul>
+<li><a href="#przykład---fabryka-monet" id="toc-przykład---fabryka-monet">Przykład - fabryka monet</a></li>
+<li><a href="#wartość-krytyczna-i-statystyka" id="toc-wartość-krytyczna-i-statystyka">Wartość krytyczna i
+statystyka</a></li>
+<li><a href="#przykład---formalny-opis" id="toc-przykład---formalny-opis">Przykład - formalny opis</a></li>
+<li><a href="#test-z" id="toc-test-z">Test z</a></li>
+<li><a href="#błędy-typu-1-i-typu-2---intuicja" id="toc-błędy-typu-1-i-typu-2---intuicja">Błędy typu 1 i typu 2 -
+intuicja</a></li>
+<li><a href="#moc-testu-statystycznego" id="toc-moc-testu-statystycznego">Moc testu statystycznego</a></li>
+<li><a href="#ogólna-procedura-stosowania-testów-statystycznych" id="toc-ogólna-procedura-stosowania-testów-statystycznych">Ogólna
+procedura stosowania testów statystycznych</a></li>
+</ul></li>
+<li><a href="#testy-statystyczna-w-testach-ab" id="toc-testy-statystyczna-w-testach-ab">Testy statystyczna w testach
+A/B</a>
+<ul>
+<li><a href="#analiza-wyników" id="toc-analiza-wyników">Analiza
+wyników</a></li>
+<li><a href="#test-t-studenta" id="toc-test-t-studenta">Test
+t-Studenta</a></li>
+<li><a href="#minimal-detectable-effect-mde" id="toc-minimal-detectable-effect-mde">Minimal Detectable Effect
+(MDE)</a></li>
+<li><a href="#p-wartość" id="toc-p-wartość">p-wartość</a></li>
+</ul></li>
+<li><a href="#podejście-bayesowskie-do-eksperymentów-ab" id="toc-podejście-bayesowskie-do-eksperymentów-ab">Podejście bayesowskie
+do eksperymentów A/B</a>
+<ul>
+<li><a href="#twierdzenie-bayesa" id="toc-twierdzenie-bayesa">Twierdzenie Bayesa</a></li>
+<li><a href="#wnioskowanie-bayesowskie" id="toc-wnioskowanie-bayesowskie">Wnioskowanie bayesowskie</a></li>
+<li><a href="#analiza-eksperymentu-ab-w-podejściu-bayesowskim" id="toc-analiza-eksperymentu-ab-w-podejściu-bayesowskim">Analiza
+eksperymentu A/B w podejściu bayesowskim</a></li>
+<li><a href="#funkcja-straty" id="toc-funkcja-straty">Funkcja
+straty</a></li>
+<li><a href="#czas-trwania-eksperymentu" id="toc-czas-trwania-eksperymentu">Czas trwania eksperymentu</a></li>
+</ul></li>
+<li><a href="#analiza-częstościowa-a-bayesowska" id="toc-analiza-częstościowa-a-bayesowska">Analiza częstościowa a
+bayesowska</a></li>
+<li><a href="#eksperymenty-ab---problemy" id="toc-eksperymenty-ab---problemy">Eksperymenty A/B - problemy</a>
+<ul>
+<li><a href="#problemy-z-interpretacją-wyników" id="toc-problemy-z-interpretacją-wyników">Problemy z interpretacją
+wyników</a></li>
+</ul></li>
+<li><a href="#inne-metody-porównywania-modeli" id="toc-inne-metody-porównywania-modeli">Inne metody porównywania
+modeli</a>
+<ul>
+<li><a href="#eksperymenty-ab-nie-zawsze-są-możliwe" id="toc-eksperymenty-ab-nie-zawsze-są-możliwe">Eksperymenty A/B nie
+zawsze są możliwe</a></li>
+<li><a href="#causal-impact" id="toc-causal-impact">Causal
+Impact</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

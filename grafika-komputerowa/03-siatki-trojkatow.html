@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03-siatki-trojkatow</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="02-przeksztalcenia.html">Poprzedni: 02-przeksztalcenia.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="04-podstawy-animacji.html">Następny: 04-podstawy-animacji.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="siatki-trójkątów">Siatki trójkątów</h1>
+<h2 id="modele-3d">Modele 3D</h2>
+<ul>
+<li>Modele nigdy nie mają oczekiwanej dokładności i formatu</li>
+<li>Ograniczenie
+<ul>
+<li>oprogramowanie</li>
+<li>urządzenia do zbierania danych</li>
+</ul></li>
+<li>Kompromis między
+<ul>
+<li>wielkością modelu</li>
+<li>wydajnością renderingu</li>
+<li>jakością rezultatów</li>
+</ul></li>
+<li>Modele się upraszcza żeby osiągnąć kompromis</li>
+</ul>
+<h2 id="zagadnienia">Zagadnienia</h2>
+<ul>
+<li>Triangulacja (ogólnie teselacja)
+<ul>
+<li>zamiana wielokątów na łatwiejsze do operacji prymitywy
+(trójkąty)</li>
+</ul></li>
+<li>Konsolidacja
+<ul>
+<li>złożenie pojedynczych wielokątów w siatkę</li>
+<li>tworzenie nowych danych (np. wektory normalne)</li>
+</ul></li>
+<li>Optymalizacja
+<ul>
+<li>w celu przyspieszenia renderingu</li>
+<li>zmiana ustawienia wielokątów</li>
+</ul></li>
+<li>Upraszczanie
+<ul>
+<li>usuwanie nieistotnych danych z siatki</li>
+</ul></li>
+<li>Kompresja
+<ul>
+<li>minimalizacja miejsca potrzebnego do przechowania siatki</li>
+</ul></li>
+</ul>
+<h2 id="teselacja">Teselacja</h2>
+<ul>
+<li>Podział powierzchni na zbiór wielokątów z uwzględnieniem pewnych
+kryteriów
+<ul>
+<li>podział na regiony wypukłe</li>
+<li>podział na trójkąty (triangulacja)</li>
+<li>podział na jednorodne regiony</li>
+</ul></li>
+<li>Większość algorytmów zakłada, że punkty wielokąta leżą w jednej
+płaszczyźnie
+<ul>
+<li>nie ma zawijanych płaszczyzn itp.</li>
+</ul></li>
+<li>Bazowy algorytm
+<ul>
+<li>zbadaj każdą linię pomiędzy dowolnymi punktami wielokąta</li>
+<li>sprawdź czy wybrana linia przecina lub nakłada się na krawędź
+<ul>
+<li>jeżeli nie, podziel wielokąt na dwa i kontynuuj dla każdego ze
+stworzonych wielokątów</li>
+<li>jeżeli tak, wybierz inną parę</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="ear-clipping">Ear clipping</h3>
+<ul>
+<li>Algorytm triangulacji</li>
+<li>Przeglądanie wszystkich trójek <span class="math inline">\(v_i,
+v_{i+1}, v_{i+2}\)</span></li>
+<li>Sprawdzenie czy <span class="math inline">\(v_i-v_{i+2}\)</span> nie
+przecina żadnej krawędzi
+<ul>
+<li>jeśli tak to trójkąt jest odcinany</li>
+<li>sprawdzenie czy wierzchołki nie tworzą uszu</li>
+</ul></li>
+<li>Powtarzanie dopóki istnieją uszy</li>
+<li>Ucho - trójkąt którego dwie krawędzie pokrywają się z krawędziami
+wielokąta, a jedna krawędź leży wewnątrz</li>
+</ul>
+<h3 id="problemy-w-triangulacji">Problemy w triangulacji</h3>
+<ul>
+<li>Pękanie krawędzi
+<ul>
+<li>jak obiekty się stykają - dzielą krawędzie</li>
+<li>należy zadbać o poprawny podział</li>
+<li>zwykle dla modeli powierzchniowych</li>
+</ul></li>
+<li>T-wierzchołki
+<ul>
+<li>dwa modele dzielą krawędź, ale nie wszystkie wierzchołki</li>
+<li>powstają artefakty cieniowania</li>
+<li>3 punkty współliniowe zostaną potraktowane jako trójkąt - w renderze
+wyjdzie krawędź</li>
+<li>trzeba inaczej podzielić (retriangulacja) albo może przesłać
+wierzchołki w innej kolejności</li>
+</ul></li>
+</ul>
+<h2 id="konsolidacja">Konsolidacja</h2>
+<ul>
+<li>Po teselacji mamy reprezentację złożoną z wielokątów
+(trójkątów)</li>
+<li>Do rozpatrzenia
+<ul>
+<li>łączenie wielokątów</li>
+<li>orientacja wielokątów</li>
+<li>generacja wektora normalnego dla wierzchołka</li>
+</ul></li>
+</ul>
+<h3 id="łączenie-wielokątów">Łączenie wielokątów</h3>
+<ul>
+<li>Niektóre dane przychodzą w formie zupy wielokątów - rozłączne
+wielokąty</li>
+<li>Jeśli dwa trójkąty dzielą krawędź to duplikują się dane - wiele razy
+te same wierzchołki
+<ul>
+<li>nieefektywne wyświetlanie</li>
+<li>marnowanie pamięci</li>
+</ul></li>
+<li>Najprostsza definicja siatki (mesh)
+<ul>
+<li>lista wierzchołków - współrzędne, normalne, współrzędne tekstur
+itd.</li>
+<li>lista wytycznych - lista indeksów całkowitoliczbowych - wskazanie na
+wierzchołek w liście wierzchołków</li>
+</ul></li>
+<li>Siatka trójkątów
+<ul>
+<li>ograniczenie wielokątów do trójkątów</li>
+</ul></li>
+</ul>
+<h3 id="hashing">Hashing</h3>
+<ul>
+<li>Inicjalizuj licznik wierzchołków na 0</li>
+<li>Dla każdego wielokąta
+<ul>
+<li>spróbuj dodać wierzchołek do tablicy haszującej</li>
+</ul></li>
+<li>Jeśli wierzchołka nie ma w tablicy
+<ul>
+<li>dodaj i zainicjalizuj licznik wystąpień</li>
+<li>dodaj do ostatecznej listy wierzchołków</li>
+</ul></li>
+<li>Jeżeli jest w tablicy
+<ul>
+<li>weź indeks</li>
+<li>zapisz wielokąt wraz z indeksami, które wskazują wierzchołki</li>
+</ul></li>
+<li>Po przetworzeniu wszystkich wierzchołków listy będą kompletne</li>
+</ul>
+<h3 id="welding">Welding</h3>
+<ul>
+<li>Mogą trafić się wierzchołki prawie identyczne</li>
+<li>Należy połączyć ze sobą wierzchołki oddalone nie dalej niż
+epsilon</li>
+<li>Najprostsza metoda
+<ul>
+<li>sortowanie z funkcją, która uwzględnia pewien epsilon dla
+pozycji</li>
+</ul></li>
+</ul>
+<h3 id="orientacja-trójkątów">Orientacja trójkątów</h3>
+<ul>
+<li>Modele mogą przyjść z różną orientacją
+<ul>
+<li>normalne trójkątów wskazują poprawny kierunek</li>
+</ul></li>
+<li>Przetwarzanie wierzchołków zwykle w kierunku przeciwnym do wskazówek
+zegara</li>
+<li>Stosuje się regułę prawej dłoni</li>
+<li>Algorytm
+<ul>
+<li>Stwórz struktury typu krawędź-face dla wszystkich wielokątów</li>
+<li>Posortuj albo oblicz hash dla wszystkich krawędzi, w celu
+znalezienia pasujących krawędzi</li>
+<li>Znajdź grupy wielokątów, które się stykają</li>
+<li>Dla każdej grupy obróć na drugą stronę face’y, w celu osiągnięcia
+spójności</li>
+</ul></li>
+</ul>
+<h3 id="struktura-krawędź-face">Struktura krawędź-face</h3>
+<ul>
+<li>Zbiór pół-krawędzi - krawędź należy do dwóch wielokątów
+<ul>
+<li>krawędź wskazująca na wielokąt</li>
+</ul></li>
+<li>Wierzchołki są przechowywane w kolejności <span
+class="math inline">\(v_0&lt;v_1\)</span></li>
+<li>Tworzenie wg kolejności sortowania
+<ul>
+<li>po kolei współrzędne x, y, z</li>
+</ul></li>
+</ul>
+<h2 id="szukanie-pasujących-krawędzie">Szukanie pasujących
+krawędzie</h2>
+<ul>
+<li>Drugi krok algorytmu</li>
+<li>Znaleźć pasujące krawędzie
+<ul>
+<li>prosta sprawa, bo krawędzie są przechowywany w kolejności <span
+class="math inline">\(v_0&lt;v_1\)</span></li>
+</ul></li>
+<li>Nie ma potrzeby permutacji kombinacji</li>
+<li>Można wykorzystać tablicę haszującą</li>
+</ul>
+<h3 id="dopasowanie-krawędzi">Dopasowanie krawędzi</h3>
+<ul>
+<li>Jeśli dopasujemy krawędzie to znane są wielokąty sąsiadujące
+<ul>
+<li>Mamy graf przylegania</li>
+</ul></li>
+<li>Reprezentacja przez listę
+<ul>
+<li>dla każdego wielokąta lista face’ów sąsiadujących</li>
+</ul></li>
+<li>Krawędzie graniczne- nie ma dwóch sąsiadujących wielokątów</li>
+<li>Zbiór wielokątów połączonych krawędziami - grupa ciągła</li>
+</ul>
+<h3 id="zapewnienie-stałości">Zapewnienie stałości</h3>
+<ul>
+<li>Zmiana orientacji, aby wszystkie wielokąty miały taką samą kolejność
+konturu</li>
+<li>Algorytm
+<ul>
+<li>Dla każdej grupy wybierz początkowy wielokąt</li>
+<li>Weź sąsiadów i sprawdź czy orientacja jest taka sama</li>
+<li>Jeżeli kierunek przejścia przez krawędź jest taki sam dla dwóch
+wielokątów, odwróć na drugą stronę sąsiadujący wielokąt</li>
+<li>Sprawdzaj rekursywnie sąsiadów dopóki wszystkie wielokąty nie będą
+raz sprawdzone</li>
+</ul></li>
+<li>Sprawdzenie czy normalna jest do wewnątrz czy na zewnątrz</li>
+</ul>
+<h3 id="poprawność-siatki">Poprawność siatki</h3>
+<ul>
+<li>Brak dziur</li>
+<li>Każda krawędź jest wspólna tylko dla 2 trójkątów
+<ul>
+<li>poza krawędzią brzegową</li>
+</ul></li>
+<li>Każdy wierzchołek ma jeden ciągły zestaw trójkątów wokół siebie
+<ul>
+<li>bez “klepsydry”</li>
+</ul></li>
+</ul>
+<h2 id="reprezentacja-zbioru-trójkątów">Reprezentacja zbioru
+trójkątów</h2>
+<ul>
+<li>Lista trójkątów
+<ul>
+<li>bardzo nadmiarowe</li>
+<li>nie ma dzielenia danych między trójkątami</li>
+</ul></li>
+<li>Lepsze
+<ul>
+<li>wachlarz</li>
+<li>paski</li>
+<li>siatka trójkątów</li>
+</ul></li>
+</ul>
+<h3 id="wachlarz">Wachlarz</h3>
+<ul>
+<li>Wierzchołek centralny
+<ul>
+<li>współdzielony przez wszystkie wierzchołki</li>
+</ul></li>
+<li>Definicja przez uporządkowaną listę wierzchołków</li>
+<li>Każdy trójkąt składa się z wierzchołków <span
+class="math inline">\(v_0,v_i,v_{i+1}\)</span></li>
+<li>Średnia przesyłana liczba wierzchołków na trójkąt
+<ul>
+<li><span class="math inline">\(1 + \frac{2}{m}\)</span></li>
+<li><span class="math inline">\(m\)</span> - długość wachlarza</li>
+</ul></li>
+</ul>
+<h3 id="pasek">Pasek</h3>
+<ul>
+<li>Definicja przez uporządkowaną listę wierzchołków</li>
+<li>Dwa poprzednie wierzchołki + nowy
+<ul>
+<li><span class="math inline">\(v_i,v_{i+1},v_{i+2}\)</span></li>
+</ul></li>
+<li>Średnia liczba wierzchołków na trójkąt <span class="math inline">\(1
++ \frac{2}{m}\)</span>
+<ul>
+<li>tak samo jak wachlarz</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>źdźbła trawy</li>
+<li>obiekty, których krańcowe obiekty nie są używane przez inne
+obiekty</li>
+</ul></li>
+<li>Często wykorzystywane razem z shaderem geometrii</li>
+</ul>
+<h3 id="siatka-trójkątów">Siatka trójkątów</h3>
+<ul>
+<li>Tabela wierzchołków
+<ul>
+<li>współrzędne</li>
+<li>wektor normalny - średnia z wektorów normalnych ścian</li>
+<li>współrzędne uv</li>
+</ul></li>
+<li>Tabela indeksów
+<ul>
+<li>które wierzchołki tworzą trójkąt</li>
+</ul></li>
+<li>Oszczędność pamięci - wierzchołek jest pamiętany tylko raz</li>
+</ul>
+<h4 id="euler-poincare">Euler-Poincare</h4>
+<ul>
+<li>Charakterystyka Eulera</li>
+<li><span class="math inline">\(X = v - e + f\)</span>
+<ul>
+<li><span class="math inline">\(v\)</span> - liczba wierzchołków</li>
+<li><span class="math inline">\(e\)</span> - liczba krawędzi</li>
+<li><span class="math inline">\(f\)</span> - liczba face’ów</li>
+</ul></li>
+<li><span class="math inline">\(g\)</span> - liczba dziur
+<ul>
+<li><span class="math inline">\(X = 2 - 2g\)</span></li>
+<li><span class="math inline">\(v-e+f+2g=2\)</span></li>
+</ul></li>
+<li>Każda krawędź ma 2 face’y</li>
+<li>Każdy face ma przynajmniej 3 krawędzie
+<ul>
+<li><span class="math inline">\(2e=3f\)</span></li>
+</ul></li>
+<li>Jeżeli siatka nie ma dziur to <span
+class="math inline">\(f=2v-4\)</span></li>
+<li>Wnioski
+<ul>
+<li>dla dużych siatek liczba trójkątów = 2 x liczba wierzchołków</li>
+<li>każdy wierzchołek - średnio 6 trójkątów</li>
+<li>średnio 0.5 wierzchołka na trójkąt</li>
+</ul></li>
+<li>Dlatego siatka trójkątów jest tak dobra</li>
+</ul>
+<h2 id="cache-gpu">Cache GPU</h2>
+<ul>
+<li>Przetwarzanie wierzchołków FIFO
+<ul>
+<li>cache jest zorganizowany tak samo</li>
+</ul></li>
+<li>Przetrzymywanie wyników transformacji wierzchołków</li>
+<li>Miara zużycia cache
+<ul>
+<li>ACMR - average cache miss ratio</li>
+<li>średnia ilość wierzchołków do przetworzenia per trójkąt</li>
+</ul></li>
+<li>Aktualnie
+<ul>
+<li>przetwarzanie wsadowe</li>
+<li>skalowalność</li>
+</ul></li>
+</ul>
+<h2 id="bufory-wierzchołków-i-indeksów">Bufory wierzchołków i
+indeksów</h2>
+<ul>
+<li>Przechowywanie modelu jako ciągły obszar pamięci</li>
+<li>Vertex buffer - tablica wierzchołków o określonym formacie</li>
+<li>Format - definiuje jakie dane są w wierzchołku</li>
+<li>Każdy wierzchołek posiada dane w grupie</li>
+<li>Stride - wielkość wierzchołka w bajtach</li>
+<li>W OpenGL trzeba wyzerować pamięć</li>
+</ul>
+<h2 id="upraszczanie-siatek">Upraszczanie siatek</h2>
+<ul>
+<li>Redukcja danych przy jednoczesnej próbie zachowania wyglądu</li>
+<li>Mniej trójkątów - większa liczba komputerów da radę obsłużyć
+<ul>
+<li>mniej danych, szybszy rendering</li>
+</ul></li>
+<li>Typy upraszczania
+<ul>
+<li>statyczne</li>
+<li>dynamiczne</li>
+<li>zależne od widoku</li>
+</ul></li>
+</ul>
+<h3 id="upraszczanie-statyczne">Upraszczanie statyczne</h3>
+<ul>
+<li>Tworzenie modeli przed renderingiem</li>
+<li>Tworzenie osobnych modeli o różnym stopniu szczegółowości
+<ul>
+<li>Level of Detail</li>
+</ul></li>
+<li>Zastosowania
+<ul>
+<li>graficzne shadery webowe - nie da się upraszczać siatki w locie</li>
+</ul></li>
+</ul>
+<h3 id="upraszczanie-dynamiczne">Upraszczanie dynamiczne</h3>
+<ul>
+<li>Tworzenie modeli w locie
+<ul>
+<li>ciągły LOD</li>
+</ul></li>
+<li>Rozpad krawędzi (edge collapse)
+<ul>
+<li>operacja połączenia 2 wierzchołków w 1 - usunięcie jednej
+krawędzi</li>
+</ul></li>
+</ul>
+<h4 id="edge-collapse">Edge collapse</h4>
+<ul>
+<li>Proces jest odwracalny jeśli zachowamy kolejność operacji
+<ul>
+<li>z uproszczonego modelu da się odtworzyć bardziej skomplikowany</li>
+</ul></li>
+<li>Możliwość optymalizacji transmisji danych</li>
+<li>Proces niezależny od widoku</li>
+<li>Zależność operacji od przyjętej strategii
+<ul>
+<li>można np. wybrać wierzchołek po środku</li>
+<li>w praktyce - albo punkty skrajne albo środek</li>
+</ul></li>
+<li>Algorytm nie zawsze działa
+<ul>
+<li>przy wklęsłości nowa krawędź może przecinać się z powierzchnią</li>
+<li>sprawdzenie - czy odwraca się wektor normalny</li>
+</ul></li>
+</ul>
+<h4 id="qem">QEM</h4>
+<ul>
+<li>Funkcja kosztu usuwania dla krawędzi</li>
+<li>Bierze pod uwagę nową pozycję, wektor normalny dla płaszczyzny,
+odległość od źródła</li>
+<li><span class="math inline">\(c(v) = \sum_{i=1}^m(n_i\cdot v +
+d_i)^2\)</span>
+<ul>
+<li><span class="math inline">\(v\)</span> - nowa pozycja
+wierzchołka</li>
+<li><span class="math inline">\(n_i\)</span> - wektor normalny do
+płaszczyzny</li>
+<li><span class="math inline">\(d_i\)</span> - odległość od źródła</li>
+</ul></li>
+</ul>
+<h3 id="upraszczanie-zależne-od-widoku">Upraszczanie zależne od
+widoku</h3>
+<ul>
+<li>Techniki przeznaczone do generacji LOD, kiedy jest zmienne w ramach
+jednego modelu</li>
+<li>W szczególności - teren</li>
+</ul>
+<h2 id="kompresja-a-precyzja">Kompresja a precyzja</h2>
+<ul>
+<li>GPU ma ograniczoną pamięć</li>
+<li>Oszczędność czasu</li>
+<li>Kompresja danych
+<ul>
+<li>same wierzchołki</li>
+<li>indeksy</li>
+<li>nie zawsze potrzeba pełnego zakresu liczb całkowitych</li>
+</ul></li>
+</ul>
+<h3 id="dane-wierzchołków">Dane wierzchołków</h3>
+<ul>
+<li>Same dane można ograniczyć
+<ul>
+<li>jak monitor obsługuje ograniczoną paletę kolorów</li>
+</ul></li>
+<li>Czasami nie ma potrzeby trzymania danych o kolorze wcale
+<ul>
+<li>np. temperatura</li>
+</ul></li>
+<li>Kwantyzacja skalarów
+<ul>
+<li>skala + przesunięcie</li>
+</ul></li>
+<li>Specjalne właściwości
+<ul>
+<li>współrzędne tekstur</li>
+<li>jeśli normalna, i dwie styczne są wzajemnie prostopadłe to wystarczy
+przechowywać dwie z nich, a trzecią da się wyznaczyć</li>
+</ul></li>
+</ul>
+<h2 id="przechowywanie-danych">Przechowywanie danych</h2>
+<h3 id="wavefront">Wavefront</h3>
+<ul>
+<li>Najprostszy format</li>
+<li>Reprezentacja modelu - <code>.obj</code>
+<ul>
+<li>plik tekstowy</li>
+<li>komentarze <code>#</code></li>
+<li><code>v</code> dane o pozycji</li>
+<li><code>vt</code> współrzędne tekstur</li>
+<li><code>vn</code> wektory normalne</li>
+<li><code>f</code> face’y</li>
+</ul></li>
+<li>Reprezentacja materiału - <code>.mtl</code>
+<ul>
+<li>plik tekstowy</li>
+<li><code>Ka</code> kolor otoczenia</li>
+<li><code>Kd</code> kolor rozproszenia</li>
+<li><code>Ks</code> kolor odbicia</li>
+<li><code>Ke</code> kolor emisji</li>
+<li><code>Ns</code> współczynnik odbicia</li>
+<li><code>Nl</code> współczynnik załamania</li>
+<li><code>d</code> nieprzezroczystość</li>
+<li><code>Tf</code> kolor załamania</li>
+</ul></li>
+</ul>
+<h3 id="alembic">Alembic</h3>
+<ul>
+<li>Wsparcie dla
+<ul>
+<li>siatek trójkątów</li>
+<li>powierzchni NURBS</li>
+<li>hierarchii przekształceń</li>
+<li>kamer</li>
+<li>świateł</li>
+</ul></li>
+<li>Format HDF5
+<ul>
+<li>umożliwia szybki odczyt losowego fragmentu animacji</li>
+<li>dobre do symulacji</li>
+</ul></li>
+<li>Jest open source</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#siatki-trójkątów" id="toc-siatki-trójkątów">Siatki
+trójkątów</a>
+<ul>
+<li><a href="#modele-3d" id="toc-modele-3d">Modele 3D</a></li>
+<li><a href="#zagadnienia" id="toc-zagadnienia">Zagadnienia</a></li>
+<li><a href="#teselacja" id="toc-teselacja">Teselacja</a>
+<ul>
+<li><a href="#ear-clipping" id="toc-ear-clipping">Ear clipping</a></li>
+<li><a href="#problemy-w-triangulacji" id="toc-problemy-w-triangulacji">Problemy w triangulacji</a></li>
+</ul></li>
+<li><a href="#konsolidacja" id="toc-konsolidacja">Konsolidacja</a>
+<ul>
+<li><a href="#łączenie-wielokątów" id="toc-łączenie-wielokątów">Łączenie
+wielokątów</a></li>
+<li><a href="#hashing" id="toc-hashing">Hashing</a></li>
+<li><a href="#welding" id="toc-welding">Welding</a></li>
+<li><a href="#orientacja-trójkątów" id="toc-orientacja-trójkątów">Orientacja trójkątów</a></li>
+<li><a href="#struktura-krawędź-face" id="toc-struktura-krawędź-face">Struktura krawędź-face</a></li>
+</ul></li>
+<li><a href="#szukanie-pasujących-krawędzie" id="toc-szukanie-pasujących-krawędzie">Szukanie pasujących krawędzie</a>
+<ul>
+<li><a href="#dopasowanie-krawędzi" id="toc-dopasowanie-krawędzi">Dopasowanie krawędzi</a></li>
+<li><a href="#zapewnienie-stałości" id="toc-zapewnienie-stałości">Zapewnienie stałości</a></li>
+<li><a href="#poprawność-siatki" id="toc-poprawność-siatki">Poprawność
+siatki</a></li>
+</ul></li>
+<li><a href="#reprezentacja-zbioru-trójkątów" id="toc-reprezentacja-zbioru-trójkątów">Reprezentacja zbioru
+trójkątów</a>
+<ul>
+<li><a href="#wachlarz" id="toc-wachlarz">Wachlarz</a></li>
+<li><a href="#pasek" id="toc-pasek">Pasek</a></li>
+<li><a href="#siatka-trójkątów" id="toc-siatka-trójkątów">Siatka
+trójkątów</a></li>
+</ul></li>
+<li><a href="#cache-gpu" id="toc-cache-gpu">Cache GPU</a></li>
+<li><a href="#bufory-wierzchołków-i-indeksów" id="toc-bufory-wierzchołków-i-indeksów">Bufory wierzchołków i
+indeksów</a></li>
+<li><a href="#upraszczanie-siatek" id="toc-upraszczanie-siatek">Upraszczanie siatek</a>
+<ul>
+<li><a href="#upraszczanie-statyczne" id="toc-upraszczanie-statyczne">Upraszczanie statyczne</a></li>
+<li><a href="#upraszczanie-dynamiczne" id="toc-upraszczanie-dynamiczne">Upraszczanie dynamiczne</a></li>
+<li><a href="#upraszczanie-zależne-od-widoku" id="toc-upraszczanie-zależne-od-widoku">Upraszczanie zależne od
+widoku</a></li>
+</ul></li>
+<li><a href="#kompresja-a-precyzja" id="toc-kompresja-a-precyzja">Kompresja a precyzja</a>
+<ul>
+<li><a href="#dane-wierzchołków" id="toc-dane-wierzchołków">Dane
+wierzchołków</a></li>
+</ul></li>
+<li><a href="#przechowywanie-danych" id="toc-przechowywanie-danych">Przechowywanie danych</a>
+<ul>
+<li><a href="#wavefront" id="toc-wavefront">Wavefront</a></li>
+<li><a href="#alembic" id="toc-alembic">Alembic</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

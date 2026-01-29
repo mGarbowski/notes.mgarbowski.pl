@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-02</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="01-podstawy-sieci.html">Poprzedni: 01-podstawy-sieci.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-03.html">Następny: wyklad-03.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Programowanie sieciowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-podstawy-sieci.html">01-podstawy-sieci.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="rodzina-protokołów-tcpip">Rodzina protokołów TCP/IP</h1>
+<h2 id="własności">Własności</h2>
+<ul>
+<li>Otwartość
+<ul>
+<li>nie zależą od producenta sprzętu lub oprogramowania</li>
+</ul></li>
+<li>Dostępna dla praktycznie każdej platformy
+<ul>
+<li>smartfony</li>
+<li>komputery wbudowane</li>
+</ul></li>
+<li>Mogą być stosowane zarówno w sieciach LAN i WAN</li>
+</ul>
+<h2 id="protokół-ip">Protokół IP</h2>
+<ul>
+<li>Protokół warstwy 3 (sieciowej)</li>
+<li>Odpowiada za dostarczenie danych od hosta do hosta</li>
+<li>Cechy
+<ul>
+<li>datagramowy</li>
+<li>nie gwarantuje sekwencyjności</li>
+<li>nie gwarantuje poprawności</li>
+<li>może nastąpić uszkodzenie, gubienie i zwielokrotnienie pakietów</li>
+</ul></li>
+<li>Ruting
+<ul>
+<li>wyłącznie na podstawie adresu docelowego</li>
+</ul></li>
+<li>Przygotowany do przenoszenia protokołów warstwy 4</li>
+<li>Przygotowany do przenoszenia pakietów przez sieci o różnym MTU</li>
+<li>Dupleksowy</li>
+</ul>
+<h3 id="adresowanie-ipv4">Adresowanie IPv4</h3>
+<ul>
+<li>Adres
+<ul>
+<li>liczba 32-bitowa</li>
+<li>konwencja big-endian (network order)</li>
+<li>zwyczajowo zapisywana jako 4 bajty (oktety)</li>
+</ul></li>
+<li>W celu uproszczenia rutingu adres dzieli się na starszą część
+określającą <strong>sieć</strong> i młodszą określającą
+<strong>hosta</strong></li>
+<li>Classless Inter-Domain Routing (CIDR)
+<ul>
+<li>obecnie nie przyznaje się organizacjom adresów z zakresu pełnych
+klas</li>
+<li>typowo (niewielka) organizacja otrzymuje pod-klasę składającą się z
+4 adresów</li>
+</ul></li>
+<li>Mechanizm subnettingu pozwala na dalsze dzielenie części hosta na
+pod-sieć i hosta (wielokrotnie)</li>
+<li>Adresy prywatne
+<ul>
+<li><code>10.0.0.0 - 10.255.255.255</code> - 1 klasa A</li>
+<li><code>172.16.0.0 - 172.31.255.255</code> - 16 klas B</li>
+<li><code>192.168.0.0 - 192.168.255.255</code> - 256 klas C</li>
+</ul></li>
+<li>Numer hosta <code>0..0</code> - sieć</li>
+<li>Numer hosta <code>1..1</code> - broadcast</li>
+<li>Klasy A, B, C, D, E
+<ul>
+<li>przestarzały sposób podziału adresów</li>
+<li>wyparte przez CIDR i subnetting</li>
+</ul></li>
+</ul>
+<h3 id="konwencje-little--i-big-endian">Konwencje little- i
+big-endian</h3>
+<ul>
+<li>Little-endian
+<ul>
+<li>najmniej znaczący bajt pod najmniejszym adresem</li>
+<li>architektura x86 i pochodne</li>
+</ul></li>
+<li>Big-endian
+<ul>
+<li>najbardziej znaczący bajt pod najmniejszym adresem</li>
+<li>historyczne architektury, IBM360 itp.</li>
+</ul></li>
+<li>Bi-endian
+<ul>
+<li>sprzęt może pracować w obu trybach</li>
+<li>Arm, Power, SPARC</li>
+</ul></li>
+<li>Wszystkie standardy sieciowe wykorzystują big-endian
+<ul>
+<li>trzeba stosować konwersję</li>
+<li>protokoły wyymagają przestrzegania konwencji w nagłówkach, ale nie w
+danych użytkownika</li>
+<li>trzeba ustalić konwencję między komunikującymi się stronami</li>
+</ul></li>
+</ul>
+<h3 id="nagłówek-protokołu-ip">Nagłówek protokołu IP</h3>
+<ul>
+<li>Adres źródłowy</li>
+<li>Adres docelowy</li>
+<li>Suma kontrolna nagłówka</li>
+<li>Pola związane z fragmentacją</li>
+<li>Długość (16b)</li>
+<li>Numer identyfikacyjny
+<ul>
+<li>nie umożliwia kontroli sekwencji</li>
+<li>do identyfikacji fragmentów poddanych podziałowi</li>
+</ul></li>
+</ul>
+<p>W protokołach sieciowych mówi się o <em>oktetach</em>, a nie o
+bajtach ### IPv6 * Za mała przestrzeń adresów IPv4 * Ogólne założenia
+jak dla IPv4 * warstwa 3 * datagramowy * niezależny routing pakietów *
+128 bitów adresu * Integracja IPsec w standardzie * IPv6 funkcjonuje
+równolegle do sieci IPv4 * mogą istnieć równocześnie * dopuszczone jest
+tunelowanie w obie strony * Prostsza struktura nagłówka (pozornie) *
+wiele funkcji przeniesionych do opcji * Brak fragmentacji (zazwyczaj) *
+ograniczona fragmentacja * Jumbogramy * do <span
+class="math inline">\(2^{32} -1\)</span> oktetów * Typy transmisji *
+unicast * anycast - 1 do sąsiednich * multicast - 1 do wielu * W
+praktyce * jest zaimplementowany w większości używanych systemów
+operacyjnych * wiele urządzeń domowych ich nie obsługuje, np routery
+operatorskie * nie wszędzie jest skonfigurowana infrastruktura
+transmisyjna</p>
+<h3 id="adresowanie-ipv6">Adresowanie IPv6</h3>
+<ul>
+<li>Nie ma koncepcji klas</li>
+<li>Adres loopback
+<ul>
+<li>:1/128</li>
+</ul></li>
+<li>Adresy nierutowalne (prywatne)
+<ul>
+<li>link-local</li>
+<li>prefix fc00::/7</li>
+</ul></li>
+<li>Adres używany w dokumentacji
+<ul>
+<li>2001:db8::/32</li>
+<li>nie należy go używać w rzeczywistym kodzie</li>
+</ul></li>
+<li>Routowalny adres
+<ul>
+<li>64 bity adresu sieci CIDR</li>
+<li>64 bity adresu hosta, typowo zawierają 48-bitowy adres MAC</li>
+</ul></li>
+</ul>
+<h3 id="nagłówek-ipv6">Nagłówek IPv6</h3>
+<ul>
+<li>Numer wersji - 4b</li>
+<li>Długość pakietu</li>
+<li>Adresy</li>
+<li>Opcje</li>
+</ul>
+<h3 id="fragmentacja-ip">Fragmentacja IP</h3>
+<ul>
+<li>W teorii maksymalny rozmiar datagramu to 64kB
+<ul>
+<li>w praktyce warstwa fizyczna nie przenosi tak dużych datagramów</li>
+</ul></li>
+<li>Datagramy zostają podzielone
+<ul>
+<li>przez nadającego, musi mieć wiedzę o maksymalnym rozmiarze w
+praktyce</li>
+<li>w sieciach lokalnych MTU może być inne niż na zewnątrz</li>
+<li>lub podział przez ruter</li>
+<li>podział może się powtarzać</li>
+</ul></li>
+<li>Fragment jest w pełni poprawnym datagramem IP
+<ul>
+<li>ma zapisaną informację o tym że jest fragmentem</li>
+</ul></li>
+<li>Fragmenty są przesyłane oddzielnie
+<ul>
+<li>mogą docierać do odbiorcy różnymi drogami</li>
+</ul></li>
+<li>Fragmenty są łączone przez odbiorcę
+<ul>
+<li>jeśli fragment zostaje zgubiony to jakby cały datagram został
+zgubiony</li>
+<li>im więcej fragmentów tym większa szansa, że któryś zaginie</li>
+</ul></li>
+<li>Uwaga na rozmiar datagramu
+<ul>
+<li>dla sieci LAN 1500 jest bezpieczne</li>
+</ul></li>
+<li>Dla TCP nie przejmujemy się tym ze względu na mechanizm MTU
+discovery</li>
+<li>Działanie
+<ul>
+<li>identyfikator</li>
+<li>offset (w 8B)</li>
+<li>flaga czy jest fragmentem, w ostatnim 0</li>
+</ul></li>
+<li>Większe ryzyko zgubienia datagramu</li>
+<li>Większy narzut - każdy fragment ma nagłówek IP</li>
+<li>Bezpieczny rozmiar pakietu</li>
+<li>IPv4
+<ul>
+<li>teoretycznie 65507</li>
+<li>minimum reassembly buffer size - standard RFC, nie uwzględnia
+nagłówków</li>
+<li>najczęściej przyjmuje się bezpieczną wartość za 512</li>
+</ul></li>
+<li>IPv6
+<ul>
+<li>1500B</li>
+</ul></li>
+</ul>
+<h2 id="warstwa-transportowa">Warstwa transportowa</h2>
+<ul>
+<li>Dostarczanie danych między programami działającymi na różnych
+hostach (od procesu do procesu)</li>
+<li>Dwa protokoły warstwy 4
+<ul>
+<li>UDP - User Datagram Protocol</li>
+<li>TCP - Transmission Control Protocol</li>
+</ul></li>
+<li>Zastosowania UDP
+<ul>
+<li>DNS, RPC, SNMP, strumieniowanie multimediów</li>
+</ul></li>
+<li>Zastosowanie TCP
+<ul>
+<li>większość zastosowań, HTTP, …</li>
+</ul></li>
+</ul>
+<h3 id="udp">UDP</h3>
+<ul>
+<li>Port źródłowy (16b)</li>
+<li>Port docelowy (16b)</li>
+<li>Długość w bajtach (16b)</li>
+<li>Suma kontrolna (16b)
+<ul>
+<li>nagłówek UDP, adres IP, długość</li>
+<li>nie uwzględnia danych</li>
+</ul></li>
+<li>Port identyfukuje zdalną i lokalną aplikację</li>
+<li>Nadawca i odbiorca są identyfikowanie jednoznacznie</li>
+</ul>
+<h3 id="porty">Porty</h3>
+<ul>
+<li>Numery portów UDP i TCP są ortogonalne</li>
+<li>16 bitów</li>
+<li>Zakres
+<ul>
+<li>0 - nielegalny</li>
+<li>1-1023 - zarezerwowane well-known ports</li>
+<li><blockquote>
+<p>=1024 - porty efemeryczne i serwery testowe, ale</p>
+</blockquote>
+<ul>
+<li>zależne od implementacji</li>
+<li>1024-49151 - registered ports, znane, opcjonalnie dostępne
+usługi</li>
+<li>49152-… - dynamic ports, efemeryczne</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="asocjacje">Asocjacje</h3>
+<ul>
+<li>Asocjacja jednoznacznie określa dwa komunikujące się procesy
+<ul>
+<li>protokół</li>
+<li>adres lokalny</li>
+<li>port lokalny</li>
+<li>adres zdalny</li>
+<li>port zdalny</li>
+</ul></li>
+<li>Asocjacja jest unikalna w skali internetu
+<ul>
+<li>z dokładnością do adresów nierutowalnych</li>
+</ul></li>
+<li>Półasocjacja
+<ul>
+<li>gniazdo</li>
+<li>protokół, adres, port</li>
+<li>punkt końcowy komunikacji</li>
+</ul></li>
+</ul>
+<h3 id="tcp">TCP</h3>
+<ul>
+<li>Protokół sekwencyjny, niezawodny, dupleksowy
+<ul>
+<li>użytkownik nie ma dostępu do abstrakcji <em>pakietu</em></li>
+</ul></li>
+<li>Z punktu widzenia użytkownika, strumień danych jest jak plik do
+którego można dopisywać do końca</li>
+<li>Nawiązanie połączenia jest asymetryczne
+<ul>
+<li>sama transmisja danych odbywa się symetrycznie, nie ma strony
+wyróżnionej</li>
+</ul></li>
+<li>Numer portu - 16b</li>
+<li>Zapewnia sterowanie przepływem
+<ul>
+<li>dopasowanie szybkości transmisji źródła i odbiorcy danych</li>
+<li>kiedy źródło transmituje szybciej niż odbiorca jest w stanie
+odebrać</li>
+<li>w pewnym momencie pakiety będą odrzucane po stronie odbiorcy</li>
+<li>funkcja write jest zawieszana do momentu wyczyszczenia buforów</li>
+<li>odbiorca powiadamia nadawcę</li>
+</ul></li>
+<li>Transmisja OOB
+<ul>
+<li>out of bound</li>
+<li>pomija standardowe mechanizmy buforowania</li>
+<li>dla danych o wysokim priorytecie</li>
+</ul></li>
+<li>Protokół z przesuwnym oknem
+<ul>
+<li>doczytać o co chodzi</li>
+</ul></li>
+<li>Nagłówek
+<ul>
+<li>Sequence number</li>
+<li>Acknowledgement number</li>
+<li>Na poziomie numerowanych bajtów</li>
+</ul></li>
+<li>Wykrywanie i kontrola błędów
+<ul>
+<li>nie zawsze potrzebnie</li>
+</ul></li>
+<li>MSS - maximum segment size</li>
+<li>MTU</li>
+<li>Congestion control
+<ul>
+<li>dostosowanie szybkości nadawcy i odbiorcy</li>
+<li>slow-start - początkowa transmisja jest wolna, jak działa dobrze to
+potem przyspiesza</li>
+</ul></li>
+<li>Zapewnia sekwencyjność danych</li>
+</ul>
+<h3 id="model-klient-serwer">Model klient-serwer</h3>
+<ul>
+<li>Serwer
+<ul>
+<li>otwarcie pasywne gniazda</li>
+<li>oczekiwanie na połączenie</li>
+</ul></li>
+<li>Klient
+<ul>
+<li>otwarcie aktywne</li>
+<li>połączenie z serwerem</li>
+</ul></li>
+<li>Obsługa wielu klientów przez serwer
+<ul>
+<li>unikalność asocjacji (połączonego gniazda)</li>
+<li>porty efemeryczne klienta przyznawane automatycznie w czasie
+nawiązywania połączenia</li>
+<li>serwery współbieżne i iteracyjne</li>
+</ul></li>
+</ul>
+<h3 id="typy-serwerów">Typy serwerów</h3>
+<ul>
+<li>Iteracyjny
+<ul>
+<li>UDP - typowe (np. DNS)</li>
+<li>TCP - rzadkie (protokoły testowe)</li>
+</ul></li>
+<li>Współbieżny
+<ul>
+<li>UDP - rzadkie (np. TFTP, dla prostych klientów, mogą nie mieć
+zaimplementowanego TCP)</li>
+<li>TCP - typowe (np. HTTP, SMTP, ssh)</li>
+</ul></li>
+</ul>
+<h3 id="inne-protokoły-transportowe">Inne protokoły transportowe</h3>
+<ul>
+<li>DCTP
+<ul>
+<li>datagram congestion control protocol</li>
+<li>zapewnia kontrolę przepływu</li>
+<li>nie zapewnia niezawodności</li>
+<li>zastosowania w VoIP, streamingu, grach</li>
+</ul></li>
+<li>SCTP
+<ul>
+<li>stream congestion transmission protocol</li>
+<li>datagramowy</li>
+<li>zapewnia kontrolę przepływu, niezawodność</li>
+<li>obsługa wielu strumieni na raz</li>
+<li>multihoming - więcej niż 1 adres IP jako źródło/cel</li>
+</ul></li>
+<li>QUIC
+<ul>
+<li>Dostosowany do obsługi HTTP/3</li>
+<li>Nazywany TCP/2</li>
+<li>zoptymalizowany do transmisji wielu równoległych strumieni danych w
+HTTP</li>
+<li>eliminuje wady wydajnościowe TCP</li>
+<li>więcej przy okazji HTTP</li>
+</ul></li>
+</ul>
+<h2 id="dns">DNS</h2>
+<ul>
+<li>Protokół aplikacyjny (L7) ale ma szczególne znaczenie dla innych
+protokołów</li>
+<li>Odpowiada za tłumaczenie adresów symbolicznych na adresy IP</li>
+<li>Hierarchia serwerów DNS odpowiada hierarchi organizacyjnej
+internetu</li>
+<li>Rozproszona baza danych
+<ul>
+<li>nigdzie nie jest przechowywana pełna informacja</li>
+</ul></li>
+<li>Serwer odpowiada za strefę, a strefa niekoniecznie pokrywa się z
+domeną</li>
+<li>Resolver
+<ul>
+<li>programista korzysta z DNS za pośrednictwem reesolvera</li>
+<li>biblioteka</li>
+<li>kernelowy stos protokołów używa tylko adresów IP, nie
+symbolicznych</li>
+</ul></li>
+</ul>
+<h3 id="dane-rekordów">Dane rekordów</h3>
+<ul>
+<li>Nazwa domenowa - FQDN
+<ul>
+<li>fully qualified domain name</li>
+<li>case insensitive</li>
+</ul></li>
+<li>Składnik może mieć 63 znaki</li>
+<li>Pełna nazwa domenowa do 255 znaków</li>
+<li>Dozwolone znaki
+<ul>
+<li>a-z</li>
+<li>A-Z</li>
+<li>0-9</li>
+<li><ul>
+<li></li>
+</ul></li>
+<li>inne są niedozwolone</li>
+</ul></li>
+<li>Ograniczenia wynikają z maksymalnego bezpiecznego rozmiaru
+datagramów UDP</li>
+</ul>
+<h3 id="działanie">Działanie</h3>
+<ul>
+<li>Serwer nie musi obsługiwać wszystkich rekordów w danym poddrzewie
+<ul>
+<li>np. serwer edu.pl posiada rekord o pw.edu.pl, ale nie o
+elka.pw.edu.pl</li>
+</ul></li>
+<li>Serwer deleguje obsługę wybranych pod-domen do innych serwerów
+DNS</li>
+<li>Delegowany serwer posiada upoważnienie …</li>
+</ul>
+<h3 id="rekordy">Rekordy</h3>
+<ul>
+<li>A - mapuje nazwę na adres IP</li>
+<li>PTR - mapuje adres IP na nazwę</li>
+<li>CNAME - nazwy kanoniczne (aliasy)</li>
+<li>MX - adres serwera SMTP dla domeny</li>
+<li>SOA - source of authority - atrybuty strefy, jak długy
+cache’ować</li>
+<li>NS - serwer nazw</li>
+<li>SPF - sender policy framework
+<ul>
+<li>do mechanizmów antyspamowych</li>
+<li>kto jest upoważniony do wysyłania nam poczty</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#rodzina-protokołów-tcpip" id="toc-rodzina-protokołów-tcpip">Rodzina protokołów TCP/IP</a>
+<ul>
+<li><a href="#własności" id="toc-własności">Własności</a></li>
+<li><a href="#protokół-ip" id="toc-protokół-ip">Protokół IP</a>
+<ul>
+<li><a href="#adresowanie-ipv4" id="toc-adresowanie-ipv4">Adresowanie
+IPv4</a></li>
+<li><a href="#konwencje-little--i-big-endian" id="toc-konwencje-little--i-big-endian">Konwencje little- i
+big-endian</a></li>
+<li><a href="#nagłówek-protokołu-ip" id="toc-nagłówek-protokołu-ip">Nagłówek protokołu IP</a></li>
+<li><a href="#adresowanie-ipv6" id="toc-adresowanie-ipv6">Adresowanie
+IPv6</a></li>
+<li><a href="#nagłówek-ipv6" id="toc-nagłówek-ipv6">Nagłówek
+IPv6</a></li>
+<li><a href="#fragmentacja-ip" id="toc-fragmentacja-ip">Fragmentacja
+IP</a></li>
+</ul></li>
+<li><a href="#warstwa-transportowa" id="toc-warstwa-transportowa">Warstwa transportowa</a>
+<ul>
+<li><a href="#udp" id="toc-udp">UDP</a></li>
+<li><a href="#porty" id="toc-porty">Porty</a></li>
+<li><a href="#asocjacje" id="toc-asocjacje">Asocjacje</a></li>
+<li><a href="#tcp" id="toc-tcp">TCP</a></li>
+<li><a href="#model-klient-serwer" id="toc-model-klient-serwer">Model
+klient-serwer</a></li>
+<li><a href="#typy-serwerów" id="toc-typy-serwerów">Typy
+serwerów</a></li>
+<li><a href="#inne-protokoły-transportowe" id="toc-inne-protokoły-transportowe">Inne protokoły
+transportowe</a></li>
+</ul></li>
+<li><a href="#dns" id="toc-dns">DNS</a>
+<ul>
+<li><a href="#dane-rekordów" id="toc-dane-rekordów">Dane
+rekordów</a></li>
+<li><a href="#działanie" id="toc-działanie">Działanie</a></li>
+<li><a href="#rekordy" id="toc-rekordy">Rekordy</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

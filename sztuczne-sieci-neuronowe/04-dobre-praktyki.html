@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04-dobre-praktyki</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="03-algorytmy-uczenia.html">Poprzedni: 03-algorytmy-uczenia.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="05-sieci-splotowe.html">Następny: 05-sieci-splotowe.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="dobre-praktyki">Dobre praktyki</h1>
+<h2 id="przeuczenie-i-co-z-nim-zrobić">Przeuczenie i co z nim
+zrobić</h2>
+<ul>
+<li>Przeuczenie to znacznie większy błąd na zbiorze testowym niż
+treningowym</li>
+<li>Niedouczenie
+<ul>
+<li>za prosty model</li>
+<li>za mało danych</li>
+<li>za krótkie uczenie</li>
+</ul></li>
+</ul>
+<h3 id="wczesne-zatrzymanie">Wczesne zatrzymanie</h3>
+<ul>
+<li>Do wykrycia przeuczenia potrzebujemy zbioru treningowego i
+walidacyjnego</li>
+<li>Jeśli nie mamy wystarczająco dużo danych, możemy wykorzystać
+walidację krzyżową</li>
+<li>Leave-one-out - jak mamy bardzo mało próbek</li>
+<li>Zatrzymujemy uczenie w epoce, w której błąd na zbiorze walidacyjnym
+był najmniejszy</li>
+<li>W praktyce dobrze jest na bieżąco monitorować zmianę funkcji straty
+<ul>
+<li>nie zawsze warto uczyć do końca przez zadaną liczbę epok</li>
+<li>zanikający/eksplodujący gradient</li>
+</ul></li>
+<li>Bootstrap
+<ul>
+<li>podział na zbiór testowy i treningowy przez losowanie ze
+zwracaniem</li>
+<li>jedno losowanie to próba bootstrapowa</li>
+<li>powtarza się n razy i uśrednia</li>
+<li>może dawać dokładniejsze oszacowanie rzeczywistego błędu niż
+walidacja krzyżowa</li>
+</ul></li>
+</ul>
+<h3 id="regularyzacja">Regularyzacja</h3>
+<ul>
+<li>Zmiana funkcja straty
+<ul>
+<li>wprowadzenie kary zależnej od parametrów (wag) modelu</li>
+</ul></li>
+<li>Regularyzacja L2
+<ul>
+<li><span class="math inline">\(+\lambda \|\theta\|_2\)</span></li>
+<li>tendencja modelu do równomiernego rozkładania wag</li>
+<li>niewielkie wartości na wszystkich neuronach</li>
+<li>gładsza funkcja wyjściowa</li>
+<li>zrównoważone wykorzystanie wszystkich wejść</li>
+<li>efekt stabilizujący</li>
+<li>wagi są tak małe jak to możliwe, ale nie zerowe</li>
+</ul></li>
+<li>Regularyzacja L1
+<ul>
+<li><span class="math inline">\(+\lambda \sum |\theta_i|\)</span></li>
+<li>wagi stają się rzadkie</li>
+<li>tylko niektóre neurony mają niezerowe wartości</li>
+<li>część neuronów otrzymuje zerowe wagi</li>
+<li>działa jak selekcja cech - niektóre zostają odrzucone, zostają
+najważniejsze</li>
+<li>zmniejsza wrażliwość sieci na zakłócenia</li>
+</ul></li>
+</ul>
+<h3 id="drop-out">Drop-out</h3>
+<ul>
+<li>Prawdopodobieństwo <span class="math inline">\(p\)</span> ustalone
+dla warstwy</li>
+<li>Waga zostaje taka jaka była</li>
+<li>Wyjście jest zerowane (losowo z prawdopodobieństwem <span
+class="math inline">\(p\)</span>)</li>
+<li>Podobny efekt do regularyzacji</li>
+<li>Przy inferencji wchodzą wszystkie neurony
+<ul>
+<li>żeby skompensować brak neuronów podczas treningu - mnożenie wag
+przez <span class="math inline">\((1-p)\)</span></li>
+</ul></li>
+</ul>
+<h3 id="augmentacja-danych">Augmentacja danych</h3>
+<ul>
+<li>Wprowadzenie do zbioru treningowego zmodyfikowanych kopii
+istniejących danych</li>
+<li>Zwłaszcza przy obrazach
+<ul>
+<li>rotacja, odbicie, szum</li>
+<li>powoduje zmianę rozkładu danych</li>
+<li>jeśli jakaś transformacja nie była obecna w zbiorze treningowym, a
+pojawi się przy inferencji to może być słaby wynik</li>
+</ul></li>
+<li>W modelach językowych
+<ul>
+<li>zmiana szyku</li>
+<li>zamiana słów na synonimy</li>
+<li>literówki</li>
+<li>podwójne tłumaczenia</li>
+</ul></li>
+<li>Problem augmentacji n+1</li>
+</ul>
+<h2 id="destylacja">Destylacja</h2>
+<ul>
+<li>Szczególny rodzaj uproszczenia modelu</li>
+<li>Wycięcie tylko niektórych warstw z sieci</li>
+<li>Poza tym stosowana do przyspieszenia</li>
+</ul>
+<h2 id="funkcje-aktywacji">Funkcje aktywacji</h2>
+<ul>
+<li>Tożsamość</li>
+<li>Tangens hiperboliczny
+<ul>
+<li>sigmoid bipolarny</li>
+</ul></li>
+<li>Funkcja logistyczna
+<ul>
+<li>sigmoid unipolarny</li>
+</ul></li>
+<li>ReLU</li>
+<li>LeakyReLU</li>
+<li>Swish</li>
+<li>Nie ma dobrych, ogólnych metod na dobranie funkcji aktywacji do
+problemu
+<ul>
+<li>funkcja aktywacji jest jednym z hiperparametrów</li>
+</ul></li>
+</ul>
+<h3 id="relu">ReLU</h3>
+<ul>
+<li>Zalecana do większości zastosowań w sieciach jednokierunkowych</li>
+<li>Jest złożeniem dwóch liniowych funkcji
+<ul>
+<li>łatwe do optymalizacji</li>
+</ul></li>
+<li>Złożenie ReLU z transformacją liniową daje transformację
+nieliniową</li>
+<li>Nie ma żadnej aktualizacji gradientu kiedy wartość wynosi 0
+<ul>
+<li>to nie zawsze dobrze, bo dla 0 nie aktualizuje się gradient</li>
+<li>warianty ReLU to zmieniają, dla niektórych zbiorów danych dają
+lepsze wyniki</li>
+</ul></li>
+</ul>
+<h3 id="funkcja-sigmoidalna">Funkcja sigmoidalna</h3>
+<ul>
+<li>Nasycają się w większości swojej domeny
+<ul>
+<li>w wąskim zakresie przyjmuje wartości mocno odbiegające od
+asymptot</li>
+<li>stwarza problemy dla sieci głębokich</li>
+<li>wrażliwa tylko na dane wejściowe blisko <span
+class="math inline">\(0\)</span></li>
+</ul></li>
+<li>Nasycenie utrudnia uczenie oparte na gradiencie</li>
+<li>Raczej odradzane w sieciach jednokierunkowych</li>
+<li>Tangens hiperboliczny raczej jest lepszy niż funkcja
+logistyczna</li>
+</ul>
+<h3 id="problem-zanikających-eksplodujących-gradientów">Problem
+zanikających / eksplodujących gradientów</h3>
+<ul>
+<li>Bardzo szybko dostajemy bardzo duże/małe wartości gradientu
+<ul>
+<li>głębsze warstwy się nie aktualizują</li>
+</ul></li>
+<li>Przede wszystkim w sieciach rekurencyjnych</li>
+<li>Rozwiązania
+<ul>
+<li>użycie nienasycających się funkcji aktywacji (ReLU i pochodne)</li>
+<li>odpowiednia inicjalizacja wag (He, Glorota)</li>
+<li>normalizacja wsadowa</li>
+<li>obcinanie gradientu</li>
+<li>połączenia nie tylko między sąsiednimi warstwami (ResNet)</li>
+</ul></li>
+</ul>
+<h2 id="perceptron-dwuwarstwowy-jako-klasyfikator">Perceptron
+dwuwarstwowy jako klasyfikator</h2>
+<ul>
+<li>Tyle neuronów wyjściowych ile klas</li>
+<li>Oczekujemy wyjścia w postaci kodowania 1 z n</li>
+<li>Z wektora wyjść sieci patrzymy na to, który element jest
+największy</li>
+</ul>
+<h3 id="warstwa-soft-max">Warstwa soft-max</h3>
+<p><span class="math display">\[ wy_{[i]} = \frac{\exp(we_{[i]})}{\sum_j
+\exp(we_{[j]})} \]</span></p>
+<ul>
+<li>Ma na celu normalizację wyjść do takiego zakresu, żeby wszystkie
+wyjścia sumowały się do 1</li>
+<li>Można traktować jako prawdopodobieństwo przynależności do klasy
+<ul>
+<li>wyjście w postaci rozkładu prawdopodobieństwa</li>
+</ul></li>
+<li>Użyteczne np. do detektorów obiektów
+<ul>
+<li>można odrzucać detekcję dla prawdopodobieństwa poniżej pewnego
+progu</li>
+<li>można określić próg na poziomie jednakowej pewności do wszystkich
+klas (np. 3 po 0.33)</li>
+</ul></li>
+</ul>
+<h2 id="funkcja-straty">Funkcja straty</h2>
+<ul>
+<li>Błąd średniokwadratowy
+<ul>
+<li>do regresji</li>
+</ul></li>
+<li>Entropia krzyżowa
+<ul>
+<li>do klasyfikacji</li>
+<li>wzorcowe prawdopodobieństwo i-tej klasy <span
+class="math inline">\(y_i^d\)</span></li>
+<li>zwracane prawdopodobieństwo i-tej klasy <span
+class="math inline">\(y_i\)</span></li>
+<li><span class="math inline">\(l(y) = -\sum_i y_i^d
+\log_2(y_i)\)</span></li>
+<li>jest sumą entropii i dywergencji Kullbacka-Leiblera</li>
+</ul></li>
+</ul>
+<h2 id="inicjalizacja-wag">Inicjalizacja wag</h2>
+<ul>
+<li>Rozkład równomierny <span
+class="math inline">\(U(-b,b)\)</span></li>
+<li>Metoda klasyczna <span class="math inline">\(b =
+\frac{1}{\sqrt{dim(we)}}\)</span></li>
+<li>Xavier <span class="math inline">\(b=\frac{\sqrt{6}}{\sqrt{dim(we) +
+dim(wy)}}\)</span></li>
+<li>dim - wymiar danych wejściowych</li>
+</ul>
+<h2 id="normalizacja-pakietowa">Normalizacja pakietowa</h2>
+<ul>
+<li>Batch normalization</li>
+<li>Atrybuty mogą mieć różne zakresy wartości</li>
+<li>Wyjścia z kolejnych warstw też są normalizowane</li>
+<li>Te same zmienne w ramach minipakietu
+<ul>
+<li>obliczamy średnią</li>
+<li>obliczamy std</li>
+<li>zmienne przechodzą dalej znormalizowane (odjęcie średniej, dzielenie
+przez std)</li>
+<li>można to robić w trakcie treningu</li>
+</ul></li>
+<li>Problem - co zrobić na nowych danych
+<ul>
+<li>pojedyncza próbka, a nie cały wektor, nie ma z czego liczyć
+rozkładu</li>
+<li>można wziąć średnią i odchylenie z danych treningowych</li>
+</ul></li>
+<li>Scale and shift
+<ul>
+<li>po normalizacji przekształcenie funkcją liniową</li>
+<li>parametry <span class="math inline">\(\gamma\)</span> i <span
+class="math inline">\(\beta\)</span> inicjowane losowo i potem
+aktualizowane w procesie uczenia</li>
+<li>pozwala wprowadzić obciążenie</li>
+</ul></li>
+<li>Pozwala przyspieszyć uczenie
+<ul>
+<li>w trakcie uczenia, wagi się dostosowują i zmienia się rozkład
+wyjścia z warstwy (internal covariate shift)</li>
+<li>kolejne warstwy muszą się dostosowywać do tego nowego rozkładu</li>
+<li>jak wyjścia są znormalizowane to zjawisko ma mniejszy wpływ</li>
+</ul></li>
+</ul>
+<h2 id="standard-aspice-4.0">Standard ASPICE 4.0</h2>
+<ul>
+<li>Dla branży automotive</li>
+<li>Automotive Software Process Improvement and Capability
+dEtermination</li>
+<li>Określa procesy i dobre praktyki dla uczenia maszynowego
+<ul>
+<li>jak definiować wymagania</li>
+<li>jak tworzyć architekturę</li>
+<li>jak trenować</li>
+<li>jak testować model po wytrenowaniu</li>
+</ul></li>
+<li>Warto poczytać, standard jest generyczny</li>
+</ul>
+<h2 id="wyznaczanie-niepewności">Wyznaczanie niepewności</h2>
+<ul>
+<li>Epistemiczna
+<ul>
+<li>spowodowana niewystarczającą liczbą danych</li>
+<li>szacowanie - metoda monte carlo</li>
+<li>wiele razy robienie inferencji z losowym dropoutem - sprawdzamy czy
+się zmienia, czy jest spójnie</li>
+</ul></li>
+<li>Aletoryczna
+<ul>
+<li>spowodowana naturalną losowością</li>
+<li>zaszumienie pomiarów</li>
+<li>nie może być zmniejszona przez dodanie nowych danych</li>
+</ul></li>
+</ul>
+<h2 id="wzorce-aktywacji-neuronów">Wzorce aktywacji neuronów</h2>
+<ul>
+<li>Analizując wzorce aktywacji neuronów można wykrywać dane spoza
+dystrybucji
+<ul>
+<li>podczas inferencji dana z innego rozkładu niż przy uczeniu</li>
+<li>widoczne różnica przy porównaniu dystansu Hamminga</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dobre-praktyki" id="toc-dobre-praktyki">Dobre praktyki</a>
+<ul>
+<li><a href="#przeuczenie-i-co-z-nim-zrobić" id="toc-przeuczenie-i-co-z-nim-zrobić">Przeuczenie i co z nim zrobić</a>
+<ul>
+<li><a href="#wczesne-zatrzymanie" id="toc-wczesne-zatrzymanie">Wczesne
+zatrzymanie</a></li>
+<li><a href="#regularyzacja" id="toc-regularyzacja">Regularyzacja</a></li>
+<li><a href="#drop-out" id="toc-drop-out">Drop-out</a></li>
+<li><a href="#augmentacja-danych" id="toc-augmentacja-danych">Augmentacja danych</a></li>
+</ul></li>
+<li><a href="#destylacja" id="toc-destylacja">Destylacja</a></li>
+<li><a href="#funkcje-aktywacji" id="toc-funkcje-aktywacji">Funkcje
+aktywacji</a>
+<ul>
+<li><a href="#relu" id="toc-relu">ReLU</a></li>
+<li><a href="#funkcja-sigmoidalna" id="toc-funkcja-sigmoidalna">Funkcja
+sigmoidalna</a></li>
+<li><a href="#problem-zanikających-eksplodujących-gradientów" id="toc-problem-zanikających-eksplodujących-gradientów">Problem
+zanikających / eksplodujących gradientów</a></li>
+</ul></li>
+<li><a href="#perceptron-dwuwarstwowy-jako-klasyfikator" id="toc-perceptron-dwuwarstwowy-jako-klasyfikator">Perceptron
+dwuwarstwowy jako klasyfikator</a>
+<ul>
+<li><a href="#warstwa-soft-max" id="toc-warstwa-soft-max">Warstwa
+soft-max</a></li>
+</ul></li>
+<li><a href="#funkcja-straty" id="toc-funkcja-straty">Funkcja
+straty</a></li>
+<li><a href="#inicjalizacja-wag" id="toc-inicjalizacja-wag">Inicjalizacja wag</a></li>
+<li><a href="#normalizacja-pakietowa" id="toc-normalizacja-pakietowa">Normalizacja pakietowa</a></li>
+<li><a href="#standard-aspice-4.0" id="toc-standard-aspice-4.0">Standard
+ASPICE 4.0</a></li>
+<li><a href="#wyznaczanie-niepewności" id="toc-wyznaczanie-niepewności">Wyznaczanie niepewności</a></li>
+<li><a href="#wzorce-aktywacji-neuronów" id="toc-wzorce-aktywacji-neuronów">Wzorce aktywacji neuronów</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

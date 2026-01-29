@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-08</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-07.html">Poprzedni: wyklad-07.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-09.html">Następny: wyklad-09.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="wielowątkowość-zpr--w09--2020-12-01">Wielowątkowość (ZPR- W09
+-2020 12 01)</h1>
+<p>Procesor działa znacznie szybciej niż urządzenia zewnętrzne (IO) i
+pamięć, żeby nie marnować czasu procesora potrzebujemy wielu strumieni
+sterowania.</p>
+<p>Wieloprocesowe systemy operacyjne - na platforny jedno procesorowe i
+wieloprocesorowe</p>
+<h2 id="aplikacje-wielowątkowe">Aplikacje wielowątkowe</h2>
+<ul>
+<li>Wątek realizuje niezależne ciągi instrukcji w ramach procesu</li>
+<li>Wątki współdzielą kod, dane i zasoby</li>
+<li>Mechanizm przełączania nie wprowadza dużych narzutów</li>
+<li>Pozwala na reakcję na zlecenia użytkownika podczas przeprowadzania
+obliczeń</li>
+<li>Lepiej wykorzystuje dostępną moc obliczeniową
+<ul>
+<li>szczególnie na platformach wieloprocesorowych</li>
+</ul></li>
+<li>Może obsługiwać wiele zleceń równolegle</li>
+<li>Poprawnie zaprojektowana jest szybsza na platformach
+wieloprocesorowych</li>
+</ul>
+<h2 id="aplikacje-wielowątkowe-w-c">Aplikacje wielowątkowe w C++</h2>
+<ul>
+<li>Współdzielone
+<ul>
+<li>obiekty globalne</li>
+<li>obiekty dynamiczne</li>
+<li>obiekty automatyczne jeśli dostęp jest przez wskaźnik lub
+referencję</li>
+<li>Zasoby systmu operacyjnego (pliki, okna, itp.)</li>
+<li>kod wykonywany</li>
+</ul></li>
+<li>Niezależne
+<ul>
+<li>rejestry</li>
+<li>ciąg wykonywanych instrukcji</li>
+<li>stos</li>
+<li>zmienne automatyczne</li>
+</ul></li>
+<li>Program ma zawsze jeden wątek główny (funkcja <code>main()</code>)
+<ul>
+<li>może tworzyć dodatkowe wątki (wątki obliczeniowe / pomocnicze)</li>
+</ul></li>
+<li>Nie wszystkie funkcje biblioteki standardowej mogą być używane w
+aplikacjach współbieżnych
+<ul>
+<li>niewspółbieżna wersja biblioteki standardowej jest szybsza i
+mniejsza</li>
+<li>wybór przez flagę kompilatora (<code>-pthread</code>)</li>
+</ul></li>
+<li>Niektóre funkcje odziedziczone z biblioteki C nie mają bezpiecznej
+wersji
+<ul>
+<li>używać random, regex, chrono zamiast odpowiedników z cstdlib</li>
+</ul></li>
+<li>Mechanizmy tworzenia i synchronizacji wątków są dostępne od
+standardu C++11</li>
+<li>Obsługa czasu
+<ul>
+<li>Boost.Date_Time</li>
+<li>std::chrono - oparta o szablony</li>
+</ul></li>
+<li>Obsługa wątków przez <code>std::thread</code></li>
+</ul>
+<h2 id="wyścigi">Wyścigi</h2>
+<ul>
+<li>Mogą występować kiedy wiele wątków pisze lub czyta tę samą
+pamięć</li>
+<li>Teoretycznie można wykryć wyścigi analizując wszystkie możliwe
+przeploty instrukcji
+<ul>
+<li>nierealistyczne</li>
+</ul></li>
+<li>Rozwiązanie przez synchronizację (blokady)</li>
+</ul>
+<h2 id="blokady---mutex">Blokady - mutex</h2>
+<ul>
+<li>Wzajemne wyklucznaie</li>
+<li>Służy do tworzenia sekcji krytycznych
+<ul>
+<li>wspierany przez system operacyjny</li>
+</ul></li>
+<li><code>std::mutex</code></li>
+<li><code>std::lock_guard</code></li>
+</ul>
+<h2 id="zakleszczenia-deadlock">Zakleszczenia (deadlock)</h2>
+<ul>
+<li>Każdy z wątków czeka na jakiś inny (jest zablokowany)</li>
+<li>Żaden z nich nie może dalej pracować</li>
+<li>Rozwiązanie
+<ul>
+<li>zajmowanie blokad zawsze w tej samej kolejności</li>
+<li>stosowanie innych mechanizmów synchronizujących</li>
+</ul></li>
+<li>Samozakleszczenie
+<ul>
+<li>brak zwalniania sekcji krytycznej np. w algorytmach
+rekurencyjnych</li>
+<li>rowiązanie <code>std::recursive_mutex</code> - sprawdza
+identyfikator wątku</li>
+</ul></li>
+</ul>
+<h3 id="rodzaje-prostych-blokad-w-bibliotece-standardowej">Rodzaje
+prostych blokad w bibliotece standardowej</h3>
+<ul>
+<li><code>std::mutex</code>
+<ul>
+<li>lock
+<ul>
+<li>wolny - zajmuje</li>
+<li>zajęty - blokuje</li>
+</ul></li>
+<li>try_lock
+<ul>
+<li>wolny - zajmuje, zwraca true</li>
+<li>zajęty - zwraca false</li>
+</ul></li>
+</ul></li>
+<li><code>std::recursive_mutex</code>
+<ul>
+<li>jak wyżej</li>
+</ul></li>
+<li><code>std::timed_mutex</code>
+<ul>
+<li>jak wyżej</li>
+<li>try_lock_for(time_duration)
+<ul>
+<li>wolny - zajmuje, zwraca true</li>
+<li>zajęty - blokuje na dany czas, zwraca false i przywraca
+sterowanie</li>
+</ul></li>
+<li>try_lock_until(time_point)
+<ul>
+<li>jak wyżej</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="kończenie-wątku">Kończenie wątku</h3>
+<ul>
+<li>Nie należy kończyć wątku inaczej niż przez wymuszenie zakończenia
+funkcji głównej wątku</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyThread <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    MyThread<span class="op">():</span> <span class="va">finish_</span><span class="op">(</span><span class="kw">false</span><span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> finish<span class="op">()</span> <span class="op">{</span> <span class="va">finish_</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="kw">operator</span><span class="op">()()</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(!</span><span class="va">finish_</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="co">// przetwarzanie</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="co">// sprawdzenie czy ma się zakończyć</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatile</span> <span class="dt">bool</span> <span class="va">finish_</span><span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Tak to jest implementowane w bibliotece standardowej</p>
+<p>volatile - dostęp nie jest optymalizowany, asynchroniczna z punktu
+widzenia wątku</p>
+<h2 id="wątki-i-mechanizm-wyjątków">Wątki i mechanizm wyjątków</h2>
+<ul>
+<li>Wyjątki mogą być rzucane i wyłapywane w niezależnych wątkach</li>
+<li>Wyjątek nie powinien wyjść poza wątek, który go rzucił</li>
+</ul>
+<h2 id="skalowalność">Skalowalność</h2>
+<ul>
+<li>Mechanizm służy do tego, żeby przyspieszyć działanie aplikacji</li>
+<li>Wątki mogą pracować niezależnie gdy
+<ul>
+<li>odczytują współdzielone dane</li>
+<li>zapisują lokalne dane</li>
+</ul></li>
+<li>Problematyczny jest zapis współdzielonych danych</li>
+<li>Wyróżnia się szybką i wolną ścieżkę w funkcjach
+<ul>
+<li>ściezka szybka - bez blokad</li>
+</ul></li>
+</ul>
+<h2 id="problem-czytelników-i-pisarzy">Problem czytelników i
+pisarzy</h2>
+<ul>
+<li>Wymaga bardziej skomplikowanego mechanizmu synchronizacji niż
+mutex</li>
+<li>Czytelnici - wątki nie wykluczające się nawzajem</li>
+<li>Pisarze - wątki wykluczające wszystkie inne wątki (czytelników i
+innych pisarzy)</li>
+<li><code>std::shared_mutex</code></li>
+<li>Dla czytelników
+<ul>
+<li>lock_shared,</li>
+<li>try_lock_shared</li>
+<li>timed_lock_shared</li>
+</ul></li>
+<li>Dla pisarzy
+<ul>
+<li>lock</li>
+<li>try_lock</li>
+<li>timed_lock</li>
+</ul></li>
+<li>Może pojawić się problem zagłodzenia</li>
+</ul>
+<h2 id="zagłodzenie-starvation">Zagłodzenie (starvation)</h2>
+<ul>
+<li>Nie ma zakleszczenia, ale wątek czeka w nieskończoność na wejście do
+sekcji krytycznej</li>
+<li>Np. pisarz nie może wejść do sekcji krytycznej, bo zawsze jest w
+niej jakiś czytelnik</li>
+<li>Implementacja <code>std::shared_mutex</code> gwarantuje poprawną
+obsługę bez zakleszczenia</li>
+</ul>
+<h2
+id="problemy-z-usuwaniem-błędów-w-aplikacjach-wielowątkowych">Problemy z
+usuwaniem błędów w aplikacjach wielowątkowych</h2>
+<ul>
+<li>Niektóre błędy są niepowtarzalne
+<ul>
+<li>nie zawsze zachodzi taki sam przeplot</li>
+</ul></li>
+<li>Zachowanie wersji debug i release może się różnić
+<ul>
+<li>co będzie w pamięci, a co w rejestrach</li>
+</ul></li>
+<li>Testy na platformach z jednym procesorem mogą nie pokazać błędów
+które wystąpią na platformach wieloprocesorowych</li>
+<li>Aplikację należy poprawnie projektować</li>
+</ul>
+<h2 id="wzorzec-monitora">Wzorzec monitora</h2>
+<ul>
+<li>Pasywny obiekt</li>
+<li>Metody moga być wołane przez wszystkie wątki</li>
+<li>Obiekt zapewnia synchronizację wewnętrznie
+<ul>
+<li>np. posiada mutex jako składową</li>
+</ul></li>
+</ul>
+<h2 id="przetwarzanie-potokowe">Przetwarzanie potokowe</h2>
+<ul>
+<li>Algorytmy wykorzystujące przetwarzanie potokowe wygodnie tworzyć
+przy wykorzystaniu wątków</li>
+<li>Sekwencyjne przetwarzanie (najpierw całe dane przepuszczone przez
+krok 1 itd)
+<ul>
+<li>wymagają dużych buforów</li>
+</ul></li>
+<li>Przetwarzanie danych porcjami
+<ul>
+<li>problem z doborem rozmiaru porcji</li>
+</ul></li>
+<li>Wykorzystanie mechanizmu wątków
+<ul>
+<li>nie ma problemu z doborem rozmiaru porcji</li>
+<li>dostosowuje się automatycznie - któryś wątek będzie czekał</li>
+</ul></li>
+</ul>
+<h2 id="aktywny-obiekt">Aktywny obiekt</h2>
+<ul>
+<li>Asynchroniczne wołanie komend</li>
+<li>Komenda wykonuje się w niezależnym wątku</li>
+<li>Operacje są komendami, które można przechowywać w kolejkach</li>
+<li>Zarządca dysponuje pulą wątków
+<ul>
+<li>liczba np. wynikająca z platformy</li>
+</ul></li>
+<li>Klient dostarcza konkretną komendę zarządcy
+<ul>
+<li>zarządca dodaje komendę do kolejki</li>
+</ul></li>
+<li>Klient dostaje proxy do wyniku
+<ul>
+<li>po zakończeniu wykonania zamieniane na właściwy wynik</li>
+<li>obiekt future (jeśli komenda zwraca wynik)</li>
+</ul></li>
+</ul>
+<h2 id="boost.asio">Boost.Asio</h2>
+<ul>
+<li>Asynchroniczna obsługa IO</li>
+<li>Przenośna obsługa zegarów, gniazd, portów szeregowych</li>
+<li>Zarządzanie 1000 połączeń sieciowych przez 1000 wątków nie ma sensu
+<ul>
+<li>i tak jest jedna karta sieciowa</li>
+<li>tu nie sprawdza się mechanizm przełączania wątków, bo i tak tylko 1
+może działać w danym momencie</li>
+</ul></li>
+<li>Obsługa asynchroniczna
+<ul>
+<li>1 wątek</li>
+<li>rejestruje się procedurę obsługi zdarzenia</li>
+<li>nie wymaga synchronizacji</li>
+<li>pętla obsługi zdarzeń (uruchamiana przez
+<code>boost::asio::io_service::run()</code>)</li>
+</ul></li>
+</ul>
+<h2 id="inne-biblioteki-boost">Inne biblioteki boost</h2>
+<ul>
+<li>Boost.Compute
+<ul>
+<li>umożliwia używanie CPU lub GPU</li>
+</ul></li>
+<li>Boost.Interprocess
+<ul>
+<li>komunikacja międzyprocesowa</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#wielowątkowość-zpr--w09--2020-12-01" id="toc-wielowątkowość-zpr--w09--2020-12-01">Wielowątkowość (ZPR- W09
+-2020 12 01)</a>
+<ul>
+<li><a href="#aplikacje-wielowątkowe" id="toc-aplikacje-wielowątkowe">Aplikacje wielowątkowe</a></li>
+<li><a href="#aplikacje-wielowątkowe-w-c" id="toc-aplikacje-wielowątkowe-w-c">Aplikacje wielowątkowe w
+C++</a></li>
+<li><a href="#wyścigi" id="toc-wyścigi">Wyścigi</a></li>
+<li><a href="#blokady---mutex" id="toc-blokady---mutex">Blokady -
+mutex</a></li>
+<li><a href="#zakleszczenia-deadlock" id="toc-zakleszczenia-deadlock">Zakleszczenia (deadlock)</a>
+<ul>
+<li><a href="#rodzaje-prostych-blokad-w-bibliotece-standardowej" id="toc-rodzaje-prostych-blokad-w-bibliotece-standardowej">Rodzaje
+prostych blokad w bibliotece standardowej</a></li>
+<li><a href="#kończenie-wątku" id="toc-kończenie-wątku">Kończenie
+wątku</a></li>
+</ul></li>
+<li><a href="#wątki-i-mechanizm-wyjątków" id="toc-wątki-i-mechanizm-wyjątków">Wątki i mechanizm wyjątków</a></li>
+<li><a href="#skalowalność" id="toc-skalowalność">Skalowalność</a></li>
+<li><a href="#problem-czytelników-i-pisarzy" id="toc-problem-czytelników-i-pisarzy">Problem czytelników i
+pisarzy</a></li>
+<li><a href="#zagłodzenie-starvation" id="toc-zagłodzenie-starvation">Zagłodzenie (starvation)</a></li>
+<li><a href="#problemy-z-usuwaniem-błędów-w-aplikacjach-wielowątkowych" id="toc-problemy-z-usuwaniem-błędów-w-aplikacjach-wielowątkowych">Problemy
+z usuwaniem błędów w aplikacjach wielowątkowych</a></li>
+<li><a href="#wzorzec-monitora" id="toc-wzorzec-monitora">Wzorzec
+monitora</a></li>
+<li><a href="#przetwarzanie-potokowe" id="toc-przetwarzanie-potokowe">Przetwarzanie potokowe</a></li>
+<li><a href="#aktywny-obiekt" id="toc-aktywny-obiekt">Aktywny
+obiekt</a></li>
+<li><a href="#boost.asio" id="toc-boost.asio">Boost.Asio</a></li>
+<li><a href="#inne-biblioteki-boost" id="toc-inne-biblioteki-boost">Inne
+biblioteki boost</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11-retrieval-augmented-generation</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="10-modele-wizyjno-jezykowe.html">Poprzedni: 10-modele-wizyjno-jezykowe.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolos.html">Następny: kolos.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Podstawy wielkich modeli językowych</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-podstawy-uczenia-glebokiego.html">02-podstawy-uczenia-glebokiego.html</a></li>
+                
+                <li><a href="03-elementy-skladowe-sieci-neuronowych.html">03-elementy-skladowe-sieci-neuronowych.html</a></li>
+                
+                <li><a href="04-tokenizacja.html">04-tokenizacja.html</a></li>
+                
+                <li><a href="05-transformer.html">05-transformer.html</a></li>
+                
+                <li><a href="06-tylko-dekoder.html">06-tylko-dekoder.html</a></li>
+                
+                <li><a href="07-fezy-trenowania.html">07-fezy-trenowania.html</a></li>
+                
+                <li><a href="08-efektywne-obliczeniowo-dostrajanie-modeli.html">08-efektywne-obliczeniowo-dostrajanie-modeli.html</a></li>
+                
+                <li><a href="09-tylko-koder.html">09-tylko-koder.html</a></li>
+                
+                <li><a href="10-modele-wizyjno-jezykowe.html">10-modele-wizyjno-jezykowe.html</a></li>
+                
+                <li><a href="11-retrieval-augmented-generation.html">11-retrieval-augmented-generation.html</a></li>
+                
+                <li><a href="kolos.html">kolos.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="retrieval-augmented-generation">Retrieval Augmented
+Generation</h1>
+<ul>
+<li>Odpowiadanie na pytania przy wykorzystaniu lokalnej bazy wiedzy</li>
+<li>Sam LLM nie ma aktualnej wiedzy, tylko wiedzę z czasu treningu</li>
+</ul>
+<h2 id="terminologia">Terminologia</h2>
+<ul>
+<li>Wyszukiwanie leksykalne
+<ul>
+<li>dopasowanie słów w zapytaniu z dokumentami</li>
+<li>słowa kluczowe</li>
+<li>rzadkie (sparse search)</li>
+<li>szukamy dokumentu <span class="math inline">\(d_i\)</span> o jakiejś
+części wspólnej z zapytaniem <span class="math inline">\(\langle q \cap
+d_i \rangle\)</span></li>
+<li>wykorzystuje się odwrócone indeksy - słownik i dla każdego słowa
+lista dokumentów, w których występuje</li>
+</ul></li>
+<li>Wyszukiwanie semantyczne
+<ul>
+<li>to samo znaczenie, niekoniecznie te same słowa</li>
+<li>gęste (dense search)</li>
+<li>np. podobieństwo wg. miary cosinusowej <span
+class="math inline">\(\cos(q, d_i)\)</span></li>
+</ul></li>
+<li>Unigram - pojedyncze słowo</li>
+<li>Bigram - sklejone 2 słowa</li>
+</ul>
+<h2 id="information-retrieval">Information Retrieval</h2>
+<ul>
+<li>Wyciągnięcie informacji z dużej kolekcji dokumentów tekstowych</li>
+<li>Tradycyjne metody - TF-IDF, BM25
+<ul>
+<li>łatwo interpretowalne</li>
+<li>nienadzorowane</li>
+<li>robust</li>
+</ul></li>
+<li>Neural Information Retrieval
+<ul>
+<li>oparte o sieci neuronowe</li>
+<li>może być lepsze ale wymaga dostrajania</li>
+<li>wymaga wysokiej jakości zbiorów treningowych</li>
+</ul></li>
+<li>Polish Information Retrieval Benchmark (PIRB)
+<ul>
+<li>dla języka polskiego</li>
+</ul></li>
+</ul>
+<h2 id="wyszukiwanie-leksykalne">Wyszukiwanie leksykalne</h2>
+<ul>
+<li>Problem jeśli zapytanie zawiera takie słowa, że przecięcie list
+dokumentów ze słownika jest puste
+<ul>
+<li>nie ma w zbiorze takiego dokumentu, które zawiera wszystkie słowa z
+zapytania</li>
+</ul></li>
+<li>VSM - przestrzeń wektorów słów
+<ul>
+<li>wymiar - liczba unikalnych słów w korpusie dokumentów</li>
+<li>waga słowa - one-hot, TF-IDF</li>
+<li>dopasowanie dokumentu o największym podobieństwie wektora</li>
+<li>zapytanie rzutowane na wektor</li>
+</ul></li>
+<li>Tak działa Apache Lucene - inverted index + VSM
+<ul>
+<li>dobre ale nie uwzględnia semantyki, ani kolejności słów</li>
+</ul></li>
+</ul>
+<h3 id="bm25">BM25</h3>
+<ul>
+<li>Używany przez ElasticSearch
+<ul>
+<li>lepszy od TF-IDF</li>
+<li>oparty na TF-IDF</li>
+</ul></li>
+<li>Wygładzanie, ważenie, uwzględnienie długości i średniej długości
+dokumentu</li>
+</ul>
+<h3 id="stemming-i-lematyzacja">Stemming i lematyzacja</h3>
+<ul>
+<li>Stemmer - wybiera rdzeń słowa jako część wspólną</li>
+<li>Lematyzator - zamienia na gramatycznie poprawną formę bazową (np.
+bezokolicznik dla czasownika w różnych formach)</li>
+<li>Morfologik - narzędzie dla języka polskiego</li>
+</ul>
+<h2 id="wyszukiwanie-semantyczne">Wyszukiwanie semantyczne</h2>
+<ul>
+<li>Pierwsze reprezentacje - Word2Vec</li>
+<li>Mniejsza wymiarowość wektora reprezentacji</li>
+<li>Obecnie - transformery typu tylko-enkoder</li>
+</ul>
+<h3 id="bi-encoder">Bi-Encoder</h3>
+<ul>
+<li>Mamy 2 zdania - zapytanie i dokument</li>
+<li>Dla obu wyznaczane wektory zanurzeń
+<ul>
+<li>porównanie przez podobieństwo cosinusowe</li>
+</ul></li>
+<li>Bardzo efektywne
+<ul>
+<li>dla korpusu dokumentów można policzyć reprezentację raz</li>
+<li>przy wyszukiwaniu tylko dla zapytania</li>
+<li>zanurzenia przechowuje się w indeksie</li>
+</ul></li>
+<li>FAISS - biblioteka do wydajnego wyszukiwania wektorów
+<ul>
+<li>aproksymowane</li>
+</ul></li>
+<li>W treningu triplet loss
+<ul>
+<li>kotwica</li>
+<li>przykład pozytywny</li>
+<li>przykład negatywny</li>
+</ul></li>
+<li>Szukanie hard negatives
+<ul>
+<li>podobny do zapytania ale nie są pozytywne</li>
+<li>lepiej nie traktować wszystkich nie-pozytywnych przykładów jako
+negatywne - mogą być zależności nieuwzględnione w zbiorze
+treningowym</li>
+</ul></li>
+</ul>
+<h3 id="cross-encoder-reranker">Cross-encoder (reranker)</h3>
+<ul>
+<li>Dwa zdania sklejone i podane na wejście modelu
+<ul>
+<li>zapytanie i dokument</li>
+</ul></li>
+<li>Do enkodera doczepiona głowica klasyfikacji
+<ul>
+<li>zwraca podobieństwo dwóch sekwencji na wejściu</li>
+</ul></li>
+<li>Bardzo nieefektywne
+<ul>
+<li>tyle inferencji ile dokumentów w przeszukiwanym zbiorze</li>
+</ul></li>
+<li>Bardziej skuteczne</li>
+<li>Reranker jest tym mocniejszy im mocniejszy jest model w środku
+<ul>
+<li>lepiej LLM tylko-dekoder niż np. BERT</li>
+</ul></li>
+<li>Wyznaczone podobieństwa pozwalają posortować dokumenty od
+najbardziej do najmniej istotnego</li>
+</ul>
+<h2 id="potok-rag">Potok RAG</h2>
+<ul>
+<li>Mamy zbiór dokumentów</li>
+<li>Użytkownik zadaje pytanie w języku naturalnym</li>
+<li>Moduł wyszukiwania dokumentów (<em>Retriever</em>)
+<ul>
+<li>wyodrębnia ze zbioru dokumenty które mogą być najbardziej
+istotne</li>
+<li>najlepiej kilka komplementarnych</li>
+<li>leksykalne i semantyczne</li>
+<li>każdy wybiera <span class="math inline">\(k\)</span> najlepszych
+dokumentów z całej bazy</li>
+<li>bi-enkoder dobrze się do tego nadaje, cross-encoder nie</li>
+</ul></li>
+<li>Reranker
+<ul>
+<li>na wejściu - zawężony zbiór dokumentów z poprzedniego kroku</li>
+<li>wynikiem jest posortowana względem istotności dla zapytania lista
+tych dokumentów</li>
+<li>wykorzystuje się cross-encoder - mniej wydajny ale operuje tylko na
+ograniczonym zbiorze dokumentów</li>
+</ul></li>
+<li>Generator
+<ul>
+<li>zwraca odpowiedź na podstawie pytania i kontekstu</li>
+<li>kontekst stanowi kilka najlepiej dopasowanych dokumentów</li>
+<li>wielki model językowy</li>
+</ul></li>
+<li>Zamiast generatora może być Reader
+<ul>
+<li>Reader nie wykonuje generacji, tylko wybiera fragmenty tekstu</li>
+</ul></li>
+<li>Raczej nie warto robić RAGa dla bazy wiedzy mniejszej niż 100
+dokumentów (po chunkingu)
+<ul>
+<li>mniej - można podać całość do generatora</li>
+</ul></li>
+</ul>
+<h2 id="chunking">Chunking</h2>
+<ul>
+<li>Dokumenty są długie
+<ul>
+<li>może i nowe LLMy wspierają konteksty rzędu miliona tokenów ale
+drastycznie spada jakość już dla dużo mniejszych</li>
+</ul></li>
+<li>Retrievery i rerankery mają ograniczone rozmiary kontekstu</li>
+<li>Trzeba podzielić tekst na kawałki - chunki</li>
+<li>Problem - jak podzielić, żeby
+<ul>
+<li>zmieścić się w kontekście</li>
+<li>zachować semantykę</li>
+<li>uniknąć rozdrobnienie informacji na kilka chunków</li>
+</ul></li>
+<li>Metody
+<ul>
+<li>naiwne dzielenie na chunki o stałej liczbie tokenów</li>
+<li>dzielenie po separatorach, np. znaki nowej linii, spacje</li>
+<li>grupowanie zdań spójnych semantycznie za pomocą embbeddingów</li>
+<li>wykorzystanie LLM</li>
+<li>heurystyczny - wykorzystanie informacji o strukturze dokumentu (np.
+markdown z nagłówkami)</li>
+</ul></li>
+<li>Do ewaluacji - zbiór testowy raczej z id dokumentów źródłowych -
+przed chunkowaniem</li>
+</ul>
+<h2 id="generator">Generator</h2>
+<ul>
+<li>Dostaje zapytanie i top <span class="math inline">\(k\)</span>
+wyników wyszukiwania (z rerankera)</li>
+<li>Generuje tekst</li>
+<li>Można wziąć gotowy LLM w trybie few-shot/zero-shot
+<ul>
+<li>może nie mieć odpowiedniej formy odpowiedzi</li>
+<li>może być potrzeba dostrojenia</li>
+</ul></li>
+</ul>
+<h3 id="trening-dostrajanie">Trening, dostrajanie</h3>
+<ul>
+<li>SFT - daje większą stabilność odpowiedzi, mniej wrażliwy na
+konkretny dobór słów w prompcie</li>
+<li>Przygotowanie zbioru danych do dostrajania
+<ul>
+<li>można wykorzystać LLM do automatycznego generowania danych</li>
+<li>np. podajemy dokument, niech LLM wygeneruje pytania</li>
+<li>znaleźć inne chunki relewantne do wygenerowanych pytań</li>
+</ul></li>
+<li>W zbiorze można uwzględnić pytanie na które nie ma odpowiedzi w
+bazie wiedzy
+<ul>
+<li>żeby nauczyć model odmawiania odpowiedzi bez kontekstu</li>
+</ul></li>
+<li>Przy dostrajaniu, jeśli trenujemy model multiinstrukcyjny to zbiór
+treningowy musi być zbalansowany
+<ul>
+<li>inaczej model wyspecjalizuje się w nadreprezentowanym zadaniu, a
+pogorszy jakość w pozostałych</li>
+</ul></li>
+<li>Przy treningu jeśli mamy out of memory - można zmniejszyć batch size
+a zwiększyć liczbę kroków akumulacji gradientu
+<ul>
+<li>kroki akumulacji gradientu - bardzo ważne!</li>
+<li>wirtualny batch - dalej stabilne uczenie ale nie jest ładowane
+wszystko na raz do pamięci</li>
+</ul></li>
+<li>Learning rate w LoRA vs bez LoRA
+<ul>
+<li>w LoRA jest mniej wag do uczenia więc model szybciej się uczy</li>
+<li>możemy startować w większym learning rate rzędu 1e-4, bez 1e-6</li>
+</ul></li>
+<li>Statystyki treningu
+<ul>
+<li>loss - wiadomo że ma spadać ale sama wartość nic nam nie mówi</li>
+<li>wprowadza się miary podobne do miary Jaccarda (IoU) słów/bigramów
+wygenerowanego tekstu z oczekiwanym</li>
+</ul></li>
+<li>Uczenie kaskadowe
+<ul>
+<li>kilka sesji SFT z różnymi zbiorami treningowymi</li>
+<li>model zapomina to czego się nauczył wcześniej</li>
+<li>raczej najlepiej uczyć od razu do 1 zadania (jeśli potrzebujemy
+tylko 1 zadania) niż uczyć kaskadowo</li>
+</ul></li>
+<li>Chcę zrobić model do streszczania tekstu, czy lepiej stroić model
+base czy instruct
+<ul>
+<li>model base potrafi tylko robić autouzupełnianie</li>
+<li>instruct już potrafi wykonywać zadania, w tym pewnie
+streszczania</li>
+<li>Instruct już był dostrojony więc ma zakrzywioną przestrzeń
+poznawczą</li>
+<li>jeśli mamy duży zbiór treningowy to możemy dostrajać model base (np.
+20k instrukcji)</li>
+<li>jeśli mamy mało przykładów (np. &lt;1k instrukcji) lepiej stroić
+model instruct</li>
+</ul></li>
+</ul>
+<h2 id="rag-if-eval">RAG-if-eval</h2>
+<ul>
+<li>Podejście do benchmarkowania</li>
+<li>Szybkie i deterministyczne</li>
+<li>Oceniamy odpowiedzi na podstawie słów kluczowych
+<ul>
+<li>np. odpowiedź musi zawierać / nie może zawierać / powinien odmówić
+odpowiedzi</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#retrieval-augmented-generation" id="toc-retrieval-augmented-generation">Retrieval Augmented
+Generation</a>
+<ul>
+<li><a href="#terminologia" id="toc-terminologia">Terminologia</a></li>
+<li><a href="#information-retrieval" id="toc-information-retrieval">Information Retrieval</a></li>
+<li><a href="#wyszukiwanie-leksykalne" id="toc-wyszukiwanie-leksykalne">Wyszukiwanie leksykalne</a>
+<ul>
+<li><a href="#bm25" id="toc-bm25">BM25</a></li>
+<li><a href="#stemming-i-lematyzacja" id="toc-stemming-i-lematyzacja">Stemming i lematyzacja</a></li>
+</ul></li>
+<li><a href="#wyszukiwanie-semantyczne" id="toc-wyszukiwanie-semantyczne">Wyszukiwanie semantyczne</a>
+<ul>
+<li><a href="#bi-encoder" id="toc-bi-encoder">Bi-Encoder</a></li>
+<li><a href="#cross-encoder-reranker" id="toc-cross-encoder-reranker">Cross-encoder (reranker)</a></li>
+</ul></li>
+<li><a href="#potok-rag" id="toc-potok-rag">Potok RAG</a></li>
+<li><a href="#chunking" id="toc-chunking">Chunking</a></li>
+<li><a href="#generator" id="toc-generator">Generator</a>
+<ul>
+<li><a href="#trening-dostrajanie" id="toc-trening-dostrajanie">Trening,
+dostrajanie</a></li>
+</ul></li>
+<li><a href="#rag-if-eval" id="toc-rag-if-eval">RAG-if-eval</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

@@ -72,7 +72,6 @@
     </div>
     <div class="content-wrapper">
         <main>
-            <p>Jeśli strona była dla Ciebie pomocna, możesz wesprzeć mnie w jej utrzymaniu na <a href="https://buycoffee.to/mgarbowski">buycoffee.to/mgarbowski</a></p>
             <h1 id="współbieżność-2024-05-20">Współbieżność (2024-05-20)</h1>
 <h2 id="aplikacja-wielowątkowa">Aplikacja wielowątkowa</h2>
 <ul>
@@ -154,7 +153,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#c
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    mutex <span class="op">&amp;</span><span class="va">m_</span><span class="op">;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>mutex<span class="op"> </span>m<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>mutex m<span class="op">;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    Lock guard<span class="op">(</span>m<span class="op">);</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Sekcja krytyczna</span></span>
@@ -239,7 +238,7 @@ instancje problemu</li>
 <h3 id="poprawne-ale-nieefektywne">Poprawne ale nieefektywne</h3>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Singleton<span class="op">&amp;</span> SIngleton<span class="op">::</span>getInstance<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>lock_guard<span class="op"> </span>guard<span class="op">(</span>mutex<span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>lock_guard guard<span class="op">(</span>mutex<span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>pInstance<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        pInstance <span class="op">=</span> <span class="kw">new</span> Singleton<span class="op">;</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
@@ -250,7 +249,7 @@ podwójnego sprawdzania</h3>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Singleton<span class="op">&amp;</span> SIngleton<span class="op">::</span>getInstance<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>pInstance<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>lock_guard<span class="op"> </span>guard<span class="op">(</span>mutex<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>lock_guard guard<span class="op">(</span>mutex<span class="op">);</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>pInstance<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            pInstance <span class="op">=</span> <span class="kw">new</span> Singleton<span class="op">;</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
@@ -298,31 +297,34 @@ wzorzec monitora</li>
     <div class="table-of-contents">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#współbieżność-2024-05-20">Współbieżność (2024-05-20)</a>
+<li><a href="#współbieżność-2024-05-20" id="toc-współbieżność-2024-05-20">Współbieżność (2024-05-20)</a>
 <ul>
-<li><a href="#aplikacja-wielowątkowa">Aplikacja wielowątkowa</a></li>
-<li><a href="#współbieżność-w-c">Współbieżność w C++</a>
+<li><a href="#aplikacja-wielowątkowa" id="toc-aplikacja-wielowątkowa">Aplikacja wielowątkowa</a></li>
+<li><a href="#współbieżność-w-c" id="toc-współbieżność-w-c">Współbieżność w C++</a>
 <ul>
-<li><a href="#stdthread"><code>std::thread</code></a></li>
+<li><a href="#stdthread" id="toc-stdthread"><code>std::thread</code></a></li>
 </ul></li>
-<li><a href="#wyścig-race-conditions">Wyścig (race conditions)</a></li>
-<li><a href="#blokada-mutex">Blokada (mutex)</a></li>
-<li><a href="#zakleszczenie">Zakleszczenie</a></li>
-<li><a href="#kończenie-wątku">Kończenie wątku</a></li>
-<li><a href="#skalowalność">Skalowalność</a>
+<li><a href="#wyścig-race-conditions" id="toc-wyścig-race-conditions">Wyścig (race conditions)</a></li>
+<li><a href="#blokada-mutex" id="toc-blokada-mutex">Blokada
+(mutex)</a></li>
+<li><a href="#zakleszczenie" id="toc-zakleszczenie">Zakleszczenie</a></li>
+<li><a href="#kończenie-wątku" id="toc-kończenie-wątku">Kończenie
+wątku</a></li>
+<li><a href="#skalowalność" id="toc-skalowalność">Skalowalność</a>
 <ul>
-<li><a href="#wysoka-skalowalność">Wysoka skalowalność</a></li>
+<li><a href="#wysoka-skalowalność" id="toc-wysoka-skalowalność">Wysoka
+skalowalność</a></li>
 </ul></li>
-<li><a href="#podwójna-sprawdzanie">Podwójna sprawdzanie</a>
+<li><a href="#podwójna-sprawdzanie" id="toc-podwójna-sprawdzanie">Podwójna sprawdzanie</a>
 <ul>
-<li><a href="#poprawne-ale-nieefektywne">Poprawne ale
-nieefektywne</a></li>
-<li><a href="#efektywne---wzorzec-podwójnego-sprawdzania">Efektywne -
-wzorzec podwójnego sprawdzania</a></li>
+<li><a href="#poprawne-ale-nieefektywne" id="toc-poprawne-ale-nieefektywne">Poprawne ale nieefektywne</a></li>
+<li><a href="#efektywne---wzorzec-podwójnego-sprawdzania" id="toc-efektywne---wzorzec-podwójnego-sprawdzania">Efektywne - wzorzec
+podwójnego sprawdzania</a></li>
 </ul></li>
-<li><a href="#wyjątki">Wyjątki</a></li>
-<li><a href="#wzorzec-monitora">Wzorzec monitora</a></li>
-<li><a href="#przetwarzanie-potokowe">Przetwarzanie potokowe</a></li>
+<li><a href="#wyjątki" id="toc-wyjątki">Wyjątki</a></li>
+<li><a href="#wzorzec-monitora" id="toc-wzorzec-monitora">Wzorzec
+monitora</a></li>
+<li><a href="#przetwarzanie-potokowe" id="toc-przetwarzanie-potokowe">Przetwarzanie potokowe</a></li>
 </ul></li>
 </ul>
 </nav>

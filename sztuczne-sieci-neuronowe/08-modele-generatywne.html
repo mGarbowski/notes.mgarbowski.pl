@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08-modele-generatywne</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="07-autoenkodery-generatywne.html">Poprzedni: 07-autoenkodery-generatywne.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="09-sieci-rekurencyjne.html">Następny: 09-sieci-rekurencyjne.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Sztuczne sieci neuronowe</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-perceptron.html">01-perceptron.html</a></li>
+                
+                <li><a href="02-technologie.html">02-technologie.html</a></li>
+                
+                <li><a href="03-algorytmy-uczenia.html">03-algorytmy-uczenia.html</a></li>
+                
+                <li><a href="04-dobre-praktyki.html">04-dobre-praktyki.html</a></li>
+                
+                <li><a href="05-sieci-splotowe.html">05-sieci-splotowe.html</a></li>
+                
+                <li><a href="06-uczenie-nienadzorowane-i-autoenkodery.html">06-uczenie-nienadzorowane-i-autoenkodery.html</a></li>
+                
+                <li><a href="07-autoenkodery-generatywne.html">07-autoenkodery-generatywne.html</a></li>
+                
+                <li><a href="08-modele-generatywne.html">08-modele-generatywne.html</a></li>
+                
+                <li><a href="09-sieci-rekurencyjne.html">09-sieci-rekurencyjne.html</a></li>
+                
+                <li><a href="10-przetwarzanie-sekwencji.html">10-przetwarzanie-sekwencji.html</a></li>
+                
+                <li><a href="11-transformer.html">11-transformer.html</a></li>
+                
+                <li><a href="12-sieci-ze-zbieznym-stanem.html">12-sieci-ze-zbieznym-stanem.html</a></li>
+                
+                <li><a href="13-detekcja-obiektow.html">13-detekcja-obiektow.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="modele-generatywne">Modele generatywne</h1>
+<h2 id="uczenie-nadzorowane-vs-generatywne">Uczenie nadzorowane vs
+generatywne</h2>
+<ul>
+<li>Klasyfikator uczy się rozkładu prawdopodobieństwa <span
+class="math inline">\(p(y|x)\)</span>
+<ul>
+<li><span class="math inline">\(y\)</span> to klasa</li>
+<li><span class="math inline">\(x\)</span> to wejście</li>
+</ul></li>
+</ul>
+<h2 id="adwersarialne-przykłady">Adwersarialne przykłady</h2>
+<ul>
+<li>Klasyfikator uczył się na podstawie skończonej liczby zdjęć
+<ul>
+<li>może nauczyć się konkretnego zbitka pikseli jeśli tak się ułożyło w
+zbiorze</li>
+</ul></li>
+<li>Dodanie odpowiedniego szumu do obrazu może zupełnie zaburzyć
+wyjściowe prawdopodobieństwo
+<ul>
+<li>szum może być nieistotny dla ludzkiego oka</li>
+<li>bardzo łatwo znaleźć taki szum jeśli mamy dostęp do
+klasyfikatora</li>
+</ul></li>
+<li>Dla klasyfikatora cały świat to jego zbiór treningowy</li>
+</ul>
+<h2 id="po-co-modele-generatywne">Po co modele generatywne</h2>
+<ul>
+<li>Pozwala modelować brakujące prawdopodobieństwo <span
+class="math inline">\(p(x)\)</span></li>
+<li>Znajomość <span class="math inline">\(p(x)\)</span> pozwala na
+<ul>
+<li>ustalenie czy przykład był obserwowany w przeszłości</li>
+<li>ważenie decyzji</li>
+<li>ustalanie niepewności decyzji</li>
+<li>aktywne poznawanie środowiska - np. dopytywanie o przykłady o niskim
+<span class="math inline">\(p(x)\)</span></li>
+<li>generowanie nowych przykładów</li>
+</ul></li>
+<li>Przykład
+<ul>
+<li><span class="math inline">\(p(y=kon|x)\)</span> jest wysokie ale
+<span class="math inline">\(p(x)\)</span> jest niskie - niepewna
+decyzja</li>
+<li>przykład odstaje od znanego rozkładu</li>
+</ul></li>
+<li>Tych samych architektur używa się do dźwięku, obrazów i wideo</li>
+</ul>
+<h2 id="różne-modele-generatywne">Różne modele generatywne</h2>
+<ul>
+<li>Wariacyjny autoenkoder (VAE)</li>
+<li>Sieci neuronowe typu GAN</li>
+<li>Modele autoregresywne</li>
+<li>Modele przepływu</li>
+<li>Modele dyfuzyjne / modele funkcji wynikowej</li>
+</ul>
+<h2 id="autoenkoder-generatywny">Autoenkoder generatywny</h2>
+<ul>
+<li>Ze zwykłego autoenkodera nie możemy próbkować, bo przestrzeń ukryta
+jest rzadka</li>
+<li>Dokonujemy regularyzacji przestrzeni ukrytej, żeby wymusić kodowanie
+zgodnie z jakimś rozkładem</li>
+<li>Z tego rozkładu można losować próbki i dekodować</li>
+<li>Trik reparametryzacji - na ćwiczeniach</li>
+<li>Rozszerzone architektury
+<ul>
+<li>inne metody regularyzacji</li>
+<li>hierarchiczne VAE - wiele przestrzeni ukrytych, różne cechy w
+różnych przestrzeniach</li>
+<li>Conditional VAE - generując wynik z prompta szukamy rozkładu
+prawdopodobieństwo pod warunkiem prompta</li>
+<li><span class="math inline">\(\beta\)</span>-VAE - dodatkowa
+normalizacja na przestrzeni ukrytej, każdy wymiar Gaussa jest
+niezależny, można zdekomponować obraz do niezależnych cech, potencjalnie
+cechy mogą być interpretowalne</li>
+</ul></li>
+</ul>
+<h2 id="sieci-neuronowe-typu-gan">Sieci neuronowe typu GAN</h2>
+<ul>
+<li>GAN
+<ul>
+<li>mamy małowymiarową przestrzeń o znanym rozkładzie</li>
+<li>losujemy wartości z przestrzeni</li>
+<li>model generator przetwarza te wartości do przestrzeni o wymiarowości
+obrazka</li>
+<li>bierzemy zbiór treningowy z prawdziwymi danymi</li>
+<li>kolejny model dyskryminator uczy się rozróżniać czy obrazek jest
+prawdziwy czy fałszywy</li>
+<li>trenujemy na zmianę generator i dyskryminator</li>
+<li>analogia do fałszerza i policjanta</li>
+</ul></li>
+<li>Model matematyczny
+<ul>
+<li>dyskryminator jest klasyfikatorem</li>
+<li>dyskryminator maksymalizuje stratę (np. entropia krzyżowa
+klasyfikacji)</li>
+<li>generator minimalizuje stratę</li>
+<li>przy propagacji wstecznej zamrażamy wagi albo jednego albo
+drugiego</li>
+</ul></li>
+<li>Generalnie generator będzie dawać zróżnicowane generacje zamiast
+małpować zawsze jakieś jedno zdjęcie ze zbioru uczącego
+<ul>
+<li>nie ma bezpośredniego dostępu do tych zdjęć tylko ma odpowiedź od
+dyskryminatora</li>
+<li>jest losowość przy generacji - próbkuje się wektor z jakiejś
+przestrzeni</li>
+<li>uda się oszukać dyskryminator jeśli rozkład fałszywych obrazów
+będzie zbliżony do prawdziwych</li>
+<li>i tak może się zdarzyć mode collapse</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>mode collapse</li>
+<li>trening jest bardzo niestabilny - kiedy jedna sieć stanie się dużo
+lepsza od drugiej</li>
+<li>nie wiadomo kiedy przerwać trening - czy generator jest tak dobry
+czy dyskryminator tak głupi?</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>nie ma funkcji straty MSE (ona sobie nie radzi z przesunięciem o 1
+piksel)</li>
+<li>dobrej jakości generacje</li>
+<li>lepsze dopasowanie do złożonych dystrybucji danych</li>
+</ul></li>
+<li>Rozszerzenia GANów
+<ul>
+<li>VAEGAN</li>
+<li>StyleGAN - tłumaczenie z jednego stylu w drugi</li>
+<li>generalnie modele dyfuzyjne są dużo lepsze</li>
+</ul></li>
+</ul>
+<h2 id="modele-autoregresywne">Modele autoregresywne</h2>
+<ul>
+<li>Dzielimy przestrzeń na fragmenty, generujemy obraz po fragmencie
+biorąc pod uwagę to co generowaliśmy wcześniej</li>
+<li>Problemy
+<ul>
+<li>przetwarzanie obrazka piksel po pikselu - nie tak postrzegamy
+obrazy</li>
+</ul></li>
+<li>Obiecujący wariant
+<ul>
+<li>vq vae</li>
+<li>autoenkoder</li>
+<li>uczymy się słownika cech z których składają się obrazki</li>
+<li>model autoregresywny działa na przestrzeni ukrytej vae, ten wektor
+cech jest dekodowany na właściwy obrazek</li>
+</ul></li>
+<li>Popularne w syntezie mowy, generowaniu tekstu</li>
+</ul>
+<h2 id="modele-przepływu-flow">Modele przepływu (Flow)</h2>
+<ul>
+<li>Schemat
+<ul>
+<li>na wejściu obrazek</li>
+<li>model przyjmuje obrazek i koduje go do wektora</li>
+<li>model to mnożenie macierzy</li>
+<li>macierz można odwrócić</li>
+<li>możemy wylosować wektor i macierzami odwrotnymi przejść z powrotem
+nawet przez ten sam model</li>
+</ul></li>
+<li>Problemy
+<ul>
+<li>nie wszystkie macierze da się odwrócić</li>
+<li>im większy błąd tym gorsza rekonstrukcja</li>
+<li>psują to funkcje aktywacji (ReLU gubi informacje)</li>
+</ul></li>
+</ul>
+<h2 id="modele-dyfuzyjne">Modele dyfuzyjne</h2>
+<ul>
+<li>Szum zamieniany za pomocą jednego przejścia przez sieć na
+obrazek</li>
+<li>Obrazek generowany w kilku krokach, iteracyjnie poprawiany</li>
+<li>Dyfuzja
+<ul>
+<li>mając obrazek <span class="math inline">\(x_0\)</span></li>
+<li>zaszumiamy go dodając np. Gaussa</li>
+<li>jeśli zrobimy bardzo dużo takich kroków to szum całkowicie przykryje
+obrazek</li>
+<li>proces dyfuzji do przodu</li>
+</ul></li>
+<li>Można tak dobrać parametry żeby np. po 100 krokach dostać szum o
+rozkładzie normalnym standardowym</li>
+<li>Model uczy się procesu odwrotnego
+<ul>
+<li>jak usunąć trochę szumu z zaszumionego obrazka</li>
+<li>przejście od <span class="math inline">\(x_t\)</span> do <span
+class="math inline">\(x_{t-1}\)</span></li>
+</ul></li>
+<li>Obojętnie jaki model nauczymy
+<ul>
+<li>np. autoenkoder</li>
+<li>uczymy jeden model i aplikujemy go np. 100 razy</li>
+</ul></li>
+<li>Trening modelu dyfuzyjnego (intuicyjnie)
+<ul>
+<li>chcemy jednego modelu który działa na różnych poziomach
+zaszumienia</li>
+<li>aplikujemy dekoder T razy w celu wygenerowania obrazu z szumu</li>
+<li>obliczamy funkcję straty dla każdego kroku osobno</li>
+<li>trenujemy model na podstawie sumarycznej straty dla każdego
+kroku</li>
+<li>bardzo kosztowne obliczeniowo - 1 update modelu wymaga 100 przejść
+przez model</li>
+</ul></li>
+<li>Żeby przejść z kroku 0 do 47 to nie musimy dodawać 47 razy szumu,
+tylko raz dodać szum o 47 razy większej wariancji
+<ul>
+<li>możemy bez problemu przeskoczyć z <span
+class="math inline">\(0\)</span> do dowolnego kroku <span
+class="math inline">\(t\)</span></li>
+<li>zamiast na raz trenować na wszystkich poziomach zaszumienia, możemy
+wylosować jeden</li>
+<li>losujemy <span class="math inline">\(t\)</span> z którego uczymy
+autoenkoder przejścia do <span class="math inline">\(t-1\)</span></li>
+</ul></li>
+<li>Funkcja straty - błąd rekonstrukcji
+<ul>
+<li>Dywergencja Kullbacka-Leiblera</li>
+<li>można też najprostszy MSE</li>
+</ul></li>
+<li>Inferencja
+<ul>
+<li>bardzo wolna dla modeli o dużej liczbie kroków dyfuzji</li>
+<li>na wejściu dajemy losowy szum, przepuszczamy T razy przez model i
+dostajemy obrazek</li>
+</ul></li>
+<li>Prompt
+<ul>
+<li>architektura UNet</li>
+<li>prompt jest doklejany jako embedding w każdym poziomie
+zaszumienia</li>
+</ul></li>
+<li>Modele latent diffusion
+<ul>
+<li>VAE</li>
+<li>obrazki najpierw kodujemy do mniejszej przestrzeni</li>
+<li>z tej przestrzeni dekodujemy</li>
+<li>wszystkie dane treningowe najpierw kodujemy do tej przestrzeni</li>
+<li>z tego trenujemy model dyfuzyjny</li>
+<li>zysk wydajności obliczeń</li>
+</ul></li>
+<li>Możemy trenować model tak żeby przewidywał oryginalny obrazek a nie
+t-1
+<ul>
+<li>stabilizuje wyjście z UNet’a</li>
+<li>i potem iteracyjnie słaba predykcja, zaszumienie słabej predykcji i
+ponownie predykcja</li>
+<li>łatwiej uczyć UNet jeśli wyjście jest zawsze takie same</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#modele-generatywne" id="toc-modele-generatywne">Modele
+generatywne</a>
+<ul>
+<li><a href="#uczenie-nadzorowane-vs-generatywne" id="toc-uczenie-nadzorowane-vs-generatywne">Uczenie nadzorowane vs
+generatywne</a></li>
+<li><a href="#adwersarialne-przykłady" id="toc-adwersarialne-przykłady">Adwersarialne przykłady</a></li>
+<li><a href="#po-co-modele-generatywne" id="toc-po-co-modele-generatywne">Po co modele generatywne</a></li>
+<li><a href="#różne-modele-generatywne" id="toc-różne-modele-generatywne">Różne modele generatywne</a></li>
+<li><a href="#autoenkoder-generatywny" id="toc-autoenkoder-generatywny">Autoenkoder generatywny</a></li>
+<li><a href="#sieci-neuronowe-typu-gan" id="toc-sieci-neuronowe-typu-gan">Sieci neuronowe typu GAN</a></li>
+<li><a href="#modele-autoregresywne" id="toc-modele-autoregresywne">Modele autoregresywne</a></li>
+<li><a href="#modele-przepływu-flow" id="toc-modele-przepływu-flow">Modele przepływu (Flow)</a></li>
+<li><a href="#modele-dyfuzyjne" id="toc-modele-dyfuzyjne">Modele
+dyfuzyjne</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

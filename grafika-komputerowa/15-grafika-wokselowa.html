@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>15-grafika-wokselowa</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="14-image-based-rendering.html">Poprzedni: 14-image-based-rendering.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="16-raytracing.html">Następny: 16-raytracing.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Grafika komputerowa</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-reprezentacje-obiektow.html">01-reprezentacje-obiektow.html</a></li>
+                
+                <li><a href="02-przeksztalcenia.html">02-przeksztalcenia.html</a></li>
+                
+                <li><a href="03-siatki-trojkatow.html">03-siatki-trojkatow.html</a></li>
+                
+                <li><a href="04-podstawy-animacji.html">04-podstawy-animacji.html</a></li>
+                
+                <li><a href="05-powierzchnie.html">05-powierzchnie.html</a></li>
+                
+                <li><a href="06-barwy.html">06-barwy.html</a></li>
+                
+                <li><a href="07-cieniowanie.html">07-cieniowanie.html</a></li>
+                
+                <li><a href="08-antyaliasing.html">08-antyaliasing.html</a></li>
+                
+                <li><a href="09-potok-graficzny-gpu.html">09-potok-graficzny-gpu.html</a></li>
+                
+                <li><a href="10-teksturowanie.html">10-teksturowanie.html</a></li>
+                
+                <li><a href="11-light-field-ar-vr.html">11-light-field-ar-vr.html</a></li>
+                
+                <li><a href="12-stereoskopia.html">12-stereoskopia.html</a></li>
+                
+                <li><a href="13-cienie.html">13-cienie.html</a></li>
+                
+                <li><a href="14-image-based-rendering.html">14-image-based-rendering.html</a></li>
+                
+                <li><a href="15-grafika-wokselowa.html">15-grafika-wokselowa.html</a></li>
+                
+                <li><a href="16-raytracing.html">16-raytracing.html</a></li>
+                
+                <li><a href="17-opengl.html">17-opengl.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="grafika-wokselowa">Grafika wokselowa</h1>
+<ul>
+<li>Voxel = volume element</li>
+<li>Całą modelowaną scenę można zawrzeć w sześcianie i podzielić go
+jednorodną siatką na małe fragmenty
+<ul>
+<li>całość to wolumen</li>
+</ul></li>
+<li>Woksel to tak naprawdę punkt w przestrzeni (wynik próbkowania)
+<ul>
+<li>ma jakąś odległość do sąsiednich próbek</li>
+<li>można go utożsamiać z jednostkowym sześcianem</li>
+<li><span class="math inline">\(w(x,y,z,V)\)</span></li>
+</ul></li>
+<li>Wokselizacja - zamiana reprezentacji geometrycznej na zbiór
+wokseli</li>
+</ul>
+<h2 id="zastosowania">Zastosowania</h2>
+<ul>
+<li>Daje informacje o wnętrzu obiektu</li>
+<li>Powierzchnie nie dające się opisać analitycznie
+<ul>
+<li>np. chmury</li>
+</ul></li>
+<li>Modele ze skanerów 3D</li>
+<li>Reprezentacja terenu</li>
+<li>Wizualizacja danych
+<ul>
+<li>np. tomografia komputerowa, rezonans magnetyczny</li>
+</ul></li>
+</ul>
+<h2 id="powierzchnie-vs-woksele">Powierzchnie vs woksele</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 34%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Grafika powierzchniowa</th>
+<th>Grafika wokselowa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wymagania pamięciowe</td>
+<td>Zmienne zależnie od złożoności sceny</td>
+<td>Duże ale stałe</td>
+</tr>
+<tr class="even">
+<td>Wydajność renderingu</td>
+<td>Zależna od złożoności sceny</td>
+<td>Niezależna od złożoności sceny</td>
+</tr>
+<tr class="odd">
+<td>Aliasing w przestrzeni obiektu</td>
+<td>Nie istnieje</td>
+<td>Częsty (obiekt jest reprezentowany dyskretnie)</td>
+</tr>
+<tr class="even">
+<td>Przekształcenia</td>
+<td>Ciągłe, na reprezentacji geometrycznej</td>
+<td>Dyskretne, na fragmentach wolumenu</td>
+</tr>
+<tr class="odd">
+<td>Skanowanie przestrzeni i rendering</td>
+<td>Pikselizacja wbudowana w widzenie</td>
+<td>Wokselizacja oddzielna od widzenia</td>
+</tr>
+<tr class="even">
+<td>Operacje logiczne i blokowe</td>
+<td>Trudne</td>
+<td>Trywialne, drzewa ósemkowe</td>
+</tr>
+<tr class="odd">
+<td>Możliwość renderingu wnętrza obiektu</td>
+<td>Nie, tylko powierzchnia</td>
+<td>Tak, wnętrze i powierzchnia</td>
+</tr>
+<tr class="even">
+<td>Pomiary (odległości, normalne itd.)</td>
+<td>Analityczne, mogą być złożone</td>
+<td>Aproksymacja dyskretna, łatwe</td>
+</tr>
+<tr class="odd">
+<td>Zależność od położenia obserwatora</td>
+<td>Wymaga ponownych obliczeń przy zmianie położenia obserwatora</td>
+<td>Wstępne obliczanie i zachowanie informacji niezależnej od położenia
+obserwatora</td>
+</tr>
+</tbody>
+</table>
+<h2 id="przechowywanie-wolumenu">Przechowywanie wolumenu</h2>
+<ul>
+<li>Tablica 3D</li>
+<li>Złożoność pamięciowa <span
+class="math inline">\(O(n^3)\)</span></li>
+<li>Każdy woksel może pamiętać swoje parametry
+<ul>
+<li>gęstość</li>
+<li>nieprzezroczystość</li>
+<li>barwa</li>
+<li>wektor zaczepiony w środku woksela (prędkość itp.)</li>
+</ul></li>
+<li>Rzadkie drzewa ósemkowe
+<ul>
+<li><em>SVO - Sparse Voxel Octree</em></li>
+<li>duża część wolumenu może być pusta</li>
+<li>pusty element przestrzeni jest liściem</li>
+<li>niepusty ma 8 dzieci</li>
+</ul></li>
+</ul>
+<h2 id="interpolacja-trójliniowa">Interpolacja trójliniowa</h2>
+<ul>
+<li>Czasami utożsamia się woksel z geometrycznym środkiem sześcianu, a
+czasami z wierzchołkiem sześcianu</li>
+<li>Interpolacja umożliwia znalezienie gęstości w dowolnym punkcie
+wewnątrz woksela</li>
+</ul>
+<h2 id="taksonomia-wizualizacji-wolumetrycznej">Taksonomia wizualizacji
+wolumetrycznej</h2>
+<ul>
+<li>Rendering wolumetryczny - z przestrzeni dyskretnej wokseli do
+przestrzeni pikseli ekranu</li>
+<li>Znajdowanie izopowierzchni - przekształcenie wokseli na
+powierzchnie</li>
+<li>Wokselizacja - przekształcenie powierzchni na woksele</li>
+</ul>
+<h2 id="wokselizacja">Wokselizacja</h2>
+<ul>
+<li>Zamiana reprezentacji na zbiór wokseli
+<ul>
+<li>chmur punktów</li>
+<li>siatek wielokątów</li>
+<li>opisów analitycznych brył</li>
+</ul></li>
+<li>Dla punktów - interpolacja</li>
+<li>Dla brył analitycznych - test in/out</li>
+<li>Dla siatek wielokątów jest uproszczona metoda
+<ul>
+<li>6 rzutów równoległych na ściany wolumenu</li>
+<li>6 buforów głębokości</li>
+<li>jeśli woksel jest dalej niż głębokość zapisana w każdym z buforów to
+jest wewnątrz obiektu</li>
+<li>możliwe liczne artefakty ale działa dla prostych modeli</li>
+</ul></li>
+<li>W ogólnym przypadku potrzebny jest algorytm rysowania linii w
+przestrzeni wokselowej
+<ul>
+<li>algorytm Bresenhama rozszerzony do 3D</li>
+</ul></li>
+<li>Różne sposoby definiowania sąsiedztwa w 3D
+<ul>
+<li>6-krotne - przez ścianę</li>
+<li>18-krotne - przez ścianę lub krawędź</li>
+<li>26-krotne - przez ścianę lub krawędź lub wierzchołek</li>
+</ul></li>
+<li>Sąsiedztwo 26-krotne daje najkrótszą linię (w liczbie wokseli) ale
+może występować tunelowanie
+<ul>
+<li>tunelowanie - jak 2 linie się przecinają ale nie mają wspólnych
+wokseli</li>
+</ul></li>
+</ul>
+<h2 id="znajdowanie-izopowierzchni">Znajdowanie izopowierzchni</h2>
+<ul>
+<li>Woksele mają jakieś liczbowe parametry</li>
+<li>Woksele tworzą siatkę</li>
+<li>Izowartość - rozdziela woksele o parametrze poniżej tej wartości od
+wokseli powyżej</li>
+<li>Izopowierzchnia - punkty o tej samej izowartości</li>
+<li>Algorytm marching cubes</li>
+</ul>
+<h3 id="idea-algorytmu-marching-cubes">Idea algorytmu marching
+cubes</h3>
+<ul>
+<li>Przejście przez wszystkie woksele w wolumenie
+<ul>
+<li>sąsiedztwo 6-krotne</li>
+</ul></li>
+<li>Dla każdego sześcianu tworzymy zbiór trójkątów odpowiadających
+położeniu izopowierzchni</li>
+<li>Wierzchołek o gęstości większej niż progowa oznaczony 1, mniejszej
+0</li>
+<li>Izopowierzchnia przecina te krawędzie woksela, gdzie końce są
+różne</li>
+<li>256 możliwych konfiguracji zer i jedynek w wierzchołkach (8-bitowy
+indeks woksela)
+<ul>
+<li>128 przypadków jest symetryczne względem zer i jedynek</li>
+<li>dużo przypadków symetrycznych przez rotacje</li>
+</ul></li>
+<li>Redukuje się do 15 przypadków wzorcowych
+<ul>
+<li>tworzy się lookup table od ułożenia do wzorca 256 -&gt;15</li>
+</ul></li>
+<li>Punkty przecięcia
+<ul>
+<li>dokładne położenie wyznacza się przez interpolację liniową po
+wartości parametrów w wierzchołkach</li>
+</ul></li>
+<li>Łatwo wyznaczyć normalne
+<ul>
+<li>gradient pola skalarnego w wierzchołku</li>
+<li>ma zgodny kierunek z normalną</li>
+<li>w punkcie przecięcia - interpolacja</li>
+</ul></li>
+<li>Istnieją sytuacje wyjątkowe
+<ul>
+<li>niektóre kombinacje wierzchołków są niejednoznaczne</li>
+<li>rozbudowuje się 15 wzorców na większą tabelkę z podwariantami
+wzorców</li>
+<li>lub dokładniejsze testy (np. próbkowanie punktu w środku)</li>
+</ul></li>
+</ul>
+<h3 id="algorytm-maszerujących-czworościanów">Algorytm maszerujących
+czworościanów</h3>
+<ul>
+<li><em>Marching tetrahedra</em></li>
+<li>Sześciany podzielony na 6 czworościanów</li>
+<li>Dalsza część algorytmu analogiczna</li>
+<li>Tylko 7 układów (zamiast 15 dla sześcianu)
+<ul>
+<li>oraz ich rotacje</li>
+</ul></li>
+</ul>
+<h2 id="wizualizacja-wolumenu">Wizualizacja wolumenu</h2>
+<ul>
+<li>Wizualizacja izopowierzchni nieprzezroczystych
+<ul>
+<li><em>marching cubes</em></li>
+<li><em>marching tetrahedra</em></li>
+</ul></li>
+<li>Wizualizacja izopowierzchni przezroczystych
+<ul>
+<li>nakładanie przekrojów wolumenu - w zasadzie metoda brute force</li>
+<li>chmury punktów (np. <em>dividing cubes</em>)</li>
+<li>splatting</li>
+</ul></li>
+<li>Rzutowanie promieni
+<ul>
+<li><em>volume ray casting</em></li>
+</ul></li>
+</ul>
+<h2 id="volume-ray-casting">Volume ray casting</h2>
+<ul>
+<li>Uniwersalny algorytm do wizualizacji obiektów wolumetrycznych</li>
+<li>Promienie od oka, przechodzące przez ekran, padające na wolumen</li>
+<li>Promień przechodzi przez woksele</li>
+<li>Ustalamy barwę woksela na podstawie przyjętego modelu
+cieniowania</li>
+<li>Akumulowanie barwy na drodze promienia i przypisanie jej
+pikselowi</li>
+</ul>
+<h3 id="przejście-promienia-przez-wolumen">Przejście promienia przez
+wolumen</h3>
+<ul>
+<li>Są różne strategie</li>
+<li>Promień do pierwszego woksela obiektu
+<ul>
+<li>ok dla nieprzezroczystych</li>
+</ul></li>
+<li>Akumulowanie na drodze promienia
+<ul>
+<li>można do końca wolumenu</li>
+<li>można tylko do ostatniego woksela obiektu</li>
+</ul></li>
+<li>Uśrednienie gęstości na drodze promienia</li>
+</ul>
+<h3
+id="mapowanie-ustalonej-gęstości-do-barwy-transfer-function">Mapowanie
+ustalonej gęstości do barwy (transfer function)</h3>
+<ul>
+<li>Raczej mocno nieliniowa</li>
+<li>Liniowe mapowanie gęstości <span class="math inline">\(\in
+[0,1]\)</span> na kanały RGB da słaby efekt</li>
+<li>Typowo w obrazach medycznych, te różnice gęstości będą bardzo małe,
+chcemy je uwypuklić</li>
+</ul>
+<h3 id="próbkowanie-wolumenu">Próbkowanie wolumenu</h3>
+<ul>
+<li>Jak promień przechodzi przez woksele</li>
+<li>Promień dyskretny
+<ul>
+<li>linia jak narysowana algorytmem Bresenhama</li>
+</ul></li>
+<li>Promień ciągły
+<ul>
+<li>próbkowanie punktów na ciągłej linii i przypisanie tym punktom
+wokseli znajdujących się np. najbliżej</li>
+<li>próbkowanie regularne - ustalone odległości między próbkami</li>
+<li>próbkowanie adaptacyjne - np. im dalej od obserwatora tym
+rzadziej</li>
+</ul></li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#grafika-wokselowa" id="toc-grafika-wokselowa">Grafika
+wokselowa</a>
+<ul>
+<li><a href="#zastosowania" id="toc-zastosowania">Zastosowania</a></li>
+<li><a href="#powierzchnie-vs-woksele" id="toc-powierzchnie-vs-woksele">Powierzchnie vs woksele</a></li>
+<li><a href="#przechowywanie-wolumenu" id="toc-przechowywanie-wolumenu">Przechowywanie wolumenu</a></li>
+<li><a href="#interpolacja-trójliniowa" id="toc-interpolacja-trójliniowa">Interpolacja trójliniowa</a></li>
+<li><a href="#taksonomia-wizualizacji-wolumetrycznej" id="toc-taksonomia-wizualizacji-wolumetrycznej">Taksonomia wizualizacji
+wolumetrycznej</a></li>
+<li><a href="#wokselizacja" id="toc-wokselizacja">Wokselizacja</a></li>
+<li><a href="#znajdowanie-izopowierzchni" id="toc-znajdowanie-izopowierzchni">Znajdowanie izopowierzchni</a>
+<ul>
+<li><a href="#idea-algorytmu-marching-cubes" id="toc-idea-algorytmu-marching-cubes">Idea algorytmu marching
+cubes</a></li>
+<li><a href="#algorytm-maszerujących-czworościanów" id="toc-algorytm-maszerujących-czworościanów">Algorytm maszerujących
+czworościanów</a></li>
+</ul></li>
+<li><a href="#wizualizacja-wolumenu" id="toc-wizualizacja-wolumenu">Wizualizacja wolumenu</a></li>
+<li><a href="#volume-ray-casting" id="toc-volume-ray-casting">Volume ray
+casting</a>
+<ul>
+<li><a href="#przejście-promienia-przez-wolumen" id="toc-przejście-promienia-przez-wolumen">Przejście promienia przez
+wolumen</a></li>
+<li><a href="#mapowanie-ustalonej-gęstości-do-barwy-transfer-function" id="toc-mapowanie-ustalonej-gęstości-do-barwy-transfer-function">Mapowanie
+ustalonej gęstości do barwy (transfer function)</a></li>
+<li><a href="#próbkowanie-wolumenu" id="toc-próbkowanie-wolumenu">Próbkowanie wolumenu</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

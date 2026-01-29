@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wyklad-03</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="wyklad-02.html">Poprzedni: wyklad-02.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="wyklad-04.html">Następny: wyklad-04.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Zaawansowane programowanie w C++</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="wyklad-01.html">wyklad-01.html</a></li>
+                
+                <li><a href="wyklad-02.html">wyklad-02.html</a></li>
+                
+                <li><a href="wyklad-03.html">wyklad-03.html</a></li>
+                
+                <li><a href="wyklad-04.html">wyklad-04.html</a></li>
+                
+                <li><a href="wyklad-05.html">wyklad-05.html</a></li>
+                
+                <li><a href="wyklad-06.html">wyklad-06.html</a></li>
+                
+                <li><a href="wyklad-07.html">wyklad-07.html</a></li>
+                
+                <li><a href="wyklad-08.html">wyklad-08.html</a></li>
+                
+                <li><a href="wyklad-09.html">wyklad-09.html</a></li>
+                
+                <li><a href="wyklad-10.html">wyklad-10.html</a></li>
+                
+                <li><a href="wyklad-11.html">wyklad-11.html</a></li>
+                
+                <li><a href="wyklad-12.html">wyklad-12.html</a></li>
+                
+                <li><a href="wyklad-13.html">wyklad-13.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="zpr--w04--2020-10-27">ZPR- W04 -2020 10 27</h1>
+<h2 id="zarządzanie-pamięcią">Zarządzanie pamięcią</h2>
+<ul>
+<li><code>Foo* f = new Foo;</code>
+<ul>
+<li>przydziela pamięć, woła konstruktor</li>
+<li>generuje <code>bad_alloc</code> jeżeli brak pamięci</li>
+</ul></li>
+<li><code>delete f;</code>
+<ul>
+<li>woła destruktor</li>
+<li>zwalnia pamięć</li>
+</ul></li>
+<li><code>Foo* f = new Foo[N]</code>
+<ul>
+<li>przydziela pamięć dla N elementów</li>
+<li>woła konstruktory</li>
+</ul></li>
+<li><code>delete [] f;</code>
+<ul>
+<li>woła destruktory</li>
+<li>zwalnia pamięć</li>
+</ul></li>
+<li><code>Foo* f = new (std::nothrow) Foo;</code>
+<ul>
+<li>zwraca 0 jeżeli brak pamięci</li>
+<li>nie ma wyjątku <code>bad_alloc</code> ale konstruktor może rzucić
+wyjątek</li>
+</ul></li>
+</ul>
+<h2 id="pusty-wskaźnik">Pusty wskaźnik</h2>
+<ul>
+<li>Prawidłowe oznaczenie pustego wskaźnika to <code>nullptr</code>
+<ul>
+<li>rzutowany na dowolny wskaźnik</li>
+</ul></li>
+<li>Niepoprawne ale używane przed dodaniem słowa kluczowego do standardu
+<ul>
+<li><code>#define NULL (void*)0</code></li>
+<li><code>0L</code></li>
+</ul></li>
+</ul>
+<h2 id="obsługa-błędu-przydziału-pamięci">Obsługa błędu przydziału
+pamięci</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;new&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> MyNewHandler<span class="op">()</span> <span class="op">{</span> <span class="op">...</span> <span class="op">}</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>set_new_handler<span class="op">(</span>MyNewHandler<span class="op">);</span>  <span class="co">// ustawienie funkcji obsługi</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>set_new_handler<span class="op">(</span><span class="kw">nullptr</span><span class="op">);</span>       <span class="co">// usunięcie funkcji obsługi</span></span></code></pre></div>
+<h2 id="definicja-własnego-operatora-new-i-delete">Definicja własnego
+operatora <code>new</code> i <code>delete</code></h2>
+<ul>
+<li>Można przeciążyć globalny lub dla klasy (i jej pochodnych)
+<ul>
+<li>można badać wycieki</li>
+</ul></li>
+<li>Bardzo trudne do implementacji</li>
+</ul>
+<h3 id="small-object-allocator">Small object allocator</h3>
+<ul>
+<li>Przydział pamięci standardowym alokatorem wiąże się z narzutem
+<ul>
+<li>w pamięci dynamicznej poza samym obiektem są przechowywane
+informacje pomocnicze</li>
+<li>przy dużej liczbie małych obiektów narzut robi się istotny</li>
+</ul></li>
+<li>Alokator jest parametrem szablonu kolekcji</li>
+<li>Alokator obiektów o ustalonym rozmiarze
+<ul>
+<li>nie trzeba trzymać rozmiaru przydzielonego bloku</li>
+<li>wystarczy informacja dla zestawu bloków, (wskaźnik na blok
+wolny)</li>
+<li>nie ma fragmentacji pamięci</li>
+</ul></li>
+<li>Wspierane przez <code>Boost.Pool</code></li>
+<li>W językach obiektowych to częsty problem, obiekty z hierarchii klas
+są tworzone na stercie</li>
+</ul>
+<h2 id="podwójna-rola-wskaźników">Podwójna rola wskaźników</h2>
+<ul>
+<li>Wskaźnik jest identyifkatorem obiektu
+<ul>
+<li>rzutowanie w górę hierarchii dziedziczenia</li>
+</ul></li>
+<li>Wskaźnik jest iteratorem dla tablicy
+<ul>
+<li>arytmetyka wskaźników</li>
+</ul></li>
+<li>Nie należy mieszać tych dwóch
+<ul>
+<li>problem z arytmetyką jeśli obiekt klasy pochodnej jest innego
+rozmiaru niż obiekt klasy bazowej</li>
+</ul></li>
+</ul>
+<h2 id="ukrywanie-nazw">Ukrywanie nazw</h2>
+<ul>
+<li>Nazwa lokalna przykrywa globalne</li>
+<li>Podobnie przy dziedziczeniu
+<ul>
+<li>można wykorzystać nazwę składowej po raz drugi w klasie
+pochodnej</li>
+<li>problematyczne zachowanie z przeciążaniem nazw w hierarchii
+klas</li>
+</ul></li>
+</ul>
+<h2 id="dynamiczna-informacja-o-typie-rtti">Dynamiczna informacja o
+typie (RTTI)</h2>
+<ul>
+<li>Mechanizm można wyłączyć w kompilatorze</li>
+<li>Dla każdego typu można pobrać strukturę <code>type_info</code>
+<ul>
+<li>drzewo (dla dziedziczenia wielobazowego) lub lista</li>
+</ul></li>
+<li>Operator <code>typeid</code></li>
+<li>Można badać przynależność do typu
+<ul>
+<li>pozwala implementować rzutowanie w dół hierarchii klas</li>
+<li>rzutowanie skrośne do klasy siostrzanej przy dziedziczeniu
+wielobazowym</li>
+</ul></li>
+<li><code>dynamic_cast</code> bada <code>type_info</code>
+<ul>
+<li>kosztowny ze względu na przeszukiwanie drzewa/listy</li>
+<li>bezpieczny pod kątem typów - korzysta z informacji przechowywanych
+przez kompilator</li>
+</ul></li>
+<li>Koszty
+<ul>
+<li>wielkość kodu - struktury <code>type_info</code> dla wszystkich
+klas</li>
+<li>większa tablica funkcji wirtualnych, wskaźnik do
+<code>type_info</code></li>
+</ul></li>
+<li>Czas wykonania
+<ul>
+<li>wołanie <code>typeid</code> - czas jednostkowy</li>
+<li>wołanie <code>dynamic_cast</code> - rekurencyjne przeszukanie
+referencji do <code>type_info</code> klas bazowych</li>
+<li>badanie typu w <code>catch</code> jest tak samo wydajne jak
+<code>dynamic_cast</code></li>
+</ul></li>
+</ul>
+<h2 id="wyrażenia-stałe">Wyrażenia stałe</h2>
+<ul>
+<li><code>constexpr</code></li>
+<li>Można używać jako stałe jeśli zależą tylko od stałych
+argumentów</li>
+</ul>
+<h2 id="wyliczenia-bezpieczne-ze-względu-na-typ">Wyliczenia bezpieczne
+ze względu na typ</h2>
+<ul>
+<li><code>enum class</code></li>
+<li>Nie można ich rzutować na <code>int</code> ani na odwrót</li>
+<li>Symbole w przestrzeni nazwy wyliczenia</li>
+</ul>
+<h2 id="wzorce-projektowe">Wzorce projektowe</h2>
+<h3 id="komenda">Komenda</h3>
+<ul>
+<li>Odroczone wykonanie operacji</li>
+<li>Przechowuje czynność jako obiekt
+<ul>
+<li>przechowuje parametry wykonania</li>
+</ul></li>
+<li>Konwencja w C++ - użycie operatora wołania funkcyjnego</li>
+<li>Rozdzielone definiowanie operacji od wykonania
+<ul>
+<li>wygodne do bibliotek GUI</li>
+<li>mniej zależności między częściami</li>
+<li>można rozdzielić kod definiujący akcje i uruchamiający</li>
+</ul></li>
+<li>Komenda ma semantykę wartości
+<ul>
+<li>kopiowanie</li>
+<li>zwracanie jako wynik</li>
+<li>dastarczanie jako argument</li>
+<li>przechowywanie w kolekcjach</li>
+</ul></li>
+<li>Możliwość wycofania
+<ul>
+<li>implementacja odwrotnej funkcji</li>
+<li>zapamiętanie stanu i odtwarzanie</li>
+</ul></li>
+<li>Można wykorzystać do przetwarzania równoległego</li>
+</ul>
+<h3 id="obserwator">Obserwator</h3>
+<ul>
+<li>Zmiana stanu jednego obiektu wymaga zmiany innych</li>
+<li>Wołanie metod na obiektach wprowadziłoby zależności cykliczne</li>
+<li>Aktywne oczekiwanie - niepoprawne rozwiązanie w przeważającej
+większości przypadków
+<ul>
+<li>zaleta - nie ma zależności cyklicznej</li>
+<li>wiele niepotrzebnych wywołań inicjowanych zegarem</li>
+</ul></li>
+<li>Klasa bazowa <code>Observer</code>
+<ul>
+<li>metoda wirtualna <code>update</code></li>
+</ul></li>
+<li>Klasy obserwujące zmiany dziedziczą po <code>Observer</code>
+<ul>
+<li>konkretne obserwatory</li>
+<li>zależą od tematów obserwacji</li>
+</ul></li>
+<li>Tematy obserwacji
+<ul>
+<li>zależą od obserwatora bazowego</li>
+<li><code>add</code>, <code>delete</code>, <code>notify</code>,
+<code>getState</code></li>
+<li>powiadamia każdy obserwator przechowywany w kolekcji (dla każdego
+woła <code>update</code>)</li>
+</ul></li>
+<li>Implementując wzorzec można wprowadzić wspólną klasę bazową dla
+tematów obserwacji</li>
+<li>Nie ma cyklicznych zależności</li>
+<li>Często spotykany w praktyce
+<ul>
+<li>MVC - Model = Subject, View = Observer</li>
+<li>Sygnały (Subject) i Sloty (Observer)</li>
+</ul></li>
+</ul>
+<h3 id="iterator">Iterator</h3>
+<ul>
+<li>Pozwala jednakowo traktować różne kolecje
+<ul>
+<li>które są wystarczająco podobne (np. obie jednowymiarowe wektor i
+lista dwukierunkowa)</li>
+</ul></li>
+<li>Dostarczone w STL dla standardowych kolekcji</li>
+<li>Forward iterator
+<ul>
+<li>dereferencja - dostęp do elementu</li>
+<li>inkrementacji - wskazuje następny element</li>
+</ul></li>
+<li>Pozwalają na dostarczenie jednego algorytmu dla wielu różnych
+kolekcji</li>
+</ul>
+<h3 id="most">Most</h3>
+<ul>
+<li>Oddzielenie abstrakcji od implementacji</li>
+<li>Dwie hierarchie klas</li>
+<li>Wzorzec pimpl - zdegenerowany most
+<ul>
+<li>uchwyt do implementacji</li>
+<li>minimalizuje zależności</li>
+<li>ukrywa zależności</li>
+<li>w nagłówku są tylko zależności interfejsu</li>
+<li>pośrednie wołanie przez uchwyt</li>
+</ul></li>
+<li>Wstrzykiwanie zależności
+<ul>
+<li>Boost.DI</li>
+<li>wygodne do testowania jednostkowego</li>
+</ul></li>
+</ul>
+<h3 id="fabryki">Fabryki</h3>
+<ul>
+<li>C++ ma statyczną kontrolę typów</li>
+<li>Polimorfizm nie jest dostępny podczas inicjacji
+<ul>
+<li>wołanie funkcji wirtualnej tylko na zainicjowanym obiekcie</li>
+<li>nie ma wirtualnych konstruktorów</li>
+</ul></li>
+<li>Czasami chcemy stworzyć obiekt na podstawie informacji podanej
+dynamicznie</li>
+<li>Prosta fabryka
+<ul>
+<li>switch case zależny od wszystkich klas w hierarchii</li>
+<li>wiązanie między identyfikatorem a tworzonym typem zapewnia
+programista</li>
+<li>problem przy dodawaniu nowych klas</li>
+</ul></li>
+<li>Fabryka skalowalna
+<ul>
+<li>nie ma zależności od wszystkich typów</li>
+<li>typ jest zależny od fabryki</li>
+<li>dostarcza się funkcji tworzących</li>
+<li>fabryka przechowuje kolekcję funkcji tworzących</li>
+<li>typ rejestruje się w fabryce dostarczając funkcję tworzącą</li>
+<li>jest problem z identyfikatorami (zależność jest ukryta), może być
+kolizja</li>
+<li>można generować identyfikator przy rejestracji albo wykorzystać
+<code>type_id</code>, kod może nie być przenośny</li>
+</ul></li>
+<li>Fabryka prototypów
+<ul>
+<li>jak fabryka skalowalna ale przechowuje kolekcję obiektów
+prototypów</li>
+<li>przy tworzeniu nowego obiektu, prototyp jest klonowany</li>
+<li>można mieć wiele obiektów tego samego typu</li>
+<li>zajmuje więcej pamięci</li>
+</ul></li>
+<li>Fabryka abstrakcyjna
+<ul>
+<li>do tworzenia grupy powiązanych ze sobą obiektów</li>
+<li>fabryka konkretna tworzy obiekty konkretne</li>
+</ul></li>
+<li>Singleton
+<ul>
+<li>singleton jest fabryką pojedynczego obiektu</li>
+</ul></li>
+<li>Tworzenie obiektów gdy mamy informację o typie - fabryka</li>
+<li>Tworzenie kopii obiektów - prototyp</li>
+<li>Tworzenie rodzin - fabryka abstrakcyjna</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#zpr--w04--2020-10-27" id="toc-zpr--w04--2020-10-27">ZPR-
+W04 -2020 10 27</a>
+<ul>
+<li><a href="#zarządzanie-pamięcią" id="toc-zarządzanie-pamięcią">Zarządzanie pamięcią</a></li>
+<li><a href="#pusty-wskaźnik" id="toc-pusty-wskaźnik">Pusty
+wskaźnik</a></li>
+<li><a href="#obsługa-błędu-przydziału-pamięci" id="toc-obsługa-błędu-przydziału-pamięci">Obsługa błędu przydziału
+pamięci</a></li>
+<li><a href="#definicja-własnego-operatora-new-i-delete" id="toc-definicja-własnego-operatora-new-i-delete">Definicja własnego
+operatora <code>new</code> i <code>delete</code></a>
+<ul>
+<li><a href="#small-object-allocator" id="toc-small-object-allocator">Small object allocator</a></li>
+</ul></li>
+<li><a href="#podwójna-rola-wskaźników" id="toc-podwójna-rola-wskaźników">Podwójna rola wskaźników</a></li>
+<li><a href="#ukrywanie-nazw" id="toc-ukrywanie-nazw">Ukrywanie
+nazw</a></li>
+<li><a href="#dynamiczna-informacja-o-typie-rtti" id="toc-dynamiczna-informacja-o-typie-rtti">Dynamiczna informacja o
+typie (RTTI)</a></li>
+<li><a href="#wyrażenia-stałe" id="toc-wyrażenia-stałe">Wyrażenia
+stałe</a></li>
+<li><a href="#wyliczenia-bezpieczne-ze-względu-na-typ" id="toc-wyliczenia-bezpieczne-ze-względu-na-typ">Wyliczenia bezpieczne
+ze względu na typ</a></li>
+<li><a href="#wzorce-projektowe" id="toc-wzorce-projektowe">Wzorce
+projektowe</a>
+<ul>
+<li><a href="#komenda" id="toc-komenda">Komenda</a></li>
+<li><a href="#obserwator" id="toc-obserwator">Obserwator</a></li>
+<li><a href="#iterator" id="toc-iterator">Iterator</a></li>
+<li><a href="#most" id="toc-most">Most</a></li>
+<li><a href="#fabryki" id="toc-fabryki">Fabryki</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>

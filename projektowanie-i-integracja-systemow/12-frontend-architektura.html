@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12-frontend-architektura</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <!--    Load mathjax from cdn to render latex equations-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="prev-next-links">
+    
+    <div class="index-links-prev">
+        <a href="11-frontend-frameworki.html">Poprzedni: 11-frontend-frameworki.html</a>
+    </div>
+    
+
+    
+    <div class="index-links-next">
+        <a href="kolokwium-01.html">Następny: kolokwium-01.html</a>
+    </div>
+    
+    <div class="return-link">
+        <a href="..">Powrót</a>
+    </div>
+</div>
+<div class="container">
+    <div class="index-links-wrapper">
+        <h2>Projektowanie i integracja systemów</h2>
+        <div class="index-links">
+            <ul>
+                
+                <li><a href="00-organizacja.html">00-organizacja.html</a></li>
+                
+                <li><a href="01-wstep.html">01-wstep.html</a></li>
+                
+                <li><a href="02-narzedzia-iac.html">02-narzedzia-iac.html</a></li>
+                
+                <li><a href="03-architektura-oprogramowania.html">03-architektura-oprogramowania.html</a></li>
+                
+                <li><a href="04-test-driven-development.html">04-test-driven-development.html</a></li>
+                
+                <li><a href="05-dostep-do-danych.html">05-dostep-do-danych.html</a></li>
+                
+                <li><a href="06-cassandra.html">06-cassandra.html</a></li>
+                
+                <li><a href="07-logika-biznesowa.html">07-logika-biznesowa.html</a></li>
+                
+                <li><a href="08-spring.html">08-spring.html</a></li>
+                
+                <li><a href="09-integracja-systemow.html">09-integracja-systemow.html</a></li>
+                
+                <li><a href="10-cloud.html">10-cloud.html</a></li>
+                
+                <li><a href="11-frontend-frameworki.html">11-frontend-frameworki.html</a></li>
+                
+                <li><a href="12-frontend-architektura.html">12-frontend-architektura.html</a></li>
+                
+                <li><a href="kolokwium-01.html">kolokwium-01.html</a></li>
+                
+                <li><a href="kolokwium-02.html">kolokwium-02.html</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <main>
+            <h1 id="architektura-aplikacji-frontendowych-2025-01-20">Architektura
+aplikacji frontendowych (2025-01-20)</h1>
+<h2 id="silniki-i-moduły">Silniki i moduły</h2>
+<h3 id="silnik-javascript">Silnik javascript</h3>
+<ul>
+<li>Program odpowiedzialny za wykonywanie kodu JS</li>
+<li>interpretuje</li>
+<li>garbage collection</li>
+<li>optymalizacja</li>
+<li>Etapy
+<ul>
+<li>parsowanie kodu źródłowego -&gt; AST</li>
+<li>kompilacja kodu JIT, AST -&gt; kod maszynowy</li>
+<li>wykonanie kodu - silnik śledzi najczęściej używane fragmenty (hot
+paths)</li>
+<li>automatyczne zarządzanie pamięcią (garbage collection)</li>
+<li>optymalizacja w trakcie działania - silnik analizuje wykonywany kod
+i stosuje optymalizacje w czasie rzeczywistym</li>
+</ul></li>
+</ul>
+<h3 id="silniki-js">Silniki JS</h3>
+<ul>
+<li>V8
+<ul>
+<li>Chrome</li>
+<li>Node</li>
+<li>Deno</li>
+<li>napisany w C++</li>
+</ul></li>
+<li>SpiderMonkey
+<ul>
+<li>Netscape</li>
+<li>Firefox</li>
+<li>pierwszy silnik JS</li>
+</ul></li>
+<li>JavaScriptCore (Nitro)
+<ul>
+<li>Apple, Safari</li>
+<li>BunJS</li>
+<li>optymalizowany pod macOS</li>
+</ul></li>
+<li>Chakra
+<ul>
+<li>Microsoft, Edge (dawniej)</li>
+</ul></li>
+</ul>
+<h3 id="funkcje-optymalizacyjne">Funkcje optymalizacyjne</h3>
+<ul>
+<li>Inlining - wbudowanie wywołań funkcji do kodu</li>
+<li>Garbage Collection</li>
+<li>Speculative Optimization - przewidywanie typów danych i
+optymalizacja</li>
+</ul>
+<h3 id="przyszłość-silników">Przyszłość silników</h3>
+<ul>
+<li>WebAssembly
+<ul>
+<li>komplementarny do JS</li>
+<li>wsparcie dla wydajnych aplikacji (gry, narzędzia obliczeniowe)</li>
+</ul></li>
+<li>Zwiększona wydajność
+<ul>
+<li>ulepszenia w JIT</li>
+<li>lepsza obsługa wielordzeniowych procesorów</li>
+</ul></li>
+<li>Nowe standardy ECMAScript</li>
+</ul>
+<h3 id="webassembly">WebAssembly</h3>
+<ul>
+<li>Niskopoziomowy format kodu binarnego przeznaczony do uruchamiania w
+przeglądarkach internetowych</li>
+<li>Zaprojektowany z naciskiem na wydajność</li>
+<li>Na wszystkie platformy wspierające JS</li>
+<li>Prędkość zbliżona do natywnej</li>
+<li>Obsługuje wiele języków
+<ul>
+<li>C, C++, Rust, Python, Go</li>
+</ul></li>
+<li>Zgodny z zasadami bezpieczeństwa przeglądarek</li>
+<li>Istotny krok w rozwoju technologii webowych</li>
+</ul>
+<h3 id="amd">AMD</h3>
+<ul>
+<li>Asynchronous Module Definition</li>
+<li>Standard definiowania modułów</li>
+<li>Zaproponowany przez Adobe</li>
+<li>Popularność spada na rzecz ES Modules</li>
+<li>Moduły są ładowane asynchronicznie</li>
+<li>Używane głównie w starszych aplikacjach webowych
+<ul>
+<li>RequireJS</li>
+</ul></li>
+</ul>
+<h3 id="require.js">Require.js</h3>
+<ul>
+<li>Pierwsza próba rozwiązania problemu zarządzaniem zależnościami JS w
+przeglądarce
+<ul>
+<li>konflikty nazw</li>
+<li>prawidłowa kolejność ładowania skryptów</li>
+</ul></li>
+<li>Część interfejsów tożsama ze specyfikacją CommonJS</li>
+</ul>
+<h3 id="commonjs">CommonJS</h3>
+<ul>
+<li>Standard ujednolicający system modułów w JS</li>
+<li>Wykorzystywany przede wszystkim do NodeJS
+<ul>
+<li>przeglądarki nie wspierają CommonJS same z siebie</li>
+<li>trzeba użyć transpilerów</li>
+</ul></li>
+<li><code>require</code>, <code>module.exports</code></li>
+<li>Moduł najczęściej tożsamy z jednym plikiem</li>
+</ul>
+<h3 id="es-modules">ES Modules</h3>
+<ul>
+<li>Część standardu ecmascript</li>
+<li><code>import</code>, <code>export</code></li>
+</ul>
+<h3 id="porównanie-cjs-i-esm">Porównanie CJS i ESM</h3>
+<ul>
+<li>ESM
+<ul>
+<li>nowsze</li>
+<li>frontend i backend</li>
+<li>wszystkie importy są asynchroniczne</li>
+<li>obsługuje <code>import</code>, <code>await</code>,
+<code>async</code></li>
+</ul></li>
+<li>CJS
+<ul>
+<li>wykorzystywane w tradycyjnych serwerach NodeJS</li>
+<li>moduły ładowane synchronicznie</li>
+<li>problematyczne w dużych asynchronicznych operacjach</li>
+</ul></li>
+<li>Trudne stosować oba w jednym projekcie</li>
+</ul>
+<h2 id="mvc-flux-redux-mvvm">MVC, Flux, Redux, MVVM</h2>
+<h3 id="globalne-zarządzanie-stanem">Globalne zarządzanie stanem</h3>
+<ul>
+<li>Pojedynczy obiekt globalny dostępny do odczytu i zmiany z dowolnej
+części naszej aplikacji</li>
+<li>Problematyczne dla architektury aplikacji</li>
+<li>Scentralizowane, wszystko w jednym miejscu</li>
+<li>Przydatne gdy dane są potrzebne wielu komponentom
+<ul>
+<li>zapewnia że komponenty mają najbardziej aktualne wersje</li>
+<li>komponenty nasłuchują na zmiany i odświeżają się</li>
+</ul></li>
+<li>Unika się jawnego przesyłania danych między komponentami</li>
+</ul>
+<h3 id="kiedy-wawrto-używać-globalnego-zarządzania-stanem">Kiedy wawrto
+używać globalnego zarządzania stanem</h3>
+<ul>
+<li>dane są współdzielone między komponentami (koszyk w ecommerce,
+język)</li>
+<li>złożone zależności pomiędzy komponentami
+<ul>
+<li>prop drilling w React</li>
+<li>trzeba przekazywać dane przez wiele poziomów pośrednich</li>
+</ul></li>
+<li>stan jest często modyfikowany
+<ul>
+<li>globalny stan pozwala utrzymać spójność</li>
+<li>np. system powiadomień</li>
+</ul></li>
+<li>zapytania asynchroniczne i ich stan
+<ul>
+<li>kontrowersyjne</li>
+</ul></li>
+<li>zarządzanie stanem interfejsu użytkownika
+<ul>
+<li>modale, toasty, spinnery</li>
+</ul></li>
+<li>wymóg spójności danych
+<ul>
+<li>jedna zmiana wpływa na wiele komponentów</li>
+</ul></li>
+</ul>
+<h3 id="kiedy-nie-używać">Kiedy nie używać</h3>
+<ul>
+<li>Małe aplikacje
+<ul>
+<li>wystarczy lokalne zarządzanie stanem</li>
+</ul></li>
+<li>proste aplikacje bez złożonej logiki</li>
+<li>dane są izolowane
+<ul>
+<li>specyficzne per komponent</li>
+</ul></li>
+</ul>
+<h3 id="mvc">MVC</h3>
+<ul>
+<li>Wzorzec architektoniczny dedykowany aplikacjom GUI</li>
+<li>Zaprojektowany przez Xerox w 1979</li>
+<li>Odseparowanie modelu (reprezentacji danych) od widoku (interfejs
+użytkownika)</li>
+<li>Za logikę w aplikacji odpowiada kontroler</li>
+<li>Wykorzystywany we frameworkach
+<ul>
+<li>Django, Ruby on Rails, Angular, …</li>
+</ul></li>
+<li>Nadal popularny na frontendzie</li>
+<li>Model reprezentuje wiedze
+<ul>
+<li>może być pojedynczym obiektem lub strukturą obiektów</li>
+<li>odpowiada za logikę biznesową</li>
+<li>całą wiedza na temat danych w aplikacji</li>
+<li>dane stają się niezależne od ich pochodzenia</li>
+</ul></li>
+<li>Widok
+<ul>
+<li>wizualna reprezentacja modelu</li>
+<li>to co widzi użytkownik</li>
+<li>zmiana wyglądu bez konieczności zmiany logiki</li>
+<li>nie musi zakładać pełnego gui (np. linia poleceń)</li>
+</ul></li>
+<li>Kontroler
+<ul>
+<li>logika aplikacji</li>
+<li>przetwarzranie, przekształcanie danych z modelu</li>
+<li>przekazanie danych do widoku</li>
+<li>odbiór danych od użytkownika</li>
+</ul></li>
+</ul>
+<h3 id="problemy-z-mvc-w-aplikacjach-frontendowych">Problemy z MVC w
+aplikacjach frontendowych</h3>
+<ul>
+<li>Warstwa logiki pozostaje na serwerze</li>
+<li>Mamy tylko dwa punkty styku - request, response</li>
+<li>W przypadku aplikacji CSR, kontroler jest mocno uzależniony od
+widoku</li>
+<li>Widok i kontroler tworzą dwukierunkowe powiązania</li>
+<li>Przeładowane modele
+<ul>
+<li>i dane interfejsu użytkownika i stan aplikacji</li>
+</ul></li>
+<li>Złamanie SRP
+<ul>
+<li>kontroler obsługuje zdarzenia i logikę biznesową</li>
+<li>model nie ma rozdzielenia zarządzaniem stanu interfejsu od stanu
+aplikacji</li>
+</ul></li>
+</ul>
+<h3 id="two-way-data-binding">Two way data binding</h3>
+<ul>
+<li>Angular, Vue</li>
+<li>Zakłada dwukierunkowy przepływ danych widok-model</li>
+<li>Nie skaluje się
+<ul>
+<li>trudne do utrzymania relacje many-to-many</li>
+<li>ilość relacji niekontrolowanie wzrasta</li>
+</ul></li>
+</ul>
+<h3 id="the-zombie-unseen-messages-count">The zombie unseen messages
+count</h3>
+<ul>
+<li>casus w Facebooku</li>
+<li>często powtarzający się bug</li>
+</ul>
+<h3 id="one-way-data-binding">One way data binding</h3>
+<ul>
+<li>Przepływają tylko w jednym kierunku</li>
+<li>Np. w React od rodzica do dziecka</li>
+<li>Najczęściej wyświetlanie danych z modelu w widoku</li>
+</ul>
+<h3 id="architektura-flux">Architektura FLUX</h3>
+<ul>
+<li>Wzorzec projektowy CQRS</li>
+<li>Jednokierunkowy przepływ danych</li>
+<li>Akcje są jedynym sposobem na zmianę stanu aplikacji</li>
+<li>dispatchery przekazują akcje do magazynu</li>
+<li>magazyn jest jedynym źródłem prawdy</li>
+<li>stan aplikacji jest pobierany z magazynu, przekazywany do
+widoku</li>
+<li>aplikacja może mieć wiele magazynów</li>
+<li>jeśli jest wiele magazynów
+<ul>
+<li>dispatcher wysyła do każdego</li>
+<li>to magazyn będzie wiedział czy akcja dotyczy jego</li>
+<li>magazyn jest odpowiedzialny za specyficzną domenę</li>
+</ul></li>
+<li>magazyn emituje zdarzenia do widoku controller-view odpowiedzialnego
+za propagację zdarzeń do pozostałych widoków
+<ul>
+<li>przerenderowanie całego drzewa</li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>proste i wydajne wykrywanie zmian</li>
+<li>wystarczy porównać stary obiekt stanu z nowym</li>
+<li>w idealnym wdrożeniu architektury stosuje się niemutowalne struktury
+danych</li>
+<li>daje kontrolę nad danymi, pozwala na modularne zarządznaie nimi</li>
+</ul></li>
+<li>Wady
+<ul>
+<li>skomplikowana i trudna w opanowaniu</li>
+<li>wymaga dużego nakładu przy wdrożeniu i utrzymaniu</li>
+</ul></li>
+</ul>
+<h3 id="czy-flux-to-nowe-mvc">Czy flux to nowe mvc</h3>
+<ul>
+<li>logika rozproszona na wiele magazynów może być tożsama z wieloma
+kontrolerami</li>
+<li>…</li>
+</ul>
+<h3 id="redux">Redux</h3>
+<ul>
+<li>Implementacja architektury Flux</li>
+<li>Jeden magazyn (jedno źródło prawdy)</li>
+<li>niemutowalny stan</li>
+<li>magazyn nie moyfikuje danych</li>
+<li>logika aktualizacji stanu jest wydzielona do reduktorów</li>
+<li>akcja
+<ul>
+<li>obiekt posiadający właściwość type</li>
+<li>informacje niezbędne do wykonania zmiany na magazynie</li>
+<li>opcjonalny <code>payload</code></li>
+</ul></li>
+<li>kreator kacji
+<ul>
+<li>funkcja zwracająca akcji</li>
+<li>uproszczony zapis</li>
+<li>parametryzacja</li>
+</ul></li>
+<li>jakie typy danych można umieścić w akcji
+<ul>
+<li>nie nakłada żadnyhc dodatkowych ograniczeń</li>
+<li>obiekty serializowalne za pomocą <code>JSON.stringify</code></li>
+</ul></li>
+<li>dispatcher
+<ul>
+<li>funkcje, które pozwalają na wyemitowanie akcji do magazynu</li>
+<li>efektem jest wywołanie reducera i aktualizacja magazyna</li>
+<li>jedyny sposób na przekazanie danych w celu aktualizacji stanu</li>
+</ul></li>
+<li>reduktor
+<ul>
+<li>czysta funkcja</li>
+<li>wywoływana z aktualnym stanem i akcją</li>
+<li>zwraca nowy stan</li>
+<li>jeśli nie wie jak obsłużyć akcję, zwraca niemodyfikowany stan</li>
+<li>nie powinien mutować otrzymanego stanu</li>
+<li>jedyna opcja zmiany stanu</li>
+</ul></li>
+<li>czyste funkcje
+<ul>
+<li>nie korzystają ze zmiennych globalnych</li>
+<li>nie modyfikują danych zewnętrznych</li>
+<li>nie mają efektów ubocznych</li>
+<li>zawsze ten sam wnyik dla tych samych argumentów</li>
+</ul></li>
+<li>stan początkowy
+<ul>
+<li>…</li>
+</ul></li>
+<li>magazyn
+<ul>
+<li>scentralizowany</li>
+<li>jeden obiekt JS</li>
+<li>jendokierunkowy przepływ danych</li>
+<li>zmiana tylko przez reducery</li>
+<li>stan jest niemutowalny, każda zmiana tworzy nowy obiekt</li>
+<li>komponenty aplikacji mogą subskrybować na zmiany stanu</li>
+<li>struktura drzewiasta</li>
+<li>przyjmuje reducer przy tworzeniu</li>
+<li>można wyciągnąć typ stanu aplikacji przez
+<code>ReturnType&lt;...&gt;</code> w TS - przydatne do selektorów</li>
+</ul></li>
+<li>preloaded state
+<ul>
+<li>stan inicjujący</li>
+<li>przydatny, gdy chcemy przywrócić sesję, najpierw pobrać dane z
+serwera</li>
+</ul></li>
+<li>provider
+<ul>
+<li>komponent z <code>react-redux</code></li>
+<li>udostępnia magazyn całej aplikacji</li>
+</ul></li>
+</ul>
+<h3 id="architektura-aplikacji-redux">Architektura aplikacji redux</h3>
+<ul>
+<li>Warianty
+<ul>
+<li>containers, components</li>
+<li>slices</li>
+<li>duck duck pattern</li>
+</ul></li>
+<li>Staramy się odseparować redux os reszty aplikacji</li>
+<li>Warto zadbać o odpowiednią strukturę katalogów</li>
+</ul>
+<h3 id="components-i-containers">Components i containers</h3>
+<ul>
+<li>Komponenty logiki
+<ul>
+<li>containers</li>
+<li>pobierają dane z reduxa i przekazują dalej przez props</li>
+</ul></li>
+<li>Komponenty widoku
+<ul>
+<li>nie powinny mieć nic wspólnego z reduxem</li>
+<li>przyjmują dane od rodziców</li>
+</ul></li>
+</ul>
+<h4 id="architektura">Architektura</h4>
+<ul>
+<li>src
+<ul>
+<li>store
+<ul>
+<li>actions</li>
+<li>selectors</li>
+<li>reducers</li>
+</ul></li>
+<li>app
+<ul>
+<li>components</li>
+<li>containers</li>
+<li>contexts</li>
+</ul></li>
+<li>utils</li>
+</ul></li>
+</ul>
+<h3 id="duck-duck-pattern">Duck duck pattern</h3>
+<ul>
+<li>Przechowywanie całego kodu redux dla określonej domeny w jednym
+pliku
+<ul>
+<li>plik zwany <em>kaczką</em></li>
+</ul></li>
+<li>Zalety
+<ul>
+<li>uproszczona struktura kodu - kod reduxa w jednym miejscu</li>
+<li>wspomaga reużywalność</li>
+</ul></li>
+</ul>
+<h4 id="architektura-1">Architektura</h4>
+<ul>
+<li>src
+<ul>
+<li>ducks
+<ul>
+<li>todos</li>
+<li>user</li>
+<li>timer</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="struktura-projektu-feature-based">Struktura projektu
+feature-based</h3>
+<ul>
+<li>Aplikacja dzieli się na domeny / funkcjonalności</li>
+<li>każdy feature zaiwera własne reducery, akcje, komponenty,
+widoki</li>
+<li>Funkcjonalności nie przenikają się między sobą</li>
+</ul>
+<h3 id="slices">Slices</h3>
+<ul>
+<li>Podział aplikacji na domeny biznesowe</li>
+<li>Łatwa w implementacji z wykorzystaniem
+<code>redux/toolkit</code></li>
+<li>Dzieli się główny reducer na mniejsze części (slices)</li>
+</ul>
+<h4 id="architektura-2">Architektura</h4>
+<ul>
+<li>arc
+<ul>
+<li>app
+<ul>
+<li>hooks</li>
+<li>slices</li>
+<li>store</li>
+</ul></li>
+<li>features
+<ul>
+<li>user</li>
+<li>todos</li>
+<li>times</li>
+</ul></li>
+<li>utils</li>
+</ul></li>
+</ul>
+<p>Redux pozwala na pisanie reducerów tak jakby stan był mutowalny (a
+nie jest)</p>
+<h2 id="mvvm">MVVM</h2>
+<ul>
+<li>Architektura aplikacji desktopowych i webowych</li>
+<li>Model-View-ViewModel</li>
+<li>np. w Angular</li>
+<li>Zalety
+<ul>
+<li>oddzielenie warstw</li>
+<li>testowanie logiki biznesowej niezależnie od interfejsu
+użytkownika</li>
+</ul></li>
+<li>Model
+<ul>
+<li>dane i logika biznesowa</li>
+<li>przechowuje i zarządza stanem aplikacji</li>
+<li>np. klasa USER</li>
+</ul></li>
+<li>View
+<ul>
+<li>interfejs użytkownika</li>
+<li>interakcja, kontrolki, formularze</li>
+</ul></li>
+<li>ViewModel
+<ul>
+<li>pośrendik między modlee i widokiem</li>
+<li>logika prezentacyjna - mapowanie, transformacja danych</li>
+<li>pobiera dane z modelu, przygotowuje do wyświeltenia na widokiu</li>
+</ul></li>
+</ul>
+<h3 id="różnica-między-mvc-a-mvvm">Różnica między MVC a MVVM</h3>
+<ul>
+<li>…</li>
+</ul>
+<h2 id="mikrofrontendy">Mikrofrontendy</h2>
+<h3 id="aplikacje-monolityczne">Aplikacje monolityczne</h3>
+<ul>
+<li>tradycyjny sposób budowy oprogramownaia</li>
+<li>system implementowany w kontekście jednej aplikacji</li>
+<li>problemy z elastycznością i skalowaniem</li>
+<li>niski próg wejścia dla progrmaistów</li>
+<li>prostszy i krótszy development
+<ul>
+<li>jeśli nie pracuje nad tym zbyt wiele osób</li>
+</ul></li>
+<li>jeden błąd może zatrzymać całą aplikację</li>
+<li>nie każdy monolit jest zły
+<ul>
+<li>zależy od kontekstu biznesowego</li>
+</ul></li>
+</ul>
+<h3 id="monorepo">Monorepo</h3>
+<ul>
+<li>Jedno repozytorium z jednym projektem</li>
+<li>rozdzielenie serwisów polega nie wydzieleniu wielu aplikacji w
+jednym repozytorium</li>
+<li>musi istnieć aplikacja nadrzędna, która spina mniejsze serwisy</li>
+<li>problemy z wyizolowaniem zależności w różnych wersjach</li>
+<li>idealne gdy wszystkie projekty używają tego samego języka i tych
+samych technologii</li>
+<li>narzędzia
+<ul>
+<li><strong>yarn workspaces</strong></li>
+<li>nx</li>
+<li>turborepo</li>
+<li>lerna</li>
+</ul></li>
+<li>idealne dla projektów o dużej skali gdzie różne części muszą być ze
+sobą ściśle zintegorwane</li>
+</ul>
+<h3 id="mikroserwisy">Mikroserwisy</h3>
+<ul>
+<li>systemy rozproszone, dzielone wg funkcji biznesowych</li>
+<li>bardziej skomplikowana architektura</li>
+<li>trudne do wprowadzenia zmiany jesli objemuja wiele uslug</li>
+<li>niezależne skalowanie uslug od siebie</li>
+<li>blad w jednym serwisie nie ubija calej aplikacji</li>
+<li>wieksza kontrola nad dlugiem technologicznym</li>
+</ul>
+<h3 id="iframe">iframe</h3>
+<ul>
+<li>Stara technologia</li>
+<li>Jedna apikacja zbiorcza, w niej umieszczamy mikroaplikacje
+<ul>
+<li>każda w osobnym iframe</li>
+</ul></li>
+<li>Można tam załadować cokolwiek</li>
+<li>Są od siebie odizolowane
+<ul>
+<li>style nie wpływają na siebie</li>
+</ul></li>
+<li>Problematyczne jest zapewnienie komunikacji między iframe’ami</li>
+<li>Komunikacja
+<ul>
+<li>postMessage</li>
+<li>query params w URL - z aplikacji nadrzędnej do iframe</li>
+</ul></li>
+<li>Trudno zapewnić accessibility</li>
+<li>Problem wydajnościowy
+<ul>
+<li>tak jak oddzielna zakładka</li>
+</ul></li>
+</ul>
+<h3 id="webcomponents">WebComponents</h3>
+<ul>
+<li>Znacznie nowsze podejście</li>
+<li>Natywna enkapsulacja drzewa dom
+<ul>
+<li>wykorzystanie shadow dom</li>
+</ul></li>
+<li>bardziej podatne na zmiany z zewnątrz</li>
+<li>rozwiązanie natywne, też proste we wdrożeniu
+<ul>
+<li>nie wymaga zewnętrznych bibliotek</li>
+</ul></li>
+<li>shaodw dom
+<ul>
+<li>wyizolowanie czesci dom</li>
+<li>pozwala na oddzielenie stylow, zawartosci i interakcji od glownego
+dokumentu DOM</li>
+</ul></li>
+</ul>
+<h3 id="single-spa">Single SPA</h3>
+<ul>
+<li>framework do komponowania roznych aplikacji frontendowych</li>
+</ul>
+
+        </main>
+    </div>
+    <div class="table-of-contents">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#architektura-aplikacji-frontendowych-2025-01-20" id="toc-architektura-aplikacji-frontendowych-2025-01-20">Architektura
+aplikacji frontendowych (2025-01-20)</a>
+<ul>
+<li><a href="#silniki-i-moduły" id="toc-silniki-i-moduły">Silniki i
+moduły</a>
+<ul>
+<li><a href="#silnik-javascript" id="toc-silnik-javascript">Silnik
+javascript</a></li>
+<li><a href="#silniki-js" id="toc-silniki-js">Silniki JS</a></li>
+<li><a href="#funkcje-optymalizacyjne" id="toc-funkcje-optymalizacyjne">Funkcje optymalizacyjne</a></li>
+<li><a href="#przyszłość-silników" id="toc-przyszłość-silników">Przyszłość silników</a></li>
+<li><a href="#webassembly" id="toc-webassembly">WebAssembly</a></li>
+<li><a href="#amd" id="toc-amd">AMD</a></li>
+<li><a href="#require.js" id="toc-require.js">Require.js</a></li>
+<li><a href="#commonjs" id="toc-commonjs">CommonJS</a></li>
+<li><a href="#es-modules" id="toc-es-modules">ES Modules</a></li>
+<li><a href="#porównanie-cjs-i-esm" id="toc-porównanie-cjs-i-esm">Porównanie CJS i ESM</a></li>
+</ul></li>
+<li><a href="#mvc-flux-redux-mvvm" id="toc-mvc-flux-redux-mvvm">MVC,
+Flux, Redux, MVVM</a>
+<ul>
+<li><a href="#globalne-zarządzanie-stanem" id="toc-globalne-zarządzanie-stanem">Globalne zarządzanie
+stanem</a></li>
+<li><a href="#kiedy-wawrto-używać-globalnego-zarządzania-stanem" id="toc-kiedy-wawrto-używać-globalnego-zarządzania-stanem">Kiedy wawrto
+używać globalnego zarządzania stanem</a></li>
+<li><a href="#kiedy-nie-używać" id="toc-kiedy-nie-używać">Kiedy nie
+używać</a></li>
+<li><a href="#mvc" id="toc-mvc">MVC</a></li>
+<li><a href="#problemy-z-mvc-w-aplikacjach-frontendowych" id="toc-problemy-z-mvc-w-aplikacjach-frontendowych">Problemy z MVC w
+aplikacjach frontendowych</a></li>
+<li><a href="#two-way-data-binding" id="toc-two-way-data-binding">Two
+way data binding</a></li>
+<li><a href="#the-zombie-unseen-messages-count" id="toc-the-zombie-unseen-messages-count">The zombie unseen messages
+count</a></li>
+<li><a href="#one-way-data-binding" id="toc-one-way-data-binding">One
+way data binding</a></li>
+<li><a href="#architektura-flux" id="toc-architektura-flux">Architektura
+FLUX</a></li>
+<li><a href="#czy-flux-to-nowe-mvc" id="toc-czy-flux-to-nowe-mvc">Czy
+flux to nowe mvc</a></li>
+<li><a href="#redux" id="toc-redux">Redux</a></li>
+<li><a href="#architektura-aplikacji-redux" id="toc-architektura-aplikacji-redux">Architektura aplikacji
+redux</a></li>
+<li><a href="#components-i-containers" id="toc-components-i-containers">Components i containers</a></li>
+<li><a href="#duck-duck-pattern" id="toc-duck-duck-pattern">Duck duck
+pattern</a></li>
+<li><a href="#struktura-projektu-feature-based" id="toc-struktura-projektu-feature-based">Struktura projektu
+feature-based</a></li>
+<li><a href="#slices" id="toc-slices">Slices</a></li>
+</ul></li>
+<li><a href="#mvvm" id="toc-mvvm">MVVM</a>
+<ul>
+<li><a href="#różnica-między-mvc-a-mvvm" id="toc-różnica-między-mvc-a-mvvm">Różnica między MVC a MVVM</a></li>
+</ul></li>
+<li><a href="#mikrofrontendy" id="toc-mikrofrontendy">Mikrofrontendy</a>
+<ul>
+<li><a href="#aplikacje-monolityczne" id="toc-aplikacje-monolityczne">Aplikacje monolityczne</a></li>
+<li><a href="#monorepo" id="toc-monorepo">Monorepo</a></li>
+<li><a href="#mikroserwisy" id="toc-mikroserwisy">Mikroserwisy</a></li>
+<li><a href="#iframe" id="toc-iframe">iframe</a></li>
+<li><a href="#webcomponents" id="toc-webcomponents">WebComponents</a></li>
+<li><a href="#single-spa" id="toc-single-spa">Single SPA</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+</body>
+</html>
